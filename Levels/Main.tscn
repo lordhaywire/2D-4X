@@ -1,11 +1,32 @@
-[gd_scene load_steps=2 format=3 uid="uid://dg1wxhie2hwyh"]
+[gd_scene load_steps=4 format=3 uid="uid://dg1wxhie2hwyh"]
 
 [ext_resource type="PackedScene" uid="uid://ba4w12juppy18" path="res://Graphics/Counties/Portland Oregon County.tscn" id="1_4cr1w"]
+[ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_k200m"]
+[ext_resource type="Script" path="res://Scripts/Globals.cs" id="1_n6eaq"]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("countyInfoPanel")]
+script = ExtResource("1_n6eaq")
+countyInfoPanel = NodePath("")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("camera")]
+script = ExtResource("1_k200m")
+camera = NodePath("Camera2D")
+
+[node name="Camera2D" type="Camera2D" parent="Camera CharacterBody2D"]
 position = Vector2(494, 479)
+
+[node name="Control" type="Control" parent="Camera CharacterBody2D"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Panel" type="Panel" parent="Camera CharacterBody2D/Control"]
+custom_minimum_size = Vector2(400, 600)
+offset_left = -460.0
+offset_top = -56.0
+offset_right = -60.0
+offset_bottom = 544.0
 
 [node name="Portland Oregon County" parent="." instance=ExtResource("1_4cr1w")]
 position = Vector2(539, 479)
