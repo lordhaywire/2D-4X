@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dg1wxhie2hwyh"]
+
+[ext_resource type="PackedScene" uid="uid://ba4w12juppy18" path="res://Graphics/Counties/Portland Oregon County.tscn" id="1_4cr1w"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(494, 479)
+
+[node name="Portland Oregon County" parent="." instance=ExtResource("1_4cr1w")]
+position = Vector2(539, 479)
