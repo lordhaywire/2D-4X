@@ -12,7 +12,7 @@ config_version=5
 
 config/name="2d 4x"
 run/main_scene="res://Levels/Main.tscn"
-config/features=PackedStringArray("4.1", "Mobile")
+config/features=PackedStringArray("4.1", "C#", "Mobile")
 config/icon="res://icon.svg"
 
 [display]

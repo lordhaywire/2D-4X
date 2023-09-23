@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://ba4w12juppy18"]
+[gd_scene load_steps=3 format=3 uid="uid://ba4w12juppy18"]
 
 [ext_resource type="Texture2D" uid="uid://b0d8lxt50iio6" path="res://Graphics/Counties/Portland Oregon County.png" id="1_8uqdj"]
+[ext_resource type="Script" path="res://Scripts/SelectCounty.cs" id="2_b8ui1"]
 
 [node name="Portland Oregon County" type="Sprite2D"]
 texture = ExtResource("1_8uqdj")
+script = ExtResource("2_b8ui1")
