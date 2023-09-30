@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 namespace PlayerSpace
 {
@@ -7,7 +6,8 @@ namespace PlayerSpace
     {
         public static Globals Instance { get; private set; }
 
-        [Export] public PopupPanel countyInfoPanel;
+        [Export] public Control countyInfoControl;
+        [Export] public Label countyNameLabel;
         public override void _Ready()
         {
             Instance = this;

@@ -1,32 +1,171 @@
-[gd_scene load_steps=4 format=3 uid="uid://dg1wxhie2hwyh"]
+[gd_scene load_steps=7 format=3 uid="uid://dg1wxhie2hwyh"]
 
 [ext_resource type="PackedScene" uid="uid://ba4w12juppy18" path="res://Graphics/Counties/Portland Oregon County.tscn" id="1_4cr1w"]
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_k200m"]
 [ext_resource type="Script" path="res://Scripts/Globals.cs" id="1_n6eaq"]
+[ext_resource type="Script" path="res://Scripts/Clock.cs" id="2_fsxpp"]
+[ext_resource type="PackedScene" uid="uid://bal24pfd3pmi5" path="res://Graphics/Counties/Tillamook Oregon County.tscn" id="3_dr2s1"]
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("countyInfoPanel")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1crxt"]
+content_margin_left = 5.0
+content_margin_top = 0.0
+content_margin_right = 5.0
+content_margin_bottom = 0.0
+bg_color = Color(0.175781, 0.175781, 0.175781, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Main" type="Node2D" node_paths=PackedStringArray("countyInfoControl", "countyNameLabel")]
 script = ExtResource("1_n6eaq")
-countyInfoPanel = NodePath("")
+countyInfoControl = NodePath("Player UI Canvas/County Info Control")
+countyNameLabel = NodePath("Player UI Canvas/County Info Control/County Info Panel/MarginContainer/County Title Label")
+
+[node name="Clock" type="Node" parent="." node_paths=PackedStringArray("dayLabel", "HourLabel")]
+script = ExtResource("2_fsxpp")
+dayLabel = NodePath("../Player UI Canvas/Top Bar Control/Top Bar HBox/Day Panel/MarginContainer/Day Numbers Label")
+HourLabel = NodePath("../Player UI Canvas/Top Bar Control/Top Bar HBox/Time Panel/MarginContainer/Time Numbers Label")
+ticks = 500
 
 [node name="Camera CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("camera")]
+position = Vector2(-84, 28)
 script = ExtResource("1_k200m")
 camera = NodePath("Camera2D")
 
 [node name="Camera2D" type="Camera2D" parent="Camera CharacterBody2D"]
 position = Vector2(494, 479)
 
-[node name="Control" type="Control" parent="Camera CharacterBody2D"]
+[node name="Player UI Canvas" type="CanvasLayer" parent="."]
+
+[node name="County Info Control" type="Control" parent="Player UI Canvas"]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 26.0
+offset_bottom = 26.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
-[node name="Panel" type="Panel" parent="Camera CharacterBody2D/Control"]
-custom_minimum_size = Vector2(400, 600)
-offset_left = -460.0
-offset_top = -56.0
-offset_right = -60.0
-offset_bottom = 544.0
+[node name="County Info Panel" type="Panel" parent="Player UI Canvas/County Info Control"]
+custom_minimum_size = Vector2(200, 300)
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 300.0
 
-[node name="Portland Oregon County" parent="." instance=ExtResource("1_4cr1w")]
-position = Vector2(539, 479)
+[node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/County Info Control/County Info Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="County Title Label" type="Label" parent="Player UI Canvas/County Info Control/County Info Panel/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Smortland Oregon"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Top Bar Control" type="Control" parent="Player UI Canvas"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="Top Bar HBox" type="HBoxContainer" parent="Player UI Canvas/Top Bar Control"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -12.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 1
+
+[node name="Day Panel" type="Panel" parent="Player UI Canvas/Top Bar Control/Top Bar HBox"]
+custom_minimum_size = Vector2(75, 25)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Top Bar Control/Top Bar HBox/Day Panel"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 26.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="Day Label" type="Label" parent="Player UI Canvas/Top Bar Control/Top Bar HBox/Day Panel/MarginContainer"]
+layout_mode = 2
+text = "Day:"
+vertical_alignment = 1
+
+[node name="Day Numbers Label" type="Label" parent="Player UI Canvas/Top Bar Control/Top Bar HBox/Day Panel/MarginContainer"]
+layout_mode = 2
+text = "99"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Time Panel" type="Panel" parent="Player UI Canvas/Top Bar Control/Top Bar HBox"]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Top Bar Control/Top Bar HBox/Time Panel"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 26.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="Time Label" type="Label" parent="Player UI Canvas/Top Bar Control/Top Bar HBox/Time Panel/MarginContainer"]
+layout_mode = 2
+text = "Time:"
+
+[node name="Time Numbers Label" type="Label" parent="Player UI Canvas/Top Bar Control/Top Bar HBox/Time Panel/MarginContainer"]
+layout_mode = 2
+text = "99"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="x2 Button" type="Button" parent="Player UI Canvas/Top Bar Control"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -12.5
+offset_bottom = 12.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_1crxt")
+text = "x2
+"
+
+[node name="Counties" type="Node2D" parent="."]
+position = Vector2(-61, -53)
+
+[node name="Tillamook Oregon County" parent="Counties" instance=ExtResource("3_dr2s1")]
+position = Vector2(451, 620)
+
+[node name="Portland Oregon County" parent="Counties" instance=ExtResource("1_4cr1w")]
+position = Vector2(501, 486)
+
+[connection signal="button_up" from="Player UI Canvas/Top Bar Control/x2 Button" to="Clock" method="TimeSpeedx2"]
