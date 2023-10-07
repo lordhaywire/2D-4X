@@ -1,0 +1,224 @@
+[gd_scene load_steps=7 format=3 uid="uid://mr0rjj1gvjlu"]
+
+[ext_resource type="Script" path="res://Scripts/UI/TopBarControl.cs" id="1_8j34k"]
+[ext_resource type="Texture2D" uid="uid://ddb0p4x0erycl" path="res://Graphics/Icons/Influence.png" id="2_y00lh"]
+[ext_resource type="Texture2D" uid="uid://tqexbc3d8yy8" path="res://Graphics/Icons/Money.png" id="3_a14j8"]
+[ext_resource type="Texture2D" uid="uid://u6mmuhhiejnw" path="res://Graphics/Icons/Food.png" id="4_4u7fh"]
+[ext_resource type="Texture2D" uid="uid://dmbho3pkucn34" path="res://Graphics/Icons/Scrap.png" id="5_oj7ut"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1crxt"]
+content_margin_left = 5.0
+content_margin_top = 0.0
+content_margin_right = 5.0
+content_margin_bottom = 0.0
+bg_color = Color(0.175781, 0.175781, 0.175781, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Top Bar Control" type="Control"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+script = ExtResource("1_8j34k")
+
+[node name="Top Bar HBox" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -13.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 1
+
+[node name="Day Panel" type="Panel" parent="Top Bar HBox"]
+custom_minimum_size = Vector2(75, 25)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Top Bar HBox/Day Panel"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 26.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="Day Label" type="Label" parent="Top Bar HBox/Day Panel/MarginContainer"]
+layout_mode = 2
+text = "Day:"
+vertical_alignment = 1
+
+[node name="Day Numbers Label" type="Label" parent="Top Bar HBox/Day Panel/MarginContainer"]
+layout_mode = 2
+text = "99"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Time Panel" type="Panel" parent="Top Bar HBox"]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Top Bar HBox/Time Panel"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 26.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="Hour Label" type="Label" parent="Top Bar HBox/Time Panel/MarginContainer"]
+layout_mode = 2
+text = "Time:"
+
+[node name="Hours Numbers Label" type="Label" parent="Top Bar HBox/Time Panel/MarginContainer"]
+layout_mode = 2
+text = "99"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Influence TextureRect" type="TextureRect" parent="Top Bar HBox"]
+layout_mode = 2
+texture = ExtResource("2_y00lh")
+expand_mode = 3
+
+[node name="Influence Panel Container" type="PanelContainer" parent="Top Bar HBox"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
+[node name="Influence Number" type="Label" parent="Top Bar HBox/Influence Panel Container"]
+layout_mode = 2
+text = "100000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Money TextureRect" type="TextureRect" parent="Top Bar HBox"]
+layout_mode = 2
+texture = ExtResource("3_a14j8")
+expand_mode = 3
+
+[node name="Money Panel Container" type="PanelContainer" parent="Top Bar HBox"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
+[node name="Money Number" type="Label" parent="Top Bar HBox/Money Panel Container"]
+layout_mode = 2
+text = "100000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Food TextureRect" type="TextureRect" parent="Top Bar HBox"]
+layout_mode = 2
+texture = ExtResource("4_4u7fh")
+expand_mode = 3
+
+[node name="Food Panel Container" type="PanelContainer" parent="Top Bar HBox"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
+[node name="Food Number" type="Label" parent="Top Bar HBox/Food Panel Container"]
+layout_mode = 2
+text = "100000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Scrap TextureRect" type="TextureRect" parent="Top Bar HBox"]
+layout_mode = 2
+texture = ExtResource("5_oj7ut")
+expand_mode = 3
+
+[node name="Scrap Panel Container" type="PanelContainer" parent="Top Bar HBox"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
+[node name="Scrap Number" type="Label" parent="Top Bar HBox/Scrap Panel Container"]
+layout_mode = 2
+text = "100000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Time and Research Buttons HBox" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -12.5
+offset_bottom = 12.5
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Research Button" type="Button" parent="Time and Research Buttons HBox"]
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_1crxt")
+text = "Research
+"
+
+[node name="Panel" type="PanelContainer" parent="Time and Research Buttons HBox"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+
+[node name="Speed Title Label" type="Label" parent="Time and Research Buttons HBox/Panel"]
+layout_mode = 2
+text = "Speed:"
+
+[node name="Speed Number Label" type="Label" parent="Time and Research Buttons HBox/Panel"]
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+text = "8"
+
+[node name="x0 Button" type="Button" parent="Time and Research Buttons HBox"]
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_1crxt")
+text = "x0
+"
+
+[node name="x1 Button" type="Button" parent="Time and Research Buttons HBox"]
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_1crxt")
+text = "x1
+"
+
+[node name="x2 Button" type="Button" parent="Time and Research Buttons HBox"]
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_1crxt")
+text = "x2
+"
+
+[node name="x4 Button" type="Button" parent="Time and Research Buttons HBox"]
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_1crxt")
+text = "x4
+"
+
+[node name="x8 Button" type="Button" parent="Time and Research Buttons HBox"]
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_1crxt")
+text = "x8
+"
+
+[connection signal="button_up" from="Time and Research Buttons HBox/x0 Button" to="." method="ChangeSpeed" binds= [0]]
+[connection signal="button_up" from="Time and Research Buttons HBox/x1 Button" to="." method="ChangeSpeed" binds= [1]]
+[connection signal="button_up" from="Time and Research Buttons HBox/x2 Button" to="." method="ChangeSpeed" binds= [2]]
+[connection signal="button_up" from="Time and Research Buttons HBox/x4 Button" to="." method="ChangeSpeed" binds= [4]]
+[connection signal="button_up" from="Time and Research Buttons HBox/x8 Button" to="." method="ChangeSpeed" binds= [8]]

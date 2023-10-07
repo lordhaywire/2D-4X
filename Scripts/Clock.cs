@@ -13,6 +13,8 @@ namespace PlayerSpace
 
         [Export] private Label dayLabel;
         [Export] private Label HourLabel;
+        [Export] private Label currentSpeedLabel;
+
         //[SerializeField] private TextMeshProUGUI currentSpeedText;
         //[SerializeField] private GameObject pausedText;
         [Export] private int ticks;
@@ -25,8 +27,8 @@ namespace PlayerSpace
         public int hours;
         public int days = 0;
 
-        public int oldTimeSpeed;
-        public int numberOfThingsPaused;
+        [Export] public int oldTimeSpeed;
+        //[Export] public int numberOfThingsPaused; // For when there are multiple panels open.
 
         public int Hours
         {
@@ -59,6 +61,7 @@ namespace PlayerSpace
         }
 
         private int modifiedTimeScale;
+        [Export]
         public int ModifiedTimeScale
         {
             get
@@ -68,9 +71,10 @@ namespace PlayerSpace
             set
             {
                 modifiedTimeScale = value;
-                Engine.TimeScale = modifiedTimeScale;
-                //currentSpeedText.text = "Speed: " + modifiedTimeScale;
-                //GD.Print($"ModifiedScale has changed to {modifiedTimeScale}");
+                GD.Print($"ModifiedScale has changed to {modifiedTimeScale}");
+                Engine.TimeScale = value;
+                currentSpeedLabel.Text = modifiedTimeScale.ToString();
+
                 /*
                 if (modifiedTimeScale == 0)
                 {
@@ -90,7 +94,6 @@ namespace PlayerSpace
             GD.Print("Get Physics Process Delta Time: " + GetPhysicsProcessDeltaTime());
             //mapControls = new MapControls();
             ModifiedTimeScale = 1;
-            numberOfThingsPaused = 0;
 
             /*
             if (Globals.Instance.startPaused == true)
@@ -111,12 +114,9 @@ namespace PlayerSpace
 
         private void TimeKeeper() // Used to calculate sec, min and Hours
         {
-            GD.Print("Get Physics Process Delta Time: " + GetPhysicsProcessDeltaTime());
-            double fixedDeltaTime = GetPhysicsProcessDeltaTime();
+            double fixedDeltaTime = GetPhysicsProcessDeltaTime(); // I dont even know if this is equivlent to fixed delta time Unity.
             minutes += (float)fixedDeltaTime * ticks; // multiply time between fixed update by tick.
             //foreverTimer += Engine.fixedDeltaTime * ticks;
-            //GD.Print("Fixed Delta Engine: " + Engine.fixedDeltaTime);
-            GD.Print("Minutes: " + minutes);
 
             if (minutes >= 60) // 60 min = 1 hr
             {
@@ -148,45 +148,32 @@ namespace PlayerSpace
             }
         }
 
-        public void TimeSpeedx0()
+        public void PauseandUnpause()
         {
-            if (ModifiedTimeScale != 0)
+            GD.Print("Keyboard has been pressed!");
+            if (ModifiedTimeScale > 0)
             {
                 oldTimeSpeed = ModifiedTimeScale;
                 ModifiedTimeScale = 0;
-                numberOfThingsPaused++;
             }
+            else
+            {
+                (ModifiedTimeScale, oldTimeSpeed) = (oldTimeSpeed, ModifiedTimeScale);
+            }
+            //GD.Print($"Modified Time: {ModifiedTimeScale} and Old Time Speed: {oldTimeSpeed}.");
         }
 
-        public void TimeSpeedx1()
-        {
-            ModifiedTimeScale = 1;
-            oldTimeSpeed = 1;
-        }
 
-        public void TimeSpeedx2()
+        public void ChangeSpeed(int speed)
         {
-            ModifiedTimeScale = 2;
-            oldTimeSpeed = 2;
-        }
-
-        public void TimeSpeedx4()
-        {
-            ModifiedTimeScale = 4;
-            oldTimeSpeed = 4;
-        }
-
-        public void TimeSpeedx8()
-        {
-            ModifiedTimeScale = 8;
-            oldTimeSpeed = 8;
+            oldTimeSpeed = ModifiedTimeScale;
+            ModifiedTimeScale = speed;
         }
 
         public void PauseTime()
         {
             //GD.Print("Pause Time!");
             //mapControls.Keyboard.Spacebar.Disable();
-            numberOfThingsPaused++;
             if (ModifiedTimeScale != 0)
             {
                 oldTimeSpeed = ModifiedTimeScale;
@@ -198,28 +185,7 @@ namespace PlayerSpace
         {
             //GD.Print("Unpause Time!");
             //mapControls.Keyboard.Spacebar.Enable();
-
-            numberOfThingsPaused--;
-            if (numberOfThingsPaused == 0)
-            {
-                ModifiedTimeScale = oldTimeSpeed;
-            }
-        }
-        public void PauseandUnpause()
-        {
-            GD.Print("Keyboard has been pressed!");
-            if (ModifiedTimeScale > 0)
-            {
-                oldTimeSpeed = ModifiedTimeScale;
-                ModifiedTimeScale = 0;
-                numberOfThingsPaused++;
-            }
-            else
-            {
-                ModifiedTimeScale = oldTimeSpeed;
-                numberOfThingsPaused--;
-            }
-            //GD.Print($"Modified Time: {ModifiedTimeScale} and Old Time Speed: {oldTimeSpeed}.");
+            ModifiedTimeScale = oldTimeSpeed;
         }
     }
 }

@@ -10,7 +10,7 @@ namespace PlayerSpace
             {
                 if(eventMouseButton.ButtonIndex == MouseButton.Left && eventMouseButton.Pressed == false) 
                 {
-                    GD.Print("Mouse Left Click/Unclick at: ", Name);
+                    GD.Print("Mouse Left Click/Unclick at: ", Name); // What is this comma doing here?
                     Globals.Instance.countyInfoControl.Show();
                     Globals.Instance.countyNameLabel.Text = Name;
                 }
