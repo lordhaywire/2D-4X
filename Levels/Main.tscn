@@ -1,21 +1,27 @@
-[gd_scene load_steps=8 format=3 uid="uid://dg1wxhie2hwyh"]
+[gd_scene load_steps=10 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="PackedScene" uid="uid://ba4w12juppy18" path="res://Graphics/Counties/Portland Oregon County.tscn" id="1_4cr1w"]
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_k200m"]
 [ext_resource type="Script" path="res://Scripts/Globals.cs" id="1_n6eaq"]
+[ext_resource type="Script" path="res://Scripts/PlayerControls.cs" id="2_5emkq"]
 [ext_resource type="Script" path="res://Scripts/Clock.cs" id="2_fsxpp"]
 [ext_resource type="PackedScene" uid="uid://bal24pfd3pmi5" path="res://Graphics/Counties/Tillamook Oregon County.tscn" id="3_dr2s1"]
 [ext_resource type="PackedScene" uid="uid://b3mlb36wdo7oj" path="res://UIScenes/CountyInfoControl.tscn" id="4_g50ii"]
 [ext_resource type="PackedScene" uid="uid://mr0rjj1gvjlu" path="res://UIScenes/TopBarControl.tscn" id="4_rk5xj"]
+[ext_resource type="Script" path="res://Scripts/UI/ResearchControl.cs" id="6_0iytx"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_n6eaq")
 
-[node name="Clock" type="Node" parent="." node_paths=PackedStringArray("dayLabel", "HourLabel", "currentSpeedLabel")]
+[node name="PlayerControls" type="Node" parent="."]
+script = ExtResource("2_5emkq")
+
+[node name="Clock" type="Node" parent="." node_paths=PackedStringArray("dayLabel", "HourLabel", "currentSpeedLabel", "pausedLabel")]
 script = ExtResource("2_fsxpp")
 dayLabel = NodePath("../Player UI Canvas/Top Bar Control/Top Bar HBox/Day Panel/MarginContainer/Day Numbers Label")
 HourLabel = NodePath("../Player UI Canvas/Top Bar Control/Top Bar HBox/Time Panel/MarginContainer/Hours Numbers Label")
-currentSpeedLabel = NodePath("../Player UI Canvas/Top Bar Control/Time and Research Buttons HBox/Panel/Speed Number Label")
+currentSpeedLabel = NodePath("../Player UI Canvas/Top Bar Control/Time and Research Buttons HBox/Speed Panel/Speed Number Label")
+pausedLabel = NodePath("../Player UI Canvas/Top Bar Control/Pause Control/Pause Label")
 ticks = 250
 
 [node name="Camera CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("camera")]
@@ -32,8 +38,95 @@ position = Vector2(494, 479)
 offset_bottom = 25.0
 clock = NodePath("../../Clock")
 
+[node name="Pause Control" type="Control" parent="Player UI Canvas/Top Bar Control"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+mouse_filter = 2
+
+[node name="Pause Label" type="Label" parent="Player UI Canvas/Top Bar Control/Pause Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -42.5
+offset_top = -13.0
+offset_right = 42.5
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Paused"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="County Info Control" parent="Player UI Canvas" instance=ExtResource("4_g50ii")]
 visible = false
+
+[node name="Research Control" type="Control" parent="Player UI Canvas"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("6_0iytx")
+
+[node name="Research MarginContainer" type="MarginContainer" parent="Player UI Canvas/Research Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 26
+
+[node name="Research PanelContainer" type="PanelContainer" parent="Player UI Canvas/Research Control/Research MarginContainer"]
+layout_mode = 2
+
+[node name="Research Title Label" type="Label" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 36
+text = "Research"
+
+[node name="Research Items VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Research Item" type="PanelContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/Research Items VBoxContainer"]
+custom_minimum_size = Vector2(400, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Button" type="Button" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/Research Items VBoxContainer/Research Item"]
+layout_mode = 2
+text = "Test Research Item"
+
+[node name="Close Button" type="Button" parent="Player UI Canvas/Research Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+text = "Close"
 
 [node name="Counties" type="Node2D" parent="."]
 position = Vector2(-61, -53)
@@ -43,3 +136,9 @@ position = Vector2(451, 620)
 
 [node name="Portland Oregon County" parent="Counties" instance=ExtResource("1_4cr1w")]
 position = Vector2(501, 486)
+
+[connection signal="button_up" from="Player UI Canvas/Top Bar Control/Time and Research Buttons HBox/Research Button" to="Player UI Canvas/Research Control" method="ShowResearchPanel"]
+[connection signal="visibility_changed" from="Player UI Canvas/Research Control" to="Clock" method="PauseandUnpause"]
+[connection signal="button_up" from="Player UI Canvas/Research Control/Close Button" to="Player UI Canvas/Research Control" method="CloseButton"]
+
+[editable path="Player UI Canvas/Top Bar Control"]

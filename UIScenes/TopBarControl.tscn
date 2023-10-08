@@ -168,15 +168,16 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_1crxt")
 text = "Research
 "
 
-[node name="Panel" type="PanelContainer" parent="Time and Research Buttons HBox"]
+[node name="Speed Panel" type="PanelContainer" parent="Time and Research Buttons HBox"]
 custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
+size_flags_horizontal = 8
 
-[node name="Speed Title Label" type="Label" parent="Time and Research Buttons HBox/Panel"]
+[node name="Speed Title Label" type="Label" parent="Time and Research Buttons HBox/Speed Panel"]
 layout_mode = 2
 text = "Speed:"
 
-[node name="Speed Number Label" type="Label" parent="Time and Research Buttons HBox/Panel"]
+[node name="Speed Number Label" type="Label" parent="Time and Research Buttons HBox/Speed Panel"]
 custom_minimum_size = Vector2(15, 0)
 layout_mode = 2
 size_flags_horizontal = 8

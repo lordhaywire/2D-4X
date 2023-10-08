@@ -5,7 +5,7 @@ namespace PlayerSpace
 {
     public partial class Clock : Node
     {
-        //public static TimeKeeper Instance;
+        public static Clock Instance;
 
         public event Action FirstRun;
         public event Action DayStart;
@@ -14,12 +14,11 @@ namespace PlayerSpace
         [Export] private Label dayLabel;
         [Export] private Label HourLabel;
         [Export] private Label currentSpeedLabel;
+        [Export] private Label pausedLabel;
 
         //[SerializeField] private TextMeshProUGUI currentSpeedText;
         //[SerializeField] private GameObject pausedText;
         [Export] private int ticks;
-
-        //public MapControls mapControls;
 
 
         public float foreverTimer; // This will eventually need to be reset.  I think.  It depends on if we run out of numbers.
@@ -75,26 +74,25 @@ namespace PlayerSpace
                 Engine.TimeScale = value;
                 currentSpeedLabel.Text = modifiedTimeScale.ToString();
 
-                /*
+                
                 if (modifiedTimeScale == 0)
                 {
-                    pausedText.SetActive(true);
+                    pausedLabel.Show();
                 }
                 else
                 {
-                    pausedText.SetActive(false);
+                    pausedLabel.Hide();
                 }
-                */
+                
             }
         }
 
         public override void _Ready()
         {
-            //Instance = this;
-            GD.Print("Get Physics Process Delta Time: " + GetPhysicsProcessDeltaTime());
-            //mapControls = new MapControls();
-            ModifiedTimeScale = 1;
+            Instance = this;
 
+            ModifiedTimeScale = 1;
+            oldTimeSpeed = 1;
             /*
             if (Globals.Instance.startPaused == true)
             {
@@ -102,8 +100,7 @@ namespace PlayerSpace
             }
             */
 
-            //mapControls.Keyboard.Spacebar.performed += _ => PauseandUnpause();
-            oldTimeSpeed = 1;
+
         }
 
         public override void _PhysicsProcess(double delta)
@@ -133,24 +130,10 @@ namespace PlayerSpace
             dayLabel.Text = days.ToString();
             HourLabel.Text = (string.Format("{0:00}:{1:00}", Hours, minutes));
         }
-        public override void _Input(InputEvent @event)
-        {
-            if (@event is InputEventKey keyEvent && keyEvent.Pressed == false)
-            {
-                GD.Print($"{keyEvent.Keycode}");
-
-                switch (keyEvent.Keycode)
-                {
-                    case Key.Space:
-                        PauseandUnpause();
-                        break;
-                }
-            }
-        }
 
         public void PauseandUnpause()
         {
-            GD.Print("Keyboard has been pressed!");
+            //GD.Print("Keyboard has been pressed!");
             if (ModifiedTimeScale > 0)
             {
                 oldTimeSpeed = ModifiedTimeScale;

@@ -6,6 +6,8 @@ namespace PlayerSpace
     {
         public static Globals Instance { get; private set; }
 
+        [Export] public bool playerControlsEnabled;
+
         [Export] public Control countyInfoControl;
         [Export] public Label countyNameLabel;
         public override void _Ready()
