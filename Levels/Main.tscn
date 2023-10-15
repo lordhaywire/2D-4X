@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=11 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="PackedScene" uid="uid://ba4w12juppy18" path="res://Graphics/Counties/Portland Oregon County.tscn" id="1_4cr1w"]
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_k200m"]
@@ -9,9 +9,12 @@
 [ext_resource type="PackedScene" uid="uid://b3mlb36wdo7oj" path="res://UIScenes/CountyInfoControl.tscn" id="4_g50ii"]
 [ext_resource type="PackedScene" uid="uid://mr0rjj1gvjlu" path="res://UIScenes/TopBarControl.tscn" id="4_rk5xj"]
 [ext_resource type="Script" path="res://Scripts/UI/ResearchControl.cs" id="6_0iytx"]
+[ext_resource type="Script" path="res://Scripts/UI/ResearchDescriptionPanel.cs" id="8_p38gd"]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("countyInfoControl", "countyNameLabel")]
 script = ExtResource("1_n6eaq")
+countyInfoControl = NodePath("Player UI Canvas/County Info Control")
+countyNameLabel = NodePath("Player UI Canvas/County Info Control/County Info Panel/MarginContainer/County Title Label")
 
 [node name="PlayerControls" type="Node" parent="."]
 script = ExtResource("2_5emkq")
@@ -67,7 +70,8 @@ vertical_alignment = 1
 [node name="County Info Control" parent="Player UI Canvas" instance=ExtResource("4_g50ii")]
 visible = false
 
-[node name="Research Control" type="Control" parent="Player UI Canvas"]
+[node name="Research Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("researchItemParent", "researchDescriptionPanel")]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -76,6 +80,8 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("6_0iytx")
+researchItemParent = NodePath("Research MarginContainer/Research PanelContainer/MarginContainer/Research Items VBoxContainer")
+researchDescriptionPanel = NodePath("Research MarginContainer/Research PanelContainer/MarginContainer/Research Description PanelContainer")
 
 [node name="Research MarginContainer" type="MarginContainer" parent="Player UI Canvas/Research Control"]
 layout_mode = 1
@@ -98,20 +104,36 @@ size_flags_vertical = 0
 theme_override_font_sizes/font_size = 36
 text = "Research"
 
-[node name="Research Items VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 50
+
+[node name="Research Items VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+alignment = 1
 
-[node name="Research Item" type="PanelContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/Research Items VBoxContainer"]
-custom_minimum_size = Vector2(400, 200)
+[node name="Research Description PanelContainer" type="PanelContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer" node_paths=PackedStringArray("researchName", "researchDescription")]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+script = ExtResource("8_p38gd")
+researchName = NodePath("Research Name")
+researchDescription = NodePath("Research Description Label")
+
+[node name="Research Name" type="Label" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/Research Description PanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "TESTESDFjhsdfkjgdf"
 
-[node name="Button" type="Button" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/Research Items VBoxContainer/Research Item"]
+[node name="Research Description Label" type="Label" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/Research Description PanelContainer"]
 layout_mode = 2
-text = "Test Research Item"
+text = "Test"
+horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="Close Button" type="Button" parent="Player UI Canvas/Research Control"]
 layout_mode = 1
@@ -120,11 +142,12 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -50.0
-offset_top = -50.0
-offset_right = 50.0
+offset_left = -25.0
+offset_top = -31.0
+offset_right = 25.0
 grow_horizontal = 2
 grow_vertical = 0
+scale = Vector2(1, 1.03698)
 size_flags_vertical = 8
 text = "Close"
 
@@ -139,6 +162,9 @@ position = Vector2(501, 486)
 
 [connection signal="button_up" from="Player UI Canvas/Top Bar Control/Time and Research Buttons HBox/Research Button" to="Player UI Canvas/Research Control" method="ShowResearchPanel"]
 [connection signal="visibility_changed" from="Player UI Canvas/Research Control" to="Clock" method="PauseandUnpause"]
+[connection signal="visibility_changed" from="Player UI Canvas/Research Control" to="Player UI Canvas/Research Control" method="OnVisibilityChange"]
+[connection signal="visibility_changed" from="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/Research Description PanelContainer" to="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/Research Description PanelContainer" method="OnVisibilityChanged"]
 [connection signal="button_up" from="Player UI Canvas/Research Control/Close Button" to="Player UI Canvas/Research Control" method="CloseButton"]
 
 [editable path="Player UI Canvas/Top Bar Control"]
+[editable path="Player UI Canvas/County Info Control"]

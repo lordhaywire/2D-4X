@@ -5,7 +5,7 @@ namespace PlayerSpace
 {
     public partial class Clock : Node
     {
-        public static Clock Instance;
+        public static Clock Instance { get; private set; }
 
         public event Action FirstRun;
         public event Action DayStart;
@@ -133,7 +133,7 @@ namespace PlayerSpace
 
         public void PauseandUnpause()
         {
-            //GD.Print("Keyboard has been pressed!");
+            GD.Print("Keyboard has been pressed!");
             if (ModifiedTimeScale > 0)
             {
                 oldTimeSpeed = ModifiedTimeScale;

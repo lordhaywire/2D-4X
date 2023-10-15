@@ -6,7 +6,8 @@ namespace PlayerSpace
     {
         public static Globals Instance { get; private set; }
 
-        [Export] public bool playerControlsEnabled;
+        public int researchClicked;
+        [Export] public bool playerControlsEnabled = true;
 
         [Export] public Control countyInfoControl;
         [Export] public Label countyNameLabel;
@@ -14,8 +15,6 @@ namespace PlayerSpace
         {
             Instance = this;
         }
-
-
     }
 }
 
