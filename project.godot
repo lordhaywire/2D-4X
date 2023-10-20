@@ -10,9 +10,9 @@ config_version=5
 
 [application]
 
-config/name="2d 4x"
+config/name="2D 4X"
 run/main_scene="res://Levels/Main.tscn"
-config/features=PackedStringArray("4.1", "C#", "Mobile")
+config/features=PackedStringArray("4.2", "C#", "Mobile")
 config/icon="res://icon.svg"
 
 [display]
@@ -23,6 +23,10 @@ window/size/viewport_height=1080
 [dotnet]
 
 project/assembly_name="2d 4x"
+
+[filesystem]
+
+import/blender/enabled=false
 
 [input]
 

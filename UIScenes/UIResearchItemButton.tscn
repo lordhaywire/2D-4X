@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbh44f2eysibn"]
+
+[ext_resource type="Script" path="res://Scripts/UI/ResearchItemButton.cs" id="1_6bpef"]
+
+[node name="Research Item" type="PanelContainer"]
+custom_minimum_size = Vector2(400, 200)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_6bpef")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+text = "Test Research Item"
+
+[node name="CheckBox" type="CheckBox" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+disabled = true
+
+[connection signal="button_up" from="Button" to="." method="OpenResearchDescriptionPanel"]
