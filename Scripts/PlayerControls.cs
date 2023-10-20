@@ -10,13 +10,15 @@ namespace PlayerSpace
             {
                 if (@event is InputEventKey keyEvent && keyEvent.Pressed == false)
                 {
-                    GD.Print($"{keyEvent.Keycode}");
-
-                    switch (keyEvent.Keycode)
+                    if(Globals.Instance.playerControlsEnabled == true) 
                     {
-                        case Key.Space:
-                            Clock.Instance.PauseandUnpause();
-                            break;
+                        GD.Print($"{keyEvent.Keycode}");
+                        switch (keyEvent.Keycode)
+                        {
+                            case Key.Space:
+                                Clock.Instance.PauseandUnpause();
+                                break;
+                        }
                     }
                 }
             }

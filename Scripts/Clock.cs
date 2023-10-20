@@ -27,7 +27,7 @@ namespace PlayerSpace
         public int days = 0;
 
         [Export] public int oldTimeSpeed;
-        //[Export] public int numberOfThingsPaused; // For when there are multiple panels open.
+        [Export] public int numberOfControlsShown; // For when there are multiple panels open.
 
         public int Hours
         {
@@ -155,20 +155,21 @@ namespace PlayerSpace
 
         public void PauseTime()
         {
-            //GD.Print("Pause Time!");
-            //mapControls.Keyboard.Spacebar.Disable();
+            GD.Print("Pause Time!");
             if (ModifiedTimeScale != 0)
             {
-                oldTimeSpeed = ModifiedTimeScale;
+                oldTimeSpeed = ModifiedTimeScale;                
                 ModifiedTimeScale = 0;
             }
         }
 
         public void UnpauseTime()
         {
-            //GD.Print("Unpause Time!");
-            //mapControls.Keyboard.Spacebar.Enable();
-            ModifiedTimeScale = oldTimeSpeed;
+            GD.Print("Unpause Time!");
+            if (numberOfControlsShown == 0)
+            {
+                ModifiedTimeScale = oldTimeSpeed;
+            }
         }
     }
 }

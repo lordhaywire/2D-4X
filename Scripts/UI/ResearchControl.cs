@@ -72,10 +72,16 @@ namespace PlayerSpace
             if (Visible == true)
             {
                 CreateResearchItemButtons();
+                Globals.Instance.playerControlsEnabled = false;
+                Clock.Instance.numberOfControlsShown++;
+                Clock.Instance.PauseTime();
             }
             else
             {
                 DestroyResearchItemButtons();
+                Globals.Instance.playerControlsEnabled = true;
+                Clock.Instance.numberOfControlsShown--;
+                Clock.Instance.UnpauseTime();
             }
         }
 
