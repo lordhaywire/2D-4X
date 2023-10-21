@@ -4,7 +4,7 @@ namespace PlayerSpace
 {
     public partial class SelectCounty : Sprite2D
     {
-        public void MouseClick(Viewport _viewport, InputEvent @event, int _shapeIdx)
+        public void OnClick(Viewport _viewport, InputEvent @event, int _shapeIdx)
         {
             if (@event is InputEventMouseButton eventMouseButton)
             {

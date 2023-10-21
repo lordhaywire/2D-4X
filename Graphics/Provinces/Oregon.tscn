@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxrhe2s0ke58r"]
+
+[ext_resource type="Texture2D" uid="uid://b024r26ds0wjc" path="res://Graphics/Provinces/Oregon.png" id="1_a331y"]
+
+[node name="Oregon Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_a331y")

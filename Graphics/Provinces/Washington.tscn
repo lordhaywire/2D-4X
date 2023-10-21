@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://citkgehkfwon2"]
+
+[ext_resource type="Texture2D" uid="uid://0gjfdxob8t32" path="res://Graphics/Provinces/Washington.png" id="1_wpbh1"]
+
+[node name="Washington Sprite2D" type="Sprite2D"]
+texture = ExtResource("1_wpbh1")

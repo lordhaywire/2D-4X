@@ -6,6 +6,7 @@ namespace PlayerSpace
     {
         public static Globals Instance { get; private set; }
 
+        [Export] public Node2D countyParent;
         public int researchClicked;
         [Export] public bool playerControlsEnabled = true;
 
