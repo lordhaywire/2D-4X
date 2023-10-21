@@ -9,17 +9,16 @@ namespace PlayerSpace
         
         public static Color[] colors =
         {
-        Colors.RosyBrown,
-        Colors.Tomato,
-        Colors.SandyBrown,
-        Colors.Plum,
-        Colors.PeachPuff,
-        Colors.ForestGreen,
-        Colors.MediumSpringGreen,
-        Colors.MediumPurple,
-        Colors.LightPink,
+            Colors.RosyBrown,
+            Colors.Tomato,
+            Colors.SandyBrown,
+            Colors.Plum,
+            Colors.PeachPuff,
+            Colors.ForestGreen,
+            Colors.MediumSpringGreen,
+            Colors.MediumPurple,
+            Colors.LightPink,
         };
-
 
         /*
         // If the prebuilt colors don't work.

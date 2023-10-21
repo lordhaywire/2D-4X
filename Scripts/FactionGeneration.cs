@@ -3,9 +3,10 @@ using System.Collections.Generic;
 
 namespace PlayerSpace
 {
-    public partial class Factions : Node
+    public partial class FactionGeneration : Node
     {
-        public static Factions Instance { get; private set; }
+        public static FactionGeneration Instance { get; private set; }
+
         private string factionDataPath = "res://Resources/Factions/";
         public List<FactionData> factions = new();
 

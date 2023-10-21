@@ -16,7 +16,7 @@ namespace PlayerSpace
 
         private void RandomColors()
         {
-            List<FactionData> factions = Factions.Instance.factions;
+            List<FactionData> factions = FactionGeneration.Instance.factions;
             if (Arrays.colors.Length < factions.Count)
             {
                 GD.Print("Not enough color options for all Sprite Renderers!");

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CountyData" load_steps=3 format=3 uid="uid://bwkrcckgmgmn1"]
+
+[ext_resource type="Resource" uid="uid://b0hrfplmtylyr" path="res://Resources/Factions/PlayerFaction.tres" id="1_04g2c"]
+[ext_resource type="Script" path="res://Resources/CountyData.cs" id="1_ler1e"]
+
+[resource]
+script = ExtResource("1_ler1e")
+isPlayerCapital = true
+isAICapital = false
+faction = ExtResource("1_04g2c")
+province = 0
+biomePrimary = 6
+biomeSecondary = 2
+biomeTertiary = 4
+countyPopulation = {}
