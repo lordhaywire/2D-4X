@@ -32,7 +32,7 @@ namespace PlayerSpace
                 int randomIndex = random.Next(0, availableColors.Count);
                 factions[i].factionColor = availableColors[randomIndex];
                 availableColors.RemoveAt(randomIndex);
-                Sprite2D countyOwned = (Sprite2D)Globals.Instance.countyParent.GetChild(i);
+                Sprite2D countyOwned = (Sprite2D)Globals.Instance.countiesParent.GetChild(i);
                 countyOwned.SelfModulate = factions[i].factionColor;
             }
         }

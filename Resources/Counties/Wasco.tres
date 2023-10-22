@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CountyData" load_steps=3 format=3 uid="uid://csk7k0knt4jbq"]
+
+[ext_resource type="Script" path="res://Resources/CountyData.cs" id="1_6qnsk"]
+[ext_resource type="Resource" uid="uid://b0hrfplmtylyr" path="res://Resources/Factions/PlayerFaction.tres" id="1_nrbwb"]
+
+[resource]
+script = ExtResource("1_6qnsk")
+countyName = "Wasco"
+isPlayerCapital = false
+isAICapital = false
+faction = ExtResource("1_nrbwb")
+province = 0
+biomePrimary = 1
+biomeSecondary = 4
+biomeTertiary = 6
+countyPopulation = {}
+IdleWorkers = 0

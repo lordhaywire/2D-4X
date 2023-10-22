@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=22 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="PackedScene" uid="uid://ba4w12juppy18" path="res://Graphics/Counties/Portland Oregon.tscn" id="1_4cr1w"]
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_k200m"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Scripts/Clock.cs" id="2_fsxpp"]
 [ext_resource type="Script" path="res://Scripts/FactionGeneration.cs" id="2_vkprl"]
 [ext_resource type="PackedScene" uid="uid://bal24pfd3pmi5" path="res://Graphics/Counties/Tillamook Oregon.tscn" id="3_dr2s1"]
+[ext_resource type="Script" path="res://Scripts/CountyPopulationGeneration.cs" id="3_kcvsw"]
 [ext_resource type="PackedScene" uid="uid://b3mlb36wdo7oj" path="res://UIScenes/CountyInfoControl.tscn" id="4_g50ii"]
 [ext_resource type="PackedScene" uid="uid://mr0rjj1gvjlu" path="res://UIScenes/TopBarControl.tscn" id="4_rk5xj"]
 [ext_resource type="Script" path="res://Scripts/UI/ResearchControl.cs" id="6_0iytx"]
@@ -14,14 +15,16 @@
 [ext_resource type="Script" path="res://Scripts/RandomFactionColor.cs" id="9_1qbqs"]
 [ext_resource type="PackedScene" uid="uid://bxrhe2s0ke58r" path="res://Graphics/Provinces/Oregon.tscn" id="9_3rjcv"]
 [ext_resource type="PackedScene" uid="uid://dlvb22f68gd3u" path="res://Graphics/Counties/Cowlitz Washington.tscn" id="9_eipnv"]
+[ext_resource type="Script" path="res://Scripts/UI/CountyInfoControl.cs" id="10_11qbn"]
 [ext_resource type="PackedScene" uid="uid://citkgehkfwon2" path="res://Graphics/Provinces/Washington.tscn" id="11_8q1cd"]
 [ext_resource type="Resource" uid="uid://cvc0wfljshom0" path="res://Resources/Counties/Cowlitz.tres" id="14_6vkrs"]
 [ext_resource type="Resource" uid="uid://bwkrcckgmgmn1" path="res://Resources/Counties/Portland.tres" id="16_wlv2k"]
-[ext_resource type="Resource" uid="uid://cwiqoelw7ltr0" path="res://Resources/Counties/Tillamook.tres" id="18_venj3"]
+[ext_resource type="Resource" uid="uid://csk7k0knt4jbq" path="res://Resources/Counties/Wasco.tres" id="21_3shgs"]
+[ext_resource type="PackedScene" uid="uid://bet3m0egolqqn" path="res://Graphics/Counties/Wasco Oregon.tscn" id="22_eg8io"]
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("countyParent", "countyInfoControl", "countyNameLabel")]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("countiesParent", "countyInfoControl", "countyNameLabel")]
 script = ExtResource("1_n6eaq")
-countyParent = NodePath("Counties")
+countiesParent = NodePath("Counties")
 countyInfoControl = NodePath("Player UI Canvas/County Info Control")
 countyNameLabel = NodePath("Player UI Canvas/County Info Control/County Info Panel/MarginContainer/County Title Label")
 
@@ -29,6 +32,7 @@ countyNameLabel = NodePath("Player UI Canvas/County Info Control/County Info Pan
 script = ExtResource("2_vkprl")
 
 [node name="County Generation" type="Node" parent="."]
+script = ExtResource("3_kcvsw")
 
 [node name="Random Faction Colors" type="Node" parent="."]
 script = ExtResource("9_1qbqs")
@@ -84,8 +88,48 @@ text = "Paused"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="County Info Control" parent="Player UI Canvas" instance=ExtResource("4_g50ii")]
+[node name="County Info Control" parent="Player UI Canvas" node_paths=PackedStringArray("countyPopulationLabel", "countyIdleWorkersLabel") instance=ExtResource("4_g50ii")]
 visible = false
+script = ExtResource("10_11qbn")
+countyPopulationLabel = NodePath("County Info Panel/PanelContainer/Population Number Label")
+countyIdleWorkersLabel = NodePath("County Info Panel/PanelContainer/Idle Workers Number Label")
+
+[node name="PanelContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control/County Info Panel" index="1"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -49.0
+offset_top = -104.0
+offset_right = 49.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Population Title Label" type="Label" parent="Player UI Canvas/County Info Control/County Info Panel/PanelContainer"]
+layout_mode = 2
+text = "Population"
+horizontal_alignment = 1
+
+[node name="Population Number Label" type="Label" parent="Player UI Canvas/County Info Control/County Info Panel/PanelContainer"]
+layout_mode = 2
+text = "666
+"
+horizontal_alignment = 1
+
+[node name="Idle Workers Title Label" type="Label" parent="Player UI Canvas/County Info Control/County Info Panel/PanelContainer"]
+layout_mode = 2
+text = "Idle Workers"
+horizontal_alignment = 1
+
+[node name="Idle Workers Number Label" type="Label" parent="Player UI Canvas/County Info Control/County Info Panel/PanelContainer"]
+layout_mode = 2
+text = "69
+"
+horizontal_alignment = 1
 
 [node name="Research Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("researchItemParent", "researchDescriptionPanel")]
 visible = false
@@ -203,10 +247,15 @@ position = Vector2(412, 393)
 countyData = ExtResource("16_wlv2k")
 
 [node name="Tillamook" parent="Counties" instance=ExtResource("3_dr2s1")]
-self_modulate = Color(0.172549, 0.384314, 1, 1)
+self_modulate = Color(1, 1, 0.435294, 1)
 z_index = 5
-position = Vector2(359, 528)
-countyData = ExtResource("18_venj3")
+position = Vector2(360, 527)
+
+[node name="Wasco" parent="Counties" instance=ExtResource("22_eg8io")]
+self_modulate = Color(0.419608, 1, 1, 1)
+z_index = 5
+position = Vector2(651, 552)
+countyData = ExtResource("21_3shgs")
 
 [connection signal="button_up" from="Player UI Canvas/Top Bar Control/Time and Research Buttons HBox/Research Button" to="Player UI Canvas/Research Control" method="ShowResearchPanel"]
 [connection signal="visibility_changed" from="Player UI Canvas/Research Control" to="Player UI Canvas/Research Control" method="OnVisibilityChange"]

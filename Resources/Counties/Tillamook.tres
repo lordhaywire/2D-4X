@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("1_otc6l")
+countyName = "Tillamook"
 isPlayerCapital = false
 isAICapital = false
 faction = ExtResource("1_1lahl")
@@ -13,3 +14,4 @@ biomePrimary = 0
 biomeSecondary = 2
 biomeTertiary = 3
 countyPopulation = {}
+IdleWorkers = 0

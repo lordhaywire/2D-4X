@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("1_7vc5o")
+countyName = "Cowlitz"
 isPlayerCapital = false
 isAICapital = true
 faction = ExtResource("1_4vmcw")
@@ -13,3 +14,4 @@ biomePrimary = 0
 biomeSecondary = 6
 biomeTertiary = 5
 countyPopulation = {}
+IdleWorkers = 0

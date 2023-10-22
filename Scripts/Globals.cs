@@ -7,12 +7,21 @@ namespace PlayerSpace
     {
         public static Globals Instance { get; private set; }
 
-        [Export] public Node2D countyParent;
-        public int researchClicked;
+        [ExportGroup("Population Generation")]
+        [Export] public Node2D countiesParent; // Used for Population generation and random color.  I think we are going to change how the colors are distubuted.
+        [Export] public int heroPopulation = 1;
+        [Export] public int totalCapitolPop = 10;
+        [Export] public int minimumCountyPop = 1;
+        [Export] public int maximumCountyPop = 4;
+
+        [ExportGroup("Controls")]
         [Export] public bool playerControlsEnabled = true;
 
+        [ExportGroup("County Info")]
         [Export] public Control countyInfoControl;
         [Export] public Label countyNameLabel;
+
+        public int researchClicked; // This is so the Research description panel knows which research was clicked.
 
         string listsPath = "res://Lists/";
         string maleNamesPath = "Male Names.txt";
