@@ -7,6 +7,9 @@ namespace PlayerSpace
     {
         public static Globals Instance { get; private set; }
 
+        [ExportGroup("Selected Items")]
+        [Export] public CountyData selectedCountyData;
+
         [ExportGroup("Population Generation")]
         [Export] public Node2D countiesParent; // Used for Population generation and random color.  I think we are going to change how the colors are distubuted.
         [Export] public int heroPopulation = 1;

@@ -8,7 +8,6 @@
 [ext_resource type="Script" path="res://Scripts/FactionGeneration.cs" id="2_vkprl"]
 [ext_resource type="PackedScene" uid="uid://bal24pfd3pmi5" path="res://Graphics/Counties/Tillamook Oregon.tscn" id="3_dr2s1"]
 [ext_resource type="Script" path="res://Scripts/CountyPopulationGeneration.cs" id="3_kcvsw"]
-[ext_resource type="PackedScene" uid="uid://b3mlb36wdo7oj" path="res://UIScenes/CountyInfoControl.tscn" id="4_g50ii"]
 [ext_resource type="PackedScene" uid="uid://mr0rjj1gvjlu" path="res://UIScenes/TopBarControl.tscn" id="4_rk5xj"]
 [ext_resource type="Script" path="res://Scripts/UI/ResearchControl.cs" id="6_0iytx"]
 [ext_resource type="Script" path="res://Scripts/UI/ResearchDescriptionPanel.cs" id="8_p38gd"]
@@ -16,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://bxrhe2s0ke58r" path="res://Graphics/Provinces/Oregon.tscn" id="9_3rjcv"]
 [ext_resource type="PackedScene" uid="uid://dlvb22f68gd3u" path="res://Graphics/Counties/Cowlitz Washington.tscn" id="9_eipnv"]
 [ext_resource type="Script" path="res://Scripts/UI/CountyInfoControl.cs" id="10_11qbn"]
+[ext_resource type="PackedScene" uid="uid://d4i6w8w8jld3d" path="res://UIScenes/HeroPanelContainer.tscn" id="10_j48oi"]
 [ext_resource type="PackedScene" uid="uid://citkgehkfwon2" path="res://Graphics/Provinces/Washington.tscn" id="11_8q1cd"]
 [ext_resource type="Resource" uid="uid://cvc0wfljshom0" path="res://Resources/Counties/Cowlitz.tres" id="14_6vkrs"]
 [ext_resource type="Resource" uid="uid://bwkrcckgmgmn1" path="res://Resources/Counties/Portland.tres" id="16_wlv2k"]
@@ -26,7 +26,7 @@
 script = ExtResource("1_n6eaq")
 countiesParent = NodePath("Counties")
 countyInfoControl = NodePath("Player UI Canvas/County Info Control")
-countyNameLabel = NodePath("Player UI Canvas/County Info Control/County Info Panel/MarginContainer/County Title Label")
+countyNameLabel = NodePath("Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/MarginContainer/County Title Label")
 
 [node name="Faction Generation" type="Node" parent="."]
 script = ExtResource("2_vkprl")
@@ -88,13 +88,53 @@ text = "Paused"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="County Info Control" parent="Player UI Canvas" node_paths=PackedStringArray("countyPopulationLabel", "countyIdleWorkersLabel") instance=ExtResource("4_g50ii")]
+[node name="County Info Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("heroListParent", "countyPopulationLabel", "countyIdleWorkersLabel")]
 visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 26.0
+offset_bottom = 26.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("10_11qbn")
-countyPopulationLabel = NodePath("County Info Panel/PanelContainer/Population Number Label")
-countyIdleWorkersLabel = NodePath("County Info Panel/PanelContainer/Idle Workers Number Label")
+heroListParent = NodePath("County and Heroes VBoxContainer/Heroes VBoxContainer")
+heroListPrefab = ExtResource("10_j48oi")
+countyPopulationLabel = NodePath("County and Heroes VBoxContainer/County Info Panel/PanelContainer/Population Number Label")
+countyIdleWorkersLabel = NodePath("County and Heroes VBoxContainer/County Info Panel/PanelContainer/Idle Workers Number Label")
 
-[node name="PanelContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control/County Info Panel" index="1"]
+[node name="County and Heroes VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control"]
+layout_mode = 0
+offset_top = 2.0
+offset_right = 200.0
+offset_bottom = 306.0
+
+[node name="County Info Panel" type="Panel" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer"]
+custom_minimum_size = Vector2(200, 300)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="County Title Label" type="Label" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Smortland Oregon"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="PanelContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel"]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 1
@@ -109,27 +149,30 @@ offset_right = 49.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Population Title Label" type="Label" parent="Player UI Canvas/County Info Control/County Info Panel/PanelContainer"]
+[node name="Population Title Label" type="Label" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/PanelContainer"]
 layout_mode = 2
 text = "Population"
 horizontal_alignment = 1
 
-[node name="Population Number Label" type="Label" parent="Player UI Canvas/County Info Control/County Info Panel/PanelContainer"]
+[node name="Population Number Label" type="Label" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/PanelContainer"]
 layout_mode = 2
 text = "666
 "
 horizontal_alignment = 1
 
-[node name="Idle Workers Title Label" type="Label" parent="Player UI Canvas/County Info Control/County Info Panel/PanelContainer"]
+[node name="Idle Workers Title Label" type="Label" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/PanelContainer"]
 layout_mode = 2
 text = "Idle Workers"
 horizontal_alignment = 1
 
-[node name="Idle Workers Number Label" type="Label" parent="Player UI Canvas/County Info Control/County Info Panel/PanelContainer"]
+[node name="Idle Workers Number Label" type="Label" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/PanelContainer"]
 layout_mode = 2
 text = "69
 "
 horizontal_alignment = 1
+
+[node name="Heroes VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer"]
+layout_mode = 2
 
 [node name="Research Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("researchItemParent", "researchDescriptionPanel")]
 visible = false
@@ -218,18 +261,6 @@ scale = Vector2(1, 1.03698)
 size_flags_vertical = 8
 text = "Close"
 
-[node name="Background Node2D" type="Node2D" parent="."]
-position = Vector2(-61, -53)
-script = ExtResource("9_1qbqs")
-
-[node name="Oregon Sprite2D" parent="Background Node2D" instance=ExtResource("9_3rjcv")]
-position = Vector2(678, 659)
-scale = Vector2(0.25, 0.25)
-
-[node name="Washington Sprite2D" parent="Background Node2D" instance=ExtResource("11_8q1cd")]
-position = Vector2(643, 48)
-scale = Vector2(0.8, 0.8)
-
 [node name="Counties" type="Node2D" parent="."]
 position = Vector2(-61, -53)
 
@@ -257,10 +288,21 @@ z_index = 5
 position = Vector2(651, 552)
 countyData = ExtResource("21_3shgs")
 
+[node name="Background Node2D" type="Node2D" parent="."]
+position = Vector2(-61, -53)
+script = ExtResource("9_1qbqs")
+
+[node name="Oregon Sprite2D" parent="Background Node2D" instance=ExtResource("9_3rjcv")]
+position = Vector2(678, 659)
+scale = Vector2(0.25, 0.25)
+
+[node name="Washington Sprite2D" parent="Background Node2D" instance=ExtResource("11_8q1cd")]
+position = Vector2(643, 48)
+scale = Vector2(0.8, 0.8)
+
 [connection signal="button_up" from="Player UI Canvas/Top Bar Control/Time and Research Buttons HBox/Research Button" to="Player UI Canvas/Research Control" method="ShowResearchPanel"]
 [connection signal="visibility_changed" from="Player UI Canvas/Research Control" to="Player UI Canvas/Research Control" method="OnVisibilityChange"]
 [connection signal="visibility_changed" from="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/Research Description PanelContainer" to="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/Research Description PanelContainer" method="OnVisibilityChanged"]
 [connection signal="button_up" from="Player UI Canvas/Research Control/Close Button" to="Player UI Canvas/Research Control" method="CloseButton"]
 
 [editable path="Player UI Canvas/Top Bar Control"]
-[editable path="Player UI Canvas/County Info Control"]

@@ -14,4 +14,5 @@ biomePrimary = 6
 biomeSecondary = 2
 biomeTertiary = 4
 countyPopulation = {}
+Population = 0
 IdleWorkers = 0

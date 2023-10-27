@@ -4,17 +4,16 @@ using System.Collections.Generic;
 
 namespace PlayerSpace
 {
-
     public partial class RandomFactionColor : Node
     {
         private readonly Random random = new();
         public override void _Ready()
         {
-            CallDeferred("RandomColors");
-           
+            CallDeferred("RandomFactionColors");
+            CallDeferred("ApplyFactionColorsToCounties");
         }
 
-        private void RandomColors()
+        private void RandomFactionColors()
         {
             List<FactionData> factions = FactionGeneration.Instance.factions;
             if (Arrays.colors.Length < factions.Count)
@@ -32,33 +31,17 @@ namespace PlayerSpace
                 int randomIndex = random.Next(0, availableColors.Count);
                 factions[i].factionColor = availableColors[randomIndex];
                 availableColors.RemoveAt(randomIndex);
-                Sprite2D countyOwned = (Sprite2D)Globals.Instance.countiesParent.GetChild(i);
-                countyOwned.SelfModulate = factions[i].factionColor;
+            }
+        }
+
+        private void ApplyFactionColorsToCounties()
+        {
+            foreach(Sprite2D county in Globals.Instance.countiesParent.GetChildren())
+            {
+                SelectCounty selectCounty = (SelectCounty)county;
+                county.SelfModulate = selectCounty.countyData.faction.factionColor;
             }
         }
     }
 }
-
-/*
-           // Go through each county, assign their Sprite Renderer, their color and their Build Improvements script.
-           foreach (KeyValuePair<string, County> item in WorldMapLoad.Instance.counties)
-           {
-               //Debug.Log("Random Color Faction: " + item.Key + "   " + item.Value);
-               var county = WorldMapLoad.Instance.counties[item.Key];
-               county.spriteRenderer =
-                   CountyListCreator.Instance.countiesList[county.countyID].gameObject.GetComponent<SpriteRenderer>();
-               county.buildImprovements
-                   = CountyListCreator.Instance.countiesList[county.countyID].gameObject.GetComponent<BuildImprovements>();
-               //Debug.Log(county.gameObject.name + " building improvements: " + county.buildImprovements);
-
-               county.spriteRenderer.color = county.faction.factionNameAndColor.color32;
-           }
-
-           // Assign the faction's factionID
-           for (int i = 0; i < factions.Count; i++)
-           {
-               factions[i].factionID = i;
-               //Debug.Log("Faction ID: " + factionNameAndColors[i].factionID);
-           }
-           */
 

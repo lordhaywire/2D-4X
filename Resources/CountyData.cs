@@ -10,11 +10,9 @@ namespace PlayerSpace
         //public event Action IdleWorkersChanged;
 
         //public int countyID; // I believe this is being used now.
-        //public GameObject gameObject; // This is the game object that is the county.
         [Export] public string countyName;
         [Export] public bool isPlayerCapital;
         [Export] public bool isAICapital;
-        //public SpriteRenderer spriteRenderer;
         //public BuildImprovements buildImprovements;
         [Export] public FactionData faction;
         
@@ -25,27 +23,7 @@ namespace PlayerSpace
         [Export] public Godot.Collections.Dictionary<int, CountyPopulation> countyPopulation = new();
         public List<CountyPopulation> heroCountyPopulation = new();
 
-        [ExportGroup("Getter Setters")]
-        private int population;
-        public int Population
-        {
-            get { return population; }
-            set
-            {
-                population = value;
-                CountyInfoControl.Instance.UpdateCountyPopulationLabel(population);
-            }
-        }
-        private int idleWorkers;
-        [Export]
-        public int IdleWorkers
-        {
-            get { return idleWorkers; }
-            set
-            {
-                idleWorkers = value;
-                CountyInfoControl.Instance.UpdateIdleWorkersLabel(idleWorkers);
-            }
-        }
+        [Export] public int population;
+        [Export] public int idleWorkers;
     }
 }

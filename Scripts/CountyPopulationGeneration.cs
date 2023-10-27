@@ -32,31 +32,31 @@ namespace PlayerSpace
             {
                 selectCounty = (SelectCounty)countiesParent.GetChild(i);
                 countyData = selectCounty.countyData;
-                countyData.Population = 0;
+                countyData.population = 0;
 
                 // Generate the general population for the player Capitals.
                 if (countyData.isPlayerCapital == true || countyData.isAICapital)
                 {
                     // Generate Hero Population
                     GeneratePopulation(true, Globals.Instance.heroPopulation);
-                    countyData.Population += countyData.heroCountyPopulation.Count;
+                    countyData.population += countyData.heroCountyPopulation.Count;
 
                     // Generate Normal Population
                     GeneratePopulation(false, Globals.Instance.totalCapitolPop);
-                    countyData.Population += countyData.countyPopulation.Count;
-                    countyData.IdleWorkers = countyData.Population;
+                    countyData.population += countyData.countyPopulation.Count;
+                    countyData.idleWorkers = countyData.population;
                 }
                 else
                 {
                     // Generate Hero Population
                     GeneratePopulation(true, Globals.Instance.heroPopulation);
-                    countyData.Population += countyData.heroCountyPopulation.Count;
+                    countyData.population += countyData.heroCountyPopulation.Count;
 
                     // Generate Normal Population
                     int normalPopulation = random.Next(Globals.Instance.minimumCountyPop, Globals.Instance.maximumCountyPop);
                     GeneratePopulation(false, normalPopulation);
-                    countyData.Population += countyData.countyPopulation.Count;
-                    countyData.IdleWorkers = countyData.Population;
+                    countyData.population += countyData.countyPopulation.Count;
+                    countyData.idleWorkers = countyData.population;
                 }
             }
         }
@@ -109,6 +109,9 @@ namespace PlayerSpace
                 else
                 {
                     // This adds to a C# list.
+                    countyData.heroCountyPopulation.Add(new CountyPopulation(firstName, lastName, isMale, age, true,
+                        false, false, true, constructionSkill, AllText.Jobs.IDLE, AllText.Jobs.IDLE, false));
+                    // This is just for a test.  It needs to be removed.
                     countyData.heroCountyPopulation.Add(new CountyPopulation(firstName, lastName, isMale, age, true,
                         false, false, true, constructionSkill, AllText.Jobs.IDLE, AllText.Jobs.IDLE, false));
 

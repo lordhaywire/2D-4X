@@ -11,11 +11,12 @@ namespace PlayerSpace
             {
                 if(eventMouseButton.ButtonIndex == MouseButton.Left && eventMouseButton.Pressed == false) 
                 {
-                    //GD.Print("Mouse Left Click/Unclick at: ", Name); // What is this comma doing here?
-                    Globals.Instance.countyInfoControl.Show();
                     Globals.Instance.countyNameLabel.Text = countyData.countyName;
-                    CountyInfoControl.Instance.UpdateCountyPopulationLabel(countyData.Population);
-                    CountyInfoControl.Instance.UpdateIdleWorkersLabel(countyData.IdleWorkers);
+                    Globals.Instance.selectedCountyData = countyData;
+                    CountyInfoControl.Instance.UpdateCountyPopulationLabel(countyData.population);
+                    CountyInfoControl.Instance.UpdateIdleWorkersLabel(countyData.idleWorkers);
+                    CountyInfoControl.Instance.GenerateHeroesPanelList();
+                    Globals.Instance.countyInfoControl.Show(); // This has to be last.
                 }
             }
         }
