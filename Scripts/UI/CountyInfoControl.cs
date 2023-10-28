@@ -11,6 +11,8 @@ namespace PlayerSpace
         [Export] private PackedScene heroListPrefab;
         [Export] private Label countyPopulationLabel;
         [Export] private Label countyIdleWorkersLabel;
+        [Export] public MarginContainer populationListMarginContainer;
+        [Export] public MarginContainer populationDescriptionMarginContainer;
 
         public override void _Ready()
         {

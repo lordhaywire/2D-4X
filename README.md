@@ -9,6 +9,8 @@ The old Unity version is here: [2D-4X Unity](https://github.com/lordhaywire/2D-4
 
 ### Thanks to the following people:
 
+[Wind of Flatus](https://flatus.itch.io/)
+
 [Glitched Code](https://www.youtube.com/@GlitchedCode)
 
 Stevens R Miller

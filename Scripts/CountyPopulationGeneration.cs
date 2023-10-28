@@ -98,40 +98,31 @@ namespace PlayerSpace
                 if (hero == false)
                 {
                     // This adds to the Godot Dictionary a new person.
-                    countyData.countyPopulation.Add(i, new CountyPopulation(firstName, lastName, isMale, age, false,
+                    countyData.countyPopulation.Add(new CountyPopulation(firstName, lastName, isMale, age, false,
                         false, false, false, constructionSkill, AllText.Jobs.IDLE, AllText.Jobs.IDLE, false));
 
+                    /*
                     CountyPopulation person = countyData.countyPopulation[i];
                     GD.Print($"Name: {countyData.countyPopulation[i].firstName} {countyData.countyPopulation[i].lastName} " +
                     $"Age: {person.age} isMale: {person.isMale} Leader of People: {person.leaderOfPeoplePerk} " +
                     $"Faction Leader: {person.isFactionLeader}");
+                    */
                 }
                 else
                 {
                     // This adds to a C# list.
                     countyData.heroCountyPopulation.Add(new CountyPopulation(firstName, lastName, isMale, age, true,
                         false, false, true, constructionSkill, AllText.Jobs.IDLE, AllText.Jobs.IDLE, false));
-                    // This is just for a test.  It needs to be removed.
-                    countyData.heroCountyPopulation.Add(new CountyPopulation(firstName, lastName, isMale, age, true,
-                        false, false, true, constructionSkill, AllText.Jobs.IDLE, AllText.Jobs.IDLE, false));
 
+                    /*
                     CountyPopulation heroPerson = countyData.heroCountyPopulation[i];
                     GD.Print($"Hero Name: {heroPerson.firstName} {heroPerson.lastName} " +
                     $"Age: {heroPerson.age} isMale: {heroPerson.isMale} Leader of People: {heroPerson.leaderOfPeoplePerk} " +
                     $"Faction Leader: {heroPerson.isFactionLeader}");
+                    */
                 }
             }
 
         }
     }
 }
-
-/*
-for(int i = 0; i < countiesParent.GetChildCount();  i++)
-{
-SelectCounty selectCounty = (SelectCounty)countiesParent.GetChild(i);
-CountyData countyData = selectCounty.countyData;
-countyData.countyPopulation.Add(0, new CountyPopulation("Fred", "Dickface", true, 25, true, false, false, true, 50, "None", "None", false));
-GD.Print($"First Name: {countyData.countyPopulation[0].firstName} Last Name: {countyData.countyPopulation[0].lastName}");
-}
-*/

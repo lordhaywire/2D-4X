@@ -20,7 +20,7 @@ namespace PlayerSpace
         [Export] public AllEnums.Terrain biomePrimary;
         [Export] public AllEnums.Terrain biomeSecondary;
         [Export] public AllEnums.Terrain biomeTertiary;
-        [Export] public Godot.Collections.Dictionary<int, CountyPopulation> countyPopulation = new();
+        public List<CountyPopulation> countyPopulation = new();
         public List<CountyPopulation> heroCountyPopulation = new();
 
         [Export] public int population;

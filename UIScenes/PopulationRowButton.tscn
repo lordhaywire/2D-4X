@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://djph5cv7o4atl"]
+
+[ext_resource type="Script" path="res://Scripts/UI/PopulationRowButton.cs" id="1_dhxh4"]
+
+[node name="Population Row Button" type="Button"]
+custom_minimum_size = Vector2(0, 25)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 8.0
+grow_horizontal = 2
+script = ExtResource("1_dhxh4")
+
+[node name="Population Row HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Name Label" type="Label" parent="Population Row HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "NameTest"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Age Label" type="Label" parent="Population Row HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "AgeTest"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sex Label" type="Label" parent="Population Row HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SexTest
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="button_up" from="." to="." method="OnButtonClick"]

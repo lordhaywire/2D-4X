@@ -3,6 +3,11 @@ namespace PlayerSpace
 {
     public class AllText
     {
+        public class Titles
+        {
+            public const string POPLIST = "County Population";
+            public const string IDLELIST = "Idle County Population";
+        }
         public class Jobs
         {
             public const string IDLE = "Scavenging";
