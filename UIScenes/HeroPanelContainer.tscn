@@ -1,7 +1,26 @@
-[gd_scene format=3 uid="uid://d4i6w8w8jld3d"]
+[gd_scene load_steps=2 format=3 uid="uid://d4i6w8w8jld3d"]
+
+[ext_resource type="Script" path="res://Scripts/UI/HeroListButton.cs" id="1_i1gis"]
 
 [node name="Hero PanelContainer" type="PanelContainer"]
+custom_minimum_size = Vector2(200, 50)
+mouse_filter = 1
+script = ExtResource("1_i1gis")
 
 [node name="Hero Name Label" type="Label" parent="."]
 layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 1
 text = "Whatevers"
+
+[node name="Button" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="CheckButton" type="CheckButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[connection signal="button_up" from="Button" to="." method="HeroButton"]

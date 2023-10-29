@@ -9,6 +9,7 @@ namespace PlayerSpace
 
         [ExportGroup("Selected Items")]
         [Export] public CountyData selectedCountyData;
+        [Export] public CountyPopulation selectedCountyPopulation;
 
         [ExportGroup("Population Generation")]
         [Export] public Node2D countiesParent; // Used for Population generation and random color.  I think we are going to change how the colors are distubuted.

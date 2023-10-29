@@ -2,14 +2,14 @@ using Godot;
 
 namespace PlayerSpace
 {
-    public partial class PopulationRowButton : Button
+    public partial class HeroListButton : PanelContainer
     {
-        [Export] public CountyPopulation countyPopulation;
-        private void OnButtonClick()
+        public CountyPopulation countyPopulation;
+        private void HeroButton()
         {
+            Globals.Instance.selectedCountyPopulation = countyPopulation;
             CountyInfoControl.Instance.populationDescriptionMarginContainer.Show();
             CountyInfoControl.Instance.populationListMarginContainer.Hide();
-            Globals.Instance.selectedCountyPopulation = countyPopulation;
         }
     }
 }

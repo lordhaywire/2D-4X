@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=26 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="PackedScene" uid="uid://ba4w12juppy18" path="res://Graphics/Counties/Portland Oregon.tscn" id="1_4cr1w"]
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_k200m"]
@@ -19,6 +19,8 @@
 [ext_resource type="PackedScene" uid="uid://djph5cv7o4atl" path="res://UIScenes/PopulationRowButton.tscn" id="11_2aei1"]
 [ext_resource type="PackedScene" uid="uid://citkgehkfwon2" path="res://Graphics/Provinces/Washington.tscn" id="11_8q1cd"]
 [ext_resource type="Script" path="res://Scripts/UI/PopAndIdleButtons.cs" id="11_qq6fr"]
+[ext_resource type="Script" path="res://Scripts/UI/PopulationListUIElement.cs" id="13_f3vei"]
+[ext_resource type="Script" path="res://Scripts/UI/PopulationDescriptionUIElement.cs" id="13_ssvv1"]
 [ext_resource type="Resource" uid="uid://cvc0wfljshom0" path="res://Resources/Counties/Cowlitz.tres" id="14_6vkrs"]
 [ext_resource type="Resource" uid="uid://bwkrcckgmgmn1" path="res://Resources/Counties/Portland.tres" id="16_wlv2k"]
 [ext_resource type="Resource" uid="uid://csk7k0knt4jbq" path="res://Resources/Counties/Wasco.tres" id="21_3shgs"]
@@ -133,20 +135,18 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Pop and Idle Workers VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel" node_paths=PackedStringArray("populationListMarginContainer", "populationListParent", "populationListTitle")]
+[node name="Pop and Idle Workers VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel" node_paths=PackedStringArray("populationListMarginContainer")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("11_qq6fr")
 populationListMarginContainer = NodePath("../../../../Population List MarginContainer")
-populationListParent = NodePath("../../../../Population List MarginContainer/Population List PanelContainer/Population VBoxContainer")
-populationRowButton = ExtResource("11_2aei1")
-populationListTitle = NodePath("../../../../Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/Population Title Label")
 
 [node name="Population List Button" type="Button" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 size_flags_vertical = 4
+focus_mode = 0
 
 [node name="Population Button PanelContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Population List Button"]
 self_modulate = Color(1, 1, 1, 0)
@@ -172,6 +172,7 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 size_flags_vertical = 8
+focus_mode = 0
 button_mask = 0
 
 [node name="Idle Workers Button PanelContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Idle Workers List Button"]
@@ -197,15 +198,25 @@ horizontal_alignment = 1
 [node name="Heroes VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer"]
 layout_mode = 2
 
-[node name="Population List MarginContainer" type="MarginContainer" parent="Player UI Canvas"]
+[node name="Population List MarginContainer" type="MarginContainer" parent="Player UI Canvas" node_paths=PackedStringArray("populationListParent", "populationListTitle")]
 visible = false
-anchors_preset = 15
+custom_minimum_size = Vector2(1719, 1080)
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
+anchor_bottom = 0.5
+offset_left = -1719.0
+offset_top = -540.0
+offset_bottom = 540.0
+grow_horizontal = 0
 grow_vertical = 2
-theme_override_constants/margin_left = 201
+size_flags_horizontal = 8
 theme_override_constants/margin_top = 28
+script = ExtResource("13_f3vei")
+populationListParent = NodePath("Population List PanelContainer/Population VBoxContainer")
+populationRowButtonPrefab = ExtResource("11_2aei1")
+populationListTitle = NodePath("Population List PanelContainer/Population VBoxContainer/Population Title Label")
 
 [node name="Population List PanelContainer" type="PanelContainer" parent="Player UI Canvas/Population List MarginContainer"]
 layout_mode = 2
@@ -253,54 +264,118 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "Close"
 
-[node name="Population Description MarginContainer" type="MarginContainer" parent="Player UI Canvas"]
+[node name="Population Description MarginContainer" type="MarginContainer" parent="Player UI Canvas" node_paths=PackedStringArray("populationName", "age", "sex", "constructionSkill", "currentActivity", "nextActivity")]
 visible = false
-anchors_preset = 15
+custom_minimum_size = Vector2(1719, 1080)
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
+anchor_bottom = 0.5
+offset_left = -1719.0
+offset_top = -540.0
+offset_bottom = 540.0
+grow_horizontal = 0
 grow_vertical = 2
-theme_override_constants/margin_left = 201
+theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 28
+script = ExtResource("13_ssvv1")
+populationName = NodePath("Population Description PanelContainer/Population VBoxContainer/Population Name Label")
+age = NodePath("Population Description PanelContainer/Population VBoxContainer/Age Label")
+sex = NodePath("Population Description PanelContainer/Population VBoxContainer/Sex Label")
+constructionSkill = NodePath("Population Description PanelContainer/Population VBoxContainer/Construction Skill Label")
+currentActivity = NodePath("Population Description PanelContainer/Population VBoxContainer/Current Activity Label")
+nextActivity = NodePath("Population Description PanelContainer/Population VBoxContainer/Next Activity Label")
 
 [node name="Population Description PanelContainer" type="PanelContainer" parent="Player UI Canvas/Population Description MarginContainer"]
 layout_mode = 2
 
 [node name="Population VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer"]
 layout_mode = 2
+theme_override_constants/separation = 50
 
-[node name="Population Title Label" type="Label" parent="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Population VBoxContainer"]
+[node name="Population Name Label" type="Label" parent="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Population VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 24
-text = "Population Description"
+text = "Population Name"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Population VBoxContainer"]
-visible = false
-layout_mode = 2
-alignment = 1
-
-[node name="Name Label" type="Label" parent="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Population VBoxContainer/HBoxContainer"]
+[node name="Age Title Label" type="Label" parent="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Population VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Name"
+theme_override_font_sizes/font_size = 16
+text = "Age"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Age Label" type="Label" parent="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Population VBoxContainer/HBoxContainer"]
+[node name="Age Label" type="Label" parent="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Population VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Age"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Sex Label" type="Label" parent="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Population VBoxContainer/HBoxContainer"]
+[node name="Sex Title Label" type="Label" parent="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Population VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "Sex
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sex Label" type="Label" parent="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Population VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Sex
 "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Construction Skill Title Label" type="Label" parent="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Population VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "Construction Skill"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Construction Skill Label" type="Label" parent="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Population VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "10000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Current Activity Title Label" type="Label" parent="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Population VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "Current Activity"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Current Activity Label" type="Label" parent="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Population VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Current Activity"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Next Activity Title Label" type="Label" parent="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Population VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "Next Activity"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Next Activity Label" type="Label" parent="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Population VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Next Activity"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -437,10 +512,11 @@ position = Vector2(643, 48)
 scale = Vector2(0.8, 0.8)
 
 [connection signal="button_up" from="Player UI Canvas/Top Bar Control/Time and Research Buttons HBox/Research Button" to="Player UI Canvas/Research Control" method="ShowResearchPanel"]
-[connection signal="button_up" from="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Population List Button" to="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer" method="OnButtonClick" binds= [false]]
-[connection signal="button_up" from="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Idle Workers List Button" to="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer" method="OnButtonClick" binds= [true]]
+[connection signal="button_up" from="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Population List Button" to="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer" method="OnButtonClick"]
+[connection signal="visibility_changed" from="Player UI Canvas/Population List MarginContainer" to="Player UI Canvas/Population List MarginContainer" method="OnVisibilityChange"]
 [connection signal="button_up" from="Player UI Canvas/Population List MarginContainer/Close Button" to="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer" method="CloseButton"]
-[connection signal="button_up" from="Player UI Canvas/Population Description MarginContainer/Close Button" to="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer" method="CloseButton"]
+[connection signal="visibility_changed" from="Player UI Canvas/Population Description MarginContainer" to="Player UI Canvas/Population Description MarginContainer" method="OnVisibilityChange"]
+[connection signal="button_up" from="Player UI Canvas/Population Description MarginContainer/Close Button" to="Player UI Canvas/Population Description MarginContainer" method="CloseButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Research Control" to="Player UI Canvas/Research Control" method="OnVisibilityChange"]
 [connection signal="visibility_changed" from="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/Research Description PanelContainer" to="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/Research Description PanelContainer" method="OnVisibilityChanged"]
 [connection signal="button_up" from="Player UI Canvas/Research Control/Close Button" to="Player UI Canvas/Research Control" method="CloseButton"]

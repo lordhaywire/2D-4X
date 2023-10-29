@@ -7,7 +7,7 @@ namespace PlayerSpace
     public partial class Arrays
     {
         
-        public static Color[] colors =
+        public static readonly Color[] colors =
         {
             Colors.RosyBrown,
             Colors.Tomato,

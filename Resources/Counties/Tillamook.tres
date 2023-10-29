@@ -13,6 +13,5 @@ province = 0
 biomePrimary = 0
 biomeSecondary = 2
 biomeTertiary = 3
-countyPopulation = {}
 population = 0
 idleWorkers = 0

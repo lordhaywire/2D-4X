@@ -6,19 +6,16 @@ namespace PlayerSpace
     {
         public override void _Input(InputEvent @event)
         {
-            if (Globals.Instance.playerControlsEnabled == true)
+            if (@event is InputEventKey keyEvent && keyEvent.Pressed == false)
             {
-                if (@event is InputEventKey keyEvent && keyEvent.Pressed == false)
+                if (Globals.Instance.playerControlsEnabled == true)
                 {
-                    if(Globals.Instance.playerControlsEnabled == true) 
+                    GD.Print($"{keyEvent.Keycode}");
+                    switch (keyEvent.Keycode)
                     {
-                        GD.Print($"{keyEvent.Keycode}");
-                        switch (keyEvent.Keycode)
-                        {
-                            case Key.Space:
-                                Clock.Instance.PauseandUnpause();
-                                break;
-                        }
+                        case Key.Space:
+                            Clock.Instance.PauseandUnpause();
+                            break;
                     }
                 }
             }

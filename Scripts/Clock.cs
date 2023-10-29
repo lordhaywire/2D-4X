@@ -27,7 +27,7 @@ namespace PlayerSpace
         public int days = 0;
 
         [Export] public int oldTimeSpeed;
-        [Export] public int numberOfControlsShown; // For when there are multiple panels open.
+        [Export] public int numberOfThingsPaused; // For when there are multiple panels open.
 
         public int Hours
         {
@@ -136,12 +136,14 @@ namespace PlayerSpace
             GD.Print("Keyboard has been pressed!");
             if (ModifiedTimeScale > 0)
             {
+                numberOfThingsPaused++;
                 oldTimeSpeed = ModifiedTimeScale;
                 ModifiedTimeScale = 0;
             }
             else
             {
                 (ModifiedTimeScale, oldTimeSpeed) = (oldTimeSpeed, ModifiedTimeScale);
+                numberOfThingsPaused--;
             }
             //GD.Print($"Modified Time: {ModifiedTimeScale} and Old Time Speed: {oldTimeSpeed}.");
         }
@@ -156,20 +158,24 @@ namespace PlayerSpace
         public void PauseTime()
         {
             GD.Print("Pause Time!");
+            
             if (ModifiedTimeScale != 0)
             {
                 oldTimeSpeed = ModifiedTimeScale;                
                 ModifiedTimeScale = 0;
             }
+            numberOfThingsPaused++;
         }
 
         public void UnpauseTime()
         {
             GD.Print("Unpause Time!");
-            if (numberOfControlsShown == 0)
+            numberOfThingsPaused--;
+            if (numberOfThingsPaused == 0)
             {
                 ModifiedTimeScale = oldTimeSpeed;
             }
+            
         }
     }
 }

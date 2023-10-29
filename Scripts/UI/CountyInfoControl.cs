@@ -25,7 +25,7 @@ namespace PlayerSpace
 
             if (heroListParent.GetChildCount() != 0) 
             {
-                foreach (PanelContainer hero in heroListParent.GetChildren())
+                foreach (Node hero in heroListParent.GetChildren())
                 {
                     hero.QueueFree();
                 }
@@ -38,6 +38,8 @@ namespace PlayerSpace
                 GD.PrintRich($"[rainbow]County Hero Name: {hero.firstName}");
                 heroNameLabel.Text = $"{hero.firstName} {hero.lastName}";
                 heroListParent.AddChild(heroPrefab);
+                HeroListButton heroListButton = (HeroListButton)heroPrefab;
+                heroListButton.countyPopulation = hero;
             }
         }
         public void UpdateCountyPopulationLabel(int population)

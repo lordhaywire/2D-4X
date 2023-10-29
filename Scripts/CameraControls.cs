@@ -27,13 +27,16 @@ namespace PlayerSpace
 
         public override void _Input(InputEvent @event)
         {
-            if (@event.IsActionPressed("mouse_wheel_up"))
+            if(Globals.Instance.playerControlsEnabled == true)
             {
-                ZoomIn();
-            }
-            else if (@event.IsActionPressed("mouse_wheel_down"))
-            { 
-                ZoomOut();
+                if (@event.IsActionPressed("mouse_wheel_up"))
+                {
+                    ZoomIn();
+                }
+                else if (@event.IsActionPressed("mouse_wheel_down"))
+                {
+                    ZoomOut();
+                }
             }
         }
 
