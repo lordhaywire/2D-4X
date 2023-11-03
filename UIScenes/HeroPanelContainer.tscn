@@ -24,3 +24,4 @@ layout_mode = 2
 size_flags_horizontal = 8
 
 [connection signal="button_up" from="Button" to="." method="HeroButton"]
+[connection signal="button_up" from="CheckButton" to="." method="SpawnHeroCheckBox"]

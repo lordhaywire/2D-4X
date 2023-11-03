@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://cwe0ergnkkfm0"]
+
+[ext_resource type="Script" path="res://Scripts/SelectToken.cs" id="1_ncr34"]
+[ext_resource type="Texture2D" uid="uid://7jvylb78h24w" path="res://Graphics/Tokens/HornedGuyUnselected.png" id="1_palk8"]
+[ext_resource type="Script" path="res://Resources/HeroData.cs" id="2_1yvgg"]
+[ext_resource type="Texture2D" uid="uid://dqlvmop4g8aam" path="res://Graphics/Tokens/HornedGuySelected.png" id="3_26fkh"]
+
+[sub_resource type="Resource" id="Resource_oqnmn"]
+script = ExtResource("2_1yvgg")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kuk2a"]
+radius = 13.0
+
+[node name="HeroToken" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
+z_index = 15
+input_pickable = true
+script = ExtResource("1_ncr34")
+hero = SubResource("Resource_oqnmn")
+selectedTexture = ExtResource("3_26fkh")
+unselectedTexture = ExtResource("1_palk8")
+sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_palk8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1, 1)
+shape = SubResource("CircleShape2D_kuk2a")
+
+[connection signal="input_event" from="." to="." method="OnClick"]

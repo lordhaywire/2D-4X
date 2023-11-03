@@ -12,7 +12,7 @@ namespace PlayerSpace
             
             //await ToSignal(GetTree(), "process_frame");
             Globals.Instance.researchClicked = int.Parse(Name);
-            GD.PrintRich("[rainbow]Name of Button! " + Name);
+            //GD.Print("Name of Button! " + Name);
         }
     }
 }

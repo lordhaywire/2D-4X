@@ -35,7 +35,7 @@ namespace PlayerSpace
             {
                 PanelContainer heroPrefab = (PanelContainer)heroListPrefab.Instantiate();
                 Label heroNameLabel = (Label)heroPrefab.GetChild(0);
-                GD.PrintRich($"[rainbow]County Hero Name: {hero.firstName}");
+                //GD.Print($"County Hero Name: {hero.firstName}");
                 heroNameLabel.Text = $"{hero.firstName} {hero.lastName}";
                 heroListParent.AddChild(heroPrefab);
                 HeroListButton heroListButton = (HeroListButton)heroPrefab;

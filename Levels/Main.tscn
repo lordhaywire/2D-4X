@@ -1,19 +1,18 @@
-[gd_scene load_steps=26 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=24 format=3 uid="uid://dcycrof2uq8gd"]
 
-[ext_resource type="PackedScene" uid="uid://ba4w12juppy18" path="res://Graphics/Counties/Portland Oregon.tscn" id="1_4cr1w"]
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_k200m"]
 [ext_resource type="Script" path="res://Scripts/Globals.cs" id="1_n6eaq"]
+[ext_resource type="PackedScene" uid="uid://cwe0ergnkkfm0" path="res://Prefabs/HeroToken.tscn" id="2_3ivw0"]
 [ext_resource type="Script" path="res://Scripts/PlayerControls.cs" id="2_5emkq"]
 [ext_resource type="Script" path="res://Scripts/Clock.cs" id="2_fsxpp"]
 [ext_resource type="Script" path="res://Scripts/FactionGeneration.cs" id="2_vkprl"]
-[ext_resource type="PackedScene" uid="uid://bal24pfd3pmi5" path="res://Graphics/Counties/Tillamook Oregon.tscn" id="3_dr2s1"]
 [ext_resource type="Script" path="res://Scripts/CountyPopulationGeneration.cs" id="3_kcvsw"]
 [ext_resource type="PackedScene" uid="uid://mr0rjj1gvjlu" path="res://UIScenes/TopBarControl.tscn" id="4_rk5xj"]
 [ext_resource type="Script" path="res://Scripts/UI/ResearchControl.cs" id="6_0iytx"]
 [ext_resource type="Script" path="res://Scripts/UI/ResearchDescriptionPanel.cs" id="8_p38gd"]
 [ext_resource type="Script" path="res://Scripts/RandomFactionColor.cs" id="9_1qbqs"]
 [ext_resource type="PackedScene" uid="uid://bxrhe2s0ke58r" path="res://Graphics/Provinces/Oregon.tscn" id="9_3rjcv"]
-[ext_resource type="PackedScene" uid="uid://dlvb22f68gd3u" path="res://Graphics/Counties/Cowlitz Washington.tscn" id="9_eipnv"]
+[ext_resource type="PackedScene" uid="uid://dlvb22f68gd3u" path="res://County Scenes/Cowlitz Washington.tscn" id="9_eipnv"]
 [ext_resource type="Script" path="res://Scripts/UI/CountyInfoControl.cs" id="10_11qbn"]
 [ext_resource type="PackedScene" uid="uid://d4i6w8w8jld3d" path="res://UIScenes/HeroPanelContainer.tscn" id="10_j48oi"]
 [ext_resource type="PackedScene" uid="uid://djph5cv7o4atl" path="res://UIScenes/PopulationRowButton.tscn" id="11_2aei1"]
@@ -21,16 +20,16 @@
 [ext_resource type="Script" path="res://Scripts/UI/PopAndIdleButtons.cs" id="11_qq6fr"]
 [ext_resource type="Script" path="res://Scripts/UI/PopulationListUIElement.cs" id="13_f3vei"]
 [ext_resource type="Script" path="res://Scripts/UI/PopulationDescriptionUIElement.cs" id="13_ssvv1"]
-[ext_resource type="Resource" uid="uid://cvc0wfljshom0" path="res://Resources/Counties/Cowlitz.tres" id="14_6vkrs"]
-[ext_resource type="Resource" uid="uid://bwkrcckgmgmn1" path="res://Resources/Counties/Portland.tres" id="16_wlv2k"]
-[ext_resource type="Resource" uid="uid://csk7k0knt4jbq" path="res://Resources/Counties/Wasco.tres" id="21_3shgs"]
-[ext_resource type="PackedScene" uid="uid://bet3m0egolqqn" path="res://Graphics/Counties/Wasco Oregon.tscn" id="22_eg8io"]
+[ext_resource type="PackedScene" uid="uid://bpe1s5ug8pilx" path="res://County Scenes/Tillamook Oregon.tscn" id="20_tpk4k"]
+[ext_resource type="PackedScene" uid="uid://lagp6ravcxco" path="res://County Scenes/Wasco Oregon.tscn" id="21_lhvi0"]
+[ext_resource type="PackedScene" uid="uid://chs3b4egrvgih" path="res://County Scenes/Portland Oregon.tscn" id="23_f3vtd"]
 
 [node name="Main" type="Node2D" node_paths=PackedStringArray("countiesParent", "countyInfoControl", "countyNameLabel")]
 script = ExtResource("1_n6eaq")
 countiesParent = NodePath("Counties")
 countyInfoControl = NodePath("Player UI Canvas/County Info Control")
 countyNameLabel = NodePath("Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/County Title Label")
+heroToken = ExtResource("2_3ivw0")
 
 [node name="Faction Generation" type="Node" parent="."]
 script = ExtResource("2_vkprl")
@@ -475,29 +474,19 @@ text = "Close"
 [node name="Counties" type="Node2D" parent="."]
 position = Vector2(-61, -53)
 
-[node name="Cowlitz" parent="Counties" instance=ExtResource("9_eipnv")]
-self_modulate = Color(1, 0.384314, 0.270588, 1)
-z_index = 5
-position = Vector2(391, 253)
-scale = Vector2(0.8, 0.8)
-countyData = ExtResource("14_6vkrs")
+[node name="Cowlitz Washington" parent="Counties" instance=ExtResource("9_eipnv")]
+z_index = 10
+position = Vector2(392, 250)
 
-[node name="Portland" parent="Counties" instance=ExtResource("1_4cr1w")]
-self_modulate = Color(1, 0.384314, 1, 1)
-z_index = 5
-position = Vector2(412, 393)
-countyData = ExtResource("16_wlv2k")
+[node name="Portland Oregon" parent="Counties" instance=ExtResource("23_f3vtd")]
+z_index = 10
+position = Vector2(413, 392)
 
-[node name="Tillamook" parent="Counties" instance=ExtResource("3_dr2s1")]
-self_modulate = Color(1, 1, 0.435294, 1)
-z_index = 5
-position = Vector2(360, 527)
+[node name="Tillamook Oregon" parent="Counties" instance=ExtResource("20_tpk4k")]
+position = Vector2(360, 526)
 
-[node name="Wasco" parent="Counties" instance=ExtResource("22_eg8io")]
-self_modulate = Color(0.419608, 1, 1, 1)
-z_index = 5
-position = Vector2(651, 552)
-countyData = ExtResource("21_3shgs")
+[node name="Wasco Oregon" parent="Counties" instance=ExtResource("21_lhvi0")]
+position = Vector2(651, 550)
 
 [node name="Background Node2D" type="Node2D" parent="."]
 position = Vector2(-61, -53)

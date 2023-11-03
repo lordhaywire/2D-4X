@@ -34,12 +34,12 @@ namespace PlayerSpace
             }
         }
 
-        private void ApplyFactionColorsToCounties()
+        private static void ApplyFactionColorsToCounties()
         {
-            foreach(Sprite2D county in Globals.Instance.countiesParent.GetChildren())
+            foreach(Node2D county in Globals.Instance.countiesParent.GetChildren())
             {
                 SelectCounty selectCounty = (SelectCounty)county;
-                county.SelfModulate = selectCounty.countyData.faction.factionColor;
+                county.GetNode<Sprite2D>("County Sprite2D").SelfModulate = selectCounty.countyData.faction.factionColor;
             }
         }
     }

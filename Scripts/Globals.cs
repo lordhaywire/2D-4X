@@ -9,7 +9,9 @@ namespace PlayerSpace
 
         [ExportGroup("Selected Items")]
         [Export] public CountyData selectedCountyData;
+        [Export] public Node2D selectedCounty;
         [Export] public CountyPopulation selectedCountyPopulation;
+        [Export] public CharacterBody2D selectedToken;
 
         [ExportGroup("Population Generation")]
         [Export] public Node2D countiesParent; // Used for Population generation and random color.  I think we are going to change how the colors are distubuted.
@@ -25,6 +27,8 @@ namespace PlayerSpace
         [Export] public Control countyInfoControl;
         [Export] public Label countyNameLabel;
 
+        [ExportGroup("Hero Shit")]
+        [Export] public PackedScene heroToken;
         public int researchClicked; // This is so the Research description panel knows which research was clicked.
 
         string listsPath = "res://Lists/";
@@ -48,7 +52,7 @@ namespace PlayerSpace
             //femaleFirstNames = null;
             //lastNames = null;
 
-            // Load all the demon resources from disk into the possibleDemons list.
+            // Load all the names from disk.
             using var directory = DirAccess.Open(listsPath);
             if (directory.DirExists(listsPath))
             {
@@ -73,7 +77,7 @@ namespace PlayerSpace
             }
             else
             {
-                GD.Print("[rainbows]Directory doesn't exist!");
+                GD.Print("Directory doesn't exist!");
             }
         }
     }

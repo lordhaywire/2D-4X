@@ -1,6 +1,6 @@
 # 2D 4X
 
-## Using Godot 4.2 beta 3
+## Using Godot 4.2 beta 4
 
 This is the repository containing the open source code for the game creation streams that Lord Haywire does on his KilledByDev [Twitch](https://www.twitch.tv/killedbydev) 
 and [Youtube](https://www.youtube.com/@killedbydev) channels.

@@ -4,6 +4,7 @@ namespace PlayerSpace
 {
     public partial class PopulationDescriptionUIElement : MarginContainer
     {
+        public static PopulationDescriptionUIElement Instance { get; private set; }
         [Export] private Label populationName;
         [Export] private Label age;
         [Export] private Label sex;
@@ -11,11 +12,15 @@ namespace PlayerSpace
         [Export] private Label currentActivity;
         [Export] private Label nextActivity;
 
+        public override void _Ready()
+        {
+            Instance = this;
+        }
+
         private void OnVisibilityChange()
         {
             if(Visible == true)
             {
-                
                 CallDeferred("UpdateDescriptionInfo");
             }
             else
@@ -26,7 +31,7 @@ namespace PlayerSpace
             }
         }
 
-        private void UpdateDescriptionInfo()
+        public void UpdateDescriptionInfo()
         {
             Clock.Instance.PauseTime(); // This is just in here for now, even though it sucks.
             Globals.Instance.playerControlsEnabled = false; // This too.
