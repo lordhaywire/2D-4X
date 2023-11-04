@@ -8,7 +8,7 @@
 [node name="Wasco Oregon Node2D" type="Node2D" node_paths=PackedStringArray("heroSpawn")]
 script = ExtResource("1_q76mg")
 countyData = ExtResource("2_swyw3")
-heroSpawn = NodePath("County Overlay Node2D/HeroSpawn Node2D")
+heroSpawn = NodePath("County Overlay Node2D/Hero Spawn Node2D")
 
 [node name="County Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(0.858824, 0.541176, 0.913725, 1)
@@ -31,7 +31,7 @@ z_index = 11
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_wk4v4")
 
-[node name="HeroSpawn Node2D" type="Node2D" parent="County Overlay Node2D"]
+[node name="Hero Spawn Node2D" type="Node2D" parent="County Overlay Node2D"]
 position = Vector2(0, -20)
 
 [connection signal="input_event" from="County Sprite2D/Area2D" to="." method="OnClick"]

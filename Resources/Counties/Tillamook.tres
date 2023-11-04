@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("1_otc6l")
+countyID = 0
 countyName = "Tillamook"
 isPlayerCapital = false
 isAICapital = false

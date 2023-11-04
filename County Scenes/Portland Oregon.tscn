@@ -8,7 +8,7 @@
 [node name="Portland Oregon Node2D" type="Node2D" node_paths=PackedStringArray("heroSpawn")]
 script = ExtResource("1_tqn7o")
 countyData = ExtResource("2_crg1m")
-heroSpawn = NodePath("County Overlay Node2D/HeroSpawn Node2D")
+heroSpawn = NodePath("County Overlay Node2D/Hero Spawn Node2D")
 
 [node name="County Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(0.372549, 0.564706, 0.831373, 1)
@@ -30,7 +30,7 @@ z_index = 11
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_worhe")
 
-[node name="HeroSpawn Node2D" type="Node2D" parent="County Overlay Node2D"]
+[node name="Hero Spawn Node2D" type="Node2D" parent="County Overlay Node2D"]
 position = Vector2(0, -20)
 
 [connection signal="input_event" from="County Sprite2D/Area2D" to="." method="OnClick"]

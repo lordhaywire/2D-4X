@@ -1,5 +1,4 @@
 using Godot;
-using Godot.Collections;
 using System;
 using System.Collections.Generic;
 
@@ -33,6 +32,8 @@ namespace PlayerSpace
                 selectCounty = (SelectCounty)countiesParent.GetChild(i);
                 countyData = selectCounty.countyData;
                 countyData.population = 0;
+                countyData.countyID = i; // Generate countyID.
+                GD.PrintRich("[rainbow]County ID: " + countyData.countyID);
 
                 // Generate the general population for the player Capitals.
                 if (countyData.isPlayerCapital == true || countyData.isAICapital)
@@ -98,8 +99,8 @@ namespace PlayerSpace
                 if (hero == false)
                 {
                     // This adds to the Godot Dictionary a new person.
-                    countyData.countyPopulation.Add(new CountyPopulation(firstName, lastName, isMale, age, false,
-                        false, false, false, constructionSkill, AllText.Jobs.IDLE, AllText.Jobs.IDLE, false));
+                    countyData.countyPopulation.Add(new CountyPopulation(countyData.countyID, countyData.countyID, firstName
+                        , lastName, isMale, age, false, false, false, false, constructionSkill, AllText.Jobs.IDLE, AllText.Jobs.IDLE, false));
 
                     /*
                     CountyPopulation person = countyData.countyPopulation[i];
@@ -111,8 +112,9 @@ namespace PlayerSpace
                 else
                 {
                     // This adds to a C# list.
-                    countyData.heroCountyPopulation.Add(new CountyPopulation(firstName, lastName, isMale, age, true,
-                        false, false, true, constructionSkill, AllText.Jobs.IDLE, AllText.Jobs.IDLE, false));
+                    countyData.heroCountyPopulation.Add(new CountyPopulation(countyData.countyID, countyData.countyID, firstName
+                        , lastName, isMale, age, true, false, false, true, constructionSkill, AllText.Jobs.IDLE, AllText.Jobs.IDLE
+                        , false));
 
                     /*
                     CountyPopulation heroPerson = countyData.heroCountyPopulation[i];

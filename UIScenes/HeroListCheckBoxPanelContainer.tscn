@@ -22,6 +22,7 @@ size_flags_horizontal = 0
 [node name="CheckButton" type="CheckButton" parent="."]
 layout_mode = 2
 size_flags_horizontal = 8
+focus_mode = 0
 
 [connection signal="button_up" from="Button" to="." method="HeroButton"]
-[connection signal="button_up" from="CheckButton" to="." method="SpawnHeroCheckBox"]
+[connection signal="toggled" from="CheckButton" to="." method="SpawnHeroCheckBox"]

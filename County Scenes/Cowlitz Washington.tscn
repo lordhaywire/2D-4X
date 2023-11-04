@@ -8,7 +8,7 @@
 [node name="Cowlitz Washington Node2D" type="Node2D" node_paths=PackedStringArray("heroSpawn")]
 script = ExtResource("2_58bw3")
 countyData = ExtResource("2_si4qt")
-heroSpawn = NodePath("County Overlay Node2D/HeroSpawn Node2D")
+heroSpawn = NodePath("County Overlay Node2D/Hero Spawn Node2D")
 
 [node name="County Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(0.192157, 0.960784, 0.686275, 1)
@@ -30,7 +30,7 @@ z_index = 11
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_4civ7")
 
-[node name="HeroSpawn Node2D" type="Node2D" parent="County Overlay Node2D"]
+[node name="Hero Spawn Node2D" type="Node2D" parent="County Overlay Node2D"]
 z_index = 10
 position = Vector2(0, -20)
 

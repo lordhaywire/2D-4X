@@ -8,7 +8,7 @@ namespace PlayerSpace
     {
         //public event Action IdleWorkersChanged;
 
-        //public int countyID; // I believe this is being used now.
+        [Export] public int countyID;
         [Export] public string countyName;
         [Export] public bool isPlayerCapital;
         [Export] public bool isAICapital;

@@ -13,6 +13,7 @@ namespace PlayerSpace
         [Export] public CountyPopulation selectedCountyPopulation;
         [Export] public CharacterBody2D selectedToken;
 
+
         [ExportGroup("Population Generation")]
         [Export] public Node2D countiesParent; // Used for Population generation and random color.  I think we are going to change how the colors are distubuted.
         [Export] public int heroPopulation = 1;
@@ -29,6 +30,9 @@ namespace PlayerSpace
 
         [ExportGroup("Hero Shit")]
         [Export] public PackedScene heroToken;
+        [Export] public int movementSpeed = 10;
+        [Export] public Vector2 heroMoveTarget;
+
         public int researchClicked; // This is so the Research description panel knows which research was clicked.
 
         string listsPath = "res://Lists/";

@@ -23,7 +23,7 @@ namespace PlayerSpace
         {
             CountyData countyData = Globals.Instance.selectedCountyData;
 
-            if (heroListParent.GetChildCount() != 0) 
+            if (heroListParent.GetChildCount() != 0)
             {
                 foreach (Node hero in heroListParent.GetChildren())
                 {
@@ -31,7 +31,7 @@ namespace PlayerSpace
                 }
             }
 
-            foreach(CountyPopulation hero in countyData.heroCountyPopulation)
+            foreach (CountyPopulation hero in countyData.heroCountyPopulation)
             {
                 PanelContainer heroPrefab = (PanelContainer)heroListPrefab.Instantiate();
                 Label heroNameLabel = (Label)heroPrefab.GetChild(0);
@@ -40,6 +40,9 @@ namespace PlayerSpace
                 heroListParent.AddChild(heroPrefab);
                 HeroListButton heroListButton = (HeroListButton)heroPrefab;
                 heroListButton.countyPopulation = hero;
+
+                heroListButton.GetNode<CheckButton>("CheckButton").ButtonPressed = hero.isSpawned;
+
             }
         }
         public void UpdateCountyPopulationLabel(int population)

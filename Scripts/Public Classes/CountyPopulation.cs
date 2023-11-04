@@ -5,11 +5,11 @@ namespace PlayerSpace
 {
     public partial class CountyPopulation : Node
     {
-        //public GameObject location;
-        //public GameObject destination;
+        public int location;
+        public int destination;
 
         //public string faction;
-
+        [ExportGroup("Info")]
         [Export] public string firstName;
         public string lastName;
         public bool isMale;
@@ -38,10 +38,13 @@ namespace PlayerSpace
 
         
         public CountyPopulation(
-            string firstName, string lastName, bool isMale, int age, bool isFactionLeader, bool isHero, bool isWorker
-             , bool leaderOfPeoplePerk, int constructionSkill, string currentActivity
+         
+            int location, int destionation, string firstName, string lastName, bool isMale, int age, bool isFactionLeader
+            , bool isHero, bool isWorker, bool leaderOfPeoplePerk, int constructionSkill, string currentActivity
             , string nextActivity, bool isSpawned)
         {
+            this.location = location;
+            this.destination = destionation;
             this.firstName = firstName;
             this.lastName = lastName;
             this.isMale = isMale;

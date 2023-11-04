@@ -6,6 +6,7 @@ namespace PlayerSpace
     {
         public CountyPopulation countyPopulation;
         private Node2D heroSpawnParent;
+        
         private void HeroButton()
         {
             Globals.Instance.selectedCountyPopulation = countyPopulation;
@@ -17,12 +18,19 @@ namespace PlayerSpace
             CountyInfoControl.Instance.populationListMarginContainer.Hide();
         }
 
-        private void SpawnHeroCheckBox()
+        private void SpawnHeroCheckBox(bool toggleOn)
         {
-            SelectCounty selectCounty = (SelectCounty)Globals.Instance.selectedCounty;
-            heroSpawnParent = selectCounty.heroSpawn;
-            CharacterBody2D spawnedHero = (CharacterBody2D)Globals.Instance.heroToken.Instantiate();
-            heroSpawnParent.AddChild(spawnedHero);
+            if(toggleOn == true && countyPopulation.isSpawned == false)
+            {
+                SelectCounty selectCounty = (SelectCounty)Globals.Instance.selectedCounty;
+                heroSpawnParent = selectCounty.heroSpawn;
+                CharacterBody2D spawnedHero = (CharacterBody2D)Globals.Instance.heroToken.Instantiate();
+                heroSpawnParent.AddChild(spawnedHero);
+                countyPopulation.isSpawned = true;
+                SelectToken selectToken = (SelectToken)spawnedHero;
+                selectToken.countyPopulation = countyPopulation;
+                
+            }
         }
     }
 }
