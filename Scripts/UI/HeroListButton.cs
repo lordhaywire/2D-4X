@@ -20,15 +20,16 @@ namespace PlayerSpace
 
         private void SpawnHeroCheckBox(bool toggleOn)
         {
-            if(toggleOn == true && countyPopulation.isSpawned == false)
+            if(toggleOn == true && countyPopulation.token == null)
             {
                 SelectCounty selectCounty = (SelectCounty)Globals.Instance.selectedCounty;
                 heroSpawnParent = selectCounty.heroSpawn;
                 CharacterBody2D spawnedHero = (CharacterBody2D)Globals.Instance.heroToken.Instantiate();
                 heroSpawnParent.AddChild(spawnedHero);
-                countyPopulation.isSpawned = true;
+                countyPopulation.token = spawnedHero;
                 SelectToken selectToken = (SelectToken)spawnedHero;
                 selectToken.countyPopulation = countyPopulation;
+                spawnedHero.Name = $"{selectToken.countyPopulation.firstName} {selectToken.countyPopulation.lastName}";
                 
             }
         }

@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("1_7vc5o")
+countyID = 0
 countyName = "Cowlitz"
 isPlayerCapital = false
 isAICapital = true

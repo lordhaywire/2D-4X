@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("1_ler1e")
+countyID = 0
 countyName = "Portland"
 isPlayerCapital = true
 isAICapital = false

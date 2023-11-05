@@ -10,7 +10,7 @@ namespace PlayerSpace
 
         [Export] public int countyID;
         [Export] public string countyName;
-        [Export] public bool isPlayerCapital;
+        [Export] public bool isPlayerCapital; // We need to differentiate between player choosen capitals and AI capitals for generation after player creation.
         [Export] public bool isAICapital;
         //public BuildImprovements buildImprovements;
         [Export] public FactionData faction;

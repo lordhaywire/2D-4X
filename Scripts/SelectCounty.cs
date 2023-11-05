@@ -13,13 +13,14 @@ namespace PlayerSpace
         public override void _Ready()
         {
             capitalSprite = GetNode<Sprite2D>("County Overlay Node2D/Capital Sprite2D");
-            heroSpawn = GetNode<Node2D>("County Overlay Node2D/Hero Spawn Node2D");
+            heroSpawn = GetNode<Node2D>("County Overlay Node2D/Hero Spawn Location Node2D");
 
         }
         public void OnClick(Viewport _viewport, InputEvent @event, int _shapeIdx)
         {
             if (@event is InputEventMouseButton eventMouseButton)
             {
+                // Left Click on County
                 if (eventMouseButton.ButtonIndex == MouseButton.Left && eventMouseButton.Pressed == false)
                 {
                     // When you select a county with left click it unselects the selected hero.
@@ -37,6 +38,7 @@ namespace PlayerSpace
                     CountyInfoControl.Instance.GenerateHeroesPanelList();
                     Globals.Instance.countyInfoControl.Show(); // This has to be last.
                 }
+                // Right Click on County
                 if (eventMouseButton.ButtonIndex == MouseButton.Right && eventMouseButton.Pressed == false)
                 {
                     GD.Print("You right clicked, dude!");

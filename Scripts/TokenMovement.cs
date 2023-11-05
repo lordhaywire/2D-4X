@@ -31,13 +31,21 @@ namespace PlayerSpace
             move = false;
             SelectToken selectToken = (SelectToken)GetParent();
             CountyPopulation countyPopulation = selectToken.countyPopulation;
-            SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
 
+            // Remove them from their starting location list.
+            SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
             selectCounty.countyData.heroCountyPopulation.Remove(countyPopulation);
+            countyPopulation.token.GetParent().RemoveChild(countyPopulation.token);
+
+            // Add them to their destination list and move them to the Hero Spawn Location Node2D corresponding to the County.
             selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.destination);
             selectCounty.countyData.heroCountyPopulation.Add(countyPopulation);
+            selectCounty.heroSpawn.AddChild(countyPopulation.token);
+            countyPopulation.token.GlobalPosition = selectCounty.heroSpawn.GlobalPosition;
+            countyPopulation.location = selectCounty.countyData.countyID;
             GD.Print($"{countyPopulation.firstName} is in {selectCounty.countyData.countyName}");
 
+            // Refresh the list of heroes beneath the CountyInfo Panel.
             CountyInfoControl.Instance.GenerateHeroesPanelList();
         }
     }

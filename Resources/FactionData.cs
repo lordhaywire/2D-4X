@@ -10,9 +10,9 @@ namespace PlayerSpace
         [Export] public bool isPlayer;
         [Export] public string factionName;
         [Export] public Color factionColor;
-        //public FactionNameAndColor factionNameAndColor;
+        [Export] public int factionCapitalCounty;
         //public List<ResearchItem> researchItems;
-        //public CountyPopulation factionLeader;
+        public CountyPopulation factionLeader;
 
         [ExportGroup("Resources")]
         [Export] public int money;

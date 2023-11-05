@@ -31,18 +31,25 @@ namespace PlayerSpace
                 }
             }
 
-            foreach (CountyPopulation hero in countyData.heroCountyPopulation)
+            foreach (CountyPopulation countyPopulation in countyData.heroCountyPopulation)
             {
                 PanelContainer heroPrefab = (PanelContainer)heroListPrefab.Instantiate();
                 Label heroNameLabel = (Label)heroPrefab.GetChild(0);
                 //GD.Print($"County Hero Name: {hero.firstName}");
-                heroNameLabel.Text = $"{hero.firstName} {hero.lastName}";
+                heroNameLabel.Text = $"{countyPopulation.firstName} {countyPopulation.lastName}";
                 heroListParent.AddChild(heroPrefab);
                 HeroListButton heroListButton = (HeroListButton)heroPrefab;
-                heroListButton.countyPopulation = hero;
-
-                heroListButton.GetNode<CheckButton>("CheckButton").ButtonPressed = hero.isSpawned;
-
+                heroListButton.countyPopulation = countyPopulation;
+                GD.Print("Hero Token: " + countyPopulation.token);
+                if(countyPopulation.token == null)
+                {
+                    heroListButton.GetNode<CheckButton>("CheckButton").ButtonPressed = false;
+                    continue;
+                }
+                else
+                {
+                    heroListButton.GetNode<CheckButton>("CheckButton").ButtonPressed = true;
+                }
             }
         }
         public void UpdateCountyPopulationLabel(int population)

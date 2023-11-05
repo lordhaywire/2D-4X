@@ -8,7 +8,7 @@
 [node name="Tillamook Oregon Node2D" type="Node2D" node_paths=PackedStringArray("heroSpawn")]
 script = ExtResource("1_sl76j")
 countyData = ExtResource("3_f0kj6")
-heroSpawn = NodePath("County Overlay Node2D/Hero Spawn Node2D")
+heroSpawn = NodePath("County Overlay Node2D/Hero Spawn Location Node2D")
 
 [node name="County Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(0.909804, 0.823529, 0.470588, 1)
@@ -31,7 +31,7 @@ z_index = 11
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("3_rjnjl")
 
-[node name="Hero Spawn Node2D" type="Node2D" parent="County Overlay Node2D"]
+[node name="Hero Spawn Location Node2D" type="Node2D" parent="County Overlay Node2D"]
 position = Vector2(0, -20)
 
 [connection signal="input_event" from="County Sprite2D/Area2D" to="." method="OnClick"]

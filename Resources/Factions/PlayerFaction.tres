@@ -7,6 +7,7 @@ script = ExtResource("1_k44ld")
 isPlayer = true
 factionName = "The Shitbirds"
 factionColor = Color(0, 0, 0, 0)
+factionCapitalCounty = 1
 money = 0
 food = 0
 scrap = 0

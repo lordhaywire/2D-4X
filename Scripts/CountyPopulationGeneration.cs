@@ -16,12 +16,27 @@ namespace PlayerSpace
         private string lastName;
         private bool isMale;
         private int age;
-        private bool isFactionLeader = false;
         private bool leaderOfPeoplePerk = false;
 
         public override void _Ready()
         {
+            CallDeferred("CreateFactionLeaders");
+            //CreateFactionLeaders();
             CallDeferred("CreatePopulation");
+        }
+
+        public void CreateFactionLeaders()
+        {
+            foreach (FactionData factionData in FactionGeneration.Instance.factions)
+            {
+                countiesParent = Globals.Instance.countiesParent;
+                // Generate Faction Leader County Population
+                GD.Print("Faction Capital ID: " + factionData.factionCapitalCounty);
+                selectCounty = (SelectCounty)countiesParent.GetChild(factionData.factionCapitalCounty);
+                countyData = selectCounty.countyData;
+                GeneratePopulation(true, 1); // There is never going to be more then 1 faction leader.
+                countyData.population += countyData.heroCountyPopulation.Count;
+            }
         }
         private void CreatePopulation()
         {
@@ -31,17 +46,18 @@ namespace PlayerSpace
             {
                 selectCounty = (SelectCounty)countiesParent.GetChild(i);
                 countyData = selectCounty.countyData;
-                countyData.population = 0;
                 countyData.countyID = i; // Generate countyID.
-                GD.PrintRich("[rainbow]County ID: " + countyData.countyID);
+                //GD.PrintRich("[rainbow]County ID: " + countyData.countyID);
 
                 // Generate the general population for the player Capitals.
                 if (countyData.isPlayerCapital == true || countyData.isAICapital)
                 {
+
                     // Generate Hero Population
+                    /*
                     GeneratePopulation(true, Globals.Instance.heroPopulation);
                     countyData.population += countyData.heroCountyPopulation.Count;
-
+                    */
                     // Generate Normal Population
                     GeneratePopulation(false, Globals.Instance.totalCapitolPop);
                     countyData.population += countyData.countyPopulation.Count;
@@ -50,8 +66,10 @@ namespace PlayerSpace
                 else
                 {
                     // Generate Hero Population
+                    /*
                     GeneratePopulation(true, Globals.Instance.heroPopulation);
                     countyData.population += countyData.heroCountyPopulation.Count;
+                    */
 
                     // Generate Normal Population
                     int normalPopulation = random.Next(Globals.Instance.minimumCountyPop, Globals.Instance.maximumCountyPop);
@@ -98,9 +116,9 @@ namespace PlayerSpace
 
                 if (hero == false)
                 {
-                    // This adds to the Godot Dictionary a new person.
+                    // This adds to the C# list.
                     countyData.countyPopulation.Add(new CountyPopulation(countyData.countyID, countyData.countyID, firstName
-                        , lastName, isMale, age, false, false, false, false, constructionSkill, AllText.Jobs.IDLE, AllText.Jobs.IDLE, false));
+                        , lastName, isMale, age, false, false, false, false, constructionSkill, AllText.Jobs.IDLE, AllText.Jobs.IDLE));
 
                     /*
                     CountyPopulation person = countyData.countyPopulation[i];
@@ -111,10 +129,10 @@ namespace PlayerSpace
                 }
                 else
                 {
+                    
                     // This adds to a C# list.
                     countyData.heroCountyPopulation.Add(new CountyPopulation(countyData.countyID, countyData.countyID, firstName
-                        , lastName, isMale, age, true, false, false, true, constructionSkill, AllText.Jobs.IDLE, AllText.Jobs.IDLE
-                        , false));
+                        , lastName, isMale, age, true, false, false, true, constructionSkill, AllText.Jobs.IDLE, AllText.Jobs.IDLE));
 
                     /*
                     CountyPopulation heroPerson = countyData.heroCountyPopulation[i];

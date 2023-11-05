@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=29 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_k200m"]
 [ext_resource type="Script" path="res://Scripts/Globals.cs" id="1_n6eaq"]
@@ -20,6 +20,8 @@
 [ext_resource type="Script" path="res://Scripts/UI/PopAndIdleButtons.cs" id="11_qq6fr"]
 [ext_resource type="Script" path="res://Scripts/UI/PopulationListUIElement.cs" id="13_f3vei"]
 [ext_resource type="Script" path="res://Scripts/UI/PopulationDescriptionUIElement.cs" id="13_ssvv1"]
+[ext_resource type="Script" path="res://Scripts/UI/RecruitButton.cs" id="16_k1ymn"]
+[ext_resource type="Script" path="res://Scripts/UI/RecruitHeroConfirmationPanelContainer.cs" id="17_sti7g"]
 [ext_resource type="Resource" uid="uid://8rlgk7ws51cg" path="res://Resources/Factions/AIFaction1.tres" id="19_ejwc7"]
 [ext_resource type="Script" path="res://Resources/CountyData.cs" id="20_h530l"]
 [ext_resource type="PackedScene" uid="uid://bpe1s5ug8pilx" path="res://County Scenes/Tillamook Oregon.tscn" id="20_tpk4k"]
@@ -50,7 +52,7 @@ heroToken = ExtResource("2_3ivw0")
 [node name="Faction Generation" type="Node" parent="."]
 script = ExtResource("2_vkprl")
 
-[node name="County Generation" type="Node" parent="."]
+[node name="County Population Generation" type="Node" parent="."]
 script = ExtResource("3_kcvsw")
 
 [node name="Random Faction Colors" type="Node" parent="."]
@@ -394,7 +396,50 @@ text = "Next Activity"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Recruit Button" type="Button" parent="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Population VBoxContainer" node_paths=PackedStringArray("confirmationPanelContainer")]
+custom_minimum_size = Vector2(75, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Recruit
+"
+script = ExtResource("16_k1ymn")
+confirmationPanelContainer = NodePath("../../Recuit Hero Confirmation PanelContainer")
+
+[node name="Recuit Hero Confirmation PanelContainer" type="PanelContainer" parent="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer" node_paths=PackedStringArray("titleLabel")]
+visible = false
+custom_minimum_size = Vector2(400, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("17_sti7g")
+titleLabel = NodePath("Title Label")
+
+[node name="Title Label" type="Label" parent="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Recuit Hero Confirmation PanelContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 16
+text = "Do you want to recruit bill smill for realz?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Recuit Hero Confirmation PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+alignment = 1
+
+[node name="No Button" type="Button" parent="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Recuit Hero Confirmation PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "No"
+
+[node name="Yes Button" type="Button" parent="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Recuit Hero Confirmation PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Yes"
+
 [node name="Close Button" type="Button" parent="Player UI Canvas/Population Description MarginContainer"]
+custom_minimum_size = Vector2(75, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -522,6 +567,8 @@ scale = Vector2(0.8, 0.8)
 [connection signal="visibility_changed" from="Player UI Canvas/Population List MarginContainer" to="Player UI Canvas/Population List MarginContainer" method="OnVisibilityChange"]
 [connection signal="button_up" from="Player UI Canvas/Population List MarginContainer/Close Button" to="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer" method="CloseButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Population Description MarginContainer" to="Player UI Canvas/Population Description MarginContainer" method="OnVisibilityChange"]
+[connection signal="button_up" from="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Population VBoxContainer/Recruit Button" to="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Population VBoxContainer/Recruit Button" method="OpenConfirmationPanel"]
+[connection signal="visibility_changed" from="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Recuit Hero Confirmation PanelContainer" to="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Recuit Hero Confirmation PanelContainer" method="OnVisibilityChange"]
 [connection signal="button_up" from="Player UI Canvas/Population Description MarginContainer/Close Button" to="Player UI Canvas/Population Description MarginContainer" method="CloseButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Research Control" to="Player UI Canvas/Research Control" method="OnVisibilityChange"]
 [connection signal="visibility_changed" from="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/Research Description PanelContainer" to="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/Research Description PanelContainer" method="OnVisibilityChanged"]

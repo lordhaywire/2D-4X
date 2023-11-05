@@ -34,14 +34,13 @@ namespace PlayerSpace
         //public GameObject nextBuilding;
 
         [ExportGroup("Token")]
-        public bool isSpawned;
+        public CharacterBody2D token;
 
-        
         public CountyPopulation(
-         
+
             int location, int destionation, string firstName, string lastName, bool isMale, int age, bool isFactionLeader
             , bool isHero, bool isWorker, bool leaderOfPeoplePerk, int constructionSkill, string currentActivity
-            , string nextActivity, bool isSpawned)
+            , string nextActivity)
         {
             this.location = location;
             this.destination = destionation;
@@ -60,10 +59,6 @@ namespace PlayerSpace
 
             this.currentActivity = currentActivity;
             this.nextActivity = nextActivity;
-
-            this.isSpawned = isSpawned;
         }
-        
     }
-
 }
