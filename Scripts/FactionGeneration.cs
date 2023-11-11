@@ -9,6 +9,7 @@ namespace PlayerSpace
 
         private string factionDataPath = "res://Resources/Factions/";
         public List<FactionData> factions = new();
+        public FactionData playerFaction;
 
         public override void _Ready()
         {
@@ -25,6 +26,11 @@ namespace PlayerSpace
                     var factionData = ResourceLoader.Load<FactionData>(factionDataPath + fileNames[i]);
                     factions.Add(factionData);
                     GD.Print($"Player? {factions[i].isPlayer} and Faction Name? {factions[i].factionName}");
+                    if (factions[i].isPlayer == true)
+                    {
+                        playerFaction = factionData;
+                        GD.Print("Player Faction: " + playerFaction.factionName);
+                    }
                 }
             }
             else

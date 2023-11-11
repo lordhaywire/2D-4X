@@ -16,7 +16,9 @@ namespace PlayerSpace
         public void GetInput()
         {
             Vector2 inputDirection = Input.GetVector("left", "right", "up", "down");
-            Velocity = inputDirection * Speed;
+
+            Velocity = (inputDirection * Speed) / Mathf.Max(Clock.Instance.ModifiedTimeScale, 1);
+
         }
 
         public override void _PhysicsProcess(double delta)
@@ -27,7 +29,7 @@ namespace PlayerSpace
 
         public override void _Input(InputEvent @event)
         {
-            if(Globals.Instance.playerControlsEnabled == true)
+            if (Globals.Instance.playerControlsEnabled == true)
             {
                 if (@event.IsActionPressed("mouse_wheel_up"))
                 {

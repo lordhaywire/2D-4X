@@ -5,6 +5,7 @@ namespace PlayerSpace
     public partial class PopulationDescriptionUIElement : MarginContainer
     {
         public static PopulationDescriptionUIElement Instance { get; private set; }
+
         [Export] private Label populationName;
         [Export] private Label age;
         [Export] private Label sex;
@@ -12,6 +13,9 @@ namespace PlayerSpace
         [Export] private Label currentActivity;
         [Export] private Label nextActivity;
 
+        [Export] private PanelContainer heroRecruitmentConfirmPanel;
+        [Export] private Button recruitButton;
+        
         public override void _Ready()
         {
             Instance = this;
@@ -25,6 +29,8 @@ namespace PlayerSpace
             }
             else
             {
+                CountyInfoControl.Instance.DisableSpawnHeroCheckButton(false);
+                heroRecruitmentConfirmPanel.Hide();
                 Globals.Instance.selectedCountyPopulation = null;
                 Globals.Instance.playerControlsEnabled = true;
                 Clock.Instance.UnpauseTime();
@@ -33,11 +39,21 @@ namespace PlayerSpace
 
         public void UpdateDescriptionInfo()
         {
+            CountyInfoControl.Instance.DisableSpawnHeroCheckButton(true);
             Clock.Instance.PauseTime(); // This is just in here for now, even though it sucks.
             Globals.Instance.playerControlsEnabled = false; // This too.
-
             CountyPopulation person = Globals.Instance.selectedCountyPopulation;
-            GD.Print("It goes to the update description: " + person.firstName);
+
+            if (FactionGeneration.Instance.playerFaction.Influence < Globals.Instance.costOfHero || person.isHero == true)
+            {
+                recruitButton.Disabled = true;
+            }
+            else
+            {
+                recruitButton.Disabled = false;
+            }
+
+            //GD.Print("It goes to the update description: " + person.firstName);
             populationName.Text = $"{person.firstName} {person.lastName}";
             age.Text = person.age.ToString();
             constructionSkill.Text = person.constructionSkill.ToString();

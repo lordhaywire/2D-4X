@@ -8,11 +8,14 @@ namespace PlayerSpace
         [Export] private VBoxContainer populationListParent;
         [Export] private PackedScene populationRowButtonPrefab;
         [Export] private Label populationListTitle;
+        
         private void OnVisibilityChange()
         {
+
             DestroyPopulationRows(); // Clears out the population, so it doesn't duplicate.
             if (Visible == true)
             {
+                CountyInfoControl.Instance.DisableSpawnHeroCheckButton(true);
                 CountyInfoControl.Instance.populationDescriptionMarginContainer.Hide();
                 Globals.Instance.playerControlsEnabled = false;
                 Clock.Instance.PauseTime();
@@ -23,6 +26,7 @@ namespace PlayerSpace
             }
             else
             {
+                CountyInfoControl.Instance.DisableSpawnHeroCheckButton(false);
                 Globals.Instance.playerControlsEnabled = true;
                 Clock.Instance.UnpauseTime();
             }

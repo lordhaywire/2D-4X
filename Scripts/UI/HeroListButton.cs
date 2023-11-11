@@ -6,12 +6,12 @@ namespace PlayerSpace
     {
         public CountyPopulation countyPopulation;
         private Node2D heroSpawnParent;
-        
+
         private void HeroButton()
         {
             Globals.Instance.selectedCountyPopulation = countyPopulation;
             CountyInfoControl.Instance.populationDescriptionMarginContainer.Show();
-            if(CountyInfoControl.Instance.populationDescriptionMarginContainer.Visible == true)
+            if (CountyInfoControl.Instance.populationDescriptionMarginContainer.Visible == true)
             {
                 PopulationDescriptionUIElement.Instance.UpdateDescriptionInfo();
             }
@@ -20,7 +20,7 @@ namespace PlayerSpace
 
         private void SpawnHeroCheckBox(bool toggleOn)
         {
-            if(toggleOn == true && countyPopulation.token == null)
+            if (toggleOn == true && countyPopulation.token == null)
             {
                 SelectCounty selectCounty = (SelectCounty)Globals.Instance.selectedCounty;
                 heroSpawnParent = selectCounty.heroSpawn;
@@ -29,8 +29,8 @@ namespace PlayerSpace
                 countyPopulation.token = spawnedHero;
                 SelectToken selectToken = (SelectToken)spawnedHero;
                 selectToken.countyPopulation = countyPopulation;
+                selectToken.countyPopulation.location = selectCounty.countyData.countyID;
                 spawnedHero.Name = $"{selectToken.countyPopulation.firstName} {selectToken.countyPopulation.lastName}";
-                
             }
         }
     }

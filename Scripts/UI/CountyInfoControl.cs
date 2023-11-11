@@ -7,16 +7,29 @@ namespace PlayerSpace
     {
         public static CountyInfoControl Instance { get; private set; }
 
+        [ExportGroup("Public Shit")]
+        [Export] public MarginContainer populationListMarginContainer;
+        [Export] public MarginContainer populationDescriptionMarginContainer;
+
+        [ExportGroup("Private Variables")]
         [Export] private VBoxContainer heroListParent;
+        [Export] private VBoxContainer heroSpawnCheckButtonParent;
         [Export] private PackedScene heroListPrefab;
         [Export] private Label countyPopulationLabel;
         [Export] private Label countyIdleWorkersLabel;
-        [Export] public MarginContainer populationListMarginContainer;
-        [Export] public MarginContainer populationDescriptionMarginContainer;
 
         public override void _Ready()
         {
             Instance = this;
+        }
+
+        public void DisableSpawnHeroCheckButton(bool value)
+        {
+            foreach (Node node in heroSpawnCheckButtonParent.GetChildren())
+            {
+                CheckButton checkbutton = (CheckButton)node.GetChild(2);
+                checkbutton.Disabled = value;
+            }
         }
 
         public void GenerateHeroesPanelList()
@@ -30,7 +43,7 @@ namespace PlayerSpace
                     hero.QueueFree();
                 }
             }
-
+            GD.Print($"{countyData.countyName} has {countyData.heroCountyPopulation.Count} heroes in it.");
             foreach (CountyPopulation countyPopulation in countyData.heroCountyPopulation)
             {
                 PanelContainer heroPrefab = (PanelContainer)heroListPrefab.Instantiate();

@@ -18,7 +18,7 @@ namespace PlayerSpace
         private void Move()
         {
             Vector2 target = Globals.Instance.heroMoveTarget;
-            token.GlobalPosition = GlobalPosition.MoveToward(target, Globals.Instance.movementSpeed);
+            token.GlobalPosition = GlobalPosition.MoveToward(target, Globals.Instance.movementSpeed * Clock.Instance.ModifiedTimeScale);
             if (GlobalPosition.DistanceTo(target) < 0.001f)
             {
                 ReachedDestination();

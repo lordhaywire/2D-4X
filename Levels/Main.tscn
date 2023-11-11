@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=31 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_k200m"]
 [ext_resource type="Script" path="res://Scripts/Globals.cs" id="1_n6eaq"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://Scripts/CountyPopulationGeneration.cs" id="3_kcvsw"]
 [ext_resource type="PackedScene" uid="uid://mr0rjj1gvjlu" path="res://UIScenes/TopBarControl.tscn" id="4_rk5xj"]
 [ext_resource type="Script" path="res://Scripts/UI/ResearchControl.cs" id="6_0iytx"]
+[ext_resource type="Script" path="res://Scripts/Banker.cs" id="8_8n5y7"]
 [ext_resource type="Script" path="res://Scripts/UI/ResearchDescriptionPanel.cs" id="8_p38gd"]
 [ext_resource type="Script" path="res://Scripts/RandomFactionColor.cs" id="9_1qbqs"]
 [ext_resource type="PackedScene" uid="uid://bxrhe2s0ke58r" path="res://Graphics/Provinces/Oregon.tscn" id="9_3rjcv"]
@@ -20,6 +21,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/PopAndIdleButtons.cs" id="11_qq6fr"]
 [ext_resource type="Script" path="res://Scripts/UI/PopulationListUIElement.cs" id="13_f3vei"]
 [ext_resource type="Script" path="res://Scripts/UI/PopulationDescriptionUIElement.cs" id="13_ssvv1"]
+[ext_resource type="Script" path="res://Scripts/HeroStacker.cs" id="14_w8g7v"]
 [ext_resource type="Script" path="res://Scripts/UI/RecruitButton.cs" id="16_k1ymn"]
 [ext_resource type="Script" path="res://Scripts/UI/RecruitHeroConfirmationPanelContainer.cs" id="17_sti7g"]
 [ext_resource type="Resource" uid="uid://8rlgk7ws51cg" path="res://Resources/Factions/AIFaction1.tres" id="19_ejwc7"]
@@ -48,6 +50,7 @@ countiesParent = NodePath("Counties")
 countyInfoControl = NodePath("Player UI Canvas/County Info Control")
 countyNameLabel = NodePath("Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/County Title Label")
 heroToken = ExtResource("2_3ivw0")
+costOfHero = 500
 
 [node name="Faction Generation" type="Node" parent="."]
 script = ExtResource("2_vkprl")
@@ -69,6 +72,9 @@ currentSpeedLabel = NodePath("../Player UI Canvas/Top Bar Control/Time and Resea
 pausedLabel = NodePath("../Player UI Canvas/Top Bar Control/Pause Control/Pause Label")
 ticks = 250
 
+[node name="Banker" type="Node" parent="."]
+script = ExtResource("8_8n5y7")
+
 [node name="Camera CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("camera")]
 position = Vector2(-84, 28)
 script = ExtResource("1_k200m")
@@ -79,9 +85,13 @@ position = Vector2(494, 479)
 
 [node name="Player UI Canvas" type="CanvasLayer" parent="."]
 
-[node name="Top Bar Control" parent="Player UI Canvas" node_paths=PackedStringArray("clock") instance=ExtResource("4_rk5xj")]
+[node name="Top Bar Control" parent="Player UI Canvas" node_paths=PackedStringArray("clock", "influenceLabel", "moneyLabel", "foodLabel", "scrapLabel") instance=ExtResource("4_rk5xj")]
 offset_bottom = 25.0
 clock = NodePath("../../Clock")
+influenceLabel = NodePath("Top Bar HBox/Influence Panel Container/Influence Number")
+moneyLabel = NodePath("Top Bar HBox/Money Panel Container/Money Number")
+foodLabel = NodePath("Top Bar HBox/Food Panel Container/Food Number")
+scrapLabel = NodePath("Top Bar HBox/Scrap Panel Container/Scrap Number")
 
 [node name="Pause Control" type="Control" parent="Player UI Canvas/Top Bar Control"]
 custom_minimum_size = Vector2(0, 24)
@@ -109,7 +119,7 @@ text = "Paused"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="County Info Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("heroListParent", "countyPopulationLabel", "countyIdleWorkersLabel", "populationListMarginContainer", "populationDescriptionMarginContainer")]
+[node name="County Info Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("populationListMarginContainer", "populationDescriptionMarginContainer", "heroListParent", "heroSpawnCheckButtonParent", "countyPopulationLabel", "countyIdleWorkersLabel")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -121,12 +131,13 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("10_11qbn")
+populationListMarginContainer = NodePath("../Population List MarginContainer")
+populationDescriptionMarginContainer = NodePath("../Population Description MarginContainer")
 heroListParent = NodePath("County and Heroes VBoxContainer/Heroes VBoxContainer")
+heroSpawnCheckButtonParent = NodePath("County and Heroes VBoxContainer/Heroes VBoxContainer")
 heroListPrefab = ExtResource("10_j48oi")
 countyPopulationLabel = NodePath("County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Population List Button/Population Button PanelContainer/Population Number Label")
 countyIdleWorkersLabel = NodePath("County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Idle Workers List Button/Idle Workers Button PanelContainer/Idle Workers Number Label")
-populationListMarginContainer = NodePath("../Population List MarginContainer")
-populationDescriptionMarginContainer = NodePath("../Population Description MarginContainer")
 
 [node name="County and Heroes VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control"]
 layout_mode = 0
@@ -214,6 +225,7 @@ horizontal_alignment = 1
 
 [node name="Heroes VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer"]
 layout_mode = 2
+script = ExtResource("14_w8g7v")
 
 [node name="Population List MarginContainer" type="MarginContainer" parent="Player UI Canvas" node_paths=PackedStringArray("populationListParent", "populationListTitle")]
 visible = false
@@ -281,7 +293,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "Close"
 
-[node name="Population Description MarginContainer" type="MarginContainer" parent="Player UI Canvas" node_paths=PackedStringArray("populationName", "age", "sex", "constructionSkill", "currentActivity", "nextActivity")]
+[node name="Population Description MarginContainer" type="MarginContainer" parent="Player UI Canvas" node_paths=PackedStringArray("populationName", "age", "sex", "constructionSkill", "currentActivity", "nextActivity", "heroRecruitmentConfirmPanel", "recruitButton")]
 visible = false
 custom_minimum_size = Vector2(1719, 1080)
 anchors_preset = 6
@@ -303,6 +315,8 @@ sex = NodePath("Population Description PanelContainer/Population VBoxContainer/S
 constructionSkill = NodePath("Population Description PanelContainer/Population VBoxContainer/Construction Skill Label")
 currentActivity = NodePath("Population Description PanelContainer/Population VBoxContainer/Current Activity Label")
 nextActivity = NodePath("Population Description PanelContainer/Population VBoxContainer/Next Activity Label")
+heroRecruitmentConfirmPanel = NodePath("Population Description PanelContainer/Recuit Hero Confirmation PanelContainer")
+recruitButton = NodePath("Population Description PanelContainer/Population VBoxContainer/Recruit Button")
 
 [node name="Population Description PanelContainer" type="PanelContainer" parent="Player UI Canvas/Population Description MarginContainer"]
 layout_mode = 2
@@ -436,6 +450,7 @@ text = "No"
 [node name="Yes Button" type="Button" parent="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Recuit Hero Confirmation PanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "You are a piece of shit!"
 text = "Yes"
 
 [node name="Close Button" type="Button" parent="Player UI Canvas/Population Description MarginContainer"]
@@ -551,6 +566,7 @@ position = Vector2(360, 526)
 position = Vector2(651, 550)
 
 [node name="Background Node2D" type="Node2D" parent="."]
+visible = false
 position = Vector2(-61, -53)
 script = ExtResource("9_1qbqs")
 
@@ -569,6 +585,8 @@ scale = Vector2(0.8, 0.8)
 [connection signal="visibility_changed" from="Player UI Canvas/Population Description MarginContainer" to="Player UI Canvas/Population Description MarginContainer" method="OnVisibilityChange"]
 [connection signal="button_up" from="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Population VBoxContainer/Recruit Button" to="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Population VBoxContainer/Recruit Button" method="OpenConfirmationPanel"]
 [connection signal="visibility_changed" from="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Recuit Hero Confirmation PanelContainer" to="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Recuit Hero Confirmation PanelContainer" method="OnVisibilityChange"]
+[connection signal="button_up" from="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Recuit Hero Confirmation PanelContainer/HBoxContainer/No Button" to="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Recuit Hero Confirmation PanelContainer" method="NoButton"]
+[connection signal="button_up" from="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Recuit Hero Confirmation PanelContainer/HBoxContainer/Yes Button" to="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Recuit Hero Confirmation PanelContainer" method="YesButton"]
 [connection signal="button_up" from="Player UI Canvas/Population Description MarginContainer/Close Button" to="Player UI Canvas/Population Description MarginContainer" method="CloseButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Research Control" to="Player UI Canvas/Research Control" method="OnVisibilityChange"]
 [connection signal="visibility_changed" from="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/Research Description PanelContainer" to="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/Research Description PanelContainer" method="OnVisibilityChanged"]

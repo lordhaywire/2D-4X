@@ -9,6 +9,8 @@ namespace PlayerSpace
         [Export] private Texture2D selectedTexture;
         [Export] private Texture2D unselectedTexture;
 
+        [Export] private Label tokenNameLabel;
+
         private bool isSelected;
         public TokenMovement tokenMovement;
 

@@ -3,6 +3,10 @@ namespace PlayerSpace
 {
     public class AllText
     {
+        public class ToolTips
+        {
+            public const string NOTENOUGHINFLUENCE = "You don't have enough influence";
+        }
         public class Titles
         {
             public const string POPLIST = "County Population";

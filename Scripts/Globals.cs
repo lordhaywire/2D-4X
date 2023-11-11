@@ -31,6 +31,7 @@ namespace PlayerSpace
         [Export] public PackedScene heroToken;
         [Export] public int movementSpeed = 10;
         [Export] public Vector2 heroMoveTarget;
+        [Export] public int costOfHero;
 
         public int researchClicked; // This is so the Research description panel knows which research was clicked.
 

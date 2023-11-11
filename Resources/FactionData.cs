@@ -1,11 +1,12 @@
 using Godot;
+using System;
 
 namespace PlayerSpace
 {
     [GlobalClass]
     public partial class FactionData : Resource
 	{
-        //public event Action InfluenceChanged;
+        public event Action InfluenceChanged;
 
         [Export] public bool isPlayer;
         [Export] public string factionName;
@@ -14,11 +15,12 @@ namespace PlayerSpace
         //public List<ResearchItem> researchItems;
         public CountyPopulation factionLeader;
 
-        [ExportGroup("Resources")]
+        [ExportGroup("Expendables")]
         [Export] public int money;
         [Export] public int food;
         [Export] public int scrap;
 
+        [ExportGroup("Getter Setter")]
         private int influence;
         [Export]
         public int Influence
@@ -27,7 +29,7 @@ namespace PlayerSpace
             set
             {
                 influence = value;
-                //InfluenceChanged?.Invoke();
+                InfluenceChanged?.Invoke();
             }
         }
     }

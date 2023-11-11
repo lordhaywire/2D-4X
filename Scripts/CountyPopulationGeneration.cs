@@ -132,7 +132,7 @@ namespace PlayerSpace
                     
                     // This adds to a C# list.
                     countyData.heroCountyPopulation.Add(new CountyPopulation(countyData.countyID, countyData.countyID, firstName
-                        , lastName, isMale, age, true, false, false, true, constructionSkill, AllText.Jobs.IDLE, AllText.Jobs.IDLE));
+                        , lastName, isMale, age, true, true, false, true, constructionSkill, AllText.Jobs.IDLE, AllText.Jobs.IDLE));
 
                     /*
                     CountyPopulation heroPerson = countyData.heroCountyPopulation[i];
