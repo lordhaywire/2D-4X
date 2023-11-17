@@ -30,6 +30,7 @@ namespace PlayerSpace
         [ExportGroup("Hero Shit")]
         [Export] public PackedScene heroToken;
         [Export] public int movementSpeed = 10;
+        [Export] public float heroStackingOffset = 3;
         [Export] public Vector2 heroMoveTarget;
         [Export] public int costOfHero;
 

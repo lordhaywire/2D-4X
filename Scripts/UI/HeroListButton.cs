@@ -5,7 +5,7 @@ namespace PlayerSpace
     public partial class HeroListButton : PanelContainer
     {
         public CountyPopulation countyPopulation;
-        private Node2D heroSpawnParent;
+        private HeroStacker heroSpawnParent;
 
         private void HeroButton()
         {
@@ -31,6 +31,12 @@ namespace PlayerSpace
                 selectToken.countyPopulation = countyPopulation;
                 selectToken.countyPopulation.location = selectCounty.countyData.countyID;
                 spawnedHero.Name = $"{selectToken.countyPopulation.firstName} {selectToken.countyPopulation.lastName}";
+
+                // Update the token's name label
+                selectToken.tokenNameLabel.Text = $"{countyPopulation.firstName} {countyPopulation.lastName}";
+
+                // Add heroToken to counties spawned hero list
+                selectCounty.heroSpawn.spawnedTokenList.Insert(0, spawnedHero);
             }
         }
     }

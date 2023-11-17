@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://chs3b4egrvgih"]
+[gd_scene load_steps=6 format=3 uid="uid://chs3b4egrvgih"]
 
 [ext_resource type="Script" path="res://Scripts/SelectCounty.cs" id="1_tqn7o"]
 [ext_resource type="Resource" uid="uid://bwkrcckgmgmn1" path="res://Resources/Counties/Portland.tres" id="2_crg1m"]
 [ext_resource type="Texture2D" uid="uid://b0d8lxt50iio6" path="res://Graphics/Counties/Portland Oregon County.png" id="2_xhd0l"]
 [ext_resource type="Texture2D" uid="uid://c3bhckl88r540" path="res://Graphics/Icons/Capital Icon.png" id="3_worhe"]
+[ext_resource type="Script" path="res://Scripts/HeroStacker.cs" id="5_pbs2c"]
 
 [node name="Portland Oregon Node2D" type="Node2D" node_paths=PackedStringArray("heroSpawn")]
 script = ExtResource("1_tqn7o")
@@ -32,5 +33,6 @@ texture = ExtResource("3_worhe")
 
 [node name="Hero Spawn Location Node2D" type="Node2D" parent="County Overlay Node2D"]
 position = Vector2(0, -20)
+script = ExtResource("5_pbs2c")
 
 [connection signal="input_event" from="County Sprite2D/Area2D" to="." method="OnClick"]

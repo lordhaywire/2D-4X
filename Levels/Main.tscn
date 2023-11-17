@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=30 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_k200m"]
 [ext_resource type="Script" path="res://Scripts/Globals.cs" id="1_n6eaq"]
@@ -21,7 +21,6 @@
 [ext_resource type="Script" path="res://Scripts/UI/PopAndIdleButtons.cs" id="11_qq6fr"]
 [ext_resource type="Script" path="res://Scripts/UI/PopulationListUIElement.cs" id="13_f3vei"]
 [ext_resource type="Script" path="res://Scripts/UI/PopulationDescriptionUIElement.cs" id="13_ssvv1"]
-[ext_resource type="Script" path="res://Scripts/HeroStacker.cs" id="14_w8g7v"]
 [ext_resource type="Script" path="res://Scripts/UI/RecruitButton.cs" id="16_k1ymn"]
 [ext_resource type="Script" path="res://Scripts/UI/RecruitHeroConfirmationPanelContainer.cs" id="17_sti7g"]
 [ext_resource type="Resource" uid="uid://8rlgk7ws51cg" path="res://Resources/Factions/AIFaction1.tres" id="19_ejwc7"]
@@ -225,7 +224,6 @@ horizontal_alignment = 1
 
 [node name="Heroes VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer"]
 layout_mode = 2
-script = ExtResource("14_w8g7v")
 
 [node name="Population List MarginContainer" type="MarginContainer" parent="Player UI Canvas" node_paths=PackedStringArray("populationListParent", "populationListTitle")]
 visible = false

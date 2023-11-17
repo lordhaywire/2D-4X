@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bpe1s5ug8pilx"]
+[gd_scene load_steps=6 format=3 uid="uid://bpe1s5ug8pilx"]
 
 [ext_resource type="Script" path="res://Scripts/SelectCounty.cs" id="1_sl76j"]
 [ext_resource type="Texture2D" uid="uid://b340qjcqqgar3" path="res://Graphics/Counties/Tillamook Oregon 1.png" id="2_3d3le"]
 [ext_resource type="Resource" uid="uid://cwiqoelw7ltr0" path="res://Resources/Counties/Tillamook.tres" id="3_f0kj6"]
 [ext_resource type="Texture2D" uid="uid://c3bhckl88r540" path="res://Graphics/Icons/Capital Icon.png" id="3_rjnjl"]
+[ext_resource type="Script" path="res://Scripts/HeroStacker.cs" id="5_27bcb"]
 
 [node name="Tillamook Oregon Node2D" type="Node2D" node_paths=PackedStringArray("heroSpawn")]
 script = ExtResource("1_sl76j")
@@ -33,5 +34,6 @@ texture = ExtResource("3_rjnjl")
 
 [node name="Hero Spawn Location Node2D" type="Node2D" parent="County Overlay Node2D"]
 position = Vector2(0, -20)
+script = ExtResource("5_27bcb")
 
 [connection signal="input_event" from="County Sprite2D/Area2D" to="." method="OnClick"]

@@ -8,13 +8,11 @@ namespace PlayerSpace
 
         [ExportGroup("Attached Nodes")]
         [Export] public Sprite2D capitalSprite;
-        [Export] public Node2D heroSpawn;
-
+        [Export] public HeroStacker heroSpawn;
         public override void _Ready()
         {
             capitalSprite = GetNode<Sprite2D>("County Overlay Node2D/Capital Sprite2D");
-            heroSpawn = GetNode<Node2D>("County Overlay Node2D/Hero Spawn Location Node2D");
-
+            heroSpawn = GetNode<HeroStacker>("County Overlay Node2D/Hero Spawn Location Node2D");
         }
         public void OnClick(Viewport _viewport, InputEvent @event, int _shapeIdx)
         {
@@ -45,9 +43,19 @@ namespace PlayerSpace
                     if (Globals.Instance.selectedToken != null)
                     {
                         SelectToken selectToken = (SelectToken)Globals.Instance.selectedToken;
+                        CountyPopulation countyPopulation = selectToken.countyPopulation;
+                        SelectCounty selectLocationCounty 
+                            = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
                         Globals.Instance.heroMoveTarget = heroSpawn.GlobalPosition;
-                        selectToken.tokenMovement.move = true;
-                        selectToken.countyPopulation.destination = countyData.countyID;
+
+                        countyPopulation.destination = countyData.countyID;
+                        selectToken.tokenMovement.MoveToken = true;
+
+                        // Remove countyPopulation from the heroes starting county location list.
+                        selectLocationCounty.countyData.heroCountyPopulation.Remove(countyPopulation);
+
+                        // Removed from spawnedTokenList in starting county location.
+                        selectLocationCounty.heroSpawn.spawnedTokenList.Remove(selectToken);
                     }
 
                 }

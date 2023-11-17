@@ -9,7 +9,8 @@ namespace PlayerSpace
         [Export] private Texture2D selectedTexture;
         [Export] private Texture2D unselectedTexture;
 
-        [Export] private Label tokenNameLabel;
+        [Export] public Label tokenNameLabel;
+        [Export] public Label stackCountLabel;
 
         private bool isSelected;
         public TokenMovement tokenMovement;
@@ -43,8 +44,8 @@ namespace PlayerSpace
             {
                 if (eventMouseButton.ButtonIndex == MouseButton.Left && eventMouseButton.Pressed == false)
                 {
-
-                    viewport.SetInputAsHandled(); // This stops the click at this event, so it doesn't pass through.                
+                    viewport.SetInputAsHandled(); // This stops the click at this event, so it doesn't pass through.
+                                                  // It doesn't seem to work all the time though.
                     IsSelected = true;
                     GD.Print($"You clicked on a hero! Motherfucker: {Globals.Instance.selectedToken.Name} and isSelected: {IsSelected}");
                     SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);

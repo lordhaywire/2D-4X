@@ -5,11 +5,41 @@ namespace PlayerSpace
     public partial class TokenMovement : Node2D
     {
         [Export] private CharacterBody2D token;
-        [Export] public bool move;
+        [Export] private bool moveToken;
 
+        public bool MoveToken
+        {
+            get { return moveToken; }
+            set
+            {
+                moveToken = value;
+                if (moveToken == true)
+                {
+                    SelectToken selectToken = (SelectToken)GetParent();
+                    selectToken.stackCountLabel.Hide();
+                    /*
+                    tokenInfo.countyPopulation.location.GetComponent<CountyHeroStacking>().spawnedTokenList.Remove(gameObject);
+                    WorldMapLoad.Instance.countyHeroes[tokenInfo.countyPopulation.location.name]
+                    .Remove(gameObject.GetComponent<TokenInfo>().countyPopulation);
+                    WorldMapLoad.Instance.countyPopulationDictionary[tokenInfo.countyPopulation.location.name]
+                    .Remove(gameObject.GetComponent<TokenInfo>().countyPopulation);
+                    */
+                }
+                else
+                {
+                    /*
+                    if (tokenInfo.countyPopulation.destination.GetComponent<CountyHeroStacking>().spawnedTokenList.Count() > 1)
+                    {
+                        stackCounterGameObject.SetActive(true);
+                    }
+                    */
+
+                }
+            }
+        }
         public override void _PhysicsProcess(double delta)
         {
-            if (move == true)
+            if (moveToken == true)
             {
                 Move();
             }
@@ -19,6 +49,7 @@ namespace PlayerSpace
         {
             Vector2 target = Globals.Instance.heroMoveTarget;
             token.GlobalPosition = GlobalPosition.MoveToward(target, Globals.Instance.movementSpeed * Clock.Instance.ModifiedTimeScale);
+            //GD.Print($"{GetParent().Name} is moving!");
             if (GlobalPosition.DistanceTo(target) < 0.001f)
             {
                 ReachedDestination();
@@ -28,25 +59,30 @@ namespace PlayerSpace
         private void ReachedDestination()
         {
             GD.Print(token.Name + " got to destination!");
-            move = false;
+            moveToken = false;
             SelectToken selectToken = (SelectToken)GetParent();
             CountyPopulation countyPopulation = selectToken.countyPopulation;
 
-            // Remove them from their starting location list.
-            SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
-            selectCounty.countyData.heroCountyPopulation.Remove(countyPopulation);
-            countyPopulation.token.GetParent().RemoveChild(countyPopulation.token);
-
             // Add them to their destination list and move them to the Hero Spawn Location Node2D corresponding to the County.
-            selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.destination);
+            SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.destination);
             selectCounty.countyData.heroCountyPopulation.Add(countyPopulation);
-            selectCounty.heroSpawn.AddChild(countyPopulation.token);
-            countyPopulation.token.GlobalPosition = selectCounty.heroSpawn.GlobalPosition;
-            countyPopulation.location = selectCounty.countyData.countyID;
+
+            countyPopulation.token.Reparent(selectCounty.heroSpawn); // Change to GetParent().
+            //countyPopulation.token.GlobalPosition = selectCounty.heroSpawn.GlobalPosition; // This should be able to be removed because
+            // it should be done in the HeroStacker.
+
             GD.Print($"{countyPopulation.firstName} is in {selectCounty.countyData.countyName}");
+
+            // Change their current location to what was their destination. This has to be above the list insert.
+            countyPopulation.location = selectCounty.countyData.countyID;
 
             // Refresh the list of heroes beneath the CountyInfo Panel.
             CountyInfoControl.Instance.GenerateHeroesPanelList();
+
+            // Add to the spawnedHeroList when it gets to its destination.
+            selectCounty.heroSpawn.spawnedTokenList.Insert(0, selectToken);
+
+
         }
     }
 }
