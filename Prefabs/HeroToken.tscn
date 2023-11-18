@@ -1,20 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://cwe0ergnkkfm0"]
+[gd_scene load_steps=5 format=3 uid="uid://cwe0ergnkkfm0"]
 
 [ext_resource type="Script" path="res://Scripts/SelectToken.cs" id="1_ncr34"]
 [ext_resource type="Texture2D" uid="uid://7jvylb78h24w" path="res://Graphics/Tokens/HornedGuyUnselected.png" id="1_palk8"]
-[ext_resource type="Texture2D" uid="uid://dqlvmop4g8aam" path="res://Graphics/Tokens/HornedGuySelected.png" id="3_26fkh"]
 [ext_resource type="Script" path="res://Scripts/TokenMovement.cs" id="5_rd3p0"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_wgmvf"]
-radius = 13.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_5c5hi"]
+radius = 13.0384
 
 [node name="HeroToken" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "tokenNameLabel", "stackCountLabel")]
 z_index = 15
 input_pickable = true
 script = ExtResource("1_ncr34")
 sprite = NodePath("Sprite2D")
-selectedTexture = ExtResource("3_26fkh")
-unselectedTexture = ExtResource("1_palk8")
 tokenNameLabel = NodePath("Token Control/Name Control/Name Label")
 stackCountLabel = NodePath("Token Control/Stack Count Control/Stack Count Label")
 
@@ -27,10 +24,8 @@ scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_palk8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-self_modulate = Color(1, 0.027451, 0, 1)
-z_index = 500
-z_as_relative = false
-shape = SubResource("CircleShape2D_wgmvf")
+visible = false
+shape = SubResource("CircleShape2D_5c5hi")
 
 [node name="Token Control" type="Control" parent="."]
 layout_mode = 3
@@ -97,3 +92,5 @@ text = "5"
 horizontal_alignment = 1
 
 [connection signal="input_event" from="." to="." method="OnClick"]
+[connection signal="mouse_entered" from="." to="." method="OnMouseEnter"]
+[connection signal="mouse_exited" from="." to="." method="OnMouseExit"]

@@ -11,7 +11,35 @@ namespace PlayerSpace
         [Export] public CountyData selectedCountyData;
         [Export] public Node2D selectedCounty;
         [Export] public CountyPopulation selectedCountyPopulation;
-        [Export] public CharacterBody2D selectedToken;
+        [Export] private SelectToken currentlySelectedToken;
+
+        [ExportGroup("Token Textures")]
+        [Export] private Texture2D selectedHeroTexture;
+        [Export] private Texture2D unselectedHeroTexture;
+
+        public SelectToken CurrentlySelectedToken
+        {
+            get
+            {
+                return currentlySelectedToken;
+            }
+            set
+            {
+                if (currentlySelectedToken != null)
+                {
+                    currentlySelectedToken.sprite.Texture = unselectedHeroTexture;
+                }
+                if (value == null)
+                {
+                    currentlySelectedToken.sprite.Texture = unselectedHeroTexture;
+                }
+                currentlySelectedToken = value;
+                if (currentlySelectedToken != null)
+                {
+                    currentlySelectedToken.sprite.Texture = selectedHeroTexture;
+                }
+            }
+        }
 
         [ExportGroup("Population Generation")]
         [Export] public Node2D countiesParent; // Used for Population generation and random color.  I think we are going to change how the colors are distubuted.
@@ -44,6 +72,9 @@ namespace PlayerSpace
         public List<string> maleNames = new();
         public List<string> femaleNames = new();
         public List<string> lastNames = new();
+
+        [ExportGroup("This is some bullshit.")]
+        [Export] public bool isInsideToken;
 
         public override void _Ready()
         {

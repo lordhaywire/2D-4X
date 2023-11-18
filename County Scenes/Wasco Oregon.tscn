@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://Scripts/HeroStacker.cs" id="5_mt7t1"]
 
 [node name="Wasco Oregon Node2D" type="Node2D" node_paths=PackedStringArray("heroSpawn")]
+z_index = 10
+z_as_relative = false
 script = ExtResource("1_q76mg")
 countyData = ExtResource("2_swyw3")
 heroSpawn = NodePath("County Overlay Node2D/Hero Spawn Location Node2D")

@@ -30,7 +30,9 @@ namespace PlayerSpace
                     SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(selectToken.countyPopulation.location);
                     GD.Print("Hero in stack: " + selectToken.Name + i);
                     // Change each token's order to be lower then the one on "top" of it.
-                    selectToken.ZIndex = 100 - i;
+                    //selectToken.ZIndex = 100 - i; // I don't think this matters and instead we need the order in the tree to be the same
+                    // as the list.
+
                     selectToken.stackCountLabel.Text = spawnedTokenList.Count().ToString();
 
                     if (i == 0)
@@ -54,6 +56,7 @@ namespace PlayerSpace
                             = new Vector2(selectCounty.heroSpawn.GlobalPosition.X + (i * Globals.Instance.heroStackingOffset)
                             , selectCounty.heroSpawn.GlobalPosition.Y);
                     }
+                    selectCounty.heroSpawn.MoveChild(selectToken, );
                 }
             }
         }

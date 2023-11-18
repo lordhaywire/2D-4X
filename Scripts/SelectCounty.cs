@@ -14,35 +14,36 @@ namespace PlayerSpace
             capitalSprite = GetNode<Sprite2D>("County Overlay Node2D/Capital Sprite2D");
             heroSpawn = GetNode<HeroStacker>("County Overlay Node2D/Hero Spawn Location Node2D");
         }
-        public void OnClick(Viewport _viewport, InputEvent @event, int _shapeIdx)
+        public void OnClick(Viewport viewport, InputEvent @event, int _shapeIdx)
         {
             if (@event is InputEventMouseButton eventMouseButton)
             {
                 // Left Click on County
-                if (eventMouseButton.ButtonIndex == MouseButton.Left && eventMouseButton.Pressed == false)
+                if (eventMouseButton.ButtonIndex == MouseButton.Left && eventMouseButton.Pressed == false 
+                    && Globals.Instance.isInsideToken == false)
                 {
                     // When you select a county with left click it unselects the selected hero.
-                    if (Globals.Instance.selectedToken != null)
+                    if (Globals.Instance.CurrentlySelectedToken != null)
                     {
-                        SelectToken selectToken = (SelectToken)Globals.Instance.selectedToken;
-                        selectToken.IsSelected = false;
+                        SelectToken selectToken = Globals.Instance.CurrentlySelectedToken;
                     }
-                    GD.Print("You left clicked, dude!");
-                    Globals.Instance.countyNameLabel.Text = countyData.countyName;
+                    GD.Print($"You left clicked on {Name}, dude!");
+                    Globals.Instance.countyNameLabel.Text = countyData.countyName; // I think this should be in PlayerUI
                     Globals.Instance.selectedCountyData = countyData;
                     Globals.Instance.selectedCounty = this;
                     CountyInfoControl.Instance.UpdateCountyPopulationLabel(countyData.population);
                     CountyInfoControl.Instance.UpdateIdleWorkersLabel(countyData.idleWorkers);
                     CountyInfoControl.Instance.GenerateHeroesPanelList();
                     Globals.Instance.countyInfoControl.Show(); // This has to be last.
+                    
                 }
                 // Right Click on County
                 if (eventMouseButton.ButtonIndex == MouseButton.Right && eventMouseButton.Pressed == false)
                 {
                     GD.Print("You right clicked, dude!");
-                    if (Globals.Instance.selectedToken != null)
+                    if (Globals.Instance.CurrentlySelectedToken != null)
                     {
-                        SelectToken selectToken = (SelectToken)Globals.Instance.selectedToken;
+                        SelectToken selectToken = (SelectToken)Globals.Instance.CurrentlySelectedToken;
                         CountyPopulation countyPopulation = selectToken.countyPopulation;
                         SelectCounty selectLocationCounty 
                             = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);

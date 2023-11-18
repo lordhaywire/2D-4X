@@ -35,6 +35,8 @@ namespace PlayerSpace
                 // Update the token's name label
                 selectToken.tokenNameLabel.Text = $"{countyPopulation.firstName} {countyPopulation.lastName}";
 
+                // Assign to Currently Selected Hero so it is ready to be moved.
+                Globals.Instance.CurrentlySelectedToken = selectToken;
                 // Add heroToken to counties spawned hero list
                 selectCounty.heroSpawn.spawnedTokenList.Insert(0, spawnedHero);
             }

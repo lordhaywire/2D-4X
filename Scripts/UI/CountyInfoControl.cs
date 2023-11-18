@@ -43,7 +43,7 @@ namespace PlayerSpace
                     hero.QueueFree();
                 }
             }
-            GD.Print($"{countyData.countyName} has {countyData.heroCountyPopulation.Count} heroes in it.");
+            //GD.Print($"{countyData.countyName} has {countyData.heroCountyPopulation.Count} heroes in it.");
             foreach (CountyPopulation countyPopulation in countyData.heroCountyPopulation)
             {
                 PanelContainer heroPrefab = (PanelContainer)heroListPrefab.Instantiate();
@@ -53,7 +53,7 @@ namespace PlayerSpace
                 heroListParent.AddChild(heroPrefab);
                 HeroListButton heroListButton = (HeroListButton)heroPrefab;
                 heroListButton.countyPopulation = countyPopulation;
-                GD.Print("Hero Token: " + countyPopulation.token);
+                //GD.Print("Hero Token: " + countyPopulation.token);
                 if(countyPopulation.token == null)
                 {
                     heroListButton.GetNode<CheckButton>("CheckButton").ButtonPressed = false;

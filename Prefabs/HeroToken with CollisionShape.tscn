@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://ddyt5j67inh5b"]
+[gd_scene load_steps=5 format=3 uid="uid://ddyt5j67inh5b"]
 
 [ext_resource type="Script" path="res://Scripts/SelectToken.cs" id="1_tea24"]
-[ext_resource type="Texture2D" uid="uid://dqlvmop4g8aam" path="res://Graphics/Tokens/HornedGuySelected.png" id="2_cfcto"]
 [ext_resource type="Texture2D" uid="uid://7jvylb78h24w" path="res://Graphics/Tokens/HornedGuyUnselected.png" id="3_r0es0"]
 [ext_resource type="Script" path="res://Scripts/TokenMovement.cs" id="4_vkv8g"]
 
@@ -13,8 +12,6 @@ z_index = 15
 input_pickable = true
 script = ExtResource("1_tea24")
 sprite = NodePath("Sprite2D")
-selectedTexture = ExtResource("2_cfcto")
-unselectedTexture = ExtResource("3_r0es0")
 tokenNameLabel = NodePath("Token Control/Name Control/Name Label")
 stackCountLabel = NodePath("Token Control/Stack Count Control/Stack Count Label")
 

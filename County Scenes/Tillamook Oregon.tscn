@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://Scripts/HeroStacker.cs" id="5_27bcb"]
 
 [node name="Tillamook Oregon Node2D" type="Node2D" node_paths=PackedStringArray("heroSpawn")]
+z_index = 10
+z_as_relative = false
 script = ExtResource("1_sl76j")
 countyData = ExtResource("3_f0kj6")
 heroSpawn = NodePath("County Overlay Node2D/Hero Spawn Location Node2D")
