@@ -8,7 +8,7 @@ namespace PlayerSpace
     {
         //public static HeroStacker Instance { get; private set; }
 
-        public ListWithNotify<CharacterBody2D> spawnedTokenList = new(); // This is not a normal list.
+        public ListWithNotify<SelectToken> spawnedTokenList = new(); // This is not a normal list.
         public override void _Ready()
         {
             //Instance = this;
@@ -19,6 +19,8 @@ namespace PlayerSpace
         {
             //Debug.Log("Something got added to the list.");
             StackTokens();
+            CountyInfoControl.Instance.UpdateCountyPopulationLabel();
+            CountyInfoControl.Instance.UpdateIdleWorkersLabel();
         }
         public void StackTokens()
         {
@@ -26,9 +28,9 @@ namespace PlayerSpace
             {
                 for (int i = 0; i < spawnedTokenList.Count(); i++)
                 {
-                    SelectToken selectToken = (SelectToken)spawnedTokenList[i];
+                    SelectToken selectToken = spawnedTokenList[i];
                     SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(selectToken.countyPopulation.location);
-                    GD.Print("Hero in stack: " + selectToken.Name + i);
+                    
                     // Change each token's order to be lower then the one on "top" of it.
                     //selectToken.ZIndex = 100 - i; // I don't think this matters and instead we need the order in the tree to be the same
                     // as the list.
@@ -37,16 +39,19 @@ namespace PlayerSpace
 
                     if (i == 0)
                     {
+                        GD.Print("Set Selected Hero 1.");
                         selectToken.tokenNameLabel.Show();
                         selectToken.stackCountLabel.Show();
                         selectToken.GlobalPosition = selectCounty.heroSpawn.GlobalPosition;
-
+                        selectToken.InputPickable = true;
+                        
                         /*
-                        if (Globals.Instance.selectedToken.TokenMovem == false)
+                        if(Globals.Instance.CurrentlySelectedToken.countyPopulation.destination == selectCounty.countyData.countyID)
                         {
-                            WorldMapLoad.Instance.CurrentlySelectedToken = spawnedTokenList[i];
+                            Globals.Instance.CurrentlySelectedToken = selectToken;
                         }
                         */
+                        
                     }
                     else
                     {
@@ -55,9 +60,21 @@ namespace PlayerSpace
                         selectToken.GlobalPosition
                             = new Vector2(selectCounty.heroSpawn.GlobalPosition.X + (i * Globals.Instance.heroStackingOffset)
                             , selectCounty.heroSpawn.GlobalPosition.Y);
+                        selectToken.InputPickable = false;
                     }
-                    selectCounty.heroSpawn.MoveChild(selectToken, );
+                    selectCounty.heroSpawn.MoveChild(selectToken, 0);   
                 }
+                for (int x = 0; x < spawnedTokenList.Count(); x++)
+                {
+                    SelectToken selectToken = spawnedTokenList[x];
+                    GD.Print($"Hero in stack: {selectToken.Name} {x}");
+                }
+            }
+            else if (spawnedTokenList.Count() == 1)
+            {
+                SelectToken selectToken = spawnedTokenList[0];
+                selectToken.InputPickable = true;
+                selectToken.tokenNameLabel.Show();
             }
         }
 
@@ -113,7 +130,6 @@ namespace PlayerSpace
                 list.RemoveAt(i);
                 notifyListeners?.Invoke();
             }
-
         }
     }
 }

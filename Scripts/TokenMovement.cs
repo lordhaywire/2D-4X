@@ -17,23 +17,6 @@ namespace PlayerSpace
                 {
                     SelectToken selectToken = (SelectToken)GetParent();
                     selectToken.stackCountLabel.Hide();
-                    /*
-                    tokenInfo.countyPopulation.location.GetComponent<CountyHeroStacking>().spawnedTokenList.Remove(gameObject);
-                    WorldMapLoad.Instance.countyHeroes[tokenInfo.countyPopulation.location.name]
-                    .Remove(gameObject.GetComponent<TokenInfo>().countyPopulation);
-                    WorldMapLoad.Instance.countyPopulationDictionary[tokenInfo.countyPopulation.location.name]
-                    .Remove(gameObject.GetComponent<TokenInfo>().countyPopulation);
-                    */
-                }
-                else
-                {
-                    /*
-                    if (tokenInfo.countyPopulation.destination.GetComponent<CountyHeroStacking>().spawnedTokenList.Count() > 1)
-                    {
-                        stackCounterGameObject.SetActive(true);
-                    }
-                    */
-
                 }
             }
         }
@@ -67,9 +50,7 @@ namespace PlayerSpace
             SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.destination);
             selectCounty.countyData.heroCountyPopulation.Add(countyPopulation);
 
-            countyPopulation.token.Reparent(selectCounty.heroSpawn); // Change to GetParent().
-            //countyPopulation.token.GlobalPosition = selectCounty.heroSpawn.GlobalPosition; // This should be able to be removed because
-            // it should be done in the HeroStacker.
+            countyPopulation.token.Reparent(selectCounty.heroSpawn);
 
             GD.Print($"{countyPopulation.firstName} is in {selectCounty.countyData.countyName}");
 

@@ -53,6 +53,7 @@ countiesParent = NodePath("Counties")
 countyInfoControl = NodePath("Player UI Canvas/County Info Control")
 countyNameLabel = NodePath("Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/County Title Label")
 heroToken = ExtResource("2_3ivw0")
+movementSpeed = 5
 costOfHero = 500
 
 [node name="Faction Generation" type="Node" parent="."]

@@ -29,14 +29,10 @@ namespace PlayerSpace
                 {
                     currentlySelectedToken.sprite.Texture = unselectedHeroTexture;
                 }
-                if (value == null)
-                {
-                    currentlySelectedToken.sprite.Texture = unselectedHeroTexture;
-                }
                 currentlySelectedToken = value;
                 if (currentlySelectedToken != null)
                 {
-                    currentlySelectedToken.sprite.Texture = selectedHeroTexture;
+                    currentlySelectedToken.sprite.Texture = selectedHeroTexture;                  
                 }
             }
         }

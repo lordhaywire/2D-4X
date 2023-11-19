@@ -38,7 +38,7 @@ namespace PlayerSpace
                 // Assign to Currently Selected Hero so it is ready to be moved.
                 Globals.Instance.CurrentlySelectedToken = selectToken;
                 // Add heroToken to counties spawned hero list
-                selectCounty.heroSpawn.spawnedTokenList.Insert(0, spawnedHero);
+                selectCounty.heroSpawn.spawnedTokenList.Insert(0, selectToken);
             }
         }
     }

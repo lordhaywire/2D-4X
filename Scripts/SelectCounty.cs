@@ -23,16 +23,14 @@ namespace PlayerSpace
                     && Globals.Instance.isInsideToken == false)
                 {
                     // When you select a county with left click it unselects the selected hero.
-                    if (Globals.Instance.CurrentlySelectedToken != null)
-                    {
-                        SelectToken selectToken = Globals.Instance.CurrentlySelectedToken;
-                    }
+
+                    Globals.Instance.CurrentlySelectedToken = null;
                     GD.Print($"You left clicked on {Name}, dude!");
                     Globals.Instance.countyNameLabel.Text = countyData.countyName; // I think this should be in PlayerUI
                     Globals.Instance.selectedCountyData = countyData;
                     Globals.Instance.selectedCounty = this;
-                    CountyInfoControl.Instance.UpdateCountyPopulationLabel(countyData.population);
-                    CountyInfoControl.Instance.UpdateIdleWorkersLabel(countyData.idleWorkers);
+                    CountyInfoControl.Instance.UpdateCountyPopulationLabel();
+                    CountyInfoControl.Instance.UpdateIdleWorkersLabel();
                     CountyInfoControl.Instance.GenerateHeroesPanelList();
                     Globals.Instance.countyInfoControl.Show(); // This has to be last.
                     
@@ -43,20 +41,31 @@ namespace PlayerSpace
                     GD.Print("You right clicked, dude!");
                     if (Globals.Instance.CurrentlySelectedToken != null)
                     {
-                        SelectToken selectToken = (SelectToken)Globals.Instance.CurrentlySelectedToken;
+                        SelectToken selectToken = Globals.Instance.CurrentlySelectedToken;
                         CountyPopulation countyPopulation = selectToken.countyPopulation;
-                        SelectCounty selectLocationCounty 
-                            = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
-                        Globals.Instance.heroMoveTarget = heroSpawn.GlobalPosition;
 
-                        countyPopulation.destination = countyData.countyID;
-                        selectToken.tokenMovement.MoveToken = true;
+                        if (selectToken.tokenMovement.MoveToken != true)
+                        {
+                            GD.Print($"{selectToken.countyPopulation.firstName} has location of {countyPopulation.location}");
+                            SelectCounty selectLocationCounty
+                                = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
+                            Globals.Instance.heroMoveTarget = heroSpawn.GlobalPosition;
 
-                        // Remove countyPopulation from the heroes starting county location list.
-                        selectLocationCounty.countyData.heroCountyPopulation.Remove(countyPopulation);
+                            countyPopulation.destination = countyData.countyID;
+                            selectToken.tokenMovement.MoveToken = true;
 
-                        // Removed from spawnedTokenList in starting county location.
-                        selectLocationCounty.heroSpawn.spawnedTokenList.Remove(selectToken);
+                            // Remove countyPopulation from the heroes starting county location list.
+                            selectLocationCounty.countyData.heroCountyPopulation.Remove(countyPopulation);
+
+                            // Removed from spawnedTokenList in starting county location.
+                            selectLocationCounty.heroSpawn.spawnedTokenList.Remove(selectToken);
+                        }
+                        else
+                        {
+                            SelectCounty homeCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(Globals.Instance.CurrentlySelectedToken.countyPopulation.location);
+                            countyPopulation.destination = homeCounty.countyData.countyID;
+                            Globals.Instance.heroMoveTarget = homeCounty.heroSpawn.GlobalPosition;
+                        }
                     }
 
                 }

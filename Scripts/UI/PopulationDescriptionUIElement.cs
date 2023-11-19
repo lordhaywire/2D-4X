@@ -26,6 +26,7 @@ namespace PlayerSpace
             if(Visible == true)
             {
                 CallDeferred("UpdateDescriptionInfo");
+                Clock.Instance.PauseTime(); 
             }
             else
             {
@@ -40,7 +41,6 @@ namespace PlayerSpace
         public void UpdateDescriptionInfo()
         {
             CountyInfoControl.Instance.DisableSpawnHeroCheckButton(true);
-            Clock.Instance.PauseTime(); // This is just in here for now, even though it sucks.
             Globals.Instance.playerControlsEnabled = false; // This too.
             CountyPopulation person = Globals.Instance.selectedCountyPopulation;
 

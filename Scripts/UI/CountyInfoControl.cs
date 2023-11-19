@@ -65,14 +65,16 @@ namespace PlayerSpace
                 }
             }
         }
-        public void UpdateCountyPopulationLabel(int population)
+        public void UpdateCountyPopulationLabel()
         {
+            int population = Globals.Instance.selectedCountyData.countyPopulation.Count + Globals.Instance.selectedCountyData.heroCountyPopulation.Count;
             countyPopulationLabel.Text = population.ToString();
         }
 
-        public void UpdateIdleWorkersLabel(int idleWorkersNumbers)
+        // This is going to break once we put people to work.
+        public void UpdateIdleWorkersLabel()
         {
-            countyIdleWorkersLabel.Text = idleWorkersNumbers.ToString();
+            countyIdleWorkersLabel.Text = countyPopulationLabel.Text;
         }
     }
 }

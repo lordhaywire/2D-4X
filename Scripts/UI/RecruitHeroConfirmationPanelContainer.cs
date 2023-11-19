@@ -19,6 +19,7 @@ namespace PlayerSpace
 
             selectCounty.countyData.countyPopulation.Remove(Globals.Instance.selectedCountyPopulation);
             selectCounty.countyData.heroCountyPopulation.Add(Globals.Instance.selectedCountyPopulation);
+            
             CountyInfoControl.Instance.GenerateHeroesPanelList();
 
             Banker.Instance.ChargeForHero();

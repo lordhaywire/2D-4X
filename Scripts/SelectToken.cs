@@ -1,5 +1,4 @@
 using Godot;
-using System.Collections.Generic;
 
 namespace PlayerSpace
 {
@@ -21,13 +20,13 @@ namespace PlayerSpace
 
         private void OnMouseEnter()
         {
-            //GD.Print("Mouse is inside the token.");
+            GD.Print("Mouse is inside the token.");
             Globals.Instance.isInsideToken = true;
         }
 
         private void OnMouseExit()
         {
-            //GD.Print("Mouse is outside the token.");
+            GD.Print("Mouse is outside the token.");
             Globals.Instance.isInsideToken = false;
         }
 
@@ -39,26 +38,29 @@ namespace PlayerSpace
                 {
                     viewport.SetInputAsHandled(); // This stops the click at this event, so it doesn't pass through.
                                                   // It doesn't seem to work all the time though.
+                    GD.Print($"You have clicked on {countyPopulation.firstName} {countyPopulation.lastName}");
                     SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
-                    GD.Print($"Selected Token Name: {Globals.Instance.CurrentlySelectedToken.Name}");
-                    GD.Print($"This name: {countyPopulation.firstName} and {Name}");
-                    GD.Print($"the count of the list is {selectCounty.heroSpawn.spawnedTokenList.Count()}");
-                    if (Globals.Instance.CurrentlySelectedToken.Name == Name && selectCounty.heroSpawn.spawnedTokenList.Count() > 1)
-                    {
-                        // Move the top token to the bottom.
-                        GD.Print($"Move {Name} to bottom");
-                        var spawnedTokenList = selectCounty.heroSpawn.spawnedTokenList;
-                        spawnedTokenList.Insert(spawnedTokenList.Count(), this);
-                        spawnedTokenList.RemoveAt(0);
-                        Globals.Instance.CurrentlySelectedToken = null;
-                    }
-                    else
+                    if(Globals.Instance.CurrentlySelectedToken == null)
                     {
                         Globals.Instance.CurrentlySelectedToken = this;
                     }
-                    //GD.Print($"You clicked on a hero! Motherfucker: {Globals.Instance.CurrentlySelectedToken.Name}");
-
-                    GD.Print($"{countyPopulation.firstName} is in {selectCounty.countyData.countyName}");
+                    else
+                    {
+                        if (Globals.Instance.CurrentlySelectedToken.Name == Name && selectCounty.heroSpawn.spawnedTokenList.Count() > 1)
+                        {
+                            // Move the top token to the bottom.
+                            var spawnedTokenList = selectCounty.heroSpawn.spawnedTokenList;
+                            Globals.Instance.CurrentlySelectedToken = null;
+                            spawnedTokenList.RemoveAt(0);
+                            spawnedTokenList.Insert(spawnedTokenList.Count(), this);
+                            
+                        }
+                        else //if (selectCounty.heroSpawn.spawnedTokenList.Count() >= 1)
+                        {
+                            Globals.Instance.CurrentlySelectedToken = selectCounty.heroSpawn.spawnedTokenList[0];
+                        }
+                        
+                    }
                 }
             }
         }  
