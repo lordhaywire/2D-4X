@@ -3,9 +3,12 @@ using System.Collections.Generic;
 
 namespace PlayerSpace
 {
-    public partial class Globals : Node2D
+    public partial class Globals : Node
     {
         public static Globals Instance { get; private set; }
+
+        [ExportGroup("Game Settings")]
+        public bool startPaused;
 
         [ExportGroup("Selected Items")]
         [Export] public CountyData selectedCountyData;

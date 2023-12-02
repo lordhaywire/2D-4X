@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=34 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_k200m"]
 [ext_resource type="Script" path="res://Scripts/Globals.cs" id="1_n6eaq"]
@@ -30,6 +30,8 @@
 [ext_resource type="PackedScene" uid="uid://bpe1s5ug8pilx" path="res://County Scenes/Tillamook Oregon.tscn" id="20_tpk4k"]
 [ext_resource type="PackedScene" uid="uid://lagp6ravcxco" path="res://County Scenes/Wasco Oregon.tscn" id="21_lhvi0"]
 [ext_resource type="PackedScene" uid="uid://chs3b4egrvgih" path="res://County Scenes/Portland Oregon.tscn" id="23_f3vtd"]
+[ext_resource type="Script" path="res://Scripts/UI/EventLog.cs" id="23_lqbtt"]
+[ext_resource type="PackedScene" uid="uid://bjgv6c8xhn4lo" path="res://UIScenes/Event Log Text Panel.tscn" id="24_kmlxx"]
 
 [sub_resource type="Resource" id="Resource_1kd1b"]
 script = ExtResource("20_h530l")
@@ -45,45 +47,57 @@ biomeTertiary = 5
 population = 0
 idleWorkers = 0
 
-[node name="Main" type="Node2D" node_paths=PackedStringArray("countiesParent", "countyInfoControl", "countyNameLabel")]
+[node name="Root Node" type="Node"]
+
+[node name="Camera CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("camera")]
+position = Vector2(-84, 28)
+script = ExtResource("1_k200m")
+camera = NodePath("Camera2D")
+
+[node name="Camera2D" type="Camera2D" parent="Camera CharacterBody2D"]
+position = Vector2(494, 479)
+
+[node name="Game Controller Node" type="Node" parent="."]
+
+[node name="Main" type="Node" parent="Game Controller Node" node_paths=PackedStringArray("countiesParent", "countyInfoControl", "countyNameLabel")]
 script = ExtResource("1_n6eaq")
 selectedHeroTexture = ExtResource("2_iubix")
 unselectedHeroTexture = ExtResource("3_ohas6")
-countiesParent = NodePath("Counties")
-countyInfoControl = NodePath("Player UI Canvas/County Info Control")
-countyNameLabel = NodePath("Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/County Title Label")
+countiesParent = NodePath("../../Counties")
+countyInfoControl = NodePath("../../Player UI Canvas/County Info Control")
+countyNameLabel = NodePath("../../Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/County Title Label")
 heroToken = ExtResource("2_3ivw0")
 movementSpeed = 5
 costOfHero = 500
 
-[node name="Faction Generation" type="Node" parent="."]
-script = ExtResource("2_vkprl")
-
-[node name="County Population Generation" type="Node" parent="."]
-script = ExtResource("3_kcvsw")
-
-[node name="Random Faction Colors" type="Node" parent="."]
-script = ExtResource("9_1qbqs")
-
-[node name="PlayerControls" type="Node" parent="."]
+[node name="PlayerControls" type="Node" parent="Game Controller Node"]
 script = ExtResource("2_5emkq")
 
-[node name="Clock" type="Node" parent="." node_paths=PackedStringArray("dayLabel", "HourLabel", "currentSpeedLabel", "pausedLabel")]
+[node name="Faction Generation" type="Node" parent="Game Controller Node"]
+script = ExtResource("2_vkprl")
+
+[node name="County Population Generation" type="Node" parent="Game Controller Node"]
+script = ExtResource("3_kcvsw")
+
+[node name="Random Faction Colors" type="Node" parent="Game Controller Node"]
+script = ExtResource("9_1qbqs")
+
+[node name="Clock" type="Node" parent="Game Controller Node" node_paths=PackedStringArray("dayLabel", "HourLabel", "currentSpeedLabel", "pausedLabel")]
 script = ExtResource("2_fsxpp")
-dayLabel = NodePath("../Player UI Canvas/Top Bar Control/Top Bar HBox/Day Panel/MarginContainer/Day Numbers Label")
-HourLabel = NodePath("../Player UI Canvas/Top Bar Control/Top Bar HBox/Time Panel/MarginContainer/Hours Numbers Label")
-currentSpeedLabel = NodePath("../Player UI Canvas/Top Bar Control/Time and Research Buttons HBox/Speed Panel/Speed Number Label")
-pausedLabel = NodePath("../Player UI Canvas/Top Bar Control/Pause Control/Pause Label")
+dayLabel = NodePath("../../Player UI Canvas/Top Bar Control/Top Bar HBox/Day Panel/MarginContainer/Day Numbers Label")
+HourLabel = NodePath("../../Player UI Canvas/Top Bar Control/Top Bar HBox/Time Panel/MarginContainer/Hours Numbers Label")
+currentSpeedLabel = NodePath("../../Player UI Canvas/Top Bar Control/Time and Research Buttons HBox/Speed Panel/Speed Number Label")
+pausedLabel = NodePath("../../Player UI Canvas/Top Bar Control/Pause Control/Pause Label")
 ticks = 250
 
-[node name="Banker" type="Node" parent="."]
+[node name="Banker" type="Node" parent="Game Controller Node"]
 script = ExtResource("8_8n5y7")
 
 [node name="Player UI Canvas" type="CanvasLayer" parent="."]
 
 [node name="Top Bar Control" parent="Player UI Canvas" node_paths=PackedStringArray("clock", "influenceLabel", "moneyLabel", "foodLabel", "scrapLabel") instance=ExtResource("4_rk5xj")]
 offset_bottom = 25.0
-clock = NodePath("../../Clock")
+clock = NodePath("../../Game Controller Node/Clock")
 influenceLabel = NodePath("Top Bar HBox/Influence Panel Container/Influence Number")
 moneyLabel = NodePath("Top Bar HBox/Money Panel Container/Money Number")
 foodLabel = NodePath("Top Bar HBox/Food Panel Container/Food Number")
@@ -542,17 +556,39 @@ scale = Vector2(1, 1.03698)
 size_flags_vertical = 8
 text = "Close"
 
-[node name="Background Node2D" type="Node2D" parent="."]
-position = Vector2(-61, -53)
-script = ExtResource("9_1qbqs")
+[node name="Event Log Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("eventLogVBoxContainer")]
+custom_minimum_size = Vector2(300, 75)
+layout_direction = 2
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -75.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 2
+mouse_filter = 2
+script = ExtResource("23_lqbtt")
+eventLogVBoxContainer = NodePath("VBoxContainer")
+eventLogPanel = ExtResource("24_kmlxx")
 
-[node name="Oregon Sprite2D" parent="Background Node2D" instance=ExtResource("9_3rjcv")]
-position = Vector2(678, 659)
-scale = Vector2(0.25, 0.25)
-
-[node name="Washington Sprite2D" parent="Background Node2D" instance=ExtResource("11_8q1cd")]
-position = Vector2(643, 48)
-scale = Vector2(0.8, 0.8)
+[node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Event Log Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -75.0
+offset_right = 150.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 1
 
 [node name="Counties" type="Node2D" parent="."]
 position = Vector2(-61, -53)
@@ -570,13 +606,16 @@ position = Vector2(360, 526)
 [node name="Wasco Oregon" parent="Counties" instance=ExtResource("21_lhvi0")]
 position = Vector2(651, 550)
 
-[node name="Camera CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("camera")]
-position = Vector2(-84, 28)
-script = ExtResource("1_k200m")
-camera = NodePath("Camera2D")
+[node name="Background Node2D" type="Node2D" parent="."]
+position = Vector2(-61, -53)
 
-[node name="Camera2D" type="Camera2D" parent="Camera CharacterBody2D"]
-position = Vector2(494, 479)
+[node name="Oregon Sprite2D" parent="Background Node2D" instance=ExtResource("9_3rjcv")]
+position = Vector2(678, 659)
+scale = Vector2(0.25, 0.25)
+
+[node name="Washington Sprite2D" parent="Background Node2D" instance=ExtResource("11_8q1cd")]
+position = Vector2(643, 48)
+scale = Vector2(0.8, 0.8)
 
 [connection signal="button_up" from="Player UI Canvas/Top Bar Control/Time and Research Buttons HBox/Research Button" to="Player UI Canvas/Research Control" method="ShowResearchPanel"]
 [connection signal="button_up" from="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Population List Button" to="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer" method="OnButtonClick"]

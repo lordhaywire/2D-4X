@@ -15,12 +15,16 @@ namespace PlayerSpace
         {
             Instance = this;
 
+            GetFactionsFromDisk();
+        }
+
+        private void GetFactionsFromDisk()
+        {
             using var directory = DirAccess.Open(factionDataPath);
             if (directory.DirExists(factionDataPath))
             {
                 directory.ListDirBegin();
                 string[] fileNames = directory.GetFiles();
-                //GD.Print()
                 for (int i = 0; i < fileNames.Length; i++)
                 {
                     var factionData = ResourceLoader.Load<FactionData>(factionDataPath + fileNames[i]);

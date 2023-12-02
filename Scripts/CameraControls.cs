@@ -25,7 +25,7 @@ namespace PlayerSpace
 
         public override void _PhysicsProcess(double delta)
         {
-            GD.Print("Velocity: " + Velocity);
+            //GD.Print("Velocity: " + Velocity);
             GetInput();
             MoveAndSlide();
         }

@@ -20,9 +20,10 @@ namespace PlayerSpace
 
         public override void _Ready()
         {
-            CallDeferred("CreateFactionLeaders");
-            //CreateFactionLeaders();
-            CallDeferred("CreatePopulation");
+            //CallDeferred("CreateFactionLeaders");
+            CreateFactionLeaders();
+            CreatePopulation();
+            //CallDeferred("CreatePopulation");
         }
 
         public void CreateFactionLeaders()

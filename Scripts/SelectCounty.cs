@@ -22,6 +22,7 @@ namespace PlayerSpace
                 if (eventMouseButton.ButtonIndex == MouseButton.Left && eventMouseButton.Pressed == false 
                     && Globals.Instance.isInsideToken == false)
                 {
+                    EventLog.Instance.AddLog($"{Name} was clicked on.");
                     // When you select a county with left click it unselects the selected hero.
 
                     Globals.Instance.CurrentlySelectedToken = null;

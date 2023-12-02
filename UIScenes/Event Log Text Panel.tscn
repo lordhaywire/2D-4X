@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjgv6c8xhn4lo"]
+
+[ext_resource type="Script" path="res://Scripts/UI/EventLogTextPanel.cs" id="1_xuygu"]
+
+[node name="Event Log Text Panel" type="Panel" node_paths=PackedStringArray("logText")]
+custom_minimum_size = Vector2(300, 75)
+offset_right = 300.0
+offset_bottom = 75.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_xuygu")
+logText = NodePath("Log Text Label")
+
+[node name="Log Text Label" type="Label" parent="."]
+custom_minimum_size = Vector2(280, 75)
+layout_mode = 2
+offset_left = 10.0
+offset_right = 290.0
+offset_bottom = 75.0
+size_flags_horizontal = 4
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0.815686, 0, 1)
+text = "This is a test of the label settingssdfsdfsdfsdfsdfsdfsdf"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+clip_text = true

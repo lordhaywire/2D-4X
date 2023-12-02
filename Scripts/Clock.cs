@@ -93,14 +93,11 @@ namespace PlayerSpace
 
             ModifiedTimeScale = 1;
             oldTimeSpeed = 1;
-            /*
+            
             if (Globals.Instance.startPaused == true)
             {
                 PauseTime();
             }
-            */
-
-
         }
 
         public override void _PhysicsProcess(double delta)

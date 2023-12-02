@@ -9,8 +9,11 @@ namespace PlayerSpace
         private readonly Random random = new();
         public override void _Ready()
         {
-            CallDeferred("RandomFactionColors");
-            CallDeferred("ApplyFactionColorsToCounties");
+            RandomFactionColors();
+            ApplyFactionColorsToCounties();
+
+            //CallDeferred("RandomFactionColors");
+            //CallDeferred("ApplyFactionColorsToCounties");
         }
 
         private void RandomFactionColors()
