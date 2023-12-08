@@ -6,7 +6,6 @@ namespace PlayerSpace
     public partial class ResearchControl : Control
     {
         public static ResearchControl Instance { get; private set; }
-        public readonly List<ResearchItem> researchItemsList = new();
 
         string uIResearchItemButtonPath = "res://UIScenes/UIResearchItemButton.tscn";
 
@@ -36,28 +35,24 @@ namespace PlayerSpace
         public override void _Ready()
         {
             Instance = this;
-
-            researchItemsList.Add(new ResearchItem(AllText.BuildingName.FISHERSSHACK, AllText.Descriptions.FISHERSSHACK, true, true));
-            researchItemsList.Add(new ResearchItem(AllText.BuildingName.FORESTERSSHACK, AllText.Descriptions.FORESTERSSHACK, true, true));
-            researchItemsList.Add(new ResearchItem(AllText.BuildingName.GARDENERSSHACK, AllText.Descriptions.GARDENERSSHACK, true, true));
         }
 
         private void CreateResearchItemButtons()
         {
-            for (int i = 0; i < researchItemsList.Count; i++)
+            List<ResearchItemData> researchItems = Globals.Instance.playerFactionData.researchItems;
+            for (int i = 0; i < researchItems.Count; i++)
             {
                 PackedScene researchItemScene = (PackedScene)GD.Load(uIResearchItemButtonPath);
                 PanelContainer researchItem = (PanelContainer)researchItemScene.Instantiate();
                 researchItem.Name = i.ToString();
                 researchItemParent.AddChild(researchItem);
-                researchItem.GetNode<Button>("Button").Text = researchItemsList[i].researchName;
-                if (researchItemsList[i].isResearchDone == true)
+                researchItem.GetNode<Button>("Button").Text = researchItems[i].researchName;
+                if (researchItems[i].isResearchDone == true)
                 {
                     researchItem.GetNode<CheckBox>("CheckBox").ButtonPressed = true;
                 }
             }
             GD.Print("Research Parent Count: " + researchItemParent.GetChildCount());
-
         }
 
         private void DestroyResearchItemButtons()
@@ -82,26 +77,5 @@ namespace PlayerSpace
                 Clock.Instance.UnpauseTime();
             }
         }
-
-
     }
 }
-// Reading a file from the project folders.
-/*
-
-//private string researchItemsPath = "res://ResearchItems/ResearchItems.txt"; // For reading from Json or Text
-
-using var file = FileAccess.Open(researchItemsPath, FileAccess.ModeFlags.Read);
-string content = file.GetAsText();
-GD.PrintRich("Conmtent: " + content);
-
-
-// Writing it, partial.
-if(FileAccess.FileExists(researchItemsPath) == true)
-{
-    using var file = FileAccess.Open(researchItemsPath, FileAccess.ModeFlags.Write);
-    var testJson = Json
-    file.StoreVar(researchItems, true);
-    //GD.PrintRich("[rainbow]Whatevs");
-}
-*/

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=2 format=3 uid="uid://cpmbf5setweth"]
+
+[ext_resource type="Script" path="res://Resources/CountyImprovementData.cs" id="1_un8lp"]
+
+[resource]
+script = ExtResource("1_un8lp")
+improvementName = "Forester's Shack"
+improvementDescription = "Whatever"
+workCompleted = 0
+influenceCost = 250
+amountOfWorkCost = 0
+currentWorkers = 0
+maxWorkers = 2
+isBeingBuilt = false
+isBuilt = false

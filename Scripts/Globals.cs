@@ -7,14 +7,19 @@ namespace PlayerSpace
     {
         public static Globals Instance { get; private set; }
 
+        [ExportGroup("Event Variables")]
+        public List<FactionData> factions = new();
+        [Export] public int dailyInfluenceGain;
+
         [ExportGroup("Game Settings")]
-        public bool startPaused;
+        [Export] public bool startPaused;
 
         [ExportGroup("Selected Items")]
         [Export] public CountyData selectedCountyData;
         [Export] public Node2D selectedCounty;
         [Export] public CountyPopulation selectedCountyPopulation;
         [Export] private SelectToken currentlySelectedToken;
+        public CountyImprovementData selectedCountyImprovement;
 
         [ExportGroup("Token Textures")]
         [Export] private Texture2D selectedHeroTexture;
@@ -49,6 +54,9 @@ namespace PlayerSpace
 
         [ExportGroup("Controls")]
         [Export] public bool playerControlsEnabled = true;
+
+        [ExportGroup("Faction BS")]
+        [Export] public FactionData playerFactionData;
 
         [ExportGroup("County Info")]
         [Export] public Control countyInfoControl;

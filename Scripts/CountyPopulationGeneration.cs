@@ -20,15 +20,13 @@ namespace PlayerSpace
 
         public override void _Ready()
         {
-            //CallDeferred("CreateFactionLeaders");
             CreateFactionLeaders();
             CreatePopulation();
-            //CallDeferred("CreatePopulation");
         }
 
         public void CreateFactionLeaders()
         {
-            foreach (FactionData factionData in FactionGeneration.Instance.factions)
+            foreach (FactionData factionData in Globals.Instance.factions)
             {
                 countiesParent = Globals.Instance.countiesParent;
                 // Generate Faction Leader County Population
@@ -36,48 +34,8 @@ namespace PlayerSpace
                 selectCounty = (SelectCounty)countiesParent.GetChild(factionData.factionCapitalCounty);
                 countyData = selectCounty.countyData;
                 GeneratePopulation(true, 1); // There is never going to be more then 1 faction leader.
+                factionData.factionLeader = selectCounty.countyData.heroCountyPopulation[0];
                 countyData.population += countyData.heroCountyPopulation.Count;
-            }
-        }
-        private void CreatePopulation()
-        {
-            countiesParent = Globals.Instance.countiesParent;
-            // Create various county specific data.
-            for (int i = 0; i < countiesParent.GetChildCount(); i++)
-            {
-                selectCounty = (SelectCounty)countiesParent.GetChild(i);
-                countyData = selectCounty.countyData;
-                countyData.countyID = i; // Generate countyID.
-                //GD.PrintRich("[rainbow]County ID: " + countyData.countyID);
-
-                // Generate the general population for the player Capitals.
-                if (countyData.isPlayerCapital == true || countyData.isAICapital)
-                {
-
-                    // Generate Hero Population
-                    /*
-                    GeneratePopulation(true, Globals.Instance.heroPopulation);
-                    countyData.population += countyData.heroCountyPopulation.Count;
-                    */
-                    // Generate Normal Population
-                    GeneratePopulation(false, Globals.Instance.totalCapitolPop);
-                    countyData.population += countyData.countyPopulation.Count;
-                    countyData.idleWorkers = countyData.population;
-                }
-                else
-                {
-                    // Generate Hero Population
-                    /*
-                    GeneratePopulation(true, Globals.Instance.heroPopulation);
-                    countyData.population += countyData.heroCountyPopulation.Count;
-                    */
-
-                    // Generate Normal Population
-                    int normalPopulation = random.Next(Globals.Instance.minimumCountyPop, Globals.Instance.maximumCountyPop);
-                    GeneratePopulation(false, normalPopulation);
-                    countyData.population += countyData.countyPopulation.Count;
-                    countyData.idleWorkers = countyData.population;
-                }
             }
         }
 
@@ -120,7 +78,7 @@ namespace PlayerSpace
                     // This adds to the C# list.
                     countyData.countyPopulation.Add(new CountyPopulation(countyData.countyID, countyData.countyID, firstName
                         , lastName, isMale, age, false, false, false, false, constructionSkill, AllText.Jobs.IDLE, AllText.Jobs.IDLE));
-
+                    
                     /*
                     CountyPopulation person = countyData.countyPopulation[i];
                     GD.Print($"Name: {countyData.countyPopulation[i].firstName} {countyData.countyPopulation[i].lastName} " +
@@ -130,7 +88,7 @@ namespace PlayerSpace
                 }
                 else
                 {
-                    
+
                     // This adds to a C# list.
                     countyData.heroCountyPopulation.Add(new CountyPopulation(countyData.countyID, countyData.countyID, firstName
                         , lastName, isMale, age, true, true, false, true, constructionSkill, AllText.Jobs.IDLE, AllText.Jobs.IDLE));
@@ -144,6 +102,47 @@ namespace PlayerSpace
                 }
             }
 
+        }
+        private void CreatePopulation()
+        {
+            countiesParent = Globals.Instance.countiesParent;
+            // Create various county specific data.
+            for (int i = 0; i < countiesParent.GetChildCount(); i++)
+            {
+                selectCounty = (SelectCounty)countiesParent.GetChild(i);
+                countyData = selectCounty.countyData;
+                countyData.countyID = i; // Generate countyID.
+                //GD.PrintRich("[rainbow]County ID: " + countyData.countyID);
+
+                // Generate the general population for the player Capitals.
+                if (countyData.isPlayerCapital == true || countyData.isAICapital)
+                {
+
+                    // Generate Hero Population
+                    /*
+                    GeneratePopulation(true, Globals.Instance.heroPopulation);
+                    countyData.population += countyData.heroCountyPopulation.Count;
+                    */
+                    // Generate Normal Population
+                    GeneratePopulation(false, Globals.Instance.totalCapitolPop);
+                    countyData.population += countyData.countyPopulation.Count;
+                    countyData.idleWorkers = countyData.population;
+                }
+                else
+                {
+                    // Generate Hero Population
+                    /*
+                    GeneratePopulation(true, Globals.Instance.heroPopulation);
+                    countyData.population += countyData.heroCountyPopulation.Count;
+                    */
+
+                    // Generate Normal Population
+                    int normalPopulation = random.Next(Globals.Instance.minimumCountyPop, Globals.Instance.maximumCountyPop);
+                    GeneratePopulation(false, normalPopulation);
+                    countyData.population += countyData.countyPopulation.Count;
+                    countyData.idleWorkers = countyData.population;
+                }
+            }
         }
     }
 }

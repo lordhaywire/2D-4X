@@ -13,11 +13,13 @@ namespace PlayerSpace
             public const string IDLELIST = "Idle County Population";
             public const string RECRUITHEROCONFIRM = "Do you want to recruit";
         }
+        
         public class Jobs
         {
             public const string IDLE = "Scavenging";
             public const string BUILDING = "Building";
         }
+        
         public class BuildingName
         {
             public const string FISHERSSHACK = "Fisher's Shack";

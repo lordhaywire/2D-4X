@@ -44,20 +44,21 @@ namespace PlayerSpace
         {
             foreach (CountyPopulation person in countyPopulation)
             {
-                Button populationRow = (Button)populationRowButtonPrefab.Instantiate();
-                Label name = (Label)populationRow.GetChild(0).GetChild(0);
-                Label age = (Label)populationRow.GetChild(0).GetChild(1);
-                Label sex = (Label)populationRow.GetChild(0).GetChild(2);
-                name.Text = $"{person.firstName} {person.lastName}";
-                age.Text = person.age.ToString();
+                PopulationRowButton populationRow = (PopulationRowButton)populationRowButtonPrefab.Instantiate();
+
+                populationRow.populationNameLabel.Text = $"{person.firstName} {person.lastName}";
+                populationRow.ageLabel.Text = person.age.ToString();
                 if (person.isMale == true)
                 {
-                    sex.Text = "Male";
+                    populationRow.sexLabel.Text = "Male";
                 }
                 else
                 {
-                    sex.Text = "Female";
+                    populationRow.sexLabel.Text = "Female";
                 }
+                populationRow.currentActivityLabel.Text = person.currentActivity;
+                populationRow.nextActivityLabel.Text = person.nextActivity;
+
                 populationListParent.AddChild(populationRow);
                 PopulationRowButton populationRowButton = (PopulationRowButton)populationRow;
                 populationRowButton.countyPopulation = person;

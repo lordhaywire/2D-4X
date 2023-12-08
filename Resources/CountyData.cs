@@ -21,6 +21,7 @@ namespace PlayerSpace
         [Export] public AllEnums.Terrain biomeTertiary;
         public List<CountyPopulation> countyPopulation = new();
         public List<CountyPopulation> heroCountyPopulation = new();
+        public List<CountyImprovementData> countyImprovements = new();
 
         [Export] public int population;
         [Export] public int idleWorkers;

@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=41 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_k200m"]
 [ext_resource type="Script" path="res://Scripts/Globals.cs" id="1_n6eaq"]
@@ -11,16 +11,21 @@
 [ext_resource type="Texture2D" uid="uid://7jvylb78h24w" path="res://Graphics/Tokens/HornedGuyUnselected.png" id="3_ohas6"]
 [ext_resource type="PackedScene" uid="uid://mr0rjj1gvjlu" path="res://UIScenes/TopBarControl.tscn" id="4_rk5xj"]
 [ext_resource type="Script" path="res://Scripts/UI/ResearchControl.cs" id="6_0iytx"]
+[ext_resource type="Script" path="res://Scripts/CountyGeneration.cs" id="8_1f7gn"]
+[ext_resource type="Resource" uid="uid://bads4woc5toep" path="res://Resources/County Improvements/FisherShack.tres" id="8_2n7h1"]
 [ext_resource type="Script" path="res://Scripts/Banker.cs" id="8_8n5y7"]
 [ext_resource type="Script" path="res://Scripts/UI/ResearchDescriptionPanel.cs" id="8_p38gd"]
 [ext_resource type="Script" path="res://Scripts/RandomFactionColor.cs" id="9_1qbqs"]
 [ext_resource type="PackedScene" uid="uid://bxrhe2s0ke58r" path="res://Graphics/Provinces/Oregon.tscn" id="9_3rjcv"]
 [ext_resource type="PackedScene" uid="uid://dlvb22f68gd3u" path="res://County Scenes/Cowlitz Washington.tscn" id="9_eipnv"]
+[ext_resource type="Resource" uid="uid://cpmbf5setweth" path="res://Resources/County Improvements/ForestersShack.tres" id="9_g0owb"]
 [ext_resource type="Script" path="res://Scripts/UI/CountyInfoControl.cs" id="10_11qbn"]
 [ext_resource type="PackedScene" uid="uid://d4i6w8w8jld3d" path="res://UIScenes/HeroListCheckBoxPanelContainer.tscn" id="10_j48oi"]
+[ext_resource type="Resource" uid="uid://bkakbc8lqeex4" path="res://Resources/County Improvements/GardenersShack.tres" id="10_tfed5"]
 [ext_resource type="PackedScene" uid="uid://djph5cv7o4atl" path="res://UIScenes/PopulationRowButton.tscn" id="11_2aei1"]
 [ext_resource type="PackedScene" uid="uid://citkgehkfwon2" path="res://Graphics/Provinces/Washington.tscn" id="11_8q1cd"]
 [ext_resource type="Script" path="res://Scripts/UI/PopAndIdleButtons.cs" id="11_qq6fr"]
+[ext_resource type="Script" path="res://Scripts/Work.cs" id="11_whjq4"]
 [ext_resource type="Script" path="res://Scripts/UI/PopulationListUIElement.cs" id="13_f3vei"]
 [ext_resource type="Script" path="res://Scripts/UI/PopulationDescriptionUIElement.cs" id="13_ssvv1"]
 [ext_resource type="Script" path="res://Scripts/UI/RecruitButton.cs" id="16_k1ymn"]
@@ -29,7 +34,9 @@
 [ext_resource type="Script" path="res://Resources/CountyData.cs" id="20_h530l"]
 [ext_resource type="PackedScene" uid="uid://bpe1s5ug8pilx" path="res://County Scenes/Tillamook Oregon.tscn" id="20_tpk4k"]
 [ext_resource type="PackedScene" uid="uid://lagp6ravcxco" path="res://County Scenes/Wasco Oregon.tscn" id="21_lhvi0"]
+[ext_resource type="Script" path="res://Scripts/CountyImprovementsControl.cs" id="22_oakc6"]
 [ext_resource type="PackedScene" uid="uid://chs3b4egrvgih" path="res://County Scenes/Portland Oregon.tscn" id="23_f3vtd"]
+[ext_resource type="PackedScene" uid="uid://bogeajbtl771s" path="res://UIScenes/PossibleBuildingControl.tscn" id="23_iy81f"]
 [ext_resource type="Script" path="res://Scripts/UI/EventLog.cs" id="23_lqbtt"]
 [ext_resource type="PackedScene" uid="uid://bjgv6c8xhn4lo" path="res://UIScenes/Event Log Text Panel.tscn" id="24_kmlxx"]
 
@@ -61,6 +68,7 @@ position = Vector2(494, 479)
 
 [node name="Main" type="Node" parent="Game Controller Node" node_paths=PackedStringArray("countiesParent", "countyInfoControl", "countyNameLabel")]
 script = ExtResource("1_n6eaq")
+dailyInfluenceGain = 5
 selectedHeroTexture = ExtResource("2_iubix")
 unselectedHeroTexture = ExtResource("3_ohas6")
 countiesParent = NodePath("../../Counties")
@@ -75,6 +83,10 @@ script = ExtResource("2_5emkq")
 
 [node name="Faction Generation" type="Node" parent="Game Controller Node"]
 script = ExtResource("2_vkprl")
+countyImprovement = Array[Object]([ExtResource("8_2n7h1"), ExtResource("9_g0owb"), ExtResource("10_tfed5")])
+
+[node name="County Generation" type="Node" parent="Game Controller Node"]
+script = ExtResource("8_1f7gn")
 
 [node name="County Population Generation" type="Node" parent="Game Controller Node"]
 script = ExtResource("3_kcvsw")
@@ -89,6 +101,9 @@ HourLabel = NodePath("../../Player UI Canvas/Top Bar Control/Top Bar HBox/Time P
 currentSpeedLabel = NodePath("../../Player UI Canvas/Top Bar Control/Time and Research Buttons HBox/Speed Panel/Speed Number Label")
 pausedLabel = NodePath("../../Player UI Canvas/Top Bar Control/Pause Control/Pause Label")
 ticks = 250
+
+[node name="Work" type="Node" parent="Game Controller Node"]
+script = ExtResource("11_whjq4")
 
 [node name="Banker" type="Node" parent="Game Controller Node"]
 script = ExtResource("8_8n5y7")
@@ -129,7 +144,7 @@ text = "Paused"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="County Info Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("populationListMarginContainer", "populationDescriptionMarginContainer", "heroListParent", "heroSpawnCheckButtonParent", "countyPopulationLabel", "countyIdleWorkersLabel")]
+[node name="County Info Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("populationListMarginContainer", "populationDescriptionMarginContainer", "countyImprovementsPanelControl", "heroListParent", "heroSpawnCheckButtonParent", "countyPopulationLabel", "countyIdleWorkersLabel")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -143,6 +158,7 @@ mouse_filter = 2
 script = ExtResource("10_11qbn")
 populationListMarginContainer = NodePath("../Population List MarginContainer")
 populationDescriptionMarginContainer = NodePath("../Population Description MarginContainer")
+countyImprovementsPanelControl = NodePath("../County Improvements Control")
 heroListParent = NodePath("County and Heroes VBoxContainer/Heroes VBoxContainer")
 heroSpawnCheckButtonParent = NodePath("County and Heroes VBoxContainer/Heroes VBoxContainer")
 heroListPrefab = ExtResource("10_j48oi")
@@ -158,6 +174,7 @@ offset_bottom = 306.0
 [node name="County Info Panel" type="PanelContainer" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer"]
 custom_minimum_size = Vector2(200, 300)
 layout_mode = 2
+size_flags_vertical = 8
 
 [node name="County Title MarginContainer" type="MarginContainer" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel"]
 layout_mode = 2
@@ -233,6 +250,12 @@ text = "69
 "
 horizontal_alignment = 1
 
+[node name="Buildings Button" type="Button" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Buildings"
+
 [node name="Heroes VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer"]
 layout_mode = 2
 
@@ -292,6 +315,22 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Sex
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Current Activity Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Current Activity
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Next Activity Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Next Day Activity
 "
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -469,6 +508,93 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "Close"
 
+[node name="County Improvements Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("possibleImprovementsScrollContainerParent", "currentImprovementsScrollContainerParent")]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("22_oakc6")
+possibleImprovementsScrollContainerParent = NodePath("Buildings MarginContainer/Buildings PanelContainer/MarginContainer/HBoxContainer/Possible Building ScrollContainer/Possible Buildings VBoxContainer3")
+currentImprovementsScrollContainerParent = NodePath("Buildings MarginContainer/Buildings PanelContainer/MarginContainer/HBoxContainer/Current Building ScrollContainer/Current Buildings VBoxContainer")
+countyImprovementButtonPackedScene = ExtResource("23_iy81f")
+
+[node name="Buildings MarginContainer" type="MarginContainer" parent="Player UI Canvas/County Improvements Control"]
+custom_minimum_size = Vector2(1719, 1080)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -1719.0
+offset_top = -540.0
+offset_bottom = 540.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 28
+
+[node name="Buildings PanelContainer" type="PanelContainer" parent="Player UI Canvas/County Improvements Control/Buildings MarginContainer"]
+layout_mode = 2
+
+[node name="Title Label" type="Label" parent="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "Buildings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_top = 35
+theme_override_constants/margin_bottom = 51
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Current Building ScrollContainer" type="ScrollContainer" parent="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Current Buildings VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer/MarginContainer/HBoxContainer/Current Building ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title Current Improvement Label" type="Label" parent="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer/MarginContainer/HBoxContainer/Current Building ScrollContainer/Current Buildings VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Current Improvement"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Possible Building ScrollContainer" type="ScrollContainer" parent="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Possible Buildings VBoxContainer3" type="VBoxContainer" parent="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer/MarginContainer/HBoxContainer/Possible Building ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title Possible Improvement Label" type="Label" parent="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer/MarginContainer/HBoxContainer/Possible Building ScrollContainer/Possible Buildings VBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Possible Improvement"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Close Button" type="Button" parent="Player UI Canvas/County Improvements Control/Buildings MarginContainer"]
+custom_minimum_size = Vector2(75, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Close"
+
 [node name="Research Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("researchItemParent", "researchDescriptionPanel")]
 visible = false
 layout_mode = 3
@@ -619,6 +745,7 @@ scale = Vector2(0.8, 0.8)
 
 [connection signal="button_up" from="Player UI Canvas/Top Bar Control/Time and Research Buttons HBox/Research Button" to="Player UI Canvas/Research Control" method="ShowResearchPanel"]
 [connection signal="button_up" from="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Population List Button" to="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer" method="OnButtonClick"]
+[connection signal="button_up" from="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Buildings Button" to="Player UI Canvas/County Info Control" method="BuildingsButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Population List MarginContainer" to="Player UI Canvas/Population List MarginContainer" method="OnVisibilityChange"]
 [connection signal="button_up" from="Player UI Canvas/Population List MarginContainer/Close Button" to="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer" method="CloseButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Population Description MarginContainer" to="Player UI Canvas/Population Description MarginContainer" method="OnVisibilityChange"]
@@ -627,6 +754,9 @@ scale = Vector2(0.8, 0.8)
 [connection signal="button_up" from="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Recuit Hero Confirmation PanelContainer/HBoxContainer/No Button" to="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Recuit Hero Confirmation PanelContainer" method="NoButton"]
 [connection signal="button_up" from="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Recuit Hero Confirmation PanelContainer/HBoxContainer/Yes Button" to="Player UI Canvas/Population Description MarginContainer/Population Description PanelContainer/Recuit Hero Confirmation PanelContainer" method="YesButton"]
 [connection signal="button_up" from="Player UI Canvas/Population Description MarginContainer/Close Button" to="Player UI Canvas/Population Description MarginContainer" method="CloseButton"]
+[connection signal="visibility_changed" from="Player UI Canvas/County Improvements Control" to="Player UI Canvas/County Improvements Control" method="OnVisibilityChanged"]
+[connection signal="visibility_changed" from="Player UI Canvas/County Improvements Control/Buildings MarginContainer" to="Player UI Canvas/County Improvements Control/Buildings MarginContainer" method="OnVisibilityChange"]
+[connection signal="button_up" from="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Close Button" to="Player UI Canvas/County Improvements Control" method="CloseButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Research Control" to="Player UI Canvas/Research Control" method="OnVisibilityChange"]
 [connection signal="visibility_changed" from="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/Research Description PanelContainer" to="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/Research Description PanelContainer" method="OnVisibilityChanged"]
 [connection signal="button_up" from="Player UI Canvas/Research Control/Close Button" to="Player UI Canvas/Research Control" method="CloseButton"]

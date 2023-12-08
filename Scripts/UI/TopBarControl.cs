@@ -16,7 +16,7 @@ namespace PlayerSpace
         public override void _Ready()
         {
             Instance = this;
-            FactionGeneration.Instance.playerFaction.InfluenceChanged += UpdateExpendables;
+            Globals.Instance.playerFactionData.InfluenceChanged += UpdateExpendables;
             UpdateExpendables();
         }
 
@@ -24,10 +24,10 @@ namespace PlayerSpace
         public void UpdateExpendables()
         {
             GD.Print("Expendables have been updated, motherfucker!");
-            influenceLabel.Text = FactionGeneration.Instance.playerFaction.Influence.ToString();
-            moneyLabel.Text = FactionGeneration.Instance.playerFaction.money.ToString();
-            foodLabel.Text = FactionGeneration.Instance.playerFaction.food.ToString();
-            scrapLabel.Text = FactionGeneration.Instance.playerFaction.scrap.ToString();
+            influenceLabel.Text = Globals.Instance.playerFactionData.Influence.ToString();
+            moneyLabel.Text = Globals.Instance.playerFactionData.money.ToString();
+            foodLabel.Text = Globals.Instance.playerFactionData.food.ToString();
+            scrapLabel.Text = Globals.Instance.playerFactionData.scrap.ToString();
         }
 
         public void ChangeSpeed(int speed)

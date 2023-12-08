@@ -15,8 +15,8 @@ namespace PlayerSpace
 
         public void ChargeForHero()
         {
-            GD.Print("Player Influence: " + FactionGeneration.Instance.playerFaction.Influence);
-            FactionGeneration.Instance.playerFaction.Influence -= Globals.Instance.costOfHero;
+            GD.Print("Player Influence: " + Globals.Instance.playerFactionData.Influence);
+            Globals.Instance.playerFactionData.Influence -= Globals.Instance.costOfHero;
         }
 
         /*

@@ -9,7 +9,7 @@ namespace PlayerSpace
         [Export] private VBoxContainer eventLogVBoxContainer; // Holds all the panels.
         [Export] private PackedScene eventLogPanel; // For odd lines
 
-        [Export] private int maxLines = 14;
+        [Export] private int maxLines = 13;
         private bool isNextLogOdd = true; // Start with odd line
 
         public override void _Ready()

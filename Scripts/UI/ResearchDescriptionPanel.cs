@@ -11,8 +11,8 @@ namespace PlayerSpace
         {
             await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
             GD.Print("Research Description Panel!");
-            researchName.Text = ResearchControl.Instance.researchItemsList[Globals.Instance.researchClicked].researchName;
-            researchDescription.Text = ResearchControl.Instance.researchItemsList[Globals.Instance.researchClicked].description;
+            researchName.Text = Globals.Instance.playerFactionData.researchItems[Globals.Instance.researchClicked].researchName;
+            researchDescription.Text = Globals.Instance.playerFactionData.researchItems[Globals.Instance.researchClicked].description;
         }
     }
 }

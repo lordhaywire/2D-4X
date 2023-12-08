@@ -10,6 +10,7 @@ namespace PlayerSpace
         [ExportGroup("Public Shit")]
         [Export] public MarginContainer populationListMarginContainer;
         [Export] public MarginContainer populationDescriptionMarginContainer;
+        [Export] public Control countyImprovementsPanelControl;
 
         [ExportGroup("Private Variables")]
         [Export] private VBoxContainer heroListParent;
@@ -75,6 +76,12 @@ namespace PlayerSpace
         public void UpdateIdleWorkersLabel()
         {
             countyIdleWorkersLabel.Text = countyPopulationLabel.Text;
+        }
+
+        private void BuildingsButton()
+        {
+            GD.Print("Buildings Button has been pressed.");
+            countyImprovementsPanelControl.Show();
         }
     }
 }

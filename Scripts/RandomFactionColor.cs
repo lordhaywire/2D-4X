@@ -11,14 +11,11 @@ namespace PlayerSpace
         {
             RandomFactionColors();
             ApplyFactionColorsToCounties();
-
-            //CallDeferred("RandomFactionColors");
-            //CallDeferred("ApplyFactionColorsToCounties");
         }
 
         private void RandomFactionColors()
         {
-            List<FactionData> factions = FactionGeneration.Instance.factions;
+            List<FactionData> factions = Globals.Instance.factions;
             if (Arrays.colors.Length < factions.Count)
             {
                 GD.Print("Not enough color options for all Sprite Renderers!");

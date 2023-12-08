@@ -16,8 +16,6 @@ namespace PlayerSpace
         [Export] private Label currentSpeedLabel;
         [Export] private Label pausedLabel;
 
-        //[SerializeField] private TextMeshProUGUI currentSpeedText;
-        //[SerializeField] private GameObject pausedText;
         [Export] private int ticks;
 
 
@@ -27,7 +25,27 @@ namespace PlayerSpace
         public int days = 0;
 
         [Export] public int oldTimeSpeed;
-        [Export] public int numberOfThingsPaused; // For when there are multiple panels open.
+        private int numberOfPanelsVisible; // For when there are multiple panels open.
+
+        [Export]
+        public int NumberOfPanelsVisible
+        {
+            get { return numberOfPanelsVisible; }
+            set
+            {
+                numberOfPanelsVisible = value;
+                if (numberOfPanelsVisible > 0)
+                {
+                    GD.Print("Number of panels visible: " +  numberOfPanelsVisible);
+                    EventLog.Instance.Hide();
+
+                }
+                else
+                {
+                    EventLog.Instance.Show();
+                }
+            }
+        }
 
         public int Hours
         {
@@ -35,27 +53,24 @@ namespace PlayerSpace
             set
             {
                 hours = value;
-                /*
-                // This will not trigger on day zero.
-                if (hours == 0)
-                {
-                    GD.Print("Hour is ZERO!!!");
-                    DayStart?.Invoke();
-                }
-
+                // This isn't used yet.
                 if (days == 0 && hours == 1)
                 {
                     GD.Print("It is 1 am on day zero.");
                     FirstRun?.Invoke();
 
                 }
-
+                // This will not trigger on day zero.
+                if (hours == 0)
+                {
+                    GD.Print("Hour is ZERO!!!");
+                    DayStart?.Invoke();
+                }
                 if (hours == 17)
                 {
                     GD.Print("Workday is over!");
                     WorkDayOver?.Invoke();
-                }
-                */
+                }              
             }
         }
 
@@ -82,8 +97,7 @@ namespace PlayerSpace
                 else
                 {
                     pausedLabel.Hide();
-                }
-                
+                }           
             }
         }
 
@@ -133,14 +147,14 @@ namespace PlayerSpace
             GD.Print("Keyboard has been pressed!");
             if (ModifiedTimeScale > 0)
             {
-                numberOfThingsPaused++;
+                NumberOfPanelsVisible++;
                 oldTimeSpeed = ModifiedTimeScale;
                 ModifiedTimeScale = 0;
             }
             else
             {
                 (ModifiedTimeScale, oldTimeSpeed) = (oldTimeSpeed, ModifiedTimeScale);
-                numberOfThingsPaused--;
+                NumberOfPanelsVisible--;
             }
             //GD.Print($"Modified Time: {ModifiedTimeScale} and Old Time Speed: {oldTimeSpeed}.");
         }
@@ -161,14 +175,14 @@ namespace PlayerSpace
                 oldTimeSpeed = ModifiedTimeScale;                
                 ModifiedTimeScale = 0;
             }
-            numberOfThingsPaused++;
+            NumberOfPanelsVisible++;
         }
 
         public void UnpauseTime()
         {
             GD.Print("Unpause Time!");
-            numberOfThingsPaused--;
-            if (numberOfThingsPaused == 0)
+            NumberOfPanelsVisible--;
+            if (NumberOfPanelsVisible == 0)
             {
                 ModifiedTimeScale = oldTimeSpeed;
             }

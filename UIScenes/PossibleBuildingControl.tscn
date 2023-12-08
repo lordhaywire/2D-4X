@@ -1,0 +1,72 @@
+[gd_scene load_steps=2 format=3 uid="uid://bogeajbtl771s"]
+
+[ext_resource type="Script" path="res://Scripts/UI/PossibleBuildingControl.cs" id="1_udj4w"]
+
+[node name="Possible Building Control" type="Control" node_paths=PackedStringArray("improvementName", "improvementDescription", "improvementInfluenceCost", "improvementAmountOfWork", "improvementMaxWorkers")]
+custom_minimum_size = Vector2(450, 200)
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 1
+script = ExtResource("1_udj4w")
+improvementName = NodePath("Button/VBoxContainer/Building Name Label")
+improvementDescription = NodePath("Button/VBoxContainer/Description Label")
+improvementInfluenceCost = NodePath("Button/VBoxContainer/Influence Cost Label")
+improvementAmountOfWork = NodePath("Button/VBoxContainer/Amount of Work Label")
+improvementMaxWorkers = NodePath("Button/VBoxContainer/Number of Workers Label")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Button"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Building Name Label" type="Label" parent="Button/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_vertical = 6
+text = "Possible Building Name Button"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Description Label" type="Label" parent="Button/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_vertical = 6
+text = "Possible Building Description Button"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Influence Cost Label" type="Label" parent="Button/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_vertical = 6
+text = "Possible Building Influence Cost Button"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Amount of Work Label" type="Label" parent="Button/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_vertical = 6
+text = "Possible Amount of Work Cost Button"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Number of Workers Label" type="Label" parent="Button/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_vertical = 6
+text = "Possible Building Number of Workers Button"
+horizontal_alignment = 1
+vertical_alignment = 1

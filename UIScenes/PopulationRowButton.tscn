@@ -2,13 +2,18 @@
 
 [ext_resource type="Script" path="res://Scripts/UI/PopulationRowButton.cs" id="1_dhxh4"]
 
-[node name="Population Row Button" type="Button"]
+[node name="Population Row Button" type="Button" node_paths=PackedStringArray("populationNameLabel", "ageLabel", "sexLabel", "currentActivityLabel", "nextActivityLabel")]
 custom_minimum_size = Vector2(0, 25)
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 8.0
 grow_horizontal = 2
 script = ExtResource("1_dhxh4")
+populationNameLabel = NodePath("Population Row HBoxContainer/Name Label")
+ageLabel = NodePath("Population Row HBoxContainer/Age Label")
+sexLabel = NodePath("Population Row HBoxContainer/Sex Label")
+currentActivityLabel = NodePath("Population Row HBoxContainer/Current Activity Label")
+nextActivityLabel = NodePath("Population Row HBoxContainer/Next Actvity Label")
 
 [node name="Population Row HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -37,6 +42,22 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 text = "SexTest
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Current Activity Label" type="Label" parent="Population Row HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Current ActivityTest
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Next Actvity Label" type="Label" parent="Population Row HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Next Day ActivityTest
 "
 horizontal_alignment = 1
 vertical_alignment = 1

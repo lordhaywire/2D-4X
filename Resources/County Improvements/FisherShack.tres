@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=2 format=3 uid="uid://bads4woc5toep"]
+
+[ext_resource type="Script" path="res://Resources/CountyImprovementData.cs" id="1_nxqnj"]
+
+[resource]
+script = ExtResource("1_nxqnj")
+improvementName = "Fisher's Shack"
+improvementDescription = "This is a fisher's shack"
+workCompleted = 0
+influenceCost = 500
+amountOfWorkCost = 0
+currentWorkers = 0
+maxWorkers = 5
+isBeingBuilt = false
+isBuilt = true

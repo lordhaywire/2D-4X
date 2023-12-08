@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 namespace PlayerSpace
 {
@@ -12,7 +13,7 @@ namespace PlayerSpace
         [Export] public string factionName;
         [Export] public Color factionColor;
         [Export] public int factionCapitalCounty;
-        //public List<ResearchItem> researchItems;
+        public List<ResearchItemData> researchItems = new();
         public CountyPopulation factionLeader;
 
         [ExportGroup("Expendables")]

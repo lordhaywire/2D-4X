@@ -3,20 +3,20 @@ using System;
 
 namespace PlayerSpace
 {
-    public partial class ResearchItem : Resource
+    public partial class ResearchItemData : Resource
     {
         public string researchName;
         public string description;
 
-        public bool isBuilding;
+        public CountyImprovementData countyImprovement;
         public bool isResearchDone;
 
-        public ResearchItem(string researchName, string description, bool isBuilding, bool isResearchDone)
+        public ResearchItemData(string researchName, string description, CountyImprovementData isCountyImprovement, bool isResearchDone)
         {
             this.researchName = researchName;
             this.description = description;
 
-            this.isBuilding = isBuilding;
+            this.countyImprovement = isCountyImprovement;
             this.isResearchDone = isResearchDone;
         }
     }

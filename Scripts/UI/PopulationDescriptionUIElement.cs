@@ -44,7 +44,7 @@ namespace PlayerSpace
             Globals.Instance.playerControlsEnabled = false; // This too.
             CountyPopulation person = Globals.Instance.selectedCountyPopulation;
 
-            if (FactionGeneration.Instance.playerFaction.Influence < Globals.Instance.costOfHero || person.isHero == true)
+            if (Globals.Instance.playerFactionData.Influence < Globals.Instance.costOfHero || person.isHero == true)
             {
                 recruitButton.Disabled = true;
             }
