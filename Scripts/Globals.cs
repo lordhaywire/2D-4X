@@ -16,10 +16,10 @@ namespace PlayerSpace
 
         [ExportGroup("Selected Items")]
         [Export] public CountyData selectedCountyData;
-        [Export] public Node2D selectedCounty;
+        [Export] public SelectCounty selectedSelectCounty;
         [Export] public CountyPopulation selectedCountyPopulation;
         [Export] private SelectToken currentlySelectedToken;
-        public CountyImprovementData selectedCountyImprovement;
+        public PossibleBuildingControl selectedPossibleBuildingControl;
 
         [ExportGroup("Token Textures")]
         [Export] private Texture2D selectedHeroTexture;

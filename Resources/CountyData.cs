@@ -13,7 +13,7 @@ namespace PlayerSpace
         [Export] public bool isPlayerCapital; // We need to differentiate between player choosen capitals and AI capitals for generation after player creation.
         [Export] public bool isAICapital;
         //public BuildImprovements buildImprovements;
-        [Export] public FactionData faction;
+        [Export] public FactionData factionData;
         
         [Export] public AllEnums.Province province;
         [Export] public AllEnums.Terrain biomePrimary;

@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=2 format=3 uid="uid://bkakbc8lqeex4"]
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=3 format=3 uid="uid://bkakbc8lqeex4"]
 
+[ext_resource type="Resource" uid="uid://dpddpnnbjvql" path="res://Resources/Resources/Vegetables.tres" id="1_symls"]
 [ext_resource type="Script" path="res://Resources/CountyImprovementData.cs" id="1_yrt4q"]
 
 [resource]
@@ -8,8 +9,11 @@ improvementName = "Gardener's Shack"
 improvementDescription = "Plants grow here."
 workCompleted = 0
 influenceCost = 50000
-workCost = 5
+currentAmountOfWork = 0
+maxAmountOfWork = 2
 currentWorkers = 0
 maxWorkers = 10
+resourceData = ExtResource("1_symls")
+dailyResourceGenerationAmount = 0
 isBeingBuilt = false
 isBuilt = false

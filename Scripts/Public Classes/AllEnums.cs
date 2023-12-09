@@ -18,5 +18,11 @@ namespace PlayerSpace
             Oregon,
             Washington,
         }
+
+        public enum ResourceType
+        {
+            Food,
+            BuildingMaterial,
+        }
     }
 }

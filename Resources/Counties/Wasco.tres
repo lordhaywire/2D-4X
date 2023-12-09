@@ -5,13 +5,14 @@
 
 [resource]
 script = ExtResource("1_6qnsk")
+countyID = 0
 countyName = "Wasco"
 isPlayerCapital = false
 isAICapital = false
-faction = ExtResource("1_nrbwb")
+factionData = ExtResource("1_nrbwb")
 province = 0
 biomePrimary = 1
 biomeSecondary = 4
 biomeTertiary = 6
-countyPopulation = {}
-IdleWorkers = 0
+population = 0
+idleWorkers = 0

@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=2 format=3 uid="uid://bads4woc5toep"]
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=3 format=3 uid="uid://bads4woc5toep"]
 
+[ext_resource type="Resource" uid="uid://c55q8uucl7cqe" path="res://Resources/Resources/Fish.tres" id="1_dmchc"]
 [ext_resource type="Script" path="res://Resources/CountyImprovementData.cs" id="1_nxqnj"]
 
 [resource]
@@ -8,8 +9,11 @@ improvementName = "Fisher's Shack"
 improvementDescription = "This is a fisher's shack"
 workCompleted = 0
 influenceCost = 500
-amountOfWorkCost = 0
+currentAmountOfWork = 0
+maxAmountOfWork = 200
 currentWorkers = 0
 maxWorkers = 5
+resourceData = ExtResource("1_dmchc")
+dailyResourceGenerationAmount = 0
 isBeingBuilt = false
-isBuilt = true
+isBuilt = false

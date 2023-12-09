@@ -19,6 +19,16 @@ namespace PlayerSpace
             Globals.Instance.playerFactionData.Influence -= Globals.Instance.costOfHero;
         }
 
+        public bool CheckBuildingCost(CountyData countyData, CountyImprovementData countyImprovementData)
+        {
+            return countyData.factionData.Influence >= countyImprovementData.influenceCost;
+        }
+
+        public void ChargeForBuilding(CountyData countyData, CountyImprovementData countyImprovementData)
+        {
+            countyData.factionData.Influence -= countyImprovementData.influenceCost;
+        }
+
         /*
         public void CountIdleWorkers(County county)
         {
@@ -44,14 +54,8 @@ namespace PlayerSpace
         {
             return buildingInfo.CurrentWorkers > 0;
         }
-        public void ChargeForBuilding(Faction faction, BuildingInfo buildingInfo)
-        {
-            faction.Influence -= buildingInfo.influenceCost;
-        }
-        public bool CheckBuildingCost(Faction faction, BuildingInfo buildingInfo)
-        {
-            return faction.Influence >= buildingInfo.influenceCost;
-        }
+
+
 
         public bool CheckEnoughFood(Faction faction)
         {

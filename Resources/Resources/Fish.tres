@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ResourceData" load_steps=2 format=3 uid="uid://c55q8uucl7cqe"]
+
+[ext_resource type="Script" path="res://Resources/ResourceData.cs" id="1_4tpxq"]
+
+[resource]
+script = ExtResource("1_4tpxq")
+resourceName = "Fish"
+resourceType = 0

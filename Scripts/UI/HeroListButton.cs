@@ -22,7 +22,7 @@ namespace PlayerSpace
         {
             if (toggleOn == true && countyPopulation.token == null)
             {
-                SelectCounty selectCounty = (SelectCounty)Globals.Instance.selectedCounty;
+                SelectCounty selectCounty = (SelectCounty)Globals.Instance.selectedSelectCounty;
                 heroSpawnParent = selectCounty.heroSpawn;
                 CharacterBody2D spawnedHero = (CharacterBody2D)Globals.Instance.heroToken.Instantiate();
                 heroSpawnParent.AddChild(spawnedHero);

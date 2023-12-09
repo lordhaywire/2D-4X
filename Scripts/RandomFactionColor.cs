@@ -39,7 +39,7 @@ namespace PlayerSpace
             foreach(Node county in Globals.Instance.countiesParent.GetChildren())
             {
                 SelectCounty selectCounty = (SelectCounty)county;
-                county.GetNode<Sprite2D>("County Sprite2D").SelfModulate = selectCounty.countyData.faction.factionColor;
+                county.GetNode<Sprite2D>("County Sprite2D").SelfModulate = selectCounty.countyData.factionData.factionColor;
             }
         }
     }

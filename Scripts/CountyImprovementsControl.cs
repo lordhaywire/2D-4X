@@ -5,10 +5,18 @@ namespace PlayerSpace
 {
     public partial class CountyImprovementsControl : Control
     {
+        public static CountyImprovementsControl Instance { get; private set; }
+
         [Export] private Node possibleImprovementsScrollContainerParent;
-        [Export] private Node currentImprovementsScrollContainerParent;
+        [Export] public Node currentImprovementsScrollContainerParent;
+        [Export] public ConfirmationDialog buildConfirmationDialog;
 
         [Export] private PackedScene countyImprovementButtonPackedScene;
+
+        public override void _Ready()
+        {
+            Instance = this;
+        }
         private void OnVisibilityChanged()
         {
             if (Visible == true)
@@ -32,13 +40,13 @@ namespace PlayerSpace
                 {
                     PossibleBuildingControl countyImprovementButton = (PossibleBuildingControl)countyImprovementButtonPackedScene.Instantiate();
                     possibleImprovementsScrollContainerParent.AddChild(countyImprovementButton);
-                    countyImprovementButton.countyImprovement = countyImprovementData;
+                    countyImprovementButton.countyImprovementData = countyImprovementData;
                 }
                 else
                 {
                     PossibleBuildingControl countyImprovementButton = (PossibleBuildingControl)countyImprovementButtonPackedScene.Instantiate();
                     currentImprovementsScrollContainerParent.AddChild(countyImprovementButton);
-                    countyImprovementButton.countyImprovement = countyImprovementData;
+                    countyImprovementButton.countyImprovementData = countyImprovementData;
                 }
             }
         }

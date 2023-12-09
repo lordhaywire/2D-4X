@@ -7,6 +7,11 @@ namespace PlayerSpace
         {
             public const string NOTENOUGHINFLUENCE = "You don't have enough influence";
         }
+
+        public class DialogTitles
+        {
+            public const string BUILDINGBUILDINGS = $"Are you sure you want to build a ";
+        }
         public class Titles
         {
             public const string POPLIST = "County Population";

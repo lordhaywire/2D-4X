@@ -8,7 +8,7 @@ namespace PlayerSpace
         public string researchName;
         public string description;
 
-        public CountyImprovementData countyImprovement;
+        public CountyImprovementData countyImprovementData;
         public bool isResearchDone;
 
         public ResearchItemData(string researchName, string description, CountyImprovementData isCountyImprovement, bool isResearchDone)
@@ -16,7 +16,7 @@ namespace PlayerSpace
             this.researchName = researchName;
             this.description = description;
 
-            this.countyImprovement = isCountyImprovement;
+            this.countyImprovementData = isCountyImprovement;
             this.isResearchDone = isResearchDone;
         }
     }

@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=2 format=3 uid="uid://cpmbf5setweth"]
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=3 format=3 uid="uid://cpmbf5setweth"]
 
+[ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/Resources/Wood.tres" id="1_512g1"]
 [ext_resource type="Script" path="res://Resources/CountyImprovementData.cs" id="1_un8lp"]
 
 [resource]
@@ -8,8 +9,11 @@ improvementName = "Forester's Shack"
 improvementDescription = "Whatever"
 workCompleted = 0
 influenceCost = 250
-amountOfWorkCost = 0
+currentAmountOfWork = 0
+maxAmountOfWork = 100
 currentWorkers = 0
 maxWorkers = 2
+resourceData = ExtResource("1_512g1")
+dailyResourceGenerationAmount = 0
 isBeingBuilt = false
 isBuilt = false
