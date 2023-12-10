@@ -12,7 +12,6 @@ namespace PlayerSpace
         [Export] public string countyName;
         [Export] public bool isPlayerCapital; // We need to differentiate between player choosen capitals and AI capitals for generation after player creation.
         [Export] public bool isAICapital;
-        //public BuildImprovements buildImprovements;
         [Export] public FactionData factionData;
         
         [Export] public AllEnums.Province province;
@@ -21,7 +20,8 @@ namespace PlayerSpace
         [Export] public AllEnums.Terrain biomeTertiary;
         public List<CountyPopulation> countyPopulation = new();
         public List<CountyPopulation> heroCountyPopulation = new();
-        public List<CountyImprovementData> countyImprovements = new();
+        public List<CountyImprovementData> allCountyImprovements = new();
+        public List<CountyImprovementData> underConstructionCountyImprovements = new();
 
         [Export] public int population;
         [Export] public int idleWorkers;

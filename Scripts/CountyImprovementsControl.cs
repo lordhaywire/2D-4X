@@ -23,10 +23,12 @@ namespace PlayerSpace
             {
                 Clock.Instance.PauseTime();
                 GenerateCountyImprovementButtons();
+                Globals.Instance.playerControlsEnabled = false;
             }
             else
             {
                 Clock.Instance.UnpauseTime();
+                Globals.Instance.playerControlsEnabled = true;
             }
         }
 
@@ -34,7 +36,7 @@ namespace PlayerSpace
         {
             ClearImprovements();
 
-            foreach(CountyImprovementData countyImprovementData in Globals.Instance.selectedCountyData.countyImprovements)
+            foreach(CountyImprovementData countyImprovementData in Globals.Instance.selectedCountyData.allCountyImprovements)
             {
                 if(countyImprovementData.isBeingBuilt == false && countyImprovementData.isBuilt == false)
                 {

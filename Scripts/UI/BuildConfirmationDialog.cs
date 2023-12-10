@@ -24,6 +24,8 @@ namespace PlayerSpace
                 .Reparent(CountyImprovementsControl.Instance.currentImprovementsScrollContainerParent);
             Globals.Instance.selectedPossibleBuildingControl.UpdateUnderContructionBuildingLabels();
             Globals.Instance.selectedPossibleBuildingControl.underContructionLabel.Show();
+            Globals.Instance.selectedPossibleBuildingControl.countyImprovementData.isBeingBuilt = true;
+
             Banker.Instance.ChargeForBuilding(Globals.Instance.selectedSelectCounty.countyData
                 , Globals.Instance.selectedPossibleBuildingControl.countyImprovementData);
             Hide();

@@ -24,8 +24,8 @@ namespace PlayerSpace
 				{
 					if(researchItemData.countyImprovementData != null)
 					{
-						selectCounty.countyData.countyImprovements.Add(researchItemData.countyImprovementData);
-						GD.Print($"{selectCounty.countyData.countyName} improvement: {researchItemData.countyImprovementData.improvementName}");
+						selectCounty.countyData.allCountyImprovements.Add(researchItemData.countyImprovementData);
+						//GD.Print($"{selectCounty.countyData.countyName} improvement: {researchItemData.countyImprovementData.improvementName}");
 					}
 				}
 			}

@@ -23,7 +23,7 @@ namespace PlayerSpace
 
         public void UpdateExpendables()
         {
-            GD.Print("Expendables have been updated, motherfucker!");
+            //GD.Print("Expendables have been updated, motherfucker!");
             influenceLabel.Text = Globals.Instance.playerFactionData.Influence.ToString();
             moneyLabel.Text = Globals.Instance.playerFactionData.money.ToString();
             foodLabel.Text = Globals.Instance.playerFactionData.food.ToString();

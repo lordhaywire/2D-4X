@@ -24,9 +24,12 @@ namespace PlayerSpace
             return countyData.factionData.Influence >= countyImprovementData.influenceCost;
         }
 
+        // Charge for building and also assign it to the underConstructionList.
         public void ChargeForBuilding(CountyData countyData, CountyImprovementData countyImprovementData)
         {
             countyData.factionData.Influence -= countyImprovementData.influenceCost;
+            
+            countyData.underConstructionCountyImprovements.Add(countyImprovementData);
         }
 
         /*

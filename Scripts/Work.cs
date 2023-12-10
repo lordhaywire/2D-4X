@@ -6,14 +6,13 @@ namespace PlayerSpace
     {
         public override void _Ready()
         {
-            Clock.Instance.DayStart += DayStart;
-            //Clock.Instance.WorkDayOver += WorkDayOverForPopulation;
+            Clock.Instance.HourZero += DayStart;
+            Clock.Instance.WorkDayOver += WorkDayOverForPopulation;
         }
 
         private void DayStart()
         {
             GenerateLeaderInfluence();
-            AdjustPopulationActivity();
         }
 
         private static void GenerateLeaderInfluence()
@@ -32,31 +31,7 @@ namespace PlayerSpace
             }
         }
 
-        // Adjust all of the world population!
-        private static void AdjustPopulationActivity()
-        {
-
-            // Go through every county.
-            foreach (SelectCounty county in Globals.Instance.countiesParent.GetChildren())
-            {
-                // Go through this counties population.
-                foreach (CountyPopulation person in county.countyData.countyPopulation)
-                {
-
-                    person.currentActivity = person.nextActivity;
-
-                    //item.Value[i].currentBuilding = item.Value[i].nextBuilding;
-                }
-
-                foreach (CountyPopulation person in county.countyData.heroCountyPopulation)
-                {
-
-                    person.currentActivity = person.nextActivity;
-
-                    //item.Value[i].currentBuilding = item.Value[i].nextBuilding;
-                }
-            }
-        }
+        
 
 
         // End work for all of the world population!        
@@ -88,23 +63,22 @@ namespace PlayerSpace
             {
                 foreach (CountyPopulation person in county.countyData.countyPopulation)
                 {
-                    if (person.currentActivity == AllText.Jobs.BUILDING)
+                    if (person.currentImprovement != null)
                     {
-                        GD.Print($"{person.firstName} would have built something.");
-                        /*
-                        BuildingInfo buildingInfo = item.Value[pop].currentBuilding.GetComponent<BuildingInfo>();
-                        buildingInfo.workCompleted++;
+                        GD.Print($"{person.firstName} they are building {person.currentImprovement.improvementName}.");
+                        
+                        person.currentImprovement.workCompleted++; // This is eventually going to be a skill check.
                         // Checks to see if the building is completed.
-                        if (buildingInfo.workCompleted >= buildingInfo.workCost)
+                        if (person.currentImprovement.workCompleted >= person.currentImprovement.maxAmountOfWork)
                         {
                             // This is having every population working on that building set that building as built.
                             // So it is repeating the setting to true a bunch of times.  This is ineffecient code.
                             // Some of the population will be working on different buildings too....
-                            buildingInfo.isBuilt = true;
-                            buildingInfo.isBeingBuilt = false;
-                            buildingInfo.uIGameObject.GetComponent<UIBuildingButton>().underConstructionGameObject.SetActive(false);
+                            person.currentImprovement.isBuilt = true;
+                            person.currentImprovement.isBeingBuilt = false;
+                            ;
                         }
-                        */
+                        
                     }
                 }
             }
@@ -114,7 +88,6 @@ namespace PlayerSpace
         private void UnsubscribeEvents()
         {
             GD.Print("Exiting a tree.");
-            Clock.Instance.DayStart -= AdjustPopulationActivity;
             Clock.Instance.WorkDayOver -= WorkDayOverForPopulation;
         }
 

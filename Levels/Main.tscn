@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=43 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_k200m"]
 [ext_resource type="Script" path="res://Scripts/Globals.cs" id="1_n6eaq"]
@@ -28,6 +28,7 @@
 [ext_resource type="Script" path="res://Scripts/Work.cs" id="11_whjq4"]
 [ext_resource type="Script" path="res://Scripts/UI/PopulationListUIElement.cs" id="13_f3vei"]
 [ext_resource type="Script" path="res://Scripts/UI/PopulationDescriptionUIElement.cs" id="13_ssvv1"]
+[ext_resource type="Script" path="res://Scripts/AIPopulation.cs" id="15_aodgx"]
 [ext_resource type="Script" path="res://Scripts/UI/RecruitButton.cs" id="16_k1ymn"]
 [ext_resource type="Script" path="res://Scripts/UI/RecruitHeroConfirmationPanelContainer.cs" id="17_sti7g"]
 [ext_resource type="Script" path="res://Resources/CountyData.cs" id="20_h530l"]
@@ -79,7 +80,7 @@ heroToken = ExtResource("2_3ivw0")
 movementSpeed = 5
 costOfHero = 500
 
-[node name="PlayerControls" type="Node" parent="Game Controller Node"]
+[node name="Player Controls" type="Node" parent="Game Controller Node"]
 script = ExtResource("2_5emkq")
 
 [node name="Faction Generation" type="Node" parent="Game Controller Node"]
@@ -102,6 +103,9 @@ HourLabel = NodePath("../../Player UI Canvas/Top Bar Control/Top Bar HBox/Time P
 currentSpeedLabel = NodePath("../../Player UI Canvas/Top Bar Control/Time and Research Buttons HBox/Speed Panel/Speed Number Label")
 pausedLabel = NodePath("../../Player UI Canvas/Top Bar Control/Pause Control/Pause Label")
 ticks = 250
+
+[node name="AI Population" type="Node" parent="Game Controller Node"]
+script = ExtResource("15_aodgx")
 
 [node name="Work" type="Node" parent="Game Controller Node"]
 script = ExtResource("11_whjq4")

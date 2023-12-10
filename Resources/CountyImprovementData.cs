@@ -5,6 +5,7 @@ namespace PlayerSpace
     [GlobalClass]
     public partial class CountyImprovementData : Resource
     {
+        public PossibleBuildingControl possibleBuildingControl;
         [Export] public string improvementName;
         [Export] public string improvementDescription;
 

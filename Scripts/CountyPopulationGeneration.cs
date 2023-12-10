@@ -30,7 +30,7 @@ namespace PlayerSpace
             {
                 countiesParent = Globals.Instance.countiesParent;
                 // Generate Faction Leader County Population
-                GD.Print("Faction Capital ID: " + factionData.factionCapitalCounty);
+                //GD.Print("Faction Capital ID: " + factionData.factionCapitalCounty);
                 selectCounty = (SelectCounty)countiesParent.GetChild(factionData.factionCapitalCounty);
                 countyData = selectCounty.countyData;
                 GeneratePopulation(true, 1); // There is never going to be more then 1 faction leader.
@@ -77,7 +77,8 @@ namespace PlayerSpace
                 {
                     // This adds to the C# list.
                     countyData.countyPopulation.Add(new CountyPopulation(countyData.countyID, countyData.countyID, firstName
-                        , lastName, isMale, age, false, false, false, false, constructionSkill, AllText.Jobs.IDLE, AllText.Jobs.IDLE));
+                        , lastName, isMale, age, false, false, false, false, constructionSkill, AllText.Jobs.IDLE, null
+                        , AllText.Jobs.IDLE, null));
                     
                     /*
                     CountyPopulation person = countyData.countyPopulation[i];
@@ -91,7 +92,8 @@ namespace PlayerSpace
 
                     // This adds to a C# list.
                     countyData.heroCountyPopulation.Add(new CountyPopulation(countyData.countyID, countyData.countyID, firstName
-                        , lastName, isMale, age, true, true, false, true, constructionSkill, AllText.Jobs.IDLE, AllText.Jobs.IDLE));
+                        , lastName, isMale, age, true, true, false, true, constructionSkill, AllText.Jobs.IDLE
+                        , null, AllText.Jobs.IDLE, null));
 
                     /*
                     CountyPopulation heroPerson = countyData.heroCountyPopulation[i];

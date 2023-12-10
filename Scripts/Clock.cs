@@ -8,7 +8,7 @@ namespace PlayerSpace
         public static Clock Instance { get; private set; }
 
         public event Action FirstRun;
-        public event Action DayStart;
+        public event Action HourZero;
         public event Action WorkDayOver;
 
         [Export] private Label dayLabel;
@@ -36,7 +36,7 @@ namespace PlayerSpace
                 numberOfPanelsVisible = value;
                 if (numberOfPanelsVisible > 0)
                 {
-                    GD.Print("Number of panels visible: " +  numberOfPanelsVisible);
+                    //GD.Print("Number of panels visible: " +  numberOfPanelsVisible);
                     EventLog.Instance.Hide();
 
                 }
@@ -64,7 +64,7 @@ namespace PlayerSpace
                 if (hours == 0)
                 {
                     GD.Print("Hour is ZERO!!!");
-                    DayStart?.Invoke();
+                    HourZero?.Invoke();
                 }
                 if (hours == 17)
                 {
@@ -85,7 +85,7 @@ namespace PlayerSpace
             set
             {
                 modifiedTimeScale = value;
-                GD.Print($"ModifiedScale has changed to {modifiedTimeScale}");
+                //GD.Print($"ModifiedScale has changed to {modifiedTimeScale}");
                 Engine.TimeScale = value;
                 currentSpeedLabel.Text = modifiedTimeScale.ToString();
 

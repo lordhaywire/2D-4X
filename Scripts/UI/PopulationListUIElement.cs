@@ -11,7 +11,6 @@ namespace PlayerSpace
         
         private void OnVisibilityChange()
         {
-
             DestroyPopulationRows(); // Clears out the population, so it doesn't duplicate.
             if (Visible == true)
             {
@@ -56,9 +55,23 @@ namespace PlayerSpace
                 {
                     populationRow.sexLabel.Text = "Female";
                 }
-                populationRow.currentActivityLabel.Text = person.currentActivity;
-                populationRow.nextActivityLabel.Text = person.nextActivity;
-
+                // This is only going to work while there are two Enums on the list.
+                if(person.currentActivity == AllText.Jobs.BUILDING)
+                {
+                    populationRow.currentActivityLabel.Text = $"{person.currentActivity} {person.currentImprovement.improvementName}";
+                }
+                else
+                {
+                    populationRow.currentActivityLabel.Text = person.currentActivity;
+                }
+                if(person.nextActivity == AllText.Jobs.BUILDING)
+                {
+                    populationRow.nextActivityLabel.Text = $"{person.nextActivity} {person.currentImprovement.improvementName}";
+                }
+                else
+                {
+                    populationRow.nextActivityLabel.Text = person.nextActivity;
+                }
                 populationListParent.AddChild(populationRow);
                 PopulationRowButton populationRowButton = (PopulationRowButton)populationRow;
                 populationRowButton.countyPopulation = person;

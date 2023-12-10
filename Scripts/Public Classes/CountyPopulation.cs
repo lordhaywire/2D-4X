@@ -29,9 +29,9 @@ namespace PlayerSpace
 
         [ExportGroup("Activities")]
         public string currentActivity;
-        //public GameObject currentBuilding; // What this person is currently building that day.
+        public CountyImprovementData currentImprovement; // What this person is currently building that day.
         public string nextActivity;
-        //public GameObject nextBuilding;
+        public CountyImprovementData nextImprovement;
 
         [ExportGroup("Token")]
         public CharacterBody2D token;
@@ -40,7 +40,7 @@ namespace PlayerSpace
 
             int location, int destionation, string firstName, string lastName, bool isMale, int age, bool isFactionLeader
             , bool isHero, bool isWorker, bool leaderOfPeoplePerk, int constructionSkill, string currentActivity
-            , string nextActivity)
+            , CountyImprovementData currentImprovement, string nextActivity, CountyImprovementData nextImprovement)
         {
             this.location = location;
             this.destination = destionation;
@@ -57,7 +57,9 @@ namespace PlayerSpace
 
             this.constructionSkill = constructionSkill;
 
+            this.currentImprovement = currentImprovement;
             this.currentActivity = currentActivity;
+            this.nextImprovement = nextImprovement;
             this.nextActivity = nextActivity;
         }
     }
