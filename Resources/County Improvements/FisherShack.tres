@@ -7,10 +7,11 @@
 script = ExtResource("1_nxqnj")
 improvementName = "Fisher's Shack"
 improvementDescription = "This is a fisher's shack"
-workCompleted = 0
 influenceCost = 500
-currentAmountOfWork = 0
-maxAmountOfWork = 200
+currentAmountOfConstruction = 0
+maxAmountOfConstruction = 10
+currentBuilders = 0
+maxBuilders = 5
 currentWorkers = 0
 maxWorkers = 5
 resourceData = ExtResource("1_dmchc")

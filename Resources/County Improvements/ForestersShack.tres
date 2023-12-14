@@ -7,12 +7,13 @@
 script = ExtResource("1_un8lp")
 improvementName = "Forester's Shack"
 improvementDescription = "Whatever"
-workCompleted = 0
 influenceCost = 250
-currentAmountOfWork = 0
-maxAmountOfWork = 100
+currentAmountOfConstruction = 0
+maxAmountOfConstruction = 15
+currentBuilders = 0
+maxBuilders = 2
 currentWorkers = 0
-maxWorkers = 2
+maxWorkers = 3
 resourceData = ExtResource("1_512g1")
 dailyResourceGenerationAmount = 0
 isBeingBuilt = false

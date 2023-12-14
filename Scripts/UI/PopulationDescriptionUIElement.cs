@@ -26,14 +26,16 @@ namespace PlayerSpace
             if(Visible == true)
             {
                 CallDeferred("UpdateDescriptionInfo");
-                Clock.Instance.PauseTime(); 
+                Clock.Instance.PauseTime();
+                CountyInfoControl.Instance.countyImprovementsPanelControl.Hide();
+                CountyInfoControl.Instance.populationListMarginContainer.Hide();
             }
             else
             {
                 CountyInfoControl.Instance.DisableSpawnHeroCheckButton(false);
                 heroRecruitmentConfirmPanel.Hide();
                 Globals.Instance.selectedCountyPopulation = null;
-                Globals.Instance.playerControlsEnabled = true;
+                PlayerControls.Instance.AdjustPlayerControls(true);
                 Clock.Instance.UnpauseTime();
             }
         }
@@ -41,7 +43,7 @@ namespace PlayerSpace
         public void UpdateDescriptionInfo()
         {
             CountyInfoControl.Instance.DisableSpawnHeroCheckButton(true);
-            Globals.Instance.playerControlsEnabled = false; // This too.
+            PlayerControls.Instance.AdjustPlayerControls(false); // This was probably happening too fast which is why it is here.
             CountyPopulation person = Globals.Instance.selectedCountyPopulation;
 
             if (Globals.Instance.playerFactionData.Influence < Globals.Instance.costOfHero || person.isHero == true)

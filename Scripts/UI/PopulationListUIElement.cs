@@ -16,7 +16,8 @@ namespace PlayerSpace
             {
                 CountyInfoControl.Instance.DisableSpawnHeroCheckButton(true);
                 CountyInfoControl.Instance.populationDescriptionMarginContainer.Hide();
-                Globals.Instance.playerControlsEnabled = false;
+                CountyInfoControl.Instance.countyImprovementsPanelControl.Hide();
+                PlayerControls.Instance.AdjustPlayerControls(false);
                 Clock.Instance.PauseTime();
                 
                 populationListTitle.Text = AllText.Titles.POPLIST;
@@ -26,7 +27,7 @@ namespace PlayerSpace
             else
             {
                 CountyInfoControl.Instance.DisableSpawnHeroCheckButton(false);
-                Globals.Instance.playerControlsEnabled = true;
+                PlayerControls.Instance.AdjustPlayerControls(true);
                 Clock.Instance.UnpauseTime();
             }
         }

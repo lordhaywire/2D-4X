@@ -23,27 +23,31 @@ namespace PlayerSpace
             // Go through every county.
             foreach (SelectCounty county in Globals.Instance.countiesParent.GetChildren())
             {
-                // Go through this counties population.
-                foreach (CountyPopulation person in county.countyData.countyPopulation)
+                // Go through every building in that county and see if it is being built.
+                foreach (CountyImprovementData countyImprovementData in county.countyData.underConstructionCountyImprovements)
                 {
-                    if (person.currentActivity != AllText.Jobs.IDLE)
+                    if (countyImprovementData.isBeingBuilt == true)
                     {
-                        GD.Print($"{person.firstName} {person.lastName} not getting reassigned, they are working on {person.currentActivity}");
-                        continue;
-                    }
-                    else
-                    {
-                        foreach (CountyImprovementData countyImprovementData in county.countyData.underConstructionCountyImprovements)
+                        // Go through this counties population.
+                        foreach (CountyPopulation person in county.countyData.countyPopulation)
                         {
-                            if (countyImprovementData.currentWorkers < countyImprovementData.maxWorkers 
-                                && countyImprovementData.isBeingBuilt == true)
+                            if (person.nextActivity == AllText.Jobs.IDLE && countyImprovementData.currentBuilders
+                                < countyImprovementData.maxBuilders)
                             {
                                 person.nextActivity = AllText.Jobs.BUILDING;
                                 person.nextImprovement = countyImprovementData;
-                                countyImprovementData.currentWorkers++;
+                                countyImprovementData.currentBuilders++;
                                 GD.Print($"{person.firstName} {person.lastName} is building {countyImprovementData.improvementName}");
                             }
+                            else
+                            {
+                                GD.Print($"{person.firstName} {person.lastName} not getting reassigned.");
+                            }
                         }
+                    }
+                    else
+                    {
+                        GD.Print($"{countyImprovementData.improvementName} is not being built.");
                     }
                 }
             }
@@ -64,7 +68,7 @@ namespace PlayerSpace
 
                 foreach (CountyPopulation hero in county.countyData.heroCountyPopulation)
                 {
-                    if(hero.token == null)
+                    if (hero.token == null)
                     {
                         hero.currentActivity = hero.nextActivity;
                         hero.currentImprovement = hero.nextImprovement;

@@ -23,12 +23,14 @@ namespace PlayerSpace
             {
                 Clock.Instance.PauseTime();
                 GenerateCountyImprovementButtons();
-                Globals.Instance.playerControlsEnabled = false;
+                PlayerControls.Instance.AdjustPlayerControls(false);
+                CountyInfoControl.Instance.populationDescriptionMarginContainer.Hide();
+                CountyInfoControl.Instance.populationListMarginContainer.Hide();
             }
             else
             {
                 Clock.Instance.UnpauseTime();
-                Globals.Instance.playerControlsEnabled = true;
+                PlayerControls.Instance.AdjustPlayerControls(true);
             }
         }
 

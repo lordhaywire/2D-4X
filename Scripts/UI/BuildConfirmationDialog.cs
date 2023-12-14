@@ -22,10 +22,8 @@ namespace PlayerSpace
             // stuff.
             Globals.Instance.selectedPossibleBuildingControl
                 .Reparent(CountyImprovementsControl.Instance.currentImprovementsScrollContainerParent);
-            Globals.Instance.selectedPossibleBuildingControl.UpdateUnderContructionBuildingLabels();
-            Globals.Instance.selectedPossibleBuildingControl.underContructionLabel.Show();
             Globals.Instance.selectedPossibleBuildingControl.countyImprovementData.isBeingBuilt = true;
-
+            Globals.Instance.selectedPossibleBuildingControl.UpdatePossibleBuildingLabels();
             Banker.Instance.ChargeForBuilding(Globals.Instance.selectedSelectCounty.countyData
                 , Globals.Instance.selectedPossibleBuildingControl.countyImprovementData);
             Hide();

@@ -32,7 +32,7 @@ namespace PlayerSpace
 
         public override void _Input(InputEvent @event)
         {
-            if (Globals.Instance.playerControlsEnabled == true)
+            if (PlayerControls.Instance.playerControlsEnabled == true)
             {
                 if (@event.IsActionPressed("mouse_wheel_up"))
                 {

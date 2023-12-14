@@ -52,9 +52,6 @@ namespace PlayerSpace
         [Export] public int minimumCountyPop = 1;
         [Export] public int maximumCountyPop = 4;
 
-        [ExportGroup("Controls")]
-        [Export] public bool playerControlsEnabled = true;
-
         [ExportGroup("Faction BS")]
         [Export] public FactionData playerFactionData;
 

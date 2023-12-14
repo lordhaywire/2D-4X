@@ -16,7 +16,7 @@ namespace PlayerSpace
         {
             //GD.Print("Show the research panel!");
             Show();
-            Globals.Instance.playerControlsEnabled = false;
+            PlayerControls.Instance.AdjustPlayerControls(false);
         }
 
         public void CloseButton()
@@ -29,7 +29,7 @@ namespace PlayerSpace
             else
             {
                 Hide();
-                Globals.Instance.playerControlsEnabled = true;
+                PlayerControls.Instance.AdjustPlayerControls(true);
             }  
         }
         public override void _Ready()
@@ -67,13 +67,13 @@ namespace PlayerSpace
             if (Visible == true)
             {
                 CreateResearchItemButtons();
-                Globals.Instance.playerControlsEnabled = false;
+                PlayerControls.Instance.AdjustPlayerControls(false);
                 Clock.Instance.PauseTime();
             }
             else
             {
                 DestroyResearchItemButtons();
-                Globals.Instance.playerControlsEnabled = true;
+                PlayerControls.Instance.AdjustPlayerControls(true);
                 Clock.Instance.UnpauseTime();
             }
         }

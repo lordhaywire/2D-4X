@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/UI/PossibleBuildingControl.cs" id="1_udj4w"]
 
-[node name="Possible Building Control" type="Control" node_paths=PackedStringArray("improvementNameLabel", "improvementDescriptionLabel", "improvementInfluenceCostLabel", "improvementAmountOfWorkLabel", "improvementMaxWorkersLabel", "underContructionLabel", "buildingButton")]
+[node name="Possible Building Control" type="Control" node_paths=PackedStringArray("improvementNameLabel", "improvementDescriptionLabel", "improvementInfluenceCostLabel", "improvementAmountOfConstructionLabel", "improvementMaxBuildersLabel", "underContructionLabel", "buildingButton")]
 custom_minimum_size = Vector2(450, 200)
 layout_mode = 3
 anchors_preset = 0
@@ -11,8 +11,8 @@ script = ExtResource("1_udj4w")
 improvementNameLabel = NodePath("Building Button/VBoxContainer/Building Name Label")
 improvementDescriptionLabel = NodePath("Building Button/VBoxContainer/Description Label")
 improvementInfluenceCostLabel = NodePath("Building Button/VBoxContainer/Influence Cost Label")
-improvementAmountOfWorkLabel = NodePath("Building Button/VBoxContainer/Amount of Work Label")
-improvementMaxWorkersLabel = NodePath("Building Button/VBoxContainer/Number of Workers Label")
+improvementAmountOfConstructionLabel = NodePath("Building Button/VBoxContainer/Amount of Construction Label")
+improvementMaxBuildersLabel = NodePath("Building Button/VBoxContainer/Number of Builders Label")
 underContructionLabel = NodePath("Under Contruction Label")
 buildingButton = NodePath("Building Button")
 
@@ -76,7 +76,7 @@ text = "Possible Building Influence Cost Button"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Amount of Work Label" type="Label" parent="Building Button/VBoxContainer"]
+[node name="Amount of Construction Label" type="Label" parent="Building Button/VBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_vertical = 6
@@ -84,7 +84,7 @@ text = "Possible Amount of Work Cost Button"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Number of Workers Label" type="Label" parent="Building Button/VBoxContainer"]
+[node name="Number of Builders Label" type="Label" parent="Building Button/VBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_vertical = 6
