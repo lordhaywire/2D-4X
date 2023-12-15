@@ -21,6 +21,44 @@ namespace PlayerSpace
 			CallDeferred("UpdatePossibleBuildingLabels");
 		}
 
+        public void UpdatePossibleBuildingLabels()
+        {
+            improvementNameLabel.Text = countyImprovementData.improvementName;
+            improvementDescriptionLabel.Text = countyImprovementData.improvementDescription;
+            improvementInfluenceCostLabel.Text = $"Influence Cost: {countyImprovementData.influenceCost}";
+
+            switch (Banker.Instance.CheckBuildingCost(Globals.Instance.selectedCountyData, countyImprovementData)
+				, countyImprovementData.isBeingBuilt, countyImprovementData.isBuilt)
+            {
+                case (false, _, _):
+                    buildingButton.Disabled = true;
+                    break;
+
+                case (_, true, _):
+                    buildingButton.Disabled = true;
+                    break;
+
+                case (_, _, true):
+                    improvementMaxBuildersLabel.Text = $"{countyImprovementData.currentWorkers}/{countyImprovementData.maxWorkers} Workers";
+                    improvementAmountOfConstructionLabel.Hide();
+                    break;
+
+                case (_, false, _):
+                    improvementAmountOfConstructionLabel.Text = $"Amount of work: {countyImprovementData.maxAmountOfConstruction}";
+                    improvementMaxBuildersLabel.Text = $"Max Workers: {countyImprovementData.maxBuilders}";
+                    break;
+				/*
+                case (_, _, _):
+                    improvementInfluenceCostLabel.Hide();
+                    underContructionLabel.Show();
+                    improvementAmountOfConstructionLabel.Text = $"{countyImprovementData.currentAmountOfConstruction}/{countyImprovementData.maxAmountOfConstruction} Amount of Construction";
+                    improvementMaxBuildersLabel.Text = $"{countyImprovementData.currentBuilders}/{countyImprovementData.maxBuilders} Builders";
+                    break;
+				*/
+            }
+        }
+
+        /*
 		public void UpdatePossibleBuildingLabels()
 		{
 			improvementNameLabel.Text = countyImprovementData.improvementName;
@@ -52,8 +90,8 @@ namespace PlayerSpace
 				improvementAmountOfConstructionLabel.Hide();
 			}
         }
-
-		private void BuildingButton()
+		*/
+        private void BuildingButton()
 		{
 			GD.Print("You have pressed the building button.");
 			CountyImprovementsControl.Instance.buildConfirmationDialog.Visible = true;
