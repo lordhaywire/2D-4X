@@ -1,12 +1,11 @@
 using Godot;
+using System.Collections.Generic;
 
 namespace PlayerSpace
 {
     public partial class Banker : Node
     {
         public static Banker Instance { get; private set; }
-
-        //[SerializeField] private ResourceSO foodSO;
 
         public override void _Ready()
         {
@@ -19,18 +18,82 @@ namespace PlayerSpace
             Globals.Instance.playerFactionData.Influence -= Globals.Instance.costOfHero;
         }
 
-        public bool CheckBuildingCost(CountyData countyData, CountyImprovementData countyImprovementData)
+        public bool CheckBuildingCost(FactionData factionData, CountyImprovementData countyImprovementData)
         {
-            return countyData.factionData.Influence >= countyImprovementData.influenceCost;
+            return factionData.Influence >= countyImprovementData.influenceCost;
         }
 
         // Charge for building and also assign it to the underConstructionList.
-        public void ChargeForBuilding(CountyData countyData, CountyImprovementData countyImprovementData)
+        public void ChargeForBuilding(FactionData factionData, CountyImprovementData countyImprovementData)
         {
-            countyData.factionData.Influence -= countyImprovementData.influenceCost;
-            
+            factionData.Influence -= countyImprovementData.influenceCost;
+        }
+
+        public bool CheckEnoughFood(FactionData faction)
+        {
+            return faction.food >= Globals.Instance.minimumFood;
+        }
+
+        public void BuildImprovement(CountyData countyData, CountyImprovementData countyImprovementData)
+        {
+            GD.Print($"{countyData.factionData.factionName} is building {countyImprovementData.improvementName}.");
+            countyImprovementData.isBeingBuilt = true;
             countyData.underConstructionCountyImprovements.Add(countyImprovementData);
         }
+
+        public void FindFoodBuilding(FactionData factionData, out CountyImprovementData countyImprovementData, out CountyData countyData)
+        {
+            countyImprovementData = null;
+            countyData = null;
+
+            List<CountyData> countiesData = factionData.countiesFactionOwns;
+
+            foreach (CountyData countyDataItem in countiesData)
+            {
+                foreach (CountyImprovementData improvementData in countyDataItem.allCountyImprovements)
+                {
+                    if (improvementData.isBeingBuilt || improvementData.isBuilt)
+                    {
+                        GD.Print($"{improvementData.improvementName} is already being built.");
+                        return;
+                    }
+                    if (improvementData.resourceData.resourceType == AllEnums.ResourceType.Food)
+                    {
+                        GD.Print($"{factionData.factionName} found {improvementData.improvementName} in {countyDataItem.countyName}.");
+                        countyImprovementData = improvementData;
+                        countyData = countyDataItem;
+                        return;
+                    }
+                }
+            }
+        }
+
+        /*
+        public CountyImprovementData FindFoodBuilding(FactionData factionData)
+        {
+            List<CountyData> countiesData = factionData.countiesFactionOwns;
+
+            foreach (CountyData countyData in countiesData)
+            {
+                foreach (CountyImprovementData countyImprovementData in countyData.allCountyImprovements)
+                {
+                    if (countyImprovementData.isBeingBuilt == true || countyImprovementData.isBuilt == true)
+                    {
+                        GD.Print($"{countyImprovementData.improvementName} is already being built.");
+                        return null;
+                    }
+                    if (countyImprovementData.resourceData.resourceType == AllEnums.ResourceType.Food)
+                    {
+                        GD.Print($"{factionData.factionName} found {countyImprovementData.improvementName} in {countyData.countyName}.");
+                        return countyImprovementData;
+                    }
+                }
+            }
+            GD.Print("No food building found.");
+            return null;
+        }
+        */
+
 
         /*
         public void CountIdleWorkers(County county)
@@ -47,69 +110,6 @@ namespace PlayerSpace
             }
 
             county.IdleWorkers = idleWorkers;
-        }
-
-        public bool CheckEnoughIdleWorkers(BuildingInfo buildingInfo)
-        {
-            return buildingInfo.county.IdleWorkers >= buildingInfo.CurrentWorkers;
-        }
-        public bool CheckForWorkersAssigned(BuildingInfo buildingInfo)
-        {
-            return buildingInfo.CurrentWorkers > 0;
-        }
-
-
-
-        public bool CheckEnoughFood(Faction faction)
-        {
-            return faction.food >= Globals.Instance.minimumFoodAI;
-        }
-
-        public GameObject FindFoodBuilding(GameObject faction)
-        {
-            List<County> counties = faction.GetComponent<FactionAI>().countiesFactionOwns;
-
-            for (int i = 0; i < counties.Count; i++)
-            {
-                Transform possibleBuildingsParent = counties[i].gameObject.GetComponent<CountyInfo>().possibleBuildingsParent;
-                Transform currentBuildingsParent = counties[i].gameObject.GetComponent<CountyInfo>().currentBuildingsParent;
-
-                for (int j = 0; j < currentBuildingsParent.childCount; j++)
-                {
-                    BuildingInfo buildingInfo = currentBuildingsParent.GetChild(j).GetComponent<BuildingInfo>();
-                    if (buildingInfo.isBeingBuilt == true || buildingInfo.isBuilt == true)
-                    {
-                        Debug.Log($"{buildingInfo.buildingName} is already being built.");
-                        return null;
-                    }
-                }
-
-                for (int j = 0; j < possibleBuildingsParent.childCount; j++)
-                {
-                    BuildingInfo buildingInfo = possibleBuildingsParent.GetChild(j).GetComponent<BuildingInfo>();
-
-                    if (buildingInfo.resourceSO.name == foodSO.name)
-                    {
-                        GameObject foodBuilding = possibleBuildingsParent.GetChild(j).gameObject;
-                        Debug.Log($"Found {foodBuilding.name} in {counties[i].gameObject.name}");
-
-                        return foodBuilding;
-                    }
-                }
-            }
-            Debug.Log("No food building found.");
-            return null;
-        }
-
-
-        public void DeductCostOfBuilding()
-        {
-            Debug.Log("Banker.cs DeductCostOfBuilding()");
-            /*
-            WorldMapLoad.Instance.factions[WorldMapLoad.Instance.playerFactionID].Influence 
-                -= WorldMapLoad.Instance.CurrentlySelectedCounty.GetComponent<CountyInfo>().county
-                .possibleBuildings[UIPossibleBuildingsPanel.Instance.PossibleBuildingNumber].GetComponent<BuildingInfo>().influenceCost;
-
         }
         */
 

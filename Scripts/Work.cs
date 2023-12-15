@@ -65,7 +65,7 @@ namespace PlayerSpace
                 {
                     if (person.currentImprovement != null)
                     {
-                        GD.Print($"{person.firstName} they are building {person.currentImprovement.improvementName}.");
+                        GD.Print($"{person.firstName} is building {person.currentImprovement.improvementName}.");
                         
                         person.currentImprovement.currentAmountOfConstruction++; // This is eventually going to be a skill check.
 

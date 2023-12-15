@@ -1,11 +1,12 @@
 using Godot;
-using System.Collections.Generic;
 
 namespace PlayerSpace
 {
     public partial class FactionGeneration : Node
     {
         private string factionDataPath = "res://Resources/Factions/";
+        [Export] private PackedScene factionNodePackedScene;
+        
 
         [Export] private CountyImprovementData[] countyImprovementData;
 
@@ -37,12 +38,21 @@ namespace PlayerSpace
                     }
 
                     AddStartingResearch(factionData);
+                    CreateFactionNode(factionData);
                 }
             }
             else
             {
                 GD.Print("You are so fucked.  This directory doesn't exist: " + factionDataPath);
             }
+        }
+
+        private void CreateFactionNode(FactionData factionData)
+        {
+            FactionNode factionNode = (FactionNode)factionNodePackedScene.Instantiate();
+            factionNode.factionData = factionData;
+            factionNode.Name = factionNode.factionData.factionName;
+            AddChild(factionNode);
         }
 
         private void AddStartingResearch(FactionData factionData)

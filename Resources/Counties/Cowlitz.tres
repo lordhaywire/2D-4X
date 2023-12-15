@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="CountyData" load_steps=2 format=3 uid="uid://cvc0wfljshom0"]
+[gd_resource type="Resource" script_class="CountyData" load_steps=3 format=3 uid="uid://cvc0wfljshom0"]
 
 [ext_resource type="Script" path="res://Resources/CountyData.cs" id="1_7vc5o"]
+[ext_resource type="Resource" uid="uid://8rlgk7ws51cg" path="res://Resources/Factions/AIFaction1.tres" id="1_tv1hx"]
 
 [resource]
 script = ExtResource("1_7vc5o")
@@ -8,6 +9,7 @@ countyID = 0
 countyName = "Cowlitz"
 isPlayerCapital = false
 isAICapital = true
+factionData = ExtResource("1_tv1hx")
 province = 1
 biomePrimary = 0
 biomeSecondary = 6

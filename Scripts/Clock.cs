@@ -56,7 +56,7 @@ namespace PlayerSpace
                 // This isn't used yet.
                 if (days == 0 && hours == 1)
                 {
-                    GD.Print("It is 1 am on day zero.");
+                    //GD.Print("It is 1 am on day zero.");
                     FirstRun?.Invoke();
 
                 }
@@ -144,7 +144,7 @@ namespace PlayerSpace
 
         public void PauseandUnpause()
         {
-            GD.Print("Keyboard has been pressed!");
+            //GD.Print("Keyboard has been pressed!");
             if (ModifiedTimeScale > 0)
             {
                 NumberOfPanelsVisible++;

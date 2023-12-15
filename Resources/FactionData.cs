@@ -9,11 +9,13 @@ namespace PlayerSpace
 	{
         public event Action InfluenceChanged;
 
+        [ExportGroup("Faction Info")]
         [Export] public bool isPlayer;
         [Export] public string factionName;
         [Export] public Color factionColor;
         [Export] public int factionCapitalCounty;
         public List<ResearchItemData> researchItems = new();
+        public List<CountyData> countiesFactionOwns = new();
         public CountyPopulation factionLeader;
 
         [ExportGroup("Expendables")]

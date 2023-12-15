@@ -52,7 +52,10 @@ namespace PlayerSpace
         [Export] public int minimumCountyPop = 1;
         [Export] public int maximumCountyPop = 4;
 
-        [ExportGroup("Faction BS")]
+        [ExportGroup("Faction Shit")]
+        [Export] public int minimumFood;
+
+        [ExportGroup("Player Faction BS")]
         [Export] public FactionData playerFactionData;
 
         [ExportGroup("County Info")]

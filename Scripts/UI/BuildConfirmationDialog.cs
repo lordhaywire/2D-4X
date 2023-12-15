@@ -20,11 +20,13 @@ namespace PlayerSpace
             GD.Print("Yes was pressed.");
             // Maybe change this to its own method, or even have this code somewhere else.  We probably want to move this when we do AI
             // stuff.
+            CountyImprovementData countyImprovementData = Globals.Instance.selectedPossibleBuildingControl.countyImprovementData;
+
             Globals.Instance.selectedPossibleBuildingControl
                 .Reparent(CountyImprovementsControl.Instance.currentImprovementsScrollContainerParent);
-            Globals.Instance.selectedPossibleBuildingControl.countyImprovementData.isBeingBuilt = true;
             Globals.Instance.selectedPossibleBuildingControl.UpdatePossibleBuildingLabels();
-            Banker.Instance.ChargeForBuilding(Globals.Instance.selectedSelectCounty.countyData
+            Banker.Instance.BuildImprovement(Globals.Instance.selectedSelectCounty.countyData, countyImprovementData);
+            Banker.Instance.ChargeForBuilding(Globals.Instance.playerFactionData
                 , Globals.Instance.selectedPossibleBuildingControl.countyImprovementData);
             Hide();
         }

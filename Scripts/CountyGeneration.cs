@@ -8,7 +8,17 @@ namespace PlayerSpace
 		public override void _Ready()
 		{
 			GenerateBuildings();
+			AssignCountyDataToFaction();
 		}
+
+        private void AssignCountyDataToFaction()
+        {
+            foreach (Node node in Globals.Instance.countiesParent.GetChildren())
+			{
+                SelectCounty selectCounty = (SelectCounty)node;
+				selectCounty.countyData.factionData.countiesFactionOwns.Add(selectCounty.countyData);
+            }
+        }
 
         private void GenerateBuildings()
         {

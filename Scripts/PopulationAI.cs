@@ -3,7 +3,7 @@ using System;
 
 namespace PlayerSpace
 {
-    public partial class AIPopulation : Node
+    public partial class PopulationAI : Node
     {
         public override void _Ready()
         {
@@ -21,15 +21,16 @@ namespace PlayerSpace
         private void DecideNextActivity()
         {
             // Go through every county.
-            foreach (SelectCounty county in Globals.Instance.countiesParent.GetChildren())
+            foreach (Node node in Globals.Instance.countiesParent.GetChildren())
             {
+                SelectCounty selectCounty = (SelectCounty)node;
                 // Go through every building in that county and see if it is being built.
-                foreach (CountyImprovementData countyImprovementData in county.countyData.underConstructionCountyImprovements)
+                foreach (CountyImprovementData countyImprovementData in selectCounty.countyData.underConstructionCountyImprovements)
                 {
                     if (countyImprovementData.isBeingBuilt == true)
                     {
                         // Go through this counties population.
-                        foreach (CountyPopulation person in county.countyData.countyPopulation)
+                        foreach (CountyPopulation person in selectCounty.countyData.countyPopulation)
                         {
                             if (person.nextActivity == AllText.Jobs.IDLE && countyImprovementData.currentBuilders
                                 < countyImprovementData.maxBuilders)
