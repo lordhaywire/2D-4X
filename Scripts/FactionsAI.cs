@@ -15,16 +15,14 @@ namespace PlayerSpace
 
         private void CheckForBuildingBuildings()
         {
-            foreach (FactionData factionData in Globals.Instance.factions)
+            foreach (FactionData factionData in Globals.Instance.factionDatas)
             {
                 // Is there enough food? If not build a food building.
                 if(factionData.isPlayer == false)
                 {
                     if (Banker.Instance.CheckEnoughFood(factionData) == false)
                     {
-                        CountyImprovementData foodBuilding;
-                        CountyData countyData;
-                        Banker.Instance.FindFoodBuilding(factionData, out foodBuilding, out countyData);
+                        Banker.Instance.FindFoodBuilding(factionData, out CountyImprovementData foodBuilding, out CountyData countyData);
 
                         if (foodBuilding != null && countyData != null)
                         {

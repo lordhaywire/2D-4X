@@ -8,7 +8,7 @@ namespace PlayerSpace
         public static Globals Instance { get; private set; }
 
         [ExportGroup("Event Variables")]
-        public List<FactionData> factions = new();
+        public List<FactionData> factionDatas = new();
         [Export] public int dailyInfluenceGain;
 
         [ExportGroup("Game Settings")]
@@ -58,10 +58,6 @@ namespace PlayerSpace
         [ExportGroup("Player Faction BS")]
         [Export] public FactionData playerFactionData;
 
-        [ExportGroup("County Info")]
-        [Export] public Control countyInfoControl;
-        [Export] public Label countyNameLabel;
-
         [ExportGroup("Hero Shit")]
         [Export] public PackedScene heroToken;
         [Export] public int movementSpeed = 10;
@@ -96,22 +92,24 @@ namespace PlayerSpace
             //lastNames = null;
 
             // Load all the names from disk.
+            GD.Print("Localize Path: " + ProjectSettings.LocalizePath(listsPath));
+            GD.Print("Globalize Path: " + ProjectSettings.GlobalizePath(listsPath));
             using var directory = DirAccess.Open(listsPath);
             if (directory.DirExists(listsPath))
             {
-                using var maleFile = FileAccess.Open(listsPath + maleNamesPath, FileAccess.ModeFlags.Read);
+                using var maleFile = FileAccess.Open(ProjectSettings.GlobalizePath(listsPath + maleNamesPath), FileAccess.ModeFlags.Read);
                 while(maleFile.GetPosition() < maleFile.GetLength())
                 {
                     maleNames.Add(maleFile.GetLine());
                     //GD.Print("First Name: " + maleNames[^1]);
                 }
-                using var femaleFile = FileAccess.Open(listsPath + femaleNamesPath, FileAccess.ModeFlags.Read);
+                using var femaleFile = FileAccess.Open(ProjectSettings.GlobalizePath(listsPath + femaleNamesPath), FileAccess.ModeFlags.Read);
                 while (femaleFile.GetPosition() < femaleFile.GetLength())
                 {
                     femaleNames.Add(femaleFile.GetLine());
                     //GD.Print("First Name: " + femaleNames[^1]);
                 }
-                using var lastNameFile = FileAccess.Open(listsPath + lastNamesPath, FileAccess.ModeFlags.Read);
+                using var lastNameFile = FileAccess.Open(ProjectSettings.GlobalizePath(listsPath + lastNamesPath), FileAccess.ModeFlags.Read);
                 while (lastNameFile.GetPosition() < lastNameFile.GetLength())
                 {
                     lastNames.Add(lastNameFile.GetLine());

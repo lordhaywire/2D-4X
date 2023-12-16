@@ -56,7 +56,6 @@ biomePrimary = 0
 biomeSecondary = 6
 biomeTertiary = 5
 population = 0
-idleWorkers = 0
 
 [node name="Root Node" type="Node"]
 
@@ -70,15 +69,13 @@ position = Vector2(494, 479)
 
 [node name="Game Controller Node" type="Node" parent="."]
 
-[node name="Main" type="Node" parent="Game Controller Node" node_paths=PackedStringArray("countiesParent", "countyInfoControl", "countyNameLabel")]
+[node name="Main" type="Node" parent="Game Controller Node" node_paths=PackedStringArray("countiesParent")]
 script = ExtResource("1_n6eaq")
 dailyInfluenceGain = 5
 selectedHeroTexture = ExtResource("2_iubix")
 unselectedHeroTexture = ExtResource("3_ohas6")
 countiesParent = NodePath("../../Counties")
 minimumFood = 100
-countyInfoControl = NodePath("../../Player UI Canvas/County Info Control")
-countyNameLabel = NodePath("../../Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/County Title Label")
 heroToken = ExtResource("2_3ivw0")
 movementSpeed = 5
 costOfHero = 500
@@ -156,7 +153,7 @@ text = "Paused"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="County Info Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("populationListMarginContainer", "populationDescriptionMarginContainer", "countyImprovementsPanelControl", "heroListParent", "heroSpawnCheckButtonParent", "countyPopulationLabel", "countyIdleWorkersLabel")]
+[node name="County Info Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("countyInfoControl", "factionNamelabel", "countyNameLabel", "countyPopulationLabel", "countyIdleWorkersLabel", "populationListMarginContainer", "populationDescriptionMarginContainer", "countyImprovementsPanelControl", "heroListParent", "heroSpawnCheckButtonParent")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -168,14 +165,17 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("10_11qbn")
+countyInfoControl = NodePath(".")
+factionNamelabel = NodePath("County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer/Faction Name Label")
+countyNameLabel = NodePath("County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer/County Name Label")
+countyPopulationLabel = NodePath("County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Population List Button/Population Button PanelContainer/Population Number Label")
+countyIdleWorkersLabel = NodePath("County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Idle Workers List Button/Idle Workers Button PanelContainer/Idle Workers Number Label")
 populationListMarginContainer = NodePath("../Population List MarginContainer")
 populationDescriptionMarginContainer = NodePath("../Population Description MarginContainer")
 countyImprovementsPanelControl = NodePath("../County Improvements Control")
 heroListParent = NodePath("County and Heroes VBoxContainer/Heroes VBoxContainer")
 heroSpawnCheckButtonParent = NodePath("County and Heroes VBoxContainer/Heroes VBoxContainer")
 heroListPrefab = ExtResource("10_j48oi")
-countyPopulationLabel = NodePath("County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Population List Button/Population Button PanelContainer/Population Number Label")
-countyIdleWorkersLabel = NodePath("County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Idle Workers List Button/Idle Workers Button PanelContainer/Idle Workers Number Label")
 
 [node name="County and Heroes VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control"]
 layout_mode = 0
@@ -194,7 +194,19 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 
-[node name="County Title Label" type="Label" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer"]
+layout_mode = 2
+
+[node name="Faction Name Label" type="Label" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(180, 25)
+layout_mode = 2
+text = "Faction Smackson"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="County Name Label" type="Label" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(180, 25)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Smortland Oregon"
@@ -766,6 +778,7 @@ position = Vector2(643, 48)
 scale = Vector2(0.8, 0.8)
 
 [connection signal="button_up" from="Player UI Canvas/Top Bar Control/Time and Research Buttons HBox/Research Button" to="Player UI Canvas/Research Control" method="ShowResearchPanel"]
+[connection signal="visibility_changed" from="Player UI Canvas/County Info Control" to="Player UI Canvas/County Info Control" method="OnVisibilityChanged"]
 [connection signal="button_up" from="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Population List Button" to="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer" method="OnButtonClick"]
 [connection signal="button_up" from="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/County Improvements Button" to="Player UI Canvas/County Info Control" method="BuildingsButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Population List MarginContainer" to="Player UI Canvas/Population List MarginContainer" method="OnVisibilityChange"]

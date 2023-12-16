@@ -38,7 +38,6 @@ namespace PlayerSpace
                 {
                     //GD.Print("Number of panels visible: " +  numberOfPanelsVisible);
                     EventLog.Instance.Hide();
-
                 }
                 else
                 {
@@ -56,7 +55,7 @@ namespace PlayerSpace
                 // This isn't used yet.
                 if (days == 0 && hours == 1)
                 {
-                    //GD.Print("It is 1 am on day zero.");
+                    GD.Print("It is 1 am on day zero.");
                     FirstRun?.Invoke();
 
                 }

@@ -27,13 +27,13 @@ namespace PlayerSpace
 
                     Globals.Instance.CurrentlySelectedToken = null;
                     GD.Print($"You left clicked on {Name}, dude!");
-                    Globals.Instance.countyNameLabel.Text = countyData.countyName; // I think this should be in PlayerUI
                     Globals.Instance.selectedCountyData = countyData;
                     Globals.Instance.selectedSelectCounty = this;
+                    CountyInfoControl.Instance.UpdateNameLabels();
                     CountyInfoControl.Instance.UpdateCountyPopulationLabel();
                     CountyInfoControl.Instance.UpdateIdleWorkersLabel();
                     CountyInfoControl.Instance.GenerateHeroesPanelList();
-                    Globals.Instance.countyInfoControl.Show(); // This has to be last.
+                    CountyInfoControl.Instance.countyInfoControl.Show(); // This has to be last.
                     
                 }
                 // Right Click on County

@@ -21,7 +21,8 @@ namespace PlayerSpace
         
         public class Jobs
         {
-            public const string IDLE = "Scavenging";
+            public const string IDLE = "Idle";
+            public const string SCAVENGING = "Scavenging";
             public const string BUILDING = "Building";
         }
         

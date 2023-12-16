@@ -56,8 +56,8 @@ namespace PlayerSpace
                 {
                     populationRow.sexLabel.Text = "Female";
                 }
-                // This is only going to work while there are two Enums on the list.
-                if(person.currentActivity == AllText.Jobs.BUILDING)
+
+                if(person.currentImprovement != null)
                 {
                     populationRow.currentActivityLabel.Text = $"{person.currentActivity} {person.currentImprovement.improvementName}";
                 }
@@ -67,7 +67,7 @@ namespace PlayerSpace
                 }
                 if(person.nextActivity == AllText.Jobs.BUILDING)
                 {
-                    populationRow.nextActivityLabel.Text = $"{person.nextActivity} {person.currentImprovement.improvementName}";
+                    populationRow.nextActivityLabel.Text = $"{person.nextActivity} {person.nextImprovement.improvementName}";
                 }
                 else
                 {

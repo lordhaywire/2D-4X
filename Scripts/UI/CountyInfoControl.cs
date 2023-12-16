@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 namespace PlayerSpace
 {
@@ -7,21 +6,37 @@ namespace PlayerSpace
     {
         public static CountyInfoControl Instance { get; private set; }
 
-        [ExportGroup("Public Shit")]
+        [ExportGroup("County Info")]
+        [Export] public Control countyInfoControl;
+        [Export] public Label factionNamelabel;
+        [Export] public Label countyNameLabel;
+        [Export] private Label countyPopulationLabel;
+        [Export] private Label countyIdleWorkersLabel;
+
+        [ExportGroup("Containers and shit")]
         [Export] public MarginContainer populationListMarginContainer;
         [Export] public MarginContainer populationDescriptionMarginContainer;
         [Export] public Control countyImprovementsPanelControl;
-
-        [ExportGroup("Private Variables")]
         [Export] private VBoxContainer heroListParent;
         [Export] private VBoxContainer heroSpawnCheckButtonParent;
+
         [Export] private PackedScene heroListPrefab;
-        [Export] private Label countyPopulationLabel;
-        [Export] private Label countyIdleWorkersLabel;
 
         public override void _Ready()
         {
             Instance = this;
+        }
+
+        private void OnVisibilityChanged()
+        {
+            if(Visible == true)
+            {
+                Globals.Instance.selectedCountyData.IdleWorkersChanged += UpdateIdleWorkersLabel;
+            }
+            else
+            {
+                Globals.Instance.selectedCountyData.IdleWorkersChanged -= UpdateIdleWorkersLabel;
+            }
         }
 
         public void DisableSpawnHeroCheckButton(bool value)
@@ -33,6 +48,11 @@ namespace PlayerSpace
             }
         }
 
+        public void UpdateNameLabels()
+        {
+            factionNamelabel.Text = Globals.Instance.selectedCountyData.factionData.factionName;
+            countyNameLabel.Text = Globals.Instance.selectedCountyData.countyName;
+        }
         public void GenerateHeroesPanelList()
         {
             CountyData countyData = Globals.Instance.selectedCountyData;
@@ -75,7 +95,8 @@ namespace PlayerSpace
         // This is going to break once we put people to work.
         public void UpdateIdleWorkersLabel()
         {
-            countyIdleWorkersLabel.Text = countyPopulationLabel.Text;
+            GD.Print("Update Idle Workers !!");
+            countyIdleWorkersLabel.Text = Globals.Instance.selectedCountyData.IdleWorkers.ToString();
         }
 
         private void BuildingsButton()

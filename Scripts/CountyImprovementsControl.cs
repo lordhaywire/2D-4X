@@ -34,7 +34,7 @@ namespace PlayerSpace
             }
         }
 
-        private void GenerateCountyImprovementButtons()
+        public void GenerateCountyImprovementButtons()
         {
             ClearImprovements();
 

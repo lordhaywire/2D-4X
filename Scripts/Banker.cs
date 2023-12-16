@@ -67,52 +67,5 @@ namespace PlayerSpace
                 }
             }
         }
-
-        /*
-        public CountyImprovementData FindFoodBuilding(FactionData factionData)
-        {
-            List<CountyData> countiesData = factionData.countiesFactionOwns;
-
-            foreach (CountyData countyData in countiesData)
-            {
-                foreach (CountyImprovementData countyImprovementData in countyData.allCountyImprovements)
-                {
-                    if (countyImprovementData.isBeingBuilt == true || countyImprovementData.isBuilt == true)
-                    {
-                        GD.Print($"{countyImprovementData.improvementName} is already being built.");
-                        return null;
-                    }
-                    if (countyImprovementData.resourceData.resourceType == AllEnums.ResourceType.Food)
-                    {
-                        GD.Print($"{factionData.factionName} found {countyImprovementData.improvementName} in {countyData.countyName}.");
-                        return countyImprovementData;
-                    }
-                }
-            }
-            GD.Print("No food building found.");
-            return null;
-        }
-        */
-
-
-        /*
-        public void CountIdleWorkers(County county)
-        {
-            // I don't think this is very efficient.
-            int idleWorkers = 0;
-
-            for (int i = 0; i < county.countyPopulation.Count; i++)
-            {
-                if (county.countyPopulation[i].nextBuilding == null)
-                {
-                    idleWorkers++;
-                }
-            }
-
-            county.IdleWorkers = idleWorkers;
-        }
-        */
-
     }
-
 }

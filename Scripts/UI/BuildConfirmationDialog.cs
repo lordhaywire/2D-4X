@@ -18,16 +18,15 @@ namespace PlayerSpace
         private void YesButton()
         {
             GD.Print("Yes was pressed.");
-            // Maybe change this to its own method, or even have this code somewhere else.  We probably want to move this when we do AI
-            // stuff.
-            CountyImprovementData countyImprovementData = Globals.Instance.selectedPossibleBuildingControl.countyImprovementData;
 
-            Globals.Instance.selectedPossibleBuildingControl
-                .Reparent(CountyImprovementsControl.Instance.currentImprovementsScrollContainerParent);
-            Globals.Instance.selectedPossibleBuildingControl.UpdatePossibleBuildingLabels();
+            CountyImprovementData countyImprovementData = Globals.Instance.selectedPossibleBuildingControl.countyImprovementData;
+            
             Banker.Instance.BuildImprovement(Globals.Instance.selectedSelectCounty.countyData, countyImprovementData);
             Banker.Instance.ChargeForBuilding(Globals.Instance.playerFactionData
                 , Globals.Instance.selectedPossibleBuildingControl.countyImprovementData);
+
+            Globals.Instance.selectedPossibleBuildingControl.UpdatePossibleBuildingLabels();
+            CountyImprovementsControl.Instance.GenerateCountyImprovementButtons();
             Hide();
         }
 

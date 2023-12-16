@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 
 namespace PlayerSpace
@@ -6,7 +7,7 @@ namespace PlayerSpace
     [GlobalClass]
     public partial class CountyData : Resource
     {
-        //public event Action IdleWorkersChanged;
+        public event Action IdleWorkersChanged;
 
         [Export] public int countyID;
         [Export] public string countyName;
@@ -24,6 +25,18 @@ namespace PlayerSpace
         public List<CountyImprovementData> underConstructionCountyImprovements = new();
 
         [Export] public int population;
-        [Export] public int idleWorkers;
+        private int idleWorkers;
+
+        public int IdleWorkers
+        {
+            get { return idleWorkers; }
+            set 
+            { 
+                idleWorkers = value;
+                IdleWorkersChanged?.Invoke();
+            }
+        }
+
+
     }
 }

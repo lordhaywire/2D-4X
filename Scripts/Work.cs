@@ -4,8 +4,11 @@ namespace PlayerSpace
 {
     public partial class Work : Node
     {
+        public static Work Instance { get; private set; }
         public override void _Ready()
         {
+            Instance = this;
+
             Clock.Instance.HourZero += DayStart;
             Clock.Instance.WorkDayOver += WorkDayOverForPopulation;
         }
@@ -17,44 +20,62 @@ namespace PlayerSpace
 
         private static void GenerateLeaderInfluence()
         {
-            for (int i = 0; i < Globals.Instance.factions.Count; i++)
+            foreach (FactionData factionData in Globals.Instance.factionDatas)
             {
-                FactionData faction = Globals.Instance.factions[i];
-                if (faction.factionLeader.leaderOfPeoplePerk == true)
+                if (factionData.factionLeader.leaderOfPeoplePerk == true)
                 {
-                    faction.Influence += Globals.Instance.dailyInfluenceGain;
+                    factionData.Influence += Globals.Instance.dailyInfluenceGain;
+                    GD.PrintRich($"[rainbow]{factionData.factionName} has {factionData.Influence}.");
                 }
                 else
                 {
-                    GD.Print($"The leader of {faction.factionName} isn't a leader of people.");
+                    GD.Print($"The leader of {factionData.factionName} isn't a leader of people.");
                 }
             }
         }
 
         // End work for all of the world population!        
-        private static void WorkDayOverForPopulation()
+        private void WorkDayOverForPopulation()
         {
             CompleteWorkPerPerson();
             CheckWorkComplete();
         }
 
-        // Go through everyone in this county again and clear out their job if their building is done.
-        private static void CheckWorkComplete()
+
+        public void CountIdleWorkers(CountyData countyData)
         {
-            foreach (SelectCounty county in Globals.Instance.countiesParent.GetChildren())
+            // I don't think this is very efficient.
+            int idleWorkers = 0;
+
+            foreach(CountyPopulation person in countyData.countyPopulation)
             {
-                foreach (CountyPopulation person in county.countyData.countyPopulation)
+                if (person.currentActivity == AllText.Jobs.IDLE && person.nextActivity == AllText.Jobs.IDLE)
+                {
+                    idleWorkers++;
+                }
+            }
+            countyData.IdleWorkers = idleWorkers;
+        }
+
+        // Go through everyone in this county again and clear out their job if their building is done.
+        private void CheckWorkComplete()
+        {
+            foreach (SelectCounty selectCounty in Globals.Instance.countiesParent.GetChildren())
+            {
+                foreach (CountyPopulation person in selectCounty.countyData.countyPopulation)
                 {
                     // ? is null checking currentImprovement.
-                    if(person.currentImprovement?.isBuilt == true)
+                    if (person.currentImprovement?.isBuilt == true)
                     {
                         person.currentImprovement = null;
+                        person.nextImprovement = null;
                         person.currentActivity = AllText.Jobs.IDLE;
                         person.nextActivity = AllText.Jobs.IDLE;
                         GD.Print($"{person.firstName} is {person.nextActivity}.");
-                    }           
+                    }
                 }
-            }         
+                CountIdleWorkers(selectCounty.countyData);
+            }
         }
         private static void CompleteWorkPerPerson()
         {
@@ -66,7 +87,7 @@ namespace PlayerSpace
                     if (person.currentImprovement != null)
                     {
                         GD.Print($"{person.firstName} is building {person.currentImprovement.improvementName}.");
-                        
+
                         person.currentImprovement.currentAmountOfConstruction++; // This is eventually going to be a skill check.
 
                         // Checks to see if the building is completed.
@@ -80,7 +101,7 @@ namespace PlayerSpace
                         }
                     }
                 }
-                foreach(CountyImprovementData countyImprovementData in county.countyData.underConstructionCountyImprovements)
+                foreach (CountyImprovementData countyImprovementData in county.countyData.underConstructionCountyImprovements)
                 {
                     GD.Print($"{countyImprovementData.improvementName} has completed {countyImprovementData.currentAmountOfConstruction} work.");
                 }

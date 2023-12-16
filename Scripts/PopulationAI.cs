@@ -13,8 +13,8 @@ namespace PlayerSpace
 
         private void HourZero()
         {
-            DecideNextActivity();
             AdjustPopulationActivity();
+            DecideNextActivity();
         }
 
         // Have the world population decide what they are doing the next day.
@@ -58,16 +58,17 @@ namespace PlayerSpace
         private static void AdjustPopulationActivity()
         {
             // Go through every county.
-            foreach (SelectCounty county in Globals.Instance.countiesParent.GetChildren())
+            foreach (Node node in Globals.Instance.countiesParent.GetChildren())
             {
+                SelectCounty selectCounty = (SelectCounty)node;
                 // Go through this counties population.
-                foreach (CountyPopulation person in county.countyData.countyPopulation)
+                foreach (CountyPopulation person in selectCounty.countyData.countyPopulation)
                 {
                     person.currentActivity = person.nextActivity;
                     person.currentImprovement = person.nextImprovement;
                 }
 
-                foreach (CountyPopulation hero in county.countyData.heroCountyPopulation)
+                foreach (CountyPopulation hero in selectCounty.countyData.heroCountyPopulation)
                 {
                     if (hero.token == null)
                     {
@@ -75,6 +76,7 @@ namespace PlayerSpace
                         hero.currentImprovement = hero.nextImprovement;
                     }
                 }
+                Work.Instance.CountIdleWorkers(selectCounty.countyData);
             }
         }
     }

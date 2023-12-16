@@ -26,7 +26,7 @@ namespace PlayerSpace
 
         public void CreateFactionLeaders()
         {
-            foreach (FactionData factionData in Globals.Instance.factions)
+            foreach (FactionData factionData in Globals.Instance.factionDatas)
             {
                 countiesParent = Globals.Instance.countiesParent;
                 // Generate Faction Leader County Population
@@ -89,18 +89,17 @@ namespace PlayerSpace
                 }
                 else
                 {
-
                     // This adds to a C# list.
                     countyData.heroCountyPopulation.Add(new CountyPopulation(countyData.countyID, countyData.countyID, firstName
                         , lastName, isMale, age, true, true, false, true, constructionSkill, AllText.Jobs.IDLE
                         , null, AllText.Jobs.IDLE, null));
 
-                    /*
+                    
                     CountyPopulation heroPerson = countyData.heroCountyPopulation[i];
                     GD.Print($"Hero Name: {heroPerson.firstName} {heroPerson.lastName} " +
                     $"Age: {heroPerson.age} isMale: {heroPerson.isMale} Leader of People: {heroPerson.leaderOfPeoplePerk} " +
                     $"Faction Leader: {heroPerson.isFactionLeader}");
-                    */
+                    
                 }
             }
 
@@ -128,7 +127,7 @@ namespace PlayerSpace
                     // Generate Normal Population
                     GeneratePopulation(false, Globals.Instance.totalCapitolPop);
                     countyData.population += countyData.countyPopulation.Count;
-                    countyData.idleWorkers = countyData.population;
+                    countyData.IdleWorkers = countyData.population;
                 }
                 else
                 {
@@ -142,7 +141,7 @@ namespace PlayerSpace
                     int normalPopulation = random.Next(Globals.Instance.minimumCountyPop, Globals.Instance.maximumCountyPop);
                     GeneratePopulation(false, normalPopulation);
                     countyData.population += countyData.countyPopulation.Count;
-                    countyData.idleWorkers = countyData.population;
+                    countyData.IdleWorkers = countyData.population;
                 }
             }
         }
