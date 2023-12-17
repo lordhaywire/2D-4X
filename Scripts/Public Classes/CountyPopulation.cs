@@ -17,6 +17,7 @@ namespace PlayerSpace
 
         public bool isFactionLeader;
         public bool isHero;
+        public bool isArmyLeader;
         public bool isWorker;
 
         [ExportGroup("Perks")]
@@ -39,7 +40,7 @@ namespace PlayerSpace
         public CountyPopulation(
 
             int location, int destionation, string firstName, string lastName, bool isMale, int age, bool isFactionLeader
-            , bool isHero, bool isWorker, bool leaderOfPeoplePerk, int constructionSkill, string currentActivity
+            , bool isHero, bool isArmyLeader, bool isWorker, bool leaderOfPeoplePerk, int constructionSkill, string currentActivity
             , CountyImprovementData currentImprovement, string nextActivity, CountyImprovementData nextImprovement)
         {
             this.location = location;
@@ -51,6 +52,7 @@ namespace PlayerSpace
 
             this.isFactionLeader = isFactionLeader;
             this.isHero = isHero;
+            this.isArmyLeader = isArmyLeader;
             this.isWorker = isWorker;
 
             this.leaderOfPeoplePerk = leaderOfPeoplePerk;

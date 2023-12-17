@@ -7,13 +7,17 @@ namespace PlayerSpace
         public CountyPopulation countyPopulation;
         private HeroStacker heroSpawnParent;
 
+        [Export] public TextureRect heroTitleTextureRect;
+        [Export] public Label heroNameLabel;
+        [Export] public CheckButton spawnHeroButton;
+
         private void HeroButton()
         {
             Globals.Instance.selectedCountyPopulation = countyPopulation;
-            CountyInfoControl.Instance.populationDescriptionMarginContainer.Show();
-            if (CountyInfoControl.Instance.populationDescriptionMarginContainer.Visible == true)
+            CountyInfoControl.Instance.populationDescriptionControl.Show();
+            if (CountyInfoControl.Instance.populationDescriptionControl.Visible == true)
             {
-                PopulationDescriptionUIElement.Instance.UpdateDescriptionInfo();
+                PopulationDescriptionControl.Instance.UpdateDescriptionInfo();
             }
             CountyInfoControl.Instance.populationListMarginContainer.Hide();
         }
@@ -22,7 +26,7 @@ namespace PlayerSpace
         {
             if (toggleOn == true && countyPopulation.token == null)
             {
-                SelectCounty selectCounty = (SelectCounty)Globals.Instance.selectedSelectCounty;
+                SelectCounty selectCounty = Globals.Instance.selectedSelectCounty;
                 heroSpawnParent = selectCounty.heroSpawn;
                 CharacterBody2D spawnedHero = (CharacterBody2D)Globals.Instance.heroToken.Instantiate();
                 heroSpawnParent.AddChild(spawnedHero);

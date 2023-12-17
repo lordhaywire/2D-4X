@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c3bhckl88r540"
-path="res://.godot/imported/Capital Icon.png-0ac3e7d5954dd6d77a0b34a25ae1699e.ctex"
+path="res://.godot/imported/Capital Icon.png-78d5d53d56af1ba9c1d74dc78531cf35.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Graphics/Icons/Capital Icon.png"
-dest_files=["res://.godot/imported/Capital Icon.png-0ac3e7d5954dd6d77a0b34a25ae1699e.ctex"]
+source_file="res://Graphics/Icons/Top Bar/Capital Icon.png"
+dest_files=["res://.godot/imported/Capital Icon.png-78d5d53d56af1ba9c1d74dc78531cf35.ctex"]
 
 [params]
 

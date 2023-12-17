@@ -2,9 +2,9 @@ using Godot;
 
 namespace PlayerSpace
 {
-    public partial class PopulationDescriptionUIElement : MarginContainer
+    public partial class PopulationDescriptionControl : Control
     {
-        public static PopulationDescriptionUIElement Instance { get; private set; }
+        public static PopulationDescriptionControl Instance { get; private set; }
 
         [Export] private Label populationName;
         [Export] private Label age;
@@ -13,15 +13,16 @@ namespace PlayerSpace
         [Export] private Label currentActivity;
         [Export] private Label nextActivity;
 
-        [Export] private PanelContainer heroRecruitmentConfirmPanel;
         [Export] private Button recruitButton;
+        [Export] private PanelContainer heroRecruitmentConfirmPanel;
+        
         
         public override void _Ready()
         {
             Instance = this;
         }
 
-        private void OnVisibilityChange()
+        private void OnVisibilityChanged()
         {
             if(Visible == true)
             {

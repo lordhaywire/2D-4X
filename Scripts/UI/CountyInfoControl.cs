@@ -15,7 +15,7 @@ namespace PlayerSpace
 
         [ExportGroup("Containers and shit")]
         [Export] public MarginContainer populationListMarginContainer;
-        [Export] public MarginContainer populationDescriptionMarginContainer;
+        [Export] public Control populationDescriptionControl;
         [Export] public Control countyImprovementsPanelControl;
         [Export] private VBoxContainer heroListParent;
         [Export] private VBoxContainer heroSpawnCheckButtonParent;
@@ -43,8 +43,8 @@ namespace PlayerSpace
         {
             foreach (Node node in heroSpawnCheckButtonParent.GetChildren())
             {
-                CheckButton checkbutton = (CheckButton)node.GetChild(2);
-                checkbutton.Disabled = value;
+                HeroListButton heroListButton = (HeroListButton)node;
+                heroListButton.spawnHeroButton.Disabled = value;
             }
         }
 
@@ -67,22 +67,20 @@ namespace PlayerSpace
             //GD.Print($"{countyData.countyName} has {countyData.heroCountyPopulation.Count} heroes in it.");
             foreach (CountyPopulation countyPopulation in countyData.heroCountyPopulation)
             {
-                PanelContainer heroPrefab = (PanelContainer)heroListPrefab.Instantiate();
-                Label heroNameLabel = (Label)heroPrefab.GetChild(0);
-                //GD.Print($"County Hero Name: {hero.firstName}");
-                heroNameLabel.Text = $"{countyPopulation.firstName} {countyPopulation.lastName}";
+                HeroListButton heroPrefab = (HeroListButton)heroListPrefab.Instantiate();
+
+                heroPrefab.heroNameLabel.Text = $"{countyPopulation.firstName} {countyPopulation.lastName}";
                 heroListParent.AddChild(heroPrefab);
-                HeroListButton heroListButton = (HeroListButton)heroPrefab;
-                heroListButton.countyPopulation = countyPopulation;
+                heroPrefab.countyPopulation = countyPopulation;
                 //GD.Print("Hero Token: " + countyPopulation.token);
                 if(countyPopulation.token == null)
                 {
-                    heroListButton.GetNode<CheckButton>("CheckButton").ButtonPressed = false;
+                    heroPrefab.spawnHeroButton.ButtonPressed = false;
                     continue;
                 }
                 else
                 {
-                    heroListButton.GetNode<CheckButton>("CheckButton").ButtonPressed = true;
+                    heroPrefab.spawnHeroButton.ButtonPressed = true;
                 }
             }
         }

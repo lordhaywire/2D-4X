@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/SelectCounty.cs" id="1_q76mg"]
 [ext_resource type="Texture2D" uid="uid://bikbdaft7twvv" path="res://Graphics/Counties/Wasco Oregon 1.png" id="2_5c2sw"]
 [ext_resource type="Resource" uid="uid://csk7k0knt4jbq" path="res://Resources/Counties/Wasco.tres" id="2_swyw3"]
-[ext_resource type="Texture2D" uid="uid://c3bhckl88r540" path="res://Graphics/Icons/Capital Icon.png" id="3_wk4v4"]
+[ext_resource type="Texture2D" uid="uid://c3bhckl88r540" path="res://Graphics/Icons/Top Bar/Capital Icon.png" id="4_3031a"]
 [ext_resource type="Script" path="res://Scripts/HeroStacker.cs" id="5_mt7t1"]
 
 [node name="Wasco Oregon Node2D" type="Node2D" node_paths=PackedStringArray("heroSpawn")]
@@ -32,7 +32,7 @@ position = Vector2(11, 17)
 [node name="Capital Sprite2D" type="Sprite2D" parent="County Overlay Node2D"]
 z_index = 11
 scale = Vector2(0.05, 0.05)
-texture = ExtResource("3_wk4v4")
+texture = ExtResource("4_3031a")
 
 [node name="Hero Spawn Location Node2D" type="Node2D" parent="County Overlay Node2D"]
 position = Vector2(0, -20)

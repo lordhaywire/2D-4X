@@ -24,7 +24,7 @@ namespace PlayerSpace
                 Clock.Instance.PauseTime();
                 GenerateCountyImprovementButtons();
                 PlayerControls.Instance.AdjustPlayerControls(false);
-                CountyInfoControl.Instance.populationDescriptionMarginContainer.Hide();
+                CountyInfoControl.Instance.populationDescriptionControl.Hide();
                 CountyInfoControl.Instance.populationListMarginContainer.Hide();
             }
             else

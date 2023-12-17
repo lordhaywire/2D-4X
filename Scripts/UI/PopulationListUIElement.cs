@@ -6,16 +6,16 @@ namespace PlayerSpace
     public partial class PopulationListUIElement : MarginContainer
     {
         [Export] private VBoxContainer populationListParent;
-        [Export] private PackedScene populationRowButtonPrefab;
+        [Export] private PackedScene populationRowButtonPackedScene;
         [Export] private Label populationListTitle;
         
-        private void OnVisibilityChange()
+        private void OnVisibilityChanged()
         {
             DestroyPopulationRows(); // Clears out the population, so it doesn't duplicate.
             if (Visible == true)
             {
                 CountyInfoControl.Instance.DisableSpawnHeroCheckButton(true);
-                CountyInfoControl.Instance.populationDescriptionMarginContainer.Hide();
+                CountyInfoControl.Instance.populationDescriptionControl.Hide();
                 CountyInfoControl.Instance.countyImprovementsPanelControl.Hide();
                 PlayerControls.Instance.AdjustPlayerControls(false);
                 Clock.Instance.PauseTime();
@@ -44,7 +44,7 @@ namespace PlayerSpace
         {
             foreach (CountyPopulation person in countyPopulation)
             {
-                PopulationRowButton populationRow = (PopulationRowButton)populationRowButtonPrefab.Instantiate();
+                PopulationRowButton populationRow = (PopulationRowButton)populationRowButtonPackedScene.Instantiate();
 
                 populationRow.populationNameLabel.Text = $"{person.firstName} {person.lastName}";
                 populationRow.ageLabel.Text = person.age.ToString();

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://u6mmuhhiejnw"
-path="res://.godot/imported/Food.png-fa1ee02ae73c959a3a5168446df870ca.ctex"
+uid="uid://cbpah1j3xx4f2"
+path="res://.godot/imported/resized fn-fal.png-24454bd07a4088830c5d706d63c3faa6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Graphics/Icons/Food.png"
-dest_files=["res://.godot/imported/Food.png-fa1ee02ae73c959a3a5168446df870ca.ctex"]
+source_file="res://Graphics/Icons/Population/resized fn-fal.png"
+dest_files=["res://.godot/imported/resized fn-fal.png-24454bd07a4088830c5d706d63c3faa6.ctex"]
 
 [params]
 

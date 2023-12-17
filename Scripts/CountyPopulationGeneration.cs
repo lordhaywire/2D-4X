@@ -77,7 +77,7 @@ namespace PlayerSpace
                 {
                     // This adds to the C# list.
                     countyData.countyPopulation.Add(new CountyPopulation(countyData.countyID, countyData.countyID, firstName
-                        , lastName, isMale, age, false, false, false, false, constructionSkill, AllText.Jobs.IDLE, null
+                        , lastName, isMale, age, false, false, false, false, false, constructionSkill, AllText.Jobs.IDLE, null
                         , AllText.Jobs.IDLE, null));
                     
                     /*
@@ -91,7 +91,7 @@ namespace PlayerSpace
                 {
                     // This adds to a C# list.
                     countyData.heroCountyPopulation.Add(new CountyPopulation(countyData.countyID, countyData.countyID, firstName
-                        , lastName, isMale, age, true, true, false, true, constructionSkill, AllText.Jobs.IDLE
+                        , lastName, isMale, age, true, true, false, false, true, constructionSkill, AllText.Jobs.IDLE
                         , null, AllText.Jobs.IDLE, null));
 
                     

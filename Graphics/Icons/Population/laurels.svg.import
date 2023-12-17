@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmbho3pkucn34"
-path="res://.godot/imported/Scrap.png-a8afaa295976d2ff23a32fe2a162d554.ctex"
+uid="uid://ynme3jr8l6y0"
+path="res://.godot/imported/laurels.svg-5e62f6a33c881744c2a14eb6b1f68686.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Graphics/Icons/Scrap.png"
-dest_files=["res://.godot/imported/Scrap.png-a8afaa295976d2ff23a32fe2a162d554.ctex"]
+source_file="res://Graphics/Icons/Population/laurels.svg"
+dest_files=["res://.godot/imported/laurels.svg-5e62f6a33c881744c2a14eb6b1f68686.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

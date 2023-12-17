@@ -12,7 +12,7 @@ namespace PlayerSpace
         [Export] public Label nextActivityLabel;
         private void OnButtonClick()
         {
-            CountyInfoControl.Instance.populationDescriptionMarginContainer.Show();
+            CountyInfoControl.Instance.populationDescriptionControl.Show();
             CountyInfoControl.Instance.populationListMarginContainer.Hide();
             Globals.Instance.selectedCountyPopulation = countyPopulation;
         }

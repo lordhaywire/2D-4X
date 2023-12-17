@@ -25,7 +25,7 @@ namespace PlayerSpace
             Banker.Instance.ChargeForHero();
             Globals.Instance.selectedCountyPopulation.isHero = true;
 
-            PopulationDescriptionUIElement.Instance.UpdateDescriptionInfo();
+            PopulationDescriptionControl.Instance.UpdateDescriptionInfo();
 
             GD.Print("County Name: " + selectCounty.countyData.countyName + selectCounty.countyData.heroCountyPopulation.Count);
             GD.Print("You clicked the Yes Button");
