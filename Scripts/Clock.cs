@@ -34,14 +34,18 @@ namespace PlayerSpace
             set
             {
                 numberOfPanelsVisible = value;
-                if (numberOfPanelsVisible > 0)
+                if (numberOfPanelsVisible > 0 && EventLog.Instance != null)
                 {
-                    //GD.Print("Number of panels visible: " +  numberOfPanelsVisible);
+                    GD.Print("Number of panels visible: " +  numberOfPanelsVisible);
                     EventLog.Instance.Hide();
                 }
                 else
                 {
-                    EventLog.Instance.Show();
+                    if(EventLog.Instance != null)
+                    {
+                        EventLog.Instance.Show();
+                    }
+                    
                 }
             }
         }

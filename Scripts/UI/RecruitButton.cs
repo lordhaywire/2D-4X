@@ -6,9 +6,6 @@ namespace PlayerSpace
 	{
         [Export] private PanelContainer confirmationPanelContainer;
 
-        private void OpenConfirmationPanel()
-        {
-            confirmationPanelContainer.Show();
-        }
+        
     }
 }

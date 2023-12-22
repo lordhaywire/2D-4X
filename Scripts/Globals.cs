@@ -101,19 +101,19 @@ namespace PlayerSpace
                 while(maleFile.GetPosition() < maleFile.GetLength())
                 {
                     maleNames.Add(maleFile.GetLine());
-                    GD.Print("First Name: " + maleNames[^1]);
+                    //GD.Print("First Name: " + maleNames[^1]);
                 }
                 using var femaleFile = FileAccess.Open(listsPath + femaleNamesPath, FileAccess.ModeFlags.Read);
                 while (femaleFile.GetPosition() < femaleFile.GetLength())
                 {
                     femaleNames.Add(femaleFile.GetLine());
-                    GD.Print("First Name: " + femaleNames[^1]);
+                    //GD.Print("First Name: " + femaleNames[^1]);
                 }
                 using var lastNameFile = FileAccess.Open(listsPath + lastNamesPath, FileAccess.ModeFlags.Read);
                 while (lastNameFile.GetPosition() < lastNameFile.GetLength())
                 {
                     lastNames.Add(lastNameFile.GetLine());
-                    GD.Print("Last Name: " + lastNames[^1]);
+                    //GD.Print("Last Name: " + lastNames[^1]);
                 }
             }
             else

@@ -65,7 +65,7 @@ namespace PlayerSpace
                 {
                     populationRow.currentActivityLabel.Text = person.currentActivity;
                 }
-                if(person.nextActivity == AllText.Jobs.BUILDING)
+                if(person.nextImprovement != null)
                 {
                     populationRow.nextActivityLabel.Text = $"{person.nextActivity} {person.nextImprovement.improvementName}";
                 }

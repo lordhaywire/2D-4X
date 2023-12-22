@@ -15,8 +15,9 @@ namespace PlayerSpace
         public bool isMale;
         public int age;
 
-        public bool isFactionLeader;
         public bool isHero;
+        public bool isLeader;
+        public bool isAide;
         public bool isArmyLeader;
         public bool isWorker;
 
@@ -39,8 +40,8 @@ namespace PlayerSpace
 
         public CountyPopulation(
 
-            int location, int destionation, string firstName, string lastName, bool isMale, int age, bool isFactionLeader
-            , bool isHero, bool isArmyLeader, bool isWorker, bool leaderOfPeoplePerk, int constructionSkill, string currentActivity
+            int location, int destionation, string firstName, string lastName, bool isMale, int age, bool isHero, bool isLeader
+            , bool isAide, bool isArmyLeader, bool isWorker, bool leaderOfPeoplePerk, int constructionSkill, string currentActivity
             , CountyImprovementData currentImprovement, string nextActivity, CountyImprovementData nextImprovement)
         {
             this.location = location;
@@ -50,8 +51,9 @@ namespace PlayerSpace
             this.isMale = isMale;
             this.age = age;
 
-            this.isFactionLeader = isFactionLeader;
             this.isHero = isHero;
+            this.isLeader = isLeader;
+            this.isAide = isAide;
             this.isArmyLeader = isArmyLeader;
             this.isWorker = isWorker;
 

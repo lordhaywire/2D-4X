@@ -7,10 +7,11 @@ namespace PlayerSpace
         public CountyPopulation countyPopulation;
         private HeroStacker heroSpawnParent;
 
-        [Export] public TextureRect heroTitleTextureRect;
+        [Export] public TextureRect factionLeaderTextureRect;
+        [Export] public TextureRect aideTextureRect;
+        [Export] public TextureRect armyLeaderTextureRect;
         [Export] public Label heroNameLabel;
         [Export] public CheckButton spawnHeroButton;
-
         private void HeroButton()
         {
             Globals.Instance.selectedCountyPopulation = countyPopulation;

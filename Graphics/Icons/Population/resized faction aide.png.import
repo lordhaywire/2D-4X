@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://du76vrdfhckkd"
-path="res://.godot/imported/resized laurel-crown.png-7309ce3642516afdf41df0f35b5df73e.ctex"
+uid="uid://b67d6nynwdq3o"
+path="res://.godot/imported/resized faction aide.png-88482680277341aff0719ed6142dcf2f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Graphics/Icons/Population/resized laurel-crown.png"
-dest_files=["res://.godot/imported/resized laurel-crown.png-7309ce3642516afdf41df0f35b5df73e.ctex"]
+source_file="res://Graphics/Icons/Population/resized faction aide.png"
+dest_files=["res://.godot/imported/resized faction aide.png-88482680277341aff0719ed6142dcf2f.ctex"]
 
 [params]
 

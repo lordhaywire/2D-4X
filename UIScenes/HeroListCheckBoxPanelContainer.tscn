@@ -1,31 +1,51 @@
-[gd_scene load_steps=3 format=3 uid="uid://d4i6w8w8jld3d"]
+[gd_scene load_steps=5 format=3 uid="uid://d4i6w8w8jld3d"]
 
 [ext_resource type="Script" path="res://Scripts/UI/HeroListButton.cs" id="1_i1gis"]
-[ext_resource type="Texture2D" uid="uid://du76vrdfhckkd" path="res://Graphics/Icons/Population/resized laurel-crown.png" id="2_kbo0x"]
+[ext_resource type="Texture2D" uid="uid://du76vrdfhckkd" path="res://Graphics/Icons/Population/resized faction leader icon.png" id="2_kbo0x"]
+[ext_resource type="Texture2D" uid="uid://b67d6nynwdq3o" path="res://Graphics/Icons/Population/resized faction aide.png" id="3_hrfe5"]
+[ext_resource type="Texture2D" uid="uid://cbpah1j3xx4f2" path="res://Graphics/Icons/Population/resized army icon.png" id="3_qqxdl"]
 
-[node name="Hero PanelContainer" type="PanelContainer" node_paths=PackedStringArray("heroTitleTextureRect", "heroNameLabel", "spawnHeroButton")]
+[node name="Hero PanelContainer" type="PanelContainer" node_paths=PackedStringArray("factionLeaderTextureRect", "aideTextureRect", "armyLeaderTextureRect", "heroNameLabel", "spawnHeroButton")]
 custom_minimum_size = Vector2(200, 50)
 mouse_filter = 1
 script = ExtResource("1_i1gis")
-heroTitleTextureRect = NodePath("HBoxContainer/TextureRect")
-heroNameLabel = NodePath("HBoxContainer/Hero Name Label")
+factionLeaderTextureRect = NodePath("HBoxContainer/Leader TextureRect")
+aideTextureRect = NodePath("HBoxContainer/Aide TextureRect")
+armyLeaderTextureRect = NodePath("HBoxContainer/Army TextureRect")
+heroNameLabel = NodePath("Hero Name Label")
 spawnHeroButton = NodePath("CheckButton")
+
+[node name="Hero Name Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 1
+text = "Whatevers"
+vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+[node name="Leader TextureRect" type="TextureRect" parent="HBoxContainer"]
+visible = false
 layout_mode = 2
-size_flags_vertical = 4
+size_flags_vertical = 8
 texture = ExtResource("2_kbo0x")
 stretch_mode = 2
 
-[node name="Hero Name Label" type="Label" parent="HBoxContainer"]
+[node name="Aide TextureRect" type="TextureRect" parent="HBoxContainer"]
+visible = false
 layout_mode = 2
-size_flags_horizontal = 4
-mouse_filter = 1
-text = "Whatevers"
-vertical_alignment = 1
+size_flags_vertical = 8
+texture = ExtResource("3_hrfe5")
+stretch_mode = 2
+
+[node name="Army TextureRect" type="TextureRect" parent="HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 8
+texture = ExtResource("3_qqxdl")
+stretch_mode = 2
 
 [node name="Button" type="Button" parent="."]
 self_modulate = Color(1, 1, 1, 0)

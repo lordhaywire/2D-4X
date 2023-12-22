@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=50 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_k200m"]
 [ext_resource type="Script" path="res://Scripts/Globals.cs" id="1_n6eaq"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://7jvylb78h24w" path="res://Graphics/Tokens/HornedGuyUnselected.png" id="3_ohas6"]
 [ext_resource type="PackedScene" uid="uid://mr0rjj1gvjlu" path="res://UIScenes/TopBarControl.tscn" id="4_rk5xj"]
 [ext_resource type="Script" path="res://Scripts/UI/ResearchControl.cs" id="6_0iytx"]
+[ext_resource type="Script" path="res://Scripts/AllGraphics.cs" id="6_wdgnb"]
 [ext_resource type="Script" path="res://Scripts/CountyGeneration.cs" id="8_1f7gn"]
 [ext_resource type="Resource" uid="uid://bads4woc5toep" path="res://Resources/County Improvements/FisherShack.tres" id="8_2n7h1"]
 [ext_resource type="Script" path="res://Scripts/Banker.cs" id="8_8n5y7"]
@@ -43,9 +44,9 @@
 [ext_resource type="Script" path="res://Scripts/UI/PopulationDescriptionControl.cs" id="26_rcqxv"]
 [ext_resource type="Texture2D" uid="uid://jyr4u6ph1nu6" path="res://Graphics/Icons/Population/portrait.svg" id="27_0wbnw"]
 [ext_resource type="Script" path="res://Scripts/UI/BuildConfirmationDialog.cs" id="28_0uowj"]
-[ext_resource type="Texture2D" uid="uid://du76vrdfhckkd" path="res://Graphics/Icons/Population/resized laurel-crown.png" id="28_5js60"]
-[ext_resource type="Texture2D" uid="uid://b67d6nynwdq3o" path="res://Graphics/Icons/Population/resized laurels.png" id="29_wm3yv"]
-[ext_resource type="Texture2D" uid="uid://cbpah1j3xx4f2" path="res://Graphics/Icons/Population/resized fn-fal.png" id="30_t3p23"]
+[ext_resource type="Texture2D" uid="uid://du76vrdfhckkd" path="res://Graphics/Icons/Population/resized faction leader icon.png" id="28_5js60"]
+[ext_resource type="Texture2D" uid="uid://b67d6nynwdq3o" path="res://Graphics/Icons/Population/resized faction aide.png" id="29_wm3yv"]
+[ext_resource type="Texture2D" uid="uid://cbpah1j3xx4f2" path="res://Graphics/Icons/Population/resized army icon.png" id="30_t3p23"]
 [ext_resource type="Resource" uid="uid://8rlgk7ws51cg" path="res://Resources/Factions/AIFaction1.tres" id="34_a6t1b"]
 
 [sub_resource type="Resource" id="Resource_1kd1b"]
@@ -76,6 +77,7 @@ position = Vector2(494, 479)
 [node name="Main" type="Node" parent="Game Controller Node" node_paths=PackedStringArray("countiesParent")]
 script = ExtResource("1_n6eaq")
 dailyInfluenceGain = 5
+startPaused = true
 selectedHeroTexture = ExtResource("2_iubix")
 unselectedHeroTexture = ExtResource("3_ohas6")
 countiesParent = NodePath("../../Counties")
@@ -83,6 +85,12 @@ minimumFood = 100
 heroToken = ExtResource("2_3ivw0")
 movementSpeed = 5
 costOfHero = 500
+
+[node name="Graphics" type="Node" parent="Game Controller Node"]
+script = ExtResource("6_wdgnb")
+leaderIconTexture = ExtResource("28_5js60")
+aideIconTexture = ExtResource("29_wm3yv")
+armyIconTexture = ExtResource("30_t3p23")
 
 [node name="Player Controls" type="Node" parent="Game Controller Node"]
 script = ExtResource("2_5emkq")
@@ -370,7 +378,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "Close"
 
-[node name="Population Description Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("populationName", "age", "sex", "constructionSkill", "currentActivity", "nextActivity", "recruitButton", "heroRecruitmentConfirmPanel")]
+[node name="Population Description Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("populationName", "leaderCheckbox", "aideCheckbox", "armyLeaderCheckbox", "age", "sex", "firstPerkLabel", "noPerksLabel", "constructionSkill", "currentActivity", "nextActivity", "aideRecruitButton", "armyLeaderRecruitButton", "heroRecruitmentConfirmPanel")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -381,12 +389,18 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("26_rcqxv")
 populationName = NodePath("MarginContainer/PanelContainer/Population Name Label")
+leaderCheckbox = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/HBoxContainer2/Leader CheckBox")
+aideCheckbox = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/HBoxContainer2/Aide CheckBox")
+armyLeaderCheckbox = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/HBoxContainer2/Army Leader CheckBox")
 age = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Age Label")
 sex = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Sex Label")
+firstPerkLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Perks HBoxContainer/First Perk Label")
+noPerksLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Perks HBoxContainer/No Perks Label")
 constructionSkill = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Skills GridContainer/Construction Skill Label")
 currentActivity = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Current Activity Label")
 nextActivity = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Next Activity Label")
-recruitButton = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Recruit Aide Button")
+aideRecruitButton = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Recruit Aide Button")
+armyLeaderRecruitButton = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Recruit Army Button")
 heroRecruitmentConfirmPanel = NodePath("Recuit Hero Confirmation PanelContainer")
 
 [node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Population Description Control"]
@@ -448,20 +462,24 @@ vertical_alignment = 1
 layout_mode = 2
 theme_override_constants/separation = 150
 
-[node name="Faction Leader CheckBox" type="CheckBox" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/HBoxContainer2"]
+[node name="Leader CheckBox" type="CheckBox" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 focus_mode = 0
+disabled = true
+toggle_mode = false
 text = "Faction Leader"
 icon = ExtResource("28_5js60")
 alignment = 1
 
-[node name="Hero CheckBox" type="CheckBox" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/HBoxContainer2"]
+[node name="Aide CheckBox" type="CheckBox" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 focus_mode = 0
+disabled = true
+toggle_mode = false
 text = "Aide"
 icon = ExtResource("29_wm3yv")
 alignment = 1
@@ -471,6 +489,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 focus_mode = 0
+disabled = true
+toggle_mode = false
 text = "Army Leader"
 icon = ExtResource("30_t3p23")
 alignment = 1
@@ -517,7 +537,7 @@ vertical_alignment = 1
 [node name="Perks HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer"]
 layout_mode = 2
 
-[node name="Leader of People Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Perks HBoxContainer"]
+[node name="First Perk Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Perks HBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
@@ -525,7 +545,7 @@ text = "Leader of People"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Unknown Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Perks HBoxContainer"]
+[node name="No Perks Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Perks HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Unknown"
@@ -551,6 +571,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Skill Label2" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Skills GridContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Skill? 100"
@@ -558,6 +579,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Skill Label3" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Skills GridContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Skill? 100"
@@ -565,6 +587,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Skill Label4" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Skills GridContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Skill? 100"
@@ -572,6 +595,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Skill Label5" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Skills GridContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Skill? 100"
@@ -579,6 +603,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Skill Label6" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Skills GridContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Skill? 100"
@@ -943,12 +968,12 @@ scale = Vector2(0.8, 0.8)
 [connection signal="button_up" from="Player UI Canvas/Top Bar Control/Time and Research Buttons HBox/Research Button" to="Player UI Canvas/Research Control" method="ShowResearchPanel"]
 [connection signal="visibility_changed" from="Player UI Canvas/County Info Control" to="Player UI Canvas/County Info Control" method="OnVisibilityChanged"]
 [connection signal="button_up" from="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Population List Button" to="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer" method="OnButtonClick"]
-[connection signal="button_up" from="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/County Improvements Button" to="Player UI Canvas/County Info Control" method="BuildingsButton"]
+[connection signal="button_up" from="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/County Improvements Button" to="Player UI Canvas/County Info Control" method="CountyImprovementsButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Population List MarginContainer" to="Player UI Canvas/Population List MarginContainer" method="OnVisibilityChanged"]
 [connection signal="button_up" from="Player UI Canvas/Population List MarginContainer/Close Button" to="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer" method="CloseButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Population Description Control" to="Player UI Canvas/Population Description Control" method="OnVisibilityChanged"]
-[connection signal="button_up" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Recruit Army Button" to="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Recruit Army Button" method="OpenConfirmationPanel"]
-[connection signal="button_up" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Recruit Aide Button" to="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Recruit Aide Button" method="OpenConfirmationPanel"]
+[connection signal="button_up" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Recruit Army Button" to="Player UI Canvas/Population Description Control/Recuit Hero Confirmation PanelContainer" method="OpenConfirmationPanel" binds= [true]]
+[connection signal="button_up" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Recruit Aide Button" to="Player UI Canvas/Population Description Control/Recuit Hero Confirmation PanelContainer" method="OpenConfirmationPanel" binds= [false]]
 [connection signal="button_up" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/Close Button" to="Player UI Canvas/Population Description Control" method="CloseButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Population Description Control/Recuit Hero Confirmation PanelContainer" to="Player UI Canvas/Population Description Control/Recuit Hero Confirmation PanelContainer" method="OnVisibilityChange"]
 [connection signal="button_up" from="Player UI Canvas/Population Description Control/Recuit Hero Confirmation PanelContainer/HBoxContainer/No Button" to="Player UI Canvas/Population Description Control/Recuit Hero Confirmation PanelContainer" method="NoButton"]

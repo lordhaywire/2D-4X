@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b67d6nynwdq3o"
-path="res://.godot/imported/resized laurels.png-a88f3096718bb70350d2cc4958457d61.ctex"
+uid="uid://du76vrdfhckkd"
+path="res://.godot/imported/resized faction leader icon.png-7f336cb4ba4ed3f9c2dc5a9348430bb5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Graphics/Icons/Population/resized laurels.png"
-dest_files=["res://.godot/imported/resized laurels.png-a88f3096718bb70350d2cc4958457d61.ctex"]
+source_file="res://Graphics/Icons/Population/resized faction leader icon.png"
+dest_files=["res://.godot/imported/resized faction leader icon.png-7f336cb4ba4ed3f9c2dc5a9348430bb5.ctex"]
 
 [params]
 
