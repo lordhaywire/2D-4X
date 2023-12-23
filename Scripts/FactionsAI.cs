@@ -26,7 +26,7 @@ namespace PlayerSpace
 
                         if (foodBuilding != null && countyData != null)
                         {
-                            GD.Print($"{factionData.factionName} wants to build a {foodBuilding.improvementName}");
+                            //GD.Print($"{factionData.factionName} wants to build a {foodBuilding.improvementName}");
                             if (Banker.Instance.CheckBuildingCost(factionData, foodBuilding) == true)
                             {
                                 Banker.Instance.ChargeForBuilding(factionData, foodBuilding);
@@ -34,17 +34,17 @@ namespace PlayerSpace
                             }
                             else
                             {
-                                GD.Print($"{factionData.factionName} doesn't have enough influence.");
+                                //GD.Print($"{factionData.factionName} doesn't have enough influence.");
                             }
                         }
                         else
                         {
-                            GD.Print("Food building is null");
+                            //GD.Print("Food building is null");
                         }
                     }
                     else
                     {
-                        GD.Print(factionData.factionName + " has enough food.");
+                        //GD.Print(factionData.factionName + " has enough food.");
                     }
                 }  
             }

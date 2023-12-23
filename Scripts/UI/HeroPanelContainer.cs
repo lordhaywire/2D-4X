@@ -2,7 +2,7 @@ using Godot;
 
 namespace PlayerSpace
 {
-    public partial class HeroListButton : PanelContainer
+    public partial class HeroPanelContainer : PanelContainer
     {
         public CountyPopulation countyPopulation;
         private HeroStacker heroSpawnParent;
@@ -11,6 +11,7 @@ namespace PlayerSpace
         [Export] public TextureRect aideTextureRect;
         [Export] public TextureRect armyLeaderTextureRect;
         [Export] public Label heroNameLabel;
+        [Export] public Button heroListButton;
         [Export] public CheckButton spawnHeroButton;
         private void HeroButton()
         {
@@ -27,7 +28,7 @@ namespace PlayerSpace
         {
             if (toggleOn == true && countyPopulation.token == null)
             {
-                SelectCounty selectCounty = Globals.Instance.selectedSelectCounty;
+                SelectCounty selectCounty = Globals.Instance.selectedLeftClickCounty;
                 heroSpawnParent = selectCounty.heroSpawn;
                 CharacterBody2D spawnedHero = (CharacterBody2D)Globals.Instance.heroToken.Instantiate();
                 heroSpawnParent.AddChild(spawnedHero);

@@ -16,8 +16,9 @@ namespace PlayerSpace
 
         [ExportGroup("Selected Items")]
         [Export] public CountyData selectedCountyData;
-        [Export] public SelectCounty selectedSelectCounty;
-        [Export] public CountyPopulation selectedCountyPopulation;
+        [Export] public SelectCounty selectedLeftClickCounty;
+        [Export] public SelectCounty selectedRightClickCounty;
+        public CountyPopulation selectedCountyPopulation;
         [Export] private SelectToken currentlySelectedToken;
         public PossibleBuildingControl selectedPossibleBuildingControl;
 

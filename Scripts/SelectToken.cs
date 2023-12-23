@@ -4,7 +4,7 @@ namespace PlayerSpace
 {
     public partial class SelectToken : CharacterBody2D
     {
-        [Export] public CountyPopulation countyPopulation;
+        public CountyPopulation countyPopulation;
         [Export] public Sprite2D sprite;
 
         [Export] public Label tokenNameLabel;
@@ -20,13 +20,13 @@ namespace PlayerSpace
 
         private void OnMouseEnter()
         {
-            GD.Print("Mouse is inside the token.");
+            //GD.Print("Mouse is inside the token.");
             Globals.Instance.isInsideToken = true;
         }
 
         private void OnMouseExit()
         {
-            GD.Print("Mouse is outside the token.");
+            //GD.Print("Mouse is outside the token.");
             Globals.Instance.isInsideToken = false;
         }
 

@@ -18,6 +18,8 @@ namespace PlayerSpace
         public List<CountyData> countiesFactionOwns = new();
         public CountyPopulation factionLeader;
 
+        public Diplomacy diplomacy = new();
+
         [ExportGroup("Expendables")]
         [Export] public int money;
         [Export] public int food;

@@ -3,8 +3,9 @@ using System;
 
 namespace PlayerSpace
 {
-    public partial class CountyPopulation : Node
+    public class CountyPopulation
     {
+        public FactionData factionData;
         public int location;
         public int destination;
 
@@ -39,13 +40,13 @@ namespace PlayerSpace
         public CharacterBody2D token;
 
         public CountyPopulation(
-
-            int location, int destionation, string firstName, string lastName, bool isMale, int age, bool isHero, bool isLeader
+            FactionData factionData, int location, int destination, string firstName, string lastName, bool isMale, int age, bool isHero, bool isLeader
             , bool isAide, bool isArmyLeader, bool isWorker, bool leaderOfPeoplePerk, int constructionSkill, string currentActivity
             , CountyImprovementData currentImprovement, string nextActivity, CountyImprovementData nextImprovement)
         {
+            this.factionData = factionData;
             this.location = location;
-            this.destination = destionation;
+            this.destination = destination;
             this.firstName = firstName;
             this.lastName = lastName;
             this.isMale = isMale;

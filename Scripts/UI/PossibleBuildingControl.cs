@@ -56,7 +56,7 @@ namespace PlayerSpace
 		
         private void BuildingButton()
 		{
-			GD.Print("You have pressed the building button.");
+			//GD.Print("You have pressed the building button.");
 			CountyImprovementsControl.Instance.buildConfirmationDialog.Visible = true;
 			Globals.Instance.selectedPossibleBuildingControl = this;
 		}

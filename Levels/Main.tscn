@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=51 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_k200m"]
 [ext_resource type="Script" path="res://Scripts/Globals.cs" id="1_n6eaq"]
@@ -48,6 +48,7 @@
 [ext_resource type="Texture2D" uid="uid://b67d6nynwdq3o" path="res://Graphics/Icons/Population/resized faction aide.png" id="29_wm3yv"]
 [ext_resource type="Texture2D" uid="uid://cbpah1j3xx4f2" path="res://Graphics/Icons/Population/resized army icon.png" id="30_t3p23"]
 [ext_resource type="Resource" uid="uid://8rlgk7ws51cg" path="res://Resources/Factions/AIFaction1.tres" id="34_a6t1b"]
+[ext_resource type="Script" path="res://Scripts/UI/DeclareWarControl.cs" id="39_ujatr"]
 
 [sub_resource type="Resource" id="Resource_1kd1b"]
 script = ExtResource("20_h530l")
@@ -165,7 +166,7 @@ text = "Paused"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="County Info Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("countyInfoControl", "factionNamelabel", "countyNameLabel", "countyPopulationLabel", "countyIdleWorkersLabel", "populationListMarginContainer", "populationDescriptionControl", "countyImprovementsPanelControl", "heroListParent", "heroSpawnCheckButtonParent")]
+[node name="County Info Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("countyInfoControl", "factionNamelabel", "countyNameLabel", "countyPopulationLabel", "countyIdleWorkersLabel", "populationListMarginContainer", "populationDescriptionControl", "countyImprovementsPanelControl", "heroListParent", "heroSpawnCheckButtonParent", "populationListButton", "countyImprovementsButton")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -187,6 +188,8 @@ populationDescriptionControl = NodePath("../Population Description Control")
 countyImprovementsPanelControl = NodePath("../County Improvements Control")
 heroListParent = NodePath("County and Heroes VBoxContainer/Heroes VBoxContainer")
 heroSpawnCheckButtonParent = NodePath("County and Heroes VBoxContainer/Heroes VBoxContainer")
+populationListButton = NodePath("County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Population List Button")
+countyImprovementsButton = NodePath("County and Heroes VBoxContainer/County Info Panel/County Improvements Button")
 heroListPrefab = ExtResource("10_j48oi")
 
 [node name="County and Heroes VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control"]
@@ -904,6 +907,21 @@ scale = Vector2(1, 1.03698)
 size_flags_vertical = 8
 text = "Close"
 
+[node name="Declare War Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("confirmationWarDialog")]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("39_ujatr")
+confirmationWarDialog = NodePath("ConfirmationDialog")
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="Player UI Canvas/Declare War Control"]
+initial_position = 1
+ok_button_text = "Yes"
+
 [node name="Event Log Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("eventLogVBoxContainer")]
 custom_minimum_size = Vector2(300, 75)
 layout_direction = 2
@@ -986,5 +1004,8 @@ scale = Vector2(0.8, 0.8)
 [connection signal="visibility_changed" from="Player UI Canvas/Research Control" to="Player UI Canvas/Research Control" method="OnVisibilityChange"]
 [connection signal="visibility_changed" from="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/Research Description PanelContainer" to="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/Research Description PanelContainer" method="OnVisibilityChanged"]
 [connection signal="button_up" from="Player UI Canvas/Research Control/Close Button" to="Player UI Canvas/Research Control" method="CloseButton"]
+[connection signal="visibility_changed" from="Player UI Canvas/Declare War Control" to="Player UI Canvas/Declare War Control" method="OnVisibilityChanged"]
+[connection signal="canceled" from="Player UI Canvas/Declare War Control/ConfirmationDialog" to="Player UI Canvas/Declare War Control" method="CancelButton"]
+[connection signal="confirmed" from="Player UI Canvas/Declare War Control/ConfirmationDialog" to="Player UI Canvas/Declare War Control" method="YesButton"]
 
 [editable path="Player UI Canvas/Top Bar Control"]

@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 namespace PlayerSpace
 {
@@ -9,6 +10,9 @@ namespace PlayerSpace
         [ExportGroup("Attached Nodes")]
         [Export] public Sprite2D capitalSprite;
         [Export] public HeroStacker heroSpawn;
+
+        private SelectToken selectToken; 
+        private CountyPopulation countyPopulation;
         public override void _Ready()
         {
             capitalSprite = GetNode<Sprite2D>("County Overlay Node2D/Capital Sprite2D");
@@ -28,11 +32,9 @@ namespace PlayerSpace
                     Globals.Instance.CurrentlySelectedToken = null;
                     GD.Print($"You left clicked on {Name}, dude!");
                     Globals.Instance.selectedCountyData = countyData;
-                    Globals.Instance.selectedSelectCounty = this;
-                    CountyInfoControl.Instance.UpdateNameLabels();
-                    CountyInfoControl.Instance.UpdateCountyPopulationLabel();
-                    CountyInfoControl.Instance.UpdateIdleWorkersLabel();
-                    CountyInfoControl.Instance.GenerateHeroesPanelList();
+                    Globals.Instance.selectedLeftClickCounty = this;
+                    
+                    CountyInfoControl.Instance.UpdateEverything();
                     CountyInfoControl.Instance.countyInfoControl.Show(); // This has to be last.
                     
                 }
@@ -40,26 +42,30 @@ namespace PlayerSpace
                 if (eventMouseButton.ButtonIndex == MouseButton.Right && eventMouseButton.Pressed == false)
                 {
                     GD.Print("You right clicked, dude!");
+                    Globals.Instance.selectedRightClickCounty = this;
                     if (Globals.Instance.CurrentlySelectedToken != null)
                     {
-                        SelectToken selectToken = Globals.Instance.CurrentlySelectedToken;
-                        CountyPopulation countyPopulation = selectToken.countyPopulation;
+                        selectToken = Globals.Instance.CurrentlySelectedToken;
+                        countyPopulation = selectToken.countyPopulation;
 
                         if (selectToken.tokenMovement.MoveToken != true)
                         {
-                            GD.Print($"{selectToken.countyPopulation.firstName} has location of {countyPopulation.location}");
-                            SelectCounty selectLocationCounty
-                                = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
-                            Globals.Instance.heroMoveTarget = heroSpawn.GlobalPosition;
-
-                            countyPopulation.destination = countyData.countyID;
-                            selectToken.tokenMovement.MoveToken = true;
-
-                            // Remove countyPopulation from the heroes starting county location list.
-                            selectLocationCounty.countyData.heroCountyPopulation.Remove(countyPopulation);
-
-                            // Removed from spawnedTokenList in starting county location.
-                            selectLocationCounty.heroSpawn.spawnedTokenList.Remove(selectToken);
+                            if (selectToken.countyPopulation.isArmyLeader == false)
+                            {
+                                StartMove();                            
+                            }
+                            else
+                            {
+                                if (Globals.Instance.playerFactionData == countyData.factionData)
+                                {
+                                    StartMove();
+                                }
+                                else
+                                {
+                                    GD.Print("You are about to declare war, because you are an army.");
+                                    DeclareWarConfirmation();
+                                }
+                            }
                         }
                         else
                         {
@@ -68,9 +74,36 @@ namespace PlayerSpace
                             Globals.Instance.heroMoveTarget = homeCounty.heroSpawn.GlobalPosition;
                         }
                     }
-
                 }
             }
+        }
+
+        private void DeclareWarConfirmation()
+        {
+            DeclareWarControl.Instance.Show();
+            DeclareWarControl.Instance.confirmationWarDialog.DialogText 
+                = AllText.Diplomacies.DECLAREWARE + countyData.factionData.factionName; 
+        }
+
+        public void StartMove()
+        {
+            selectToken = Globals.Instance.CurrentlySelectedToken;
+            countyPopulation = selectToken.countyPopulation;
+            GD.Print("County Data: " + countyData.countyID);
+
+            GD.Print($"{selectToken.countyPopulation.firstName} has location of {countyPopulation.location}");
+            SelectCounty selectLocationCounty
+                = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
+            Globals.Instance.heroMoveTarget = heroSpawn.GlobalPosition;
+
+            countyPopulation.destination = countyData.countyID;
+            selectToken.tokenMovement.MoveToken = true;
+
+            // Remove countyPopulation from the heroes starting county location list.
+            selectLocationCounty.countyData.heroCountyPopulation.Remove(countyPopulation);
+
+            // Removed from spawnedTokenList in starting county location.
+            selectLocationCounty.heroSpawn.spawnedTokenList.Remove(selectToken);
         }
     }
 }

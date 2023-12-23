@@ -76,7 +76,7 @@ namespace PlayerSpace
                 if (hero == false)
                 {
                     // This adds to the C# list.
-                    countyData.countyPopulation.Add(new CountyPopulation(countyData.countyID, countyData.countyID, firstName
+                    countyData.countyPopulation.Add(new CountyPopulation(countyData.factionData, countyData.countyID, countyData.countyID, firstName
                         , lastName, isMale, age, false, false, false, false, false, false, constructionSkill, AllText.Jobs.IDLE, null
                         , AllText.Jobs.IDLE, null));
                     
@@ -90,16 +90,17 @@ namespace PlayerSpace
                 else
                 {
                     // This adds to a C# list.
-                    countyData.heroCountyPopulation.Add(new CountyPopulation(countyData.countyID, countyData.countyID, firstName
+                    countyData.heroCountyPopulation.Add(new CountyPopulation(countyData.factionData, countyData.countyID, countyData.countyID, firstName
                         , lastName, isMale, age, true, true, false, false, false, true, constructionSkill, AllText.Jobs.IDLE
                         , null, AllText.Jobs.IDLE, null));
 
                     
+                    /*
                     CountyPopulation heroPerson = countyData.heroCountyPopulation[i];
                     GD.Print($"Hero Name: {heroPerson.firstName} {heroPerson.lastName} " +
                     $"Age: {heroPerson.age} isLeader: {heroPerson.isLeader} isMale: {heroPerson.isMale} Leader of People: {heroPerson.leaderOfPeoplePerk} " +
                     $"Faction Leader: {heroPerson.isLeader}");
-                    
+                    */
                 }
             }
 

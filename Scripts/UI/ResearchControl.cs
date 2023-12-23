@@ -52,7 +52,7 @@ namespace PlayerSpace
                     researchItem.GetNode<CheckBox>("CheckBox").ButtonPressed = true;
                 }
             }
-            GD.Print("Research Parent Count: " + researchItemParent.GetChildCount());
+            //GD.Print("Research Parent Count: " + researchItemParent.GetChildCount());
         }
 
         private void DestroyResearchItemButtons()

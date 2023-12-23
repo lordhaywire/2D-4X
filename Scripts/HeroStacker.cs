@@ -95,7 +95,7 @@ namespace PlayerSpace
                     }
                     else
                     {
-                        GD.Print("Default: " + default(T));
+                        //GD.Print("Default: " + default(T));
                         return null;
                     }
                 }

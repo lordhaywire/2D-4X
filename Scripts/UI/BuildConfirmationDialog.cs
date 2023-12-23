@@ -17,11 +17,11 @@ namespace PlayerSpace
 
         private void YesButton()
         {
-            GD.Print("Yes was pressed.");
+            //GD.Print("Yes was pressed.");
 
             CountyImprovementData countyImprovementData = Globals.Instance.selectedPossibleBuildingControl.countyImprovementData;
             
-            Banker.Instance.BuildImprovement(Globals.Instance.selectedSelectCounty.countyData, countyImprovementData);
+            Banker.Instance.BuildImprovement(Globals.Instance.selectedLeftClickCounty.countyData, countyImprovementData);
             Banker.Instance.ChargeForBuilding(Globals.Instance.playerFactionData
                 , Globals.Instance.selectedPossibleBuildingControl.countyImprovementData);
 

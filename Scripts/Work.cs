@@ -25,11 +25,11 @@ namespace PlayerSpace
                 if (factionData.factionLeader.leaderOfPeoplePerk == true)
                 {
                     factionData.Influence += Globals.Instance.dailyInfluenceGain;
-                    GD.PrintRich($"[rainbow]{factionData.factionName} has {factionData.Influence}.");
+                    //GD.PrintRich($"[rainbow]{factionData.factionName} has {factionData.Influence}.");
                 }
                 else
                 {
-                    GD.Print($"The leader of {factionData.factionName} isn't a leader of people.");
+                    //GD.Print($"The leader of {factionData.factionName} isn't a leader of people.");
                 }
             }
         }
@@ -71,7 +71,7 @@ namespace PlayerSpace
                         person.nextImprovement = null;
                         person.currentActivity = AllText.Jobs.IDLE;
                         person.nextActivity = AllText.Jobs.IDLE;
-                        GD.Print($"{person.firstName} is {person.nextActivity}.");
+                        //GD.Print($"{person.firstName} is {person.nextActivity}.");
                     }
                 }
                 CountIdleWorkers(selectCounty.countyData);
@@ -86,7 +86,7 @@ namespace PlayerSpace
                 {
                     if (person.currentImprovement != null)
                     {
-                        GD.Print($"{person.firstName} is building {person.currentImprovement.improvementName}.");
+                        //GD.Print($"{person.firstName} is building {person.currentImprovement.improvementName}.");
 
                         person.currentImprovement.currentAmountOfConstruction++; // This is eventually going to be a skill check.
 
@@ -101,10 +101,12 @@ namespace PlayerSpace
                         }
                     }
                 }
+                /*
                 foreach (CountyImprovementData countyImprovementData in county.countyData.underConstructionCountyImprovements)
                 {
                     GD.Print($"{countyImprovementData.improvementName} has completed {countyImprovementData.currentAmountOfConstruction} work.");
                 }
+                */
             }
         }
 

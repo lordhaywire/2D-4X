@@ -45,14 +45,14 @@ namespace PlayerSpace
             PopulationDescriptionControl.Instance.UpdateDescriptionInfo();
             CountyInfoControl.Instance.GenerateHeroesPanelList();
 
-            GD.Print("County Name and Hero Population: " + selectCounty.countyData.countyName + selectCounty.countyData.heroCountyPopulation.Count);
-            GD.Print("You clicked the Yes Button");
+            //GD.Print("County Name and Hero Population: " + selectCounty.countyData.countyName + selectCounty.countyData.heroCountyPopulation.Count);
+            //GD.Print("You clicked the Yes Button");
             Hide();
         }
 
         private void NoButton()
         {
-            GD.Print("You clicked the No Button");
+            //GD.Print("You clicked the No Button");
             Hide();
         }
     }

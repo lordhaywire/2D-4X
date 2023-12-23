@@ -20,6 +20,10 @@ namespace PlayerSpace
         [Export] private VBoxContainer heroListParent;
         [Export] private VBoxContainer heroSpawnCheckButtonParent;
 
+        [ExportGroup("Buttons")]
+        [Export] private Button populationListButton;
+        [Export] private Button countyImprovementsButton;
+
         [Export] private PackedScene heroListPrefab;
 
         public override void _Ready()
@@ -31,7 +35,7 @@ namespace PlayerSpace
         {
             if(Visible == true)
             {
-                Globals.Instance.selectedCountyData.IdleWorkersChanged += UpdateIdleWorkersLabel;
+                Globals.Instance.selectedCountyData.IdleWorkersChanged += UpdateIdleWorkersLabel;             
             }
             else
             {
@@ -39,12 +43,23 @@ namespace PlayerSpace
             }
         }
 
+        public void UpdateEverything()
+        {
+            CheckForOwnership();
+            UpdateNameLabels();
+            UpdateCountyPopulationLabel();
+            UpdateIdleWorkersLabel();
+            GenerateHeroesPanelList();
+        }
         public void DisableSpawnHeroCheckButton(bool value)
         {
             foreach (Node node in heroSpawnCheckButtonParent.GetChildren())
             {
-                HeroListButton heroListButton = (HeroListButton)node;
-                heroListButton.spawnHeroButton.Disabled = value;
+                HeroPanelContainer heroPanelContainer = (HeroPanelContainer)node;
+                if(heroPanelContainer.countyPopulation.factionData == Globals.Instance.playerFactionData)
+                {
+                    heroPanelContainer.spawnHeroButton.Disabled = value;
+                }
             }
         }
 
@@ -67,13 +82,14 @@ namespace PlayerSpace
             //GD.Print($"{countyData.countyName} has {countyData.heroCountyPopulation.Count} heroes in it.");
             foreach (CountyPopulation countyPopulation in countyData.heroCountyPopulation)
             {
-                HeroListButton heroPrefab = (HeroListButton)heroListPrefab.Instantiate();
+                HeroPanelContainer heroPrefab = (HeroPanelContainer)heroListPrefab.Instantiate();
 
                 heroPrefab.heroNameLabel.Text = $"{countyPopulation.firstName} {countyPopulation.lastName}";
+                /*
                 GD.Print($"Faction Leader: {countyPopulation.isLeader}");
                 GD.Print($"Aide: {countyPopulation.isAide}");
                 GD.Print($"Army Leader: {countyPopulation.isArmyLeader}");
-
+                */
                 switch (countyPopulation)
                 {
                     case { isLeader: true, isAide: false, isArmyLeader: false }:
@@ -105,59 +121,23 @@ namespace PlayerSpace
                         break;
                 }
 
-                /*
-                if (countyPopulation.isLeader)
-                {
-                    heroPrefab.factionLeaderTextureRect.Show();
-                    heroPrefab.aideTextureRect.Hide();
-                    heroPrefab.armyLeaderTextureRect.Hide();
-
-                    if (countyPopulation.isArmyLeader)
-                    {
-                        heroPrefab.armyLeaderTextureRect.Show();
-                    }
-                }
-                else if (countyPopulation.isAide)
-                {
-                    heroPrefab.factionLeaderTextureRect.Hide();
-                    heroPrefab.aideTextureRect.Show();
-                    heroPrefab.armyLeaderTextureRect.Hide();
-                }
-                else if (countyPopulation.isArmyLeader)
-                {
-                    heroPrefab.factionLeaderTextureRect.Hide();
-                    heroPrefab.aideTextureRect.Hide();
-                    heroPrefab.armyLeaderTextureRect.Show();
-                }
-                */
-                /*
-                if (countyPopulation.isLeader == true && countyPopulation.isArmyLeader == false)
-                {
-                    heroPrefab.factionLeaderTextureRect.Show();
-                    heroPrefab.aideTextureRect.Hide();
-                    heroPrefab.armyLeaderTextureRect.Hide();
-                }
-                if (countyPopulation.isLeader == true && countyPopulation.isArmyLeader == true)
-                {
-                    heroPrefab.factionLeaderTextureRect.Show();
-                    heroPrefab.aideTextureRect.Hide();
-                    heroPrefab.armyLeaderTextureRect.Show();
-                }
-                if (countyPopulation.isAide == true)
-                {
-                    heroPrefab.factionLeaderTextureRect.Hide();
-                    heroPrefab.aideTextureRect.Show();
-                    heroPrefab.armyLeaderTextureRect.Hide();
-                }
-                if(countyPopulation.isArmyLeader == true && countyPopulation.isLeader == false)
-                {
-                    heroPrefab.factionLeaderTextureRect.Hide();
-                    heroPrefab.aideTextureRect.Hide();
-                    heroPrefab.armyLeaderTextureRect.Show();
-                }
-                */
                 heroListParent.AddChild(heroPrefab);
                 heroPrefab.countyPopulation = countyPopulation;
+
+                // Change color of panel to the faction color.
+                heroPrefab.SelfModulate = countyPopulation.factionData.factionColor;
+                GD.Print("Hero faction: " + heroPrefab.countyPopulation.factionData.factionName);
+                GD.Print("Player faction: " + Globals.Instance.playerFactionData.factionName);
+                if (heroPrefab.countyPopulation.factionData != Globals.Instance.playerFactionData)
+                {
+                    heroPrefab.heroListButton.Disabled = true;
+                    heroPrefab.spawnHeroButton.Disabled = true;
+                }
+                else
+                {
+                    heroPrefab.heroListButton.Disabled = false;
+                    heroPrefab.spawnHeroButton.Disabled = false;
+                }
                 //GD.Print("Hero Token: " + countyPopulation.token);
                 if(countyPopulation.token == null)
                 {
@@ -170,8 +150,23 @@ namespace PlayerSpace
                 }
             }
         }
+
+        private void CheckForOwnership()
+        {
+            if (Globals.Instance.playerFactionData != Globals.Instance.selectedCountyData.factionData)
+            {
+                populationListButton.Disabled = true;
+                countyImprovementsButton.Disabled = true;
+            }
+            else
+            {
+                populationListButton.Disabled = false;
+                countyImprovementsButton.Disabled = false;
+            }
+        }
         public void UpdateCountyPopulationLabel()
         {
+
             int population = Globals.Instance.selectedCountyData.countyPopulation.Count + Globals.Instance.selectedCountyData.heroCountyPopulation.Count;
             countyPopulationLabel.Text = population.ToString();
         }
@@ -179,14 +174,66 @@ namespace PlayerSpace
         // This is going to break once we put people to work.
         public void UpdateIdleWorkersLabel()
         {
-            GD.Print("Update Idle Workers !!");
+            //GD.Print("Update Idle Workers !!");
             countyIdleWorkersLabel.Text = Globals.Instance.selectedCountyData.IdleWorkers.ToString();
         }
 
         private void CountyImprovementsButton()
         {
-            GD.Print("Buildings Button has been pressed.");
+            //GD.Print("Buildings Button has been pressed.");
             countyImprovementsPanelControl.Show();
         }
     }
 }
+
+/*
+if (countyPopulation.isLeader)
+{
+    heroPrefab.factionLeaderTextureRect.Show();
+    heroPrefab.aideTextureRect.Hide();
+    heroPrefab.armyLeaderTextureRect.Hide();
+
+    if (countyPopulation.isArmyLeader)
+    {
+        heroPrefab.armyLeaderTextureRect.Show();
+    }
+}
+else if (countyPopulation.isAide)
+{
+    heroPrefab.factionLeaderTextureRect.Hide();
+    heroPrefab.aideTextureRect.Show();
+    heroPrefab.armyLeaderTextureRect.Hide();
+}
+else if (countyPopulation.isArmyLeader)
+{
+    heroPrefab.factionLeaderTextureRect.Hide();
+    heroPrefab.aideTextureRect.Hide();
+    heroPrefab.armyLeaderTextureRect.Show();
+}
+*/
+/*
+if (countyPopulation.isLeader == true && countyPopulation.isArmyLeader == false)
+{
+    heroPrefab.factionLeaderTextureRect.Show();
+    heroPrefab.aideTextureRect.Hide();
+    heroPrefab.armyLeaderTextureRect.Hide();
+}
+if (countyPopulation.isLeader == true && countyPopulation.isArmyLeader == true)
+{
+    heroPrefab.factionLeaderTextureRect.Show();
+    heroPrefab.aideTextureRect.Hide();
+    heroPrefab.armyLeaderTextureRect.Show();
+}
+if (countyPopulation.isAide == true)
+{
+    heroPrefab.factionLeaderTextureRect.Hide();
+    heroPrefab.aideTextureRect.Show();
+    heroPrefab.armyLeaderTextureRect.Hide();
+}
+if(countyPopulation.isArmyLeader == true && countyPopulation.isLeader == false)
+{
+    heroPrefab.factionLeaderTextureRect.Hide();
+    heroPrefab.aideTextureRect.Hide();
+    heroPrefab.armyLeaderTextureRect.Show();
+}
+*/

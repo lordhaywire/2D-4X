@@ -62,8 +62,6 @@ namespace PlayerSpace
 
             // Add to the spawnedHeroList when it gets to its destination.
             selectCounty.heroSpawn.spawnedTokenList.Insert(0, selectToken);
-
-
         }
     }
 }

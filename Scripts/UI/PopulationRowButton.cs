@@ -4,7 +4,7 @@ namespace PlayerSpace
 {
     public partial class PopulationRowButton : Button
     {
-        [Export] public CountyPopulation countyPopulation;
+        public CountyPopulation countyPopulation;
         [Export] public Label populationNameLabel;
         [Export] public Label ageLabel;
         [Export] public Label sexLabel;

@@ -14,7 +14,7 @@ namespace PlayerSpace
 
         public void ChargeForHero()
         {
-            GD.Print("Player Influence: " + Globals.Instance.playerFactionData.Influence);
+            //GD.Print("Player Influence: " + Globals.Instance.playerFactionData.Influence);
             Globals.Instance.playerFactionData.Influence -= Globals.Instance.costOfHero;
         }
 
@@ -36,7 +36,7 @@ namespace PlayerSpace
 
         public void BuildImprovement(CountyData countyData, CountyImprovementData countyImprovementData)
         {
-            GD.Print($"{countyData.factionData.factionName} is building {countyImprovementData.improvementName}.");
+            //GD.Print($"{countyData.factionData.factionName} is building {countyImprovementData.improvementName}.");
             countyImprovementData.isBeingBuilt = true;
             countyData.underConstructionCountyImprovements.Add(countyImprovementData);
         }
@@ -54,12 +54,12 @@ namespace PlayerSpace
                 {
                     if (improvementData.isBeingBuilt || improvementData.isBuilt)
                     {
-                        GD.Print($"{improvementData.improvementName} is already being built.");
+                        //GD.Print($"{improvementData.improvementName} is already being built.");
                         return;
                     }
                     if (improvementData.resourceData.resourceType == AllEnums.ResourceType.Food)
                     {
-                        GD.Print($"{factionData.factionName} found {improvementData.improvementName} in {countyDataItem.countyName}.");
+                        //GD.Print($"{factionData.factionName} found {improvementData.improvementName} in {countyDataItem.countyName}.");
                         countyImprovementData = improvementData;
                         countyData = countyDataItem;
                         return;

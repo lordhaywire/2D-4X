@@ -38,17 +38,17 @@ namespace PlayerSpace
                                 person.nextActivity = AllText.Jobs.BUILDING;
                                 person.nextImprovement = countyImprovementData;
                                 countyImprovementData.currentBuilders++;
-                                GD.Print($"{person.firstName} {person.lastName} is building {countyImprovementData.improvementName}");
+                                //GD.Print($"{person.firstName} {person.lastName} is building {countyImprovementData.improvementName}");
                             }
                             else
                             {
-                                GD.Print($"{person.firstName} {person.lastName} not getting reassigned.");
+                                //GD.Print($"{person.firstName} {person.lastName} not getting reassigned.");
                             }
                         }
                     }
                     else
                     {
-                        GD.Print($"{countyImprovementData.improvementName} is not being built.");
+                        //GD.Print($"{countyImprovementData.improvementName} is not being built.");
                     }
                 }
             }

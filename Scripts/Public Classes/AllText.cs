@@ -58,5 +58,10 @@ namespace PlayerSpace
             public const string PRIMATVEGUNAMMOSHACK = "This is a shack for gun ammo, such as bullets.";
             public const string ELITISM = "Some people think they are better then others.";
         }
+
+        public class Diplomacies
+        {
+            public const string DECLAREWARE = $"Are you sure you want to declare war against ";
+        }
     }
 }
