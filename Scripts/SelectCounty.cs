@@ -10,6 +10,7 @@ namespace PlayerSpace
         [ExportGroup("Attached Nodes")]
         [Export] public Sprite2D capitalSprite;
         [Export] public HeroStacker heroSpawn;
+        [Export] public Control battleControl;
 
         private SelectToken selectToken; 
         private CountyPopulation countyPopulation;

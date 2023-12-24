@@ -23,6 +23,7 @@ namespace PlayerSpace
         public List<CountyPopulation> heroCountyPopulation = new();
         public List<CountyImprovementData> allCountyImprovements = new();
         public List<CountyImprovementData> underConstructionCountyImprovements = new();
+        public List<Battle> battles = new();
 
         [Export] public int population;
         private int idleWorkers;

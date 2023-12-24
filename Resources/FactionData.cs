@@ -19,6 +19,7 @@ namespace PlayerSpace
         public CountyPopulation factionLeader;
 
         public Diplomacy diplomacy = new();
+        public TokenSpawner tokenSpawner = new(); 
 
         [ExportGroup("Expendables")]
         [Export] public int money;
@@ -37,5 +38,8 @@ namespace PlayerSpace
                 InfluenceChanged?.Invoke();
             }
         }
+
+        [ExportGroup("Diplomatic Incidences")]
+        public List<War> wars = new();
     }
 }

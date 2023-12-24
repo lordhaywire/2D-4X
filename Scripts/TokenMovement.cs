@@ -41,6 +41,33 @@ namespace PlayerSpace
 
         private void ReachedDestination()
         {
+            SelectToken selectToken = (SelectToken)GetParent();
+            SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(selectToken.countyPopulation.destination);
+            
+            // Are you at war with the owner of the county the token just arrived at?
+            if(selectToken.countyPopulation.isArmyLeader == false)
+            {
+                AddToTokenStacker();
+            }
+            else
+            {
+                foreach (War war in Globals.Instance.playerFactionData.wars)
+                {
+                    if (selectCounty.countyData.factionData == war.defenderFactionData
+                        || selectCounty.countyData.factionData == war.attackerFactionData)
+                    {
+                        GD.Print("New Battle!");
+                    }
+                    else
+                    {
+                        GD.Print("No Battle!");
+                    }
+                }
+            }            
+        }
+
+        private void AddToTokenStacker()
+        {
             GD.Print(token.Name + " got to destination!");
             moveToken = false;
             SelectToken selectToken = (SelectToken)GetParent();

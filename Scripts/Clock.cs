@@ -10,7 +10,7 @@ namespace PlayerSpace
         public event Action FirstRun;
         public event Action HourZero;
         public event Action WorkDayOver;
-
+        
         [Export] private Label dayLabel;
         [Export] private Label HourLabel;
         [Export] private Label currentSpeedLabel;
@@ -18,8 +18,7 @@ namespace PlayerSpace
 
         [Export] private int ticks;
 
-
-        public float foreverTimer; // This will eventually need to be reset.  I think.  It depends on if we run out of numbers.
+        //public float foreverTimer; // This will eventually need to be reset.  I think.  It depends on if we run out of numbers.
         public float minutes;
         public int hours;
         public int days = 0;

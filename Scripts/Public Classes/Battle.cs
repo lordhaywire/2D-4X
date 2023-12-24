@@ -1,0 +1,10 @@
+using Godot;
+using System;
+
+namespace PlayerSpace
+{
+    public class Battle
+    {
+        public CountyData battleLocation;
+    }
+}

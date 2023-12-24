@@ -18,14 +18,16 @@ namespace PlayerSpace
         {
             Vector2 inputDirection = Input.GetVector("left", "right", "up", "down");
             
-            Velocity = (inputDirection * Speed) / Math.Max(Clock.Instance.ModifiedTimeScale, 1);
+            Velocity = inputDirection * Speed / Math.Max(Clock.Instance.ModifiedTimeScale, 1);
             //GD.Print("Velocity: " + Velocity);
+            //GD.Print($"Engine Timescale: {Engine.TimeScale}");
 
         }
 
         public override void _PhysicsProcess(double delta)
         {
             //GD.Print("Velocity: " + Velocity);
+
             GetInput();
             MoveAndSlide();
         }

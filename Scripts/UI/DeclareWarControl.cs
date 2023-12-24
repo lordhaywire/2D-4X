@@ -21,9 +21,11 @@ namespace PlayerSpace
         private void YesButton()
         {
             Hide();
+            War newWar = new();
+            newWar.attackerFactionData = Globals.Instance.playerFactionData;
+            newWar.defenderFactionData = Globals.Instance.selectedRightClickCounty.countyData.factionData;
             // Once yes has been hit, this is the actual declaration of war.
-            Globals.Instance.playerFactionData.diplomacy.DeclareWar(Globals.Instance.playerFactionData
-                , Globals.Instance.selectedRightClickCounty.countyData.factionData);
+            Globals.Instance.playerFactionData.diplomacy.DeclareWar(newWar);
             Globals.Instance.selectedRightClickCounty.StartMove();
         }
 
