@@ -32,10 +32,10 @@ namespace PlayerSpace
                         // Go through this counties population.
                         foreach (CountyPopulation person in selectCounty.countyData.countyPopulation)
                         {
-                            if (person.nextActivity == AllText.Jobs.IDLE && countyImprovementData.currentBuilders
+                            if (person.nextActivity == AllText.Activities.IDLE && countyImprovementData.currentBuilders
                                 < countyImprovementData.maxBuilders)
                             {
-                                person.nextActivity = AllText.Jobs.BUILDING;
+                                person.nextActivity = AllText.Activities.BUILDING;
                                 person.nextImprovement = countyImprovementData;
                                 countyImprovementData.currentBuilders++;
                                 //GD.Print($"{person.firstName} {person.lastName} is building {countyImprovementData.improvementName}");

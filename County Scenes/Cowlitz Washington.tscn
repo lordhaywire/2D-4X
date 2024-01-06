@@ -1,11 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://dlvb22f68gd3u"]
+[gd_scene load_steps=9 format=3 uid="uid://dlvb22f68gd3u"]
 
 [ext_resource type="Texture2D" uid="uid://dr2hjhwxtbyki" path="res://Graphics/Counties/Cowlitz Washington.png" id="1_es40q"]
 [ext_resource type="Script" path="res://Scripts/SelectCounty.cs" id="2_58bw3"]
 [ext_resource type="Resource" uid="uid://cvc0wfljshom0" path="res://Resources/Counties/Cowlitz.tres" id="2_si4qt"]
 [ext_resource type="Texture2D" uid="uid://c3bhckl88r540" path="res://Graphics/Icons/Top Bar/Capital Icon.png" id="4_4wrbt"]
 [ext_resource type="Script" path="res://Scripts/HeroStacker.cs" id="5_lgu8l"]
-[ext_resource type="Texture2D" uid="uid://7jvylb78h24w" path="res://Graphics/Tokens/HornedGuyUnselected.png" id="6_k2c0v"]
+[ext_resource type="Script" path="res://Scripts/UI/BattleControl.cs" id="6_v63rb"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_mc4v5"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1pkk4"]
 
 [node name="Cowlitz Washington Node2D" type="Node2D" node_paths=PackedStringArray("heroSpawn", "battleControl")]
 z_index = 10
@@ -40,7 +44,7 @@ z_index = 10
 position = Vector2(0, -20)
 script = ExtResource("5_lgu8l")
 
-[node name="Battle Control" type="Control" parent="County Overlay Node2D"]
+[node name="Battle Control" type="Control" parent="County Overlay Node2D" node_paths=PackedStringArray("defendersTokenTextureRect", "attackersTokenTextureRect")]
 visible = false
 layout_mode = 3
 anchors_preset = 5
@@ -53,6 +57,9 @@ offset_bottom = 30.0
 grow_horizontal = 2
 size_flags_horizontal = 6
 size_flags_vertical = 8
+script = ExtResource("6_v63rb")
+defendersTokenTextureRect = NodePath("PanelContainer/HBoxContainer/Defender TextureRect")
+attackersTokenTextureRect = NodePath("PanelContainer/HBoxContainer/Attacker TextureRect")
 
 [node name="PanelContainer" type="PanelContainer" parent="County Overlay Node2D/Battle Control"]
 layout_mode = 1
@@ -87,13 +94,13 @@ vertical_alignment = 1
 
 [node name="Defender TextureRect" type="TextureRect" parent="County Overlay Node2D/Battle Control/PanelContainer/HBoxContainer"]
 layout_mode = 2
-texture = ExtResource("6_k2c0v")
+texture = SubResource("PlaceholderTexture2D_mc4v5")
 expand_mode = 3
 
 [node name="Attacker TextureRect" type="TextureRect" parent="County Overlay Node2D/Battle Control/PanelContainer/HBoxContainer"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
-texture = ExtResource("6_k2c0v")
+texture = SubResource("PlaceholderTexture2D_1pkk4")
 expand_mode = 3
 
 [node name="Attackers Morale Control" type="Control" parent="County Overlay Node2D/Battle Control/PanelContainer/HBoxContainer"]

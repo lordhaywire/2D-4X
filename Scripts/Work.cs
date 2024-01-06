@@ -49,7 +49,7 @@ namespace PlayerSpace
 
             foreach(CountyPopulation person in countyData.countyPopulation)
             {
-                if (person.currentActivity == AllText.Jobs.IDLE && person.nextActivity == AllText.Jobs.IDLE)
+                if (person.currentActivity == AllText.Activities.IDLE && person.nextActivity == AllText.Activities.IDLE)
                 {
                     idleWorkers++;
                 }
@@ -69,8 +69,8 @@ namespace PlayerSpace
                     {
                         person.currentImprovement = null;
                         person.nextImprovement = null;
-                        person.currentActivity = AllText.Jobs.IDLE;
-                        person.nextActivity = AllText.Jobs.IDLE;
+                        person.currentActivity = AllText.Activities.IDLE;
+                        person.nextActivity = AllText.Activities.IDLE;
                         //GD.Print($"{person.firstName} is {person.nextActivity}.");
                     }
                 }

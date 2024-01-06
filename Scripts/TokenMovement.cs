@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 namespace PlayerSpace
 {
@@ -22,7 +23,7 @@ namespace PlayerSpace
         }
         public override void _PhysicsProcess(double delta)
         {
-            if (moveToken == true)
+            if (MoveToken == true)
             {
                 Move();
             }
@@ -43,7 +44,8 @@ namespace PlayerSpace
         {
             SelectToken selectToken = (SelectToken)GetParent();
             SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(selectToken.countyPopulation.destination);
-            
+
+            selectToken.countyPopulation.currentActivity = AllText.Activities.IDLE;
             // Are you at war with the owner of the county the token just arrived at?
             if(selectToken.countyPopulation.isArmyLeader == false)
             {
@@ -57,6 +59,11 @@ namespace PlayerSpace
                         || selectCounty.countyData.factionData == war.attackerFactionData)
                     {
                         GD.Print("New Battle!");
+                        MoveToken = false;
+                        selectToken.countyPopulation.location = selectCounty.countyData.countyID;
+
+                        StartBattle();
+                        
                     }
                     else
                     {
@@ -64,6 +71,32 @@ namespace PlayerSpace
                     }
                 }
             }            
+        }
+
+        private void StartBattle()
+        {
+            // Attackers Army
+            SelectToken attackerSelectToken = (SelectToken)GetParent();
+            SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(attackerSelectToken.countyPopulation.location);
+            BattleControl battleControl = (BattleControl)selectCounty.battleControl;
+
+
+            // Defenders Army
+            SelectToken defendersSelectToken; 
+            foreach(CountyPopulation defenderCountyPopulation in selectCounty.countyData.heroCountyPopulation)
+            {
+                if(defenderCountyPopulation.isArmyLeader == true && defenderCountyPopulation.token != null)
+                {
+                    defendersSelectToken = (SelectToken)defenderCountyPopulation.token;
+                    defendersSelectToken.Hide();
+                    battleControl.defendersTokenTextureRect.Texture = defendersSelectToken.sprite.Texture;
+                    break;
+                }
+            }
+            battleControl.Show();
+            battleControl.attackersTokenTextureRect.Texture = attackerSelectToken.sprite.Texture;
+            attackerSelectToken.Hide();
+            
         }
 
         private void AddToTokenStacker()

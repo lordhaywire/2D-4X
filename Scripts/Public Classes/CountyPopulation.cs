@@ -25,10 +25,15 @@ namespace PlayerSpace
         [ExportGroup("Perks")]
         public bool leaderOfPeoplePerk;
 
-        //[ExportGroup("Attributes")]
+        [ExportGroup("Token Expendables")]
+        public int moraleExpendable; // I think we are going to have to have this as leader morale or army morale or some shit.
+
+        [ExportGroup("Attributes")]
+        public int coolAttribute;
 
         [ExportGroup("Skills")]
         public int constructionSkill;
+        public int rifleSkill;
 
         [ExportGroup("Activities")]
         public string currentActivity;
@@ -41,7 +46,8 @@ namespace PlayerSpace
 
         public CountyPopulation(
             FactionData factionData, int location, int destination, string firstName, string lastName, bool isMale, int age, bool isHero, bool isLeader
-            , bool isAide, bool isArmyLeader, bool isWorker, bool leaderOfPeoplePerk, int constructionSkill, string currentActivity
+            , bool isAide, bool isArmyLeader, bool isWorker, bool leaderOfPeoplePerk, int moraleExpendable, 
+            int coolAttribute, int constructionSkill, int rifleSkill, string currentActivity
             , CountyImprovementData currentImprovement, string nextActivity, CountyImprovementData nextImprovement)
         {
             this.factionData = factionData;
@@ -60,7 +66,12 @@ namespace PlayerSpace
 
             this.leaderOfPeoplePerk = leaderOfPeoplePerk;
 
+            this.moraleExpendable = moraleExpendable;
+
+            this.coolAttribute = coolAttribute;
+
             this.constructionSkill = constructionSkill;
+            this.rifleSkill = rifleSkill;
 
             this.currentImprovement = currentImprovement;
             this.currentActivity = currentActivity;

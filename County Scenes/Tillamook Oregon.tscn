@@ -1,11 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://bpe1s5ug8pilx"]
+[gd_scene load_steps=9 format=3 uid="uid://bpe1s5ug8pilx"]
 
 [ext_resource type="Script" path="res://Scripts/SelectCounty.cs" id="1_sl76j"]
 [ext_resource type="Texture2D" uid="uid://b340qjcqqgar3" path="res://Graphics/Counties/Tillamook Oregon 1.png" id="2_3d3le"]
 [ext_resource type="Resource" uid="uid://cwiqoelw7ltr0" path="res://Resources/Counties/Tillamook.tres" id="3_f0kj6"]
 [ext_resource type="Texture2D" uid="uid://c3bhckl88r540" path="res://Graphics/Icons/Top Bar/Capital Icon.png" id="4_63kd3"]
 [ext_resource type="Script" path="res://Scripts/HeroStacker.cs" id="5_27bcb"]
-[ext_resource type="Texture2D" uid="uid://7jvylb78h24w" path="res://Graphics/Tokens/HornedGuyUnselected.png" id="6_nscb3"]
+[ext_resource type="Script" path="res://Scripts/UI/BattleControl.cs" id="6_ro8hh"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_5hgq1"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_h3py3"]
 
 [node name="Tillamook Oregon Node2D" type="Node2D" node_paths=PackedStringArray("heroSpawn", "battleControl")]
 z_index = 10
@@ -40,7 +44,7 @@ texture = ExtResource("4_63kd3")
 position = Vector2(0, -20)
 script = ExtResource("5_27bcb")
 
-[node name="Battle Control" type="Control" parent="County Overlay Node2D"]
+[node name="Battle Control" type="Control" parent="County Overlay Node2D" node_paths=PackedStringArray("defendersTokenTextureRect", "attackersTokenTextureRect")]
 visible = false
 layout_mode = 3
 anchors_preset = 5
@@ -53,6 +57,9 @@ offset_bottom = 30.0
 grow_horizontal = 2
 size_flags_horizontal = 6
 size_flags_vertical = 8
+script = ExtResource("6_ro8hh")
+defendersTokenTextureRect = NodePath("PanelContainer/HBoxContainer/Defender TextureRect")
+attackersTokenTextureRect = NodePath("PanelContainer/HBoxContainer/Attacker TextureRect")
 
 [node name="PanelContainer" type="PanelContainer" parent="County Overlay Node2D/Battle Control"]
 layout_mode = 1
@@ -87,13 +94,13 @@ vertical_alignment = 1
 
 [node name="Defender TextureRect" type="TextureRect" parent="County Overlay Node2D/Battle Control/PanelContainer/HBoxContainer"]
 layout_mode = 2
-texture = ExtResource("6_nscb3")
+texture = SubResource("PlaceholderTexture2D_5hgq1")
 expand_mode = 3
 
 [node name="Attacker TextureRect" type="TextureRect" parent="County Overlay Node2D/Battle Control/PanelContainer/HBoxContainer"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
-texture = ExtResource("6_nscb3")
+texture = SubResource("PlaceholderTexture2D_h3py3")
 expand_mode = 3
 
 [node name="Attackers Morale Control" type="Control" parent="County Overlay Node2D/Battle Control/PanelContainer/HBoxContainer"]

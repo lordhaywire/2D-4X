@@ -88,17 +88,17 @@ namespace PlayerSpace
 
         public void StartMove()
         {
-            selectToken = Globals.Instance.CurrentlySelectedToken;
-            countyPopulation = selectToken.countyPopulation;
-            GD.Print("County Data: " + countyData.countyID);
+            countyPopulation = Globals.Instance.CurrentlySelectedToken.countyPopulation;
+            //GD.Print("County Data: " + countyData.countyID);
 
-            GD.Print($"{selectToken.countyPopulation.firstName} has location of {countyPopulation.location}");
+            GD.Print($"{Globals.Instance.CurrentlySelectedToken.countyPopulation.firstName} has location of {countyPopulation.location}");
             SelectCounty selectLocationCounty
                 = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
             Globals.Instance.heroMoveTarget = heroSpawn.GlobalPosition;
 
             countyPopulation.destination = countyData.countyID;
-            selectToken.tokenMovement.MoveToken = true;
+            countyPopulation.currentActivity = AllText.Activities.MOVING;
+            Globals.Instance.CurrentlySelectedToken.tokenMovement.MoveToken = true;
 
             // Remove countyPopulation from the heroes starting county location list.
             selectLocationCounty.countyData.heroCountyPopulation.Remove(countyPopulation);

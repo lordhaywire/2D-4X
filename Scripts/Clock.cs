@@ -88,17 +88,19 @@ namespace PlayerSpace
             {
                 modifiedTimeScale = value;
                 //GD.Print($"ModifiedScale has changed to {modifiedTimeScale}");
-                Engine.TimeScale = value;
+                
                 currentSpeedLabel.Text = modifiedTimeScale.ToString();
 
-                
                 if (modifiedTimeScale == 0)
                 {
                     pausedLabel.Show();
+                    GetTree().Paused = true;
                 }
                 else
                 {
                     pausedLabel.Hide();
+                    Engine.TimeScale = value;
+                    GetTree().Paused = false;
                 }           
             }
         }
@@ -161,7 +163,6 @@ namespace PlayerSpace
             //GD.Print($"Modified Time: {ModifiedTimeScale} and Old Time Speed: {oldTimeSpeed}.");
         }
 
-
         public void ChangeSpeed(int speed)
         {
             oldTimeSpeed = ModifiedTimeScale;
@@ -187,8 +188,7 @@ namespace PlayerSpace
             if (NumberOfPanelsVisible == 0)
             {
                 ModifiedTimeScale = oldTimeSpeed;
-            }
-            
+            }     
         }
     }
 }

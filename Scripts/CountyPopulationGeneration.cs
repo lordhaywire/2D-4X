@@ -70,15 +70,19 @@ namespace PlayerSpace
                 // Determine the person's age.
                 age = random.Next(18, 61);
 
-                // Generate random skill level for each population.
+                // Generate random stats for each population.
+
+                int coolAttribute = random.Next(20, 81);
                 int constructionSkill = random.Next(20, 81);
+                int rifleSkill = random.Next(20, 81);
 
                 if (hero == false)
                 {
                     // This adds to the C# list.
-                    countyData.countyPopulation.Add(new CountyPopulation(countyData.factionData, countyData.countyID, countyData.countyID, firstName
-                        , lastName, isMale, age, false, false, false, false, false, false, constructionSkill, AllText.Jobs.IDLE, null
-                        , AllText.Jobs.IDLE, null));
+                    countyData.countyPopulation.Add(new CountyPopulation(countyData.factionData, countyData.countyID, 
+                        countyData.countyID, firstName , lastName, isMale, age, false, false, false, false, false, false
+                        , 100, coolAttribute, constructionSkill, rifleSkill, AllText.Activities.IDLE, null
+                        , AllText.Activities.IDLE, null));
                     
                     /*
                     CountyPopulation person = countyData.countyPopulation[i];
@@ -90,11 +94,9 @@ namespace PlayerSpace
                 else
                 {
                     // This adds to a C# list.
-                    countyData.heroCountyPopulation.Add(new CountyPopulation(countyData.factionData, countyData.countyID, countyData.countyID, firstName
-                        , lastName, isMale, age, true, true, false, false, false, true, constructionSkill, AllText.Jobs.IDLE
-                        , null, AllText.Jobs.IDLE, null));
-
-                    
+                    countyData.heroCountyPopulation.Add(new CountyPopulation(countyData.factionData, countyData.countyID, 
+                        countyData.countyID, firstName, lastName, isMale, age, true, true, false, false, false, true, 100, 
+                        coolAttribute, constructionSkill, rifleSkill, AllText.Activities.IDLE, null, AllText.Activities.IDLE, null));                 
                     /*
                     CountyPopulation heroPerson = countyData.heroCountyPopulation[i];
                     GD.Print($"Hero Name: {heroPerson.firstName} {heroPerson.lastName} " +
@@ -128,21 +130,21 @@ namespace PlayerSpace
                     // Generate Normal Population
                     GeneratePopulation(false, Globals.Instance.totalCapitolPop);
                     countyData.population += countyData.countyPopulation.Count;
-                    countyData.IdleWorkers = countyData.population;
+                    countyData.IdleWorkers = countyData.population -= countyData.heroCountyPopulation.Count;
                 }
                 else
                 {
                     // Generate Hero Population
                     /*
                     GeneratePopulation(true, Globals.Instance.heroPopulation);
-                    countyData.population += countyData.heroCountyPopulation.Count;
+                    countyData.population -= countyData.heroCountyPopulation.Count;
                     */
 
                     // Generate Normal Population
                     int normalPopulation = random.Next(Globals.Instance.minimumCountyPop, Globals.Instance.maximumCountyPop);
                     GeneratePopulation(false, normalPopulation);
                     countyData.population += countyData.countyPopulation.Count;
-                    countyData.IdleWorkers = countyData.population;
+                    countyData.IdleWorkers = countyData.population -= countyData.heroCountyPopulation.Count;
                 }
             }
         }

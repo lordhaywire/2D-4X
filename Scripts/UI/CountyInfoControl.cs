@@ -33,6 +33,7 @@ namespace PlayerSpace
 
         private void OnVisibilityChanged()
         {
+            // Idle workers changes if we change who is building stuff etc.
             if(Visible == true)
             {
                 Globals.Instance.selectedCountyData.IdleWorkersChanged += UpdateIdleWorkersLabel;             
@@ -90,6 +91,8 @@ namespace PlayerSpace
                 GD.Print($"Aide: {countyPopulation.isAide}");
                 GD.Print($"Army Leader: {countyPopulation.isArmyLeader}");
                 */
+                countyPopulation.location = countyData.countyID;
+                
                 switch (countyPopulation)
                 {
                     case { isLeader: true, isAide: false, isArmyLeader: false }:
@@ -126,6 +129,7 @@ namespace PlayerSpace
 
                 // Change color of panel to the faction color.
                 heroPrefab.SelfModulate = countyPopulation.factionData.factionColor;
+
                 GD.Print("Hero faction: " + heroPrefab.countyPopulation.factionData.factionName);
                 GD.Print("Player faction: " + Globals.Instance.playerFactionData.factionName);
                 if (heroPrefab.countyPopulation.factionData != Globals.Instance.playerFactionData)

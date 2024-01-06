@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://chs3b4egrvgih"]
+[gd_scene load_steps=8 format=3 uid="uid://chs3b4egrvgih"]
 
 [ext_resource type="Script" path="res://Scripts/SelectCounty.cs" id="1_tqn7o"]
 [ext_resource type="Resource" uid="uid://bwkrcckgmgmn1" path="res://Resources/Counties/Portland.tres" id="2_crg1m"]
 [ext_resource type="Texture2D" uid="uid://b0d8lxt50iio6" path="res://Graphics/Counties/Portland Oregon County.png" id="2_xhd0l"]
 [ext_resource type="Texture2D" uid="uid://c3bhckl88r540" path="res://Graphics/Icons/Top Bar/Capital Icon.png" id="4_0ds3c"]
 [ext_resource type="Script" path="res://Scripts/HeroStacker.cs" id="5_pbs2c"]
+[ext_resource type="Script" path="res://Scripts/UI/BattleControl.cs" id="6_5lok8"]
 [ext_resource type="Texture2D" uid="uid://7jvylb78h24w" path="res://Graphics/Tokens/HornedGuyUnselected.png" id="6_ohfvk"]
 
 [node name="Portland Oregon Node2D" type="Node2D" node_paths=PackedStringArray("heroSpawn", "battleControl")]
@@ -39,7 +40,7 @@ texture = ExtResource("4_0ds3c")
 position = Vector2(0, -20)
 script = ExtResource("5_pbs2c")
 
-[node name="Battle Control" type="Control" parent="County Overlay Node2D"]
+[node name="Battle Control" type="Control" parent="County Overlay Node2D" node_paths=PackedStringArray("defendersTokenTextureRect", "attackersTokenTextureRect")]
 visible = false
 layout_mode = 3
 anchors_preset = 5
@@ -52,6 +53,9 @@ offset_bottom = 30.0
 grow_horizontal = 2
 size_flags_horizontal = 6
 size_flags_vertical = 8
+script = ExtResource("6_5lok8")
+defendersTokenTextureRect = NodePath("PanelContainer/HBoxContainer/Defender TextureRect")
+attackersTokenTextureRect = NodePath("PanelContainer/HBoxContainer/Attacker TextureRect")
 
 [node name="PanelContainer" type="PanelContainer" parent="County Overlay Node2D/Battle Control"]
 layout_mode = 1

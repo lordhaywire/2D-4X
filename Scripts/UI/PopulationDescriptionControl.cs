@@ -17,6 +17,7 @@ namespace PlayerSpace
         [Export] private Label noPerksLabel;
         [Export] private Label constructionSkill;
         [Export] private Label currentActivity;
+        [Export] private Label nextActivityTitle;
         [Export] private Label nextActivity;
 
         [Export] private Button aideRecruitButton;
@@ -47,21 +48,42 @@ namespace PlayerSpace
             }
         }
 
+        // I should probably rewrite this so it is less of a mess.
         public void UpdateDescriptionInfo()
         {
             CountyInfoControl.Instance.DisableSpawnHeroCheckButton(true);
             PlayerControls.Instance.AdjustPlayerControls(false); // This was probably happening too fast which is why it is here.
             CountyPopulation countyPopulation = Globals.Instance.selectedCountyPopulation;
+            SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
+            GD.Print("Select County Location: " + countyPopulation.location);
 
             //GD.Print("It goes to the update description: " + person.firstName);
             populationName.Text = $"{countyPopulation.firstName} {countyPopulation.lastName}";
 
-            DisableAllTitles();
+            DisableUIElements();
+
+            if(countyPopulation.token == null)
+            {
+                nextActivityTitle.Show();
+                nextActivity.Show();
+            }
+
+            if(selectCounty.countyData.factionData == Globals.Instance.playerFactionData)
+            {
+                if (countyPopulation.isArmyLeader == true)
+                {
+                    armyLeaderRecruitButton.Disabled = true;
+                }
+                else
+                {
+                    armyLeaderRecruitButton.Disabled = false;
+                }
+            }
+
             // Titles
             if (countyPopulation.isLeader == true)
             {
                 leaderCheckbox.Disabled = false;
-
             }
             if (countyPopulation.isAide == true)
             {
@@ -123,22 +145,16 @@ namespace PlayerSpace
             {
                 aideRecruitButton.Disabled = false;
             }
-
-            if (countyPopulation.isArmyLeader == true)
-            {
-                armyLeaderRecruitButton.Disabled = true;
-            }
-            else
-            {
-                armyLeaderRecruitButton.Disabled = false;
-            }
         }
 
-        private void DisableAllTitles()
+        private void DisableUIElements()
         {
             leaderCheckbox.Disabled = true;
             aideCheckbox.Disabled = true;
             armyLeaderCheckbox.Disabled = true;
+            armyLeaderRecruitButton.Disabled = true;
+            nextActivityTitle.Hide();
+            nextActivity.Hide();
         }
 
         private void CloseButton()

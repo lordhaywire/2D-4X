@@ -29,7 +29,6 @@ namespace PlayerSpace
                 selectCounty.countyData.heroCountyPopulation.Add(Globals.Instance.selectedCountyPopulation);
             }
 
-            Banker.Instance.ChargeForHero();
             if(armyLeaderRecruited == false)
             {
                 Globals.Instance.selectedCountyPopulation.isHero = true;
@@ -42,6 +41,7 @@ namespace PlayerSpace
                 Globals.Instance.selectedCountyPopulation.isArmyLeader = true;
             }
 
+            Banker.Instance.ChargeForHero();
             PopulationDescriptionControl.Instance.UpdateDescriptionInfo();
             CountyInfoControl.Instance.GenerateHeroesPanelList();
 

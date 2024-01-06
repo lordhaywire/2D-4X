@@ -66,6 +66,7 @@ population = 0
 [node name="Root Node" type="Node"]
 
 [node name="Camera CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("camera")]
+process_mode = 3
 position = Vector2(-84, 28)
 script = ExtResource("1_k200m")
 camera = NodePath("Camera2D")
@@ -94,6 +95,7 @@ aideIconTexture = ExtResource("29_wm3yv")
 armyIconTexture = ExtResource("30_t3p23")
 
 [node name="Player Controls" type="Node" parent="Game Controller Node"]
+process_mode = 3
 script = ExtResource("2_5emkq")
 
 [node name="Faction Generation" type="Node" parent="Game Controller Node"]
@@ -131,6 +133,7 @@ script = ExtResource("11_whjq4")
 script = ExtResource("8_8n5y7")
 
 [node name="Player UI Canvas" type="CanvasLayer" parent="."]
+process_mode = 3
 
 [node name="Top Bar Control" parent="Player UI Canvas" node_paths=PackedStringArray("clock", "influenceLabel", "moneyLabel", "foodLabel", "scrapLabel") instance=ExtResource("4_rk5xj")]
 offset_bottom = 25.0
@@ -139,6 +142,12 @@ influenceLabel = NodePath("Top Bar HBox/Influence Panel Container/Influence Numb
 moneyLabel = NodePath("Top Bar HBox/Money Panel Container/Money Number")
 foodLabel = NodePath("Top Bar HBox/Food Panel Container/Food Number")
 scrapLabel = NodePath("Top Bar HBox/Scrap Panel Container/Scrap Number")
+
+[node name="Day Numbers Label" parent="Player UI Canvas/Top Bar Control/Top Bar HBox/Day Panel/MarginContainer" index="1"]
+text = "0"
+
+[node name="Hours Numbers Label" parent="Player UI Canvas/Top Bar Control/Top Bar HBox/Time Panel/MarginContainer" index="1"]
+text = "00:00"
 
 [node name="Pause Control" type="Control" parent="Player UI Canvas/Top Bar Control"]
 custom_minimum_size = Vector2(0, 24)
@@ -381,7 +390,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "Close"
 
-[node name="Population Description Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("populationName", "leaderCheckbox", "aideCheckbox", "armyLeaderCheckbox", "age", "sex", "firstPerkLabel", "noPerksLabel", "constructionSkill", "currentActivity", "nextActivity", "aideRecruitButton", "armyLeaderRecruitButton", "heroRecruitmentConfirmPanel")]
+[node name="Population Description Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("populationName", "leaderCheckbox", "aideCheckbox", "armyLeaderCheckbox", "age", "sex", "firstPerkLabel", "noPerksLabel", "constructionSkill", "currentActivity", "nextActivityTitle", "nextActivity", "aideRecruitButton", "armyLeaderRecruitButton", "heroRecruitmentConfirmPanel")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -401,6 +410,7 @@ firstPerkLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxCo
 noPerksLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Perks HBoxContainer/No Perks Label")
 constructionSkill = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Skills GridContainer/Construction Skill Label")
 currentActivity = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Current Activity Label")
+nextActivityTitle = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Next Activity Title Label")
 nextActivity = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Next Activity Label")
 aideRecruitButton = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Recruit Aide Button")
 armyLeaderRecruitButton = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Recruit Army Button")
@@ -957,6 +967,7 @@ grow_vertical = 0
 theme_override_constants/separation = 1
 
 [node name="Counties" type="Node2D" parent="."]
+process_mode = 3
 position = Vector2(-61, -53)
 
 [node name="Cowlitz Washington" parent="Counties" instance=ExtResource("9_eipnv")]
