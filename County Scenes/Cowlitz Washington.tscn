@@ -44,7 +44,7 @@ z_index = 10
 position = Vector2(0, -20)
 script = ExtResource("5_lgu8l")
 
-[node name="Battle Control" type="Control" parent="County Overlay Node2D" node_paths=PackedStringArray("defendersTokenTextureRect", "attackersTokenTextureRect")]
+[node name="Battle Control" type="Control" parent="County Overlay Node2D" node_paths=PackedStringArray("defenderTokenTextureRect", "attackerTokenTextureRect", "defenderMoraleLabel", "attackerMoraleLabel")]
 visible = false
 layout_mode = 3
 anchors_preset = 5
@@ -57,9 +57,12 @@ offset_bottom = 30.0
 grow_horizontal = 2
 size_flags_horizontal = 6
 size_flags_vertical = 8
+mouse_filter = 2
 script = ExtResource("6_v63rb")
-defendersTokenTextureRect = NodePath("PanelContainer/HBoxContainer/Defender TextureRect")
-attackersTokenTextureRect = NodePath("PanelContainer/HBoxContainer/Attacker TextureRect")
+defenderTokenTextureRect = NodePath("PanelContainer/HBoxContainer/Defender TextureRect")
+attackerTokenTextureRect = NodePath("PanelContainer/HBoxContainer/Attacker TextureRect")
+defenderMoraleLabel = NodePath("PanelContainer/HBoxContainer/Defenders Morale Control/Defenders Morale Label")
+attackerMoraleLabel = NodePath("PanelContainer/HBoxContainer/Attackers Morale Control/Attackers Morale Label")
 
 [node name="PanelContainer" type="PanelContainer" parent="County Overlay Node2D/Battle Control"]
 layout_mode = 1
@@ -123,4 +126,14 @@ text = "000"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Button" type="Button" parent="County Overlay Node2D/Battle Control"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [connection signal="input_event" from="County Sprite2D/Area2D" to="." method="OnClick"]
+[connection signal="button_up" from="County Overlay Node2D/Battle Control/Button" to="County Overlay Node2D/Battle Control" method="ButtonUp"]

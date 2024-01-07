@@ -10,6 +10,7 @@ namespace PlayerSpace
         public event Action FirstRun;
         public event Action HourZero;
         public event Action WorkDayOver;
+        public event Action HourChanged;
         
         [Export] private Label dayLabel;
         [Export] private Label HourLabel;
@@ -72,7 +73,8 @@ namespace PlayerSpace
                 {
                     GD.Print("Workday is over!");
                     WorkDayOver?.Invoke();
-                }              
+                }
+                HourChanged?.Invoke();
             }
         }
 

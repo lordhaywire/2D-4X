@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=54 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_k200m"]
 [ext_resource type="Script" path="res://Scripts/Globals.cs" id="1_n6eaq"]
@@ -41,13 +41,16 @@
 [ext_resource type="PackedScene" uid="uid://bogeajbtl771s" path="res://UIScenes/PossibleBuildingControl.tscn" id="23_iy81f"]
 [ext_resource type="Script" path="res://Scripts/UI/EventLog.cs" id="23_lqbtt"]
 [ext_resource type="PackedScene" uid="uid://bjgv6c8xhn4lo" path="res://UIScenes/Event Log Text Panel.tscn" id="24_kmlxx"]
+[ext_resource type="Script" path="res://Scripts/UI/PlayerUICanvas.cs" id="24_t4s33"]
 [ext_resource type="Script" path="res://Scripts/UI/PopulationDescriptionControl.cs" id="26_rcqxv"]
 [ext_resource type="Texture2D" uid="uid://jyr4u6ph1nu6" path="res://Graphics/Icons/Population/portrait.svg" id="27_0wbnw"]
 [ext_resource type="Script" path="res://Scripts/UI/BuildConfirmationDialog.cs" id="28_0uowj"]
 [ext_resource type="Texture2D" uid="uid://du76vrdfhckkd" path="res://Graphics/Icons/Population/resized faction leader icon.png" id="28_5js60"]
 [ext_resource type="Texture2D" uid="uid://b67d6nynwdq3o" path="res://Graphics/Icons/Population/resized faction aide.png" id="29_wm3yv"]
 [ext_resource type="Texture2D" uid="uid://cbpah1j3xx4f2" path="res://Graphics/Icons/Population/resized army icon.png" id="30_t3p23"]
+[ext_resource type="PackedScene" uid="uid://bc1gec63ljcrd" path="res://UIScenes/CombatTurnLabel.tscn" id="34_53v7f"]
 [ext_resource type="Resource" uid="uid://8rlgk7ws51cg" path="res://Resources/Factions/AIFaction1.tres" id="34_a6t1b"]
+[ext_resource type="Script" path="res://Scripts/UI/BattleLogControl.cs" id="34_ji7x6"]
 [ext_resource type="Script" path="res://Scripts/UI/DeclareWarControl.cs" id="39_ujatr"]
 
 [sub_resource type="Resource" id="Resource_1kd1b"]
@@ -118,7 +121,7 @@ dayLabel = NodePath("../../Player UI Canvas/Top Bar Control/Top Bar HBox/Day Pan
 HourLabel = NodePath("../../Player UI Canvas/Top Bar Control/Top Bar HBox/Time Panel/MarginContainer/Hours Numbers Label")
 currentSpeedLabel = NodePath("../../Player UI Canvas/Top Bar Control/Time and Research Buttons HBox/Speed Panel/Speed Number Label")
 pausedLabel = NodePath("../../Player UI Canvas/Top Bar Control/Pause Control/Pause Label")
-ticks = 250
+ticks = 100
 
 [node name="Factions AI" type="Node" parent="Game Controller Node"]
 script = ExtResource("15_nqrjd")
@@ -132,8 +135,10 @@ script = ExtResource("11_whjq4")
 [node name="Banker" type="Node" parent="Game Controller Node"]
 script = ExtResource("8_8n5y7")
 
-[node name="Player UI Canvas" type="CanvasLayer" parent="."]
+[node name="Player UI Canvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("BattleLogControl")]
 process_mode = 3
+script = ExtResource("24_t4s33")
+BattleLogControl = NodePath("Battle Log Control")
 
 [node name="Top Bar Control" parent="Player UI Canvas" node_paths=PackedStringArray("clock", "influenceLabel", "moneyLabel", "foodLabel", "scrapLabel") instance=ExtResource("4_rk5xj")]
 offset_bottom = 25.0
@@ -390,7 +395,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "Close"
 
-[node name="Population Description Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("populationName", "leaderCheckbox", "aideCheckbox", "armyLeaderCheckbox", "age", "sex", "firstPerkLabel", "noPerksLabel", "constructionSkill", "currentActivity", "nextActivityTitle", "nextActivity", "aideRecruitButton", "armyLeaderRecruitButton", "heroRecruitmentConfirmPanel")]
+[node name="Population Description Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("populationName", "leaderCheckbox", "aideCheckbox", "armyLeaderCheckbox", "physicalStrengthLabel", "agilityLabel", "enduranceLabel", "intelligenceLabel", "mentalStrengthLabel", "awarenessLabel", "charismaLabel", "looksLabel", "coolLabel", "ageLabel", "sexLabel", "firstPerkLabel", "noPerksLabel", "constructionSkillLabel", "rifleSkillLabel", "currentActivityLabel", "nextActivityTitle", "nextActivityLabel", "aideRecruitButton", "armyLeaderRecruitButton", "heroRecruitmentConfirmPanel")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -404,14 +409,24 @@ populationName = NodePath("MarginContainer/PanelContainer/Population Name Label"
 leaderCheckbox = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/HBoxContainer2/Leader CheckBox")
 aideCheckbox = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/HBoxContainer2/Aide CheckBox")
 armyLeaderCheckbox = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/HBoxContainer2/Army Leader CheckBox")
-age = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Age Label")
-sex = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Sex Label")
-firstPerkLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Perks HBoxContainer/First Perk Label")
-noPerksLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Perks HBoxContainer/No Perks Label")
-constructionSkill = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Skills GridContainer/Construction Skill Label")
-currentActivity = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Current Activity Label")
+physicalStrengthLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Attributes Values Hbox/Physical Strength Label")
+agilityLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Attributes Values Hbox/Agility Label")
+enduranceLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Attributes Values Hbox/Endurance Label")
+intelligenceLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Attributes Values Hbox/Intelligence Label")
+mentalStrengthLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Attributes Values Hbox/Mental Strength Label")
+awarenessLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Attributes Values Hbox/Awareness Label")
+charismaLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Attributes Values Hbox/Charisma Label")
+looksLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Attributes Values Hbox/Looks Label")
+coolLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Cool Label")
+ageLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Age Label")
+sexLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Sex Label")
+firstPerkLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Perks HBoxContainer/First Perk Label")
+noPerksLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Perks HBoxContainer/No Perks Label")
+constructionSkillLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Construction Skill Label")
+rifleSkillLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Rifle Skill Label")
+currentActivityLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Current Activity Label")
 nextActivityTitle = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Next Activity Title Label")
-nextActivity = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Next Activity Label")
+nextActivityLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Next Activity Label")
 aideRecruitButton = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Recruit Aide Button")
 armyLeaderRecruitButton = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Recruit Army Button")
 heroRecruitmentConfirmPanel = NodePath("Recuit Hero Confirmation PanelContainer")
@@ -508,6 +523,170 @@ text = "Army Leader"
 icon = ExtResource("30_t3p23")
 alignment = 1
 
+[node name="Attributes Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Attributes"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Attributes Titles Hbox" type="HBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer"]
+layout_mode = 2
+
+[node name="Physical Strength Titles Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Attributes Titles Hbox"]
+custom_minimum_size = Vector2(107, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Physical Strength"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Agility Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Attributes Titles Hbox"]
+custom_minimum_size = Vector2(107, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Agility"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Endurance Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Attributes Titles Hbox"]
+custom_minimum_size = Vector2(107, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Endurance"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Intelligence Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Attributes Titles Hbox"]
+custom_minimum_size = Vector2(107, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Intelligence"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Mental Strength Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Attributes Titles Hbox"]
+custom_minimum_size = Vector2(107, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Mental Strength"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Awareness Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Attributes Titles Hbox"]
+custom_minimum_size = Vector2(107, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Awareness"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Charisma Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Attributes Titles Hbox"]
+custom_minimum_size = Vector2(107, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Charisma"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Looks Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Attributes Titles Hbox"]
+custom_minimum_size = Vector2(107, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Looks"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Attributes Values Hbox" type="HBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer"]
+layout_mode = 2
+
+[node name="Physical Strength Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Attributes Values Hbox"]
+custom_minimum_size = Vector2(107, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Agility Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Attributes Values Hbox"]
+custom_minimum_size = Vector2(107, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100	"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Endurance Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Attributes Values Hbox"]
+custom_minimum_size = Vector2(107, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Intelligence Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Attributes Values Hbox"]
+custom_minimum_size = Vector2(107, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Mental Strength Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Attributes Values Hbox"]
+custom_minimum_size = Vector2(107, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Awareness Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Attributes Values Hbox"]
+custom_minimum_size = Vector2(107, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Charisma Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Attributes Values Hbox"]
+custom_minimum_size = Vector2(107, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Looks Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Attributes Values Hbox"]
+custom_minimum_size = Vector2(107, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Cool Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Cool"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Cool Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cool Number"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Age Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -540,89 +719,6 @@ text = "Sex Bool
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Perks Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Perks"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Perks HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer"]
-layout_mode = 2
-
-[node name="First Perk Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Perks HBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Leader of People"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="No Perks Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Perks HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Unknown"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Skills Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Skills"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Skills GridContainer" type="GridContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer"]
-layout_mode = 2
-columns = 3
-
-[node name="Construction Skill Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Skills GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Contruction: 10000"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Skill Label2" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Skills GridContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Skill? 100"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Skill Label3" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Skills GridContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Skill? 100"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Skill Label4" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Skills GridContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Skill? 100"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Skill Label5" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Skills GridContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Skill? 100"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Skill Label6" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Skills GridContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Skill? 100"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="Recruit Army Button" type="Button" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer" node_paths=PackedStringArray("confirmationPanelContainer")]
 custom_minimum_size = Vector2(75, 50)
 layout_mode = 2
@@ -641,6 +737,88 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 25
+
+[node name="Perks Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Perks"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Perks HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer"]
+layout_mode = 2
+
+[node name="First Perk Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Perks HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Leader of People"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="No Perks Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Perks HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Unknown"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Skills Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Skills"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Skills GridContainer" type="GridContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="Construction Skill Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Contruction: 10000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Rifle Skill Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Rifle 100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Skill Label3" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Skill? 100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Skill Label4" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Skill? 100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Skill Label5" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Skill? 100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Skill Label6" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Skill? 100"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Current Activity Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer"]
 layout_mode = 2
@@ -729,6 +907,163 @@ size_flags_horizontal = 3
 text = "No"
 
 [node name="Yes Button" type="Button" parent="Player UI Canvas/Population Description Control/Recuit Hero Confirmation PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "You are a piece of shit!"
+text = "Yes"
+
+[node name="Battle Log Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("leftVboxContainer", "rightVboxContainer")]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("34_ji7x6")
+combatLogScene = ExtResource("34_53v7f")
+leftVboxContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer")
+rightVboxContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer")
+
+[node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Battle Log Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 201
+theme_override_constants/margin_top = 26
+
+[node name="PanelContainer" type="PanelContainer" parent="Player UI Canvas/Battle Log Control/MarginContainer"]
+layout_mode = 2
+
+[node name="Battle Log Title Label" type="Label" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "Battle Log"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 35
+theme_override_constants/margin_bottom = 51
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Left PanelContainer" type="PanelContainer" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Left VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 25
+
+[node name="Defender Title Label" type="Label" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Defender"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Combat Turn Label" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer" instance=ExtResource("34_53v7f")]
+layout_mode = 2
+text = "Left sdafasdfasdfasdfasdfasdfasdf"
+
+[node name="Recruit Army Button" type="Button" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer" node_paths=PackedStringArray("confirmationPanelContainer")]
+visible = false
+custom_minimum_size = Vector2(75, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Recruit as Army Leader
+"
+script = ExtResource("16_k1ymn")
+confirmationPanelContainer = NodePath("../../../../../../../Population Description Control/Recuit Hero Confirmation PanelContainer")
+
+[node name="Right PanelContainer" type="PanelContainer" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Right VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 25
+
+[node name="Attacker Title Label" type="Label" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Attacker"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Combat Turn Label" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer" instance=ExtResource("34_53v7f")]
+layout_mode = 2
+text = "Right sdafasdfasdfasdfasdfasdfasdf"
+
+[node name="Recruit Aide Button" type="Button" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer" node_paths=PackedStringArray("confirmationPanelContainer")]
+visible = false
+custom_minimum_size = Vector2(75, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Recruit as Aide
+"
+script = ExtResource("16_k1ymn")
+confirmationPanelContainer = NodePath("../../../../../../../Population Description Control/Recuit Hero Confirmation PanelContainer")
+
+[node name="Close Button" type="Button" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer"]
+custom_minimum_size = Vector2(75, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Close"
+
+[node name="Recuit Hero Confirmation PanelContainer" type="PanelContainer" parent="Player UI Canvas/Battle Log Control" node_paths=PackedStringArray("titleLabel")]
+visible = false
+custom_minimum_size = Vector2(400, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -100.0
+offset_right = 200.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("17_sti7g")
+titleLabel = NodePath("../../Population Description Control/Recuit Hero Confirmation PanelContainer/Title Label")
+
+[node name="Title Label" type="Label" parent="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 16
+text = "Do you want to recruit bill smill for realz?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+alignment = 1
+
+[node name="No Button" type="Button" parent="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "No"
+
+[node name="Yes Button" type="Button" parent="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "You are a piece of shit!"
@@ -1007,6 +1342,13 @@ scale = Vector2(0.8, 0.8)
 [connection signal="visibility_changed" from="Player UI Canvas/Population Description Control/Recuit Hero Confirmation PanelContainer" to="Player UI Canvas/Population Description Control/Recuit Hero Confirmation PanelContainer" method="OnVisibilityChange"]
 [connection signal="button_up" from="Player UI Canvas/Population Description Control/Recuit Hero Confirmation PanelContainer/HBoxContainer/No Button" to="Player UI Canvas/Population Description Control/Recuit Hero Confirmation PanelContainer" method="NoButton"]
 [connection signal="button_up" from="Player UI Canvas/Population Description Control/Recuit Hero Confirmation PanelContainer/HBoxContainer/Yes Button" to="Player UI Canvas/Population Description Control/Recuit Hero Confirmation PanelContainer" method="YesButton"]
+[connection signal="visibility_changed" from="Player UI Canvas/Battle Log Control" to="Player UI Canvas/Battle Log Control" method="OnVisibilityChanged"]
+[connection signal="button_up" from="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Recruit Army Button" to="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer" method="OpenConfirmationPanel" binds= [true]]
+[connection signal="button_up" from="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Recruit Aide Button" to="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer" method="OpenConfirmationPanel" binds= [false]]
+[connection signal="button_up" from="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/Close Button" to="Player UI Canvas/Battle Log Control" method="CloseButton"]
+[connection signal="visibility_changed" from="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer" to="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer" method="OnVisibilityChange"]
+[connection signal="button_up" from="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer/HBoxContainer/No Button" to="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer" method="NoButton"]
+[connection signal="button_up" from="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer/HBoxContainer/Yes Button" to="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer" method="YesButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/County Improvements Control" to="Player UI Canvas/County Improvements Control" method="OnVisibilityChanged"]
 [connection signal="visibility_changed" from="Player UI Canvas/County Improvements Control/Buildings MarginContainer" to="Player UI Canvas/County Improvements Control/Buildings MarginContainer" method="OnVisibilityChange"]
 [connection signal="confirmed" from="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer/MarginContainer/Build ConfirmationDialog" to="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer/MarginContainer/Build ConfirmationDialog" method="YesButton"]

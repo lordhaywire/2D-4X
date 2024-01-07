@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bc1gec63ljcrd"]
+
+[node name="Combat Turn Label" type="Label"]
+text = "sdafasdfasdfasdfasdfasdfasdf"
+horizontal_alignment = 1
+vertical_alignment = 1

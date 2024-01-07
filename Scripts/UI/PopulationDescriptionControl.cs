@@ -11,14 +11,24 @@ namespace PlayerSpace
         [Export] private CheckBox leaderCheckbox;
         [Export] private CheckBox aideCheckbox;
         [Export] private CheckBox armyLeaderCheckbox;
-        [Export] private Label age;
-        [Export] private Label sex;
+        [Export] private Label physicalStrengthLabel;
+        [Export] private Label agilityLabel;
+        [Export] private Label enduranceLabel;
+        [Export] private Label intelligenceLabel;
+        [Export] private Label mentalStrengthLabel;
+        [Export] private Label awarenessLabel;
+        [Export] private Label charismaLabel;
+        [Export] private Label looksLabel;
+        [Export] private Label coolLabel;
+        [Export] private Label ageLabel;
+        [Export] private Label sexLabel;
         [Export] private Label firstPerkLabel;
         [Export] private Label noPerksLabel;
-        [Export] private Label constructionSkill;
-        [Export] private Label currentActivity;
+        [Export] private Label constructionSkillLabel;
+        [Export] private Label rifleSkillLabel;
+        [Export] private Label currentActivityLabel;
         [Export] private Label nextActivityTitle;
-        [Export] private Label nextActivity;
+        [Export] private Label nextActivityLabel;
 
         [Export] private Button aideRecruitButton;
         [Export] private Button armyLeaderRecruitButton;
@@ -65,7 +75,7 @@ namespace PlayerSpace
             if(countyPopulation.token == null)
             {
                 nextActivityTitle.Show();
-                nextActivity.Show();
+                nextActivityLabel.Show();
             }
 
             if(selectCounty.countyData.factionData == Globals.Instance.playerFactionData)
@@ -94,15 +104,17 @@ namespace PlayerSpace
                 armyLeaderCheckbox.Disabled = false;
             }
 
-            age.Text = countyPopulation.age.ToString();
+            UpdateAttributes(countyPopulation);
+
+            ageLabel.Text = countyPopulation.age.ToString();
 
             if (countyPopulation.isMale)
             {
-                sex.Text = "Male";
+                sexLabel.Text = "Male";
             }
             else
             {
-                sex.Text = "Female";
+                sexLabel.Text = "Female";
             }
 
             if (countyPopulation.leaderOfPeoplePerk == true)
@@ -117,24 +129,24 @@ namespace PlayerSpace
                 noPerksLabel.Show();
             }
 
-            constructionSkill.Text = $"Contruction: {countyPopulation.constructionSkill}";
+            UpdateSkills(countyPopulation);
 
             if (countyPopulation.currentImprovement != null)
             {
-                currentActivity.Text = $"{countyPopulation.currentActivity} {countyPopulation.currentImprovement.improvementName}";
+                currentActivityLabel.Text = $"{countyPopulation.currentActivity} {countyPopulation.currentImprovement.improvementName}";
             }
             else
             {
-                currentActivity.Text = $"{countyPopulation.currentActivity}";
+                currentActivityLabel.Text = $"{countyPopulation.currentActivity}";
             }
             if (countyPopulation.nextImprovement != null)
             {
-                nextActivity.Text = $"{countyPopulation.nextActivity} {countyPopulation.nextImprovement.improvementName}";
+                nextActivityLabel.Text = $"{countyPopulation.nextActivity} {countyPopulation.nextImprovement.improvementName}";
 
             }
             else
             {
-                nextActivity.Text = $"{countyPopulation.nextActivity}";
+                nextActivityLabel.Text = $"{countyPopulation.nextActivity}";
             }
 
             if (Globals.Instance.playerFactionData.Influence < Globals.Instance.costOfHero || countyPopulation.isHero == true)
@@ -147,6 +159,11 @@ namespace PlayerSpace
             }
         }
 
+        private void UpdateAttributes(CountyPopulation countyPopulation)
+        {
+            coolLabel.Text = countyPopulation.coolAttribute.ToString();
+        }
+
         private void DisableUIElements()
         {
             leaderCheckbox.Disabled = true;
@@ -154,12 +171,19 @@ namespace PlayerSpace
             armyLeaderCheckbox.Disabled = true;
             armyLeaderRecruitButton.Disabled = true;
             nextActivityTitle.Hide();
-            nextActivity.Hide();
+            nextActivityLabel.Hide();
         }
 
         private void CloseButton()
         {
             Hide();
+        }
+
+        private void UpdateSkills(CountyPopulation countyPopulation)
+        {
+            // Skills
+            constructionSkillLabel.Text = $"Contruction: {countyPopulation.constructionSkill}";
+            rifleSkillLabel.Text = $"Rifle: {countyPopulation.rifleSkill}";
         }
     }
 }

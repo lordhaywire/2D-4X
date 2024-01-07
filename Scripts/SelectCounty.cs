@@ -10,7 +10,7 @@ namespace PlayerSpace
         [ExportGroup("Attached Nodes")]
         [Export] public Sprite2D capitalSprite;
         [Export] public HeroStacker heroSpawn;
-        [Export] public Control battleControl;
+        [Export] public BattleControl battleControl;
 
         private SelectToken selectToken; 
         private CountyPopulation countyPopulation;
@@ -19,6 +19,7 @@ namespace PlayerSpace
             capitalSprite = GetNode<Sprite2D>("County Overlay Node2D/Capital Sprite2D");
             heroSpawn = GetNode<HeroStacker>("County Overlay Node2D/Hero Spawn Location Node2D");
         }
+
         public void OnClick(Viewport viewport, InputEvent @event, int _shapeIdx)
         {
             if (@event is InputEventMouseButton eventMouseButton)

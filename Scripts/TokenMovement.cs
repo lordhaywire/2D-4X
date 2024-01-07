@@ -53,17 +53,21 @@ namespace PlayerSpace
             }
             else
             {
+                selectCounty.countyData.visitingPopulation.Add(selectToken.countyPopulation);
+
                 foreach (War war in Globals.Instance.playerFactionData.wars)
                 {
                     if (selectCounty.countyData.factionData == war.defenderFactionData
                         || selectCounty.countyData.factionData == war.attackerFactionData)
                     {
-                        GD.Print("New Battle!");
+                        
                         MoveToken = false;
                         selectToken.countyPopulation.location = selectCounty.countyData.countyID;
 
-                        StartBattle();
-                        
+                        GD.Print("New Battle!");
+                        Battle battle = new(selectCounty.countyData);
+                        selectCounty.countyData.battles.Add(battle);
+                        selectCounty.battleControl.StartBattle();
                     }
                     else
                     {
@@ -71,32 +75,6 @@ namespace PlayerSpace
                     }
                 }
             }            
-        }
-
-        private void StartBattle()
-        {
-            // Attackers Army
-            SelectToken attackerSelectToken = (SelectToken)GetParent();
-            SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(attackerSelectToken.countyPopulation.location);
-            BattleControl battleControl = (BattleControl)selectCounty.battleControl;
-
-
-            // Defenders Army
-            SelectToken defendersSelectToken; 
-            foreach(CountyPopulation defenderCountyPopulation in selectCounty.countyData.heroCountyPopulation)
-            {
-                if(defenderCountyPopulation.isArmyLeader == true && defenderCountyPopulation.token != null)
-                {
-                    defendersSelectToken = (SelectToken)defenderCountyPopulation.token;
-                    defendersSelectToken.Hide();
-                    battleControl.defendersTokenTextureRect.Texture = defendersSelectToken.sprite.Texture;
-                    break;
-                }
-            }
-            battleControl.Show();
-            battleControl.attackersTokenTextureRect.Texture = attackerSelectToken.sprite.Texture;
-            attackerSelectToken.Hide();
-            
         }
 
         private void AddToTokenStacker()
@@ -108,7 +86,16 @@ namespace PlayerSpace
 
             // Add them to their destination list and move them to the Hero Spawn Location Node2D corresponding to the County.
             SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.destination);
-            selectCounty.countyData.heroCountyPopulation.Add(countyPopulation);
+
+            // Check to see if they are in friendly territory or not.  If not then join the visiting list.
+            if(countyPopulation.factionData == selectCounty.countyData.factionData)
+            {
+                selectCounty.countyData.heroCountyPopulation.Add(countyPopulation);
+            }
+            else
+            {
+                selectCounty.countyData.visitingPopulation.Add(countyPopulation);                
+            }
 
             countyPopulation.token.Reparent(selectCounty.heroSpawn);
 

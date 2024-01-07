@@ -8,6 +8,6 @@ namespace PlayerSpace
     {
         public FactionData attackerFactionData;
         public FactionData defenderFactionData;
-        public List<Battle> battles = new();
+        //public List<Battle> battles = new();
     }
 }
