@@ -8,16 +8,22 @@ namespace PlayerSpace
         [Export] public CountyData countyData;
 
         [ExportGroup("Attached Nodes")]
+        [Export] public Sprite2D maskSprite;
+        [Export] public Sprite2D countySprite;
         [Export] public Sprite2D capitalSprite;
         [Export] public HeroStacker heroSpawn;
         [Export] public BattleControl battleControl;
 
         private SelectToken selectToken; 
         private CountyPopulation countyPopulation;
+
+        private Color outlineColor = new(0, 0, 0, 0.7f);
+        private Color fillColor = new(1, 1, 1, 0.345f);
         public override void _Ready()
         {
-            capitalSprite = GetNode<Sprite2D>("County Overlay Node2D/Capital Sprite2D");
-            heroSpawn = GetNode<HeroStacker>("County Overlay Node2D/Hero Spawn Location Node2D");
+            //capitalSprite = GetNode<Sprite2D>("County Overlay Node2D/Capital Sprite2D");
+            //heroSpawn = GetNode<HeroStacker>("County Overlay Node2D/Hero Spawn Location Node2D");
+            countyData.CountySelected += SelectedChanged;
         }
 
         public void OnClick(Viewport viewport, InputEvent @event, int _shapeIdx)
@@ -106,6 +112,21 @@ namespace PlayerSpace
 
             // Removed from spawnedTokenList in starting county location.
             selectLocationCounty.heroSpawn.spawnedTokenList.Remove(selectToken);
+        }
+
+        // This controls the masks in the county.  Needs to be updated.
+        private void SelectedChanged(bool selected)
+        {
+            if (selected)
+            {
+                ((ShaderMaterial)maskSprite.Material).SetShaderParameter("outline_color", outlineColor);
+                ((ShaderMaterial)maskSprite.Material).SetShaderParameter("fill_color", fillColor);
+            }
+            else
+            {
+                ((ShaderMaterial)maskSprite.Material).SetShaderParameter("outline_color", outlineColor.A * 0.5f);
+                ((ShaderMaterial)maskSprite.Material).SetShaderParameter("fill_color", fillColor.A * 0.5f);
+            }
         }
     }
 }

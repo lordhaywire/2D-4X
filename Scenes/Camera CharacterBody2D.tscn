@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgi425dwni4d"]
+
+[ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_0dhaa"]
+
+[node name="Camera CharacterBody2D" type="CharacterBody2D"]
+process_mode = 3
+position = Vector2(-84, 28)
+script = ExtResource("1_0dhaa")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(494, 479)

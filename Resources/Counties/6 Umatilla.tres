@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CountyData" load_steps=3 format=3 uid="uid://bjli2swaq8k03"]
+
+[ext_resource type="Resource" uid="uid://ck62f32unfibo" path="res://Resources/Factions/AIFaction3.tres" id="1_uwlgx"]
+[ext_resource type="Script" path="res://Resources/CountyData.cs" id="2_233ub"]
+
+[resource]
+script = ExtResource("2_233ub")
+color = Color(0, 0.937255, 0.560784, 1)
+startMaskPosition = Vector2i(0, 0)
+countyOverlayLocalPosition = Vector2i(0, 0)
+countyID = 0
+countyName = "Umatilla"
+isPlayerCapital = false
+isAICapital = false
+factionData = ExtResource("1_uwlgx")
+province = 0
+biomePrimary = 1
+biomeSecondary = 4
+biomeTertiary = 6
+population = 0

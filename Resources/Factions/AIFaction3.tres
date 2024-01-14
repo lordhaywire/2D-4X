@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="FactionData" load_steps=2 format=3 uid="uid://ck62f32unfibo"]
+
+[ext_resource type="Script" path="res://Resources/FactionData.cs" id="1_fvued"]
+
+[resource]
+script = ExtResource("1_fvued")
+isPlayer = false
+factionName = "AI Faction 3"
+factionColor = Color(0, 0, 0, 0)
+factionCapitalCounty = 2
+money = 0
+food = 5000
+scrap = 0
+Influence = 0

@@ -26,6 +26,9 @@ namespace PlayerSpace
         [Export] private Texture2D selectedHeroTexture;
         [Export] private Texture2D unselectedHeroTexture;
 
+        [ExportGroup("Map")]
+        public string pathToCounties = "res://Counties/";
+
         public SelectToken CurrentlySelectedToken
         {
             get

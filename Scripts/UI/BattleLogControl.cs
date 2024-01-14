@@ -1,18 +1,20 @@
 using Godot;
 
-
-public partial class BattleLogControl : Control
+namespace PlayerSpace
 {
-	[Export] private PackedScene combatLogScene;
-	[Export] private VBoxContainer leftVboxContainer;
-	[Export] private VBoxContainer rightVboxContainer;
-
-	public override void _Ready()
+	public partial class BattleLogControl : Control
 	{
-	}
+		[Export] private PackedScene combatLogScene;
+		[Export] private VBoxContainer leftVboxContainer;
+		[Export] private VBoxContainer rightVboxContainer;
 
-	private void CloseButton()
-	{
-		Hide();
+		public override void _Ready()
+		{
+		}
+
+		private void CloseButton()
+		{
+			Hide();
+		}
 	}
 }
