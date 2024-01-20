@@ -8,10 +8,6 @@ namespace PlayerSpace
 		[Export] private VBoxContainer leftVboxContainer;
 		[Export] private VBoxContainer rightVboxContainer;
 
-		public override void _Ready()
-		{
-		}
-
 		private void CloseButton()
 		{
 			Hide();

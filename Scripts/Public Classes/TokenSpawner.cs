@@ -14,7 +14,7 @@ namespace PlayerSpace
             countyPopulation.token = spawnedHero;
             SelectToken selectToken = (SelectToken)spawnedHero;
             selectToken.countyPopulation = countyPopulation;
-            selectToken.countyPopulation.location = selectCounty.countyData.countyID;
+            selectToken.countyPopulation.location = selectCounty.countyData.countyId;
             spawnedHero.Name = $"{selectToken.countyPopulation.firstName} {selectToken.countyPopulation.lastName}";
 
             // Update the token's name label

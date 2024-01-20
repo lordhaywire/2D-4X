@@ -1,5 +1,6 @@
 using Godot;
 using PlayerSpace;
+using GlobalSpace;
 
 namespace MapEditorSpace
 {
@@ -41,7 +42,7 @@ namespace MapEditorSpace
                 //GD.Print("Color: " + countyColor);
                 // Check every countyData to find the color it finds.  If it finds that color then it turns on the 
                 // grey overlay.
-                foreach (CountyData countyData in MapEditorGlobals.Instance.countyDatas)
+                foreach (CountyData countyData in CountyResourcesAutoLoad.Instance.countyDatas)
                 {
                     //GD.Print("County Color: " + countyData.color);
                     SelectCounty county = (SelectCounty)countyData.countyNode;

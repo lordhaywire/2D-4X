@@ -62,7 +62,7 @@ namespace PlayerSpace
                     {
                         
                         MoveToken = false;
-                        selectToken.countyPopulation.location = selectCounty.countyData.countyID;
+                        selectToken.countyPopulation.location = selectCounty.countyData.countyId;
 
                         GD.Print("New Battle!");
                         Battle battle = new(selectCounty.countyData);
@@ -102,7 +102,7 @@ namespace PlayerSpace
             GD.Print($"{countyPopulation.firstName} is in {selectCounty.countyData.countyName}");
 
             // Change their current location to what was their destination. This has to be above the list insert.
-            countyPopulation.location = selectCounty.countyData.countyID;
+            countyPopulation.location = selectCounty.countyData.countyId;
 
             // Refresh the list of heroes beneath the CountyInfo Panel.
             CountyInfoControl.Instance.GenerateHeroesPanelList();

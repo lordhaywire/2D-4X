@@ -6,9 +6,8 @@
 [resource]
 script = ExtResource("2_bmxi8")
 color = Color(0.909804, 0.8, 0, 1)
-startMaskPosition = Vector2i(0, 0)
 countyOverlayLocalPosition = Vector2i(18, -8)
-countyID = 0
+countyId = 0
 countyName = "Cowlitz"
 isPlayerCapital = false
 isAICapital = true

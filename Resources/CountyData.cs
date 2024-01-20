@@ -16,7 +16,7 @@ namespace PlayerSpace
         [Export] public Vector2I countyOverlayLocalPosition;
 
         [ExportGroup("County other somethings")]
-        [Export] public int countyID;
+        [Export] public int countyId;
         [Export] public string countyName;
         [Export] public bool isPlayerCapital; // We need to differentiate between player choosen capitals and AI capitals for generation after player creation.
         [Export] public bool isAICapital;

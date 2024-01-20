@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://iur3kq10dikl"]
+[gd_scene load_steps=12 format=3 uid="uid://iur3kq10dikl"]
 
 [ext_resource type="Script" path="res://Scripts/Map Editor/RootNode.cs" id="1_gkfx5"]
 [ext_resource type="Script" path="res://Scripts/Map Editor/MapEditorCameraCharacterBody2D.cs" id="2_exseq"]
@@ -8,15 +8,8 @@
 [ext_resource type="Script" path="res://Scripts/Map Editor/CountyChecker.cs" id="5_e0g14"]
 [ext_resource type="Texture2D" uid="uid://c2ye51evql40o" path="res://Graphics/Provinces/Maps/Pacific North West Reduced 32 inches.png" id="5_fr3sx"]
 [ext_resource type="PackedScene" uid="uid://cy0ifoahmgp4b" path="res://Scenes/County Scene.tscn" id="5_ntvpf"]
-[ext_resource type="Resource" uid="uid://cvc0wfljshom0" path="res://Resources/Counties/0 Cowlitz.tres" id="5_xf8xi"]
 [ext_resource type="Script" path="res://Scripts/Map Editor/CountyCreator.cs" id="6_tqvbi"]
-[ext_resource type="Resource" uid="uid://cwiqoelw7ltr0" path="res://Resources/Counties/1 Tillamook.tres" id="6_wul7l"]
 [ext_resource type="Script" path="res://Scripts/Map Editor/SaveCountiesButton.cs" id="7_1t2ay"]
-[ext_resource type="Resource" uid="uid://dv4rq1xjdfnlw" path="res://Resources/Counties/2 Douglas.tres" id="7_b8vur"]
-[ext_resource type="Resource" uid="uid://bwkrcckgmgmn1" path="res://Resources/Counties/3 Portland.tres" id="8_x2l8x"]
-[ext_resource type="Resource" uid="uid://csk7k0knt4jbq" path="res://Resources/Counties/4 Wasco.tres" id="9_43ugx"]
-[ext_resource type="Resource" uid="uid://cjjdpxp4qy8em" path="res://Resources/Counties/5 Harney.tres" id="10_fykrm"]
-[ext_resource type="Resource" uid="uid://bjli2swaq8k03" path="res://Resources/Counties/6 Umatilla.tres" id="11_10owl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kgbkv"]
 
@@ -38,7 +31,6 @@ map = ExtResource("5_fr3sx")
 mapColorCoded = ExtResource("4_be8vi")
 countyPackedScene = ExtResource("5_ntvpf")
 countiesParent = NodePath("../../Counties")
-countyDatas = Array[Object]([ExtResource("5_xf8xi"), ExtResource("6_wul7l"), ExtResource("7_b8vur"), ExtResource("8_x2l8x"), ExtResource("9_43ugx"), ExtResource("10_fykrm"), ExtResource("11_10owl")])
 
 [node name="Map Editor Controls" type="StaticBody2D" parent="County Creator"]
 script = ExtResource("3_j7kpr")

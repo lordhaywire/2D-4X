@@ -91,7 +91,7 @@ namespace PlayerSpace
                 GD.Print($"Aide: {countyPopulation.isAide}");
                 GD.Print($"Army Leader: {countyPopulation.isArmyLeader}");
                 */
-                countyPopulation.location = countyData.countyID;
+                countyPopulation.location = countyData.countyId;
                 
                 switch (countyPopulation)
                 {

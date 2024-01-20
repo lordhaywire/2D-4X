@@ -1,4 +1,5 @@
 using Godot;
+using GlobalSpace;
 
 namespace PlayerSpace
 {
@@ -20,19 +21,17 @@ namespace PlayerSpace
                 {
                     //PlayerControls.Instance.controlsEnabled = true;
                     // Load from disk.
-                    foreach (string name in files)
+                    for (int i = 0; i < files.Length; i++)
                     {
-                        PackedScene countyScene = (PackedScene)GD.Load(Globals.Instance.pathToCounties + name);
-                        Node2D county = (Node2D)countyScene.Instantiate();
+                        PackedScene countyScene = (PackedScene)GD.Load(Globals.Instance.pathToCounties + files[i]);
+                        SelectCounty county = (SelectCounty)countyScene.Instantiate();
+                        CountyResourcesAutoLoad.Instance.countyDatas[i].countyNode = county;
                         Globals.Instance.countiesParent.AddChild(county);
+
+                        // Since we are already going through all the countyDatas we add the countyData ID to the countyData.
+                        CountyResourcesAutoLoad.Instance.countyDatas[i].countyId = i;
+                        GD.Print($"County ID: {CountyResourcesAutoLoad.Instance.countyDatas[i].countyId} {county.Name}");
                     }
-                    /*
-                    // Add node to array in MapEditorGlobals.
-                    for (int i = 0; i < Globals.Instance.countyDatas.Length; i++)
-                    {
-                        Globals.Instance.countyDatas[i].countyNode = (Node2D)MapEditorGlobals.Instance.countiesParent.GetChild(i);
-                    }
-                    */
                 }
                 else
                 {

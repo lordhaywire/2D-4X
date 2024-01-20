@@ -6,7 +6,6 @@
 [resource]
 script = ExtResource("2_xqyb8")
 color = Color(0, 0.937255, 0.168627, 1)
-startMaskPosition = Vector2i(0, 0)
 countyOverlayLocalPosition = Vector2i(11, 17)
 countyID = 0
 countyName = "Wasco"

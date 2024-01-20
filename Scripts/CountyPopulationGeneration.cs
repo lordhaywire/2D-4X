@@ -30,7 +30,7 @@ namespace PlayerSpace
             {
                 countiesParent = Globals.Instance.countiesParent;
                 // Generate Faction Leader County Population
-                //GD.Print("Faction Capital ID: " + factionData.factionCapitalCounty);
+                GD.Print($"{factionData.factionName} Capital ID: {factionData.factionCapitalCounty}");
                 selectCounty = (SelectCounty)countiesParent.GetChild(factionData.factionCapitalCounty);
                 countyData = selectCounty.countyData;
                 GeneratePopulation(true, 1); // There is never going to be more then 1 faction leader.
@@ -79,8 +79,8 @@ namespace PlayerSpace
                 if (hero == false)
                 {
                     // This adds to the C# list.
-                    countyData.countyPopulation.Add(new CountyPopulation(countyData.factionData, countyData.countyID, 
-                        countyData.countyID, firstName , lastName, isMale, age, false, false, false, false, false, false
+                    countyData.countyPopulation.Add(new CountyPopulation(countyData.factionData, countyData.countyId, 
+                        countyData.countyId, firstName , lastName, isMale, age, false, false, false, false, false, false
                         , 100, coolAttribute, constructionSkill, rifleSkill, AllText.Activities.IDLE, null
                         , AllText.Activities.IDLE, null));
                     
@@ -94,8 +94,8 @@ namespace PlayerSpace
                 else
                 {
                     // This adds to a C# list.
-                    countyData.heroCountyPopulation.Add(new CountyPopulation(countyData.factionData, countyData.countyID, 
-                        countyData.countyID, firstName, lastName, isMale, age, true, true, false, false, false, true, 100, 
+                    countyData.heroCountyPopulation.Add(new CountyPopulation(countyData.factionData, countyData.countyId, 
+                        countyData.countyId, firstName, lastName, isMale, age, true, true, false, false, false, true, 100, 
                         coolAttribute, constructionSkill, rifleSkill, AllText.Activities.IDLE, null, AllText.Activities.IDLE, null));                 
                     /*
                     CountyPopulation heroPerson = countyData.heroCountyPopulation[i];
@@ -115,7 +115,7 @@ namespace PlayerSpace
             {
                 selectCounty = (SelectCounty)countiesParent.GetChild(i);
                 countyData = selectCounty.countyData;
-                countyData.countyID = i; // Generate countyID.
+                countyData.countyId = i; // Generate countyID.
                 //GD.PrintRich("[rainbow]County ID: " + countyData.countyID);
 
                 // Generate the general population for the player Capitals.

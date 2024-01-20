@@ -1,5 +1,6 @@
 using Godot;
 using PlayerSpace;
+using GlobalSpace;
 using System.Threading.Tasks;
 
 namespace MapEditorSpace
@@ -24,14 +25,14 @@ namespace MapEditorSpace
             Vector2I mapSize = (Vector2I)MapEditorGlobals.Instance.mapColorCoded.GetSize();
             Image countyMaskImage = Image.Create(mapSize.X, mapSize.Y, false, Image.Format.Rgba8);
 
-            foreach (CountyData countyData in MapEditorGlobals.Instance.countyDatas)
+            foreach (CountyData countyData in CountyResourcesAutoLoad.Instance.countyDatas)
             {
                 await RootNode.Instance.WaitFrames(1);
 
                 Image countyMapImage = (Image)mapImage.Duplicate(); // This has to be down here because it needs a new copy every for each county.
                 countyMapImage.Convert(Image.Format.Rgba8); // Convert the format so that it works with Blit Rect.
 
-                countyData.countyID = countyID;
+                countyData.countyId = countyID;
                 countyID++;
 
                 GD.Print(countyMapImage.GetFormat());
@@ -107,21 +108,26 @@ namespace MapEditorSpace
 
         private async Task GenerateCounties()
         {
-            foreach (CountyData countyData in MapEditorGlobals.Instance.countyDatas)
+            foreach (CountyData countyData in CountyResourcesAutoLoad.Instance.countyDatas)
             {
                 SelectCounty county = (SelectCounty)MapEditorGlobals.Instance.countyPackedScene.Instantiate();
 
                 county.countyData = countyData;
                 county.countyData.countyNode = county;
                 MapEditorGlobals.Instance.countiesParent.AddChild(county);
-                county.Name = $"{countyData.countyID} {countyData.countyName}";
+                county.Name = $"{countyData.countyId} {countyData.countyName}";
                 county.maskSprite.Texture = countyData.maskTexture;
-                county.maskSprite.Position = countyData.startMaskPosition;
+                //county.maskSprite.Position = countyData.startMaskPosition;
                 county.maskSprite.Visible = false;
 
                 county.countySprite.Texture = countyData.mapTexture;
                 county.countySprite.SelfModulate = Colors.LightGreen;
-                county.countySprite.Position = countyData.startMaskPosition;
+                county.Position = countyData.startMaskPosition;
+                Vector2 countySize = county.maskSprite.Texture.GetSize();
+                
+                // This takes the counties position and gets the center and added the manual County Overlay Local Position
+                // so that it shows up in the right place.
+                county.countyOverlayNode2D.Position = county.countyData.countyOverlayLocalPosition + countySize/2;
                 county.countySprite.Visible = true;
 
                 // Clear out this data so it isn't keeping extra images.

@@ -9,12 +9,13 @@
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1pkk4"]
 
-[node name="County Node2D" type="Node2D" node_paths=PackedStringArray("maskSprite", "countySprite", "capitalSprite", "heroSpawn", "battleControl")]
+[node name="County Node2D" type="Node2D" node_paths=PackedStringArray("maskSprite", "countySprite", "capitalSprite", "countyOverlayNode2D", "heroSpawn", "battleControl")]
 z_as_relative = false
 script = ExtResource("1_fuvq0")
 maskSprite = NodePath("Mask Sprite2D")
 countySprite = NodePath("County Sprite2D")
 capitalSprite = NodePath("County Overlay Node2D/Capital Sprite2D")
+countyOverlayNode2D = NodePath("County Overlay Node2D")
 heroSpawn = NodePath("County Overlay Node2D/Hero Spawn Location Node2D")
 battleControl = NodePath("County Overlay Node2D/Battle Control")
 
@@ -28,13 +29,13 @@ z_index = 5
 centered = false
 
 [node name="County Overlay Node2D" type="Node2D" parent="."]
-visible = false
-z_index = 11
+z_index = 10
 
 [node name="Capital Sprite2D" type="Sprite2D" parent="County Overlay Node2D"]
 z_index = 11
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("4_b7k3o")
+centered = false
 
 [node name="Hero Spawn Location Node2D" type="Node2D" parent="County Overlay Node2D"]
 z_index = 10

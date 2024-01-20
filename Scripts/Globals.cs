@@ -15,6 +15,7 @@ namespace PlayerSpace
         [Export] public bool startPaused;
 
         [ExportGroup("Selected Items")]
+        [Export] public int selectedCountyId;
         [Export] public CountyData selectedCountyData;
         [Export] public SelectCounty selectedLeftClickCounty;
         [Export] public SelectCounty selectedRightClickCounty;
@@ -27,7 +28,8 @@ namespace PlayerSpace
         [Export] private Texture2D unselectedHeroTexture;
 
         [ExportGroup("Map")]
-        public string pathToCounties = "res://Counties/";
+        [Export] public string pathToCounties = "res://Counties/";
+        [Export] public Texture2D mapColorCoded;
 
         public SelectToken CurrentlySelectedToken
         {

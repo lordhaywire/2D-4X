@@ -22,6 +22,7 @@ scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_xhd0l")
 
 [node name="Area2D" type="Area2D" parent="County Sprite2D"]
+position = Vector2(-104, 20)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="County Sprite2D/Area2D"]
 visible = false
@@ -30,11 +31,6 @@ polygon = PackedVector2Array(-305.5, -491.8, -305.5, -490.3, -299.5, -484.3, -29
 [node name="County Overlay Node2D" type="Node2D" parent="."]
 z_index = 11
 position = Vector2(8, 30)
-
-[node name="Capital Sprite2D" type="Sprite2D" parent="County Overlay Node2D"]
-z_index = 11
-scale = Vector2(0.05, 0.05)
-texture = ExtResource("4_0ds3c")
 
 [node name="Hero Spawn Location Node2D" type="Node2D" parent="County Overlay Node2D"]
 position = Vector2(0, -20)
@@ -130,6 +126,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Capital Sprite2D" type="Sprite2D" parent="County Overlay Node2D"]
+z_index = 11
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("4_0ds3c")
 
 [connection signal="input_event" from="County Sprite2D/Area2D" to="." method="OnClick"]
 [connection signal="button_up" from="County Overlay Node2D/Battle Control/Button" to="County Overlay Node2D/Battle Control" method="ButtonUp"]

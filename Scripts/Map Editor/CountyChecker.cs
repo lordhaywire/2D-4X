@@ -1,4 +1,5 @@
 using Godot;
+using GlobalSpace;
 
 namespace MapEditorSpace
 {
@@ -27,9 +28,9 @@ namespace MapEditorSpace
                         MapEditorGlobals.Instance.countiesParent.AddChild(county);
                     }
                     // Add node to array in MapEditorGlobals.
-                    for (int i = 0; i < MapEditorGlobals.Instance.countyDatas.Length; i++)
+                    for (int i = 0; i < CountyResourcesAutoLoad.Instance.countyDatas.Count; i++)
                     {
-                        MapEditorGlobals.Instance.countyDatas[i].countyNode = (Node2D)MapEditorGlobals.Instance.countiesParent.GetChild(i);
+                        CountyResourcesAutoLoad.Instance.countyDatas[i].countyNode = (Node2D)MapEditorGlobals.Instance.countiesParent.GetChild(i);
                     }
                 }
                 else

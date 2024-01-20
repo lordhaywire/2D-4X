@@ -11,6 +11,7 @@ namespace PlayerSpace
         [Export] public Sprite2D maskSprite;
         [Export] public Sprite2D countySprite;
         [Export] public Sprite2D capitalSprite;
+        [Export] public Node2D countyOverlayNode2D;
         [Export] public HeroStacker heroSpawn;
         [Export] public BattleControl battleControl;
 
@@ -21,72 +22,12 @@ namespace PlayerSpace
         private Color fillColor = new(1, 1, 1, 0.345f);
         public override void _Ready()
         {
-            //capitalSprite = GetNode<Sprite2D>("County Overlay Node2D/Capital Sprite2D");
-            //heroSpawn = GetNode<HeroStacker>("County Overlay Node2D/Hero Spawn Location Node2D");
             countyData.CountySelected += SelectedChanged;
         }
 
-        public void OnClick(Viewport viewport, InputEvent @event, int _shapeIdx)
-        {
-            if (@event is InputEventMouseButton eventMouseButton)
-            {
-                // Left Click on County
-                if (eventMouseButton.ButtonIndex == MouseButton.Left && eventMouseButton.Pressed == false 
-                    && Globals.Instance.isInsideToken == false)
-                {
-                    EventLog.Instance.AddLog($"{Name} was clicked on.");
-                    // When you select a county with left click it unselects the selected hero.
+        
 
-                    Globals.Instance.CurrentlySelectedToken = null;
-                    GD.Print($"You left clicked on {Name}, dude!");
-                    Globals.Instance.selectedCountyData = countyData;
-                    Globals.Instance.selectedLeftClickCounty = this;
-                    
-                    CountyInfoControl.Instance.UpdateEverything();
-                    CountyInfoControl.Instance.countyInfoControl.Show(); // This has to be last.
-                    
-                }
-                // Right Click on County
-                if (eventMouseButton.ButtonIndex == MouseButton.Right && eventMouseButton.Pressed == false)
-                {
-                    GD.Print("You right clicked, dude!");
-                    Globals.Instance.selectedRightClickCounty = this;
-                    if (Globals.Instance.CurrentlySelectedToken != null)
-                    {
-                        selectToken = Globals.Instance.CurrentlySelectedToken;
-                        countyPopulation = selectToken.countyPopulation;
-
-                        if (selectToken.tokenMovement.MoveToken != true)
-                        {
-                            if (selectToken.countyPopulation.isArmyLeader == false)
-                            {
-                                StartMove();                            
-                            }
-                            else
-                            {
-                                if (Globals.Instance.playerFactionData == countyData.factionData)
-                                {
-                                    StartMove();
-                                }
-                                else
-                                {
-                                    GD.Print("You are about to declare war, because you are an army.");
-                                    DeclareWarConfirmation();
-                                }
-                            }
-                        }
-                        else
-                        {
-                            SelectCounty homeCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(Globals.Instance.CurrentlySelectedToken.countyPopulation.location);
-                            countyPopulation.destination = homeCounty.countyData.countyID;
-                            Globals.Instance.heroMoveTarget = homeCounty.heroSpawn.GlobalPosition;
-                        }
-                    }
-                }
-            }
-        }
-
-        private void DeclareWarConfirmation()
+        public void DeclareWarConfirmation()
         {
             DeclareWarControl.Instance.Show();
             DeclareWarControl.Instance.confirmationWarDialog.DialogText 
@@ -103,7 +44,7 @@ namespace PlayerSpace
                 = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
             Globals.Instance.heroMoveTarget = heroSpawn.GlobalPosition;
 
-            countyPopulation.destination = countyData.countyID;
+            countyPopulation.destination = countyData.countyId;
             countyPopulation.currentActivity = AllText.Activities.MOVING;
             Globals.Instance.CurrentlySelectedToken.tokenMovement.MoveToken = true;
 
