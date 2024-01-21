@@ -7,7 +7,6 @@
 
 [node name="Hero PanelContainer" type="PanelContainer" node_paths=PackedStringArray("factionLeaderTextureRect", "aideTextureRect", "armyLeaderTextureRect", "heroNameLabel", "heroListButton", "spawnHeroButton")]
 custom_minimum_size = Vector2(200, 50)
-mouse_filter = 1
 script = ExtResource("1_u8h0k")
 factionLeaderTextureRect = NodePath("HBoxContainer/Leader TextureRect")
 aideTextureRect = NodePath("HBoxContainer/Aide TextureRect")
@@ -60,4 +59,8 @@ size_flags_horizontal = 8
 focus_mode = 0
 
 [connection signal="button_up" from="Hero List Button" to="." method="HeroButton"]
+[connection signal="mouse_entered" from="Hero List Button" to="." method="OnMouseEntered"]
+[connection signal="mouse_exited" from="Hero List Button" to="." method="OnMouseExited"]
 [connection signal="button_up" from="CheckButton" to="." method="SpawnHeroCheckBox" binds= [true]]
+[connection signal="mouse_entered" from="CheckButton" to="." method="OnMouseEntered"]
+[connection signal="mouse_exited" from="CheckButton" to="." method="OnMouseExited"]

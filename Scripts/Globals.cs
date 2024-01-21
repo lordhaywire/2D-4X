@@ -16,7 +16,23 @@ namespace PlayerSpace
 
         [ExportGroup("Selected Items")]
         [Export] public int selectedCountyId;
-        [Export] public CountyData selectedCountyData;
+        [Export] private CountyData selectedCountyData;
+
+        public CountyData SelectedCountyData
+        {
+            get { return selectedCountyData; }
+            set
+            {
+                if (selectedCountyData != null)
+                {
+                    SelectCounty county = (SelectCounty)selectedCountyData.countyNode;
+                    county.maskSprite.SelfModulate = new Color(1, 1, 1, 1f);
+                }
+                selectedCountyData = value;
+                SelectCounty newCounty = (SelectCounty)selectedCountyData.countyNode;
+                newCounty.maskSprite.SelfModulate = new Color(0, 0, 0, 1f);
+            }
+        }
         [Export] public SelectCounty selectedLeftClickCounty;
         [Export] public SelectCounty selectedRightClickCounty;
         public CountyPopulation selectedCountyPopulation;
@@ -33,10 +49,7 @@ namespace PlayerSpace
 
         public SelectToken CurrentlySelectedToken
         {
-            get
-            {
-                return currentlySelectedToken;
-            }
+            get { return currentlySelectedToken; }
             set
             {
                 if (currentlySelectedToken != null)
@@ -46,7 +59,7 @@ namespace PlayerSpace
                 currentlySelectedToken = value;
                 if (currentlySelectedToken != null)
                 {
-                    currentlySelectedToken.sprite.Texture = selectedHeroTexture;                  
+                    currentlySelectedToken.sprite.Texture = selectedHeroTexture;
                 }
             }
         }
@@ -93,10 +106,6 @@ namespace PlayerSpace
 
         private void LoadNames()
         {
-            //maleFirstNames = null;
-            //femaleFirstNames = null;
-            //lastNames = null;
-
             // Load all the names from disk.
             GD.Print("Localize Path: " + ProjectSettings.LocalizePath(listsPath));
             GD.Print("Globalize Path: " + ProjectSettings.GlobalizePath(listsPath));
@@ -104,22 +113,19 @@ namespace PlayerSpace
             if (directory.DirExists(listsPath))
             {
                 using var maleFile = FileAccess.Open(listsPath + maleNamesPath, FileAccess.ModeFlags.Read);
-                while(maleFile.GetPosition() < maleFile.GetLength())
+                while (maleFile.GetPosition() < maleFile.GetLength())
                 {
                     maleNames.Add(maleFile.GetLine());
-                    //GD.Print("First Name: " + maleNames[^1]);
                 }
                 using var femaleFile = FileAccess.Open(listsPath + femaleNamesPath, FileAccess.ModeFlags.Read);
                 while (femaleFile.GetPosition() < femaleFile.GetLength())
                 {
                     femaleNames.Add(femaleFile.GetLine());
-                    //GD.Print("First Name: " + femaleNames[^1]);
                 }
                 using var lastNameFile = FileAccess.Open(listsPath + lastNamesPath, FileAccess.ModeFlags.Read);
                 while (lastNameFile.GetPosition() < lastNameFile.GetLength())
                 {
                     lastNames.Add(lastNameFile.GetLine());
-                    //GD.Print("Last Name: " + lastNames[^1]);
                 }
             }
             else

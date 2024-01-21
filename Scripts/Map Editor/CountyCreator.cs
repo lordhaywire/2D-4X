@@ -55,7 +55,7 @@ namespace MapEditorSpace
 
                         if (color.IsEqualApprox(countyData.color))
                         {
-                            countyMaskImage.SetPixel(x, y, new Color(1, 1, 1, 0.345f)); // The float is for the a so the county isn't covered in white.
+                            countyMaskImage.SetPixel(x, y, new Color(1, 1, 1, 0.2f)); // The float is for the a so the county isn't covered in white.
 
                             if (x < startCountyWidth)
                             {
@@ -91,7 +91,7 @@ namespace MapEditorSpace
 
                 // Crop the mask image after it has been created.
                 Image croppedCountyMaskImage = Image.Create(rect2I.Size.X, rect2I.Size.Y, false, Image.Format.Rgba8);
-                croppedCountyMaskImage.BlitRect(countyMaskImage, rect2I, Vector2I.Zero); //startVector2I
+                croppedCountyMaskImage.BlitRect(countyMaskImage, rect2I, Vector2I.Zero);
 
                 countyData.maskTexture = ImageTexture.CreateFromImage(croppedCountyMaskImage);
                 countyData.startMaskPosition = startVector2I;
@@ -100,7 +100,7 @@ namespace MapEditorSpace
                 Image croppedCountyMapImage = Image.Create(rect2I.Size.X, rect2I.Size.Y, false, Image.Format.Rgba8);
                 GD.Print("Cropped County Map Top Image Size: " + croppedCountyMapImage.GetSize());
 
-                croppedCountyMapImage.BlitRect(countyMapImage, rect2I, Vector2I.Zero); //startVector2I
+                croppedCountyMapImage.BlitRect(countyMapImage, rect2I, Vector2I.Zero); 
                 countyData.mapTexture = ImageTexture.CreateFromImage(croppedCountyMapImage);
             }
 

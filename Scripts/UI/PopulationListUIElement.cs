@@ -21,8 +21,8 @@ namespace PlayerSpace
                 Clock.Instance.PauseTime();
                 
                 populationListTitle.Text = AllText.Titles.POPLIST;
-                GeneratePopulationRows(Globals.Instance.selectedCountyData.heroCountyPopulation);
-                GeneratePopulationRows(Globals.Instance.selectedCountyData.countyPopulation);
+                GeneratePopulationRows(Globals.Instance.SelectedCountyData.heroCountyPopulation);
+                GeneratePopulationRows(Globals.Instance.SelectedCountyData.countyPopulation);
             }
             else
             {

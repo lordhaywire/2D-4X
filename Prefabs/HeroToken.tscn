@@ -40,7 +40,6 @@ offset_right = 22.5
 offset_bottom = 22.5
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 
 [node name="Name Control" type="Control" parent="Token Control"]
 layout_mode = 1

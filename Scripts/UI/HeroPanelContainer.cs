@@ -33,5 +33,17 @@ namespace PlayerSpace
                     = Globals.Instance.playerFactionData.tokenSpawner.Spawn(Globals.Instance.selectedLeftClickCounty, countyPopulation);
             }
         }
+
+        public void OnMouseEntered()
+        {
+            PlayerControls.Instance.mouseOverUI = true;
+            GD.Print("Mouse Over UI: " + PlayerControls.Instance.mouseOverUI);
+        }
+
+        public void OnMouseExited()
+        {
+            PlayerControls.Instance.mouseOverUI = false;
+            GD.Print("Mouse Over UI: " + PlayerControls.Instance.mouseOverUI);
+        }
     }
 }

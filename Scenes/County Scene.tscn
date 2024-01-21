@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://cy0ifoahmgp4b"]
+[gd_scene load_steps=8 format=3 uid="uid://cy0ifoahmgp4b"]
 
 [ext_resource type="Script" path="res://Scripts/SelectCounty.cs" id="1_fuvq0"]
 [ext_resource type="Texture2D" uid="uid://c3bhckl88r540" path="res://Graphics/Icons/Top Bar/Capital Icon.png" id="4_b7k3o"]
 [ext_resource type="Script" path="res://Scripts/HeroStacker.cs" id="5_or0qs"]
 [ext_resource type="Script" path="res://Scripts/UI/BattleControl.cs" id="6_jb8c0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v6272"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_mc4v5"]
 
@@ -21,6 +23,7 @@ battleControl = NodePath("County Overlay Node2D/Battle Control")
 
 [node name="Mask Sprite2D" type="Sprite2D" parent="."]
 z_index = 10
+material = SubResource("ShaderMaterial_v6272")
 centered = false
 
 [node name="County Sprite2D" type="Sprite2D" parent="."]
@@ -33,13 +36,12 @@ z_index = 10
 
 [node name="Capital Sprite2D" type="Sprite2D" parent="County Overlay Node2D"]
 z_index = 11
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("4_b7k3o")
-centered = false
 
 [node name="Hero Spawn Location Node2D" type="Node2D" parent="County Overlay Node2D"]
 z_index = 10
-position = Vector2(0, -20)
+position = Vector2(0, -30)
 script = ExtResource("5_or0qs")
 
 [node name="Battle Control" type="Control" parent="County Overlay Node2D" node_paths=PackedStringArray("defenderTokenTextureRect", "attackerTokenTextureRect", "defenderMoraleLabel", "attackerMoraleLabel")]

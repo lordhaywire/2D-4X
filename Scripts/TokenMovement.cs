@@ -34,9 +34,11 @@ namespace PlayerSpace
             Vector2 target = Globals.Instance.heroMoveTarget;
             token.GlobalPosition = GlobalPosition.MoveToward(target, Globals.Instance.movementSpeed * Clock.Instance.ModifiedTimeScale);
             //GD.Print($"{GetParent().Name} is moving!");
-            if (GlobalPosition.DistanceTo(target) < 0.001f)
+            if (token.GlobalPosition.IsEqualApprox(target))
             {
                 ReachedDestination();
+                MoveToken = false;
+
             }
         }
 
@@ -61,7 +63,6 @@ namespace PlayerSpace
                         || selectCounty.countyData.factionData == war.attackerFactionData)
                     {
                         
-                        MoveToken = false;
                         selectToken.countyPopulation.location = selectCounty.countyData.countyId;
 
                         GD.Print("New Battle!");
@@ -103,6 +104,8 @@ namespace PlayerSpace
 
             // Change their current location to what was their destination. This has to be above the list insert.
             countyPopulation.location = selectCounty.countyData.countyId;
+            selectToken.GlobalPosition = selectCounty.heroSpawn.GlobalPosition;
+
 
             // Refresh the list of heroes beneath the CountyInfo Panel.
             CountyInfoControl.Instance.GenerateHeroesPanelList();

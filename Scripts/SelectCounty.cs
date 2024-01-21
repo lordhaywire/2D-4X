@@ -18,15 +18,6 @@ namespace PlayerSpace
         private SelectToken selectToken; 
         private CountyPopulation countyPopulation;
 
-        private Color outlineColor = new(0, 0, 0, 0.7f);
-        private Color fillColor = new(1, 1, 1, 0.345f);
-        public override void _Ready()
-        {
-            countyData.CountySelected += SelectedChanged;
-        }
-
-        
-
         public void DeclareWarConfirmation()
         {
             DeclareWarControl.Instance.Show();
@@ -53,21 +44,6 @@ namespace PlayerSpace
 
             // Removed from spawnedTokenList in starting county location.
             selectLocationCounty.heroSpawn.spawnedTokenList.Remove(selectToken);
-        }
-
-        // This controls the masks in the county.  Needs to be updated.
-        private void SelectedChanged(bool selected)
-        {
-            if (selected)
-            {
-                ((ShaderMaterial)maskSprite.Material).SetShaderParameter("outline_color", outlineColor);
-                ((ShaderMaterial)maskSprite.Material).SetShaderParameter("fill_color", fillColor);
-            }
-            else
-            {
-                ((ShaderMaterial)maskSprite.Material).SetShaderParameter("outline_color", outlineColor.A * 0.5f);
-                ((ShaderMaterial)maskSprite.Material).SetShaderParameter("fill_color", fillColor.A * 0.5f);
-            }
         }
     }
 }
