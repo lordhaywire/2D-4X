@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using static PlayerSpace.HeroStacker;
 
 namespace PlayerSpace
 {
@@ -12,11 +13,18 @@ namespace PlayerSpace
         [Export] public Sprite2D countySprite;
         [Export] public Sprite2D capitalSprite;
         [Export] public Node2D countyOverlayNode2D;
-        [Export] public HeroStacker heroSpawn;
-        [Export] public BattleControl battleControl;
+        //[Export] public HeroStacker heroSpawn;
+        [Export] public HeroTokensControl heroTokensControl;
+
+        [Export] public HBoxContainer armiesHBox;
+        [Export] public HBoxContainer heroesHBox;
 
         private SelectToken selectToken; 
         private CountyPopulation countyPopulation;
+
+        //public ListWithNotify<SelectToken> spawnedHeroList = new(); // This is not a normal list.
+        //public ListWithNotify<SelectToken> spawnedArmyList = new(); // This is not a normal list.
+
 
         public void DeclareWarConfirmation()
         {
@@ -33,7 +41,7 @@ namespace PlayerSpace
             GD.Print($"{Globals.Instance.CurrentlySelectedToken.countyPopulation.firstName} has location of {countyPopulation.location}");
             SelectCounty selectLocationCounty
                 = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
-            Globals.Instance.heroMoveTarget = heroSpawn.GlobalPosition;
+            Globals.Instance.heroMoveTarget = capitalSprite.GlobalPosition;
 
             countyPopulation.destination = countyData.countyId;
             countyPopulation.currentActivity = AllText.Activities.MOVING;
@@ -42,8 +50,10 @@ namespace PlayerSpace
             // Remove countyPopulation from the heroes starting county location list.
             selectLocationCounty.countyData.heroCountyPopulation.Remove(countyPopulation);
 
+            countyPopulation.token.Show();
+
             // Removed from spawnedTokenList in starting county location.
-            selectLocationCounty.heroSpawn.spawnedTokenList.Remove(selectToken);
+            //selectLocationCounty.capitalSprite.spawnedTokenList.Remove(selectToken);
         }
     }
 }

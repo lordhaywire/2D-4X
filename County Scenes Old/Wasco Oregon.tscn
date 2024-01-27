@@ -5,7 +5,7 @@
 [ext_resource type="Resource" uid="uid://csk7k0knt4jbq" path="res://Resources/Counties/4 Wasco.tres" id="2_swyw3"]
 [ext_resource type="Texture2D" uid="uid://c3bhckl88r540" path="res://Graphics/Icons/Top Bar/Capital Icon.png" id="4_3031a"]
 [ext_resource type="Script" path="res://Scripts/HeroStacker.cs" id="5_mt7t1"]
-[ext_resource type="Script" path="res://Scripts/UI/BattleControl.cs" id="6_51lwq"]
+[ext_resource type="Script" path="res://Scripts/UI/HeroTokensControl.cs" id="6_51lwq"]
 [ext_resource type="Texture2D" uid="uid://7jvylb78h24w" path="res://Graphics/Tokens/HornedGuyUnselected.png" id="6_cili1"]
 
 [node name="Wasco Oregon Node2D" type="Node2D" node_paths=PackedStringArray("heroSpawn", "battleControl")]

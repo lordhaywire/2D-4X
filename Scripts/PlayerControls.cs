@@ -56,8 +56,8 @@ namespace PlayerSpace
                         // Left Click on County
                         if (@event is InputEventMouseButton eventMouseButton)
                         {
-                            if (eventMouseButton.ButtonIndex == MouseButton.Left && eventMouseButton.Pressed == false
-                                && Globals.Instance.isInsideToken == false)
+                            if (eventMouseButton.ButtonIndex == MouseButton.Left && eventMouseButton.Pressed == false)
+                                //&& Globals.Instance.isInsideToken == false)
                             {
                                 EventLog.Instance.AddLog($"{countyData.countyName} was clicked on.");
 
@@ -105,7 +105,7 @@ namespace PlayerSpace
                                     {
                                         SelectCounty homeCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(Globals.Instance.CurrentlySelectedToken.countyPopulation.location);
                                         countyPopulation.destination = homeCounty.countyData.countyId;
-                                        Globals.Instance.heroMoveTarget = homeCounty.heroSpawn.GlobalPosition;
+                                        Globals.Instance.heroMoveTarget = homeCounty.capitalSprite.GlobalPosition;
                                     }
                                 }
                             }

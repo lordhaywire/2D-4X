@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://wlnn33lx7wjt"]
+
+[ext_resource type="Script" path="res://Scripts/UI/SpawnedTokenButton.cs" id="1_5mavu"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_p5dn1"]
+
+[node name="Spawned Token Button" type="Button" node_paths=PackedStringArray("tokenIconTextureRect")]
+custom_minimum_size = Vector2(20, 20)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 1
+icon = SubResource("ImageTexture_p5dn1")
+script = ExtResource("1_5mavu")
+tokenIconTextureRect = NodePath("TextureRect")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 2
+
+[connection signal="mouse_entered" from="TextureRect" to="." method="OnMouseEntered"]
+[connection signal="mouse_exited" from="TextureRect" to="." method="OnMouseExited"]

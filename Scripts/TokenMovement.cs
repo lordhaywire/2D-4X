@@ -68,7 +68,7 @@ namespace PlayerSpace
                         GD.Print("New Battle!");
                         Battle battle = new(selectCounty.countyData);
                         selectCounty.countyData.battles.Add(battle);
-                        selectCounty.battleControl.StartBattle();
+                        selectCounty.heroTokensControl.StartBattle();
                     }
                     else
                     {
@@ -80,6 +80,7 @@ namespace PlayerSpace
 
         private void AddToTokenStacker()
         {
+            /*
             GD.Print(token.Name + " got to destination!");
             moveToken = false;
             SelectToken selectToken = (SelectToken)GetParent();
@@ -112,6 +113,7 @@ namespace PlayerSpace
 
             // Add to the spawnedHeroList when it gets to its destination.
             selectCounty.heroSpawn.spawnedTokenList.Insert(0, selectToken);
+            */
         }
     }
 }

@@ -24,6 +24,7 @@ namespace PlayerSpace
         }
         public void StackTokens()
         {
+            /*
             if (spawnedTokenList.Count() > 1)
             {
                 for (int i = 0; i < spawnedTokenList.Count(); i++)
@@ -50,7 +51,7 @@ namespace PlayerSpace
                         {
                             Globals.Instance.CurrentlySelectedToken = selectToken;
                         }
-                        */
+                        
                         
                     }
                     else
@@ -76,6 +77,7 @@ namespace PlayerSpace
                 selectToken.InputPickable = true;
                 selectToken.tokenNameLabel.Show();
             }
+            */
         }
 
         public class ListWithNotify<T> where T : class

@@ -32,6 +32,7 @@ namespace PlayerSpace
 
         private void OnClick(Viewport viewport, InputEvent @event, int _shapeIdx)
         {
+            /*
             if (@event is InputEventMouseButton eventMouseButton && countyPopulation.factionData == Globals.Instance.playerFactionData)
             {
                 if (eventMouseButton.ButtonIndex == MouseButton.Left && eventMouseButton.Pressed == false)
@@ -63,6 +64,7 @@ namespace PlayerSpace
                     }
                 }
             }
+            */
         }  
     }
 }
