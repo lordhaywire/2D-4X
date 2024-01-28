@@ -26,7 +26,7 @@ namespace PlayerSpace
         public void DefenderSpawnArmies(FactionData defenderFactionData, SelectCounty spawnLocation)
         {
             defenderFactionData.factionLeader.isArmyLeader = true;
-            defenderFactionData.factionLeader.token = defenderFactionData.tokenSpawner.Spawn(spawnLocation, defenderFactionData.factionLeader);
+            defenderFactionData.factionLeader = defenderFactionData.tokenSpawner.Spawn(spawnLocation, defenderFactionData.factionLeader);
         }
     }
 }

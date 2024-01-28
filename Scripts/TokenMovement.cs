@@ -17,9 +17,15 @@ namespace PlayerSpace
                 if (moveToken == true)
                 {
                     SelectToken selectToken = (SelectToken)GetParent();
-                    selectToken.stackCountLabel.Hide();
                 }
             }
+        }
+
+        public override void _Ready()
+        {
+            GD.PrintRich($"[rainbow]Token in TokenMovement: " + token.Name);
+
+            token = (CharacterBody2D)GetParent();
         }
         public override void _PhysicsProcess(double delta)
         {
@@ -44,10 +50,11 @@ namespace PlayerSpace
 
         private void ReachedDestination()
         {
-            SelectToken selectToken = (SelectToken)GetParent();
+            SelectToken selectToken = (SelectToken)token;
             SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(selectToken.countyPopulation.destination);
 
-            selectToken.countyPopulation.currentActivity = AllText.Activities.IDLE;
+            // This needs to happen automatically somehow.
+            //selectToken.countyPopulation.currentActivity = AllText.Activities.IDLE;
             // Are you at war with the owner of the county the token just arrived at?
             if(selectToken.countyPopulation.isArmyLeader == false)
             {

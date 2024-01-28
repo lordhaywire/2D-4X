@@ -1,6 +1,6 @@
 using Godot;
-using System;
-using static PlayerSpace.HeroStacker;
+using System.Collections.Generic;
+
 
 namespace PlayerSpace
 {
@@ -13,7 +13,7 @@ namespace PlayerSpace
         [Export] public Sprite2D countySprite;
         [Export] public Sprite2D capitalSprite;
         [Export] public Node2D countyOverlayNode2D;
-        //[Export] public HeroStacker heroSpawn;
+        [Export] public Node2D heroSpawn;
         [Export] public HeroTokensControl heroTokensControl;
 
         [Export] public HBoxContainer armiesHBox;
@@ -21,6 +21,8 @@ namespace PlayerSpace
 
         private SelectToken selectToken; 
         private CountyPopulation countyPopulation;
+
+        public List<Button> spawnTokenButtons = new();
 
         //public ListWithNotify<SelectToken> spawnedHeroList = new(); // This is not a normal list.
         //public ListWithNotify<SelectToken> spawnedArmyList = new(); // This is not a normal list.
@@ -33,27 +35,27 @@ namespace PlayerSpace
                 = AllText.Diplomacies.DECLAREWARE + countyData.factionData.factionName; 
         }
 
-        public void StartMove()
+        public void StartMove() // Let's move this to token movement.
         {
-            countyPopulation = Globals.Instance.CurrentlySelectedToken.countyPopulation;
+            
+            countyPopulation = Globals.Instance.selectedCountyPopulation;
+            SelectToken selectToken = (SelectToken)countyPopulation.token;
+
             //GD.Print("County Data: " + countyData.countyID);
 
-            GD.Print($"{Globals.Instance.CurrentlySelectedToken.countyPopulation.firstName} has location of {countyPopulation.location}");
+            GD.Print($"{countyPopulation.firstName} has location of {countyPopulation.location}");
             SelectCounty selectLocationCounty
                 = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
-            Globals.Instance.heroMoveTarget = capitalSprite.GlobalPosition;
+            Globals.Instance.heroMoveTarget = heroSpawn.GlobalPosition;
 
             countyPopulation.destination = countyData.countyId;
             countyPopulation.currentActivity = AllText.Activities.MOVING;
-            Globals.Instance.CurrentlySelectedToken.tokenMovement.MoveToken = true;
+            selectToken.tokenMovement.MoveToken = true;
 
             // Remove countyPopulation from the heroes starting county location list.
             selectLocationCounty.countyData.heroCountyPopulation.Remove(countyPopulation);
 
             countyPopulation.token.Show();
-
-            // Removed from spawnedTokenList in starting county location.
-            //selectLocationCounty.capitalSprite.spawnedTokenList.Remove(selectToken);
         }
     }
 }

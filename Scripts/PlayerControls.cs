@@ -62,7 +62,7 @@ namespace PlayerSpace
                                 EventLog.Instance.AddLog($"{countyData.countyName} was clicked on.");
 
                                 // When you select a county with left click it unselects the selected hero.
-                                Globals.Instance.CurrentlySelectedToken = null;
+                                Globals.Instance.selectedCountyPopulation = null;
                                 Globals.Instance.SelectedCountyData = countyData;
                                 Globals.Instance.selectedCountyId = countyData.countyId;
                                 Globals.Instance.selectedLeftClickCounty = (SelectCounty)countyData.countyNode;
@@ -75,15 +75,16 @@ namespace PlayerSpace
                             {
                                 GD.Print("You right clicked, dude!");
                                 Globals.Instance.selectedRightClickCounty = (SelectCounty)countyData.countyNode;
-                                SelectToken selectToken = Globals.Instance.CurrentlySelectedToken;
-
-                                if (selectToken != null && selectToken.countyPopulation.location != countyData.countyId)
+                                GD.Print("Selected Right Click County: " + Globals.Instance.selectedRightClickCounty.Name);
+                                SelectToken selectToken = (SelectToken)Globals.Instance.selectedCountyPopulation.token;
+                                CountyPopulation countyPopulation = Globals.Instance.selectedCountyPopulation;
+                                selectToken.Show();
+                                selectToken.GlobalPosition = new Vector2 (0, 0);
+                                if (selectToken != null && countyPopulation.location != countyData.countyId)
                                 {
-                                    CountyPopulation countyPopulation = selectToken.countyPopulation;
-
                                     if (selectToken.tokenMovement.MoveToken != true)
                                     {
-                                        if (selectToken.countyPopulation.isArmyLeader == false)
+                                        if (countyPopulation.isArmyLeader == false)
                                         {
                                             Globals.Instance.selectedRightClickCounty.StartMove();
                                         }
@@ -103,9 +104,10 @@ namespace PlayerSpace
                                     }
                                     else
                                     {
-                                        SelectCounty homeCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(Globals.Instance.CurrentlySelectedToken.countyPopulation.location);
+                                        SelectCounty homeCounty 
+                                            = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
                                         countyPopulation.destination = homeCounty.countyData.countyId;
-                                        Globals.Instance.heroMoveTarget = homeCounty.capitalSprite.GlobalPosition;
+                                        Globals.Instance.heroMoveTarget = homeCounty.heroSpawn.GlobalPosition;
                                     }
                                 }
                             }

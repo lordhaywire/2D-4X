@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=51 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_x1cy2"]
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://Graphics/Provinces/Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://7jvylb78h24w" path="res://Graphics/Tokens/HornedGuyUnselected.png" id="4_pxob5"]
 [ext_resource type="PackedScene" uid="uid://cwe0ergnkkfm0" path="res://Prefabs/HeroToken.tscn" id="5_w6a76"]
 [ext_resource type="Script" path="res://Scripts/AllGraphics.cs" id="6_48s64"]
+[ext_resource type="Script" path="res://Scripts/Public Classes/AllTokenTextures.cs" id="7_7iyml"]
 [ext_resource type="Texture2D" uid="uid://du76vrdfhckkd" path="res://Graphics/Icons/Population/resized faction leader icon.png" id="7_g78s2"]
 [ext_resource type="Script" path="res://Scripts/CountyLoader.cs" id="7_o23yn"]
 [ext_resource type="PackedScene" uid="uid://wlnn33lx7wjt" path="res://UIScenes/SpawnedTokenButton.tscn" id="8_ne3u6"]
@@ -76,8 +77,6 @@ centered = false
 script = ExtResource("2_yf7pt")
 dailyInfluenceGain = 5
 startPaused = true
-selectedHeroTexture = ExtResource("3_r5dcu")
-unselectedHeroTexture = ExtResource("4_pxob5")
 mapColorCoded = ExtResource("2_h1vmt")
 countiesParent = NodePath("../../Counties")
 minimumFood = 100
@@ -85,6 +84,11 @@ heroToken = ExtResource("5_w6a76")
 spawnedTokenButton = ExtResource("8_ne3u6")
 movementSpeed = 5
 costOfHero = 500
+
+[node name="All Token Textures" type="Node" parent="Game Controller Node"]
+script = ExtResource("7_7iyml")
+unselectedHeroTexture = ExtResource("4_pxob5")
+selectedHeroTexture = ExtResource("3_r5dcu")
 
 [node name="County Loader" type="Node" parent="Game Controller Node"]
 script = ExtResource("7_o23yn")

@@ -7,16 +7,13 @@ namespace PlayerSpace
         public CountyPopulation countyPopulation;
         [Export] public Sprite2D sprite;
 
+        [Export] public Texture2D selectedTexture;
+        [Export] public Texture2D unselectedTexture;
+
         [Export] public Label tokenNameLabel;
         [Export] public Label stackCountLabel;
 
-        private bool isSelected;
-        public TokenMovement tokenMovement;
-
-        public override void _Ready()
-        {
-            tokenMovement = GetNode<TokenMovement>("Token Movement Node2D");
-        }
+        [Export] public TokenMovement tokenMovement = new();
 
         private void OnMouseEnter()
         {

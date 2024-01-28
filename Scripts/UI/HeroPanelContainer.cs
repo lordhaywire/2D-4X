@@ -5,7 +5,6 @@ namespace PlayerSpace
     public partial class HeroPanelContainer : PanelContainer
     {
         public CountyPopulation countyPopulation;
-        private HeroStacker heroSpawnParent;
 
         [Export] public TextureRect factionLeaderTextureRect;
         [Export] public TextureRect aideTextureRect;
@@ -29,8 +28,8 @@ namespace PlayerSpace
             if (toggleOn == true && countyPopulation.token == null)
             {
                 // Assign to Currently Selected Hero so it is ready to be moved.
-                Globals.Instance.CurrentlySelectedToken 
-                    = Globals.Instance.playerFactionData.tokenSpawner.Spawn(Globals.Instance.selectedLeftClickCounty, countyPopulation);
+                Globals.Instance.selectedCountyPopulation 
+                = Globals.Instance.playerFactionData.tokenSpawner.Spawn(Globals.Instance.selectedLeftClickCounty, countyPopulation);
             }
         }
 

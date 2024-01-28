@@ -36,33 +36,12 @@ namespace PlayerSpace
         [Export] public SelectCounty selectedLeftClickCounty;
         [Export] public SelectCounty selectedRightClickCounty;
         public CountyPopulation selectedCountyPopulation;
-        [Export] private SelectToken currentlySelectedToken;
         public PossibleBuildingControl selectedPossibleBuildingControl;
-
-        [ExportGroup("Token Textures")]
-        [Export] private Texture2D selectedHeroTexture;
-        [Export] private Texture2D unselectedHeroTexture;
 
         [ExportGroup("Map")]
         [Export] public string pathToCounties = "res://Counties/";
         [Export] public Texture2D mapColorCoded;
 
-        public SelectToken CurrentlySelectedToken
-        {
-            get { return currentlySelectedToken; }
-            set
-            {
-                if (currentlySelectedToken != null)
-                {
-                    currentlySelectedToken.sprite.Texture = unselectedHeroTexture;
-                }
-                currentlySelectedToken = value;
-                if (currentlySelectedToken != null)
-                {
-                    currentlySelectedToken.sprite.Texture = selectedHeroTexture;
-                }
-            }
-        }
 
         [ExportGroup("Population Generation")]
         [Export] public Node2D countiesParent; // Used for Population generation and random color.  I think we are going to change how the colors are distubuted.

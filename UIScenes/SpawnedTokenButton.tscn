@@ -22,5 +22,6 @@ grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 2
 
+[connection signal="button_up" from="." to="." method="OnButtonUp"]
 [connection signal="mouse_entered" from="TextureRect" to="." method="OnMouseEntered"]
 [connection signal="mouse_exited" from="TextureRect" to="." method="OnMouseExited"]

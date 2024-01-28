@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://cy0ifoahmgp4b"]
+[gd_scene load_steps=7 format=3 uid="uid://cy0ifoahmgp4b"]
 
 [ext_resource type="Script" path="res://Scripts/SelectCounty.cs" id="1_fuvq0"]
 [ext_resource type="Texture2D" uid="uid://c3bhckl88r540" path="res://Graphics/Icons/Top Bar/Capital Icon.png" id="4_b7k3o"]
 [ext_resource type="Script" path="res://Scripts/UI/HeroTokensControl.cs" id="4_t7vsp"]
-[ext_resource type="Script" path="res://Scripts/HeroStacker.cs" id="5_or0qs"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v6272"]
 
@@ -11,13 +10,14 @@
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1pkk4"]
 
-[node name="County Node2D" type="Node2D" node_paths=PackedStringArray("maskSprite", "countySprite", "capitalSprite", "countyOverlayNode2D", "heroTokensControl", "armiesHBox", "heroesHBox")]
+[node name="County Node2D" type="Node2D" node_paths=PackedStringArray("maskSprite", "countySprite", "capitalSprite", "countyOverlayNode2D", "heroSpawn", "heroTokensControl", "armiesHBox", "heroesHBox")]
 z_as_relative = false
 script = ExtResource("1_fuvq0")
 maskSprite = NodePath("Mask Sprite2D")
 countySprite = NodePath("County Sprite2D")
 capitalSprite = NodePath("County Overlay Node2D/Capital Sprite2D")
 countyOverlayNode2D = NodePath("County Overlay Node2D")
+heroSpawn = NodePath("County Overlay Node2D/Hero Spawn Location Node2D")
 heroTokensControl = NodePath("County Overlay Node2D/Hero Tokens Control")
 armiesHBox = NodePath("County Overlay Node2D/VBoxContainer/Armies HBoxContainer")
 heroesHBox = NodePath("County Overlay Node2D/VBoxContainer/Heroes HBoxContainer")
@@ -42,8 +42,6 @@ texture = ExtResource("4_b7k3o")
 
 [node name="Hero Spawn Location Node2D" type="Node2D" parent="County Overlay Node2D"]
 z_index = 10
-position = Vector2(0, -30)
-script = ExtResource("5_or0qs")
 
 [node name="Hero Tokens Control" type="Control" parent="County Overlay Node2D" node_paths=PackedStringArray("heroSeparator", "armySeparator", "defenderTokenTextureRect", "attackerTokenTextureRect", "defenderMoraleLabel", "attackerMoraleLabel")]
 visible = false
