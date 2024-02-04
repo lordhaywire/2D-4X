@@ -1,5 +1,6 @@
 using GlobalSpace;
 using Godot;
+using System;
 
 namespace PlayerSpace
 {
@@ -8,7 +9,7 @@ namespace PlayerSpace
         public static PlayerControls Instance { get; private set; }
 
         public bool playerControlsEnabled = true;
-        public bool mouseOverUI = false;
+        public bool stopClickThrough = false;
 
         private Image mapImage;
         [Export] private RectangleShape2D collisionRectangleShape;
@@ -37,7 +38,7 @@ namespace PlayerSpace
             collisionRectangleShape.Size = new Vector2(mapWidth, mapHeight);
 
             // First check to make sure it is inside the map (a tiny bit more then the size of the map.)
-            if (x > 0 && y > 0 && x < mapWidth - 5 && y < mapHeight - 5 && playerControlsEnabled == true && mouseOverUI == false)
+            if (x > 0 && y > 0 && x < mapWidth - 5 && y < mapHeight - 5 && playerControlsEnabled == true && stopClickThrough == false)
             {
                 Color countyColor = mapImage.GetPixel(x, y);
 
@@ -60,9 +61,6 @@ namespace PlayerSpace
                             {
                                 EventLog.Instance.AddLog($"{countyData.countyName} was clicked on.");
 
-                                // When you select a county with left click it unselects the selected hero.
-                                //Globals.Instance.selectedCountyPopulation = null;
-                                //GD.PrintRich("[rainbow]I bet the mother fucking problem is this.");
                                 Globals.Instance.SelectedCountyData = countyData;
                                 Globals.Instance.selectedCountyId = countyData.countyId;
                                 Globals.Instance.selectedLeftClickCounty = (SelectCounty)countyData.countyNode;
@@ -74,43 +72,8 @@ namespace PlayerSpace
                             if (eventMouseButton.ButtonIndex == MouseButton.Right && eventMouseButton.Pressed == false  
                                 && Globals.Instance.selectedCountyPopulation != null)
                             {
-                                GD.Print("You right clicked, dude!");
-                                Globals.Instance.selectedRightClickCounty = (SelectCounty)countyData.countyNode;
-                                GD.Print("Selected Right Click County: " + Globals.Instance.selectedRightClickCounty.Name);
-                                SelectToken selectToken = (SelectToken)Globals.Instance.selectedCountyPopulation.token;
-                                CountyPopulation countyPopulation = Globals.Instance.selectedCountyPopulation;
-                                selectToken.Show();
-                                SelectCounty startCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
-                                selectToken.GlobalPosition = startCounty.heroSpawn.GlobalPosition;
-                                if (selectToken != null && countyPopulation.location != countyData.countyId)
-                                {
-                                    if (selectToken.tokenMovement.MoveToken != true)
-                                    {
-                                        if (countyPopulation.isArmyLeader == false)
-                                        {
-                                            Globals.Instance.selectedRightClickCounty.StartMove();
-                                        }
-                                        else
-                                        {
-                                            if (Globals.Instance.playerFactionData == countyData.factionData)
-                                            {
-                                                Globals.Instance.selectedRightClickCounty.StartMove();
-
-                                            }
-                                            else
-                                            {
-                                                GD.Print("You are about to declare war, because you are an army.");
-                                                Globals.Instance.selectedRightClickCounty.DeclareWarConfirmation();
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        countyPopulation.destination = startCounty.countyData.countyId;
-                                        Globals.Instance.heroMoveTarget = startCounty.heroSpawn.GlobalPosition; // Why are we storing this in Globals?
-                                        selectToken.tokenMovement.MoveToken = true;
-                                    }
-                                }
+                                GD.Print("You right clicked, dude! " + countyData.countyName);
+                                MoveSelectedToken(countyData);
                             }
                         }
                     }
@@ -135,6 +98,53 @@ namespace PlayerSpace
                                 break;
                         }
                     }
+                }
+            }
+        }
+
+        private void MoveSelectedToken(CountyData rightClickedCountyData)
+        {
+            Globals.Instance.selectedRightClickCounty = (SelectCounty)rightClickedCountyData.countyNode;
+            GD.Print($"Selected Right Click County: {Globals.Instance.selectedRightClickCounty.countyData.countyName}" +
+                $" {Globals.Instance.selectedRightClickCounty.countyData.countyId}");
+            CountyPopulation countyPopulation = Globals.Instance.selectedCountyPopulation;
+            SelectToken selectToken = (SelectToken)Globals.Instance.selectedCountyPopulation.token;
+
+            selectToken.Show();
+
+            SelectCounty startCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
+
+            // Here is where the teleportation starts.
+            //selectToken.GlobalPosition = startCounty.heroSpawn.GlobalPosition;
+            if (selectToken != null && countyPopulation.location != rightClickedCountyData.countyId)
+            {
+                if (selectToken.tokenMovement.MoveToken != true)
+                {
+                    if (countyPopulation.isArmyLeader == false)
+                    {
+                        selectToken.tokenMovement.StartMove(rightClickedCountyData.countyId);
+                    }
+                    else
+                    {
+                        if (Globals.Instance.playerFactionData == rightClickedCountyData.factionData)
+                        {
+                            selectToken.tokenMovement.StartMove(rightClickedCountyData.countyId);
+                        }
+                        else
+                        {
+                            // I think we should move this to Diplomacy.
+                            GD.Print("You are about to declare war, because you are an army.");
+                            Globals.Instance.selectedRightClickCounty.DeclareWarConfirmation();
+
+                        }
+                    }
+                }
+                else
+                {
+                    //GD.Print("Start County ID " + startCounty.countyData.countyId);
+                    //countyPopulation.destination = startCounty.countyData.countyId;
+                    //Globals.Instance.heroMoveTarget = startCounty.heroSpawn.GlobalPosition; // Why are we storing this in Globals?
+                    selectToken.tokenMovement.StartMove(rightClickedCountyData.countyId);
                 }
             }
         }

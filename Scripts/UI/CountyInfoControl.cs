@@ -46,13 +46,13 @@ namespace PlayerSpace
 
         public void OnMouseEntered()
         {
-            PlayerControls.Instance.mouseOverUI = true;
+            PlayerControls.Instance.stopClickThrough = true;
             //GD.Print("Mouse Over UI: " + PlayerControls.Instance.mouseOverUI);
         }
 
         public void OnMouseExited()
         {
-            PlayerControls.Instance.mouseOverUI = false;
+            PlayerControls.Instance.stopClickThrough = false;
             //GD.Print("Mouse Over UI: " + PlayerControls.Instance.mouseOverUI);
         }
 
@@ -142,8 +142,6 @@ namespace PlayerSpace
                 // Change color of panel to the faction color.
                 heroPrefab.SelfModulate = countyPopulation.factionData.factionColor;
 
-                GD.Print("Hero faction: " + heroPrefab.countyPopulation.factionData.factionName);
-                GD.Print("Player faction: " + Globals.Instance.playerFactionData.factionName);
                 if (heroPrefab.countyPopulation.factionData != Globals.Instance.playerFactionData)
                 {
                     heroPrefab.heroListButton.Disabled = true;

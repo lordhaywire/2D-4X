@@ -30,6 +30,19 @@ namespace PlayerSpace
 
             GetInput();
             MoveAndSlide();
+
+            /*
+            if(Globals.Instance.selectedCountyPopulation == null)
+            {
+                GD.Print("Globals Instance Selected County Population is null");
+                return;
+            }
+            else
+            {
+                GD.Print("SelectCountyPopulation: " + Globals.Instance.selectedCountyPopulation.firstName);
+            }
+            */
+
         }
 
         public override void _Input(InputEvent @event)

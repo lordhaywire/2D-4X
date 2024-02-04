@@ -26,7 +26,6 @@ namespace PlayerSpace
             newWar.defenderFactionData = Globals.Instance.selectedRightClickCounty.countyData.factionData;
             // Once yes has been hit, this is the actual declaration of war.
             Globals.Instance.playerFactionData.diplomacy.DeclareWar(newWar);
-            Globals.Instance.selectedRightClickCounty.StartMove();
         }
 
         private void CancelButton()

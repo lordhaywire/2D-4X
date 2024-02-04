@@ -6,17 +6,20 @@ namespace PlayerSpace
     public partial class SpawnedTokenButton : Button
     {
         public CountyPopulation countyPopulation;
+        private SelectToken selectToken;
         [Export] public TextureRect tokenIconTextureRect;
 
         public void UpdateButtonIcon()
         {
-            SelectToken selectToken = (SelectToken)countyPopulation.token;
+            selectToken = (SelectToken)countyPopulation.token;
             tokenIconTextureRect.Texture = selectToken.sprite.Texture;
         }
         public void OnButtonUp()
         {
             GD.Print("You pressed the hero button.");
-            Globals.Instance.selectedCountyPopulation = countyPopulation;
+            selectToken = (SelectToken)countyPopulation.token;
+
+            selectToken.IsSelected = true;
             UpdateTokenTextures();
         }
 
@@ -33,13 +36,13 @@ namespace PlayerSpace
         }
         public void OnMouseEntered()
         {
-            PlayerControls.Instance.mouseOverUI = true;
+            PlayerControls.Instance.stopClickThrough = true;
             //GD.Print("Hero Token Control Mouse Over UI: " + PlayerControls.Instance.mouseOverUI);
         }
 
         public void OnMouseExited()
         {
-            PlayerControls.Instance.mouseOverUI = false;
+            PlayerControls.Instance.stopClickThrough = false;
             //GD.Print("Hero Token Control Mouse Over UI: " + PlayerControls.Instance.mouseOverUI);
         }
 

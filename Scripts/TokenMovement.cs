@@ -19,7 +19,7 @@ namespace PlayerSpace
                 if (moveToken == true)
                 {
                     GD.PrintRich($"[rainbow]Token in TokenMovement: " + token.Name);
-                    target = Globals.Instance.heroMoveTarget;
+                   // target = Globals.Instance.heroMoveTarget;
                 }
             }
         }
@@ -32,15 +32,35 @@ namespace PlayerSpace
             }
         }
 
+        public void StartMove(int destinationCountyID) // Let's move this to token movement.
+        {
+            GD.Print($"{token.countyPopulation.firstName} has location of {token.countyPopulation.location}");
+            SelectCounty destinationCounty
+                = (SelectCounty)Globals.Instance.countiesParent.GetChild(destinationCountyID);
+
+            token.countyPopulation.destination = destinationCountyID;
+            token.countyPopulation.currentActivity = AllText.Activities.MOVING;
+
+            GD.Print("Destination Global Position: " + destinationCounty.heroSpawn.GlobalPosition);
+            target = destinationCounty.heroSpawn.GlobalPosition;
+            GD.Print("Target Global Position: " + target);
+            GD.Print("Token Global Position: " + token.GlobalPosition);
+            MoveToken = true;
+        }
+
         private void Move()
         {
+            GD.Print("Target Global Position: " + target);
+
+            GD.Print("Token Global Position: " + token.GlobalPosition);
+
+            //GD.Print("Target: " + target);
             token.GlobalPosition = GlobalPosition.MoveToward(target, Globals.Instance.movementSpeed * Clock.Instance.ModifiedTimeScale);
             //GD.Print($"{GetParent().Name} is moving!");
             if (token.GlobalPosition.IsEqualApprox(target))
             {
                 ReachedDestination();
                 MoveToken = false;
-
             }
         }
 
@@ -104,7 +124,5 @@ namespace PlayerSpace
                 }
             }
         }
-
-
     }
 }

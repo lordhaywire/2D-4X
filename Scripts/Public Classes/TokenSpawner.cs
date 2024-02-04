@@ -38,11 +38,9 @@ namespace PlayerSpace
             spawnedTokenButton.countyPopulation = countyPopulation;
 
             selectCounty.countyData.spawnTokenButtons.Add(spawnedTokenButton);
-            //GD.Print("Token Spawner Select County Button List Count: " + selectCounty.countyData.spawnTokenButtons.Count);
 
             // The token needs to keep track of this button.
             spawnedToken.spawnedTokenButton = spawnedTokenButton;
-
 
             // Add separators depending on if there are more then 1 hero or army.
             /*
@@ -56,8 +54,6 @@ namespace PlayerSpace
                 selectCounty.heroTokensControl.armySeparator.Show();
             }
             */
-            // Add heroToken to counties spawned hero list
-            //selectCounty.heroSpawn.spawnedTokenList.Insert(0, selectToken);
 
             // This is at the bottom just in case the Getter Setter is fired to fast.
             // This should probably be changed into a public method somewhere.
@@ -65,8 +61,6 @@ namespace PlayerSpace
             GD.Print("Spawned Token Button Token's Name: " + spawnedTokenButton.countyPopulation.firstName + spawnedToken.IsSelected);
 
             spawnedTokenButton.UpdateTokenTextures(); // This has to be below the countyPopulation assignment.
-
-            //Globals.Instance.selectedCountyPopulation = countyPopulation;
 
             return countyPopulation;
         }

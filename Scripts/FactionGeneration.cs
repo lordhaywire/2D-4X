@@ -31,7 +31,6 @@ namespace PlayerSpace
                     if (Globals.Instance.factionDatas[i].isPlayer == true)
                     {
                         Globals.Instance.playerFactionData = factionData;
-                        //GD.Print("Player Faction: " + Globals.Instance.playerFactionData.factionName);
                     }
 
                     AddStartingResearch(factionData);

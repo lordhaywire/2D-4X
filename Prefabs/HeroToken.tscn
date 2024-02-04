@@ -4,12 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://7jvylb78h24w" path="res://Graphics/Tokens/HornedGuyUnselected.png" id="1_palk8"]
 [ext_resource type="Script" path="res://Scripts/TokenMovement.cs" id="2_vcj4x"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_5c5hi"]
-radius = 13.0384
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kukrp"]
+size = Vector2(45, 45)
 
 [node name="HeroToken" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "tokenNameLabel", "stackCountLabel", "tokenMovement")]
 visible = false
-z_index = 150
+z_index = 15
 input_pickable = true
 script = ExtResource("1_ncr34")
 sprite = NodePath("Sprite2D")
@@ -17,16 +17,17 @@ tokenNameLabel = NodePath("Token Control/Name Control/Name Label")
 stackCountLabel = NodePath("Token Control/Stack Count Control/Stack Count Label")
 tokenMovement = NodePath("Token Movement")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0.5, -1.5)
+shape = SubResource("RectangleShape2D_kukrp")
+
 [node name="Token Movement" type="Node2D" parent="."]
 script = ExtResource("2_vcj4x")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_palk8")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-shape = SubResource("CircleShape2D_5c5hi")
 
 [node name="Token Control" type="Control" parent="."]
 layout_mode = 3
@@ -41,6 +42,7 @@ offset_right = 22.5
 offset_bottom = 22.5
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="Name Control" type="Control" parent="Token Control"]
 layout_mode = 1
@@ -92,5 +94,5 @@ text = "5"
 horizontal_alignment = 1
 
 [connection signal="input_event" from="." to="." method="OnClick"]
-[connection signal="mouse_entered" from="." to="." method="OnMouseEnter"]
-[connection signal="mouse_exited" from="." to="." method="OnMouseExit"]
+[connection signal="mouse_entered" from="Token Control" to="." method="OnMouseEnter"]
+[connection signal="mouse_exited" from="Token Control" to="." method="OnMouseExit"]

@@ -14,7 +14,7 @@ namespace PlayerSpace
         {
             CountyInfoControl.Instance.populationDescriptionControl.Show();
             CountyInfoControl.Instance.populationListMarginContainer.Hide();
-            Globals.Instance.selectedCountyPopulation = countyPopulation;
+            PopulationDescriptionControl.Instance.countyPopulation = countyPopulation;
         }
     }
 }

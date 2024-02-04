@@ -34,6 +34,8 @@ namespace PlayerSpace
         [Export] private Button armyLeaderRecruitButton;
         [Export] private PanelContainer heroRecruitmentConfirmPanel;
 
+        public CountyPopulation countyPopulation;
+
         public override void _Ready()
         {
             Instance = this;
@@ -52,7 +54,7 @@ namespace PlayerSpace
             {
                 CountyInfoControl.Instance.DisableSpawnHeroCheckButton(false);
                 heroRecruitmentConfirmPanel.Hide();
-                Globals.Instance.selectedCountyPopulation = null;
+                //Globals.Instance.selectedCountyPopulation = null;
                 PlayerControls.Instance.AdjustPlayerControls(true);
                 Clock.Instance.UnpauseTime();
             }
@@ -63,7 +65,6 @@ namespace PlayerSpace
         {
             CountyInfoControl.Instance.DisableSpawnHeroCheckButton(true);
             PlayerControls.Instance.AdjustPlayerControls(false); // This was probably happening too fast which is why it is here.
-            CountyPopulation countyPopulation = Globals.Instance.selectedCountyPopulation;
             SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
             GD.Print("Select County Location: " + countyPopulation.location);
 

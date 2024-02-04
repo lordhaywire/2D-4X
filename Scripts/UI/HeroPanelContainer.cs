@@ -14,8 +14,7 @@ namespace PlayerSpace
         [Export] public CheckButton spawnHeroButton;
         private void HeroButton()
         {
-            Globals.Instance.selectedCountyPopulation = countyPopulation;
-            GD.Print("Hero Panel Container.  How has any of this shit worked?" + Globals.Instance.selectedCountyPopulation.firstName);
+            PopulationDescriptionControl.Instance.countyPopulation = countyPopulation;
             CountyInfoControl.Instance.populationDescriptionControl.Show();
             if (CountyInfoControl.Instance.populationDescriptionControl.Visible == true)
             {
@@ -37,13 +36,13 @@ namespace PlayerSpace
 
         public void OnMouseEntered()
         {
-            PlayerControls.Instance.mouseOverUI = true;
+            PlayerControls.Instance.stopClickThrough = true;
             //GD.Print("Mouse Over UI: " + PlayerControls.Instance.mouseOverUI);
         }
 
         public void OnMouseExited()
         {
-            PlayerControls.Instance.mouseOverUI = false;
+            PlayerControls.Instance.stopClickThrough = false;
             //GD.Print("Mouse Over UI: " + PlayerControls.Instance.mouseOverUI);
         }
     }

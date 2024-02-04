@@ -36,7 +36,6 @@ namespace PlayerSpace
 
         public void BuildImprovement(CountyData countyData, CountyImprovementData countyImprovementData)
         {
-            //GD.Print($"{countyData.factionData.factionName} is building {countyImprovementData.improvementName}.");
             countyImprovementData.isBeingBuilt = true;
             countyData.underConstructionCountyImprovements.Add(countyImprovementData);
         }

@@ -41,10 +41,7 @@ namespace PlayerSpace
                 }
                 else
                 {
-                    if(EventLog.Instance != null)
-                    {
-                        EventLog.Instance.Show();
-                    }
+                    EventLog.Instance?.Show(); // This is a null check.
                     
                 }
             }

@@ -31,27 +31,11 @@ namespace PlayerSpace
         {
             DeclareWarControl.Instance.Show();
             DeclareWarControl.Instance.confirmationWarDialog.DialogText 
-                = AllText.Diplomacies.DECLAREWARE + countyData.factionData.factionName; 
-        }
+                = AllText.Diplomacies.DECLAREWARE + countyData.factionData.factionName;
 
-        public void StartMove() // Let's move this to token movement.
-        {
-            
-            countyPopulation = Globals.Instance.selectedCountyPopulation;
-            SelectToken selectToken = (SelectToken)countyPopulation.token;
+            SelectToken selectToken = (SelectToken)Globals.Instance.selectedCountyPopulation.token;
+            selectToken.tokenMovement.StartMove(countyData.countyId);
 
-            //GD.Print("County Data: " + countyData.countyID);
-
-            GD.Print($"{countyPopulation.firstName} has location of {countyPopulation.location}");
-            SelectCounty selectLocationCounty
-                = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
-            Globals.Instance.heroMoveTarget = heroSpawn.GlobalPosition;
-
-            countyPopulation.destination = countyData.countyId;
-            countyPopulation.currentActivity = AllText.Activities.MOVING;
-            selectToken.tokenMovement.MoveToken = true;
-
-            countyPopulation.token.Show();
         }
     }
 }
