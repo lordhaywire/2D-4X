@@ -24,19 +24,9 @@ namespace PlayerSpace
         {
             SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
             GD.Print($"Select County Name: {selectCounty.Name} vs County Population Location {countyPopulation.location}");
-            GD.Print("Select Counties List Count: " + selectCounty.spawnTokenButtons.Count);
-            foreach (SpawnedTokenButton spawnedTokenButton in selectCounty.spawnTokenButtons.Cast<SpawnedTokenButton>())
+            GD.Print("Select Counties Spawned Token Buttons List Count: " + selectCounty.countyData.spawnTokenButtons.Count);
+            foreach (SpawnedTokenButton spawnedTokenButton in selectCounty.countyData.spawnTokenButtons.Cast<SpawnedTokenButton>())
             {
-                SelectToken selectToken = (SelectToken)spawnedTokenButton.countyPopulation.token;
-
-                if (spawnedTokenButton.countyPopulation != Globals.Instance.selectedCountyPopulation)
-                {
-                    selectToken.sprite.Texture = selectToken.unselectedTexture;
-                }
-                else
-                {
-                    selectToken.sprite.Texture = selectToken.selectedTexture;
-                }
                 GD.Print("Going through buttons.");
                 spawnedTokenButton.UpdateButtonIcon();
             }

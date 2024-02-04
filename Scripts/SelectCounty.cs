@@ -22,7 +22,6 @@ namespace PlayerSpace
         private SelectToken selectToken; 
         private CountyPopulation countyPopulation;
 
-        public List<Button> spawnTokenButtons = new();
 
         //public ListWithNotify<SelectToken> spawnedHeroList = new(); // This is not a normal list.
         //public ListWithNotify<SelectToken> spawnedArmyList = new(); // This is not a normal list.
@@ -51,9 +50,6 @@ namespace PlayerSpace
             countyPopulation.destination = countyData.countyId;
             countyPopulation.currentActivity = AllText.Activities.MOVING;
             selectToken.tokenMovement.MoveToken = true;
-
-            // Remove countyPopulation from the heroes starting county location list.
-            selectLocationCounty.countyData.heroCountyPopulation.Remove(countyPopulation);
 
             countyPopulation.token.Show();
         }

@@ -152,7 +152,6 @@ offset_bottom = 60.0
 grow_horizontal = 2
 
 [node name="Armies HBoxContainer" type="HBoxContainer" parent="County Overlay Node2D/VBoxContainer"]
-visible = false
 layout_direction = 3
 layout_mode = 2
 size_flags_horizontal = 4
@@ -163,7 +162,6 @@ layout_mode = 2
 mouse_filter = 1
 
 [node name="Heroes HBoxContainer" type="HBoxContainer" parent="County Overlay Node2D/VBoxContainer"]
-visible = false
 layout_direction = 3
 layout_mode = 2
 size_flags_horizontal = 4

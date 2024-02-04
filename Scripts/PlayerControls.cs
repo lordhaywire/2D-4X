@@ -1,6 +1,5 @@
 using GlobalSpace;
 using Godot;
-using MapEditorSpace;
 
 namespace PlayerSpace
 {
@@ -62,7 +61,8 @@ namespace PlayerSpace
                                 EventLog.Instance.AddLog($"{countyData.countyName} was clicked on.");
 
                                 // When you select a county with left click it unselects the selected hero.
-                                Globals.Instance.selectedCountyPopulation = null;
+                                //Globals.Instance.selectedCountyPopulation = null;
+                                //GD.PrintRich("[rainbow]I bet the mother fucking problem is this.");
                                 Globals.Instance.SelectedCountyData = countyData;
                                 Globals.Instance.selectedCountyId = countyData.countyId;
                                 Globals.Instance.selectedLeftClickCounty = (SelectCounty)countyData.countyNode;
@@ -71,7 +71,8 @@ namespace PlayerSpace
                             }
 
                             // Right Click on County
-                            if (eventMouseButton.ButtonIndex == MouseButton.Right && eventMouseButton.Pressed == false)
+                            if (eventMouseButton.ButtonIndex == MouseButton.Right && eventMouseButton.Pressed == false  
+                                && Globals.Instance.selectedCountyPopulation != null)
                             {
                                 GD.Print("You right clicked, dude!");
                                 Globals.Instance.selectedRightClickCounty = (SelectCounty)countyData.countyNode;
@@ -79,7 +80,8 @@ namespace PlayerSpace
                                 SelectToken selectToken = (SelectToken)Globals.Instance.selectedCountyPopulation.token;
                                 CountyPopulation countyPopulation = Globals.Instance.selectedCountyPopulation;
                                 selectToken.Show();
-                                selectToken.GlobalPosition = new Vector2 (0, 0);
+                                SelectCounty startCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
+                                selectToken.GlobalPosition = startCounty.heroSpawn.GlobalPosition;
                                 if (selectToken != null && countyPopulation.location != countyData.countyId)
                                 {
                                     if (selectToken.tokenMovement.MoveToken != true)
@@ -104,10 +106,9 @@ namespace PlayerSpace
                                     }
                                     else
                                     {
-                                        SelectCounty homeCounty 
-                                            = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
-                                        countyPopulation.destination = homeCounty.countyData.countyId;
-                                        Globals.Instance.heroMoveTarget = homeCounty.heroSpawn.GlobalPosition;
+                                        countyPopulation.destination = startCounty.countyData.countyId;
+                                        Globals.Instance.heroMoveTarget = startCounty.heroSpawn.GlobalPosition; // Why are we storing this in Globals?
+                                        selectToken.tokenMovement.MoveToken = true;
                                     }
                                 }
                             }
@@ -118,7 +119,6 @@ namespace PlayerSpace
                         if(Globals.Instance.selectedCountyId != countyData.countyId)
                         {
                             maskSprite.Hide();
-                            
                         }
                     }
                 }

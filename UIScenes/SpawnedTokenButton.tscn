@@ -8,6 +8,7 @@
 custom_minimum_size = Vector2(20, 20)
 size_flags_horizontal = 4
 size_flags_vertical = 4
+focus_mode = 0
 mouse_filter = 1
 icon = SubResource("ImageTexture_p5dn1")
 script = ExtResource("1_5mavu")

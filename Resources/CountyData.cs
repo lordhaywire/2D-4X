@@ -30,6 +30,9 @@ namespace PlayerSpace
         public List<CountyPopulation> countyPopulation = new();
         public List<CountyPopulation> heroCountyPopulation = new();
         public List<CountyPopulation> visitingPopulation = new();
+        
+        public List<Button> spawnTokenButtons = new();
+
         public List<CountyImprovementData> allCountyImprovements = new();
         public List<CountyImprovementData> underConstructionCountyImprovements = new();
         public List<Battle> battles = new();

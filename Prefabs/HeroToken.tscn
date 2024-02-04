@@ -1,19 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://cwe0ergnkkfm0"]
+[gd_scene load_steps=5 format=3 uid="uid://cwe0ergnkkfm0"]
 
 [ext_resource type="Script" path="res://Scripts/SelectToken.cs" id="1_ncr34"]
 [ext_resource type="Texture2D" uid="uid://7jvylb78h24w" path="res://Graphics/Tokens/HornedGuyUnselected.png" id="1_palk8"]
+[ext_resource type="Script" path="res://Scripts/TokenMovement.cs" id="2_vcj4x"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5c5hi"]
 radius = 13.0384
 
 [node name="HeroToken" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "tokenNameLabel", "stackCountLabel", "tokenMovement")]
+visible = false
 z_index = 150
 input_pickable = true
 script = ExtResource("1_ncr34")
 sprite = NodePath("Sprite2D")
 tokenNameLabel = NodePath("Token Control/Name Control/Name Label")
 stackCountLabel = NodePath("Token Control/Stack Count Control/Stack Count Label")
-tokenMovement = NodePath("")
+tokenMovement = NodePath("Token Movement")
+
+[node name="Token Movement" type="Node2D" parent="."]
+script = ExtResource("2_vcj4x")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.1, 0.1)

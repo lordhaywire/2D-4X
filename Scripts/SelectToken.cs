@@ -11,10 +11,46 @@ namespace PlayerSpace
         [Export] public Texture2D unselectedTexture;
 
         [Export] public Label tokenNameLabel;
-        [Export] public Label stackCountLabel;
+        [Export] public Label stackCountLabel; // This can probably be deleted.
 
-        [Export] public TokenMovement tokenMovement = new();
+        [Export] public TokenMovement tokenMovement;
 
+        [Export] private bool isSelected;
+
+        public bool IsSelected
+        {
+            get { return isSelected; }
+            set
+            {
+                isSelected = value;
+                if (value == true)
+                {
+                    GD.Print("Token County Population? " + countyPopulation.firstName);
+                    sprite.Texture = selectedTexture;
+                    if (Globals.Instance.selectedCountyPopulation != null)
+                    {
+                        SelectToken currentSelectToken = (SelectToken)Globals.Instance.selectedCountyPopulation.token;
+                        GD.PrintRich("[rainbow]Current Select Token Value True: " + currentSelectToken.Name);
+                        currentSelectToken.IsSelected = false;
+                    }
+                    Globals.Instance.selectedCountyPopulation = countyPopulation;
+                    GD.Print("Globals Instance County Population: " + Globals.Instance.selectedCountyPopulation.firstName);
+                }
+                else
+                {
+                    sprite.Texture = unselectedTexture;
+                }
+                GD.Print($"{Name} selection is: " + value);
+            }
+        }
+
+        public SpawnedTokenButton spawnedTokenButton;
+
+        public override void _Ready()
+        {
+            tokenMovement.token = this;
+            GD.Print("Select Token Ready. " + tokenMovement);
+        }
         private void OnMouseEnter()
         {
             //GD.Print("Mouse is inside the token.");
@@ -62,6 +98,6 @@ namespace PlayerSpace
                 }
             }
             */
-        }  
+        }
     }
 }

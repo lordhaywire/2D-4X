@@ -15,6 +15,7 @@ namespace PlayerSpace
         private void HeroButton()
         {
             Globals.Instance.selectedCountyPopulation = countyPopulation;
+            GD.Print("Hero Panel Container.  How has any of this shit worked?" + Globals.Instance.selectedCountyPopulation.firstName);
             CountyInfoControl.Instance.populationDescriptionControl.Show();
             if (CountyInfoControl.Instance.populationDescriptionControl.Visible == true)
             {
@@ -30,6 +31,7 @@ namespace PlayerSpace
                 // Assign to Currently Selected Hero so it is ready to be moved.
                 Globals.Instance.selectedCountyPopulation 
                 = Globals.Instance.playerFactionData.tokenSpawner.Spawn(Globals.Instance.selectedLeftClickCounty, countyPopulation);
+                GD.Print("Spawn Hero Check Box " + Globals.Instance.selectedCountyPopulation.firstName);
             }
         }
 
