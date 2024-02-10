@@ -34,9 +34,9 @@ namespace PlayerSpace
             set
             {
                 numberOfPanelsVisible = value;
+                GD.PrintRich("[rainbow]Number of panels visible: " + numberOfPanelsVisible);
                 if (numberOfPanelsVisible > 0 && EventLog.Instance != null)
                 {
-                    GD.Print("Number of panels visible: " +  numberOfPanelsVisible);
                     EventLog.Instance.Hide();
                 }
                 else
@@ -113,6 +113,7 @@ namespace PlayerSpace
             
             if (Globals.Instance.startPaused == true)
             {
+                NumberOfPanelsVisible--; // This is a work around with some bullshit.
                 PauseTime();
             }
         }

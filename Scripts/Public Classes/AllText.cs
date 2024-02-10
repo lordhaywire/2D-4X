@@ -16,6 +16,7 @@ namespace PlayerSpace
         {
             public const string POPLIST = "County Population";
             public const string IDLELIST = "Idle County Population";
+            public const string VISITORLIST = "Visitor Population";
             public const string RECRUITHEROCONFIRM = "Do you want to recruit";
         }
         

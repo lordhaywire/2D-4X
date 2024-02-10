@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 namespace PlayerSpace
 {
@@ -21,6 +22,7 @@ namespace PlayerSpace
                 PopulationDescriptionControl.Instance.UpdateDescriptionInfo();
             }
             CountyInfoControl.Instance.populationListMarginContainer.Hide();
+            //spawnHeroButton.Disabled = true;
         }
 
         private void SpawnHeroCheckBox(bool toggleOn)
@@ -28,9 +30,9 @@ namespace PlayerSpace
             if (toggleOn == true && countyPopulation.token == null)
             {
                 // Assign to Currently Selected Hero so it is ready to be moved.
-                Globals.Instance.selectedCountyPopulation 
+                Globals.Instance.SelectedCountyPopulation 
                 = Globals.Instance.playerFactionData.tokenSpawner.Spawn(Globals.Instance.selectedLeftClickCounty, countyPopulation);
-                GD.Print("Spawn Hero Check Box " + Globals.Instance.selectedCountyPopulation.firstName);
+                GD.Print("Spawn Hero Check Box " + Globals.Instance.SelectedCountyPopulation.firstName);
             }
         }
 

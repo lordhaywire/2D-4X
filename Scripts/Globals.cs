@@ -35,8 +35,26 @@ namespace PlayerSpace
         }
         [Export] public SelectCounty selectedLeftClickCounty;
         [Export] public SelectCounty selectedRightClickCounty;
-        public CountyPopulation selectedCountyPopulation;
+        private CountyPopulation selectedCountyPopulation;
+        public CountyPopulation SelectedCountyPopulation
+        {
+            get { return selectedCountyPopulation; }
+            set
+            {
+                selectedCountyPopulation = value;
+                if(selectedCountyPopulation == null)
+                {
+                    PlayerUICanvas.Instance.selectedHeroPanelContainer.Hide();
+                }
+                else
+                {
+                    CallDeferred("UpdateSelectedHero");
+                    PlayerUICanvas.Instance.selectedHeroPanelContainer.Show();
+                }
+            }
+        }
         public PossibleBuildingControl selectedPossibleBuildingControl;
+        public bool isVisitorList;
 
         [ExportGroup("Map")]
         [Export] public string pathToCounties = "res://Counties/";
@@ -84,6 +102,11 @@ namespace PlayerSpace
             LoadNames();
         }
 
+        public void UpdateSelectedHero()
+        {
+            PlayerUICanvas.Instance.selectedHeroPanelContainer.countyPopulation = selectedCountyPopulation;
+            CountyInfoControl.Instance.UpdateHeroInfo(PlayerUICanvas.Instance.selectedHeroPanelContainer, selectedCountyPopulation);
+        }
 
         private void LoadNames()
         {

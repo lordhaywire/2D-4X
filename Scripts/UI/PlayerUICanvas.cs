@@ -8,6 +8,7 @@ namespace PlayerSpace
         public static PlayerUICanvas Instance { get; private set; }
 
         [Export] public Control BattleLogControl;
+        [Export] public HeroPanelContainer selectedHeroPanelContainer;
 
         public override void _Ready()
         {

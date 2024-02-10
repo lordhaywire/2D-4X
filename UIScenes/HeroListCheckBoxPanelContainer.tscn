@@ -13,7 +13,7 @@ aideTextureRect = NodePath("HBoxContainer/Aide TextureRect")
 armyLeaderTextureRect = NodePath("HBoxContainer/Army TextureRect")
 heroNameLabel = NodePath("Hero Name Label")
 heroListButton = NodePath("Hero List Button")
-spawnHeroButton = NodePath("CheckButton")
+spawnHeroButton = NodePath("Spawn CheckButton")
 
 [node name="Hero Name Label" type="Label" parent="."]
 layout_mode = 2
@@ -53,7 +53,7 @@ custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="CheckButton" type="CheckButton" parent="."]
+[node name="Spawn CheckButton" type="CheckButton" parent="."]
 layout_mode = 2
 size_flags_horizontal = 8
 focus_mode = 0
@@ -61,6 +61,6 @@ focus_mode = 0
 [connection signal="button_up" from="Hero List Button" to="." method="HeroButton"]
 [connection signal="mouse_entered" from="Hero List Button" to="." method="OnMouseEntered"]
 [connection signal="mouse_exited" from="Hero List Button" to="." method="OnMouseExited"]
-[connection signal="button_up" from="CheckButton" to="." method="SpawnHeroCheckBox" binds= [true]]
-[connection signal="mouse_entered" from="CheckButton" to="." method="OnMouseEntered"]
-[connection signal="mouse_exited" from="CheckButton" to="." method="OnMouseExited"]
+[connection signal="button_up" from="Spawn CheckButton" to="." method="SpawnHeroCheckBox" binds= [true]]
+[connection signal="mouse_entered" from="Spawn CheckButton" to="." method="OnMouseEntered"]
+[connection signal="mouse_exited" from="Spawn CheckButton" to="." method="OnMouseExited"]

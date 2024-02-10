@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=52 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_x1cy2"]
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://Graphics/Provinces/Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
@@ -38,6 +38,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/PopulationDescriptionControl.cs" id="31_hwyyh"]
 [ext_resource type="Texture2D" uid="uid://jyr4u6ph1nu6" path="res://Graphics/Icons/Population/portrait.svg" id="32_s1dhj"]
 [ext_resource type="Script" path="res://Scripts/UI/RecruitButton.cs" id="33_ec2f1"]
+[ext_resource type="Script" path="res://Scripts/UI/HeroPanelContainer.cs" id="34_8wj68"]
 [ext_resource type="Script" path="res://Scripts/UI/RecruitHeroConfirmationPanelContainer.cs" id="34_mgqam"]
 [ext_resource type="Script" path="res://Scripts/UI/BattleLogControl.cs" id="35_10y8n"]
 [ext_resource type="PackedScene" uid="uid://bc1gec63ljcrd" path="res://UIScenes/CombatTurnLabel.tscn" id="36_don0t"]
@@ -138,10 +139,11 @@ script = ExtResource("22_ioynj")
 [node name="Banker" type="Node" parent="Game Controller Node"]
 script = ExtResource("23_lb4or")
 
-[node name="Player UI Canvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("BattleLogControl")]
+[node name="Player UI Canvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("BattleLogControl", "selectedHeroPanelContainer")]
 process_mode = 3
 script = ExtResource("24_s3wh2")
 BattleLogControl = NodePath("Battle Log Control")
+selectedHeroPanelContainer = NodePath("County Info Control/HBoxContainer/Select Hero PanelContainer")
 
 [node name="Top Bar Control" parent="Player UI Canvas" node_paths=PackedStringArray("clock", "influenceLabel", "moneyLabel", "foodLabel", "scrapLabel") instance=ExtResource("25_afb8i")]
 offset_bottom = 25.0
@@ -183,7 +185,7 @@ text = "Paused"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="County Info Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("countyInfoControl", "factionNamelabel", "countyNameLabel", "countyPopulationLabel", "countyIdleWorkersLabel", "populationListMarginContainer", "populationDescriptionControl", "countyImprovementsPanelControl", "heroListParent", "heroSpawnCheckButtonParent", "populationListButton", "countyImprovementsButton")]
+[node name="County Info Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("countyInfoControl", "factionNamelabel", "countyNameLabel", "countyPopulationLabel", "countyIdleWorkersLabel", "visitorsLabel", "populationListMarginContainer", "populationDescriptionControl", "countyImprovementsPanelControl", "heroListParent", "heroSpawnCheckButtonParent", "populationListButton", "visitorsListButton", "countyImprovementsButton")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -197,43 +199,47 @@ size_flags_horizontal = 2
 mouse_filter = 2
 script = ExtResource("26_8qp8l")
 countyInfoControl = NodePath(".")
-factionNamelabel = NodePath("County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer/Faction Name Label")
-countyNameLabel = NodePath("County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer/County Name Label")
-countyPopulationLabel = NodePath("County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Population List Button/Population Button PanelContainer/Population Number Label")
-countyIdleWorkersLabel = NodePath("County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Idle Workers List Button/Idle Workers Button PanelContainer/Idle Workers Number Label")
+factionNamelabel = NodePath("HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer/Faction Name Label")
+countyNameLabel = NodePath("HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer/County Name Label")
+countyPopulationLabel = NodePath("HBoxContainer/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Population List Button/Population Button PanelContainer/Population Number Label")
+countyIdleWorkersLabel = NodePath("HBoxContainer/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Idle Workers List Button/Idle Workers Button PanelContainer/Idle Workers Number Label")
+visitorsLabel = NodePath("HBoxContainer/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Visitors List Button/Visitors Button PanelContainer/Vistors Number Label")
 populationListMarginContainer = NodePath("../Population List MarginContainer")
 populationDescriptionControl = NodePath("../Population Description Control")
 countyImprovementsPanelControl = NodePath("../County Improvements Control")
-heroListParent = NodePath("County and Heroes VBoxContainer/Heroes VBoxContainer")
-heroSpawnCheckButtonParent = NodePath("County and Heroes VBoxContainer/Heroes VBoxContainer")
-populationListButton = NodePath("County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Population List Button")
-countyImprovementsButton = NodePath("County and Heroes VBoxContainer/County Info Panel/County Improvements Button")
+heroListParent = NodePath("HBoxContainer/County and Heroes VBoxContainer/Heroes VBoxContainer")
+heroSpawnCheckButtonParent = NodePath("HBoxContainer/County and Heroes VBoxContainer/Heroes VBoxContainer")
+populationListButton = NodePath("HBoxContainer/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Population List Button")
+visitorsListButton = NodePath("HBoxContainer/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Visitors List Button")
+countyImprovementsButton = NodePath("HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Improvements Button")
 heroListPrefab = ExtResource("27_03q5w")
 
-[node name="County and Heroes VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control"]
-self_modulate = Color(0.168627, 0.2, 1, 1)
+[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/County Info Control"]
 layout_mode = 0
-offset_top = 2.0
-offset_right = 200.0
-offset_bottom = 306.0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="County and Heroes VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control/HBoxContainer"]
+self_modulate = Color(0.168627, 0.2, 1, 1)
+layout_mode = 2
 mouse_filter = 0
 
-[node name="County Info Panel" type="PanelContainer" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer"]
+[node name="County Info Panel" type="PanelContainer" parent="Player UI Canvas/County Info Control/HBoxContainer/County and Heroes VBoxContainer"]
 custom_minimum_size = Vector2(200, 300)
 layout_mode = 2
 size_flags_vertical = 8
 mouse_filter = 1
 
-[node name="County Title MarginContainer" type="MarginContainer" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel"]
+[node name="County Title MarginContainer" type="MarginContainer" parent="Player UI Canvas/County Info Control/HBoxContainer/County and Heroes VBoxContainer/County Info Panel"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control/HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer"]
 layout_mode = 2
 
-[node name="Faction Name Label" type="Label" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer"]
+[node name="Faction Name Label" type="Label" parent="Player UI Canvas/County Info Control/HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(180, 25)
 layout_mode = 2
 text = "Faction Smackson"
@@ -241,7 +247,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="County Name Label" type="Label" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer"]
+[node name="County Name Label" type="Label" parent="Player UI Canvas/County Info Control/HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(180, 25)
 layout_mode = 2
 size_flags_vertical = 0
@@ -250,21 +256,21 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Pop and Idle Workers VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel" node_paths=PackedStringArray("populationListMarginContainer")]
+[node name="Pop and Idle Workers VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control/HBoxContainer/County and Heroes VBoxContainer/County Info Panel" node_paths=PackedStringArray("populationListMarginContainer")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("28_celvx")
-populationListMarginContainer = NodePath("../../../../Population List MarginContainer")
+populationListMarginContainer = NodePath("../../../../../Population List MarginContainer")
 
-[node name="Population List Button" type="Button" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer"]
+[node name="Population List Button" type="Button" parent="Player UI Canvas/County Info Control/HBoxContainer/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 size_flags_vertical = 4
 focus_mode = 0
 mouse_filter = 1
 
-[node name="Population Button PanelContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Population List Button"]
+[node name="Population Button PanelContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control/HBoxContainer/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Population List Button"]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -273,18 +279,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Population Title Label" type="Label" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Population List Button/Population Button PanelContainer"]
+[node name="Population Title Label" type="Label" parent="Player UI Canvas/County Info Control/HBoxContainer/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Population List Button/Population Button PanelContainer"]
 layout_mode = 2
 text = "Population"
 horizontal_alignment = 1
 
-[node name="Population Number Label" type="Label" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Population List Button/Population Button PanelContainer"]
+[node name="Population Number Label" type="Label" parent="Player UI Canvas/County Info Control/HBoxContainer/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Population List Button/Population Button PanelContainer"]
 layout_mode = 2
 text = "666
 "
 horizontal_alignment = 1
 
-[node name="Idle Workers List Button" type="Button" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer"]
+[node name="Idle Workers List Button" type="Button" parent="Player UI Canvas/County Info Control/HBoxContainer/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 size_flags_vertical = 8
@@ -292,7 +298,7 @@ focus_mode = 0
 mouse_filter = 1
 button_mask = 0
 
-[node name="Idle Workers Button PanelContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Idle Workers List Button"]
+[node name="Idle Workers Button PanelContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control/HBoxContainer/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Idle Workers List Button"]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -301,18 +307,46 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Idle Workers Title Label" type="Label" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Idle Workers List Button/Idle Workers Button PanelContainer"]
+[node name="Idle Workers Title Label" type="Label" parent="Player UI Canvas/County Info Control/HBoxContainer/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Idle Workers List Button/Idle Workers Button PanelContainer"]
 layout_mode = 2
 text = "Idle Workers"
 horizontal_alignment = 1
 
-[node name="Idle Workers Number Label" type="Label" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Idle Workers List Button/Idle Workers Button PanelContainer"]
+[node name="Idle Workers Number Label" type="Label" parent="Player UI Canvas/County Info Control/HBoxContainer/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Idle Workers List Button/Idle Workers Button PanelContainer"]
 layout_mode = 2
 text = "69
 "
 horizontal_alignment = 1
 
-[node name="County Improvements Button" type="Button" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel"]
+[node name="Visitors List Button" type="Button" parent="Player UI Canvas/County Info Control/HBoxContainer/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+mouse_filter = 1
+
+[node name="Visitors Button PanelContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control/HBoxContainer/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Visitors List Button"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Visitors Title Label" type="Label" parent="Player UI Canvas/County Info Control/HBoxContainer/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Visitors List Button/Visitors Button PanelContainer"]
+layout_mode = 2
+text = "Visitors
+"
+horizontal_alignment = 1
+
+[node name="Vistors Number Label" type="Label" parent="Player UI Canvas/County Info Control/HBoxContainer/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Visitors List Button/Visitors Button PanelContainer"]
+layout_mode = 2
+text = "420
+"
+horizontal_alignment = 1
+
+[node name="County Improvements Button" type="Button" parent="Player UI Canvas/County Info Control/HBoxContainer/County and Heroes VBoxContainer/County Info Panel"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -320,12 +354,63 @@ focus_mode = 0
 mouse_filter = 1
 text = "County Improvements"
 
-[node name="Heroes VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer"]
+[node name="Heroes VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control/HBoxContainer/County and Heroes VBoxContainer"]
 layout_mode = 2
 mouse_filter = 0
 
-[node name="Hero PanelContainer" parent="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/Heroes VBoxContainer" instance=ExtResource("27_03q5w")]
+[node name="Hero PanelContainer" parent="Player UI Canvas/County Info Control/HBoxContainer/County and Heroes VBoxContainer/Heroes VBoxContainer" instance=ExtResource("27_03q5w")]
 layout_mode = 2
+
+[node name="Select Hero PanelContainer" type="PanelContainer" parent="Player UI Canvas/County Info Control/HBoxContainer" node_paths=PackedStringArray("factionLeaderTextureRect", "aideTextureRect", "armyLeaderTextureRect", "heroNameLabel", "heroListButton")]
+visible = false
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("34_8wj68")
+factionLeaderTextureRect = NodePath("HBoxContainer/Leader TextureRect")
+aideTextureRect = NodePath("HBoxContainer/Aide TextureRect")
+armyLeaderTextureRect = NodePath("HBoxContainer/Army TextureRect")
+heroNameLabel = NodePath("Hero Name Label")
+heroListButton = NodePath("Hero List Button")
+
+[node name="Hero Name Label" type="Label" parent="Player UI Canvas/County Info Control/HBoxContainer/Select Hero PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 1
+text = "Whatevers"
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/County Info Control/HBoxContainer/Select Hero PanelContainer"]
+layout_mode = 2
+
+[node name="Leader TextureRect" type="TextureRect" parent="Player UI Canvas/County Info Control/HBoxContainer/Select Hero PanelContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 8
+texture = ExtResource("7_g78s2")
+stretch_mode = 2
+
+[node name="Aide TextureRect" type="TextureRect" parent="Player UI Canvas/County Info Control/HBoxContainer/Select Hero PanelContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 8
+texture = ExtResource("8_rm8kv")
+stretch_mode = 2
+
+[node name="Army TextureRect" type="TextureRect" parent="Player UI Canvas/County Info Control/HBoxContainer/Select Hero PanelContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 8
+texture = ExtResource("9_ft7d6")
+stretch_mode = 2
+
+[node name="Hero List Button" type="Button" parent="Player UI Canvas/County Info Control/HBoxContainer/Select Hero PanelContainer"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 0
 
 [node name="Population List MarginContainer" type="MarginContainer" parent="Player UI Canvas" node_paths=PackedStringArray("populationListParent", "populationListTitle")]
 visible = false
@@ -1320,14 +1405,18 @@ process_mode = 3
 
 [connection signal="button_up" from="Player UI Canvas/Top Bar Control/Time and Research Buttons HBox/Research Button" to="Player UI Canvas/Research Control" method="ShowResearchPanel"]
 [connection signal="visibility_changed" from="Player UI Canvas/County Info Control" to="Player UI Canvas/County Info Control" method="OnVisibilityChanged"]
-[connection signal="mouse_entered" from="Player UI Canvas/County Info Control/County and Heroes VBoxContainer" to="Player UI Canvas/County Info Control" method="OnMouseEntered"]
-[connection signal="mouse_exited" from="Player UI Canvas/County Info Control/County and Heroes VBoxContainer" to="Player UI Canvas/County Info Control" method="OnMouseExited"]
-[connection signal="button_up" from="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Population List Button" to="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer" method="OnButtonClick"]
-[connection signal="button_up" from="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/County Improvements Button" to="Player UI Canvas/County Info Control" method="CountyImprovementsButton"]
-[connection signal="mouse_entered" from="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/Heroes VBoxContainer" to="Player UI Canvas/County Info Control" method="OnMouseEntered"]
-[connection signal="mouse_exited" from="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/Heroes VBoxContainer" to="Player UI Canvas/County Info Control" method="OnMouseExited"]
+[connection signal="mouse_entered" from="Player UI Canvas/County Info Control/HBoxContainer/County and Heroes VBoxContainer" to="Player UI Canvas/County Info Control" method="OnMouseEntered"]
+[connection signal="mouse_exited" from="Player UI Canvas/County Info Control/HBoxContainer/County and Heroes VBoxContainer" to="Player UI Canvas/County Info Control" method="OnMouseExited"]
+[connection signal="button_up" from="Player UI Canvas/County Info Control/HBoxContainer/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Population List Button" to="Player UI Canvas/County Info Control/HBoxContainer/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer" method="OnButtonClick" binds= [false]]
+[connection signal="button_up" from="Player UI Canvas/County Info Control/HBoxContainer/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer/Visitors List Button" to="Player UI Canvas/County Info Control/HBoxContainer/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer" method="OnButtonClick" binds= [true]]
+[connection signal="button_up" from="Player UI Canvas/County Info Control/HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Improvements Button" to="Player UI Canvas/County Info Control" method="CountyImprovementsButton"]
+[connection signal="mouse_entered" from="Player UI Canvas/County Info Control/HBoxContainer/County and Heroes VBoxContainer/Heroes VBoxContainer" to="Player UI Canvas/County Info Control" method="OnMouseEntered"]
+[connection signal="mouse_exited" from="Player UI Canvas/County Info Control/HBoxContainer/County and Heroes VBoxContainer/Heroes VBoxContainer" to="Player UI Canvas/County Info Control" method="OnMouseExited"]
+[connection signal="button_up" from="Player UI Canvas/County Info Control/HBoxContainer/Select Hero PanelContainer/Hero List Button" to="Player UI Canvas/County Info Control/HBoxContainer/Select Hero PanelContainer" method="HeroButton"]
+[connection signal="mouse_entered" from="Player UI Canvas/County Info Control/HBoxContainer/Select Hero PanelContainer/Hero List Button" to="Player UI Canvas/County Info Control/HBoxContainer/Select Hero PanelContainer" method="OnMouseEntered"]
+[connection signal="mouse_exited" from="Player UI Canvas/County Info Control/HBoxContainer/Select Hero PanelContainer/Hero List Button" to="Player UI Canvas/County Info Control/HBoxContainer/Select Hero PanelContainer" method="OnMouseExited"]
 [connection signal="visibility_changed" from="Player UI Canvas/Population List MarginContainer" to="Player UI Canvas/Population List MarginContainer" method="OnVisibilityChanged"]
-[connection signal="button_up" from="Player UI Canvas/Population List MarginContainer/Close Button" to="Player UI Canvas/County Info Control/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer" method="CloseButton"]
+[connection signal="button_up" from="Player UI Canvas/Population List MarginContainer/Close Button" to="Player UI Canvas/County Info Control/HBoxContainer/County and Heroes VBoxContainer/County Info Panel/Pop and Idle Workers VBoxContainer" method="CloseButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Population Description Control" to="Player UI Canvas/Population Description Control" method="OnVisibilityChanged"]
 [connection signal="button_up" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Recruit Army Button" to="Player UI Canvas/Population Description Control/Recuit Hero Confirmation PanelContainer" method="OpenConfirmationPanel" binds= [true]]
 [connection signal="button_up" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Recruit Aide Button" to="Player UI Canvas/Population Description Control/Recuit Hero Confirmation PanelContainer" method="OpenConfirmationPanel" binds= [false]]

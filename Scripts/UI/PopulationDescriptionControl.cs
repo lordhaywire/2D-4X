@@ -54,7 +54,6 @@ namespace PlayerSpace
             {
                 CountyInfoControl.Instance.DisableSpawnHeroCheckButton(false);
                 heroRecruitmentConfirmPanel.Hide();
-                //Globals.Instance.selectedCountyPopulation = null;
                 PlayerControls.Instance.AdjustPlayerControls(true);
                 Clock.Instance.UnpauseTime();
             }

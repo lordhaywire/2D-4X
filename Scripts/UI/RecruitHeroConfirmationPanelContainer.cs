@@ -47,6 +47,7 @@ namespace PlayerSpace
             Banker.Instance.ChargeForHero();
             PopulationDescriptionControl.Instance.UpdateDescriptionInfo();
             CountyInfoControl.Instance.GenerateHeroesPanelList();
+            Globals.Instance.UpdateSelectedHero();
 
             Hide();
         }

@@ -27,14 +27,14 @@ namespace PlayerSpace
                 {
                     GD.Print("Token County Population? " + countyPopulation.firstName);
                     sprite.Texture = selectedTexture;
-                    if (Globals.Instance.selectedCountyPopulation != null && countyPopulation != Globals.Instance.selectedCountyPopulation)
+                    if (Globals.Instance.SelectedCountyPopulation != null && countyPopulation != Globals.Instance.SelectedCountyPopulation)
                     {
-                        SelectToken currentSelectToken = (SelectToken)Globals.Instance.selectedCountyPopulation.token;
+                        SelectToken currentSelectToken = (SelectToken)Globals.Instance.SelectedCountyPopulation.token;
                         GD.PrintRich("[rainbow]Current Select Token Value True: " + currentSelectToken.Name);
                         currentSelectToken.IsSelected = false;
                     }
-                    Globals.Instance.selectedCountyPopulation = countyPopulation;
-                    GD.Print("Globals Instance County Population: " + Globals.Instance.selectedCountyPopulation.firstName);
+                    Globals.Instance.SelectedCountyPopulation = countyPopulation;
+                    GD.Print("Globals Instance County Population: " + Globals.Instance.SelectedCountyPopulation.firstName);
 
                 }
                 else

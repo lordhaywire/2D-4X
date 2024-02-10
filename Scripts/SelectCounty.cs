@@ -33,7 +33,7 @@ namespace PlayerSpace
             DeclareWarControl.Instance.confirmationWarDialog.DialogText 
                 = AllText.Diplomacies.DECLAREWARE + countyData.factionData.factionName;
 
-            SelectToken selectToken = (SelectToken)Globals.Instance.selectedCountyPopulation.token;
+            SelectToken selectToken = (SelectToken)Globals.Instance.SelectedCountyPopulation.token;
             selectToken.tokenMovement.StartMove(countyData.countyId);
 
         }

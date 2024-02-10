@@ -6,7 +6,6 @@ namespace PlayerSpace
     {
         public void DeclareWar(War war)
         {
-            
             GD.Print($"{war.attackerFactionData.factionName} has declared war on {war.defenderFactionData.factionName}.");
             EventLog.Instance.AddLog($"{war.attackerFactionData.factionName} has declared war on {war.defenderFactionData.factionName}.");
             Globals.Instance.selectedRightClickCounty.countyData

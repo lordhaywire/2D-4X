@@ -70,7 +70,7 @@ namespace PlayerSpace
 
                             // Right Click on County
                             if (eventMouseButton.ButtonIndex == MouseButton.Right && eventMouseButton.Pressed == false  
-                                && Globals.Instance.selectedCountyPopulation != null)
+                                && Globals.Instance.SelectedCountyPopulation != null)
                             {
                                 GD.Print("You right clicked, dude! " + countyData.countyName);
                                 MoveSelectedToken(countyData);
@@ -107,8 +107,8 @@ namespace PlayerSpace
             Globals.Instance.selectedRightClickCounty = (SelectCounty)rightClickedCountyData.countyNode;
             GD.Print($"Selected Right Click County: {Globals.Instance.selectedRightClickCounty.countyData.countyName}" +
                 $" {Globals.Instance.selectedRightClickCounty.countyData.countyId}");
-            CountyPopulation countyPopulation = Globals.Instance.selectedCountyPopulation;
-            SelectToken selectToken = (SelectToken)Globals.Instance.selectedCountyPopulation.token;
+            CountyPopulation countyPopulation = Globals.Instance.SelectedCountyPopulation;
+            SelectToken selectToken = (SelectToken)Globals.Instance.SelectedCountyPopulation.token;
 
             selectToken.Show();
 

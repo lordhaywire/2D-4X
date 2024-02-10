@@ -20,9 +20,18 @@ namespace PlayerSpace
                 PlayerControls.Instance.AdjustPlayerControls(false);
                 Clock.Instance.PauseTime();
                 
-                populationListTitle.Text = AllText.Titles.POPLIST;
-                GeneratePopulationRows(Globals.Instance.SelectedCountyData.heroCountyPopulation);
-                GeneratePopulationRows(Globals.Instance.SelectedCountyData.countyPopulation);
+                if(Globals.Instance.isVisitorList == false)
+                {
+                    populationListTitle.Text = AllText.Titles.POPLIST;
+                    GeneratePopulationRows(Globals.Instance.SelectedCountyData.heroCountyPopulation);
+                    GeneratePopulationRows(Globals.Instance.SelectedCountyData.countyPopulation);
+                }
+                else
+                {
+                    populationListTitle.Text = AllText.Titles.VISITORLIST;
+                    GeneratePopulationRows(Globals.Instance.SelectedCountyData.visitingPopulation);
+                }
+
             }
             else
             {
