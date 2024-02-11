@@ -80,7 +80,7 @@ namespace PlayerSpace
 
             if(selectCounty.countyData.factionData == Globals.Instance.playerFactionData)
             {
-                if (countyPopulation.isArmyLeader == true)
+                if (countyPopulation.IsArmyLeader == true)
                 {
                     armyLeaderRecruitButton.Disabled = true;
                 }
@@ -99,7 +99,7 @@ namespace PlayerSpace
             {
                 aideCheckbox.Disabled = false;
             }
-            if (countyPopulation.isArmyLeader == true)
+            if (countyPopulation.IsArmyLeader == true)
             {
                 armyLeaderCheckbox.Disabled = false;
             }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=54 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_x1cy2"]
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://Graphics/Provinces/Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
@@ -14,6 +14,8 @@
 [ext_resource type="PackedScene" uid="uid://wlnn33lx7wjt" path="res://UIScenes/SpawnedTokenButton.tscn" id="8_ne3u6"]
 [ext_resource type="Texture2D" uid="uid://b67d6nynwdq3o" path="res://Graphics/Icons/Population/resized faction aide.png" id="8_rm8kv"]
 [ext_resource type="Texture2D" uid="uid://cbpah1j3xx4f2" path="res://Graphics/Icons/Population/resized army icon.png" id="9_ft7d6"]
+[ext_resource type="Texture2D" uid="uid://cvc31dbpf0ptl" path="res://Graphics/Icons/Army Token Unselected.png" id="10_0wqfi"]
+[ext_resource type="Texture2D" uid="uid://bnau4cacldl0t" path="res://Graphics/Icons/Army Token Selected.png" id="11_e5ayq"]
 [ext_resource type="Script" path="res://Scripts/FactionGeneration.cs" id="11_ivpku"]
 [ext_resource type="PackedScene" uid="uid://cjgb8g7l3340p" path="res://Prefabs/FactionNode.tscn" id="12_r0ltm"]
 [ext_resource type="Script" path="res://Scripts/PlayerControls.cs" id="12_vfu86"]
@@ -41,7 +43,6 @@
 [ext_resource type="Script" path="res://Scripts/UI/HeroPanelContainer.cs" id="34_8wj68"]
 [ext_resource type="Script" path="res://Scripts/UI/RecruitHeroConfirmationPanelContainer.cs" id="34_mgqam"]
 [ext_resource type="Script" path="res://Scripts/UI/BattleLogControl.cs" id="35_10y8n"]
-[ext_resource type="PackedScene" uid="uid://bc1gec63ljcrd" path="res://UIScenes/CombatTurnLabel.tscn" id="36_don0t"]
 [ext_resource type="Script" path="res://Scripts/CountyImprovementsControl.cs" id="37_rkirm"]
 [ext_resource type="PackedScene" uid="uid://bogeajbtl771s" path="res://UIScenes/PossibleBuildingControl.tscn" id="38_cyd52"]
 [ext_resource type="Script" path="res://Scripts/UI/BuildConfirmationDialog.cs" id="39_atdu5"]
@@ -50,6 +51,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/DeclareWarControl.cs" id="42_g5xi4"]
 [ext_resource type="Script" path="res://Scripts/UI/EventLog.cs" id="43_w0p1n"]
 [ext_resource type="PackedScene" uid="uid://bjgv6c8xhn4lo" path="res://UIScenes/Event Log Text Panel.tscn" id="44_du832"]
+[ext_resource type="PackedScene" uid="uid://x41vmtlrl1cx" path="res://UIScenes/CombatLogTextPanel.tscn" id="44_qsgen"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_co2vr"]
 
@@ -90,6 +92,8 @@ costOfHero = 500
 script = ExtResource("7_7iyml")
 unselectedHeroTexture = ExtResource("4_pxob5")
 selectedHeroTexture = ExtResource("3_r5dcu")
+unselectedArmyTexture = ExtResource("10_0wqfi")
+selectedArmyTexture = ExtResource("11_e5ayq")
 
 [node name="County Loader" type="Node" parent="Game Controller Node"]
 script = ExtResource("7_o23yn")
@@ -1011,7 +1015,7 @@ size_flags_horizontal = 3
 tooltip_text = "You are a piece of shit!"
 text = "Yes"
 
-[node name="Battle Log Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("leftVboxContainer", "rightVboxContainer")]
+[node name="Battle Log Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("defenderVboxContainer", "attackerVboxContainer")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -1021,9 +1025,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("35_10y8n")
-combatLogScene = ExtResource("36_don0t")
-leftVboxContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer")
-rightVboxContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer")
+combatLogScene = ExtResource("44_qsgen")
+defenderVboxContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/ScrollContainer/Defender VBoxContainer")
+attackerVboxContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/ScrollContainer/Attacker VBoxContainer")
 
 [node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Battle Log Control"]
 layout_mode = 1
@@ -1058,21 +1062,20 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Left VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer"]
+layout_mode = 2
+
+[node name="Defender VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 25
 
-[node name="Defender Title Label" type="Label" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer"]
+[node name="Defender Title Label" type="Label" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/ScrollContainer/Defender VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Defender"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Combat Turn Label" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer" instance=ExtResource("36_don0t")]
-layout_mode = 2
-text = "Left sdafasdfasdfasdfasdfasdfasdf"
 
 [node name="Recruit Army Button" type="Button" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer" node_paths=PackedStringArray("confirmationPanelContainer")]
 visible = false
@@ -1089,21 +1092,20 @@ confirmationPanelContainer = NodePath("../../../../../../../Population Descripti
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Right VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer"]
+layout_mode = 2
+
+[node name="Attacker VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 25
 
-[node name="Attacker Title Label" type="Label" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer"]
+[node name="Attacker Title Label" type="Label" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/ScrollContainer/Attacker VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Attacker"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Combat Turn Label" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer" instance=ExtResource("36_don0t")]
-layout_mode = 2
-text = "Right sdafasdfasdfasdfasdfasdfasdf"
 
 [node name="Recruit Aide Button" type="Button" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer" node_paths=PackedStringArray("confirmationPanelContainer")]
 visible = false

@@ -102,13 +102,17 @@ namespace PlayerSpace
             }
         }
 
+        public void CancelMove()
+        {
+
+        }
         private void MoveSelectedToken(CountyData rightClickedCountyData)
         {
             Globals.Instance.selectedRightClickCounty = (SelectCounty)rightClickedCountyData.countyNode;
             GD.Print($"Selected Right Click County: {Globals.Instance.selectedRightClickCounty.countyData.countyName}" +
                 $" {Globals.Instance.selectedRightClickCounty.countyData.countyId}");
             CountyPopulation countyPopulation = Globals.Instance.SelectedCountyPopulation;
-            SelectToken selectToken = (SelectToken)Globals.Instance.SelectedCountyPopulation.token;
+            SelectToken selectToken = Globals.Instance.SelectedCountyPopulation.token;
 
             selectToken.Show();
 
@@ -120,7 +124,7 @@ namespace PlayerSpace
             {
                 if (selectToken.tokenMovement.MoveToken != true)
                 {
-                    if (countyPopulation.isArmyLeader == false)
+                    if (countyPopulation.IsArmyLeader == false)
                     {
                         selectToken.tokenMovement.StartMove(rightClickedCountyData.countyId);
                     }

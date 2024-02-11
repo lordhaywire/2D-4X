@@ -29,7 +29,7 @@ namespace PlayerSpace
                     sprite.Texture = selectedTexture;
                     if (Globals.Instance.SelectedCountyPopulation != null && countyPopulation != Globals.Instance.SelectedCountyPopulation)
                     {
-                        SelectToken currentSelectToken = (SelectToken)Globals.Instance.SelectedCountyPopulation.token;
+                        SelectToken currentSelectToken = Globals.Instance.SelectedCountyPopulation.token;
                         GD.PrintRich("[rainbow]Current Select Token Value True: " + currentSelectToken.Name);
                         currentSelectToken.IsSelected = false;
                     }
@@ -52,6 +52,17 @@ namespace PlayerSpace
             tokenMovement.token = this;
         }
 
+        public void UpdateSpriteTexture()
+        {
+            if(isSelected == true)
+            {
+                sprite.Texture = selectedTexture;
+            }
+            else
+            {
+                sprite.Texture = unselectedTexture;
+            }
+        }
         private void OnMouseEnter()
         {
             //GD.Print("Mouse is inside the token.");

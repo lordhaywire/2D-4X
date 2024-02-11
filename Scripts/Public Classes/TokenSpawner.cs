@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 namespace PlayerSpace
 {
@@ -11,10 +12,9 @@ namespace PlayerSpace
             SelectToken spawnedToken = (SelectToken)Globals.Instance.heroToken.Instantiate();
             tokenSpawnParent.AddChild(spawnedToken);
 
-            spawnedToken.selectedTexture = AllTokenTextures.Instance.selectedHeroTexture;
-            spawnedToken.unselectedTexture = AllTokenTextures.Instance.unselectedHeroTexture;
-
             spawnedToken.countyPopulation = countyPopulation;
+
+            AllTokenTextures.Instance.AssignTokenTextures(spawnedToken);
 
             countyPopulation.token = spawnedToken;
             countyPopulation.location = selectCounty.countyData.countyId;
@@ -25,7 +25,7 @@ namespace PlayerSpace
 
             // Spawning the Spawned Token Button
             SpawnedTokenButton spawnedTokenButton = (SpawnedTokenButton)Globals.Instance.spawnedTokenButton.Instantiate();
-            if (countyPopulation.isArmyLeader == false)
+            if (countyPopulation.IsArmyLeader == false)
             {
                 selectCounty.heroesHBox.AddChild(spawnedTokenButton);
                 selectCounty.heroesHBox.Show();
@@ -57,12 +57,22 @@ namespace PlayerSpace
 
             // This is at the bottom just in case the Getter Setter is fired to fast.
             // This should probably be changed into a public method somewhere.
-            spawnedToken.IsSelected = true;
-            GD.Print("Spawned Token Button Token's Name: " + spawnedTokenButton.countyPopulation.firstName + spawnedToken.IsSelected);
+
+            DecidedIfSelected(selectCounty, spawnedToken);
 
             spawnedTokenButton.UpdateTokenTextures(); // This has to be below the countyPopulation assignment.
 
             return countyPopulation;
+        }
+
+        private void DecidedIfSelected(SelectCounty selectCounty, SelectToken spawnedToken)
+        {
+            GD.Print($"{selectCounty.countyData.factionData.factionName} vs {Globals.Instance.playerFactionData.factionName}");
+            if(selectCounty.countyData.factionData == Globals.Instance.playerFactionData)
+            {
+                spawnedToken.IsSelected = true;
+                GD.Print("Spawned Token Button Token's Name: " + spawnedToken.countyPopulation.firstName + spawnedToken.IsSelected);
+            }
         }
     }
 }

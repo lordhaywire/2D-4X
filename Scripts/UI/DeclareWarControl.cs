@@ -22,15 +22,18 @@ namespace PlayerSpace
         {
             Hide();
             War newWar = new();
-            newWar.attackerFactionData = Globals.Instance.playerFactionData;
+            newWar.attackerFactionData = Globals.Instance.playerFactionData;    
             newWar.defenderFactionData = Globals.Instance.selectedRightClickCounty.countyData.factionData;
             GD.Print($"{newWar.attackerFactionData.factionName} is attacking {newWar.defenderFactionData.factionName}");
             // Once yes has been hit, this is the actual declaration of war.
             Globals.Instance.playerFactionData.diplomacy.DeclareWar(newWar);
+            SelectToken selectToken = Globals.Instance.SelectedCountyPopulation.token;
+            selectToken.tokenMovement.StartMove(Globals.Instance.selectedRightClickCounty.countyData.countyId);
         }
 
         private void CancelButton()
         {
+            
             Hide();
         }
     }

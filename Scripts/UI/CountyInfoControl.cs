@@ -157,29 +157,29 @@ namespace PlayerSpace
             GD.Print($"Aide: {countyPopulation.isAide}");
             GD.Print($"Army Leader: {countyPopulation.isArmyLeader}");
             */
-            //countyPopulation.location = countyData.countyId; // I wonder why this is here.  It seems redundant.
+            countyPopulation.location = countyData.countyId; // I wonder why this is here.  It seems redundant.
 
             switch (countyPopulation)
             {
-                case { isLeader: true, isAide: false, isArmyLeader: false }:
+                case { isLeader: true, isAide: false, IsArmyLeader: false }:
                     heroPrefab.factionLeaderTextureRect.Show();
                     heroPrefab.aideTextureRect.Hide();
                     heroPrefab.armyLeaderTextureRect.Hide();
                     break;
 
-                case { isLeader: true, isAide: false, isArmyLeader: true }:
+                case { isLeader: true, isAide: false, IsArmyLeader: true }:
                     heroPrefab.factionLeaderTextureRect.Show();
                     heroPrefab.aideTextureRect.Hide();
                     heroPrefab.armyLeaderTextureRect.Show();
                     break;
 
-                case { isLeader: false, isAide: true, isArmyLeader: false }:
+                case { isLeader: false, isAide: true, IsArmyLeader: false }:
                     heroPrefab.factionLeaderTextureRect.Hide();
                     heroPrefab.aideTextureRect.Show();
                     heroPrefab.armyLeaderTextureRect.Hide();
                     break;
 
-                case { isLeader: false, isAide: false, isArmyLeader: true }:
+                case { isLeader: false, isAide: false, IsArmyLeader: true }:
                     heroPrefab.factionLeaderTextureRect.Hide();
                     heroPrefab.aideTextureRect.Hide();
                     heroPrefab.armyLeaderTextureRect.Show();

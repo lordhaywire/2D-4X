@@ -11,13 +11,13 @@ namespace PlayerSpace
 
         public void UpdateButtonIcon()
         {
-            selectToken = (SelectToken)countyPopulation.token;
+            selectToken = countyPopulation.token;
             tokenIconTextureRect.Texture = selectToken.sprite.Texture;
         }
         public void OnButtonUp()
         {
             GD.Print("You pressed the hero button.");
-            selectToken = (SelectToken)countyPopulation.token;
+            selectToken = countyPopulation.token;
 
             selectToken.IsSelected = true;
             UpdateTokenTextures();

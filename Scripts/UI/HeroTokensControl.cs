@@ -29,9 +29,9 @@ namespace PlayerSpace
 
             foreach (CountyPopulation attackerCountyPopulation in selectCounty.countyData.visitingPopulation)
             {
-                if (attackerCountyPopulation.isArmyLeader == true && attackerCountyPopulation.token != null)
+                if (attackerCountyPopulation.IsArmyLeader == true && attackerCountyPopulation.token != null)
                 {
-                    countyAttackerSelectToken = (SelectToken)attackerCountyPopulation.token;
+                    countyAttackerSelectToken = attackerCountyPopulation.token;
                     countyAttackerSelectToken.Hide();
                     attackerTokenTextureRect.Texture = countyAttackerSelectToken.sprite.Texture;
                     attackerMoraleLabel.Text = countyAttackerSelectToken.countyPopulation.moraleExpendable.ToString();
@@ -42,9 +42,9 @@ namespace PlayerSpace
             // Defenders Army
             foreach (CountyPopulation defenderCountyPopulation in selectCounty.countyData.heroCountyPopulation)
             {
-                if (defenderCountyPopulation.isArmyLeader == true && defenderCountyPopulation.token != null)
+                if (defenderCountyPopulation.IsArmyLeader == true && defenderCountyPopulation.token != null)
                 {
-                    countyDefendersSelectToken = (SelectToken)defenderCountyPopulation.token;
+                    countyDefendersSelectToken = defenderCountyPopulation.token;
                     countyDefendersSelectToken.Hide();
                     defenderTokenTextureRect.Texture = countyDefendersSelectToken.sprite.Texture;
                     defenderMoraleLabel.Text = countyDefendersSelectToken.countyPopulation.moraleExpendable.ToString();
@@ -64,22 +64,27 @@ namespace PlayerSpace
             GD.Print("Hourly Battle.");
 
             // County defender attacks county attacker.
-            Attack(countyAttackerSelectToken.countyPopulation, countyDefendersSelectToken.countyPopulation);
+            Attack(countyAttackerSelectToken.countyPopulation, countyDefendersSelectToken.countyPopulation, true);
 
             // County attacker attacks county defender.
-            Attack(countyDefendersSelectToken.countyPopulation, countyAttackerSelectToken.countyPopulation);
+            Attack(countyDefendersSelectToken.countyPopulation, countyAttackerSelectToken.countyPopulation, false);
 
         }
 
-        private void Attack(CountyPopulation defenderCountyPopulation, CountyPopulation attackerCountyPopulation)
+        // This is confusing.  Needs a fucking rewrite.
+        private void Attack(CountyPopulation defenderCountyPopulation, CountyPopulation attackerCountyPopulation, bool isAttacker)
         {
             int attackRoll = random.Next(1, 101);
+            BattleLogControl.Instance.AddLog($"{attackerCountyPopulation.firstName} {attackerCountyPopulation.lastName} rifle skill: " +
+                $"{attackerCountyPopulation.rifleSkill} vs {attackRoll}", isAttacker);
+            /*
             GD.Print($"{attackerCountyPopulation.firstName} {attackerCountyPopulation.lastName} rifle skill: " +
                 $"{attackerCountyPopulation.rifleSkill} vs {attackRoll}");
-
+            */
             if (attackerCountyPopulation.rifleSkill > attackRoll)
             {
-                GD.Print($"{attackerCountyPopulation.firstName} {attackerCountyPopulation.lastName} has hit!");
+                BattleLogControl.Instance.AddLog($"{attackerCountyPopulation.firstName} {attackerCountyPopulation.lastName} has hit!", isAttacker);
+                //GD.Print($"{attackerCountyPopulation.firstName} {attackerCountyPopulation.lastName} has hit!");
                 int coolRoll = random.Next(1, 101);
                 if (defenderCountyPopulation.coolAttribute < coolRoll)
                 {
@@ -91,7 +96,9 @@ namespace PlayerSpace
             }
             else
             {
-                GD.Print("Defender has missed!");
+                BattleLogControl.Instance.AddLog($"{attackerCountyPopulation.firstName} {attackerCountyPopulation.lastName} has missed!", isAttacker);
+
+                //GD.Print("Defender has missed!");
             }
         }
         private void ButtonUp()

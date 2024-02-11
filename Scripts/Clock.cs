@@ -25,17 +25,17 @@ namespace PlayerSpace
         public int days = 0;
 
         [Export] public int oldTimeSpeed;
-        private int numberOfPanelsVisible; // For when there are multiple panels open.
+        private int numberOfThingsPausing; // For when there are multiple panels open.
 
         [Export]
-        public int NumberOfPanelsVisible
+        public int NumberOfThingsPausing
         {
-            get { return numberOfPanelsVisible; }
+            get { return numberOfThingsPausing; }
             set
             {
-                numberOfPanelsVisible = value;
-                GD.PrintRich("[rainbow]Number of panels visible: " + numberOfPanelsVisible);
-                if (numberOfPanelsVisible > 0 && EventLog.Instance != null)
+                numberOfThingsPausing = value;
+                GD.PrintRich("[rainbow]Number of panels visible: " + numberOfThingsPausing);
+                if (numberOfThingsPausing > 0 && EventLog.Instance != null)
                 {
                     EventLog.Instance.Hide();
                 }
@@ -44,6 +44,28 @@ namespace PlayerSpace
                     EventLog.Instance?.Show(); // This is a null check.
                     
                 }
+            }
+        }
+
+        public void PauseTime()
+        {
+            GD.Print("Pause Time!");
+
+            if (ModifiedTimeScale != 0)
+            {
+                oldTimeSpeed = ModifiedTimeScale;
+                ModifiedTimeScale = 0;
+            }
+            NumberOfThingsPausing++;
+        }
+
+        public void UnpauseTime()
+        {
+            GD.Print("Unpause Time!");
+            NumberOfThingsPausing--;
+            if (NumberOfThingsPausing == 0)
+            {
+                ModifiedTimeScale = oldTimeSpeed;
             }
         }
 
@@ -113,7 +135,6 @@ namespace PlayerSpace
             
             if (Globals.Instance.startPaused == true)
             {
-                NumberOfPanelsVisible--; // This is a work around with some bullshit.
                 PauseTime();
             }
         }
@@ -151,14 +172,14 @@ namespace PlayerSpace
             //GD.Print("Keyboard has been pressed!");
             if (ModifiedTimeScale > 0)
             {
-                NumberOfPanelsVisible++;
+                NumberOfThingsPausing++;
                 oldTimeSpeed = ModifiedTimeScale;
                 ModifiedTimeScale = 0;
             }
             else
             {
                 (ModifiedTimeScale, oldTimeSpeed) = (oldTimeSpeed, ModifiedTimeScale);
-                NumberOfPanelsVisible--;
+                NumberOfThingsPausing--;
             }
             //GD.Print($"Modified Time: {ModifiedTimeScale} and Old Time Speed: {oldTimeSpeed}.");
         }
@@ -169,26 +190,6 @@ namespace PlayerSpace
             ModifiedTimeScale = speed;
         }
 
-        public void PauseTime()
-        {
-            GD.Print("Pause Time!");
-            
-            if (ModifiedTimeScale != 0)
-            {
-                oldTimeSpeed = ModifiedTimeScale;                
-                ModifiedTimeScale = 0;
-            }
-            NumberOfPanelsVisible++;
-        }
 
-        public void UnpauseTime()
-        {
-            GD.Print("Unpause Time!");
-            NumberOfPanelsVisible--;
-            if (NumberOfPanelsVisible == 0)
-            {
-                ModifiedTimeScale = oldTimeSpeed;
-            }     
-        }
     }
 }

@@ -5,6 +5,7 @@ namespace PlayerSpace
 {
     public partial class CameraControls : CharacterBody2D
     {
+        public static CameraControls Instance {  get; private set; }
         [Export] public int Speed { get; set; } = 2500;
 
         // Zoom parameters
@@ -13,41 +14,30 @@ namespace PlayerSpace
         [Export] private Vector2 maxZoom = new(3.0f, 3.0f);   // Set your desired maximum zoom
 
         [Export] private Camera2D camera; // Reference to your Camera2D node
+        public bool cameraControlsEnabled = true;
 
+        public override void _Ready()
+        {
+            Instance = this;
+        }
         public void GetInput()
         {
-            Vector2 inputDirection = Input.GetVector("left", "right", "up", "down");
-            
-
-            Velocity = inputDirection * Speed / Math.Max((int)Engine.TimeScale, 1);
-            //GD.Print("Velocity: " + Velocity);
-            //GD.Print($"Engine Timescale: {Engine.TimeScale} & {Clock.Instance.ModifiedTimeScale}");
+            if(cameraControlsEnabled == true)
+            {
+                Vector2 inputDirection = Input.GetVector("left", "right", "up", "down");
+                Velocity = inputDirection * Speed / Math.Max((int)Engine.TimeScale, 1);
+            }
         }
 
         public override void _PhysicsProcess(double delta)
         {
-            //GD.Print("Velocity: " + Velocity);
-
             GetInput();
             MoveAndSlide();
-
-            /*
-            if(Globals.Instance.selectedCountyPopulation == null)
-            {
-                GD.Print("Globals Instance Selected County Population is null");
-                return;
-            }
-            else
-            {
-                GD.Print("SelectCountyPopulation: " + Globals.Instance.selectedCountyPopulation.firstName);
-            }
-            */
-
         }
 
         public override void _Input(InputEvent @event)
         {
-            if (PlayerControls.Instance.playerControlsEnabled == true)
+            if (PlayerControls.Instance.playerControlsEnabled == true && cameraControlsEnabled == true)
             {
                 if (@event.IsActionPressed("mouse_wheel_up"))
                 {

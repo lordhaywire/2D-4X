@@ -82,7 +82,14 @@ namespace PlayerSpace
             GD.Print("Add To Destination County.");
             token.countyPopulation.location = destinationCounty.countyData.countyId;
             destinationCounty.countyData.spawnTokenButtons.Add(token.spawnedTokenButton);
-            token.spawnedTokenButton.Reparent(destinationCounty.heroesHBox);
+            if(token.countyPopulation.IsArmyLeader == false)
+            {
+                token.spawnedTokenButton.Reparent(destinationCounty.heroesHBox);
+            }
+            else
+            {
+                token.spawnedTokenButton.Reparent(destinationCounty.armiesHBox);
+            }
             token.spawnedTokenButton.UpdateTokenTextures();
 
             token.countyPopulation.currentActivity = AllText.Activities.IDLE;
@@ -110,13 +117,15 @@ namespace PlayerSpace
             // This needs to happen automatically somehow.
             //selectToken.countyPopulation.currentActivity = AllText.Activities.IDLE;
             // Are you at war with the owner of the county the token just arrived at?
-            if (token.countyPopulation.isArmyLeader == false)
+            if (token.countyPopulation.IsArmyLeader == false 
+                || destinationCounty.countyData.factionData == Globals.Instance.playerFactionData)
             {
                 RemoveFromStartingCounty();
                 AddToDestinationCounty();
             }
             else
             {
+                // I think this is old.
                 destinationCounty.countyData.visitingPopulation.Add(token.countyPopulation);
 
                 foreach (War war in Globals.Instance.playerFactionData.wars)

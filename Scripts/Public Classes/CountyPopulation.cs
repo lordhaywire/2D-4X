@@ -19,8 +19,21 @@ namespace PlayerSpace
         public bool isHero;
         public bool isLeader;
         public bool isAide;
-        public bool isArmyLeader;
+        private bool isArmyLeader;
         public bool isWorker;
+
+        public bool IsArmyLeader
+        {
+            get { return isArmyLeader; }
+            set
+            {
+                isArmyLeader = value;
+                if(token != null)
+                {
+                    AllTokenTextures.Instance.AssignTokenTextures(token);
+                }
+            }
+        }
 
         [ExportGroup("Perks")]
         public bool leaderOfPeoplePerk;
@@ -42,11 +55,11 @@ namespace PlayerSpace
         public CountyImprovementData nextImprovement;
 
         [ExportGroup("Token")]
-        public CharacterBody2D token;
+        public SelectToken token;
 
         public CountyPopulation(
             FactionData factionData, int location, int destination, string firstName, string lastName, bool isMale, int age, bool isHero, bool isLeader
-            , bool isAide, bool isArmyLeader, bool isWorker, bool leaderOfPeoplePerk, int moraleExpendable, 
+            , bool isAide, bool IsArmyLeader, bool isWorker, bool leaderOfPeoplePerk, int moraleExpendable, 
             int coolAttribute, int constructionSkill, int rifleSkill, string currentActivity
             , CountyImprovementData currentImprovement, string nextActivity, CountyImprovementData nextImprovement)
         {
@@ -61,7 +74,7 @@ namespace PlayerSpace
             this.isHero = isHero;
             this.isLeader = isLeader;
             this.isAide = isAide;
-            this.isArmyLeader = isArmyLeader;
+            this.IsArmyLeader = IsArmyLeader;
             this.isWorker = isWorker;
 
             this.leaderOfPeoplePerk = leaderOfPeoplePerk;
