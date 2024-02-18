@@ -6,11 +6,15 @@
 
 [node name="Spawned Token Button" type="Button" node_paths=PackedStringArray("tokenIconTextureRect")]
 custom_minimum_size = Vector2(20, 20)
+offset_right = 20.0
+offset_bottom = 20.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 focus_mode = 0
 mouse_filter = 1
+theme_override_font_sizes/font_size = 5
 icon = SubResource("ImageTexture_p5dn1")
+icon_alignment = 1
 script = ExtResource("1_5mavu")
 tokenIconTextureRect = NodePath("TextureRect")
 

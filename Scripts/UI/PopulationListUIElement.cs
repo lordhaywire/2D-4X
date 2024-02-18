@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 
 namespace PlayerSpace
@@ -31,7 +32,6 @@ namespace PlayerSpace
                     populationListTitle.Text = AllText.Titles.VISITORLIST;
                     GeneratePopulationRows(Globals.Instance.SelectedCountyData.visitingPopulation);
                 }
-
             }
             else
             {
@@ -66,6 +66,8 @@ namespace PlayerSpace
                     populationRow.sexLabel.Text = "Female";
                 }
 
+                UpdateSkills(populationRow, person);
+
                 if(person.currentImprovement != null)
                 {
                     populationRow.currentActivityLabel.Text = $"{person.currentActivity} {person.currentImprovement.improvementName}";
@@ -83,9 +85,15 @@ namespace PlayerSpace
                     populationRow.nextActivityLabel.Text = person.nextActivity;
                 }
                 populationListParent.AddChild(populationRow);
-                PopulationRowButton populationRowButton = (PopulationRowButton)populationRow;
+                PopulationRowButton populationRowButton = populationRow;
                 populationRowButton.countyPopulation = person;
             }
+        }
+
+        private void UpdateSkills(PopulationRowButton populationRow, CountyPopulation person)
+        {
+            populationRow.constructionSkillLabel.Text = $"Construction: {person.constructionSkill}";
+            populationRow.rifleSkillLabel.Text = $"Rifle: {person.rifleSkill}";
         }
     }
 }

@@ -9,6 +9,7 @@ namespace PlayerSpace
 
         [ExportGroup("Event Variables")]
         public List<FactionData> factionDatas = new();
+
         [Export] public int dailyInfluenceGain;
 
         [ExportGroup("Game Settings")]

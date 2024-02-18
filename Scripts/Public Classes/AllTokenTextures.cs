@@ -21,6 +21,7 @@ namespace PlayerSpace
 
         public void AssignTokenTextures(SelectToken token)
         {
+            GD.Print("Assign Token Textures: " + token.countyPopulation.firstName + token.countyPopulation.IsArmyLeader);
             if (token.countyPopulation.IsArmyLeader == false)
             {
                 token.selectedTexture = selectedHeroTexture;
@@ -30,6 +31,11 @@ namespace PlayerSpace
             {
                 token.selectedTexture = selectedArmyTexture;
                 token.unselectedTexture = unselectedArmyTexture;
+            }
+            // This is so the AI tokens get the correct textures assigned.
+            if(token.countyPopulation.factionData != Globals.Instance.playerFactionData)
+            {
+                token.sprite.Texture = token.unselectedTexture;
             }
         }
     }

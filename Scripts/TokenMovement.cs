@@ -92,7 +92,7 @@ namespace PlayerSpace
             }
             token.spawnedTokenButton.UpdateTokenTextures();
 
-            token.countyPopulation.currentActivity = AllText.Activities.IDLE;
+            token.UpdateCurrentActivity(AllText.Activities.IDLE);
             token.countyPopulation.nextActivity = AllText.Activities.IDLE;
             token.Hide();
 
@@ -125,8 +125,8 @@ namespace PlayerSpace
             }
             else
             {
-                // I think this is old.
-                destinationCounty.countyData.visitingPopulation.Add(token.countyPopulation);
+                RemoveFromStartingCounty();
+                AddToDestinationCounty();
 
                 foreach (War war in Globals.Instance.playerFactionData.wars)
                 {
@@ -137,6 +137,7 @@ namespace PlayerSpace
                         token.countyPopulation.location = destinationCounty.countyData.countyId;
 
                         GD.Print("New Battle!");
+                        token.UpdateCurrentActivity(AllText.Activities.COMBAT);
                         Battle battle = new(destinationCounty.countyData);
                         destinationCounty.countyData.battles.Add(battle);
                         destinationCounty.heroTokensControl.StartBattle();
@@ -146,7 +147,13 @@ namespace PlayerSpace
                         GD.Print("No Battle!");
                     }
                 }
+                CountyInfoControl.Instance.UpdateEverything();
             }
+        }
+
+        private void EnterCombat()
+        {
+            throw new NotImplementedException();
         }
     }
 }

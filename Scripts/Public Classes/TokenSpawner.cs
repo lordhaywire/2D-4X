@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 namespace PlayerSpace
 {
@@ -11,6 +10,7 @@ namespace PlayerSpace
             Node2D tokenSpawnParent = selectCounty.heroSpawn;
             SelectToken spawnedToken = (SelectToken)Globals.Instance.heroToken.Instantiate();
             tokenSpawnParent.AddChild(spawnedToken);
+
 
             spawnedToken.countyPopulation = countyPopulation;
 
@@ -55,16 +55,17 @@ namespace PlayerSpace
             }
             */
 
-            // This is at the bottom just in case the Getter Setter is fired to fast.
-            // This should probably be changed into a public method somewhere.
-
+            // This is at the bottom just in case the Getter Setter is fired too fast.
             DecidedIfSelected(selectCounty, spawnedToken);
 
             spawnedTokenButton.UpdateTokenTextures(); // This has to be below the countyPopulation assignment.
 
+            GD.Print($"Is {countyPopulation.firstName} an army leader?" + countyPopulation.IsArmyLeader);
             return countyPopulation;
         }
 
+
+        // This is so that the AI token spawning doesn't make the player select it.
         private void DecidedIfSelected(SelectCounty selectCounty, SelectToken spawnedToken)
         {
             GD.Print($"{selectCounty.countyData.factionData.factionName} vs {Globals.Instance.playerFactionData.factionName}");
@@ -76,3 +77,14 @@ namespace PlayerSpace
         }
     }
 }
+
+//ChangeTokenColorToFactionColor(spawnedToken, selectCounty);
+
+// This was an idea.
+/*
+private void ChangeTokenColorToFactionColor(SelectToken spawnedToken, SelectCounty selectCounty)
+{
+    spawnedToken.sprite.SelfModulate = selectCounty.countyData.factionData.factionColor;
+    spawnedToken.spawnedTokenButton.tokenIconTextureRect.SelfModulate = selectCounty.countyData.factionData.factionColor;
+}
+*/

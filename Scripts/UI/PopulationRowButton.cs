@@ -8,6 +8,8 @@ namespace PlayerSpace
         [Export] public Label populationNameLabel;
         [Export] public Label ageLabel;
         [Export] public Label sexLabel;
+        [Export] public Label constructionSkillLabel;
+        [Export] public Label rifleSkillLabel;
         [Export] public Label currentActivityLabel;
         [Export] public Label nextActivityLabel;
         private void OnButtonClick()

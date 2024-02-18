@@ -16,11 +16,18 @@ namespace PlayerSpace
         }
         public void OnButtonUp()
         {
-            GD.Print("You pressed the hero button.");
-            selectToken = countyPopulation.token;
+            if(countyPopulation.factionData == Globals.Instance.playerFactionData)
+            {
+                GD.Print("You pressed the hero button.");
+                selectToken = countyPopulation.token;
 
-            selectToken.IsSelected = true;
-            UpdateTokenTextures();
+                selectToken.IsSelected = true;
+                UpdateTokenTextures();
+            }
+            else
+            {
+                GD.Print("Get wrecked mother fucker.");
+            }
         }
 
         public void UpdateTokenTextures()
@@ -30,7 +37,7 @@ namespace PlayerSpace
             GD.Print("Select Counties Spawned Token Buttons List Count: " + selectCounty.countyData.spawnTokenButtons.Count);
             foreach (SpawnedTokenButton spawnedTokenButton in selectCounty.countyData.spawnTokenButtons.Cast<SpawnedTokenButton>())
             {
-                GD.Print("Going through buttons.");
+                GD.Print($"Going through buttons {spawnedTokenButton.countyPopulation.firstName}");
                 spawnedTokenButton.UpdateButtonIcon();
             }
         }

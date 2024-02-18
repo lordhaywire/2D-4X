@@ -33,7 +33,7 @@ namespace PlayerSpace
                 {
                     countyAttackerSelectToken = attackerCountyPopulation.token;
                     countyAttackerSelectToken.Hide();
-                    attackerTokenTextureRect.Texture = countyAttackerSelectToken.sprite.Texture;
+                    attackerTokenTextureRect.Texture = countyAttackerSelectToken.unselectedTexture;
                     attackerMoraleLabel.Text = countyAttackerSelectToken.countyPopulation.moraleExpendable.ToString();
                     break;
                 }
@@ -46,7 +46,7 @@ namespace PlayerSpace
                 {
                     countyDefendersSelectToken = defenderCountyPopulation.token;
                     countyDefendersSelectToken.Hide();
-                    defenderTokenTextureRect.Texture = countyDefendersSelectToken.sprite.Texture;
+                    defenderTokenTextureRect.Texture = countyDefendersSelectToken.unselectedTexture;
                     defenderMoraleLabel.Text = countyDefendersSelectToken.countyPopulation.moraleExpendable.ToString();
                     break;
                 }

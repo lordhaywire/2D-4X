@@ -72,38 +72,18 @@ namespace PlayerSpace
 
             DisableUIElements();
 
-            if(countyPopulation.token == null)
+            if (countyPopulation.token == null)
             {
                 nextActivityTitle.Show();
                 nextActivityLabel.Show();
             }
 
-            if(selectCounty.countyData.factionData == Globals.Instance.playerFactionData)
-            {
-                if (countyPopulation.IsArmyLeader == true)
-                {
-                    armyLeaderRecruitButton.Disabled = true;
-                }
-                else
-                {
-                    armyLeaderRecruitButton.Disabled = false;
-                }
-            }
+            // If the token is moving and doesn't belong to the player's faction disable the ability to turn
+            // it into an Army.
+            CheckForArmyRecruitmentButton(selectCounty);
 
-            // Titles
-            if (countyPopulation.isLeader == true)
-            {
-                leaderCheckbox.Disabled = false;
-            }
-            if (countyPopulation.isAide == true)
-            {
-                aideCheckbox.Disabled = false;
-            }
-            if (countyPopulation.IsArmyLeader == true)
-            {
-                armyLeaderCheckbox.Disabled = false;
-            }
-
+            CheckForTitles();
+            
             UpdateAttributes(countyPopulation);
 
             ageLabel.Text = countyPopulation.age.ToString();
@@ -142,7 +122,6 @@ namespace PlayerSpace
             if (countyPopulation.nextImprovement != null)
             {
                 nextActivityLabel.Text = $"{countyPopulation.nextActivity} {countyPopulation.nextImprovement.improvementName}";
-
             }
             else
             {
@@ -157,6 +136,33 @@ namespace PlayerSpace
             {
                 aideRecruitButton.Disabled = false;
             }
+        }
+
+        private void CheckForTitles()
+        {
+            switch (countyPopulation)
+            {
+                case { isLeader: true }:
+                    leaderCheckbox.Disabled = false;
+                    break;
+
+                case { isAide: true }:
+                    aideCheckbox.Disabled = false;
+                    break;
+
+                case { IsArmyLeader: true }:
+                    armyLeaderCheckbox.Disabled = false;
+                    break;
+            }
+        }
+
+        // This means nothing to me.  This was a simplification written by ChatGPT.
+        private void CheckForArmyRecruitmentButton(SelectCounty selectCounty)
+        {
+            bool isPlayerFaction = selectCounty.countyData.factionData == Globals.Instance.playerFactionData;
+            bool isTokenMoving = countyPopulation.token?.tokenMovement.MoveToken ?? false;
+
+            armyLeaderRecruitButton.Disabled = countyPopulation.IsArmyLeader || (isPlayerFaction && isTokenMoving);
         }
 
         private void UpdateAttributes(CountyPopulation countyPopulation)

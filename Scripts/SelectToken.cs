@@ -6,12 +6,14 @@ namespace PlayerSpace
     {
         public CountyPopulation countyPopulation;
         [Export] public Sprite2D sprite;
-
+        
         [Export] public Texture2D selectedTexture;
         [Export] public Texture2D unselectedTexture;
 
         [Export] public Label tokenNameLabel;
         [Export] public Label stackCountLabel; // This can probably be deleted.
+
+        public SpawnedTokenButton spawnedTokenButton;
 
         [Export] public TokenMovement tokenMovement;
 
@@ -40,12 +42,12 @@ namespace PlayerSpace
                 else
                 {
                     sprite.Texture = unselectedTexture;
+                    spawnedTokenButton.tokenIconTextureRect.Texture = sprite.Texture;
+                    GD.Print($"Is Selected: {value} {unselectedTexture} {sprite.Texture}");
                 }
                 GD.Print($"{Name} selection is: " + value);
             }
         }
-
-        public SpawnedTokenButton spawnedTokenButton;
 
         public override void _Ready()
         {
@@ -87,7 +89,11 @@ namespace PlayerSpace
                     IsSelected = true;
                 }
             }
-            
+        }
+
+        public void UpdateCurrentActivity(string activity)
+        {
+            countyPopulation.currentActivity = activity;
         }
     }
 }
