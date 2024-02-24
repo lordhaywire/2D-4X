@@ -82,7 +82,7 @@ namespace PlayerSpace
         [Export] public float heroStackingOffset = 3;
         [Export] public Vector2 heroMoveTarget;
         [Export] public int costOfHero;
-
+        [Export] public int loyaltyCheckNumber = 50;
         public int researchClicked; // This is so the Research description panel knows which research was clicked.
 
         string listsPath = "res://Lists/";

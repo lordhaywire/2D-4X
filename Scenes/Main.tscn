@@ -82,6 +82,8 @@ dailyInfluenceGain = 5
 startPaused = true
 mapColorCoded = ExtResource("2_h1vmt")
 countiesParent = NodePath("../../Counties")
+minimumCountyPop = 5
+maximumCountyPop = 10
 minimumFood = 100
 heroToken = ExtResource("5_w6a76")
 spawnedTokenButton = ExtResource("8_ne3u6")
@@ -367,6 +369,7 @@ mouse_filter = 0
 layout_mode = 2
 
 [node name="Select Hero PanelContainer" type="PanelContainer" parent="Player UI Canvas/County Info Control/County Info and Selected Hero HBoxContainer" node_paths=PackedStringArray("factionLeaderTextureRect", "aideTextureRect", "armyLeaderTextureRect", "heroNameLabel", "heroListButton")]
+visible = false
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -476,6 +479,21 @@ text = "Sex
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Loyalty Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Loyalty"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Cool Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cool
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Construction Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -513,7 +531,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "Close"
 
-[node name="Population Description Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("populationName", "leaderCheckbox", "aideCheckbox", "armyLeaderCheckbox", "physicalStrengthLabel", "agilityLabel", "enduranceLabel", "intelligenceLabel", "mentalStrengthLabel", "awarenessLabel", "charismaLabel", "looksLabel", "coolLabel", "ageLabel", "sexLabel", "firstPerkLabel", "noPerksLabel", "constructionSkillLabel", "rifleSkillLabel", "currentActivityLabel", "nextActivityTitle", "nextActivityLabel", "aideRecruitButton", "armyLeaderRecruitButton", "heroRecruitmentConfirmPanel")]
+[node name="Population Description Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("populationName", "leaderCheckbox", "aideCheckbox", "armyLeaderCheckbox", "physicalStrengthLabel", "agilityLabel", "enduranceLabel", "intelligenceLabel", "mentalStrengthLabel", "awarenessLabel", "charismaLabel", "looksLabel", "loyaltyAttributeLabel", "ageLabel", "sexLabel", "firstPerkLabel", "noPerksLabel", "coolSkillLabel", "constructionSkillLabel", "rifleSkillLabel", "currentActivityLabel", "nextActivityTitle", "nextActivityLabel", "aideRecruitButton", "armyLeaderRecruitButton", "heroRecruitmentConfirmPanel")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -535,11 +553,12 @@ mentalStrengthLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/H
 awarenessLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Attributes Values Hbox/Awareness Label")
 charismaLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Attributes Values Hbox/Charisma Label")
 looksLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Attributes Values Hbox/Looks Label")
-coolLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Cool Label")
+loyaltyAttributeLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Loyalty Label")
 ageLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Age Label")
 sexLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Sex Label")
 firstPerkLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Perks HBoxContainer/First Perk Label")
 noPerksLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Perks HBoxContainer/No Perks Label")
+coolSkillLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Cool Skill Label")
 constructionSkillLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Construction Skill Label")
 rifleSkillLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Rifle Skill Label")
 currentActivityLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Current Activity Label")
@@ -790,18 +809,18 @@ text = "100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Cool Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer"]
+[node name="Loyalty Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20
-text = "Cool"
+text = "Loyalty"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Cool Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer"]
+[node name="Loyalty Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Cool Number"
+text = "Loyalty Number"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -893,6 +912,13 @@ vertical_alignment = 1
 layout_mode = 2
 columns = 3
 
+[node name="Cool Skill Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cool Skill Whatever"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Construction Skill Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -904,14 +930,6 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Rifle 100"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Skill Label3" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Skill? 100"
 horizontal_alignment = 1
 vertical_alignment = 1
 

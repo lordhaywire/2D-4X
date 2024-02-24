@@ -27,7 +27,7 @@ namespace PlayerSpace
             // Attackers Army
             SelectCounty selectCounty = (SelectCounty)GetParent().GetParent();
 
-            foreach (CountyPopulation attackerCountyPopulation in selectCounty.countyData.visitingPopulation)
+            foreach (CountyPopulation attackerCountyPopulation in selectCounty.countyData.visitingPopulationList)
             {
                 if (attackerCountyPopulation.IsArmyLeader == true && attackerCountyPopulation.token != null)
                 {
@@ -40,7 +40,7 @@ namespace PlayerSpace
             }
 
             // Defenders Army
-            foreach (CountyPopulation defenderCountyPopulation in selectCounty.countyData.heroCountyPopulation)
+            foreach (CountyPopulation defenderCountyPopulation in selectCounty.countyData.heroCountyList)
             {
                 if (defenderCountyPopulation.IsArmyLeader == true && defenderCountyPopulation.token != null)
                 {
@@ -86,7 +86,7 @@ namespace PlayerSpace
                 BattleLogControl.Instance.AddLog($"{attackerCountyPopulation.firstName} {attackerCountyPopulation.lastName} has hit!", isAttacker);
                 //GD.Print($"{attackerCountyPopulation.firstName} {attackerCountyPopulation.lastName} has hit!");
                 int coolRoll = random.Next(1, 101);
-                if (defenderCountyPopulation.coolAttribute < coolRoll)
+                if (defenderCountyPopulation.coolSkill < coolRoll)
                 {
                     int moraleDamage = random.Next(1, 21);
                     defenderCountyPopulation.moraleExpendable -= moraleDamage;

@@ -17,7 +17,7 @@ namespace PlayerSpace
         public int age;
 
         public bool isHero;
-        public bool isLeader;
+        public bool isFactionLeader;
         public bool isAide;
         private bool isArmyLeader;
         public bool isWorker;
@@ -42,9 +42,10 @@ namespace PlayerSpace
         public int moraleExpendable; // I think we are going to have to have this as leader morale or army morale or some shit.
 
         [ExportGroup("Attributes")]
-        public int coolAttribute;
+        public int loyaltyAttribute;
 
         [ExportGroup("Skills")]
+        public int coolSkill; // I think this might be more of a skill.
         public int constructionSkill;
         public int rifleSkill;
 
@@ -57,10 +58,17 @@ namespace PlayerSpace
         [ExportGroup("Token")]
         public SelectToken token;
 
+        public void ChangeToArmy()
+        {
+            isHero = true;
+            IsArmyLeader = true;
+            SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(location);
+            selectCounty.countyData.heroCountyList.Add(this);
+        }
         public CountyPopulation(
             FactionData factionData, int location, int destination, string firstName, string lastName, bool isMale, int age, bool isHero, bool isLeader
             , bool isAide, bool IsArmyLeader, bool isWorker, bool leaderOfPeoplePerk, int moraleExpendable, 
-            int coolAttribute, int constructionSkill, int rifleSkill, string currentActivity
+            int coolSkill, int loyaltyAttribute, int constructionSkill, int rifleSkill, string currentActivity
             , CountyImprovementData currentImprovement, string nextActivity, CountyImprovementData nextImprovement)
         {
             this.factionData = factionData;
@@ -72,7 +80,7 @@ namespace PlayerSpace
             this.age = age;
 
             this.isHero = isHero;
-            this.isLeader = isLeader;
+            this.isFactionLeader = isLeader;
             this.isAide = isAide;
             this.IsArmyLeader = IsArmyLeader;
             this.isWorker = isWorker;
@@ -81,8 +89,9 @@ namespace PlayerSpace
 
             this.moraleExpendable = moraleExpendable;
 
-            this.coolAttribute = coolAttribute;
+            this.loyaltyAttribute = loyaltyAttribute;
 
+            this.coolSkill = coolSkill;
             this.constructionSkill = constructionSkill;
             this.rifleSkill = rifleSkill;
 

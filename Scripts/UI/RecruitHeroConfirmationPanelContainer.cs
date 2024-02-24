@@ -28,8 +28,8 @@ namespace PlayerSpace
 
             if (countyPopulation.isHero != true)
             {
-                selectCounty.countyData.countyPopulation.Remove(countyPopulation);
-                selectCounty.countyData.heroCountyPopulation.Add(countyPopulation);
+                selectCounty.countyData.countyPopulationList.Remove(countyPopulation);
+                selectCounty.countyData.heroCountyList.Add(countyPopulation);
             }
 
             if (armyLeaderRecruited == false)

@@ -73,7 +73,7 @@ namespace PlayerSpace
 
         private void UpdateVisitorsPopulationLabel()
         {
-            visitorsLabel.Text = Globals.Instance.SelectedCountyData.visitingPopulation.Count.ToString();
+            visitorsLabel.Text = Globals.Instance.SelectedCountyData.visitingPopulationList.Count.ToString();
         }
 
         public void DisableSpawnHeroCheckButton(bool value)
@@ -97,8 +97,8 @@ namespace PlayerSpace
         {
             countyData = Globals.Instance.SelectedCountyData;
             ClearHeroList();
-            GenerateHeroes(countyData.heroCountyPopulation);
-            GenerateHeroes(countyData.visitingPopulation);
+            GenerateHeroes(countyData.heroCountyList);
+            GenerateHeroes(countyData.visitingPopulationList);
         }
 
         private void ClearHeroList()
@@ -157,29 +157,29 @@ namespace PlayerSpace
             GD.Print($"Aide: {countyPopulation.isAide}");
             GD.Print($"Army Leader: {countyPopulation.isArmyLeader}");
             */
-            countyPopulation.location = countyData.countyId; // I wonder why this is here.  It seems redundant.
+            //countyPopulation.location = countyData.countyId; // I wonder why this is here.  It seems redundant.
 
             switch (countyPopulation)
             {
-                case { isLeader: true, isAide: false, IsArmyLeader: false }:
+                case { isFactionLeader: true, isAide: false, IsArmyLeader: false }:
                     heroPrefab.factionLeaderTextureRect.Show();
                     heroPrefab.aideTextureRect.Hide();
                     heroPrefab.armyLeaderTextureRect.Hide();
                     break;
 
-                case { isLeader: true, isAide: false, IsArmyLeader: true }:
+                case { isFactionLeader: true, isAide: false, IsArmyLeader: true }:
                     heroPrefab.factionLeaderTextureRect.Show();
                     heroPrefab.aideTextureRect.Hide();
                     heroPrefab.armyLeaderTextureRect.Show();
                     break;
 
-                case { isLeader: false, isAide: true, IsArmyLeader: false }:
+                case { isFactionLeader: false, isAide: true, IsArmyLeader: false }:
                     heroPrefab.factionLeaderTextureRect.Hide();
                     heroPrefab.aideTextureRect.Show();
                     heroPrefab.armyLeaderTextureRect.Hide();
                     break;
 
-                case { isLeader: false, isAide: false, IsArmyLeader: true }:
+                case { isFactionLeader: false, isAide: false, IsArmyLeader: true }:
                     heroPrefab.factionLeaderTextureRect.Hide();
                     heroPrefab.aideTextureRect.Hide();
                     heroPrefab.armyLeaderTextureRect.Show();
@@ -207,7 +207,7 @@ namespace PlayerSpace
         public void UpdateCountyPopulationLabel()
         {
 
-            int population = Globals.Instance.SelectedCountyData.countyPopulation.Count + Globals.Instance.SelectedCountyData.heroCountyPopulation.Count;
+            int population = Globals.Instance.SelectedCountyData.countyPopulationList.Count + Globals.Instance.SelectedCountyData.heroCountyList.Count;
             countyPopulationLabel.Text = population.ToString();
         }
 

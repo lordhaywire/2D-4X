@@ -27,9 +27,9 @@ namespace PlayerSpace
         [Export] public AllEnums.Terrain biomeSecondary;
         [Export] public AllEnums.Terrain biomeTertiary;
 
-        public List<CountyPopulation> countyPopulation = new();
-        public List<CountyPopulation> heroCountyPopulation = new();
-        public List<CountyPopulation> visitingPopulation = new();
+        public List<CountyPopulation> countyPopulationList = new();
+        public List<CountyPopulation> heroCountyList = new();
+        public List<CountyPopulation> visitingPopulationList = new();
         
         public List<Button> spawnTokenButtons = new();
 
@@ -42,7 +42,6 @@ namespace PlayerSpace
         // These are used just to pass some data around.  Probably I should find a better way to do this.
         public Texture2D maskTexture;
         public Texture2D mapTexture;
-
 
         // We will have to see if this is still used.
         public event Action<bool> CountySelected;

@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace PlayerSpace
 {
@@ -19,11 +20,12 @@ namespace PlayerSpace
         [Export] private Label awarenessLabel;
         [Export] private Label charismaLabel;
         [Export] private Label looksLabel;
-        [Export] private Label coolLabel;
+        [Export] private Label loyaltyAttributeLabel;
         [Export] private Label ageLabel;
         [Export] private Label sexLabel;
         [Export] private Label firstPerkLabel;
         [Export] private Label noPerksLabel;
+        [Export] private Label coolSkillLabel;
         [Export] private Label constructionSkillLabel;
         [Export] private Label rifleSkillLabel;
         [Export] private Label currentActivityLabel;
@@ -142,7 +144,7 @@ namespace PlayerSpace
         {
             switch (countyPopulation)
             {
-                case { isLeader: true }:
+                case { isFactionLeader: true }:
                     leaderCheckbox.Disabled = false;
                     break;
 
@@ -167,7 +169,7 @@ namespace PlayerSpace
 
         private void UpdateAttributes(CountyPopulation countyPopulation)
         {
-            coolLabel.Text = countyPopulation.coolAttribute.ToString();
+            loyaltyAttributeLabel.Text = countyPopulation.loyaltyAttribute.ToString();
         }
 
         private void DisableUIElements()
@@ -187,7 +189,7 @@ namespace PlayerSpace
 
         private void UpdateSkills(CountyPopulation countyPopulation)
         {
-            // Skills
+            coolSkillLabel.Text = $"Cool: {countyPopulation.coolSkill}";
             constructionSkillLabel.Text = $"Contruction: {countyPopulation.constructionSkill}";
             rifleSkillLabel.Text = $"Rifle: {countyPopulation.rifleSkill}";
         }

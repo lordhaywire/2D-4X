@@ -34,8 +34,8 @@ namespace PlayerSpace
                 selectCounty = (SelectCounty)countiesParent.GetChild(factionData.factionCapitalCounty);
                 countyData = selectCounty.countyData;
                 GeneratePopulation(true, 1); // There is never going to be more then 1 faction leader.
-                factionData.factionLeader = selectCounty.countyData.heroCountyPopulation[0];
-                countyData.population += countyData.heroCountyPopulation.Count;
+                factionData.factionLeader = selectCounty.countyData.heroCountyList[0];
+                countyData.population += countyData.heroCountyList.Count;
             }
         }
 
@@ -72,17 +72,19 @@ namespace PlayerSpace
 
                 // Generate random stats for each population.
 
-                int coolAttribute = random.Next(20, 81);
+                int moraleExpendable = 100; 
+                int coolAttribute = random.Next(20, 81); // This isn't going to be a random number eventually.  It will be based on other attributes.
+                int loyaltyAttribute = 100; // This is a temporary number.
                 int constructionSkill = random.Next(20, 81);
                 int rifleSkill = random.Next(20, 81);
 
                 if (hero == false)
                 {
                     // This adds to the C# list.
-                    countyData.countyPopulation.Add(new CountyPopulation(countyData.factionData, countyData.countyId, 
-                        countyData.countyId, firstName , lastName, isMale, age, false, false, false, false, false, false
-                        , 100, coolAttribute, constructionSkill, rifleSkill, AllText.Activities.IDLE, null
-                        , AllText.Activities.IDLE, null));
+                    countyData.countyPopulationList.Add(new CountyPopulation(countyData.factionData, countyData.countyId, 
+                        -1, firstName , lastName, isMale, age, false, false, false, false, false, false
+                        , moraleExpendable, coolAttribute, loyaltyAttribute, constructionSkill, rifleSkill, AllText.Activities.IDLE
+                        , null, AllText.Activities.IDLE, null));
                     
                     /*
                     CountyPopulation person = countyData.countyPopulation[i];
@@ -94,9 +96,10 @@ namespace PlayerSpace
                 else
                 {
                     // This adds to a C# list.
-                    countyData.heroCountyPopulation.Add(new CountyPopulation(countyData.factionData, countyData.countyId, 
-                        countyData.countyId, firstName, lastName, isMale, age, true, true, false, false, false, true, 100, 
-                        coolAttribute, constructionSkill, rifleSkill, AllText.Activities.IDLE, null, AllText.Activities.IDLE, null));                 
+                    countyData.heroCountyList.Add(new CountyPopulation(countyData.factionData, countyData.countyId, 
+                        -1, firstName, lastName, isMale, age, true, true, false, false, false, true
+                        , moraleExpendable, coolAttribute, loyaltyAttribute, constructionSkill, rifleSkill, AllText.Activities.IDLE
+                        , null, AllText.Activities.IDLE, null));                 
                     /*
                     CountyPopulation heroPerson = countyData.heroCountyPopulation[i];
                     GD.Print($"Hero Name: {heroPerson.firstName} {heroPerson.lastName} " +
@@ -129,8 +132,8 @@ namespace PlayerSpace
                     */
                     // Generate Normal Population
                     GeneratePopulation(false, Globals.Instance.totalCapitolPop);
-                    countyData.population += countyData.countyPopulation.Count;
-                    countyData.IdleWorkers = countyData.population -= countyData.heroCountyPopulation.Count;
+                    countyData.population += countyData.countyPopulationList.Count;
+                    countyData.IdleWorkers = countyData.population -= countyData.heroCountyList.Count;
                 }
                 else
                 {
@@ -143,8 +146,8 @@ namespace PlayerSpace
                     // Generate Normal Population
                     int normalPopulation = random.Next(Globals.Instance.minimumCountyPop, Globals.Instance.maximumCountyPop);
                     GeneratePopulation(false, normalPopulation);
-                    countyData.population += countyData.countyPopulation.Count;
-                    countyData.IdleWorkers = countyData.population -= countyData.heroCountyPopulation.Count;
+                    countyData.population += countyData.countyPopulationList.Count;
+                    countyData.IdleWorkers = countyData.population -= countyData.heroCountyList.Count;
                 }
             }
         }

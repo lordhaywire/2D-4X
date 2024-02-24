@@ -47,7 +47,7 @@ namespace PlayerSpace
             // I don't think this is very efficient.
             int idleWorkers = 0;
 
-            foreach(CountyPopulation person in countyData.countyPopulation)
+            foreach(CountyPopulation person in countyData.countyPopulationList)
             {
                 if (person.currentActivity == AllText.Activities.IDLE && person.nextActivity == AllText.Activities.IDLE)
                 {
@@ -62,7 +62,7 @@ namespace PlayerSpace
         {
             foreach (SelectCounty selectCounty in Globals.Instance.countiesParent.GetChildren())
             {
-                foreach (CountyPopulation person in selectCounty.countyData.countyPopulation)
+                foreach (CountyPopulation person in selectCounty.countyData.countyPopulationList)
                 {
                     // ? is null checking currentImprovement.
                     if (person.currentImprovement?.isBuilt == true)
@@ -82,7 +82,7 @@ namespace PlayerSpace
             // Go through all the counties and have people building add their work to the building.
             foreach (SelectCounty county in Globals.Instance.countiesParent.GetChildren())
             {
-                foreach (CountyPopulation person in county.countyData.countyPopulation)
+                foreach (CountyPopulation person in county.countyData.countyPopulationList)
                 {
                     if (person.currentImprovement != null)
                     {

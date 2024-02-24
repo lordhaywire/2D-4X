@@ -14,8 +14,8 @@ namespace PlayerSpace
         [Export] public string factionName;
         [Export] public Color factionColor;
         [Export] public int factionCapitalCounty;
-        public List<ResearchItemData> researchItems = new();
-        public List<CountyData> countiesFactionOwns = new();
+        public List<ResearchItemData> researchItems = [];
+        public List<CountyData> countiesFactionOwns = [];
         public CountyPopulation factionLeader;
 
         public Diplomacy diplomacy = new();

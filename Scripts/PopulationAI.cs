@@ -30,7 +30,7 @@ namespace PlayerSpace
                     if (countyImprovementData.isBeingBuilt == true)
                     {
                         // Go through this counties population.
-                        foreach (CountyPopulation person in selectCounty.countyData.countyPopulation)
+                        foreach (CountyPopulation person in selectCounty.countyData.countyPopulationList)
                         {
                             if (person.nextActivity == AllText.Activities.IDLE && countyImprovementData.currentBuilders
                                 < countyImprovementData.maxBuilders)
@@ -62,13 +62,13 @@ namespace PlayerSpace
             {
                 SelectCounty selectCounty = (SelectCounty)node;
                 // Go through this counties population.
-                foreach (CountyPopulation person in selectCounty.countyData.countyPopulation)
+                foreach (CountyPopulation person in selectCounty.countyData.countyPopulationList)
                 {
                     person.currentActivity = person.nextActivity;
                     person.currentImprovement = person.nextImprovement;
                 }
 
-                foreach (CountyPopulation hero in selectCounty.countyData.heroCountyPopulation)
+                foreach (CountyPopulation hero in selectCounty.countyData.heroCountyList)
                 {
                     if (hero.token == null)
                     {

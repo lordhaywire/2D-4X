@@ -11,4 +11,4 @@ factionCapitalCounty = 1
 money = 0
 food = 5000
 scrap = 0
-Influence = 0
+Influence = 5000

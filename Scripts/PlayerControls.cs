@@ -57,7 +57,7 @@ namespace PlayerSpace
                         if (@event is InputEventMouseButton eventMouseButton)
                         {
                             if (eventMouseButton.ButtonIndex == MouseButton.Left && eventMouseButton.Pressed == false)
-                                //&& Globals.Instance.isInsideToken == false)
+                            //&& Globals.Instance.isInsideToken == false)
                             {
                                 EventLog.Instance.AddLog($"{countyData.countyName} was clicked on.");
 
@@ -69,17 +69,31 @@ namespace PlayerSpace
                             }
 
                             // Right Click on County
-                            if (eventMouseButton.ButtonIndex == MouseButton.Right && eventMouseButton.Pressed == false  
+                            if (eventMouseButton.ButtonIndex == MouseButton.Right && eventMouseButton.Pressed == false
                                 && Globals.Instance.SelectedCountyPopulation != null)
                             {
                                 GD.Print("You right clicked, dude! " + countyData.countyName);
-                                MoveSelectedToken(countyData);
+                                if (Globals.Instance.SelectedCountyPopulation.destination == -1)
+                                {
+                                    MoveSelectedToken(countyData);
+                                }
+                                else if (Globals.Instance.SelectedCountyPopulation.destination == countyData.countyId)
+                                {
+                                    MoveSelectedToken(countyData);
+                                }
+                                else
+                                {
+                                    SelectCounty selectCounty
+                                        = (SelectCounty)Globals.Instance.countiesParent.GetChild(Globals.Instance.SelectedCountyPopulation.location);
+                                    GD.PrintRich("[rainbow]Are we ever even hitting this?" + selectCounty.countyData.countyId);
+                                    MoveSelectedToken(selectCounty.countyData);
+                                }
                             }
                         }
                     }
                     else
                     {
-                        if(Globals.Instance.selectedCountyId != countyData.countyId)
+                        if (Globals.Instance.selectedCountyId != countyData.countyId)
                         {
                             maskSprite.Hide();
                         }
@@ -106,51 +120,45 @@ namespace PlayerSpace
         {
 
         }
-        private void MoveSelectedToken(CountyData rightClickedCountyData)
+        private void MoveSelectedToken(CountyData moveTargetCountyData)
         {
-            Globals.Instance.selectedRightClickCounty = (SelectCounty)rightClickedCountyData.countyNode;
-            GD.Print($"Selected Right Click County: {Globals.Instance.selectedRightClickCounty.countyData.countyName}" +
-                $" {Globals.Instance.selectedRightClickCounty.countyData.countyId}");
+            Globals.Instance.selectedRightClickCounty = (SelectCounty)moveTargetCountyData.countyNode;
+            GD.Print($"Move Target County: {moveTargetCountyData.countyName}" +
+                $" {moveTargetCountyData.countyId}");
             CountyPopulation countyPopulation = Globals.Instance.SelectedCountyPopulation;
             SelectToken selectToken = Globals.Instance.SelectedCountyPopulation.token;
 
             selectToken.Show();
 
-            SelectCounty startCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
-
-            // Here is where the teleportation starts.
-            //selectToken.GlobalPosition = startCounty.heroSpawn.GlobalPosition;
-            if (selectToken != null && countyPopulation.location != rightClickedCountyData.countyId)
+            if (selectToken.tokenMovement.MoveToken != true)
             {
-                if (selectToken.tokenMovement.MoveToken != true)
+                if (countyPopulation.IsArmyLeader == false)
                 {
-                    if (countyPopulation.IsArmyLeader == false)
-                    {
-                        selectToken.tokenMovement.StartMove(rightClickedCountyData.countyId);
-                    }
-                    else
-                    {
-                        if (Globals.Instance.playerFactionData == rightClickedCountyData.factionData)
-                        {
-                            selectToken.tokenMovement.StartMove(rightClickedCountyData.countyId);
-                        }
-                        else
-                        {
-                            // I think we should move this to Diplomacy.
-                            GD.Print("You are about to declare war, because you are an army.");
-                            Globals.Instance.selectedRightClickCounty.DeclareWarConfirmation();
-
-                        }
-                    }
+                    selectToken.tokenMovement.StartMove(moveTargetCountyData.countyId);
                 }
                 else
                 {
-                    //GD.Print("Start County ID " + startCounty.countyData.countyId);
-                    //countyPopulation.destination = startCounty.countyData.countyId;
-                    //Globals.Instance.heroMoveTarget = startCounty.heroSpawn.GlobalPosition; // Why are we storing this in Globals?
-                    selectToken.tokenMovement.StartMove(rightClickedCountyData.countyId);
+                    if (Globals.Instance.playerFactionData == moveTargetCountyData.factionData)
+                    {
+                        selectToken.tokenMovement.StartMove(moveTargetCountyData.countyId);
+                    }
+                    else
+                    {
+                        // I think we should move this to Diplomacy.
+                        GD.Print("You are about to declare war, because you are an army.");
+                        Globals.Instance.selectedRightClickCounty.DeclareWarConfirmation();
+
+                    }
                 }
             }
+            else
+            {
+                //GD.Print("Start County ID " + startCounty.countyData.countyId);
+                //countyPopulation.destination = startCounty.countyData.countyId;
+                //Globals.Instance.heroMoveTarget = startCounty.heroSpawn.GlobalPosition; // Why are we storing this in Globals?
+                selectToken.tokenMovement.StartMove(moveTargetCountyData.countyId);
+            }
+
         }
 
         public void SelectedChanged(SelectCounty county, bool selected)

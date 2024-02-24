@@ -24,13 +24,13 @@ namespace PlayerSpace
                 if(Globals.Instance.isVisitorList == false)
                 {
                     populationListTitle.Text = AllText.Titles.POPLIST;
-                    GeneratePopulationRows(Globals.Instance.SelectedCountyData.heroCountyPopulation);
-                    GeneratePopulationRows(Globals.Instance.SelectedCountyData.countyPopulation);
+                    GeneratePopulationRows(Globals.Instance.SelectedCountyData.heroCountyList);
+                    GeneratePopulationRows(Globals.Instance.SelectedCountyData.countyPopulationList);
                 }
                 else
                 {
                     populationListTitle.Text = AllText.Titles.VISITORLIST;
-                    GeneratePopulationRows(Globals.Instance.SelectedCountyData.visitingPopulation);
+                    GeneratePopulationRows(Globals.Instance.SelectedCountyData.visitingPopulationList);
                 }
             }
             else
@@ -66,6 +66,7 @@ namespace PlayerSpace
                     populationRow.sexLabel.Text = "Female";
                 }
 
+                UpdateAttributes(populationRow, person);
                 UpdateSkills(populationRow, person);
 
                 if(person.currentImprovement != null)
@@ -89,11 +90,15 @@ namespace PlayerSpace
                 populationRowButton.countyPopulation = person;
             }
         }
-
+        private void UpdateAttributes(PopulationRowButton populationRow, CountyPopulation person)
+        {
+            populationRow.loyaltyAttributeLabel.Text = $"{person.loyaltyAttribute}";
+        }
         private void UpdateSkills(PopulationRowButton populationRow, CountyPopulation person)
         {
-            populationRow.constructionSkillLabel.Text = $"Construction: {person.constructionSkill}";
-            populationRow.rifleSkillLabel.Text = $"Rifle: {person.rifleSkill}";
+            populationRow.coolSkillLabel.Text = $"{person.coolSkill}";
+            populationRow.constructionSkillLabel.Text = $"{person.constructionSkill}";
+            populationRow.rifleSkillLabel.Text = $"{person.rifleSkill}";
         }
     }
 }

@@ -11,7 +11,6 @@ namespace PlayerSpace
             SelectToken spawnedToken = (SelectToken)Globals.Instance.heroToken.Instantiate();
             tokenSpawnParent.AddChild(spawnedToken);
 
-
             spawnedToken.countyPopulation = countyPopulation;
 
             AllTokenTextures.Instance.AssignTokenTextures(spawnedToken);

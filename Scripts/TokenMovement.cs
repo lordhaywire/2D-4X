@@ -54,7 +54,8 @@ namespace PlayerSpace
             //GD.Print("Token Global Position: " + token.GlobalPosition);
 
             //GD.Print("Target: " + target);
-            token.GlobalPosition = GlobalPosition.MoveToward(target, Globals.Instance.movementSpeed * Clock.Instance.ModifiedTimeScale);
+            float speed = Globals.Instance.movementSpeed * Clock.Instance.ModifiedTimeScale;
+            token.GlobalPosition = GlobalPosition.MoveToward(target, speed);
             //GD.Print($"{GetParent().Name} is moving!");
             if (token.GlobalPosition.IsEqualApprox(target))
             {
@@ -70,11 +71,11 @@ namespace PlayerSpace
             SelectCounty startingCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(token.countyPopulation.location);
             if(startingCounty.countyData.factionData == Globals.Instance.playerFactionData)
             {
-                startingCounty.countyData.heroCountyPopulation.Remove(token.countyPopulation);
+                startingCounty.countyData.heroCountyList.Remove(token.countyPopulation);
             }
             else
             {
-                startingCounty.countyData.visitingPopulation.Remove(token.countyPopulation);
+                startingCounty.countyData.visitingPopulationList.Remove(token.countyPopulation);
             }
         }
         private void AddToDestinationCounty()
@@ -99,11 +100,11 @@ namespace PlayerSpace
             // Add token to County Data hero token list.  Except we are going to have to determine if the hero is visiting.
             if(destinationCounty.countyData.factionData == Globals.Instance.playerFactionData)
             {
-                destinationCounty.countyData.heroCountyPopulation.Add(token.countyPopulation);
+                destinationCounty.countyData.heroCountyList.Add(token.countyPopulation);
             }
             else
             {
-                destinationCounty.countyData.visitingPopulation.Add(token.countyPopulation);
+                destinationCounty.countyData.visitingPopulationList.Add(token.countyPopulation);
             }
             token.countyPopulation.destination = -1; // This is -1 because this is like a "null" int.
             CountyInfoControl.Instance.UpdateEverything();
