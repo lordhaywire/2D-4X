@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 namespace PlayerSpace
 {
@@ -36,16 +35,16 @@ namespace PlayerSpace
             }
         }
 
-        public void OnMouseEntered()
+        public void OnMouseEnteredUI()
         {
             PlayerControls.Instance.stopClickThrough = true;
-            //GD.Print("Mouse Over UI: " + PlayerControls.Instance.mouseOverUI);
+            GD.Print("Mouse Over UI: " + PlayerControls.Instance.stopClickThrough);
         }
 
-        public void OnMouseExited()
+        public void OnMouseExitedUI()
         {
             PlayerControls.Instance.stopClickThrough = false;
-            //GD.Print("Mouse Over UI: " + PlayerControls.Instance.mouseOverUI);
+            GD.Print("Mouse Over UI: " + PlayerControls.Instance.stopClickThrough);
         }
     }
 }

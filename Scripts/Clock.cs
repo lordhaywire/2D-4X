@@ -21,7 +21,7 @@ namespace PlayerSpace
 
         //public float foreverTimer; // This will eventually need to be reset.  I think.  It depends on if we run out of numbers.
         public float minutes;
-        public int hours;
+        private int hours;
         public int days = 0;
 
         [Export] public int oldTimeSpeed;
@@ -164,7 +164,7 @@ namespace PlayerSpace
             }
             // To show Days, Hours and minutes.
             dayLabel.Text = days.ToString();
-            HourLabel.Text = (string.Format("{0:00}:{1:00}", Hours, minutes));
+            HourLabel.Text = string.Format("{0:00}:{1:00}", Hours, minutes);
         }
 
         public void PauseandUnpause()

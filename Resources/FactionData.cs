@@ -40,6 +40,6 @@ namespace PlayerSpace
         }
 
         [ExportGroup("Diplomatic Incidences")]
-        public List<War> wars = new();
+        public List<War> wars = [];
     }
 }

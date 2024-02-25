@@ -64,39 +64,38 @@ namespace PlayerSpace
             GD.Print("Hourly Battle.");
 
             // County defender attacks county attacker.
-            Attack(countyAttackerSelectToken.countyPopulation, countyDefendersSelectToken.countyPopulation, true);
+            Attack(countyAttackerSelectToken.countyPopulation, countyDefendersSelectToken.countyPopulation, false);
 
             // County attacker attacks county defender.
-            Attack(countyDefendersSelectToken.countyPopulation, countyAttackerSelectToken.countyPopulation, false);
+            Attack(countyDefendersSelectToken.countyPopulation, countyAttackerSelectToken.countyPopulation, true);
 
         }
 
         // This is confusing.  Needs a fucking rewrite.
-        private void Attack(CountyPopulation defenderCountyPopulation, CountyPopulation attackerCountyPopulation, bool isAttacker)
+        private void Attack(CountyPopulation gettingShotAtCountyPopulation, CountyPopulation shootingCountyPopulation, bool isAttacker)
         {
             int attackRoll = random.Next(1, 101);
-            BattleLogControl.Instance.AddLog($"{attackerCountyPopulation.firstName} {attackerCountyPopulation.lastName} rifle skill: " +
-                $"{attackerCountyPopulation.rifleSkill} vs {attackRoll}", isAttacker);
-            /*
-            GD.Print($"{attackerCountyPopulation.firstName} {attackerCountyPopulation.lastName} rifle skill: " +
-                $"{attackerCountyPopulation.rifleSkill} vs {attackRoll}");
-            */
-            if (attackerCountyPopulation.rifleSkill > attackRoll)
+            BattleLogControl.Instance.AddLog($"{shootingCountyPopulation.firstName} {shootingCountyPopulation.lastName} rifle skill: " +
+                $"{shootingCountyPopulation.rifleSkill} vs attack roll: {attackRoll}", isAttacker);
+
+            if (shootingCountyPopulation.rifleSkill > attackRoll)
             {
-                BattleLogControl.Instance.AddLog($"{attackerCountyPopulation.firstName} {attackerCountyPopulation.lastName} has hit!", isAttacker);
+                BattleLogControl.Instance.AddLog($"{shootingCountyPopulation.firstName} {shootingCountyPopulation.lastName} has hit!", isAttacker);
                 //GD.Print($"{attackerCountyPopulation.firstName} {attackerCountyPopulation.lastName} has hit!");
                 int coolRoll = random.Next(1, 101);
-                if (defenderCountyPopulation.coolSkill < coolRoll)
+                if (coolRoll > gettingShotAtCountyPopulation.coolSkill)
                 {
-                    int moraleDamage = random.Next(1, 21);
-                    defenderCountyPopulation.moraleExpendable -= moraleDamage;
+                    int moraleDamage = random.Next(Globals.Instance.moraleDamageMin, Globals.Instance.moraleDamageMax);
+                    gettingShotAtCountyPopulation.moraleExpendable -= moraleDamage;
+                    BattleLogControl.Instance.AddLog($"{gettingShotAtCountyPopulation.firstName} " +
+                        $"{gettingShotAtCountyPopulation.lastName} has failed their cool roll!  They have lost {moraleDamage}", !isAttacker);
                 }
                 attackerMoraleLabel.Text = countyAttackerSelectToken.countyPopulation.moraleExpendable.ToString();
                 defenderMoraleLabel.Text = countyDefendersSelectToken.countyPopulation.moraleExpendable.ToString();
             }
             else
             {
-                BattleLogControl.Instance.AddLog($"{attackerCountyPopulation.firstName} {attackerCountyPopulation.lastName} has missed!", isAttacker);
+                BattleLogControl.Instance.AddLog($"{shootingCountyPopulation.firstName} {shootingCountyPopulation.lastName} has missed!", isAttacker);
 
                 //GD.Print("Defender has missed!");
             }

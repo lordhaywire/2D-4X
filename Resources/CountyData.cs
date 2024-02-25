@@ -27,15 +27,15 @@ namespace PlayerSpace
         [Export] public AllEnums.Terrain biomeSecondary;
         [Export] public AllEnums.Terrain biomeTertiary;
 
-        public List<CountyPopulation> countyPopulationList = new();
-        public List<CountyPopulation> heroCountyList = new();
-        public List<CountyPopulation> visitingPopulationList = new();
-        
-        public List<Button> spawnTokenButtons = new();
+        public List<CountyPopulation> countyPopulationList = [];
+        public List<CountyPopulation> heroCountyList = [];
+        public List<CountyPopulation> visitingPopulationList = [];
 
-        public List<CountyImprovementData> allCountyImprovements = new();
-        public List<CountyImprovementData> underConstructionCountyImprovements = new();
-        public List<Battle> battles = new();
+        public List<Button> spawnTokenButtons = [];
+
+        public List<CountyImprovementData> allCountyImprovements = [];
+        public List<CountyImprovementData> underConstructionCountyImprovements = [];
+        public List<Battle> battles = [];
 
         [Export] public int population;
 

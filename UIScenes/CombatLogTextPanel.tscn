@@ -3,20 +3,21 @@
 [ext_resource type="Script" path="res://Scripts/UI/CombatLogTextPanel.cs" id="1_cm3sa"]
 
 [node name="Combat Log Text Panel" type="Panel" node_paths=PackedStringArray("logText")]
-custom_minimum_size = Vector2(300, 75)
-offset_right = 300.0
-offset_bottom = 75.0
+custom_minimum_size = Vector2(650, 50)
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 script = ExtResource("1_cm3sa")
 logText = NodePath("Log Text Label")
 
 [node name="Log Text Label" type="Label" parent="."]
-custom_minimum_size = Vector2(280, 75)
-layout_mode = 2
-offset_left = 10.0
-offset_right = 290.0
-offset_bottom = 75.0
+custom_minimum_size = Vector2(650, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 1
 theme_override_colors/font_color = Color(0, 0.815686, 0, 1)

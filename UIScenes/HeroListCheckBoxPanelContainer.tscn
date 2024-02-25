@@ -6,61 +6,69 @@
 [ext_resource type="Texture2D" uid="uid://cbpah1j3xx4f2" path="res://Graphics/Icons/Population/resized army icon.png" id="3_qqxdl"]
 
 [node name="Hero PanelContainer" type="PanelContainer" node_paths=PackedStringArray("factionLeaderTextureRect", "aideTextureRect", "armyLeaderTextureRect", "heroNameLabel", "heroListButton", "spawnHeroButton")]
-custom_minimum_size = Vector2(200, 50)
+custom_minimum_size = Vector2(300, 50)
+mouse_filter = 2
 script = ExtResource("1_u8h0k")
-factionLeaderTextureRect = NodePath("HBoxContainer/Leader TextureRect")
-aideTextureRect = NodePath("HBoxContainer/Aide TextureRect")
-armyLeaderTextureRect = NodePath("HBoxContainer/Army TextureRect")
+factionLeaderTextureRect = NodePath("Icon HBoxContainer/Leader TextureRect")
+aideTextureRect = NodePath("Icon HBoxContainer/Aide TextureRect")
+armyLeaderTextureRect = NodePath("Icon HBoxContainer/Army TextureRect")
 heroNameLabel = NodePath("Hero Name Label")
-heroListButton = NodePath("Hero List Button")
-spawnHeroButton = NodePath("Spawn CheckButton")
+heroListButton = NodePath("Buttons HBoxContainer/Hero List Button")
+spawnHeroButton = NodePath("Buttons HBoxContainer/Spawn CheckButton")
 
 [node name="Hero Name Label" type="Label" parent="."]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-mouse_filter = 1
 text = "Whatevers"
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="Icon HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
+mouse_filter = 2
 
-[node name="Leader TextureRect" type="TextureRect" parent="HBoxContainer"]
+[node name="Leader TextureRect" type="TextureRect" parent="Icon HBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_vertical = 8
+mouse_filter = 2
 texture = ExtResource("2_kbo0x")
 stretch_mode = 2
 
-[node name="Aide TextureRect" type="TextureRect" parent="HBoxContainer"]
+[node name="Aide TextureRect" type="TextureRect" parent="Icon HBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_vertical = 8
+mouse_filter = 2
 texture = ExtResource("3_hrfe5")
 stretch_mode = 2
 
-[node name="Army TextureRect" type="TextureRect" parent="HBoxContainer"]
+[node name="Army TextureRect" type="TextureRect" parent="Icon HBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_vertical = 8
+mouse_filter = 2
 texture = ExtResource("3_qqxdl")
 stretch_mode = 2
 
-[node name="Hero List Button" type="Button" parent="."]
+[node name="Buttons HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Hero List Button" type="Button" parent="Buttons HBoxContainer"]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 3
 
-[node name="Spawn CheckButton" type="CheckButton" parent="."]
+[node name="Spawn CheckButton" type="CheckButton" parent="Buttons HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 focus_mode = 0
 
-[connection signal="button_up" from="Hero List Button" to="." method="HeroButton"]
-[connection signal="mouse_entered" from="Hero List Button" to="." method="OnMouseEntered"]
-[connection signal="mouse_exited" from="Hero List Button" to="." method="OnMouseExited"]
-[connection signal="button_up" from="Spawn CheckButton" to="." method="SpawnHeroCheckBox" binds= [true]]
-[connection signal="mouse_entered" from="Spawn CheckButton" to="." method="OnMouseEntered"]
-[connection signal="mouse_exited" from="Spawn CheckButton" to="." method="OnMouseExited"]
+[connection signal="button_up" from="Buttons HBoxContainer/Hero List Button" to="." method="HeroButton"]
+[connection signal="mouse_entered" from="Buttons HBoxContainer/Hero List Button" to="." method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="Buttons HBoxContainer/Hero List Button" to="." method="OnMouseExitedUI"]
+[connection signal="button_up" from="Buttons HBoxContainer/Spawn CheckButton" to="." method="SpawnHeroCheckBox" binds= [true]]
+[connection signal="mouse_entered" from="Buttons HBoxContainer/Spawn CheckButton" to="." method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="Buttons HBoxContainer/Spawn CheckButton" to="." method="OnMouseExitedUI"]

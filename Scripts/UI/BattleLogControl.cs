@@ -7,10 +7,12 @@ namespace PlayerSpace
         public static BattleLogControl Instance { get; private set; }
 
         [Export] private PackedScene combatLogScene;
-		[Export] private VBoxContainer defenderVboxContainer;
+        [Export] private Label battleLogControlTitle;
+        [Export] private VBoxContainer defenderVboxContainer;
 		[Export] private VBoxContainer attackerVboxContainer;
+
         private bool isNextLogOdd = true; // Start with odd line
-        private int maxLines;
+        [Export] private int maxLines;
 
 
         private void OnVisibilityChanged()
@@ -34,43 +36,42 @@ namespace PlayerSpace
             CombatLogTextPanel textPanel;
             textPanel = (CombatLogTextPanel)combatLogScene.Instantiate();
 
-            // Add the new log with the appropriate color prefab based on the odd/even flag
-            /*
-            if (isNextLogOdd == true)
-            {
-            }
-            else
-            {
-            }
-            */
-
             if (isAttacker == true)
             {
                 attackerVboxContainer.AddChild(textPanel);
+                attackerVboxContainer.MoveChild(textPanel, 0);
                 textPanel.logText.AddThemeColorOverride("font_color", Colors.Tomato);
             }
             else
             {
                 defenderVboxContainer.AddChild(textPanel);
+                defenderVboxContainer.MoveChild(textPanel, 0);
                 textPanel.logText.AddThemeColorOverride("font_color", Colors.DodgerBlue);
             }
 
-
-            textPanel.logText.Text = newLog;
-
+            textPanel.logText.Text = $"Day: {Clock.Instance.days} " 
+                + string.Format("{0:00}:{1:00}", Clock.Instance.Hours, Clock.Instance.minutes) + " - " + newLog;
+            //GD.Print($"Attacker: {attackerVboxContainer.GetChildCount()} vs {maxLines}");
             if (attackerVboxContainer.GetChildCount() > maxLines) 
             {
                 // Destroy the corresponding Node in the UI
-                attackerVboxContainer.GetChild(0).QueueFree();
+                int lastAttackerChild = attackerVboxContainer.GetChildCount() - 1;
+                attackerVboxContainer.GetChild(lastAttackerChild).Free();
             }
 
+            //GD.Print($"Defender: {defenderVboxContainer.GetChildCount()} vs {maxLines}");
             if(defenderVboxContainer.GetChildCount() > maxLines)
             {
-                defenderVboxContainer.GetChild(0).QueueFree();
+                int lastDefenderChild = defenderVboxContainer.GetChildCount() - 1;
+                defenderVboxContainer.GetChild(lastDefenderChild).Free();
             }
 
-            // Toggle the odd/even flag for the next log entry
-            //isNextLogOdd = !isNextLogOdd;
+            UpdateBattleTitle();
+        }
+
+        private void UpdateBattleTitle()
+        {
+            
         }
 
         private void CloseButton()

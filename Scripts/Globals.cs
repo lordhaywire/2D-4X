@@ -8,7 +8,7 @@ namespace PlayerSpace
         public static Globals Instance { get; private set; }
 
         [ExportGroup("Event Variables")]
-        public List<FactionData> factionDatas = new();
+        public List<FactionData> factionDatas = [];
 
         [Export] public int dailyInfluenceGain;
 
@@ -83,6 +83,8 @@ namespace PlayerSpace
         [Export] public Vector2 heroMoveTarget;
         [Export] public int costOfHero;
         [Export] public int loyaltyCheckNumber = 50;
+        [Export] public int moraleDamageMin = 1;
+        [Export] public int moraleDamageMax = 21; // One above max.
         public int researchClicked; // This is so the Research description panel knows which research was clicked.
 
         string listsPath = "res://Lists/";
@@ -90,9 +92,9 @@ namespace PlayerSpace
         string femaleNamesPath = "FemaleNames.txt";
         string lastNamesPath = "LastNames.txt";
 
-        public List<string> maleNames = new();
-        public List<string> femaleNames = new();
-        public List<string> lastNames = new();
+        public List<string> maleNames = [];
+        public List<string> femaleNames = [];
+        public List<string> lastNames = [];
 
         [ExportGroup("This is some bullshit.")]
         [Export] public bool isInsideToken;
