@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=55 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_x1cy2"]
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://Graphics/Provinces/Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://cjgb8g7l3340p" path="res://Prefabs/FactionNode.tscn" id="12_r0ltm"]
 [ext_resource type="Script" path="res://Scripts/PlayerControls.cs" id="12_vfu86"]
 [ext_resource type="Resource" uid="uid://bads4woc5toep" path="res://Resources/County Improvements/FisherShack.tres" id="13_43qw5"]
+[ext_resource type="Script" path="res://Scripts/FindNeighbors.cs" id="13_vibhq"]
 [ext_resource type="Resource" uid="uid://cpmbf5setweth" path="res://Resources/County Improvements/ForestersShack.tres" id="14_lgpja"]
 [ext_resource type="Resource" uid="uid://bkakbc8lqeex4" path="res://Resources/County Improvements/GardenersShack.tres" id="15_x6nav"]
 [ext_resource type="Script" path="res://Scripts/CountyGeneration.cs" id="16_pxxn4"]
@@ -67,10 +68,12 @@ camera = NodePath("Camera2D")
 position = Vector2(494, 479)
 
 [node name="Color Coded Map Sprite2D" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("2_h1vmt")
 centered = false
 
 [node name="Map Sprite2D" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("2_ygra7")
 centered = false
 
@@ -99,6 +102,9 @@ selectedArmyTexture = ExtResource("11_e5ayq")
 
 [node name="County Loader" type="Node" parent="Game Controller Node"]
 script = ExtResource("7_o23yn")
+
+[node name="Find Neighbors" type="Node" parent="Game Controller Node"]
+script = ExtResource("13_vibhq")
 
 [node name="Graphics" type="Node" parent="Game Controller Node"]
 script = ExtResource("6_48s64")
@@ -222,6 +228,7 @@ heroListPrefab = ExtResource("27_03q5w")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 theme_override_constants/margin_top = 26
 
 [node name="County Info and Selected Hero HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/County Info Control/MarginContainer"]
@@ -376,6 +383,7 @@ custom_minimum_size = Vector2(300, 50)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+mouse_filter = 2
 script = ExtResource("34_8wj68")
 factionLeaderTextureRect = NodePath("HBoxContainer/Leader TextureRect")
 aideTextureRect = NodePath("HBoxContainer/Aide TextureRect")
@@ -387,17 +395,18 @@ heroListButton = NodePath("Hero List Button")
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-mouse_filter = 1
 text = "Whatevers"
 vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Select Hero PanelContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Leader TextureRect" type="TextureRect" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Select Hero PanelContainer/HBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_vertical = 8
+mouse_filter = 2
 texture = ExtResource("7_g78s2")
 stretch_mode = 2
 
@@ -405,6 +414,7 @@ stretch_mode = 2
 visible = false
 layout_mode = 2
 size_flags_vertical = 8
+mouse_filter = 2
 texture = ExtResource("8_rm8kv")
 stretch_mode = 2
 
@@ -412,6 +422,7 @@ stretch_mode = 2
 visible = false
 layout_mode = 2
 size_flags_vertical = 8
+mouse_filter = 2
 texture = ExtResource("9_ft7d6")
 stretch_mode = 2
 
@@ -419,7 +430,6 @@ stretch_mode = 2
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-size_flags_horizontal = 0
 
 [node name="Population List MarginContainer" type="MarginContainer" parent="Player UI Canvas" node_paths=PackedStringArray("populationListParent", "populationListTitle")]
 visible = false

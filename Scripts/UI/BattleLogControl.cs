@@ -14,7 +14,6 @@ namespace PlayerSpace
         private bool isNextLogOdd = true; // Start with odd line
         [Export] private int maxLines;
 
-
         private void OnVisibilityChanged()
         {
             if(Visible == true)

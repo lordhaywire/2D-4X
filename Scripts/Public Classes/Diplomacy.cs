@@ -1,7 +1,5 @@
 using Godot;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using System.Linq;
 
 namespace PlayerSpace
@@ -29,7 +27,11 @@ namespace PlayerSpace
 
         public void DefenderSpawnArmies(FactionData defenderFactionData, SelectCounty battleLocation)
         {
-            defenderFactionData.tokenSpawner.Spawn(battleLocation, CheckForDefenders(battleLocation));
+            CountyPopulation defenderHero = CheckForDefenders(battleLocation);
+            if (defenderHero != null)
+            {
+                defenderFactionData.tokenSpawner.Spawn(battleLocation, defenderHero);
+            }
         }
 
         private CountyPopulation CheckForDefenders(SelectCounty battleLocation)

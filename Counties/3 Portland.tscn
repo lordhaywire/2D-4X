@@ -1,9 +1,9 @@
 [gd_scene load_steps=12 format=3]
 
 [ext_resource type="Script" path="res://Scripts/SelectCounty.cs" id="1_oduqa"]
-[ext_resource type="Resource" path="res://Resources/Counties/3 Portland.tres" id="2_ebn5o"]
-[ext_resource type="Texture2D" path="res://Graphics/Icons/Top Bar/Capital Icon.png" id="3_503cs"]
-[ext_resource type="Script" path="res://Scripts/UI/HeroTokensControl.cs" id="4_g1f16"]
+[ext_resource type="Resource" uid="uid://bwkrcckgmgmn1" path="res://Resources/Counties/3 Portland.tres" id="2_ebn5o"]
+[ext_resource type="Texture2D" uid="uid://c3bhckl88r540" path="res://Graphics/Icons/Top Bar/Capital Icon.png" id="3_503cs"]
+[ext_resource type="Script" path="res://Scripts/UI/BattleControl.cs" id="4_g1f16"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v6272"]
 

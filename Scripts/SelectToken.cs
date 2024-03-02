@@ -19,6 +19,8 @@ namespace PlayerSpace
 
         [Export] private bool isSelected;
 
+        public BattleControl currentBattle;
+
         public bool IsSelected
         {
             get { return isSelected; }

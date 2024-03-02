@@ -45,7 +45,7 @@ namespace PlayerSpace
             }
 
 
-            // This is set again to update the spirte textures;
+            // This is set again to update the sprite textures;
             if (countyPopulation.token != null)
             {
                 AllTokenTextures.Instance.AssignTokenTextures(countyPopulation.token);

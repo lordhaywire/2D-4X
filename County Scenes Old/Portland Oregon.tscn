@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://b0d8lxt50iio6" path="res://Graphics/Counties/Portland Oregon County.png" id="2_xhd0l"]
 [ext_resource type="Texture2D" uid="uid://c3bhckl88r540" path="res://Graphics/Icons/Top Bar/Capital Icon.png" id="4_0ds3c"]
 [ext_resource type="Script" path="res://Scripts/HeroStacker.cs" id="5_pbs2c"]
-[ext_resource type="Script" path="res://Scripts/UI/HeroTokensControl.cs" id="6_5lok8"]
+[ext_resource type="Script" path="res://Scripts/UI/BattleControl.cs" id="6_5lok8"]
 [ext_resource type="Texture2D" uid="uid://7jvylb78h24w" path="res://Graphics/Tokens/HornedGuyUnselected.png" id="6_ohfvk"]
 
 [node name="Portland Oregon Node2D" type="Node2D" node_paths=PackedStringArray("heroSpawn", "battleControl")]

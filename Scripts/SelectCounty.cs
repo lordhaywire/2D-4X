@@ -1,4 +1,6 @@
 using Godot;
+using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 
 
 namespace PlayerSpace
@@ -13,13 +15,15 @@ namespace PlayerSpace
         [Export] public Sprite2D capitalSprite;
         [Export] public Node2D countyOverlayNode2D;
         [Export] public Node2D heroSpawn;
-        [Export] public HeroTokensControl heroTokensControl;
+        [Export] public BattleControl heroTokensControl;
 
         [Export] public HBoxContainer armiesHBox;
         [Export] public HBoxContainer heroesHBox;
 
         private SelectToken selectToken; 
         private CountyPopulation countyPopulation;
+
+        public List<SelectCounty> neighborCounties = [];
 
 
         //public ListWithNotify<SelectToken> spawnedHeroList = new(); // This is not a normal list.

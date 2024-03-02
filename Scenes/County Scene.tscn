@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://cy0ifoahmgp4b"]
 
 [ext_resource type="Script" path="res://Scripts/SelectCounty.cs" id="1_fuvq0"]
+[ext_resource type="Script" path="res://Scripts/UI/BattleControl.cs" id="3_f6q62"]
 [ext_resource type="Texture2D" uid="uid://c3bhckl88r540" path="res://Graphics/Icons/Top Bar/Capital Icon.png" id="4_b7k3o"]
-[ext_resource type="Script" path="res://Scripts/UI/HeroTokensControl.cs" id="4_t7vsp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v6272"]
 
@@ -18,7 +18,7 @@ countySprite = NodePath("County Sprite2D")
 capitalSprite = NodePath("County Overlay Node2D/Capital Sprite2D")
 countyOverlayNode2D = NodePath("County Overlay Node2D")
 heroSpawn = NodePath("County Overlay Node2D/Hero Spawn Location Node2D")
-heroTokensControl = NodePath("County Overlay Node2D/Hero Tokens Control")
+heroTokensControl = NodePath("County Overlay Node2D/Battle Control")
 armiesHBox = NodePath("County Overlay Node2D/VBoxContainer/Armies HBoxContainer")
 heroesHBox = NodePath("County Overlay Node2D/VBoxContainer/Heroes HBoxContainer")
 
@@ -43,7 +43,7 @@ texture = ExtResource("4_b7k3o")
 [node name="Hero Spawn Location Node2D" type="Node2D" parent="County Overlay Node2D"]
 z_index = 10
 
-[node name="Hero Tokens Control" type="Control" parent="County Overlay Node2D" node_paths=PackedStringArray("heroSeparator", "armySeparator", "defenderTokenTextureRect", "attackerTokenTextureRect", "defenderMoraleLabel", "attackerMoraleLabel")]
+[node name="Battle Control" type="Control" parent="County Overlay Node2D" node_paths=PackedStringArray("heroSeparator", "armySeparator", "defenderTokenTextureRect", "attackerTokenTextureRect", "defenderMoraleLabel", "attackerMoraleLabel")]
 visible = false
 layout_mode = 3
 anchors_preset = 7
@@ -60,7 +60,7 @@ grow_vertical = 0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 1
-script = ExtResource("4_t7vsp")
+script = ExtResource("3_f6q62")
 heroSeparator = NodePath("../VBoxContainer/Armies HBoxContainer/VSeparator")
 armySeparator = NodePath("../VBoxContainer/Heroes HBoxContainer/VSeparator")
 defenderTokenTextureRect = NodePath("PanelContainer/HBoxContainer/Defender TextureRect")
@@ -68,7 +68,7 @@ attackerTokenTextureRect = NodePath("PanelContainer/HBoxContainer/Attacker Textu
 defenderMoraleLabel = NodePath("PanelContainer/HBoxContainer/Defenders Morale Control/Defenders Morale Label")
 attackerMoraleLabel = NodePath("PanelContainer/HBoxContainer/Attackers Morale Control/Attackers Morale Label")
 
-[node name="PanelContainer" type="PanelContainer" parent="County Overlay Node2D/Hero Tokens Control"]
+[node name="PanelContainer" type="PanelContainer" parent="County Overlay Node2D/Battle Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -77,16 +77,16 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="County Overlay Node2D/Hero Tokens Control/PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="County Overlay Node2D/Battle Control/PanelContainer"]
 layout_mode = 2
 
-[node name="Defenders Morale Control" type="Control" parent="County Overlay Node2D/Hero Tokens Control/PanelContainer/HBoxContainer"]
+[node name="Defenders Morale Control" type="Control" parent="County Overlay Node2D/Battle Control/PanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 0
 mouse_filter = 2
 
-[node name="Defenders Morale Label" type="Label" parent="County Overlay Node2D/Hero Tokens Control/PanelContainer/HBoxContainer/Defenders Morale Control"]
+[node name="Defenders Morale Label" type="Label" parent="County Overlay Node2D/Battle Control/PanelContainer/HBoxContainer/Defenders Morale Control"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -100,24 +100,24 @@ text = "000"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Defender TextureRect" type="TextureRect" parent="County Overlay Node2D/Hero Tokens Control/PanelContainer/HBoxContainer"]
+[node name="Defender TextureRect" type="TextureRect" parent="County Overlay Node2D/Battle Control/PanelContainer/HBoxContainer"]
 layout_mode = 2
 texture = SubResource("PlaceholderTexture2D_mc4v5")
 expand_mode = 3
 
-[node name="Attacker TextureRect" type="TextureRect" parent="County Overlay Node2D/Hero Tokens Control/PanelContainer/HBoxContainer"]
+[node name="Attacker TextureRect" type="TextureRect" parent="County Overlay Node2D/Battle Control/PanelContainer/HBoxContainer"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 texture = SubResource("PlaceholderTexture2D_1pkk4")
 expand_mode = 3
 
-[node name="Attackers Morale Control" type="Control" parent="County Overlay Node2D/Hero Tokens Control/PanelContainer/HBoxContainer"]
+[node name="Attackers Morale Control" type="Control" parent="County Overlay Node2D/Battle Control/PanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 0
 mouse_filter = 2
 
-[node name="Attackers Morale Label" type="Label" parent="County Overlay Node2D/Hero Tokens Control/PanelContainer/HBoxContainer/Attackers Morale Control"]
+[node name="Attackers Morale Label" type="Label" parent="County Overlay Node2D/Battle Control/PanelContainer/HBoxContainer/Attackers Morale Control"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -131,7 +131,7 @@ text = "000"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Battle Button" type="Button" parent="County Overlay Node2D/Hero Tokens Control"]
+[node name="Battle Button" type="Button" parent="County Overlay Node2D/Battle Control"]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -171,4 +171,4 @@ visible = false
 layout_mode = 2
 mouse_filter = 1
 
-[connection signal="button_up" from="County Overlay Node2D/Hero Tokens Control/Battle Button" to="County Overlay Node2D/Hero Tokens Control" method="ButtonUp"]
+[connection signal="button_up" from="County Overlay Node2D/Battle Control/Battle Button" to="County Overlay Node2D/Battle Control" method="ButtonUp"]

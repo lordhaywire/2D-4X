@@ -5,7 +5,7 @@
 [ext_resource type="Resource" uid="uid://cwiqoelw7ltr0" path="res://Resources/Counties/1 Tillamook.tres" id="3_f0kj6"]
 [ext_resource type="Texture2D" uid="uid://c3bhckl88r540" path="res://Graphics/Icons/Top Bar/Capital Icon.png" id="4_63kd3"]
 [ext_resource type="Script" path="res://Scripts/HeroStacker.cs" id="5_27bcb"]
-[ext_resource type="Script" path="res://Scripts/UI/HeroTokensControl.cs" id="6_ro8hh"]
+[ext_resource type="Script" path="res://Scripts/UI/BattleControl.cs" id="6_ro8hh"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_5hgq1"]
 

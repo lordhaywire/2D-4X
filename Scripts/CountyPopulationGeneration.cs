@@ -72,7 +72,7 @@ namespace PlayerSpace
 
                 // Generate random stats for each population.
 
-                int moraleExpendable = 100; 
+                int moraleExpendable = 100;
                 int coolAttribute = random.Next(20, 81); // This isn't going to be a random number eventually.  It will be based on other attributes.
                 int loyaltyAttribute = 100; // This is a temporary number.
                 int constructionSkill = random.Next(20, 81);
@@ -81,11 +81,11 @@ namespace PlayerSpace
                 if (hero == false)
                 {
                     // This adds to the C# list.
-                    countyData.countyPopulationList.Add(new CountyPopulation(countyData.factionData, countyData.countyId, 
-                        -1, firstName , lastName, isMale, age, false, false, false, false, false, false
+                    countyData.countyPopulationList.Add(new CountyPopulation(countyData.factionData, countyData.countyId
+                        , -1, -1, firstName, lastName, isMale, age, false, false, false, false, false, false
                         , moraleExpendable, coolAttribute, loyaltyAttribute, constructionSkill, rifleSkill, AllText.Activities.IDLE
                         , null, AllText.Activities.IDLE, null));
-                    
+
                     /*
                     CountyPopulation person = countyData.countyPopulation[i];
                     GD.Print($"Name: {countyData.countyPopulation[i].firstName} {countyData.countyPopulation[i].lastName} " +
@@ -96,10 +96,10 @@ namespace PlayerSpace
                 else
                 {
                     // This adds to a C# list.
-                    countyData.heroCountyList.Add(new CountyPopulation(countyData.factionData, countyData.countyId, 
-                        -1, firstName, lastName, isMale, age, true, true, false, false, false, true
+                    countyData.heroCountyList.Add(new CountyPopulation(countyData.factionData, countyData.countyId
+                        , -1, -1, firstName, lastName, isMale, age, true, true, false, false, false, true
                         , moraleExpendable, coolAttribute, loyaltyAttribute, constructionSkill, rifleSkill, AllText.Activities.IDLE
-                        , null, AllText.Activities.IDLE, null));                 
+                        , null, AllText.Activities.IDLE, null));
                     /*
                     CountyPopulation heroPerson = countyData.heroCountyPopulation[i];
                     GD.Print($"Hero Name: {heroPerson.firstName} {heroPerson.lastName} " +

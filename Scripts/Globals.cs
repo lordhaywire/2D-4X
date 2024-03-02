@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 
 namespace PlayerSpace
@@ -6,6 +7,7 @@ namespace PlayerSpace
     public partial class Globals : Node
     {
         public static Globals Instance { get; private set; }
+        public Random random = new();
 
         [ExportGroup("Event Variables")]
         public List<FactionData> factionDatas = [];

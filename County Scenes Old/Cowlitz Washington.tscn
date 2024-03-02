@@ -5,7 +5,7 @@
 [ext_resource type="Resource" uid="uid://cvc0wfljshom0" path="res://Resources/Counties/0 Cowlitz.tres" id="2_si4qt"]
 [ext_resource type="Texture2D" uid="uid://c3bhckl88r540" path="res://Graphics/Icons/Top Bar/Capital Icon.png" id="4_4wrbt"]
 [ext_resource type="Script" path="res://Scripts/HeroStacker.cs" id="5_lgu8l"]
-[ext_resource type="Script" path="res://Scripts/UI/HeroTokensControl.cs" id="6_v63rb"]
+[ext_resource type="Script" path="res://Scripts/UI/BattleControl.cs" id="6_v63rb"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_mc4v5"]
 

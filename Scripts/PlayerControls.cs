@@ -53,9 +53,10 @@ namespace PlayerSpace
                     {
                         maskSprite.Show();
 
-                        // Left Click on County
+                        // Mouse Click
                         if (@event is InputEventMouseButton eventMouseButton)
                         {
+                            // Left Click on County
                             if (eventMouseButton.ButtonIndex == MouseButton.Left && eventMouseButton.Pressed == false)
                             //&& Globals.Instance.isInsideToken == false)
                             {

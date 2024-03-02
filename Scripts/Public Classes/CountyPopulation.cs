@@ -7,6 +7,8 @@ namespace PlayerSpace
     {
         public FactionData factionData;
         public int location;
+
+        public int lastLocation;
         public int destination;
 
         //public string faction;
@@ -28,7 +30,7 @@ namespace PlayerSpace
             set
             {
                 isArmyLeader = value;
-                if(token != null)
+                if (token != null)
                 {
                     AllTokenTextures.Instance.AssignTokenTextures(token);
                 }
@@ -65,14 +67,16 @@ namespace PlayerSpace
             SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(location);
             selectCounty.countyData.heroCountyList.Add(this);
         }
+
         public CountyPopulation(
-            FactionData factionData, int location, int destination, string firstName, string lastName, bool isMale, int age, bool isHero, bool isLeader
-            , bool isAide, bool IsArmyLeader, bool isWorker, bool leaderOfPeoplePerk, int moraleExpendable, 
+            FactionData factionData, int location, int lastLocation, int destination, string firstName, string lastName, bool isMale, int age, bool isHero, bool isLeader
+            , bool isAide, bool IsArmyLeader, bool isWorker, bool leaderOfPeoplePerk, int moraleExpendable,
             int coolSkill, int loyaltyAttribute, int constructionSkill, int rifleSkill, string currentActivity
             , CountyImprovementData currentImprovement, string nextActivity, CountyImprovementData nextImprovement)
         {
             this.factionData = factionData;
             this.location = location;
+            this.lastLocation = lastLocation;
             this.destination = destination;
             this.firstName = firstName;
             this.lastName = lastName;

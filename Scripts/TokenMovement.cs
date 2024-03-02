@@ -18,8 +18,8 @@ namespace PlayerSpace
                 moveToken = value;
                 if (moveToken == true)
                 {
-                    //GD.PrintRich($"[rainbow]Token in TokenMovement: " + token.Name);
-                   // target = Globals.Instance.heroMoveTarget;
+                    token.countyPopulation.lastLocation = token.countyPopulation.location;
+                    token.Show();
                 }
             }
         }
@@ -39,15 +39,26 @@ namespace PlayerSpace
                 = (SelectCounty)Globals.Instance.countiesParent.GetChild(destinationCountyID);
 
             token.countyPopulation.destination = destinationCountyID;
-            token.countyPopulation.currentActivity = AllText.Activities.MOVING;
+            token.UpdateCurrentActivity("AllText.Activities.MOVING");
 
             //GD.Print("Destination Global Position: " + destinationCounty.heroSpawn.GlobalPosition);
             target = destinationCounty.heroSpawn.GlobalPosition;
             //GD.Print("Target Global Position: " + target);
             //GD.Print("Token Global Position: " + token.GlobalPosition);
+
+            CheckIfInBattle();
+            
             MoveToken = true;
         }
 
+        private void CheckIfInBattle()
+        {
+            if (token.currentBattle != null)
+            {
+                token.currentBattle.EndBattle();
+                token.currentBattle = null;
+            }
+        }
         private void Move()
         {
             //GD.Print("Target Global Position: " + target);
@@ -134,7 +145,6 @@ namespace PlayerSpace
                     if (destinationCounty.countyData.factionData == war.defenderFactionData
                         || destinationCounty.countyData.factionData == war.attackerFactionData)
                     {
-
                         token.countyPopulation.location = destinationCounty.countyData.countyId;
 
                         GD.Print("New Battle!");
