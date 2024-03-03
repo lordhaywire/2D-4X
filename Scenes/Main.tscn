@@ -68,12 +68,10 @@ camera = NodePath("Camera2D")
 position = Vector2(494, 479)
 
 [node name="Color Coded Map Sprite2D" type="Sprite2D" parent="."]
-visible = false
 texture = ExtResource("2_h1vmt")
 centered = false
 
 [node name="Map Sprite2D" type="Sprite2D" parent="."]
-visible = false
 texture = ExtResource("2_ygra7")
 centered = false
 
@@ -1061,7 +1059,7 @@ size_flags_horizontal = 3
 tooltip_text = "You are a piece of shit!"
 text = "Yes"
 
-[node name="Battle Log Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("defenderVboxContainer", "attackerVboxContainer")]
+[node name="Battle Log Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("battleLogControlTitle", "defenderVboxContainer", "attackerVboxContainer")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -1072,6 +1070,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("35_10y8n")
 combatLogScene = ExtResource("44_qsgen")
+battleLogControlTitle = NodePath("MarginContainer/PanelContainer/Battle Log Title Label")
 defenderVboxContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/MarginContainer/ScrollContainer/Defender VBoxContainer")
 attackerVboxContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/MarginContainer/ScrollContainer/Attacker VBoxContainer")
 maxLines = 50

@@ -23,10 +23,10 @@ namespace PlayerSpace
             Hide();
             War newWar = new()
             {
-                attackerFactionData = Globals.Instance.playerFactionData,
+                aggressorFactionData = Globals.Instance.playerFactionData,
                 defenderFactionData = Globals.Instance.selectedRightClickCounty.countyData.factionData
             };
-            GD.Print($"{newWar.attackerFactionData.factionName} is attacking {newWar.defenderFactionData.factionName}");
+            GD.Print($"{newWar.aggressorFactionData.factionName} is attacking {newWar.defenderFactionData.factionName}");
             // Once yes has been hit, this is the actual declaration of war.
             Globals.Instance.playerFactionData.diplomacy.DeclareWar(newWar);
             SelectToken selectToken = Globals.Instance.SelectedCountyPopulation.token;

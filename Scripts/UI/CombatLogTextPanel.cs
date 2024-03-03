@@ -1,7 +1,10 @@
 using Godot;
 using System;
 
-public partial class CombatLogTextPanel : Panel
+namespace PlayerSpace
 {
-    [Export] public Label logText;
+    public partial class CombatLogTextPanel : Panel
+    {
+        [Export] public Label logText;
+    }
 }

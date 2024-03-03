@@ -19,12 +19,17 @@ namespace PlayerSpace
         [Export] private Label defenderMoraleLabel;
         [Export] private Label attackerMoraleLabel;
 
-        SelectToken countyAttackerSelectToken;
-        SelectToken countyDefendersSelectToken;
+        private SelectToken countyAttackerSelectToken;
+        private SelectToken countyDefendersSelectToken;
+
+        private Battle battle;
 
         private List<string> combatLogs;
-        public void StartBattle()
+        public void StartBattle(Battle currentbattle)
         {
+            GD.Print("Start Battle.");
+
+            battle = currentbattle;
             SelectCounty selectCounty = (SelectCounty)GetParent().GetParent();
 
             // Attackers Army
@@ -36,6 +41,7 @@ namespace PlayerSpace
                     countyAttackerSelectToken.Hide();
                     attackerTokenTextureRect.Texture = countyAttackerSelectToken.unselectedTexture;
                     attackerMoraleLabel.Text = countyAttackerSelectToken.countyPopulation.moraleExpendable.ToString();
+                    countyAttackerSelectToken.InCombat = true;
                     break;
                 }
             }
@@ -49,6 +55,7 @@ namespace PlayerSpace
                     countyDefendersSelectToken.Hide();
                     defenderTokenTextureRect.Texture = countyDefendersSelectToken.unselectedTexture;
                     defenderMoraleLabel.Text = countyDefendersSelectToken.countyPopulation.moraleExpendable.ToString();
+                    countyDefendersSelectToken.InCombat = true;
                     break;
                 }
             }
@@ -59,16 +66,15 @@ namespace PlayerSpace
         private void SubscribeToHourChange()
         {
             Clock.Instance.HourChanged += HourlyBattleInCounty;
-            countyAttackerSelectToken.currentBattle = this;
         }
         private void HourlyBattleInCounty()
         {
             GD.Print("Hourly Battle.");
-
             // County defender attacks county attacker.
             Attack(countyAttackerSelectToken.countyPopulation, countyDefendersSelectToken.countyPopulation, false);
 
             // County attacker attacks county defender.
+            //countyAttackerSelectToken.countyPopulation.moraleExpendable = 100; // This is just for testing.
             Attack(countyDefendersSelectToken.countyPopulation, countyAttackerSelectToken.countyPopulation, true);
 
             ContinueBattleCheck();
@@ -77,26 +83,36 @@ namespace PlayerSpace
         private void ContinueBattleCheck()
         {
             // Both have zero morale.
-            if(countyAttackerSelectToken.countyPopulation.moraleExpendable == 0 
+            if (countyAttackerSelectToken.countyPopulation.moraleExpendable == 0
                 && countyDefendersSelectToken.countyPopulation.moraleExpendable == 0)
             {
                 ArmyFlees(countyAttackerSelectToken.countyPopulation);
+                EventLog.Instance.AddLog($"{countyAttackerSelectToken.countyPopulation.firstName} " +
+                    $"{countyAttackerSelectToken.countyPopulation.lastName} " +
+                    $"{AllText.Battle.LOSTBATTLE}");
             }
             // Attacker has zero morale.
-            if(countyAttackerSelectToken.countyPopulation.moraleExpendable == 0)
+            if (countyAttackerSelectToken.countyPopulation.moraleExpendable == 0)
             {
                 ArmyFlees(countyAttackerSelectToken.countyPopulation);
+                EventLog.Instance.AddLog($"{countyAttackerSelectToken.countyPopulation.firstName} " +
+                    $"{countyAttackerSelectToken.countyPopulation.lastName} " +
+                    $"{AllText.Battle.LOSTBATTLE}");
             }
             // Defender has zero morale.
-            if(countyDefendersSelectToken.countyPopulation.moraleExpendable == 0)
+            if (countyDefendersSelectToken.countyPopulation.moraleExpendable == 0)
             {
                 ArmyFlees(countyDefendersSelectToken.countyPopulation);
+                EventLog.Instance.AddLog($"{countyDefendersSelectToken.countyPopulation.firstName} " +
+                    $"{countyDefendersSelectToken.countyPopulation.lastName} " +
+                    $"{AllText.Battle.LOSTBATTLE}");
             }
         }
 
         private void ArmyFlees(CountyPopulation countyPopulation)
         {
-            if(countyPopulation.lastLocation != -1)
+            countyPopulation.token.isRetreating = true;
+            if (countyPopulation.lastLocation != -1)
             {
                 countyPopulation.token.tokenMovement
                     .StartMove(countyPopulation.lastLocation);
@@ -114,7 +130,7 @@ namespace PlayerSpace
             SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
             List<SelectCounty> countyNeighbors = selectCounty.neighborCounties;
             SelectCounty destinationCounty = FindFactionOwnedNeighborCounty(countyNeighbors, countyPopulation);
-            if(destinationCounty != null)
+            if (destinationCounty != null)
             {
                 countyPopulation.token.tokenMovement.StartMove(destinationCounty.countyData.countyId);
                 CountyCaptured();
@@ -156,6 +172,9 @@ namespace PlayerSpace
         public void EndBattle()
         {
             Clock.Instance.HourChanged -= HourlyBattleInCounty;
+            battle.battleLocation.battles.Remove(battle);
+            countyAttackerSelectToken.InCombat = false;
+            countyDefendersSelectToken.InCombat = false;
             Hide();
         }
 
@@ -174,7 +193,7 @@ namespace PlayerSpace
                 if (coolRoll > gettingShotAtCountyPopulation.coolSkill)
                 {
                     int moraleDamage = random.Next(Globals.Instance.moraleDamageMin, Globals.Instance.moraleDamageMax);
-                    gettingShotAtCountyPopulation.moraleExpendable 
+                    gettingShotAtCountyPopulation.moraleExpendable
                         = Math.Max(gettingShotAtCountyPopulation.moraleExpendable - moraleDamage, 0);
                     BattleLogControl.Instance.AddLog($"{gettingShotAtCountyPopulation.firstName} " +
                         $"{gettingShotAtCountyPopulation.lastName} has failed their cool roll!  They have lost {moraleDamage}", !isAttacker);
@@ -192,7 +211,5 @@ namespace PlayerSpace
             GD.Print("Battle Log Control Clicked.");
             PlayerUICanvas.Instance.BattleLogControl.Show();
         }
-
-
     }
 }

@@ -8,8 +8,8 @@ namespace PlayerSpace
     {
         public void DeclareWar(War war)
         {
-            GD.Print($"{war.attackerFactionData.factionName} has declared war on {war.defenderFactionData.factionName}.");
-            EventLog.Instance.AddLog($"{war.attackerFactionData.factionName} has declared war on {war.defenderFactionData.factionName}.");
+            GD.Print($"{war.aggressorFactionData.factionName} has declared war on {war.defenderFactionData.factionName}.");
+            EventLog.Instance.AddLog($"{war.aggressorFactionData.factionName} has declared war on {war.defenderFactionData.factionName}.");
             Globals.Instance.selectedRightClickCounty.countyData
                 .factionData.diplomacy.RespondToDeclarationOfWar(war, Globals.Instance.selectedRightClickCounty);
         }
@@ -21,7 +21,7 @@ namespace PlayerSpace
 
             DefenderSpawnArmies(war.defenderFactionData, battleLocation);
             // Add the wars to the factions so they know what wars they are in.
-            war.attackerFactionData.wars.Add(war);
+            war.aggressorFactionData.wars.Add(war);
             war.defenderFactionData.wars.Add(war);
         }
 

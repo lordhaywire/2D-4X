@@ -87,6 +87,8 @@ namespace PlayerSpace
         [Export] public int loyaltyCheckNumber = 50;
         [Export] public int moraleDamageMin = 1;
         [Export] public int moraleDamageMax = 21; // One above max.
+        [Export] public int moraleRecoveryMin = 1;
+        [Export] public int moraleRecoveryMax = 11; // One above max.
         public int researchClicked; // This is so the Research description panel knows which research was clicked.
 
         string listsPath = "res://Lists/";

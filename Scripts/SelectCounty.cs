@@ -15,7 +15,7 @@ namespace PlayerSpace
         [Export] public Sprite2D capitalSprite;
         [Export] public Node2D countyOverlayNode2D;
         [Export] public Node2D heroSpawn;
-        [Export] public BattleControl heroTokensControl;
+        [Export] public BattleControl battleControl;
 
         [Export] public HBoxContainer armiesHBox;
         [Export] public HBoxContainer heroesHBox;

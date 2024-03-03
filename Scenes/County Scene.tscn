@@ -10,15 +10,15 @@
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1pkk4"]
 
-[node name="County Node2D" type="Node2D" node_paths=PackedStringArray("maskSprite", "countySprite", "capitalSprite", "countyOverlayNode2D", "heroSpawn", "heroTokensControl", "armiesHBox", "heroesHBox")]
+[node name="County Node2D" type="Node2D" node_paths=PackedStringArray("maskSprite", "countySprite", "capitalSprite", "countyOverlayNode2D", "heroSpawn", "battleControl", "armiesHBox", "heroesHBox")]
 z_as_relative = false
 script = ExtResource("1_fuvq0")
 maskSprite = NodePath("Mask Sprite2D")
-countySprite = NodePath("County Sprite2D")
+countySprite = NodePath("Mask Sprite2D/County Sprite2D")
 capitalSprite = NodePath("County Overlay Node2D/Capital Sprite2D")
 countyOverlayNode2D = NodePath("County Overlay Node2D")
 heroSpawn = NodePath("County Overlay Node2D/Hero Spawn Location Node2D")
-heroTokensControl = NodePath("County Overlay Node2D/Battle Control")
+battleControl = NodePath("County Overlay Node2D/Battle Control")
 armiesHBox = NodePath("County Overlay Node2D/VBoxContainer/Armies HBoxContainer")
 heroesHBox = NodePath("County Overlay Node2D/VBoxContainer/Heroes HBoxContainer")
 
@@ -27,7 +27,7 @@ z_index = 10
 material = SubResource("ShaderMaterial_v6272")
 centered = false
 
-[node name="County Sprite2D" type="Sprite2D" parent="."]
+[node name="County Sprite2D" type="Sprite2D" parent="Mask Sprite2D"]
 self_modulate = Color(0.192157, 0.960784, 0.686275, 1)
 z_index = 5
 centered = false
@@ -44,7 +44,6 @@ texture = ExtResource("4_b7k3o")
 z_index = 10
 
 [node name="Battle Control" type="Control" parent="County Overlay Node2D" node_paths=PackedStringArray("heroSeparator", "armySeparator", "defenderTokenTextureRect", "attackerTokenTextureRect", "defenderMoraleLabel", "attackerMoraleLabel")]
-visible = false
 layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5

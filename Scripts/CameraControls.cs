@@ -33,12 +33,7 @@ namespace PlayerSpace
         {
             GetInput();
             MoveAndSlide();
-            /*
-            if(Globals.Instance.SelectedCountyPopulation != null)
-            {
-                GD.Print(Globals.Instance.SelectedCountyPopulation.destination);
-            }
-            */
+
         }
 
         public override void _Input(InputEvent @event)

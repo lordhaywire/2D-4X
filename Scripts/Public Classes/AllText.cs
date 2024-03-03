@@ -3,6 +3,10 @@ namespace PlayerSpace
 {
     public class AllText
     {
+        public class Battle
+        {
+            public const string LOSTBATTLE = " has lost the battle.";
+        }
         public class ToolTips
         {
             public const string NOTENOUGHINFLUENCE = "You don't have enough influence";

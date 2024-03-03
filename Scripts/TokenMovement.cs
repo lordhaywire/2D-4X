@@ -39,24 +39,25 @@ namespace PlayerSpace
                 = (SelectCounty)Globals.Instance.countiesParent.GetChild(destinationCountyID);
 
             token.countyPopulation.destination = destinationCountyID;
-            token.UpdateCurrentActivity("AllText.Activities.MOVING");
+            token.UpdateCurrentActivity(AllText.Activities.MOVING);
 
             //GD.Print("Destination Global Position: " + destinationCounty.heroSpawn.GlobalPosition);
             target = destinationCounty.heroSpawn.GlobalPosition;
             //GD.Print("Target Global Position: " + target);
             //GD.Print("Token Global Position: " + token.GlobalPosition);
 
-            CheckIfInBattle();
+            CheckIfRetreating(); 
             
             MoveToken = true;
         }
 
-        private void CheckIfInBattle()
+        private void CheckIfRetreating()
         {
-            if (token.currentBattle != null)
+            SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(token.countyPopulation.location);
+            
+            if (selectCounty.countyData.battles.Count > 0)
             {
-                token.currentBattle.EndBattle();
-                token.currentBattle = null;
+                selectCounty.battleControl.EndBattle();
             }
         }
         private void Move()
@@ -80,7 +81,7 @@ namespace PlayerSpace
             GD.Print("Removed token from Starting County");
             // Remove countyPopulation from the heroes starting county location list.
             SelectCounty startingCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(token.countyPopulation.location);
-            if(startingCounty.countyData.factionData == Globals.Instance.playerFactionData)
+            if (startingCounty.countyData.factionData == Globals.Instance.playerFactionData)
             {
                 startingCounty.countyData.heroCountyList.Remove(token.countyPopulation);
             }
@@ -94,7 +95,7 @@ namespace PlayerSpace
             GD.Print("Add To Destination County.");
             token.countyPopulation.location = destinationCounty.countyData.countyId;
             destinationCounty.countyData.spawnTokenButtons.Add(token.spawnedTokenButton);
-            if(token.countyPopulation.IsArmyLeader == false)
+            if (token.countyPopulation.IsArmyLeader == false)
             {
                 token.spawnedTokenButton.Reparent(destinationCounty.heroesHBox);
             }
@@ -109,7 +110,7 @@ namespace PlayerSpace
             token.Hide();
 
             // Add token to County Data hero token list.  Except we are going to have to determine if the hero is visiting.
-            if(destinationCounty.countyData.factionData == Globals.Instance.playerFactionData)
+            if (destinationCounty.countyData.factionData == Globals.Instance.playerFactionData)
             {
                 destinationCounty.countyData.heroCountyList.Add(token.countyPopulation);
             }
@@ -119,6 +120,10 @@ namespace PlayerSpace
             }
             token.countyPopulation.destination = -1; // This is -1 because this is like a "null" int.
             CountyInfoControl.Instance.UpdateEverything();
+
+            CheckForBattles();
+
+            token.isRetreating = false;
         }
         private void ReachedDestination()
         {
@@ -129,7 +134,7 @@ namespace PlayerSpace
             // This needs to happen automatically somehow.
             //selectToken.countyPopulation.currentActivity = AllText.Activities.IDLE;
             // Are you at war with the owner of the county the token just arrived at?
-            if (token.countyPopulation.IsArmyLeader == false 
+            if (token.countyPopulation.IsArmyLeader == false
                 || destinationCounty.countyData.factionData == Globals.Instance.playerFactionData)
             {
                 RemoveFromStartingCounty();
@@ -140,31 +145,53 @@ namespace PlayerSpace
                 RemoveFromStartingCounty();
                 AddToDestinationCounty();
 
-                foreach (War war in Globals.Instance.playerFactionData.wars)
-                {
-                    if (destinationCounty.countyData.factionData == war.defenderFactionData
-                        || destinationCounty.countyData.factionData == war.attackerFactionData)
-                    {
-                        token.countyPopulation.location = destinationCounty.countyData.countyId;
-
-                        GD.Print("New Battle!");
-                        token.UpdateCurrentActivity(AllText.Activities.COMBAT);
-                        Battle battle = new(destinationCounty.countyData);
-                        destinationCounty.countyData.battles.Add(battle);
-                        destinationCounty.heroTokensControl.StartBattle();
-                    }
-                    else
-                    {
-                        GD.Print("No Battle!");
-                    }
-                }
                 CountyInfoControl.Instance.UpdateEverything();
             }
         }
 
-        private void EnterCombat()
+        // ChatGPT refactored the code below this.
+        private void CheckForBattles()
         {
-            throw new NotImplementedException();
+            SelectToken selectToken = (SelectToken)GetParent();
+
+            if (selectToken.isRetreating)
+            {
+                GD.Print("Is retreating!");
+                token.isRetreating = false; // Reset isRetreating to false.
+                return;
+            }
+
+            foreach (War war in selectToken.countyPopulation.factionData.wars)
+            {
+                if (IsCountyPartOfWar(war, selectToken))
+                {
+                    GD.Print("New Battle!" + destinationCounty.countyData.countyId);
+                    HandleBattle();
+                }
+                else
+                {
+                    GD.Print("No Battle!");
+                }
+            }
+            token.isRetreating = false; // Reset isRetreating to false just in case.
+        }
+
+        private bool IsCountyPartOfWar(War war, SelectToken selectToken)
+        {
+            CountyData countyData = destinationCounty.countyData;
+            FactionData aggressorFactionData = war.aggressorFactionData;
+            FactionData defenderFactionData = war.defenderFactionData;
+            FactionData selectTokenFactionData = selectToken.countyPopulation.factionData;
+            return (countyData.factionData == aggressorFactionData || countyData.factionData == defenderFactionData) 
+                && selectTokenFactionData != countyData.factionData;
+        }
+
+        private void HandleBattle()
+        {
+            token.UpdateCurrentActivity(AllText.Activities.COMBAT);
+            Battle battle = new(destinationCounty.countyData);
+            destinationCounty.countyData.battles.Add(battle);
+            destinationCounty.battleControl.StartBattle(battle);
         }
     }
 }

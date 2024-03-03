@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 namespace PlayerSpace
 {
@@ -6,7 +7,7 @@ namespace PlayerSpace
     {
         public CountyPopulation countyPopulation;
         [Export] public Sprite2D sprite;
-        
+
         [Export] public Texture2D selectedTexture;
         [Export] public Texture2D unselectedTexture;
 
@@ -17,10 +18,41 @@ namespace PlayerSpace
 
         [Export] public TokenMovement tokenMovement;
 
+        [Export] public bool isRetreating;
+        [Export] private bool inCombat;
+        public bool InCombat
+        {
+            get { return inCombat; }
+            set
+            {
+                inCombat = value;
+                if (value == false)
+                {
+                    if (countyPopulation.moraleExpendable == 100)
+                    {
+                        Clock.Instance.HourChanged -= IncreaseMorale;
+                        return;
+                    }
+                    else
+                    {
+                        Clock.Instance.HourChanged += IncreaseMorale;
+                    }
+                }
+            }
+        }
+
+        private void IncreaseMorale()
+        {
+            int coolCheck = Globals.Instance.random.Next(1, 101);
+            if (countyPopulation.coolSkill > coolCheck)
+            {
+                int moraleIncrease = Globals.Instance.random.Next(Globals.Instance.moraleRecoveryMin, Globals.Instance.moraleRecoveryMax);
+                countyPopulation.moraleExpendable = Math.Min(countyPopulation.moraleExpendable + moraleIncrease, 100);
+                GD.Print("countyPopulation morale: " + countyPopulation.moraleExpendable);
+            }
+        }
+
         [Export] private bool isSelected;
-
-        public BattleControl currentBattle;
-
         public bool IsSelected
         {
             get { return isSelected; }
@@ -58,7 +90,7 @@ namespace PlayerSpace
 
         public void UpdateSpriteTexture()
         {
-            if(isSelected == true)
+            if (isSelected == true)
             {
                 sprite.Texture = selectedTexture;
             }
@@ -82,7 +114,7 @@ namespace PlayerSpace
 
         private void OnClick(Viewport viewport, InputEvent @event, int _shapeIdx)
         {
-            
+
             if (@event is InputEventMouseButton eventMouseButton && countyPopulation.factionData == Globals.Instance.playerFactionData)
             {
                 if (eventMouseButton.ButtonIndex == MouseButton.Left && eventMouseButton.Pressed == false)

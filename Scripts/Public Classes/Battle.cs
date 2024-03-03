@@ -1,13 +1,8 @@
 
 namespace PlayerSpace
 {
-    public class Battle
+    public class Battle(CountyData battleLocation)
     {
-        public CountyData battleLocation;
-
-        public Battle(CountyData battleLocation)
-        {
-            this.battleLocation = battleLocation;
-        }
+        public CountyData battleLocation = battleLocation;
     }
 }
