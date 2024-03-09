@@ -110,25 +110,25 @@ namespace MapEditorSpace
         {
             foreach (CountyData countyData in CountyResourcesAutoLoad.Instance.countyDatas)
             {
-                SelectCounty county = (SelectCounty)MapEditorGlobals.Instance.countyPackedScene.Instantiate();
+                SelectCounty selectCounty = (SelectCounty)MapEditorGlobals.Instance.countyPackedScene.Instantiate();
 
-                county.countyData = countyData;
-                county.countyData.countyNode = county;
-                MapEditorGlobals.Instance.countiesParent.AddChild(county);
-                county.Name = $"{countyData.countyId} {countyData.countyName}";
-                county.maskSprite.Texture = countyData.maskTexture;
+                selectCounty.countyData = countyData;
+                selectCounty.countyData.countyNode = selectCounty;
+                MapEditorGlobals.Instance.countiesParent.AddChild(selectCounty);
+                selectCounty.Name = $"{countyData.countyId} {countyData.countyName}";
+                selectCounty.maskSprite.Texture = countyData.maskTexture;
                 //county.maskSprite.Position = countyData.startMaskPosition;
-                county.maskSprite.Visible = false;
+                selectCounty.maskSprite.Visible = false;
 
-                county.countySprite.Texture = countyData.mapTexture;
-                county.countySprite.SelfModulate = Colors.LightGreen;
-                county.Position = countyData.startMaskPosition;
-                Vector2 countySize = county.maskSprite.Texture.GetSize();
+                selectCounty.countySprite.Texture = countyData.mapTexture;
+                selectCounty.countySprite.SelfModulate = Colors.LightGreen;
+                selectCounty.Position = countyData.startMaskPosition;
+                Vector2 countySize = selectCounty.maskSprite.Texture.GetSize();
                 
                 // This takes the counties position and gets the center and added the manual County Overlay Local Position
                 // so that it shows up in the right place.
-                county.countyOverlayNode2D.Position = county.countyData.countyOverlayLocalPosition + countySize/2;
-                county.countySprite.Visible = true;
+                selectCounty.countyOverlayNode2D.Position = selectCounty.countyData.countyOverlayLocalPosition + countySize/2;
+                selectCounty.countySprite.Visible = true;
 
                 // Clear out this data so it isn't keeping extra images.
                 countyData.maskTexture = null;

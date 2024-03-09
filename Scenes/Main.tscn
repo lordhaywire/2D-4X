@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=56 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_x1cy2"]
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://Graphics/Provinces/Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
@@ -36,6 +36,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/CountyInfoControl.cs" id="26_8qp8l"]
 [ext_resource type="PackedScene" uid="uid://d4i6w8w8jld3d" path="res://UIScenes/HeroListCheckBoxPanelContainer.tscn" id="27_03q5w"]
 [ext_resource type="Script" path="res://Scripts/UI/PopAndIdleButtons.cs" id="28_celvx"]
+[ext_resource type="Script" path="res://Scripts/CountyDictator.cs" id="28_qe8u4"]
 [ext_resource type="Script" path="res://Scripts/UI/PopulationListUIElement.cs" id="29_ts64q"]
 [ext_resource type="PackedScene" uid="uid://djph5cv7o4atl" path="res://UIScenes/PopulationRowButton.tscn" id="30_bhu5o"]
 [ext_resource type="Script" path="res://Scripts/UI/PopulationDescriptionControl.cs" id="31_hwyyh"]
@@ -136,6 +137,9 @@ HourLabel = NodePath("../../Player UI Canvas/Top Bar Control/Top Bar HBox/Time P
 currentSpeedLabel = NodePath("../../Player UI Canvas/Top Bar Control/Time and Research Buttons HBox/Speed Panel/Speed Number Label")
 pausedLabel = NodePath("../../Player UI Canvas/Top Bar Control/Pause Control/Pause Label")
 ticks = 100
+
+[node name="County Dictator" type="Node" parent="Game Controller Node"]
+script = ExtResource("28_qe8u4")
 
 [node name="Factions AI" type="Node" parent="Game Controller Node"]
 script = ExtResource("20_y5bnv")

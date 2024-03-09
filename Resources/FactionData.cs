@@ -10,6 +10,7 @@ namespace PlayerSpace
         public event Action InfluenceChanged;
 
         [ExportGroup("Faction Info")]
+        [Export] public int factionID;
         [Export] public bool isPlayer;
         [Export] public string factionName;
         [Export] public Color factionColor;
@@ -41,5 +42,8 @@ namespace PlayerSpace
 
         [ExportGroup("Diplomatic Incidences")]
         public List<War> wars = [];
+
+        [ExportGroup("Diplomatic Matrix")]
+        [Export] public Godot.Collections.Dictionary factionWarDictionary = [];
     }
 }

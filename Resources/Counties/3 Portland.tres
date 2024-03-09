@@ -11,6 +11,7 @@ countyId = 0
 countyName = "Portland"
 isPlayerCapital = true
 isAICapital = false
+faction = 0
 factionData = ExtResource("1_7tnvd")
 province = 0
 biomePrimary = 6

@@ -7,10 +7,11 @@
 script = ExtResource("2_233ub")
 color = Color(0, 0.937255, 0.560784, 1)
 countyOverlayLocalPosition = Vector2i(0, 0)
-countyID = 0
+countyId = 0
 countyName = "Umatilla"
 isPlayerCapital = false
 isAICapital = false
+faction = 3
 factionData = ExtResource("1_uwlgx")
 province = 0
 biomePrimary = 1

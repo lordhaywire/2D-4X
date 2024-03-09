@@ -2,17 +2,18 @@ namespace PlayerSpace
 {
     public class AllEnums
     {
-        public enum Terrain
+        /*
+        public enum Factions
         {
-            Coast,
-            Desert,
-            Forest,
-            Mountain,
-            Plain,
-            River,
-            Ruin,
+            PlayerFaction,
+            AIFaction1,
+            AIFaction2,
+            AIFaction3,
+            AIFaction4,
+            AIFaction5,
+            AIFaction6,
         }
-
+        */
         public enum Province
         {
             Oregon,
@@ -23,6 +24,17 @@ namespace PlayerSpace
         {
             Food,
             BuildingMaterial,
+        }
+
+        public enum Terrain
+        {
+            Coast,
+            Desert,
+            Forest,
+            Mountain,
+            Plain,
+            River,
+            Ruin,
         }
     }
 }

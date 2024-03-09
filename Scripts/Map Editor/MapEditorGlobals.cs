@@ -13,7 +13,6 @@ namespace MapEditorSpace
         [Export] public PackedScene countyPackedScene;
 
         [Export] public Node2D countiesParent;
-        //[Export] public CountyData[] countyDatas;
 
         [Export] public string pathToCounties = "res://Counties/";
         public override void _Ready()

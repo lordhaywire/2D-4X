@@ -147,7 +147,8 @@ namespace PlayerSpace
                     {
                         // I think we should move this to Diplomacy.
                         GD.Print("You are about to declare war, because you are an army.");
-                        Globals.Instance.selectedRightClickCounty.DeclareWarConfirmation();
+
+                        Globals.Instance.playerFactionData.diplomacy.DeclareWarConfirmation(moveTargetCountyData);
 
                     }
                 }

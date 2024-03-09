@@ -25,6 +25,13 @@ namespace PlayerSpace
         private Battle battle;
 
         private List<string> combatLogs;
+
+        private void CountyCaptured()
+        {
+            EndBattle();
+            CountyDictator.Instance.CaptureCounty(countyDefendersSelectToken.countyPopulation.location
+                , countyAttackerSelectToken.countyPopulation.factionData);
+        }
         public void StartBattle(Battle currentbattle)
         {
             GD.Print("Start Battle.");
@@ -74,7 +81,7 @@ namespace PlayerSpace
             Attack(countyAttackerSelectToken.countyPopulation, countyDefendersSelectToken.countyPopulation, false);
 
             // County attacker attacks county defender.
-            //countyAttackerSelectToken.countyPopulation.moraleExpendable = 100; // This is just for testing.
+            countyAttackerSelectToken.countyPopulation.moraleExpendable = 100; // This is just for testing.
             Attack(countyDefendersSelectToken.countyPopulation, countyAttackerSelectToken.countyPopulation, true);
 
             ContinueBattleCheck();
@@ -163,11 +170,7 @@ namespace PlayerSpace
             }
         }
 
-        private void CountyCaptured()
-        {
-            GD.PrintRich("[rainbow]County Captured.");
-            EndBattle();
-        }
+
 
         public void EndBattle()
         {

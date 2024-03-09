@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 namespace PlayerSpace
 {
@@ -7,24 +6,52 @@ namespace PlayerSpace
 	{
 		public override void _Ready()
 		{
+			AssignFactionDataToCountyData();
 			GenerateBuildings();
-			AssignCountyDataToFaction();
+			//AssignCountyDataToFaction();
 		}
 
+		// This is just temporary until we set up random faction generation.
+        private void AssignFactionDataToCountyData()
+        {
+			// Cowlitz
+			SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(0);
+			selectCounty.countyData.factionData = Globals.Instance.factionDatas[0];
+            // Tillamook
+			selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(1);
+            selectCounty.countyData.factionData = Globals.Instance.factionDatas[1];
+            // Douglas
+			selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(2);
+            selectCounty.countyData.factionData = Globals.Instance.factionDatas[1];
+			// Portland
+            selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(3);
+            selectCounty.countyData.factionData = Globals.Instance.factionDatas[3];
+            // Wasco
+            selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(4);
+            selectCounty.countyData.factionData = Globals.Instance.factionDatas[3];
+			// Harney
+            selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(5);
+            selectCounty.countyData.factionData = Globals.Instance.factionDatas[2];
+			// Umatilla
+            selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(6);
+            selectCounty.countyData.factionData = Globals.Instance.factionDatas[2];
+        }
+
+		/*
         private void AssignCountyDataToFaction()
         {
-            foreach (Node node in Globals.Instance.countiesParent.GetChildren())
+            // I don't know what the flying fuck this is.  It seems to be adding every county to the factionData.
+			foreach (SelectCounty selectCounty in Globals.Instance.countiesParent.GetChildren())
 			{
-                SelectCounty selectCounty = (SelectCounty)node;
 				selectCounty.countyData.factionData.countiesFactionOwns.Add(selectCounty.countyData);
             }
         }
+		*/
 
         private void GenerateBuildings()
         {
-            foreach(Node node in Globals.Instance.countiesParent.GetChildren())
+            foreach(SelectCounty selectCounty in Globals.Instance.countiesParent.GetChildren())
 			{
-				SelectCounty selectCounty = (SelectCounty)node;
 				/*
 				GD.Print("County Generation: " + selectCounty.Name);
 				GD.Print("County Data: " + selectCounty.countyData.countyName);

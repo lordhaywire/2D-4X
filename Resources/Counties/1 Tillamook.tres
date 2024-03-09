@@ -7,10 +7,11 @@
 script = ExtResource("2_hstm1")
 color = Color(0, 0.560784, 0.937255, 1)
 countyOverlayLocalPosition = Vector2i(-8, 72)
-countyID = 0
+countyId = 0
 countyName = "Tillamook"
 isPlayerCapital = false
 isAICapital = false
+faction = 2
 factionData = ExtResource("1_t7173")
 province = 0
 biomePrimary = 0

@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-CountyResourcesAutoLoad="*res://CountyResourcesAutoLoad.cs"
+CountyResourcesAutoLoad="*res://Scripts/CountyResourcesAutoLoad.cs"
 
 [display]
 

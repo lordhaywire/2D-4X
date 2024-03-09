@@ -11,6 +11,7 @@ countyId = 0
 countyName = "Cowlitz"
 isPlayerCapital = false
 isAICapital = true
+faction = 1
 factionData = ExtResource("1_1eeu8")
 province = 1
 biomePrimary = 0

@@ -7,7 +7,7 @@
 script = ExtResource("2_xqyb8")
 color = Color(0, 0.937255, 0.168627, 1)
 countyOverlayLocalPosition = Vector2i(11, 17)
-countyID = 0
+countyId = 0
 countyName = "Wasco"
 isPlayerCapital = false
 isAICapital = false

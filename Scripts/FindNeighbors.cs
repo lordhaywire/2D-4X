@@ -36,7 +36,7 @@ namespace PlayerSpace
 
                         if (overlapRect.Area > 0)
                         {
-                            GD.Print($"{county.Name} overlaps with {sprite.GetParent().Name}");
+                            //GD.Print($"{county.Name} overlaps with {sprite.GetParent().Name}");
                             county.neighborCounties.Add((SelectCounty)sprite.GetParent());
                         }
                     }

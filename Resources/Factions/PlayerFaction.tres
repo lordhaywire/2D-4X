@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_k44ld")
+factionID = 0
 isPlayer = true
 factionName = "The Shitbirds"
 factionColor = Color(0, 0, 0, 0)
@@ -12,3 +13,4 @@ money = 1000
 food = 1000
 scrap = 1000
 Influence = 10000
+factionWarDictionary = {}

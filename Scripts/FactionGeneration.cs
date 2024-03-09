@@ -1,4 +1,5 @@
 using Godot;
+using System.Collections;
 
 namespace PlayerSpace
 {
@@ -13,6 +14,28 @@ namespace PlayerSpace
             //Instance = this;
 
             GetFactionsFromDisk();
+            AddFactionsToDiplomacy();
+        }
+
+        private void AddFactionsToDiplomacy()
+        {
+            foreach (FactionData factionData in Globals.Instance.factionDatas)
+            {
+                //GD.Print("Faction Name: " + factionData.factionName);
+                foreach (FactionData warFactionData in Globals.Instance.factionDatas)
+                {
+                    // Add warFactionData to factionWarDictionary with a default value of false
+                    factionData.factionWarDictionary[warFactionData.factionID] = false;
+                }
+
+                // Iterate through factionWarDictionary and print information
+                foreach (var entry in factionData.factionWarDictionary)
+                {
+                    int warFactionID = (int)entry.Key;
+                    bool isAtWar = (bool)entry.Value;
+                    //GD.Print("War Faction ID: " + warFactionID + ", Is At War: " + isAtWar);
+                }
+            }
         }
 
         private void GetFactionsFromDisk()
@@ -24,9 +47,10 @@ namespace PlayerSpace
                 string[] fileNames = directory.GetFiles();
                 for (int i = 0; i < fileNames.Length; i++)
                 {
-                    var factionData = ResourceLoader.Load<FactionData>(factionDataPath + fileNames[i]);
-                    
+                    FactionData factionData 
+                        = (FactionData)ResourceLoader.Load<FactionData>(factionDataPath + fileNames[i]).Duplicate();
                     Globals.Instance.factionDatas.Add(factionData);
+                    factionData.factionID = i;
                     //GD.Print($"Player? {Globals.Instance.factions[i].isPlayer} and Faction Name? {Globals.Instance.factions[i].factionName}");
                     if (Globals.Instance.factionDatas[i].isPlayer == true)
                     {

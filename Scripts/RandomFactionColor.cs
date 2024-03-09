@@ -15,8 +15,7 @@ namespace PlayerSpace
 
         private void RandomFactionColors()
         {
-            List<FactionData> factions = Globals.Instance.factionDatas;
-            if (Arrays.colors.Length < factions.Count)
+            if (Arrays.colors.Length < Globals.Instance.factionDatas.Count)
             {
                 GD.Print("Not enough color options for all Sprite Renderers!");
                 return;
@@ -26,20 +25,20 @@ namespace PlayerSpace
             List<Color> availableColors = new(Arrays.colors);
 
             // Loop through each factionNameAndColors and assign a random color32 from available options
-            for (int i = 0; i < factions.Count; i++)
+            foreach (FactionData factionData in Globals.Instance.factionDatas)
             {
                 int randomIndex = random.Next(0, availableColors.Count);
-                factions[i].factionColor = availableColors[randomIndex];
+                factionData.factionColor = availableColors[randomIndex];
+                GD.Print("Faction Data attempting to get color: " + factionData.factionName + factionData.factionColor);
                 availableColors.RemoveAt(randomIndex);
             }
         }
 
         private static void ApplyFactionColorsToCounties()
         {
-            foreach(Node county in Globals.Instance.countiesParent.GetChildren())
+            foreach(SelectCounty selectCounty in Globals.Instance.countiesParent.GetChildren())
             {
-                SelectCounty selectCounty = (SelectCounty)county;
-                county.GetNode<Sprite2D>("County Sprite2D").SelfModulate = selectCounty.countyData.factionData.factionColor;
+                selectCounty.countySprite.SelfModulate = selectCounty.countyData.factionData.factionColor;
             }
         }
     }

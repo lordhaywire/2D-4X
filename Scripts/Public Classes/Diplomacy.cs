@@ -14,6 +14,13 @@ namespace PlayerSpace
                 .factionData.diplomacy.RespondToDeclarationOfWar(war, Globals.Instance.selectedRightClickCounty);
         }
 
+        public void DeclareWarConfirmation(CountyData countyData)
+        {
+            DeclareWarControl.Instance.Show();
+            DeclareWarControl.Instance.confirmationWarDialog.DialogText
+                = AllText.Diplomacies.DECLAREWARE + countyData.factionData.factionName;
+        }
+
         public void RespondToDeclarationOfWar(War war, SelectCounty battleLocation)
         {
             GD.Print($"{war.defenderFactionData.factionName} is responding to the declaration of war.");

@@ -25,17 +25,8 @@ namespace PlayerSpace
 
         public List<SelectCounty> neighborCounties = [];
 
-
         //public ListWithNotify<SelectToken> spawnedHeroList = new(); // This is not a normal list.
         //public ListWithNotify<SelectToken> spawnedArmyList = new(); // This is not a normal list.
-
-
-        public void DeclareWarConfirmation()
-        {
-            DeclareWarControl.Instance.Show();
-            DeclareWarControl.Instance.confirmationWarDialog.DialogText 
-                = AllText.Diplomacies.DECLAREWARE + countyData.factionData.factionName;
-        }
     }
 }
 

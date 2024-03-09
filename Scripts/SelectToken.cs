@@ -30,7 +30,6 @@ namespace PlayerSpace
                 {
                     if (countyPopulation.moraleExpendable == 100)
                     {
-                        Clock.Instance.HourChanged -= IncreaseMorale;
                         return;
                     }
                     else
@@ -48,8 +47,12 @@ namespace PlayerSpace
             {
                 int moraleIncrease = Globals.Instance.random.Next(Globals.Instance.moraleRecoveryMin, Globals.Instance.moraleRecoveryMax);
                 countyPopulation.moraleExpendable = Math.Min(countyPopulation.moraleExpendable + moraleIncrease, 100);
-                GD.Print("countyPopulation morale: " + countyPopulation.moraleExpendable);
             }
+            if (countyPopulation.moraleExpendable == 100)
+            {
+                Clock.Instance.HourChanged -= IncreaseMorale;
+            }
+
         }
 
         [Export] private bool isSelected;

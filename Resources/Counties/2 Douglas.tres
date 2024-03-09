@@ -7,10 +7,11 @@
 script = ExtResource("2_y85qm")
 color = Color(0, 0.937255, 0.921569, 1)
 countyOverlayLocalPosition = Vector2i(0, 0)
-countyID = 0
+countyId = 0
 countyName = "Douglas"
 isPlayerCapital = false
 isAICapital = false
+faction = 2
 factionData = ExtResource("1_rx8pd")
 province = 0
 biomePrimary = 1
