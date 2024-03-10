@@ -16,7 +16,7 @@ namespace MapEditorSpace
         public async void GenerateAll()
         {
             await GenerateMasks();
-            await GenerateCounties();
+            await CreateCounties();
         }
         private async Task GenerateMasks()
         {
@@ -106,7 +106,7 @@ namespace MapEditorSpace
 
         }
 
-        private async Task GenerateCounties()
+        private async Task CreateCounties()
         {
             foreach (CountyData countyData in CountyResourcesAutoLoad.Instance.countyDatas)
             {
@@ -116,6 +116,7 @@ namespace MapEditorSpace
                 selectCounty.countyData.countyNode = selectCounty;
                 MapEditorGlobals.Instance.countiesParent.AddChild(selectCounty);
                 selectCounty.Name = $"{countyData.countyId} {countyData.countyName}";
+                GD.Print("Generate Counties: " + selectCounty.countyData.countyNode.Name);
                 selectCounty.maskSprite.Texture = countyData.maskTexture;
                 //county.maskSprite.Position = countyData.startMaskPosition;
                 selectCounty.maskSprite.Visible = false;

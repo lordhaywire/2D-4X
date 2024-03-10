@@ -10,7 +10,7 @@ namespace PlayerSpace
         public Random random = new();
 
         [ExportGroup("Event Variables")]
-        public List<FactionData> factionDatas = [];
+        public Godot.Collections.Array<FactionData> factionDatas = [];
 
         [Export] public int dailyInfluenceGain;
 
@@ -19,21 +19,19 @@ namespace PlayerSpace
 
         [ExportGroup("Selected Items")]
         [Export] public int selectedCountyId;
-        [Export] private CountyData selectedCountyData;
+        [Export] private SelectCounty currentlySelectedCounty;
 
-        public CountyData SelectedCountyData
+        public SelectCounty CurrentlySelectedCounty
         {
-            get { return selectedCountyData; }
+            get { return currentlySelectedCounty; }
             set
             {
-                if (selectedCountyData != null)
+                if (currentlySelectedCounty != null)
                 {
-                    SelectCounty county = (SelectCounty)selectedCountyData.countyNode;
-                    county.maskSprite.SelfModulate = new Color(1, 1, 1, 1f);
+                    currentlySelectedCounty.maskSprite.SelfModulate = new Color(1, 1, 1, 1f);
                 }
-                selectedCountyData = value;
-                SelectCounty newCounty = (SelectCounty)selectedCountyData.countyNode;
-                newCounty.maskSprite.SelfModulate = new Color(0, 0, 0, 1f);
+                currentlySelectedCounty = value;
+                currentlySelectedCounty.maskSprite.SelfModulate = new Color(0, 0, 0, 1f);
             }
         }
         [Export] public SelectCounty selectedLeftClickCounty;
@@ -62,7 +60,6 @@ namespace PlayerSpace
         [ExportGroup("Map")]
         [Export] public string pathToCounties = "res://Counties/";
         [Export] public Texture2D mapColorCoded;
-
 
         [ExportGroup("Population Generation")]
         [Export] public Node2D countiesParent; // Used for Population generation and random color.  I think we are going to change how the colors are distubuted.

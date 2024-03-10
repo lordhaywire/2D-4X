@@ -8,7 +8,7 @@ namespace PlayerSpace
 		{
 			AssignFactionDataToCountyData();
 			GenerateBuildings();
-			//AssignCountyDataToFaction();
+			AssignCountyDataToFaction();
 		}
 
 		// This is just temporary until we set up random faction generation.
@@ -16,7 +16,9 @@ namespace PlayerSpace
         {
 			// Cowlitz
 			SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(0);
-			selectCounty.countyData.factionData = Globals.Instance.factionDatas[0];
+			GD.Print("Assigning Faction data: " + Globals.Instance.factionDatas[0].factionName);
+            selectCounty.countyData.factionData = Globals.Instance.factionDatas[0];
+			GD.Print("Assigned Faction Data: " + selectCounty.countyData.factionData.factionName);
             // Tillamook
 			selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(1);
             selectCounty.countyData.factionData = Globals.Instance.factionDatas[1];
@@ -37,7 +39,7 @@ namespace PlayerSpace
             selectCounty.countyData.factionData = Globals.Instance.factionDatas[2];
         }
 
-		/*
+		
         private void AssignCountyDataToFaction()
         {
             // I don't know what the flying fuck this is.  It seems to be adding every county to the factionData.
@@ -46,7 +48,7 @@ namespace PlayerSpace
 				selectCounty.countyData.factionData.countiesFactionOwns.Add(selectCounty.countyData);
             }
         }
-		*/
+		
 
         private void GenerateBuildings()
         {

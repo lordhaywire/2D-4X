@@ -26,7 +26,7 @@ namespace PlayerSpace
 			improvementNameLabel.Text = countyImprovementData.improvementName;
 			improvementDescriptionLabel.Text = countyImprovementData.improvementDescription;
 			improvementInfluenceCostLabel.Text = $"Influence Cost: {countyImprovementData.influenceCost}";
-            if (Banker.Instance.CheckBuildingCost(Globals.Instance.SelectedCountyData.factionData, countyImprovementData) == false)
+            if (Banker.Instance.CheckBuildingCost(Globals.Instance.CurrentlySelectedCounty.countyData.factionData, countyImprovementData) == false)
             {
                 buildingButton.Disabled = true; 
             }

@@ -41,11 +41,11 @@ namespace PlayerSpace
             // Idle workers changes if we change who is building stuff etc.
             if(Visible == true)
             {
-                Globals.Instance.SelectedCountyData.IdleWorkersChanged += UpdateIdleWorkersLabel;
+                Globals.Instance.CurrentlySelectedCounty.countyData.IdleWorkersChanged += UpdateIdleWorkersLabel;
             }
             else
             {
-                Globals.Instance.SelectedCountyData.IdleWorkersChanged -= UpdateIdleWorkersLabel;
+                Globals.Instance.CurrentlySelectedCounty.countyData.IdleWorkersChanged -= UpdateIdleWorkersLabel;
             }
         }
 
@@ -73,7 +73,7 @@ namespace PlayerSpace
 
         private void UpdateVisitorsPopulationLabel()
         {
-            visitorsLabel.Text = Globals.Instance.SelectedCountyData.visitingPopulationList.Count.ToString();
+            visitorsLabel.Text = Globals.Instance.CurrentlySelectedCounty.countyData.visitingPopulationList.Count.ToString();
         }
 
         public void DisableSpawnHeroCheckButton(bool value)
@@ -90,12 +90,12 @@ namespace PlayerSpace
 
         public void UpdateNameLabels()
         {
-            factionNamelabel.Text = Globals.Instance.SelectedCountyData.factionData.factionName;
-            countyNameLabel.Text = Globals.Instance.SelectedCountyData.countyName;
+            factionNamelabel.Text = Globals.Instance.CurrentlySelectedCounty.countyData.factionData.factionName;
+            countyNameLabel.Text = Globals.Instance.CurrentlySelectedCounty.countyData.countyName;
         }
         public void GenerateHeroesPanelList()
         {
-            countyData = Globals.Instance.SelectedCountyData;
+            countyData = Globals.Instance.CurrentlySelectedCounty.countyData;
             ClearHeroList();
             GenerateHeroes(countyData.heroCountyList);
             GenerateHeroes(countyData.visitingPopulationList);
@@ -193,7 +193,7 @@ namespace PlayerSpace
 
         private void CheckForOwnership()
         {
-            if (Globals.Instance.playerFactionData != Globals.Instance.SelectedCountyData.factionData)
+            if (Globals.Instance.playerFactionData != Globals.Instance.CurrentlySelectedCounty.countyData.factionData)
             {
                 populationListButton.Disabled = true;
                 countyImprovementsButton.Disabled = true;
@@ -207,7 +207,8 @@ namespace PlayerSpace
         public void UpdateCountyPopulationLabel()
         {
 
-            int population = Globals.Instance.SelectedCountyData.countyPopulationList.Count + Globals.Instance.SelectedCountyData.heroCountyList.Count;
+            int population = Globals.Instance.CurrentlySelectedCounty.countyData.countyPopulationList.Count 
+                + Globals.Instance.CurrentlySelectedCounty.countyData.heroCountyList.Count;
             countyPopulationLabel.Text = population.ToString();
         }
 
@@ -215,7 +216,7 @@ namespace PlayerSpace
         public void UpdateIdleWorkersLabel()
         {
             //GD.Print("Update Idle Workers !!");
-            countyIdleWorkersLabel.Text = Globals.Instance.SelectedCountyData.IdleWorkers.ToString();
+            countyIdleWorkersLabel.Text = Globals.Instance.CurrentlySelectedCounty.countyData.IdleWorkers.ToString();
         }
 
         private void CountyImprovementsButton()

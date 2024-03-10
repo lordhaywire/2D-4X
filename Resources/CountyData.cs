@@ -9,8 +9,8 @@ namespace PlayerSpace
     {
         public event Action IdleWorkersChanged;
 
-        [ExportGroup("County Somethings")]
-        public Node2D countyNode;
+        [ExportGroup("MapEditor")]
+        public SelectCounty countyNode;
         [Export] public Color color;
         public Vector2I startMaskPosition; // I think this is the local position....
         [Export] public Vector2I countyOverlayLocalPosition;

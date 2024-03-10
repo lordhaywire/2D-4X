@@ -21,6 +21,7 @@ namespace PlayerSpace
         private void YesButton()
         {
             Hide();
+            GD.Print("Selected Right Click County Declare War: " + Globals.Instance.selectedRightClickCounty.Name);
             War newWar = new()
             {
                 aggressorFactionData = Globals.Instance.playerFactionData,

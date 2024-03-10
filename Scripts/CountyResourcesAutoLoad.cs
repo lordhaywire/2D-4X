@@ -1,7 +1,5 @@
 using Godot;
 using PlayerSpace;
-using System;
-using System.Collections.Generic;
 
 namespace GlobalSpace
 {
@@ -10,7 +8,7 @@ namespace GlobalSpace
         public static CountyResourcesAutoLoad Instance { get; private set; }
 
         private string pathToCountyDatas = "res://Resources/Counties/";
-        public List<CountyData> countyDatas = [];
+        public Godot.Collections.Array<CountyData> countyDatas = [];
 
         public override void _Ready()
         {
@@ -32,9 +30,9 @@ namespace GlobalSpace
                     // Load county resources from disk.
                     foreach (string name in files)
                     {
-                        CountyData countyData = (CountyData)GD.Load(pathToCountyDatas + name);
+                        CountyData countyData = (CountyData)GD.Load(pathToCountyDatas + name).Duplicate();
                         countyDatas.Add(countyData);
-                        //GD.Print("County that was added: " + countyData.countyName);
+                        GD.Print("County that was added: " + countyData.countyName);
                     }
                 }
                 else

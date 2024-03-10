@@ -25,6 +25,11 @@ namespace PlayerSpace
 
         public List<SelectCounty> neighborCounties = [];
 
+        public override void _Ready()
+        {
+            countyData.countyNode = this;
+        }
+
         //public ListWithNotify<SelectToken> spawnedHeroList = new(); // This is not a normal list.
         //public ListWithNotify<SelectToken> spawnedArmyList = new(); // This is not a normal list.
     }

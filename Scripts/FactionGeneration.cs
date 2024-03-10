@@ -14,10 +14,10 @@ namespace PlayerSpace
             //Instance = this;
 
             GetFactionsFromDisk();
-            AddFactionsToDiplomacy();
+            AddFactionsToDiplomacyWar();
         }
 
-        private void AddFactionsToDiplomacy()
+        private void AddFactionsToDiplomacyWar()
         {
             foreach (FactionData factionData in Globals.Instance.factionDatas)
             {
@@ -47,18 +47,18 @@ namespace PlayerSpace
                 string[] fileNames = directory.GetFiles();
                 for (int i = 0; i < fileNames.Length; i++)
                 {
-                    FactionData factionData 
+                    FactionData newFactionData 
                         = (FactionData)ResourceLoader.Load<FactionData>(factionDataPath + fileNames[i]).Duplicate();
-                    Globals.Instance.factionDatas.Add(factionData);
-                    factionData.factionID = i;
-                    //GD.Print($"Player? {Globals.Instance.factions[i].isPlayer} and Faction Name? {Globals.Instance.factions[i].factionName}");
+                    Globals.Instance.factionDatas.Add(newFactionData);
+                    newFactionData.factionID = i;
+                    
                     if (Globals.Instance.factionDatas[i].isPlayer == true)
                     {
-                        Globals.Instance.playerFactionData = factionData;
+                        Globals.Instance.playerFactionData = newFactionData;
                     }
 
-                    AddStartingResearch(factionData);
-                    CreateFactionNode(factionData);
+                    AddStartingResearch(newFactionData);
+                    CreateFactionNode(newFactionData);
                 }
             }
             else
@@ -66,10 +66,10 @@ namespace PlayerSpace
                 GD.Print("You are so fucked.  This directory doesn't exist: " + factionDataPath);
             }
         }
-        private void CreateFactionNode(FactionData factionData)
+        private void CreateFactionNode(FactionData newFactionData)
         {
             FactionNode factionNode = (FactionNode)factionNodePackedScene.Instantiate();
-            factionNode.factionData = factionData;
+            factionNode.factionData = newFactionData;
             factionNode.Name = factionNode.factionData.factionName;
             AddChild(factionNode);
         }

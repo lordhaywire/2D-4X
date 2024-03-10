@@ -11,7 +11,6 @@ countyId = 0
 countyName = "Douglas"
 isPlayerCapital = false
 isAICapital = false
-faction = 2
 factionData = ExtResource("1_rx8pd")
 province = 0
 biomePrimary = 1

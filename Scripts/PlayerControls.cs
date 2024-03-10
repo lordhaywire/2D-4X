@@ -44,12 +44,11 @@ namespace PlayerSpace
 
                 // Check every countyData to find the color it finds.  If it finds that color then it turns on the 
                 // grey overlay.
-                foreach (CountyData countyData in CountyResourcesAutoLoad.Instance.countyDatas)
+                foreach (SelectCounty selectCounty in Globals.Instance.countiesParent.GetChildren())
                 {
-                    SelectCounty county = (SelectCounty)countyData.countyNode;
-                    Sprite2D maskSprite = county.maskSprite;
+                    Sprite2D maskSprite = selectCounty.maskSprite;
 
-                    if (countyData.color.IsEqualApprox(countyColor))
+                    if (selectCounty.countyData.color.IsEqualApprox(countyColor))
                     {
                         maskSprite.Show();
 
@@ -60,11 +59,11 @@ namespace PlayerSpace
                             if (eventMouseButton.ButtonIndex == MouseButton.Left && eventMouseButton.Pressed == false)
                             //&& Globals.Instance.isInsideToken == false)
                             {
-                                EventLog.Instance.AddLog($"{countyData.countyName} was clicked on.");
+                                EventLog.Instance.AddLog($"{selectCounty.countyData.countyName} was clicked on.");
 
-                                Globals.Instance.SelectedCountyData = countyData;
-                                Globals.Instance.selectedCountyId = countyData.countyId;
-                                Globals.Instance.selectedLeftClickCounty = (SelectCounty)countyData.countyNode;
+                                Globals.Instance.CurrentlySelectedCounty = selectCounty;
+                                Globals.Instance.selectedCountyId = selectCounty.countyData.countyId;
+                                Globals.Instance.selectedLeftClickCounty = selectCounty;
                                 CountyInfoControl.Instance.UpdateEverything();
                                 CountyInfoControl.Instance.countyInfoControl.Show(); // This has to be last.
                             }
@@ -73,28 +72,28 @@ namespace PlayerSpace
                             if (eventMouseButton.ButtonIndex == MouseButton.Right && eventMouseButton.Pressed == false
                                 && Globals.Instance.SelectedCountyPopulation != null)
                             {
-                                GD.Print("You right clicked, dude! " + countyData.countyName);
+                                GD.Print("You right clicked, dude! " + selectCounty.countyData.countyName);
                                 if (Globals.Instance.SelectedCountyPopulation.destination == -1)
                                 {
-                                    MoveSelectedToken(countyData);
+                                    MoveSelectedToken(selectCounty.countyData);
                                 }
-                                else if (Globals.Instance.SelectedCountyPopulation.destination == countyData.countyId)
+                                else if (Globals.Instance.SelectedCountyPopulation.destination == selectCounty.countyData.countyId)
                                 {
-                                    MoveSelectedToken(countyData);
+                                    MoveSelectedToken(selectCounty.countyData);
                                 }
                                 else
                                 {
-                                    SelectCounty selectCounty
+                                    SelectCounty moveToSelectCounty
                                         = (SelectCounty)Globals.Instance.countiesParent.GetChild(Globals.Instance.SelectedCountyPopulation.location);
-                                    GD.PrintRich("[rainbow]Are we ever even hitting this?" + selectCounty.countyData.countyId);
-                                    MoveSelectedToken(selectCounty.countyData);
+                                    GD.PrintRich("[rainbow]Are we ever even hitting this?" + moveToSelectCounty.countyData.countyId);
+                                    MoveSelectedToken(moveToSelectCounty.countyData);
                                 }
                             }
                         }
                     }
                     else
                     {
-                        if (Globals.Instance.selectedCountyId != countyData.countyId)
+                        if (Globals.Instance.selectedCountyId != selectCounty.countyData.countyId)
                         {
                             maskSprite.Hide();
                         }
@@ -123,7 +122,7 @@ namespace PlayerSpace
         }
         private void MoveSelectedToken(CountyData moveTargetCountyData)
         {
-            Globals.Instance.selectedRightClickCounty = (SelectCounty)moveTargetCountyData.countyNode;
+            Globals.Instance.selectedRightClickCounty = moveTargetCountyData.countyNode;
             GD.Print($"Move Target County: {moveTargetCountyData.countyName}" +
                 $" {moveTargetCountyData.countyId}");
             CountyPopulation countyPopulation = Globals.Instance.SelectedCountyPopulation;
