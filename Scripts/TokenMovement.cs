@@ -46,15 +46,17 @@ namespace PlayerSpace
             //GD.Print("Target Global Position: " + target);
             //GD.Print("Token Global Position: " + token.GlobalPosition);
 
-            CheckIfRetreating(); 
-            
+            CheckIfRetreating();
+
             MoveToken = true;
         }
 
         private void CheckIfRetreating()
         {
             SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(token.countyPopulation.location);
-            
+
+            // Check to see if the starting county has battles and if it does, it should end the battle because the
+            // token is retreating.
             if (selectCounty.countyData.battles.Count > 0)
             {
                 selectCounty.battleControl.EndBattle();
@@ -62,136 +64,106 @@ namespace PlayerSpace
         }
         private void Move()
         {
-            //GD.Print("Target Global Position: " + target);
-            //GD.Print("Token Global Position: " + token.GlobalPosition);
-
-            //GD.Print("Target: " + target);
             float speed = Globals.Instance.movementSpeed * Clock.Instance.ModifiedTimeScale;
             token.GlobalPosition = GlobalPosition.MoveToward(target, speed);
-            //GD.Print($"{GetParent().Name} is moving!");
             if (token.GlobalPosition.IsEqualApprox(target))
             {
                 ReachedDestination();
-                MoveToken = false;
             }
         }
 
-        private void RemoveFromStartingCounty()
-        {
-            GD.Print("Removed token from Starting County");
-            // Remove countyPopulation from the heroes starting county location list.
-            SelectCounty startingCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(token.countyPopulation.location);
-            if (startingCounty.countyData.factionData == Globals.Instance.playerFactionData)
-            {
-                startingCounty.countyData.heroCountyList.Remove(token.countyPopulation);
-            }
-            else
-            {
-                startingCounty.countyData.visitingPopulationList.Remove(token.countyPopulation);
-            }
-        }
-        private void AddToDestinationCounty()
-        {
-            GD.Print("Add To Destination County.");
-            token.countyPopulation.location = destinationCounty.countyData.countyId;
-            destinationCounty.countyData.spawnTokenButtons.Add(token.spawnedTokenButton);
-            if (token.countyPopulation.IsArmyLeader == false)
-            {
-                token.spawnedTokenButton.Reparent(destinationCounty.heroesHBox);
-            }
-            else
-            {
-                token.spawnedTokenButton.Reparent(destinationCounty.armiesHBox);
-            }
-            token.spawnedTokenButton.UpdateTokenTextures();
-
-            token.UpdateCurrentActivity(AllText.Activities.IDLE);
-            token.countyPopulation.nextActivity = AllText.Activities.IDLE;
-            token.Hide();
-
-            // Add token to County Data hero token list.  Except we are going to have to determine if the hero is visiting.
-            if (destinationCounty.countyData.factionData == Globals.Instance.playerFactionData)
-            {
-                destinationCounty.countyData.heroCountyList.Add(token.countyPopulation);
-            }
-            else
-            {
-                destinationCounty.countyData.visitingPopulationList.Add(token.countyPopulation);
-            }
-            token.countyPopulation.destination = -1; // This is -1 because this is like a "null" int.
-            CountyInfoControl.Instance.UpdateEverything();
-
-            CheckForBattles();
-
-            token.isRetreating = false;
-        }
         private void ReachedDestination()
         {
-            GD.Print("Reached Destination County Population: " + token.countyPopulation.firstName);
+            MoveToken = false;
+            GD.Print("Top of Reached Destination County Population: " + token.countyPopulation.firstName);
             GD.Print("Token Destination: " + token.countyPopulation.destination);
             destinationCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(token.countyPopulation.destination);
-
-            // This needs to happen automatically somehow.
-            //selectToken.countyPopulation.currentActivity = AllText.Activities.IDLE;
-            // Are you at war with the owner of the county the token just arrived at?
-            if (token.countyPopulation.IsArmyLeader == false
-                || destinationCounty.countyData.factionData == Globals.Instance.playerFactionData)
+            if (destinationCounty.countyData.factionData == token.countyPopulation.factionData)
             {
-                RemoveFromStartingCounty();
-                AddToDestinationCounty();
-            }
-            else
-            {
-                RemoveFromStartingCounty();
-                AddToDestinationCounty();
-
-                CountyInfoControl.Instance.UpdateEverything();
-            }
-        }
-
-        // ChatGPT refactored the code below this.
-        private void CheckForBattles()
-        {
-            SelectToken selectToken = (SelectToken)GetParent();
-
-            if (selectToken.isRetreating)
-            {
-                GD.Print("Is retreating!");
-                token.isRetreating = false; // Reset isRetreating to false.
-                return;
-            }
-
-            foreach (War war in selectToken.countyPopulation.factionData.wars)
-            {
-                if (IsCountyPartOfWar(war, selectToken))
+                if (token.countyPopulation.IsArmyLeader == false)
                 {
-                    GD.Print("New Battle!" + destinationCounty.countyData.countyId);
-                    HandleBattle();
+                    HeroReachedCounty();
+                    token.UpdateCurrentActivity(AllText.Activities.IDLE);
+                    token.UpdateNextActivity(AllText.Activities.IDLE);
                 }
                 else
                 {
-                    GD.Print("No Battle!");
+                    ArmyReachedCounty();
+                    token.UpdateCurrentActivity(AllText.Activities.IDLE);
+                    token.UpdateNextActivity(AllText.Activities.IDLE);
                 }
             }
-            token.isRetreating = false; // Reset isRetreating to false just in case.
-        }
+            else
+            {
+                if (token.countyPopulation.IsArmyLeader == false)
+                {
+                    HeroVisitingCounty();
+                    // We will probably need to change this to what the token occupation does.
+                    // For example, if the token is a diplomat, then the activity will be diplmating.
+                    token.UpdateCurrentActivity(AllText.Activities.IDLE);
+                    token.UpdateNextActivity(AllText.Activities.IDLE);
+                }
+                else
+                {
+                    ArmyAttackingCounty();
+                    token.UpdateCurrentActivity(AllText.Activities.COMBAT);
+                    token.UpdateNextActivity(AllText.Activities.COMBAT);
+                }
 
-        private bool IsCountyPartOfWar(War war, SelectToken selectToken)
-        {
-            CountyData countyData = destinationCounty.countyData;
-            FactionData aggressorFactionData = war.aggressorFactionData;
-            FactionData defenderFactionData = war.defenderFactionData;
-            FactionData selectTokenFactionData = selectToken.countyPopulation.factionData;
-            return (countyData.factionData == aggressorFactionData || countyData.factionData == defenderFactionData) 
-                && selectTokenFactionData != countyData.factionData;
+            }
+            RemoveFromStartingCounty();
+            AddToDestinationCounty();
+            CountyInfoControl.Instance.UpdateEverything();
+            token.countyPopulation.destination = -1; // This is -1 because this is like a "null" int.
+            token.spawnedTokenButton.UpdateTokenTextures();
+            token.isRetreating = false;
+            token.Hide();
         }
-
-        private void HandleBattle()
+        private void ArmyAttackingCounty()
         {
-            token.UpdateCurrentActivity(AllText.Activities.COMBAT);
+            token.spawnedTokenButton.Reparent(destinationCounty.armiesHBox);
+            destinationCounty.countyData.visitingPopulationList.Add(token.countyPopulation);
+
             Battle battle = new(destinationCounty.countyData);
             destinationCounty.countyData.battles.Add(battle);
             destinationCounty.battleControl.StartBattle(battle);
+        }
+
+        private void AddToDestinationCounty()
+        {
+            GD.Print("Add To Destination County " + token.countyPopulation.firstName);
+            token.countyPopulation.location = destinationCounty.countyData.countyId;
+            destinationCounty.countyData.spawnTokenButtons.Add(token.spawnedTokenButton);
+        }
+        private void RemoveFromStartingCounty()
+        {
+            GD.Print($"Removed token from Starting County {token.countyPopulation.firstName} {token.countyPopulation.location}");
+            GD.Print($"Removed {token.countyPopulation.firstName} {token.countyPopulation.factionData.factionName}");
+            // Remove countyPopulation from the heroes starting county location list.
+            SelectCounty startingCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(token.countyPopulation.location);
+
+            // We don't need to check which list the hero is in because C# doesn't give a shit if the hero isn't in the list.
+            // So we just try to remove it from both and it will remove it from the correct one.
+            startingCounty.countyData.heroCountyList.Remove(token.countyPopulation);
+            startingCounty.countyData.visitingPopulationList.Remove(token.countyPopulation);
+        }
+
+        private void HeroReachedCounty()
+        {
+            token.spawnedTokenButton.Reparent(destinationCounty.heroesHBox);
+            destinationCounty.countyData.heroCountyList.Add(token.countyPopulation);
+        }
+
+        private void ArmyReachedCounty()
+        {
+            GD.Print("Army Reached County: " + token.countyPopulation.firstName);
+            token.spawnedTokenButton.Reparent(destinationCounty.armiesHBox);
+            destinationCounty.countyData.heroCountyList.Add(token.countyPopulation);
+        }
+        private void HeroVisitingCounty()
+        {
+            token.spawnedTokenButton.Reparent(destinationCounty.heroesHBox);
+            destinationCounty.countyData.visitingPopulationList.Add(token.countyPopulation);
         }
     }
 }

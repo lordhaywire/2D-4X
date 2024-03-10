@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace PlayerSpace
 {
@@ -25,15 +26,7 @@ namespace PlayerSpace
                 foreach (FactionData warFactionData in Globals.Instance.factionDatas)
                 {
                     // Add warFactionData to factionWarDictionary with a default value of false
-                    factionData.factionWarDictionary[warFactionData.factionID] = false;
-                }
-
-                // Iterate through factionWarDictionary and print information
-                foreach (var entry in factionData.factionWarDictionary)
-                {
-                    int warFactionID = (int)entry.Key;
-                    bool isAtWar = (bool)entry.Value;
-                    //GD.Print("War Faction ID: " + warFactionID + ", Is At War: " + isAtWar);
+                    factionData.factionWarDictionary[warFactionData.factionName] = false;
                 }
             }
         }

@@ -65,6 +65,7 @@ namespace PlayerSpace
             IsArmyLeader = true;
             SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(location);
             selectCounty.countyData.heroCountyList.Add(this);
+            selectCounty.countyData.countyPopulationList.Remove(this);
         }
 
         public CountyPopulation(

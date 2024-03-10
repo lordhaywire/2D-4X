@@ -26,7 +26,7 @@ namespace PlayerSpace
 
                         if (foodBuilding != null && countyData != null)
                         {
-                            //GD.Print($"{factionData.factionName} wants to build a {foodBuilding.improvementName}");
+                            GD.Print($"{factionData.factionName} wants to build a {foodBuilding.improvementName}");
                             if (Banker.Instance.CheckBuildingCost(factionData, foodBuilding) == true)
                             {
                                 Banker.Instance.ChargeForBuilding(factionData, foodBuilding);

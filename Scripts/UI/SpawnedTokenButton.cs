@@ -26,18 +26,18 @@ namespace PlayerSpace
             }
             else
             {
-                GD.Print("Get wrecked mother fucker.");
+                GD.Print("You don't own this token so you can't select it, wrecked mother fucker.");
             }
         }
 
         public void UpdateTokenTextures()
         {
             SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
-            GD.Print($"Select County Name: {selectCounty.Name} vs County Population Location {countyPopulation.location}");
-            GD.Print("Select Counties Spawned Token Buttons List Count: " + selectCounty.countyData.spawnTokenButtons.Count);
+            //GD.Print($"Select County Name: {selectCounty.Name} vs County Population Location {countyPopulation.location}");
+            //GD.Print("Select Counties Spawned Token Buttons List Count: " + selectCounty.countyData.spawnTokenButtons.Count);
             foreach (SpawnedTokenButton spawnedTokenButton in selectCounty.countyData.spawnTokenButtons.Cast<SpawnedTokenButton>())
             {
-                GD.Print($"Going through buttons {spawnedTokenButton.countyPopulation.firstName}");
+                //GD.Print($"Going through buttons {spawnedTokenButton.countyPopulation.firstName}");
                 spawnedTokenButton.UpdateButtonIcon();
             }
         }

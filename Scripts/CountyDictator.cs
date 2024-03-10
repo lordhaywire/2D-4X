@@ -1,10 +1,7 @@
 using Godot;
-using System;
 
 namespace PlayerSpace
 {
-
-
     public partial class CountyDictator : Node
     {
         public static CountyDictator Instance { get; private set; }

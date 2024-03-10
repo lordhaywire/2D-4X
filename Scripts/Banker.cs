@@ -38,6 +38,7 @@ namespace PlayerSpace
         {
             countyImprovementData.isBeingBuilt = true;
             countyData.underConstructionCountyImprovements.Add(countyImprovementData);
+            GD.Print($"{countyData.factionData.factionName} is building {countyImprovementData.improvementName}.");
         }
 
         public void FindFoodBuilding(FactionData factionData, out CountyImprovementData countyImprovementData, out CountyData countyData)

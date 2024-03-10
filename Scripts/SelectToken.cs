@@ -132,5 +132,10 @@ namespace PlayerSpace
         {
             countyPopulation.currentActivity = activity;
         }
+
+        public void UpdateNextActivity(string activity)
+        {
+            countyPopulation.nextActivity = activity;
+        }
     }
 }

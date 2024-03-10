@@ -116,10 +116,6 @@ namespace PlayerSpace
             }
         }
 
-        public void CancelMove()
-        {
-
-        }
         private void MoveSelectedToken(CountyData moveTargetCountyData)
         {
             Globals.Instance.selectedRightClickCounty = moveTargetCountyData.countyNode;
@@ -146,17 +142,21 @@ namespace PlayerSpace
                     {
                         // I think we should move this to Diplomacy.
                         GD.Print("You are about to declare war, because you are an army.");
-
-                        Globals.Instance.playerFactionData.diplomacy.DeclareWarConfirmation(moveTargetCountyData);
+                        if (Globals.Instance.playerFactionData.factionWarDictionary[Globals.Instance.selectedRightClickCounty.countyData.factionData.factionName]
+                            != true)
+                        {
+                            Globals.Instance.playerFactionData.diplomacy.DeclareWarConfirmation(moveTargetCountyData);
+                        }
+                        else
+                        {
+                            selectToken.tokenMovement.StartMove(moveTargetCountyData.countyId);
+                        }
 
                     }
                 }
             }
             else
             {
-                //GD.Print("Start County ID " + startCounty.countyData.countyId);
-                //countyPopulation.destination = startCounty.countyData.countyId;
-                //Globals.Instance.heroMoveTarget = startCounty.heroSpawn.GlobalPosition; // Why are we storing this in Globals?
                 selectToken.tokenMovement.StartMove(moveTargetCountyData.countyId);
             }
 

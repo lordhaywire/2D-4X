@@ -1223,6 +1223,7 @@ tooltip_text = "You are a piece of shit!"
 text = "Yes"
 
 [node name="County Improvements Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("possibleImprovementsScrollContainerParent", "currentImprovementsScrollContainerParent", "buildConfirmationDialog")]
+process_mode = 3
 visible = false
 layout_mode = 3
 anchors_preset = 15

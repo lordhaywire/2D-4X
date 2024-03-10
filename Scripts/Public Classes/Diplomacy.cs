@@ -12,6 +12,9 @@ namespace PlayerSpace
             EventLog.Instance.AddLog($"{war.aggressorFactionData.factionName} has declared war on {war.defenderFactionData.factionName}.");
             Globals.Instance.selectedRightClickCounty.countyData
                 .factionData.diplomacy.RespondToDeclarationOfWar(war, Globals.Instance.selectedRightClickCounty);
+            war.aggressorFactionData.factionWarDictionary[war.defenderFactionData.factionName] = true;
+            war.defenderFactionData.factionWarDictionary[war.aggressorFactionData.factionName] = true;
+
         }
 
         public void DeclareWarConfirmation(CountyData countyData)
