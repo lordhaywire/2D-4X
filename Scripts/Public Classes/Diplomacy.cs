@@ -12,9 +12,6 @@ namespace PlayerSpace
             EventLog.Instance.AddLog($"{war.aggressorFactionData.factionName} has declared war on {war.defenderFactionData.factionName}.");
             Globals.Instance.selectedRightClickCounty.countyData
                 .factionData.diplomacy.RespondToDeclarationOfWar(war, Globals.Instance.selectedRightClickCounty);
-            war.aggressorFactionData.factionWarDictionary[war.defenderFactionData.factionName] = true;
-            war.defenderFactionData.factionWarDictionary[war.aggressorFactionData.factionName] = true;
-
         }
 
         public void DeclareWarConfirmation(CountyData countyData)
@@ -27,39 +24,61 @@ namespace PlayerSpace
         public void RespondToDeclarationOfWar(War war, SelectCounty battleLocation)
         {
             GD.Print($"{war.defenderFactionData.factionName} is responding to the declaration of war.");
-            EventLog.Instance.AddLog($"{war.defenderFactionData.factionName} is raising armies!");
 
-            DefenderSpawnArmies(war.defenderFactionData, battleLocation);
+            war.aggressorFactionData.factionWarDictionary[war.defenderFactionData.factionName] = true;
+            war.defenderFactionData.factionWarDictionary[war.aggressorFactionData.factionName] = true;
             // Add the wars to the factions so they know what wars they are in.
             war.aggressorFactionData.wars.Add(war);
             war.defenderFactionData.wars.Add(war);
         }
 
-        public void DefenderSpawnArmies(FactionData defenderFactionData, SelectCounty battleLocation)
+        public void DefenderSpawnArmies(SelectCounty battleLocation)
         {
-            CountyPopulation defenderHero = CheckForDefenders(battleLocation);
+            CountyPopulation defenderHero = CheckForArmies(battleLocation);
             if (defenderHero != null)
             {
-                defenderFactionData.tokenSpawner.Spawn(battleLocation, defenderHero);
+                // Defender's faction data.
+                battleLocation.countyData.factionData.tokenSpawner.Spawn(battleLocation, defenderHero);
+            }
+            else
+            {
+                GD.Print("Defender Spawn Armies - Defender Hero is null");
             }
         }
 
-        private CountyPopulation CheckForDefenders(SelectCounty battleLocation)
+        public CountyPopulation CheckForArmies(SelectCounty battleLocation)
         {
-            if (battleLocation.countyData.heroCountyList.Count > 0)
+            // Checkes for spawned armies.  If there is one, then it returns null, otherwise it spawns one.
+            GD.Print("Defending Army List Count: " + battleLocation.countyData.armiesInCountyList.Count);
+            if(battleLocation.countyData.armiesInCountyList.Count > 0)
             {
-                foreach (CountyPopulation countyPopulation in battleLocation.countyData.heroCountyList)
+                foreach(CountyPopulation countyPopulation in battleLocation.countyData.armiesInCountyList)
+                {
+                    if(countyPopulation.token != null)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        return countyPopulation;
+                    }
+                }
+            }
+            GD.Print("Defending Hero List Count: " + battleLocation.countyData.herosInCountyList.Count);
+            if (battleLocation.countyData.herosInCountyList.Count > 0)
+            {
+                foreach (CountyPopulation countyPopulation in battleLocation.countyData.herosInCountyList)
                 {
                     if (countyPopulation.isFactionLeader == true)
                     {
-                        countyPopulation.IsArmyLeader = true;
+                        countyPopulation.ChangeToArmy();
                         return countyPopulation;
                     }
                     else
                     {
                         if (countyPopulation.loyaltyAttribute > Globals.Instance.loyaltyCheckNumber)
                         {
-                            countyPopulation.IsArmyLeader = true;
+                            countyPopulation.ChangeToArmy();
                             return countyPopulation;
                         }
                         else

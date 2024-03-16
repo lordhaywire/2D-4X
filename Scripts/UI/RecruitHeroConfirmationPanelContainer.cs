@@ -29,21 +29,21 @@ namespace PlayerSpace
             if (countyPopulation.isHero != true)
             {
                 selectCounty.countyData.countyPopulationList.Remove(countyPopulation);
-                selectCounty.countyData.heroCountyList.Add(countyPopulation);
             }
-
             if (armyLeaderRecruited == false)
             {
                 countyPopulation.isHero = true;
                 countyPopulation.isAide = true;
+                selectCounty.countyData.herosInCountyList.Add(countyPopulation);
             }
             else
             {
                 countyPopulation.isHero = true;
                 countyPopulation.isAide = false;
                 countyPopulation.IsArmyLeader = true;
+                selectCounty.countyData.herosInCountyList.Remove(countyPopulation);
+                selectCounty.countyData.armiesInCountyList.Add(countyPopulation);
             }
-
 
             // This is set again to update the sprite textures;
             if (countyPopulation.token != null)

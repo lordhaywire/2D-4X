@@ -140,7 +140,6 @@ namespace PlayerSpace
                     }
                     else
                     {
-                        // I think we should move this to Diplomacy.
                         GD.Print("You are about to declare war, because you are an army.");
                         if (Globals.Instance.playerFactionData.factionWarDictionary[Globals.Instance.selectedRightClickCounty.countyData.factionData.factionName]
                             != true)
@@ -157,7 +156,15 @@ namespace PlayerSpace
             }
             else
             {
-                selectToken.tokenMovement.StartMove(moveTargetCountyData.countyId);
+                if(selectToken.isRetreating == false)
+                {
+                    selectToken.tokenMovement.StartMove(moveTargetCountyData.countyId);
+                }
+                else
+                {
+                    EventLog.Instance.AddLog($"{selectToken.countyPopulation.firstName} " +
+                        $"{selectToken.countyPopulation.lastName} is retreating!");
+                }
             }
 
         }

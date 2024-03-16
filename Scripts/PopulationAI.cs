@@ -68,7 +68,7 @@ namespace PlayerSpace
                     person.currentImprovement = person.nextImprovement;
                 }
 
-                foreach (CountyPopulation hero in selectCounty.countyData.heroCountyList)
+                foreach (CountyPopulation hero in selectCounty.countyData.herosInCountyList)
                 {
                     if (hero.token == null)
                     {

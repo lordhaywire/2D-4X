@@ -29,8 +29,10 @@ namespace PlayerSpace
         [Export] public AllEnums.Terrain biomeTertiary;
 
         public List<CountyPopulation> countyPopulationList = [];
-        public List<CountyPopulation> heroCountyList = [];
-        public List<CountyPopulation> visitingPopulationList = [];
+        public List<CountyPopulation> herosInCountyList = [];
+        public List<CountyPopulation> armiesInCountyList = [];
+        public List<CountyPopulation> visitingHeroList = [];
+        public List<CountyPopulation> visitingArmyList = [];
 
         public List<Button> spawnTokenButtons = [];
 

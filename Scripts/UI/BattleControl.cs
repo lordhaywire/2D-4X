@@ -39,10 +39,11 @@ namespace PlayerSpace
             battle = currentbattle;
             SelectCounty selectCounty = (SelectCounty)GetParent().GetParent();
 
+            // How could any of the token's ever be equal to null?
             // Attackers Army
-            foreach (CountyPopulation attackerCountyPopulation in selectCounty.countyData.visitingPopulationList)
+            foreach (CountyPopulation attackerCountyPopulation in selectCounty.countyData.visitingArmyList)
             {
-                if (attackerCountyPopulation.IsArmyLeader == true && attackerCountyPopulation.token != null)
+                if (attackerCountyPopulation.token != null)
                 {
                     countyAttackerSelectToken = attackerCountyPopulation.token;
                     countyAttackerSelectToken.Hide();
@@ -54,9 +55,9 @@ namespace PlayerSpace
             }
 
             // Defenders Army
-            foreach (CountyPopulation defenderCountyPopulation in selectCounty.countyData.heroCountyList)
+            foreach (CountyPopulation defenderCountyPopulation in selectCounty.countyData.armiesInCountyList)
             {
-                if (defenderCountyPopulation.IsArmyLeader == true && defenderCountyPopulation.token != null)
+                if (defenderCountyPopulation.token != null)
                 {
                     countyDefendersSelectToken = defenderCountyPopulation.token;
                     countyDefendersSelectToken.Hide();
@@ -81,7 +82,7 @@ namespace PlayerSpace
             Attack(countyAttackerSelectToken.countyPopulation, countyDefendersSelectToken.countyPopulation, false);
 
             // County attacker attacks county defender.
-            countyAttackerSelectToken.countyPopulation.moraleExpendable = 100; // This is just for testing.
+            //countyAttackerSelectToken.countyPopulation.moraleExpendable = 100; // This is just for testing.
             Attack(countyDefendersSelectToken.countyPopulation, countyAttackerSelectToken.countyPopulation, true);
 
             ContinueBattleCheck();

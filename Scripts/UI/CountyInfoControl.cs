@@ -73,7 +73,7 @@ namespace PlayerSpace
 
         private void UpdateVisitorsPopulationLabel()
         {
-            visitorsLabel.Text = Globals.Instance.CurrentlySelectedCounty.countyData.visitingPopulationList.Count.ToString();
+            visitorsLabel.Text = Globals.Instance.CurrentlySelectedCounty.countyData.visitingHeroList.Count.ToString();
         }
 
         public void DisableSpawnHeroCheckButton(bool value)
@@ -97,8 +97,10 @@ namespace PlayerSpace
         {
             countyData = Globals.Instance.CurrentlySelectedCounty.countyData;
             ClearHeroList();
-            GenerateHeroes(countyData.heroCountyList);
-            GenerateHeroes(countyData.visitingPopulationList);
+            GenerateHeroes(countyData.herosInCountyList);
+            GenerateHeroes(countyData.armiesInCountyList);
+            GenerateHeroes(countyData.visitingHeroList);
+            GenerateHeroes(countyData.visitingArmyList);
         }
 
         private void ClearHeroList()
@@ -208,7 +210,7 @@ namespace PlayerSpace
         {
 
             int population = Globals.Instance.CurrentlySelectedCounty.countyData.countyPopulationList.Count 
-                + Globals.Instance.CurrentlySelectedCounty.countyData.heroCountyList.Count;
+                + Globals.Instance.CurrentlySelectedCounty.countyData.herosInCountyList.Count;
             countyPopulationLabel.Text = population.ToString();
         }
 
