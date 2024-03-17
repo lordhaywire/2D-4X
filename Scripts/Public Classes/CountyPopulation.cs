@@ -59,6 +59,7 @@ namespace PlayerSpace
         [ExportGroup("Token")]
         public SelectToken token;
 
+        // They always need to be a hero first for everything else to work.
         public void ChangeToArmy()
         {
             isHero = true;
@@ -66,7 +67,6 @@ namespace PlayerSpace
             SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(location);
             selectCounty.countyData.armiesInCountyList.Add(this);
             selectCounty.countyData.herosInCountyList.Remove(this);
-            selectCounty.countyData.countyPopulationList.Remove(this);
         }
 
         public CountyPopulation(

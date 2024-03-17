@@ -1,6 +1,9 @@
 using Godot;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 
 namespace PlayerSpace
 {
@@ -28,11 +31,11 @@ namespace PlayerSpace
         [Export] public AllEnums.Terrain biomeSecondary;
         [Export] public AllEnums.Terrain biomeTertiary;
 
-        public List<CountyPopulation> countyPopulationList = [];
-        public List<CountyPopulation> herosInCountyList = [];
-        public List<CountyPopulation> armiesInCountyList = [];
-        public List<CountyPopulation> visitingHeroList = [];
-        public List<CountyPopulation> visitingArmyList = [];
+        public Globals.ListWithNotify<CountyPopulation> countyPopulationList = [];
+        public Globals.ListWithNotify<CountyPopulation> herosInCountyList = [];
+        public Globals.ListWithNotify<CountyPopulation> armiesInCountyList = [];
+        public Globals.ListWithNotify<CountyPopulation> visitingHeroList = [];
+        public Globals.ListWithNotify<CountyPopulation> visitingArmyList = [];
 
         public List<Button> spawnTokenButtons = [];
 

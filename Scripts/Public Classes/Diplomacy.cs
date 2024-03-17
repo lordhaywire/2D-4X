@@ -49,8 +49,8 @@ namespace PlayerSpace
         public CountyPopulation CheckForArmies(SelectCounty battleLocation)
         {
             // Checkes for spawned armies.  If there is one, then it returns null, otherwise it spawns one.
-            GD.Print("Defending Army List Count: " + battleLocation.countyData.armiesInCountyList.Count);
-            if(battleLocation.countyData.armiesInCountyList.Count > 0)
+            //GD.Print("Defending Army List Count: " + battleLocation.countyData.armiesInCountyList.Count());
+            if(battleLocation.countyData.armiesInCountyList.Count() > 0)
             {
                 foreach(CountyPopulation countyPopulation in battleLocation.countyData.armiesInCountyList)
                 {
@@ -64,8 +64,8 @@ namespace PlayerSpace
                     }
                 }
             }
-            GD.Print("Defending Hero List Count: " + battleLocation.countyData.herosInCountyList.Count);
-            if (battleLocation.countyData.herosInCountyList.Count > 0)
+            //GD.Print("Defending Hero List Count: " + battleLocation.countyData.herosInCountyList.Count());
+            if (battleLocation.countyData.herosInCountyList.Count() > 0)
             {
                 foreach (CountyPopulation countyPopulation in battleLocation.countyData.herosInCountyList)
                 {
@@ -92,7 +92,7 @@ namespace PlayerSpace
             }
             else
             {
-                GD.Print("Defenders Faction Name: " + battleLocation.countyData.factionData.factionName);
+                //GD.Print("Defenders Faction Name: " + battleLocation.countyData.factionData.factionName);
                 if (battleLocation.countyData.factionData.Influence >= Globals.Instance.costOfHero)
                 {
                     List<CountyPopulation> possibleDefenders = [];
@@ -114,6 +114,8 @@ namespace PlayerSpace
                         {
                             GD.Print($"{countyPopulation.firstName} {countyPopulation.coolSkill} {countyPopulation.rifleSkill}");
                         }
+                        SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(possibleDefenders[0].location);
+                        selectCounty.countyData.herosInCountyList.Add(possibleDefenders[0]);
                         possibleDefenders[0].ChangeToArmy();
                         return possibleDefenders[0];
                     }

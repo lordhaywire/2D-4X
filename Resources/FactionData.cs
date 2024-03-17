@@ -15,10 +15,12 @@ namespace PlayerSpace
         [Export] public string factionName;
         [Export] public Color factionColor;
         [Export] public int factionCapitalCounty;
+
         public List<ResearchItemData> researchItems = [];
         public List<CountyData> countiesFactionOwns = [];
+        public List<CountyPopulation> allHeroesList = [];
         public CountyPopulation factionLeader;
-
+        
         public Diplomacy diplomacy = new();
         public TokenSpawner tokenSpawner = new(); 
 

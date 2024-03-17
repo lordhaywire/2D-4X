@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 namespace PlayerSpace
 {
@@ -9,9 +10,20 @@ namespace PlayerSpace
 			AssignFactionDataToCountyData();
 			GenerateBuildings();
 			AssignCountyDataToFaction();
-		}
+            SubscribeToCountyHeroLists();
+        }
 
-		// This is just temporary until we set up random faction generation.
+        private void SubscribeToCountyHeroLists()
+        {
+            foreach (SelectCounty selectCounty in Globals.Instance.countiesParent.GetChildren())
+			{
+				selectCounty.countyData.herosInCountyList.ItemAdded += (sender, item) => Globals.Instance.AddToFactionHeroList(item);
+			}
+        }
+
+
+
+        // This is just temporary until we set up random faction generation.
         private void AssignFactionDataToCountyData()
         {
 			// Cowlitz
@@ -33,7 +45,7 @@ namespace PlayerSpace
             selectCounty.countyData.factionData = Globals.Instance.factionDatas[3];
 			// Harney
             selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(5);
-            selectCounty.countyData.factionData = Globals.Instance.factionDatas[2];
+            selectCounty.countyData.factionData = Globals.Instance.factionDatas[1];
 			// Umatilla
             selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(6);
             selectCounty.countyData.factionData = Globals.Instance.factionDatas[2];

@@ -25,7 +25,7 @@ namespace PlayerSpace
         public int days = 0;
 
         [Export] public int oldTimeSpeed;
-        private int numberOfThingsPausing; // For when there are multiple panels open.
+        private int numberOfThingsPausing = 0; // For when there are multiple panels open.
 
         [Export]
         public int NumberOfThingsPausing
@@ -37,7 +37,7 @@ namespace PlayerSpace
                 GD.PrintRich("[rainbow]Number of panels visible: " + numberOfThingsPausing);
                 if (numberOfThingsPausing > 0 && EventLog.Instance != null)
                 {
-                    EventLog.Instance.Hide();
+                    EventLog.Instance.Hide(); // Couldn't I just do the question mark thing like below?
                 }
                 else
                 {

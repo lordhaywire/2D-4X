@@ -1,22 +1,25 @@
 using Godot;
-using System.Collections;
-using System.Collections.Generic;
+using System;
 
 namespace PlayerSpace
 {
     public partial class FactionGeneration : Node
     {
+        public static FactionGeneration Instance {  get; private set; }
+
         private string factionDataPath = "res://Resources/Factions/";
         [Export] private PackedScene factionNodePackedScene;
         [Export] private CountyImprovementData[] countyImprovementData;
 
         public override void _Ready()
         {
-            //Instance = this;
+            Instance = this;
 
             GetFactionsFromDisk();
             AddFactionsToDiplomacyWar();
         }
+
+
 
         private void AddFactionsToDiplomacyWar()
         {

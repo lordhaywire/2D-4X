@@ -49,7 +49,7 @@ namespace PlayerSpace
             }
         }
 
-        private void GeneratePopulationRows(List<CountyPopulation> countyPopulation)
+        private void GeneratePopulationRows(Globals.ListWithNotify<CountyPopulation> countyPopulation)
         {
             foreach (CountyPopulation person in countyPopulation)
             {

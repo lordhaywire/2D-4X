@@ -82,7 +82,7 @@ namespace PlayerSpace
             Attack(countyAttackerSelectToken.countyPopulation, countyDefendersSelectToken.countyPopulation, false);
 
             // County attacker attacks county defender.
-            //countyAttackerSelectToken.countyPopulation.moraleExpendable = 100; // This is just for testing.
+            countyAttackerSelectToken.countyPopulation.moraleExpendable = 100; // This is just for testing.
             Attack(countyDefendersSelectToken.countyPopulation, countyAttackerSelectToken.countyPopulation, true);
 
             ContinueBattleCheck();
@@ -120,15 +120,23 @@ namespace PlayerSpace
         private void ArmyFlees(CountyPopulation countyPopulation)
         {
             countyPopulation.token.isRetreating = true;
-            if (countyPopulation.lastLocation != -1)
+            if (countyPopulation.lastLocation == -1)
             {
-                countyPopulation.token.tokenMovement
-                    .StartMove(countyPopulation.lastLocation);
-                EndBattle();
+                RandomNeighborMove(countyPopulation);
+                return;
             }
             else
             {
-                RandomNeighborMove(countyPopulation);
+                SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.lastLocation);
+                if (selectCounty.countyData.factionData.factionName == countyPopulation.factionData.factionName)
+                {
+                    countyPopulation.token.tokenMovement.StartMove(countyPopulation.lastLocation);
+                    EndBattle();
+                }
+                else
+                {
+                    RandomNeighborMove(countyPopulation);
+                }
             }
         }
 
@@ -186,8 +194,8 @@ namespace PlayerSpace
         private void Attack(CountyPopulation gettingShotAtCountyPopulation, CountyPopulation shootingCountyPopulation, bool isAttacker)
         {
             int attackRoll = random.Next(1, 101);
-            BattleLogControl.Instance.AddLog($"{shootingCountyPopulation.firstName} {shootingCountyPopulation.lastName} rifle skill: " +
-                $"{shootingCountyPopulation.rifleSkill} vs attack roll: {attackRoll}", isAttacker);
+            BattleLogControl.Instance.AddLog($"{shootingCountyPopulation.firstName} {shootingCountyPopulation.lastName} " +
+                $"attack roll: {attackRoll} vs rifle skill: {shootingCountyPopulation.rifleSkill}", isAttacker);
 
             if (shootingCountyPopulation.rifleSkill > attackRoll)
             {
@@ -200,14 +208,16 @@ namespace PlayerSpace
                     gettingShotAtCountyPopulation.moraleExpendable
                         = Math.Max(gettingShotAtCountyPopulation.moraleExpendable - moraleDamage, 0);
                     BattleLogControl.Instance.AddLog($"{gettingShotAtCountyPopulation.firstName} " +
-                        $"{gettingShotAtCountyPopulation.lastName} has failed their cool roll!  They have lost {moraleDamage}", !isAttacker);
+                        $"{gettingShotAtCountyPopulation.lastName} has failed their cool roll!  " +
+                        $"They have lost {moraleDamage} morale.", !isAttacker);
                 }
                 attackerMoraleLabel.Text = countyAttackerSelectToken.countyPopulation.moraleExpendable.ToString();
                 defenderMoraleLabel.Text = countyDefendersSelectToken.countyPopulation.moraleExpendable.ToString();
             }
             else
             {
-                BattleLogControl.Instance.AddLog($"{shootingCountyPopulation.firstName} {shootingCountyPopulation.lastName} has missed!", isAttacker);
+                BattleLogControl.Instance.AddLog($"{shootingCountyPopulation.firstName} " +
+                    $"{shootingCountyPopulation.lastName} has missed!", isAttacker);
             }
         }
         private void ButtonUp()

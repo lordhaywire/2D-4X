@@ -51,15 +51,15 @@ namespace PlayerSpace
             MoveToken = true;
         }
 
-        
         private void CheckForDefenders()
         {
             EventLog.Instance.AddLog($"{Globals.Instance.selectedRightClickCounty.countyData.factionData.factionName}" +
                 $" is raising armies at {Globals.Instance.selectedRightClickCounty.countyData.countyName}!");
+            SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(token.countyPopulation.destination);
             if (token.countyPopulation.factionData.factionWarDictionary
-                [Globals.Instance.selectedRightClickCounty.countyData.factionData.factionName] == true)
+                [selectCounty.countyData.factionData.factionName] == true)
             {
-                Globals.Instance.selectedRightClickCounty.countyData.factionData.diplomacy
+                selectCounty.countyData.factionData.diplomacy
                     .DefenderSpawnArmies(destinationCounty);
             }
             else
@@ -136,10 +136,11 @@ namespace PlayerSpace
             token.isRetreating = false;
             token.Hide();
         }
+
         private void ArmyAttackingCounty()
         {
             ArmyVisitingCounty();
-            if(destinationCounty.countyData.armiesInCountyList.Count > 0)
+            if(destinationCounty.countyData.armiesInCountyList.Count() > 0)
             {
                 Battle battle = new(destinationCounty.countyData);
                 destinationCounty.countyData.battles.Add(battle);
@@ -149,19 +150,18 @@ namespace PlayerSpace
             {
                 CountyDictator.Instance.CaptureCounty(token.countyPopulation.destination, token.countyPopulation.factionData);
             }
-
         }
 
         private void AddToDestinationCounty()
         {
-            GD.Print("Add To Destination County " + token.countyPopulation.firstName);
+            //GD.Print("Add To Destination County " + token.countyPopulation.firstName);
             token.countyPopulation.location = destinationCounty.countyData.countyId;
             destinationCounty.countyData.spawnTokenButtons.Add(token.spawnedTokenButton);
         }
         private void RemoveFromStartingCounty()
         {
-            GD.Print($"Removed token from Starting County {token.countyPopulation.firstName} {token.countyPopulation.location}");
-            GD.Print($"Removed {token.countyPopulation.firstName} {token.countyPopulation.factionData.factionName}");
+            //GD.Print($"Removed token from Starting County {token.countyPopulation.firstName} {token.countyPopulation.location}");
+            //GD.Print($"Removed {token.countyPopulation.firstName} {token.countyPopulation.factionData.factionName}");
             // Remove countyPopulation from the heroes starting county location list.
             SelectCounty startingCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(token.countyPopulation.location);
 
@@ -181,7 +181,6 @@ namespace PlayerSpace
 
         private void ArmyReachedCounty()
         {
-            GD.Print("Army Reached County: " + token.countyPopulation.firstName);
             token.spawnedTokenButton.Reparent(destinationCounty.armiesHBox);
             destinationCounty.countyData.armiesInCountyList.Add(token.countyPopulation);
         }

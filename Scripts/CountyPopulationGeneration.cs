@@ -35,7 +35,7 @@ namespace PlayerSpace
                 countyData = selectCounty.countyData;
                 GeneratePopulation(true, 1); // There is never going to be more then 1 faction leader.
                 factionData.factionLeader = selectCounty.countyData.herosInCountyList[0];
-                countyData.population += countyData.herosInCountyList.Count;
+                countyData.population += countyData.herosInCountyList.Count();
             }
         }
 
@@ -132,8 +132,8 @@ namespace PlayerSpace
                     */
                     // Generate Normal Population
                     GeneratePopulation(false, Globals.Instance.totalCapitolPop);
-                    countyData.population += countyData.countyPopulationList.Count;
-                    countyData.IdleWorkers = countyData.population -= countyData.herosInCountyList.Count;
+                    countyData.population += countyData.countyPopulationList.Count();
+                    countyData.IdleWorkers = countyData.population -= countyData.herosInCountyList.Count();
                 }
                 else
                 {
@@ -146,8 +146,8 @@ namespace PlayerSpace
                     // Generate Normal Population
                     int normalPopulation = random.Next(Globals.Instance.minimumCountyPop, Globals.Instance.maximumCountyPop);
                     GeneratePopulation(false, normalPopulation);
-                    countyData.population += countyData.countyPopulationList.Count;
-                    countyData.IdleWorkers = countyData.population -= countyData.herosInCountyList.Count;
+                    countyData.population += countyData.countyPopulationList.Count();
+                    countyData.IdleWorkers = countyData.population -= countyData.herosInCountyList.Count();
                 }
             }
         }
