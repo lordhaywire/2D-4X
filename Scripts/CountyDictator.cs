@@ -15,16 +15,19 @@ namespace PlayerSpace
         {
             SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(capturedCountyID);
             GD.Print("Got to Capture County!" + selectCounty.countyData.countyName);
-            selectCounty.countyData.factionData.countiesFactionOwns.Remove(selectCounty.countyData);
-            // Go through all the population in that county and assign them the winners faction.
 
+            // Remove county from the counties faction data county list.
+            selectCounty.countyData.factionData.countiesFactionOwns.Remove(selectCounty.countyData);
+
+            // If the faction now has 0 counties it needs to be destroyed.
             GD.Print($"Faction County Count:" + selectCounty.countyData.factionData.countiesFactionOwns.Count);
             if(selectCounty.countyData.factionData.countiesFactionOwns.Count == 0)
             {
-                GD.Print("Capture County!");
+                GD.Print("Capture County before Destroy Faction!");
                 DestroyFaction(selectCounty);
             }
 
+            // Go through all the population in that county and assign them the winners faction.
             selectCounty.countyData.factionData = winnersFactionData;
             selectCounty.countySprite.SelfModulate = winnersFactionData.factionColor;
             foreach (CountyPopulation countyPopulation in selectCounty.countyData.countyPopulationList)
@@ -35,20 +38,19 @@ namespace PlayerSpace
 
         private void DestroyFaction(SelectCounty selectCounty)
         {
+            GD.Print("All Heroes List Count: " + selectCounty.countyData.factionData.allHeroesList.Count);
+            // Remove all of this factions heroes from game.
+            FactionCountyPopulationDestroyer(selectCounty.countyData.factionData.allHeroesList);
+            
             Globals.Instance.deadFactions.Add(selectCounty.countyData.factionData);
             Globals.Instance.factionDatas.Remove(selectCounty.countyData.factionData);
             FactionGeneration.Instance.GetChild(selectCounty.countyData.factionData.factionID).QueueFree();
-            // Remove all of this factions heroes from game.
-            CountyPopulationDestroyer(selectCounty.countyData.factionData.allHeroesList);
-            // Remove all of this factions armies from the game.
-
-
         }
 
-        // Maybe move to a Faction Dictator.
-        private void CountyPopulationDestroyer(List<CountyPopulation> countyPopulationList)
+        // Maybe move to a Faction Dictator script.
+        private void FactionCountyPopulationDestroyer(List<CountyPopulation> allHeroesList)
         {
-            foreach (CountyPopulation countyPopulation in countyPopulationList)
+            foreach (CountyPopulation countyPopulation in allHeroesList)
             {
                 SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
                 selectCounty.countyData.herosInCountyList.Remove(countyPopulation);
@@ -56,7 +58,7 @@ namespace PlayerSpace
                 countyPopulation.token.spawnedTokenButton.QueueFree();
                 countyPopulation.token.QueueFree();
 
-                countyPopulationList.Remove(countyPopulation);
+                //allHeroesList.Remove(countyPopulation);
                 GD.PrintRich($"[rainbow]{countyPopulation.firstName}");
                 CountyInfoControl.Instance.GenerateHeroesPanelList();
             }
