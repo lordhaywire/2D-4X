@@ -36,7 +36,6 @@ namespace PlayerSpace
 
         private void CancelButton()
         {
-            
             Hide();
         }
     }

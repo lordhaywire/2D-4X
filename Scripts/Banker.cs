@@ -13,7 +13,6 @@ namespace PlayerSpace
 
         }
 
-
         public void ChargeForHero()
         {
             //GD.Print("Player Influence: " + Globals.Instance.playerFactionData.Influence);

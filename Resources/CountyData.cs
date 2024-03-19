@@ -37,7 +37,7 @@ namespace PlayerSpace
         public Globals.ListWithNotify<CountyPopulation> visitingHeroList = [];
         public Globals.ListWithNotify<CountyPopulation> visitingArmyList = [];
 
-        public List<Button> spawnTokenButtons = [];
+        public List<Button> spawnedTokenButtons = [];
 
         public List<CountyImprovementData> allCountyImprovements = [];
         public List<CountyImprovementData> underConstructionCountyImprovements = [];

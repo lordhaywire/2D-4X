@@ -49,7 +49,7 @@ namespace PlayerSpace
 
         public void PauseTime()
         {
-            GD.Print("Pause Time!");
+            //GD.Print("Pause Time!");
 
             if (ModifiedTimeScale != 0)
             {
@@ -61,7 +61,7 @@ namespace PlayerSpace
 
         public void UnpauseTime()
         {
-            GD.Print("Unpause Time!");
+            //GD.Print("Unpause Time!");
             NumberOfThingsPausing--;
             if (NumberOfThingsPausing == 0)
             {
@@ -78,19 +78,20 @@ namespace PlayerSpace
                 // This isn't used yet.
                 if (days == 0 && hours == 1)
                 {
-                    GD.Print("It is 1 am on day zero.");
+                    //GD.Print("It is 1 am on day zero.");
                     FirstRun?.Invoke();
 
                 }
                 // This will not trigger on day zero.
                 if (hours == 0)
                 {
-                    GD.Print("Hour is ZERO!!!");
+                    //GD.Print("Hour is ZERO!!!");
                     HourZero?.Invoke();
                 }
                 if (hours == 17)
                 {
-                    GD.Print("Workday is over!");
+                    //GD.Print("Workday is over!");
+                    //GD.Print("Workday is over!");
                     WorkDayOver?.Invoke();
                 }
                 HourChanged?.Invoke();

@@ -21,7 +21,7 @@ namespace PlayerSpace
 
             // If the faction now has 0 counties it needs to be destroyed.
             GD.Print($"Faction County Count:" + selectCounty.countyData.factionData.countiesFactionOwns.Count);
-            if(selectCounty.countyData.factionData.countiesFactionOwns.Count == 0)
+            if (selectCounty.countyData.factionData.countiesFactionOwns.Count == 0)
             {
                 GD.Print("Capture County before Destroy Faction!");
                 DestroyFaction(selectCounty);
@@ -41,7 +41,7 @@ namespace PlayerSpace
             GD.Print("All Heroes List Count: " + selectCounty.countyData.factionData.allHeroesList.Count);
             // Remove all of this factions heroes from game.
             FactionCountyPopulationDestroyer(selectCounty.countyData.factionData.allHeroesList);
-            
+
             Globals.Instance.deadFactions.Add(selectCounty.countyData.factionData);
             Globals.Instance.factionDatas.Remove(selectCounty.countyData.factionData);
             FactionGeneration.Instance.GetChild(selectCounty.countyData.factionData.factionID).QueueFree();
@@ -55,13 +55,14 @@ namespace PlayerSpace
                 SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
                 selectCounty.countyData.herosInCountyList.Remove(countyPopulation);
                 selectCounty.countyData.armiesInCountyList.Remove(countyPopulation);
+                selectCounty.countyData.spawnedTokenButtons.Remove(countyPopulation.token.spawnedTokenButton);
                 countyPopulation.token.spawnedTokenButton.QueueFree();
                 countyPopulation.token.QueueFree();
 
-                //allHeroesList.Remove(countyPopulation);
                 GD.PrintRich($"[rainbow]{countyPopulation.firstName}");
                 CountyInfoControl.Instance.GenerateHeroesPanelList();
             }
+            allHeroesList.Clear();
         }
     }
 }

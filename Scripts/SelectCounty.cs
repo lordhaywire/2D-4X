@@ -21,7 +21,7 @@ namespace PlayerSpace
         [Export] public HBoxContainer heroesHBox;
 
         private SelectToken selectToken; 
-        private CountyPopulation countyPopulation;
+        //private CountyPopulation countyPopulation;
 
         public List<SelectCounty> neighborCounties = [];
 

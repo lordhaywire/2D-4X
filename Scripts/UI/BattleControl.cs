@@ -77,7 +77,7 @@ namespace PlayerSpace
         }
         private void HourlyBattleInCounty()
         {
-            GD.Print("Hourly Battle.");
+            //GD.Print("Hourly Battle.");
             // County defender attacks county attacker.
             Attack(countyAttackerSelectToken.countyPopulation, countyDefendersSelectToken.countyPopulation, false);
 

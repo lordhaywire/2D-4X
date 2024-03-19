@@ -36,7 +36,7 @@ namespace PlayerSpace
             }
             spawnedTokenButton.countyPopulation = countyPopulation;
 
-            selectCounty.countyData.spawnTokenButtons.Add(spawnedTokenButton);
+            selectCounty.countyData.spawnedTokenButtons.Add(spawnedTokenButton);
 
             // The token needs to keep track of this button.
             spawnedToken.spawnedTokenButton = spawnedTokenButton;

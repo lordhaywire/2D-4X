@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Linq;
 
 namespace PlayerSpace
@@ -33,14 +34,21 @@ namespace PlayerSpace
         public void UpdateTokenTextures()
         {
             SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
-            //GD.Print($"Select County Name: {selectCounty.Name} vs County Population Location {countyPopulation.location}");
-            //GD.Print("Select Counties Spawned Token Buttons List Count: " + selectCounty.countyData.spawnTokenButtons.Count);
-            foreach (SpawnedTokenButton spawnedTokenButton in selectCounty.countyData.spawnTokenButtons.Cast<SpawnedTokenButton>())
+            GD.Print($"Select County Name: {selectCounty.Name} vs County Population Location {countyPopulation.location}");
+            GD.Print("Select Counties Spawned Token Buttons List Count: " + selectCounty.countyData.spawnedTokenButtons.Count);
+            foreach (SpawnedTokenButton spawnedTokenButton in selectCounty.countyData.spawnedTokenButtons.Cast<SpawnedTokenButton>())
             {
                 //GD.Print($"Going through buttons {spawnedTokenButton.countyPopulation.firstName}");
                 spawnedTokenButton.UpdateButtonIcon();
+                UpdateToolTip();
             }
         }
+
+        private void UpdateToolTip()
+        {
+            TooltipText = $"{selectToken.countyPopulation.firstName} {selectToken.countyPopulation.lastName}";
+        }
+
         public void OnMouseEntered()
         {
             PlayerControls.Instance.stopClickThrough = true;
