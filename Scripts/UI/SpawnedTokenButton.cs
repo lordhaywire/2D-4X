@@ -40,10 +40,11 @@ namespace PlayerSpace
             {
                 //GD.Print($"Going through buttons {spawnedTokenButton.countyPopulation.firstName}");
                 spawnedTokenButton.UpdateButtonIcon();
-                UpdateToolTip();
+                //UpdateToolTip();
             }
         }
 
+        // Moved this somewhere else, but may need to put it back here.
         private void UpdateToolTip()
         {
             TooltipText = $"{selectToken.countyPopulation.firstName} {selectToken.countyPopulation.lastName}";

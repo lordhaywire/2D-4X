@@ -37,20 +37,26 @@ namespace PlayerSpace
                         Clock.Instance.HourChanged += IncreaseMorale;
                     }
                 }
+                else
+                {
+                    Clock.Instance.HourChanged -= IncreaseMorale;
+                }
             }
         }
 
         private void IncreaseMorale()
         {
+            if (countyPopulation.moraleExpendable == 100)
+            {
+                Clock.Instance.HourChanged -= IncreaseMorale;
+                return;
+            }
+
             int coolCheck = Globals.Instance.random.Next(1, 101);
             if (countyPopulation.coolSkill > coolCheck)
             {
                 int moraleIncrease = Globals.Instance.random.Next(Globals.Instance.moraleRecoveryMin, Globals.Instance.moraleRecoveryMax);
                 countyPopulation.moraleExpendable = Math.Min(countyPopulation.moraleExpendable + moraleIncrease, 100);
-            }
-            if (countyPopulation.moraleExpendable == 100)
-            {
-                Clock.Instance.HourChanged -= IncreaseMorale;
             }
 
         }
@@ -106,7 +112,8 @@ namespace PlayerSpace
         {
             //GD.Print("Mouse is inside the token.");
             PlayerControls.Instance.stopClickThrough = true;
-
+            spawnedTokenButton.TooltipText = $"{countyPopulation.firstName} {countyPopulation.lastName} " +
+                $"\n Morale: {countyPopulation.moraleExpendable}";
         }
 
         private void OnMouseExit()

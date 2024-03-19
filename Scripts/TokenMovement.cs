@@ -53,22 +53,37 @@ namespace PlayerSpace
 
         private void CheckForDefenders()
         {
-            
+
             SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(token.countyPopulation.destination);
             EventLog.Instance.AddLog($"{selectCounty.countyData.factionData.factionName}" +
                 $" is raising armies at {selectCounty.countyData.countyName}!");
             if (token.countyPopulation.factionData.factionWarDictionary
-                [selectCounty.countyData.factionData.factionName] == true)
+                [selectCounty.countyData.factionData.factionName] == true && DefenderOnTheWay() == false)
             {
-                selectCounty.countyData.factionData.diplomacy
-                    .DefenderSpawnArmies(destinationCounty);
+                selectCounty.countyData.factionData.diplomacy.DefenderSpawnArmies(destinationCounty);
             }
             else
             {
-                GD.Print("Not at war with county - Check For Wars.");
+                GD.Print("Checking for Defenders - Defender on the way, or not at war.");
             }
         }
-        
+
+        private bool DefenderOnTheWay()
+        {
+            // Get the All Heroes List in the desination county for that county's faction and see if any of that
+            // factions heros are on the way to it.
+            GD.Print("Seeing if someone is on the way.");
+            foreach (CountyPopulation countyPopulation in destinationCounty.countyData.factionData.allHeroesList)
+            {
+                if (countyPopulation.destination == token.countyPopulation.destination)
+                {
+                    GD.Print("Hero on the way is: " + countyPopulation.firstName);
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private void CheckIfRetreating()
         {
             SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(token.countyPopulation.location);
@@ -142,7 +157,7 @@ namespace PlayerSpace
         private void ArmyAttackingCounty()
         {
             ArmyVisitingCounty();
-            if(destinationCounty.countyData.armiesInCountyList.Count() > 0)
+            if (destinationCounty.countyData.armiesInCountyList.Count() > 0)
             {
                 Battle battle = new(destinationCounty.countyData);
                 destinationCounty.countyData.battles.Add(battle);
