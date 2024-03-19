@@ -39,7 +39,7 @@ namespace PlayerSpace
                 = (SelectCounty)Globals.Instance.countiesParent.GetChild(destinationCountyID);
 
             token.countyPopulation.destination = destinationCountyID;
-            token.UpdateCurrentActivity(AllText.Activities.MOVING);
+            token.UpdateCurrentActivity(AllText.Activities.MOVING); // Next activity isn't shown on the description panel.
 
             //GD.Print("Destination Global Position: " + destinationCounty.heroSpawn.GlobalPosition);
             target = destinationCounty.heroSpawn.GlobalPosition;

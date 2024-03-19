@@ -114,9 +114,9 @@ namespace PlayerSpace
             }
         }
 
-        private void GenerateHeroes(Globals.ListWithNotify<CountyPopulation> countyPopulationList)
+        private void GenerateHeroes(Globals.ListWithNotify<CountyPopulation> heroCountyPopulationList)
         {
-            foreach (CountyPopulation countyPopulation in countyPopulationList)
+            foreach (CountyPopulation countyPopulation in heroCountyPopulationList)
             {
                 HeroPanelContainer heroPrefab = (HeroPanelContainer)heroListPrefab.Instantiate();
 

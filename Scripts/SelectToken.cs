@@ -12,7 +12,7 @@ namespace PlayerSpace
         [Export] public Texture2D unselectedTexture;
 
         [Export] public Label tokenNameLabel;
-        [Export] public Label stackCountLabel; // This can probably be deleted.
+        //[Export] public Label stackCountLabel; // This can probably be deleted.
 
         public SpawnedTokenButton spawnedTokenButton;
 

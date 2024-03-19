@@ -107,6 +107,7 @@ namespace PlayerSpace
         {
             Instance = this;
             LoadNames();
+
         }
 
         public void UpdateSelectedHero()

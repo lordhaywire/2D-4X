@@ -10,7 +10,9 @@ namespace PlayerSpace
         public override void _Ready()
         {
             Instance = this;
+
         }
+
 
         public void ChargeForHero()
         {

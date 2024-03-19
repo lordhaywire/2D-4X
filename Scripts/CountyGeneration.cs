@@ -28,9 +28,9 @@ namespace PlayerSpace
         {
 			// Cowlitz
 			SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(0);
-			GD.Print("Assigning Faction data: " + Globals.Instance.factionDatas[0].factionName);
+			//GD.Print("Assigning Faction data: " + Globals.Instance.factionDatas[0].factionName);
             selectCounty.countyData.factionData = Globals.Instance.factionDatas[0];
-			GD.Print("Assigned Faction Data: " + selectCounty.countyData.factionData.factionName);
+			//GD.Print("Assigned Faction Data: " + selectCounty.countyData.factionData.factionName);
             // Tillamook
 			selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(1);
             selectCounty.countyData.factionData = Globals.Instance.factionDatas[1];
@@ -54,10 +54,11 @@ namespace PlayerSpace
 		
         private void AssignCountyDataToFaction()
         {
-            // I don't know what the flying fuck this is.  It seems to be adding every county to the factionData.
+            // This goes through every county and adds itself to the faction data that is already assigned to the county.
 			foreach (SelectCounty selectCounty in Globals.Instance.countiesParent.GetChildren())
 			{
 				selectCounty.countyData.factionData.countiesFactionOwns.Add(selectCounty.countyData);
+				//GD.Print($"Faction: {selectCounty.countyData.factionData.factionName} {selectCounty.countyData.countyName}");
             }
         }
 		
