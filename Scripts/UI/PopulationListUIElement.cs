@@ -18,6 +18,8 @@ namespace PlayerSpace
                 CountyInfoControl.Instance.DisableSpawnHeroCheckButton(true);
                 CountyInfoControl.Instance.populationDescriptionControl.Hide();
                 CountyInfoControl.Instance.countyImprovementsPanelControl.Hide();
+                PlayerUICanvas.Instance.BattleLogControl.Hide();
+
                 PlayerControls.Instance.AdjustPlayerControls(false);
                 Clock.Instance.PauseTime();
                 

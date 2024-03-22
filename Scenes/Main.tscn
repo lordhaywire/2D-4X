@@ -436,18 +436,14 @@ layout_mode = 2
 [node name="Population List MarginContainer" type="MarginContainer" parent="Player UI Canvas" node_paths=PackedStringArray("populationListParent", "populationListTitle")]
 visible = false
 custom_minimum_size = Vector2(1719, 1080)
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
+anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -1719.0
-offset_top = -540.0
-offset_bottom = 540.0
-grow_horizontal = 0
+anchor_bottom = 1.0
+grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 8
-theme_override_constants/margin_top = 28
+theme_override_constants/margin_left = 301
+theme_override_constants/margin_top = 26
 script = ExtResource("29_ts64q")
 populationListParent = NodePath("Population List PanelContainer/Population VBoxContainer")
 populationRowButtonPackedScene = ExtResource("30_bhu5o")
@@ -1407,7 +1403,6 @@ size_flags_vertical = 8
 text = "Close"
 
 [node name="Declare War Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("confirmationWarDialog")]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1415,13 +1410,49 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("42_g5xi4")
-confirmationWarDialog = NodePath("ConfirmationDialog")
+confirmationWarDialog = NodePath("")
 
-[node name="ConfirmationDialog" type="ConfirmationDialog" parent="Player UI Canvas/Declare War Control"]
-initial_position = 1
-ok_button_text = "Yes"
-dialog_close_on_escape = false
-cancel_button_text = "No"
+[node name="Declare War Confirmation PanelContainer" type="PanelContainer" parent="Player UI Canvas/Declare War Control"]
+custom_minimum_size = Vector2(400, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -100.0
+offset_right = 200.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Title Label" type="Label" parent="Player UI Canvas/Declare War Control/Declare War Confirmation PanelContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 16
+text = "Do you want to recruit bill smill for realz?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Declare War Control/Declare War Confirmation PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+alignment = 1
+
+[node name="No Button" type="Button" parent="Player UI Canvas/Declare War Control/Declare War Confirmation PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "No"
+
+[node name="Yes Button" type="Button" parent="Player UI Canvas/Declare War Control/Declare War Confirmation PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "You are a piece of shit!"
+text = "Yes"
 
 [node name="Event Log Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("eventLogVBoxContainer")]
 custom_minimum_size = Vector2(300, 75)
@@ -1499,7 +1530,8 @@ process_mode = 3
 [connection signal="visibility_changed" from="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/Research Description PanelContainer" to="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/Research Description PanelContainer" method="OnVisibilityChanged"]
 [connection signal="button_up" from="Player UI Canvas/Research Control/Close Button" to="Player UI Canvas/Research Control" method="CloseButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Declare War Control" to="Player UI Canvas/Declare War Control" method="OnVisibilityChanged"]
-[connection signal="canceled" from="Player UI Canvas/Declare War Control/ConfirmationDialog" to="Player UI Canvas/Declare War Control" method="CancelButton"]
-[connection signal="confirmed" from="Player UI Canvas/Declare War Control/ConfirmationDialog" to="Player UI Canvas/Declare War Control" method="YesButton"]
+[connection signal="visibility_changed" from="Player UI Canvas/Declare War Control/Declare War Confirmation PanelContainer" to="Player UI Canvas/Declare War Control/Declare War Confirmation PanelContainer" method="OnVisibilityChange"]
+[connection signal="button_up" from="Player UI Canvas/Declare War Control/Declare War Confirmation PanelContainer/HBoxContainer/No Button" to="Player UI Canvas/Declare War Control/Declare War Confirmation PanelContainer" method="NoButton"]
+[connection signal="button_up" from="Player UI Canvas/Declare War Control/Declare War Confirmation PanelContainer/HBoxContainer/Yes Button" to="Player UI Canvas/Declare War Control/Declare War Confirmation PanelContainer" method="YesButton"]
 
 [editable path="Player UI Canvas/Top Bar Control"]
