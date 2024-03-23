@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 namespace PlayerSpace
 {
@@ -7,15 +6,11 @@ namespace PlayerSpace
     {
         public static DeclareWarControl Instance { get; private set; }
 
-        [Export] public ConfirmationDialog confirmationWarDialog;
+        [Export] public PanelContainer declareWarPanelContainer;
+        [Export] public Label declareWarTitleLabel;
         public override void _Ready()
         {
             Instance = this;
-        }
-
-        private void OnVisibilityChanged()
-        {
-            confirmationWarDialog.Visible = Visible;
         }
 
         private void YesButton()
@@ -34,7 +29,7 @@ namespace PlayerSpace
             selectToken.tokenMovement.StartMove(Globals.Instance.selectedRightClickCounty.countyData.countyId);
         }
 
-        private void CancelButton()
+        private void NoButton()
         {
             Hide();
         }

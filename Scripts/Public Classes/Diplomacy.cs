@@ -17,8 +17,10 @@ namespace PlayerSpace
         public void DeclareWarConfirmation(CountyData countyData)
         {
             DeclareWarControl.Instance.Show();
-            DeclareWarControl.Instance.confirmationWarDialog.DialogText
+            
+            DeclareWarControl.Instance.declareWarTitleLabel.Text
                 = AllText.Diplomacies.DECLAREWARE + countyData.factionData.factionName;
+            
         }
 
         public void RespondToDeclarationOfWar(War war, SelectCounty battleLocation)
