@@ -8,7 +8,7 @@ namespace PlayerSpace
         [Export] public SelectToken token;
         [Export] private bool moveToken;
         private Vector2 target;
-        private SelectCounty destinationCounty;
+        private County destinationCounty;
 
         public bool MoveToken
         {
@@ -36,7 +36,7 @@ namespace PlayerSpace
         {
             GD.Print($"{token.countyPopulation.firstName} has location of {token.countyPopulation.location}");
             destinationCounty
-                = (SelectCounty)Globals.Instance.countiesParent.GetChild(destinationCountyID);
+                = (County)Globals.Instance.countiesParent.GetChild(destinationCountyID);
 
             token.countyPopulation.destination = destinationCountyID;
             token.UpdateCurrentActivity(AllText.Activities.MOVING); // Next activity isn't shown on the description panel.
@@ -54,7 +54,7 @@ namespace PlayerSpace
         private void CheckForDefenders()
         {
 
-            SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(token.countyPopulation.destination);
+            County selectCounty = (County)Globals.Instance.countiesParent.GetChild(token.countyPopulation.destination);
             EventLog.Instance.AddLog($"{selectCounty.countyData.factionData.factionName}" +
                 $" is raising armies at {selectCounty.countyData.countyName}!");
             if (token.countyPopulation.factionData.factionWarDictionary
@@ -86,7 +86,7 @@ namespace PlayerSpace
 
         private void CheckIfRetreating()
         {
-            SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(token.countyPopulation.location);
+            County selectCounty = (County)Globals.Instance.countiesParent.GetChild(token.countyPopulation.location);
 
             // Check to see if the starting county has battles and if it does, it should end the battle because the
             // token is retreating.
@@ -110,7 +110,7 @@ namespace PlayerSpace
             MoveToken = false;
             GD.Print("Top of Reached Destination County Population: " + token.countyPopulation.firstName);
             GD.Print("Token Destination: " + token.countyPopulation.destination);
-            destinationCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(token.countyPopulation.destination);
+            destinationCounty = (County)Globals.Instance.countiesParent.GetChild(token.countyPopulation.destination);
             GD.Print("Faction of Destination County: " + destinationCounty.countyData.factionData.factionName);
             if (destinationCounty.countyData.factionData == token.countyPopulation.factionData)
             {
@@ -180,7 +180,7 @@ namespace PlayerSpace
             //GD.Print($"Removed token from Starting County {token.countyPopulation.firstName} {token.countyPopulation.location}");
             //GD.Print($"Removed {token.countyPopulation.firstName} {token.countyPopulation.factionData.factionName}");
             // Remove countyPopulation from the heroes starting county location list.
-            SelectCounty startingCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(token.countyPopulation.location);
+            County startingCounty = (County)Globals.Instance.countiesParent.GetChild(token.countyPopulation.location);
 
             // We don't need to check which list the hero is in because C# doesn't give a shit if the hero isn't in the list.
             // So we just try to remove it from both and it will remove it from the correct one.

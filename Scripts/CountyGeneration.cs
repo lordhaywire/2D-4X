@@ -15,7 +15,7 @@ namespace PlayerSpace
 
         private void SubscribeToCountyHeroLists()
         {
-            foreach (SelectCounty selectCounty in Globals.Instance.countiesParent.GetChildren())
+            foreach (County selectCounty in Globals.Instance.countiesParent.GetChildren())
 			{
 				selectCounty.countyData.herosInCountyList.ItemAdded += (sender, item) => Globals.Instance.AddToFactionHeroList(item);
 			}
@@ -27,27 +27,27 @@ namespace PlayerSpace
         private void AssignFactionDataToCountyData()
         {
 			// Cowlitz
-			SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(0);
+			County selectCounty = (County)Globals.Instance.countiesParent.GetChild(0);
 			//GD.Print("Assigning Faction data: " + Globals.Instance.factionDatas[0].factionName);
             selectCounty.countyData.factionData = Globals.Instance.factionDatas[0];
 			//GD.Print("Assigned Faction Data: " + selectCounty.countyData.factionData.factionName);
             // Tillamook
-			selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(1);
+			selectCounty = (County)Globals.Instance.countiesParent.GetChild(1);
             selectCounty.countyData.factionData = Globals.Instance.factionDatas[1];
             // Douglas
-			selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(2);
+			selectCounty = (County)Globals.Instance.countiesParent.GetChild(2);
             selectCounty.countyData.factionData = Globals.Instance.factionDatas[1];
 			// Portland
-            selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(3);
+            selectCounty = (County)Globals.Instance.countiesParent.GetChild(3);
             selectCounty.countyData.factionData = Globals.Instance.factionDatas[3];
             // Wasco
-            selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(4);
+            selectCounty = (County)Globals.Instance.countiesParent.GetChild(4);
             selectCounty.countyData.factionData = Globals.Instance.factionDatas[3];
 			// Harney
-            selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(5);
+            selectCounty = (County)Globals.Instance.countiesParent.GetChild(5);
             selectCounty.countyData.factionData = Globals.Instance.factionDatas[1];
 			// Umatilla
-            selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(6);
+            selectCounty = (County)Globals.Instance.countiesParent.GetChild(6);
             selectCounty.countyData.factionData = Globals.Instance.factionDatas[2];
         }
 
@@ -55,7 +55,7 @@ namespace PlayerSpace
         private void AssignCountyDataToFaction()
         {
             // This goes through every county and adds itself to the faction data that is already assigned to the county.
-			foreach (SelectCounty selectCounty in Globals.Instance.countiesParent.GetChildren())
+			foreach (County selectCounty in Globals.Instance.countiesParent.GetChildren())
 			{
 				selectCounty.countyData.factionData.countiesFactionOwns.Add(selectCounty.countyData);
 				//GD.Print($"Faction: {selectCounty.countyData.factionData.factionName} {selectCounty.countyData.countyName}");
@@ -65,7 +65,7 @@ namespace PlayerSpace
 
         private void GenerateBuildings()
         {
-            foreach(SelectCounty selectCounty in Globals.Instance.countiesParent.GetChildren())
+            foreach(County selectCounty in Globals.Instance.countiesParent.GetChildren())
 			{
 				/*
 				GD.Print("County Generation: " + selectCounty.Name);

@@ -4,7 +4,7 @@ namespace PlayerSpace
 {
     public class TokenSpawner
     {
-        public CountyPopulation Spawn(SelectCounty selectCounty, CountyPopulation countyPopulation)
+        public CountyPopulation Spawn(County selectCounty, CountyPopulation countyPopulation)
         {
             // Spawning the token.
             Node2D tokenSpawnParent = selectCounty.heroSpawn;
@@ -65,7 +65,7 @@ namespace PlayerSpace
 
 
         // This is so that the AI token spawning doesn't make the player select it.
-        private void DecidedIfSelected(SelectCounty selectCounty, SelectToken spawnedToken)
+        private void DecidedIfSelected(County selectCounty, SelectToken spawnedToken)
         {
             GD.Print($"{selectCounty.countyData.factionData.factionName} vs {Globals.Instance.playerFactionData.factionName}");
             if(selectCounty.countyData.factionData == Globals.Instance.playerFactionData)

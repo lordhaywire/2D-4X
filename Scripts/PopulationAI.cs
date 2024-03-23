@@ -23,7 +23,7 @@ namespace PlayerSpace
             // Go through every county.
             foreach (Node node in Globals.Instance.countiesParent.GetChildren())
             {
-                SelectCounty selectCounty = (SelectCounty)node;
+                County selectCounty = (County)node;
                 // Go through every building in that county and see if it is being built.
                 foreach (CountyImprovementData countyImprovementData in selectCounty.countyData.underConstructionCountyImprovements)
                 {
@@ -60,7 +60,7 @@ namespace PlayerSpace
             // Go through every county.
             foreach (Node node in Globals.Instance.countiesParent.GetChildren())
             {
-                SelectCounty selectCounty = (SelectCounty)node;
+                County selectCounty = (County)node;
                 // Go through this counties population.
                 foreach (CountyPopulation person in selectCounty.countyData.countyPopulationList)
                 {

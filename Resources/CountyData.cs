@@ -13,7 +13,7 @@ namespace PlayerSpace
         public event Action IdleWorkersChanged;
 
         [ExportGroup("MapEditor")]
-        public SelectCounty countyNode;
+        public County countyNode;
         [Export] public Color color;
         public Vector2I startMaskPosition; // I think this is the local position....
         [Export] public Vector2I countyOverlayLocalPosition;

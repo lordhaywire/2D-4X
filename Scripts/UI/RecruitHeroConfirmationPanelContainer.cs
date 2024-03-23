@@ -24,7 +24,7 @@ namespace PlayerSpace
         private void YesButton()
         {
             CountyPopulation countyPopulation = PopulationDescriptionControl.Instance.countyPopulation;
-            SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
+            County selectCounty = (County)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
 
             if (countyPopulation.isHero != true)
             {

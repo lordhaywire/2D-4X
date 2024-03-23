@@ -23,7 +23,7 @@ namespace PlayerSpace
             
         }
 
-        public void RespondToDeclarationOfWar(War war, SelectCounty battleLocation)
+        public void RespondToDeclarationOfWar(War war, County battleLocation)
         {
             GD.Print($"{war.defenderFactionData.factionName} is responding to the declaration of war.");
 
@@ -34,7 +34,7 @@ namespace PlayerSpace
             war.defenderFactionData.wars.Add(war);
         }
 
-        public void DefenderSpawnArmies(SelectCounty battleLocation)
+        public void DefenderSpawnArmies(County battleLocation)
         {
             CountyPopulation defenderHero = CheckForArmies(battleLocation);
             if (defenderHero != null)
@@ -48,7 +48,7 @@ namespace PlayerSpace
             }
         }
 
-        public CountyPopulation CheckForArmies(SelectCounty battleLocation)
+        public CountyPopulation CheckForArmies(County battleLocation)
         {
             // Checkes for spawned armies.  If there is one, then it returns null, otherwise it spawns one.
             //GD.Print("Defending Army List Count: " + battleLocation.countyData.armiesInCountyList.Count());
@@ -116,7 +116,7 @@ namespace PlayerSpace
                         {
                             GD.Print($"{countyPopulation.firstName} {countyPopulation.coolSkill} {countyPopulation.rifleSkill}");
                         }
-                        SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(possibleDefenders[0].location);
+                        County selectCounty = (County)Globals.Instance.countiesParent.GetChild(possibleDefenders[0].location);
                         selectCounty.countyData.herosInCountyList.Add(possibleDefenders[0]);
                         possibleDefenders[0].ChangeToArmy();
                         return possibleDefenders[0];

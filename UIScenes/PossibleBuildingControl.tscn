@@ -16,24 +16,6 @@ improvementMaxBuildersLabel = NodePath("Building Button/VBoxContainer/Number of 
 underContructionLabel = NodePath("Under Contruction Label")
 buildingButton = NodePath("Building Button")
 
-[node name="Under Contruction Label" type="Label" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -184.0
-offset_top = -17.0
-offset_right = 264.0
-offset_bottom = 50.0
-grow_horizontal = 2
-rotation = 0.347321
-theme_override_colors/font_color = Color(0.988235, 0, 0, 1)
-theme_override_font_sizes/font_size = 32
-text = "Under contruction"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="Building Button" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -89,6 +71,24 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_vertical = 6
 text = "Possible Building Number of Workers Button"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Under Contruction Label" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -184.0
+offset_top = -17.0
+offset_right = 264.0
+offset_bottom = 50.0
+grow_horizontal = 2
+rotation = 0.347321
+theme_override_colors/font_color = Color(0.988235, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "Under contruction"
 horizontal_alignment = 1
 vertical_alignment = 1
 

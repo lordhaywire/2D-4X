@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://dlvb22f68gd3u"]
 
 [ext_resource type="Texture2D" uid="uid://dr2hjhwxtbyki" path="res://Graphics/Counties/Cowlitz Washington.png" id="1_es40q"]
-[ext_resource type="Script" path="res://Scripts/SelectCounty.cs" id="2_58bw3"]
+[ext_resource type="Script" path="res://Scripts/County.cs" id="2_58bw3"]
 [ext_resource type="Resource" uid="uid://cvc0wfljshom0" path="res://Resources/Counties/0 Cowlitz.tres" id="2_si4qt"]
 [ext_resource type="Texture2D" uid="uid://c3bhckl88r540" path="res://Graphics/Icons/Top Bar/Capital Icon.png" id="4_4wrbt"]
 [ext_resource type="Script" path="res://Scripts/HeroStacker.cs" id="5_lgu8l"]

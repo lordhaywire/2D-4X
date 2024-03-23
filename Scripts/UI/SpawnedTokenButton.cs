@@ -33,7 +33,7 @@ namespace PlayerSpace
 
         public void UpdateTokenTextures()
         {
-            SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
+            County selectCounty = (County)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
             GD.Print($"Select County Name: {selectCounty.Name} vs County Population Location {countyPopulation.location}");
             GD.Print("Select Counties Spawned Token Buttons List Count: " + selectCounty.countyData.spawnedTokenButtons.Count);
             foreach (SpawnedTokenButton spawnedTokenButton in selectCounty.countyData.spawnedTokenButtons.Cast<SpawnedTokenButton>())

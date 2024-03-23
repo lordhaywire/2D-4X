@@ -13,7 +13,7 @@ namespace PlayerSpace
 
         public void CaptureCounty(int capturedCountyID, FactionData winnersFactionData)
         {
-            SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(capturedCountyID);
+            County selectCounty = (County)Globals.Instance.countiesParent.GetChild(capturedCountyID);
             GD.Print("Got to Capture County!" + selectCounty.countyData.countyName);
 
             // Remove county from the counties faction data county list.
@@ -36,7 +36,7 @@ namespace PlayerSpace
             }
         }
 
-        private void DestroyFaction(SelectCounty selectCounty)
+        private void DestroyFaction(County selectCounty)
         {
             GD.Print("All Heroes List Count: " + selectCounty.countyData.factionData.allHeroesList.Count);
             // Remove all of this factions heroes from game.
@@ -52,7 +52,7 @@ namespace PlayerSpace
         {
             foreach (CountyPopulation countyPopulation in allHeroesList)
             {
-                SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
+                County selectCounty = (County)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
                 selectCounty.countyData.herosInCountyList.Remove(countyPopulation);
                 selectCounty.countyData.armiesInCountyList.Remove(countyPopulation);
                 selectCounty.countyData.spawnedTokenButtons.Remove(countyPopulation.token.spawnedTokenButton);

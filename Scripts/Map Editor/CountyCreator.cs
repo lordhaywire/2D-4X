@@ -110,7 +110,7 @@ namespace MapEditorSpace
         {
             foreach (CountyData countyData in CountyResourcesAutoLoad.Instance.countyDatas)
             {
-                SelectCounty selectCounty = (SelectCounty)MapEditorGlobals.Instance.countyPackedScene.Instantiate();
+                County selectCounty = (County)MapEditorGlobals.Instance.countyPackedScene.Instantiate();
 
                 selectCounty.countyData = countyData;
                 selectCounty.countyData.countyNode = selectCounty;

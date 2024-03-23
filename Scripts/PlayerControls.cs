@@ -44,7 +44,7 @@ namespace PlayerSpace
 
                 // Check every countyData to find the color it finds.  If it finds that color then it turns on the 
                 // grey overlay.
-                foreach (SelectCounty selectCounty in Globals.Instance.countiesParent.GetChildren())
+                foreach (County selectCounty in Globals.Instance.countiesParent.GetChildren())
                 {
                     Sprite2D maskSprite = selectCounty.maskSprite;
 
@@ -83,8 +83,8 @@ namespace PlayerSpace
                                 }
                                 else
                                 {
-                                    SelectCounty moveToSelectCounty
-                                        = (SelectCounty)Globals.Instance.countiesParent.GetChild(Globals.Instance.SelectedCountyPopulation.location);
+                                    County moveToSelectCounty
+                                        = (County)Globals.Instance.countiesParent.GetChild(Globals.Instance.SelectedCountyPopulation.location);
                                     GD.PrintRich("[rainbow]Are we ever even hitting this?" + moveToSelectCounty.countyData.countyId);
                                     MoveSelectedToken(moveToSelectCounty.countyData);
                                 }
@@ -169,7 +169,7 @@ namespace PlayerSpace
 
         }
 
-        public void SelectedChanged(SelectCounty county, bool selected)
+        public void SelectedChanged(County county, bool selected)
         {
             if (selected)
             {

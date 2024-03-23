@@ -36,7 +36,7 @@ namespace PlayerSpace
 
         private static void ApplyFactionColorsToCounties()
         {
-            foreach(SelectCounty selectCounty in Globals.Instance.countiesParent.GetChildren())
+            foreach(County selectCounty in Globals.Instance.countiesParent.GetChildren())
             {
                 selectCounty.countySprite.SelfModulate = selectCounty.countyData.factionData.factionColor;
             }

@@ -24,7 +24,7 @@ namespace PlayerSpace
                     for (int i = 0; i < files.Length; i++)
                     {
                         PackedScene countyScene = (PackedScene)GD.Load(Globals.Instance.pathToCounties + files[i]);
-                        SelectCounty county = (SelectCounty)countyScene.Instantiate();
+                        County county = (County)countyScene.Instantiate();
                         CountyResourcesAutoLoad.Instance.countyDatas[i].countyNode = county;
                         Globals.Instance.countiesParent.AddChild(county);
 

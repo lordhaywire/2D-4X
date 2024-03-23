@@ -7,9 +7,9 @@ namespace PlayerSpace
         public static PopulationDescriptionControl Instance { get; private set; }
 
         [Export] private Label populationName;
-        [Export] private CheckBox leaderCheckbox;
-        [Export] private CheckBox aideCheckbox;
-        [Export] private CheckBox armyLeaderCheckbox;
+        [Export] private Button leaderTitleButton;
+        [Export] private Button aideTitleButton;
+        [Export] private Button armyLeaderTitleButton;
         [Export] private Label physicalStrengthLabel;
         [Export] private Label agilityLabel;
         [Export] private Label enduranceLabel;
@@ -33,6 +33,7 @@ namespace PlayerSpace
         [Export] private Button aideRecruitButton;
         [Export] private Button armyLeaderRecruitButton;
         [Export] private PanelContainer heroRecruitmentConfirmPanel;
+
 
         public CountyPopulation countyPopulation;
 
@@ -64,7 +65,7 @@ namespace PlayerSpace
         {
             CountyInfoControl.Instance.DisableSpawnHeroCheckButton(true);
             PlayerControls.Instance.AdjustPlayerControls(false); // This was probably happening too fast which is why it is here.
-            SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
+            County selectCounty = (County)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
             GD.Print("Select County Location: " + countyPopulation.location);
 
             //GD.Print("It goes to the update description: " + person.firstName);
@@ -140,6 +141,27 @@ namespace PlayerSpace
 
         private void CheckForTitles()
         {
+            GD.Print("Check for Titles! " + countyPopulation.IsArmyLeader);
+
+            if (countyPopulation.isFactionLeader)
+            {
+                leaderTitleButton.Disabled = false;
+            }
+            if (countyPopulation.isAide)
+            {
+                aideTitleButton.Disabled = false;
+            }
+            if (countyPopulation.IsArmyLeader)
+            {
+                GD.Print("Army Leader is true!");
+                armyLeaderTitleButton.Disabled = false;
+            }
+        }
+
+        /*
+        private void CheckForTitles()
+        {
+            GD.Print("Check for Titles! " + countyPopulation.IsArmyLeader);
             switch (countyPopulation)
             {
                 case { isFactionLeader: true }:
@@ -151,13 +173,15 @@ namespace PlayerSpace
                     break;
 
                 case { IsArmyLeader: true }:
-                    armyLeaderCheckbox.Disabled = false;
+                    GD.Print("Army Leader is true!");
+                    armyLeaderTitleButton.Disabled = false;
                     break;
             }
         }
+        */
 
         // This means nothing to me.  This was a simplification written by ChatGPT.
-        private void CheckForArmyRecruitmentButton(SelectCounty selectCounty)
+        private void CheckForArmyRecruitmentButton(County selectCounty)
         {
             bool isPlayerFaction = selectCounty.countyData.factionData == Globals.Instance.playerFactionData;
             bool isTokenMoving = countyPopulation.token?.tokenMovement.MoveToken ?? false;
@@ -172,9 +196,9 @@ namespace PlayerSpace
 
         private void DisableUIElements()
         {
-            leaderCheckbox.Disabled = true;
-            aideCheckbox.Disabled = true;
-            armyLeaderCheckbox.Disabled = true;
+            leaderTitleButton.Disabled = true;
+            aideTitleButton.Disabled = true;
+            armyLeaderTitleButton.Disabled = true;
             armyLeaderRecruitButton.Disabled = true;
             nextActivityTitle.Hide();
             nextActivityLabel.Hide();

@@ -25,13 +25,15 @@ namespace PlayerSpace
                 
                 if(Globals.Instance.isVisitorList == false)
                 {
-                    populationListTitle.Text = AllText.Titles.POPLIST;
+                    populationListTitle.Text = $"{Globals.Instance.CurrentlySelectedCounty.countyData.countyName} " +
+                        $"{AllText.Titles.POPLIST}";
                     GeneratePopulationRows(Globals.Instance.CurrentlySelectedCounty.countyData.herosInCountyList);
                     GeneratePopulationRows(Globals.Instance.CurrentlySelectedCounty.countyData.countyPopulationList);
                 }
                 else
                 {
-                    populationListTitle.Text = AllText.Titles.VISITORLIST;
+                    populationListTitle.Text = $"{Globals.Instance.CurrentlySelectedCounty.countyData.countyName} " + 
+                        AllText.Titles.VISITORLIST;
                     GeneratePopulationRows(Globals.Instance.CurrentlySelectedCounty.countyData.visitingHeroList);
                 }
             }

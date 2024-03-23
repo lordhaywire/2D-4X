@@ -35,6 +35,7 @@ namespace PlayerSpace
             {
                 numberOfThingsPausing = value;
                 GD.PrintRich("[rainbow]Number of panels visible: " + numberOfThingsPausing);
+                /* This probably isn't needed anymore because we changed the event log to never go away.
                 if (numberOfThingsPausing > 0 && EventLog.Instance != null)
                 {
                     EventLog.Instance.Hide(); // Couldn't I just do the question mark thing like below?
@@ -44,6 +45,7 @@ namespace PlayerSpace
                     EventLog.Instance?.Show(); // This is a null check.
                     
                 }
+                */
             }
         }
 

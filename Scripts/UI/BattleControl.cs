@@ -37,7 +37,7 @@ namespace PlayerSpace
             GD.Print("Start Battle.");
 
             battle = currentbattle;
-            SelectCounty selectCounty = (SelectCounty)GetParent().GetParent();
+            County selectCounty = (County)GetParent().GetParent();
 
             // How could any of the token's ever be equal to null?
             // Attackers Army
@@ -127,7 +127,7 @@ namespace PlayerSpace
             }
             else
             {
-                SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.lastLocation);
+                County selectCounty = (County)Globals.Instance.countiesParent.GetChild(countyPopulation.lastLocation);
                 if (selectCounty.countyData.factionData.factionName == countyPopulation.factionData.factionName)
                 {
                     countyPopulation.token.tokenMovement.StartMove(countyPopulation.lastLocation);
@@ -143,9 +143,9 @@ namespace PlayerSpace
         private void RandomNeighborMove(CountyPopulation countyPopulation)
         {
             GD.Print("Random Neighors Move.");
-            SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
-            List<SelectCounty> countyNeighbors = selectCounty.neighborCounties;
-            SelectCounty destinationCounty = FindFactionOwnedNeighborCounty(countyNeighbors, countyPopulation);
+            County selectCounty = (County)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
+            List<County> countyNeighbors = selectCounty.neighborCounties;
+            County destinationCounty = FindFactionOwnedNeighborCounty(countyNeighbors, countyPopulation);
             if (destinationCounty != null)
             {
                 countyPopulation.token.tokenMovement.StartMove(destinationCounty.countyData.countyId);
@@ -157,16 +157,16 @@ namespace PlayerSpace
             }
         }
 
-        private SelectCounty FindFactionOwnedNeighborCounty(List<SelectCounty> countyNeighbors, CountyPopulation countyPopulation)
+        private County FindFactionOwnedNeighborCounty(List<County> countyNeighbors, CountyPopulation countyPopulation)
         {
-            List<SelectCounty> eligibleCounties = countyNeighbors
+            List<County> eligibleCounties = countyNeighbors
                 .Where(c => c.countyData.factionData == countyPopulation.factionData)
                 .ToList();
 
             if (eligibleCounties.Count > 0)
             {
                 int randomIndex = Globals.Instance.random.Next(0, eligibleCounties.Count);
-                SelectCounty chosenCounty = eligibleCounties[randomIndex];
+                County chosenCounty = eligibleCounties[randomIndex];
 
                 countyPopulation.destination = chosenCounty.countyData.countyId;
                 countyPopulation.token.tokenMovement.StartMove(countyPopulation.destination);

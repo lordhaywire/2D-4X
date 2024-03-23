@@ -24,14 +24,14 @@ namespace MapEditorSpace
                     foreach (string name in files)
                     {
                         PackedScene countyScene = (PackedScene)GD.Load(MapEditorGlobals.Instance.pathToCounties + name);
-                        PlayerSpace.SelectCounty county = (PlayerSpace.SelectCounty)countyScene.Instantiate();
+                        PlayerSpace.County county = (PlayerSpace.County)countyScene.Instantiate();
                         MapEditorGlobals.Instance.countiesParent.AddChild(county);
                     }
                     // Add node to array in MapEditorGlobals.
                     for (int i = 0; i < CountyResourcesAutoLoad.Instance.countyDatas.Count; i++)
                     {
                         CountyResourcesAutoLoad.Instance.countyDatas[i].countyNode 
-                            = (PlayerSpace.SelectCounty)MapEditorGlobals.Instance.countiesParent.GetChild(i);
+                            = (PlayerSpace.County)MapEditorGlobals.Instance.countiesParent.GetChild(i);
                     }
                 }
                 else

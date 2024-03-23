@@ -9,7 +9,7 @@ namespace PlayerSpace
         private readonly Random random = new();
 
         public Node2D countiesParent;
-        private SelectCounty selectCounty;
+        private County selectCounty;
         private CountyData countyData;
 
         private string firstName;
@@ -31,7 +31,7 @@ namespace PlayerSpace
                 countiesParent = Globals.Instance.countiesParent;
                 // Generate Faction Leader County Population
                 GD.Print($"{factionData.factionName} Capital ID: {factionData.factionCapitalCounty}");
-                selectCounty = (SelectCounty)countiesParent.GetChild(factionData.factionCapitalCounty);
+                selectCounty = (County)countiesParent.GetChild(factionData.factionCapitalCounty);
                 countyData = selectCounty.countyData;
                 GeneratePopulation(true, 1); // There is never going to be more then 1 faction leader.
                 factionData.factionLeader = selectCounty.countyData.herosInCountyList[0];
@@ -116,7 +116,7 @@ namespace PlayerSpace
             // Create various county specific data.
             for (int i = 0; i < countiesParent.GetChildCount(); i++)
             {
-                selectCounty = (SelectCounty)countiesParent.GetChild(i);
+                selectCounty = (County)countiesParent.GetChild(i);
                 countyData = selectCounty.countyData;
                 countyData.countyId = i; // Generate countyID.
                 //GD.PrintRich("[rainbow]County ID: " + countyData.countyID);

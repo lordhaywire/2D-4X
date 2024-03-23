@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cy0ifoahmgp4b"]
 
-[ext_resource type="Script" path="res://Scripts/SelectCounty.cs" id="1_fuvq0"]
+[ext_resource type="Script" path="res://Scripts/County.cs" id="1_jw1sk"]
 [ext_resource type="Script" path="res://Scripts/UI/BattleControl.cs" id="3_f6q62"]
 [ext_resource type="Texture2D" uid="uid://c3bhckl88r540" path="res://Graphics/Icons/Top Bar/Capital Icon.png" id="4_b7k3o"]
 
@@ -12,7 +12,7 @@
 
 [node name="County Node2D" type="Node2D" node_paths=PackedStringArray("maskSprite", "countySprite", "capitalSprite", "countyOverlayNode2D", "heroSpawn", "battleControl", "armiesHBox", "heroesHBox")]
 z_as_relative = false
-script = ExtResource("1_fuvq0")
+script = ExtResource("1_jw1sk")
 maskSprite = NodePath("Mask Sprite2D")
 countySprite = NodePath("County Sprite2D")
 capitalSprite = NodePath("County Overlay Node2D/Capital Sprite2D")

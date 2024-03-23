@@ -15,14 +15,14 @@ namespace PlayerSpace
         public void FindCountyNeighbors()
         {
             // Add all the sprites to a list.
-            foreach (SelectCounty selectCounty in Globals.Instance.countiesParent.GetChildren().Cast<SelectCounty>())
+            foreach (County selectCounty in Globals.Instance.countiesParent.GetChildren().Cast<County>())
             {
                 Sprite2D sprite2D = selectCounty.countySprite;
                 countySprites.Add(sprite2D);
             }
 
             // Go through each county and find its neighbors and add them to its neighbors list.
-            foreach (SelectCounty county in Globals.Instance.countiesParent.GetChildren().Cast<SelectCounty>())
+            foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
             {
                 Sprite2D countySprite = county.countySprite;
                 foreach (Sprite2D sprite in countySprites)
@@ -37,7 +37,7 @@ namespace PlayerSpace
                         if (overlapRect.Area > 0)
                         {
                             //GD.Print($"{county.Name} overlaps with {sprite.GetParent().Name}");
-                            county.neighborCounties.Add((SelectCounty)sprite.GetParent());
+                            county.neighborCounties.Add((County)sprite.GetParent());
                         }
                     }
                 }

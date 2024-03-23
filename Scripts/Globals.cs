@@ -20,9 +20,9 @@ namespace PlayerSpace
 
         [ExportGroup("Selected Items")]
         [Export] public int selectedCountyId;
-        [Export] private SelectCounty currentlySelectedCounty;
+        [Export] private County currentlySelectedCounty;
 
-        public SelectCounty CurrentlySelectedCounty
+        public County CurrentlySelectedCounty
         {
             get { return currentlySelectedCounty; }
             set
@@ -35,8 +35,8 @@ namespace PlayerSpace
                 currentlySelectedCounty.maskSprite.SelfModulate = new Color(0, 0, 0, 1f);
             }
         }
-        [Export] public SelectCounty selectedLeftClickCounty;
-        [Export] public SelectCounty selectedRightClickCounty;
+        [Export] public County selectedLeftClickCounty;
+        [Export] public County selectedRightClickCounty;
         private CountyPopulation selectedCountyPopulation;
         public CountyPopulation SelectedCountyPopulation
         {
@@ -228,13 +228,13 @@ namespace PlayerSpace
         public void OnMouseEnteredUI()
         {
             PlayerControls.Instance.stopClickThrough = true;
-            GD.Print("Mouse Over UI: " + PlayerControls.Instance.stopClickThrough);
+            //GD.Print("Mouse Over UI: " + PlayerControls.Instance.stopClickThrough);
         }
 
         public void OnMouseExitedUI()
         {
             PlayerControls.Instance.stopClickThrough = false;
-            GD.Print("Mouse Over UI: " + PlayerControls.Instance.stopClickThrough);
+            //GD.Print("Mouse Over UI: " + PlayerControls.Instance.stopClickThrough);
         }
     }
 }

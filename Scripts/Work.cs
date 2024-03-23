@@ -60,7 +60,7 @@ namespace PlayerSpace
         // Go through everyone in this county again and clear out their job if their building is done.
         private void CheckWorkComplete()
         {
-            foreach (SelectCounty selectCounty in Globals.Instance.countiesParent.GetChildren())
+            foreach (County selectCounty in Globals.Instance.countiesParent.GetChildren())
             {
                 foreach (CountyPopulation person in selectCounty.countyData.countyPopulationList)
                 {
@@ -80,7 +80,7 @@ namespace PlayerSpace
         private static void CompleteWorkPerPerson()
         {
             // Go through all the counties and have people building add their work to the building.
-            foreach (SelectCounty county in Globals.Instance.countiesParent.GetChildren())
+            foreach (County county in Globals.Instance.countiesParent.GetChildren())
             {
                 foreach (CountyPopulation person in county.countyData.countyPopulationList)
                 {
