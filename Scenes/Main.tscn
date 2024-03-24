@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=67 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_x1cy2"]
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://Graphics/Provinces/Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
@@ -17,8 +17,10 @@
 [ext_resource type="Texture2D" uid="uid://cvc31dbpf0ptl" path="res://Graphics/Icons/Army Token Unselected.png" id="10_0wqfi"]
 [ext_resource type="Texture2D" uid="uid://bnau4cacldl0t" path="res://Graphics/Icons/Army Token Selected.png" id="11_e5ayq"]
 [ext_resource type="Script" path="res://Scripts/FactionGeneration.cs" id="11_ivpku"]
+[ext_resource type="Script" path="res://Scripts/StoryEventList.cs" id="12_q0wdt"]
 [ext_resource type="PackedScene" uid="uid://cjgb8g7l3340p" path="res://Prefabs/FactionNode.tscn" id="12_r0ltm"]
 [ext_resource type="Script" path="res://Scripts/PlayerControls.cs" id="12_vfu86"]
+[ext_resource type="Resource" uid="uid://b4qv7wmpei808" path="res://Resources/Story Events/FoundFood.tres" id="13_6edvn"]
 [ext_resource type="Resource" uid="uid://bads4woc5toep" path="res://Resources/County Improvements/FisherShack.tres" id="13_43qw5"]
 [ext_resource type="Script" path="res://Scripts/FindNeighbors.cs" id="13_vibhq"]
 [ext_resource type="Resource" uid="uid://cpmbf5setweth" path="res://Resources/County Improvements/ForestersShack.tres" id="14_lgpja"]
@@ -61,6 +63,7 @@
 [ext_resource type="PackedScene" uid="uid://bjgv6c8xhn4lo" path="res://UIScenes/Event Log Text Panel.tscn" id="44_du832"]
 [ext_resource type="PackedScene" uid="uid://x41vmtlrl1cx" path="res://UIScenes/CombatLogTextPanel.tscn" id="44_qsgen"]
 [ext_resource type="Theme" uid="uid://b7f66fp0haa2c" path="res://Themes/FullScreenPanelTheme.tres" id="50_5cg3n"]
+[ext_resource type="Script" path="res://Scripts/UI/StoryEventControl.cs" id="62_onxgq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_co2vr"]
 
@@ -116,6 +119,10 @@ unselectedHeroTexture = ExtResource("4_pxob5")
 selectedHeroTexture = ExtResource("3_r5dcu")
 unselectedArmyTexture = ExtResource("10_0wqfi")
 selectedArmyTexture = ExtResource("11_e5ayq")
+
+[node name="Story Event List" type="Node" parent="Game Controller Node"]
+script = ExtResource("12_q0wdt")
+storyEventDatas = Array[Object]([ExtResource("13_6edvn")])
 
 [node name="County Loader" type="Node" parent="Game Controller Node"]
 script = ExtResource("7_o23yn")
@@ -1673,13 +1680,21 @@ size_flags_horizontal = 3
 tooltip_text = "You are a piece of shit!"
 text = "Yes"
 
-[node name="Story Event Control" type="Control" parent="Player UI Canvas"]
+[node name="Story Event Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("storyEventTitle", "storyEventDescription", "choiceButtons")]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+script = ExtResource("62_onxgq")
+storyEventTitle = NodePath("PanelContainer/VBoxContainer/Story Event Title Label")
+storyEventDescription = NodePath("PanelContainer/VBoxContainer/Story Event Description Label")
+choiceButtons = [NodePath("PanelContainer/VBoxContainer/Accept Button"), NodePath("PanelContainer/VBoxContainer/Option 2 Button"), NodePath("PanelContainer/VBoxContainer/Option 3 Button"), NodePath("PanelContainer/VBoxContainer/Decline Button")]
 
 [node name="PanelContainer" type="PanelContainer" parent="Player UI Canvas/Story Event Control"]
 layout_mode = 1
@@ -1712,22 +1727,25 @@ layout_mode = 2
 text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
 autowrap_mode = 3
 
-[node name="Button" type="Button" parent="Player UI Canvas/Story Event Control/PanelContainer/VBoxContainer"]
+[node name="Accept Button" type="Button" parent="Player UI Canvas/Story Event Control/PanelContainer/VBoxContainer"]
 layout_mode = 2
-text = "sxfsdf"
+mouse_filter = 1
+text = "Accept Button"
 
-[node name="Button3" type="Button" parent="Player UI Canvas/Story Event Control/PanelContainer/VBoxContainer"]
+[node name="Option 2 Button" type="Button" parent="Player UI Canvas/Story Event Control/PanelContainer/VBoxContainer"]
 layout_mode = 2
-text = "sxfsdf"
+mouse_filter = 1
+text = "Option 2"
 
-[node name="Button4" type="Button" parent="Player UI Canvas/Story Event Control/PanelContainer/VBoxContainer"]
-visible = false
+[node name="Option 3 Button" type="Button" parent="Player UI Canvas/Story Event Control/PanelContainer/VBoxContainer"]
 layout_mode = 2
-text = "sxfsdf"
+mouse_filter = 1
+text = "Option 3"
 
-[node name="Button2" type="Button" parent="Player UI Canvas/Story Event Control/PanelContainer/VBoxContainer"]
+[node name="Decline Button" type="Button" parent="Player UI Canvas/Story Event Control/PanelContainer/VBoxContainer"]
 layout_mode = 2
-text = "sdf324234"
+mouse_filter = 1
+text = "Decline Button"
 
 [node name="Player UI Canvas_Top Bar Control_Top Bar HBox#PanelContainer" type="PanelContainer" parent="."]
 
@@ -1782,3 +1800,8 @@ process_mode = 3
 [connection signal="mouse_exited" from="Player UI Canvas/Declare War Control/Declare War Confirmation PanelContainer" to="Player UI Canvas" method="OnMouseExitUI"]
 [connection signal="pressed" from="Player UI Canvas/Declare War Control/Declare War Confirmation PanelContainer/HBoxContainer/No Button" to="Player UI Canvas/Declare War Control" method="NoButton"]
 [connection signal="pressed" from="Player UI Canvas/Declare War Control/Declare War Confirmation PanelContainer/HBoxContainer/Yes Button" to="Player UI Canvas/Declare War Control" method="YesButton"]
+[connection signal="visibility_changed" from="Player UI Canvas/Story Event Control" to="Player UI Canvas/Story Event Control" method="OnVisibilityChanged"]
+[connection signal="mouse_entered" from="Player UI Canvas/Story Event Control/PanelContainer" to="Game Controller Node/Main" method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="Player UI Canvas/Story Event Control/PanelContainer" to="Game Controller Node/Main" method="OnMouseExitedUI"]
+[connection signal="pressed" from="Player UI Canvas/Story Event Control/PanelContainer/VBoxContainer/Accept Button" to="Player UI Canvas/Story Event Control" method="AcceptButtonPressed"]
+[connection signal="pressed" from="Player UI Canvas/Story Event Control/PanelContainer/VBoxContainer/Decline Button" to="Player UI Canvas/Story Event Control" method="DeclineButtonPressed"]

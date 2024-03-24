@@ -39,7 +39,7 @@ namespace PlayerSpace
         private void OnVisibilityChanged()
         {
             // Idle workers changes if we change who is building stuff etc.
-            if(Visible == true)
+            if (Visible == true)
             {
                 Globals.Instance.CurrentlySelectedCounty.countyData.IdleWorkersChanged += UpdateIdleWorkersLabel;
             }
@@ -74,6 +74,14 @@ namespace PlayerSpace
         private void UpdateVisitorsPopulationLabel()
         {
             visitorsLabel.Text = Globals.Instance.CurrentlySelectedCounty.countyData.visitingHeroList.Count().ToString();
+            if (Globals.Instance.CurrentlySelectedCounty.countyData.visitingHeroList.Count() == 0)
+            {
+                visitorsListButton.Disabled = true;
+            }
+            else
+            {
+                visitorsListButton.Disabled = false;
+            }
         }
 
         public void DisableSpawnHeroCheckButton(bool value)
@@ -81,7 +89,7 @@ namespace PlayerSpace
             foreach (Node node in heroSpawnCheckButtonParent.GetChildren())
             {
                 HeroPanelContainer heroPanelContainer = (HeroPanelContainer)node;
-                if(heroPanelContainer.countyPopulation.factionData == Globals.Instance.playerFactionData)
+                if (heroPanelContainer.countyPopulation.factionData == Globals.Instance.playerFactionData)
                 {
                     heroPanelContainer.spawnHeroButton.Disabled = value;
                 }
@@ -209,7 +217,7 @@ namespace PlayerSpace
         public void UpdateCountyPopulationLabel()
         {
 
-            int population = Globals.Instance.CurrentlySelectedCounty.countyData.countyPopulationList.Count() 
+            int population = Globals.Instance.CurrentlySelectedCounty.countyData.countyPopulationList.Count()
                 + Globals.Instance.CurrentlySelectedCounty.countyData.herosInCountyList.Count();
             countyPopulationLabel.Text = population.ToString();
         }

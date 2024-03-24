@@ -44,7 +44,7 @@ namespace PlayerSpace
             set
             {
                 selectedCountyPopulation = value;
-                if(selectedCountyPopulation == null)
+                if (selectedCountyPopulation == null)
                 {
                     PlayerUICanvas.Instance.selectedHeroPanelContainer.Hide();
                 }
@@ -89,7 +89,7 @@ namespace PlayerSpace
         [Export] public int moraleRecoveryMax = 11; // One above max.
         public int researchClicked; // This is so the Research description panel knows which research was clicked.
 
-        string listsPath = "res://Lists/";
+        string listsPath = "Lists/";
         string maleNamesPath = "MaleNames.txt";
         string femaleNamesPath = "FemaleNames.txt";
         string lastNamesPath = "LastNames.txt";
@@ -121,13 +121,28 @@ namespace PlayerSpace
             // Load all the names from disk.
             GD.Print("Localize Path: " + ProjectSettings.LocalizePath(listsPath));
             GD.Print("Globalize Path: " + ProjectSettings.GlobalizePath(listsPath));
-            DirAccess directory = DirAccess.Open(listsPath);
-            if (directory.DirExists(listsPath))
+            string listDirectory = "";
+            // This doesn't seem like it should work, but it does.
+            if (OS.HasFeature("editor"))
+            {
+                GD.Print("Is in the editor!!!");
+                listDirectory = ProjectSettings.LocalizePath(listsPath); 
+            }
+            else
+            {
+                GD.Print("Is not in the editor!");
+                listDirectory = OS.GetExecutablePath().GetBaseDir().PathJoin(listsPath);
+
+            }
+            GD.Print("Strange Path = " + listDirectory);
+            DirAccess directory = DirAccess.Open(listDirectory);//DirAccess.Open(listsPath);
+            if (directory.DirExists(listDirectory))//(directory.DirExists(listsPath))
             {
                 using var maleFile = FileAccess.Open(listsPath + maleNamesPath, FileAccess.ModeFlags.Read);
                 while (maleFile.GetPosition() < maleFile.GetLength())
                 {
                     maleNames.Add(maleFile.GetLine());
+                    GD.Print("Male Names.");
                 }
                 using var femaleFile = FileAccess.Open(listsPath + femaleNamesPath, FileAccess.ModeFlags.Read);
                 while (femaleFile.GetPosition() < femaleFile.GetLength())
@@ -139,10 +154,11 @@ namespace PlayerSpace
                 {
                     lastNames.Add(lastNameFile.GetLine());
                 }
+                GD.Print("Names have been loaded.");
             }
             else
             {
-                GD.Print("Directory doesn't exist!");
+                GD.Print("Directory doesn't exist! " + listDirectory);
             }
         }
 

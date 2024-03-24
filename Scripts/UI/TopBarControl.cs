@@ -17,17 +17,19 @@ namespace PlayerSpace
         {
             Instance = this;
             Globals.Instance.playerFactionData.InfluenceChanged += UpdateExpendables;
+            Globals.Instance.playerFactionData.FoodChanged += UpdateExpendables;
+            Globals.Instance.playerFactionData.MoneyChanged += UpdateExpendables;
+            Globals.Instance.playerFactionData.ScrapChanged += UpdateExpendables;
             UpdateExpendables();
         }
-
 
         public void UpdateExpendables()
         {
             //GD.Print("Expendables have been updated, motherfucker!");
             influenceLabel.Text = Globals.Instance.playerFactionData.Influence.ToString();
-            moneyLabel.Text = Globals.Instance.playerFactionData.money.ToString();
-            foodLabel.Text = Globals.Instance.playerFactionData.food.ToString();
-            scrapLabel.Text = Globals.Instance.playerFactionData.scrap.ToString();
+            moneyLabel.Text = Globals.Instance.playerFactionData.Money.ToString();
+            foodLabel.Text = Globals.Instance.playerFactionData.Food.ToString();
+            scrapLabel.Text = Globals.Instance.playerFactionData.Scrap.ToString();
         }
 
         public void ChangeSpeed(int speed)

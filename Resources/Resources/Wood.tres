@@ -5,4 +5,4 @@
 [resource]
 script = ExtResource("1_5vlxb")
 resourceName = "Wood"
-resourceType = 1
+resourceType = 4

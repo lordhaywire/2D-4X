@@ -23,7 +23,10 @@ namespace PlayerSpace
         public enum ResourceType
         {
             Food,
-            BuildingMaterial,
+            Influence,
+            Money,
+            Scrap,
+            Wood,
         }
 
         public enum Terrain

@@ -5,4 +5,4 @@
 [resource]
 script = ExtResource("1_mrv0t")
 resourceName = "Scrap"
-resourceType = 1
+resourceType = 3

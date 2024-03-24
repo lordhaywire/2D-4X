@@ -13,6 +13,26 @@ namespace PlayerSpace
 
         }
 
+        public void AddResource(FactionData factionData, StoryEventData storyEventData)
+        {
+            GD.Print($"Faction: {factionData.factionName} is adding {storyEventData.resourceAmount} " +
+                $"{storyEventData.resource.resourceName}");
+            switch (storyEventData.resource.resourceType)
+            {
+                case AllEnums.ResourceType.Food:
+                    factionData.Food += storyEventData.resourceAmount;
+                    break;
+                case AllEnums.ResourceType.Influence:
+                    factionData.Influence += storyEventData.resourceAmount;
+                    break;
+                case AllEnums.ResourceType.Money:
+                    factionData.Money += storyEventData.resourceAmount;
+                    break;
+                case AllEnums.ResourceType.Scrap:
+                    factionData.Scrap += storyEventData.resourceAmount;
+                    break;
+            }
+        }
         public void ChargeForHero()
         {
             //GD.Print("Player Influence: " + Globals.Instance.playerFactionData.Influence);
@@ -32,7 +52,7 @@ namespace PlayerSpace
 
         public bool CheckEnoughFood(FactionData faction)
         {
-            return faction.food >= Globals.Instance.minimumFood;
+            return faction.Food >= Globals.Instance.minimumFood;
         }
 
         public void BuildImprovement(CountyData countyData, CountyImprovementData countyImprovementData)

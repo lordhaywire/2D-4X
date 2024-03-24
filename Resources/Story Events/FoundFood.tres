@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="StoryEventData" load_steps=3 format=3 uid="uid://b4qv7wmpei808"]
+
+[ext_resource type="Script" path="res://Resources/StoryEventData.cs" id="1_13g2d"]
+[ext_resource type="Resource" uid="uid://c55q8uucl7cqe" path="res://Resources/Resources/Fish.tres" id="1_wtef7"]
+
+[resource]
+script = ExtResource("1_13g2d")
+storyEventTitle = "Found Food"
+storyEventDescription = "Your people have stumbled across a bunch of food.  If you decide to keep it, then you will get 500 food."
+resource = ExtResource("1_wtef7")
+resourceAmount = 500
+choices = PackedStringArray("I want this shit!", "I don\'t need this shit.", "sdfsdfsd", "345345345")

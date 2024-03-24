@@ -6,8 +6,11 @@ namespace PlayerSpace
 {
     [GlobalClass]
     public partial class FactionData : Resource
-	{
+    {
+        public event Action FoodChanged;
         public event Action InfluenceChanged;
+        public event Action MoneyChanged;
+        public event Action ScrapChanged;
 
         [ExportGroup("Faction Info")]
         [Export] public int factionID;
@@ -20,17 +23,30 @@ namespace PlayerSpace
         public List<CountyData> countiesFactionOwns = [];
         public List<CountyPopulation> allHeroesList = [];
         public CountyPopulation factionLeader;
-        
-        public Diplomacy diplomacy = new();
-        public TokenSpawner tokenSpawner = new(); 
 
-        [ExportGroup("Expendables")]
-        [Export] public int money;
-        [Export] public int food;
-        [Export] public int scrap;
+        public Diplomacy diplomacy = new();
+        public TokenSpawner tokenSpawner = new();
+
+        private int food;
+        private int influence;
+        private int money;
+        private int scrap;
 
         [ExportGroup("Getter Setter")]
-        private int influence;
+        [Export]
+        public int Food
+        {
+            get { return food; }
+            set
+            {
+                food = value;
+                if (isPlayer == true)
+                {
+                    FoodChanged?.Invoke();
+                }
+            }
+        }
+
         [Export]
         public int Influence
         {
@@ -38,7 +54,36 @@ namespace PlayerSpace
             set
             {
                 influence = value;
-                InfluenceChanged?.Invoke();
+                if (isPlayer == true)
+                {
+                    InfluenceChanged?.Invoke();
+                }
+            }
+        }
+        [Export]
+        public int Money
+        {
+            get { return money; }
+            set
+            {
+                money = value;
+                if (isPlayer == true)
+                {
+                    MoneyChanged?.Invoke();
+                }
+            }
+        }
+        [Export]
+        public int Scrap
+        {
+            get { return scrap; }
+            set
+            {
+                scrap = value;
+                if (isPlayer == true)
+                {
+                    ScrapChanged?.Invoke();
+                }
             }
         }
 

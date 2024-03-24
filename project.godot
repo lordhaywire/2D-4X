@@ -29,6 +29,10 @@ window/vsync/vsync_mode=3
 
 project/assembly_name="2d 4x"
 
+[editor]
+
+export/convert_text_resources_to_binary=false
+
 [filesystem]
 
 import/blender/enabled=false
