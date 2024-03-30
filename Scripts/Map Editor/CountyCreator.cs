@@ -11,7 +11,7 @@ namespace MapEditorSpace
         private int startCountyHeight;
         private int countyWidth;
         private int countyHeight;
-        int countyID = 0;
+        int countyID;
 
         public async void GenerateAll()
         {
@@ -27,6 +27,7 @@ namespace MapEditorSpace
         }
         private async Task GenerateMasks()
         {
+            countyID = 0; // Reset the county ID.
             Image colorCodedMapImage = MapEditorGlobals.Instance.mapColorCoded.GetImage();
             Image mapImage = MapEditorGlobals.Instance.map.GetImage();
             Vector2I mapSize = (Vector2I)MapEditorGlobals.Instance.mapColorCoded.GetSize();
@@ -50,7 +51,6 @@ namespace MapEditorSpace
                 countyHeight = 0;
                 countyWidth = 0;
 
-                GD.Print("Creating mask for: " + countyData.countyName);
                 LogControl.Instance.UpdateLabel("Creating mask for: " + countyData.countyName);
                 int mapWidth = mapSize.X;
                 int mapHeight = mapSize.Y;
@@ -124,7 +124,6 @@ namespace MapEditorSpace
                 selectCounty.countyData.countyNode = selectCounty;
                 MapEditorGlobals.Instance.countiesParent.AddChild(selectCounty);
                 selectCounty.Name = $"{countyData.countyId} {countyData.countyName}";
-                GD.Print("Generate Counties: " + selectCounty.countyData.countyNode.Name);
                 LogControl.Instance.UpdateLabel("Generate Counties: " + selectCounty.countyData.countyNode.Name);
                 selectCounty.maskSprite.Texture = countyData.maskTexture;
                 //county.maskSprite.Position = countyData.startMaskPosition;
@@ -147,7 +146,6 @@ namespace MapEditorSpace
                 await RootNode.Instance.WaitFrames(1);
             }
             MapEditorControls.Instance.controlsEnabled = true;
-            GD.Print("Generating Counties has finished.");
             LogControl.Instance.UpdateLabel("Generating Counties has finished.");
         }
     }

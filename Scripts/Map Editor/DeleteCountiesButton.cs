@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Threading.Tasks;
 
 namespace MapEditorSpace
@@ -7,55 +8,43 @@ namespace MapEditorSpace
     {
         private async void ButtonPressed()
         {
-            await DeleteCounties();
+            MapEditorControls.Instance.controlsEnabled = false;
+            await DeleteCountiesFromDisk();
+            await DeleteCountyNodes();
         }
 
-        private async Task DeleteCounties()
+        private async Task DeleteCountyNodes()
         {
-            await RootNode.Instance.WaitFrames(1);
+            foreach (Node2D county in MapEditorGlobals.Instance.countiesParent.GetChildren())
+            {
+                await RootNode.Instance.WaitFrames(1);
+                LogControl.Instance.UpdateLabel("Removing county node: " + county.Name);
+                county.QueueFree();
+            }
+            LogControl.Instance.UpdateLabel("All county nodes have been deleted.");
+        }
+
+        private async Task DeleteCountiesFromDisk()
+        {
             DirAccess directory = DirAccess.Open("res://");
             if (directory != null)
             {
                 DirAccess countiesDirectory = DirAccess.Open("res://Counties");
                 string[] directoryArray = countiesDirectory.GetFiles();
-                foreach(string file in directoryArray)
+                if (directoryArray.Length > 0)
                 {
-                    GD.Print(file);
-                    countiesDirectory.Remove(file);
-                }
-                /*
-                FileAccess maleFile = FileAccess.Open("res://Lists/MaleNames.txt", FileAccess.ModeFlags.Read);
-
-                directory.ListDirBegin();
-                string[] files = directory.GetFiles();
-                if (files.Length == 0)
-                {
-                    if (MapEditorGlobals.Instance.countiesParent.GetChildCount() > 0)
+                    foreach (string file in directoryArray)
                     {
-                        foreach (Node node in MapEditorGlobals.Instance.countiesParent.GetChildren())
-                        {
-                            await RootNode.Instance.WaitFrames(1);
-                            Node2D node2d = (Node2D)node;
-                            GD.Print("Saving County " + node2d.Name);
-                            LogControl.Instance.UpdateLabel("Saving County " + node2d.Name);
-                            PackedScene packedScene = new();
-                            packedScene.Pack(node2d);
-                            ResourceSaver.Save(packedScene, $"{MapEditorGlobals.Instance.pathToCounties}{node2d.Name}.tscn");
-                            LogControl.Instance.UpdateLabel("All counties have been saved.");
-                        }
+                        await RootNode.Instance.WaitFrames(1);
+                        LogControl.Instance.UpdateLabel("Deleting " + file);
+                        countiesDirectory.Remove(file);
                     }
-                    else
-                    {
-                        GD.Print("There are no counties generated.  Generate the counties first.");
-                        LogControl.Instance.UpdateLabel("There are no counties generated.  Generate the counties first.");
-                    }
+                    LogControl.Instance.UpdateLabel("All counties have been deleted.");
                 }
                 else
                 {
-                    GD.Print("Counties already saved.  Delete them first.");
-                    LogControl.Instance.UpdateLabel("Counties already saved.  Delete them first.");
+                    LogControl.Instance.UpdateLabel("There are no counties to be deleted.  Generate and save the counties first.");
                 }
-                */
             }
         }
     }
