@@ -9,4 +9,4 @@ storyEventTitle = "Found Food"
 storyEventDescription = "Your people have stumbled across a bunch of food.  If you decide to keep it, then you will get 500 food."
 resource = ExtResource("1_wtef7")
 resourceAmount = 500
-choices = PackedStringArray("I want this shit!", "I don\'t need this shit.", "sdfsdfsd", "345345345")
+choices = PackedStringArray("I want this shit!", "I don\'t need this shit.")

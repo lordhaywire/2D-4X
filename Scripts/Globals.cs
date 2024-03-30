@@ -107,7 +107,6 @@ namespace PlayerSpace
         {
             Instance = this;
             LoadNames();
-
         }
 
         public void UpdateSelectedHero()
@@ -119,8 +118,8 @@ namespace PlayerSpace
         private void LoadNames()
         {
             // Load all the names from disk.
-            GD.Print("Localize Path: " + ProjectSettings.LocalizePath(listsPath));
-            GD.Print("Globalize Path: " + ProjectSettings.GlobalizePath(listsPath));
+            //GD.Print("Localize Path: " + ProjectSettings.LocalizePath(listsPath));
+            //GD.Print("Globalize Path: " + ProjectSettings.GlobalizePath(listsPath));
             string listDirectory = "";
             // This doesn't seem like it should work, but it does.
             if (OS.HasFeature("editor"))
@@ -131,35 +130,48 @@ namespace PlayerSpace
             else
             {
                 GD.Print("Is not in the editor!");
-                listDirectory = OS.GetExecutablePath().GetBaseDir().PathJoin(listsPath);
+                listDirectory = ProjectSettings.LocalizePath(listsPath);
+
+                //listDirectory = OS.GetExecutablePath().GetBaseDir().PathJoin(listsPath);
 
             }
-            GD.Print("Strange Path = " + listDirectory);
-            DirAccess directory = DirAccess.Open(listDirectory);//DirAccess.Open(listsPath);
-            if (directory.DirExists(listDirectory))//(directory.DirExists(listsPath))
+            //GD.Print("Strange Path = " + listDirectory);
+            //GD.Print("Directory: " + directory);
+            /*
+            DirAccess rootDirectory = DirAccess.Open("res://");
+            string[] directories = rootDirectory.GetDirectories();
+            foreach (string dir in directories)
             {
-                using var maleFile = FileAccess.Open(listsPath + maleNamesPath, FileAccess.ModeFlags.Read);
+                GD.Print("Directories: " + dir);
+            }
+            */
+            DirAccess directory = DirAccess.Open("res://");//DirAccess.Open(listsPath);
+            if (directory.DirExists("res://Lists/"))//(directory.DirExists(listsPath))
+            {
+                using var maleFile = FileAccess.Open("res://Lists/MaleNames.txt", FileAccess.ModeFlags.Read);//(listsPath + maleNamesPath, FileAccess.ModeFlags.Read);
                 while (maleFile.GetPosition() < maleFile.GetLength())
                 {
                     maleNames.Add(maleFile.GetLine());
-                    GD.Print("Male Names.");
                 }
-                using var femaleFile = FileAccess.Open(listsPath + femaleNamesPath, FileAccess.ModeFlags.Read);
+                using var femaleFile = FileAccess.Open("res://Lists/FemaleNames.txt", FileAccess.ModeFlags.Read); //(listsPath + femaleNamesPath, FileAccess.ModeFlags.Read);
                 while (femaleFile.GetPosition() < femaleFile.GetLength())
                 {
                     femaleNames.Add(femaleFile.GetLine());
                 }
-                using var lastNameFile = FileAccess.Open(listsPath + lastNamesPath, FileAccess.ModeFlags.Read);
+                using var lastNameFile = FileAccess.Open("res://Lists/LastNames.txt", FileAccess.ModeFlags.Read); //(listsPath + lastNamesPath, FileAccess.ModeFlags.Read);
                 while (lastNameFile.GetPosition() < lastNameFile.GetLength())
                 {
                     lastNames.Add(lastNameFile.GetLine());
                 }
                 GD.Print("Names have been loaded.");
             }
+            /*
             else
             {
                 GD.Print("Directory doesn't exist! " + listDirectory);
             }
+            */
+            
         }
 
         public class ListWithNotify<T> : IEnumerable<T> where T : class

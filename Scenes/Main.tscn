@@ -491,6 +491,10 @@ mouse_filter = 0
 layout_mode = 2
 mouse_filter = 1
 
+[node name="TextureRect" type="TextureRect" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel"]
+layout_mode = 2
+expand_mode = 2
+
 [node name="County Title MarginContainer" type="MarginContainer" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel"]
 layout_mode = 2
 theme_override_constants/margin_left = 10

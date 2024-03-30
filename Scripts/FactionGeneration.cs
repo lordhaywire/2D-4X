@@ -36,13 +36,16 @@ namespace PlayerSpace
 
         private void GetFactionsFromDisk()
         {
-            using var directory = DirAccess.Open(factionDataPath);
-            if (directory.DirExists(factionDataPath))
+            DirAccess directory = DirAccess.Open("res://");//(factionDataPath);
+            if (directory.DirExists("res://Resources/Factions/")) //(factionDataPath))
             {
+                directory = DirAccess.Open("res://Resources/Factions/");
+                GD.Print("Faction Resource Directory Found.");
                 directory.ListDirBegin();
                 string[] fileNames = directory.GetFiles();
                 for (int i = 0; i < fileNames.Length; i++)
                 {
+                    GD.Print("Files in Faction Resources: " + fileNames[i]);
                     FactionData newFactionData 
                         = (FactionData)ResourceLoader.Load<FactionData>(factionDataPath + fileNames[i]).Duplicate();
                     Globals.Instance.factionDatas.Add(newFactionData);
