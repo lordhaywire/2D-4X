@@ -14,6 +14,7 @@ namespace PlayerSpace
         }
         public void FindCountyNeighbors()
         {
+            ulong startTime = Time.GetTicksUsec();
             // Add all the sprites to a list.
             foreach (County selectCounty in Globals.Instance.countiesParent.GetChildren().Cast<County>())
             {
@@ -42,6 +43,9 @@ namespace PlayerSpace
                     }
                 }
             }
+
+            ulong endTime = Time.GetTicksUsec();
+            GD.Print("Total time to generate: " + (endTime - startTime));
         }
     }
 }

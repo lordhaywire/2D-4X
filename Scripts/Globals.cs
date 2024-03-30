@@ -118,8 +118,7 @@ namespace PlayerSpace
         private void LoadNames()
         {
             // Load all the names from disk.
-            //GD.Print("Localize Path: " + ProjectSettings.LocalizePath(listsPath));
-            //GD.Print("Globalize Path: " + ProjectSettings.GlobalizePath(listsPath));
+
             string listDirectory = "";
             // This doesn't seem like it should work, but it does.
             if (OS.HasFeature("editor"))
@@ -132,21 +131,11 @@ namespace PlayerSpace
                 GD.Print("Is not in the editor!");
                 listDirectory = ProjectSettings.LocalizePath(listsPath);
 
-                //listDirectory = OS.GetExecutablePath().GetBaseDir().PathJoin(listsPath);
 
             }
-            //GD.Print("Strange Path = " + listDirectory);
-            //GD.Print("Directory: " + directory);
-            /*
-            DirAccess rootDirectory = DirAccess.Open("res://");
-            string[] directories = rootDirectory.GetDirectories();
-            foreach (string dir in directories)
-            {
-                GD.Print("Directories: " + dir);
-            }
-            */
-            DirAccess directory = DirAccess.Open("res://");//DirAccess.Open(listsPath);
-            if (directory.DirExists("res://Lists/"))//(directory.DirExists(listsPath))
+
+            DirAccess directory = DirAccess.Open("res://");
+            if (directory.DirExists("res://Lists/"))
             {
                 using var maleFile = FileAccess.Open("res://Lists/MaleNames.txt", FileAccess.ModeFlags.Read);//(listsPath + maleNamesPath, FileAccess.ModeFlags.Read);
                 while (maleFile.GetPosition() < maleFile.GetLength())

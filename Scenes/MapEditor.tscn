@@ -1,15 +1,17 @@
-[gd_scene load_steps=12 format=3 uid="uid://iur3kq10dikl"]
+[gd_scene load_steps=14 format=3 uid="uid://iur3kq10dikl"]
 
 [ext_resource type="Script" path="res://Scripts/Map Editor/RootNode.cs" id="1_gkfx5"]
 [ext_resource type="Script" path="res://Scripts/Map Editor/MapEditorCameraCharacterBody2D.cs" id="2_exseq"]
 [ext_resource type="Script" path="res://Scripts/Map Editor/MapEditorGlobals.cs" id="2_mgjo0"]
 [ext_resource type="Script" path="res://Scripts/Map Editor/MapEditorControls.cs" id="3_j7kpr"]
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://Graphics/Provinces/Maps/Pacific North West Color Coded Reduced.png" id="4_be8vi"]
+[ext_resource type="Script" path="res://Scripts/Map Editor/DeleteCountiesButton.cs" id="4_kohm5"]
 [ext_resource type="Script" path="res://Scripts/Map Editor/CountyChecker.cs" id="5_e0g14"]
 [ext_resource type="Texture2D" uid="uid://c2ye51evql40o" path="res://Graphics/Provinces/Maps/Pacific North West Reduced 32 inches.png" id="5_fr3sx"]
 [ext_resource type="PackedScene" uid="uid://cy0ifoahmgp4b" path="res://Scenes/County Scene.tscn" id="5_ntvpf"]
 [ext_resource type="Script" path="res://Scripts/Map Editor/CountyCreator.cs" id="6_tqvbi"]
 [ext_resource type="Script" path="res://Scripts/Map Editor/SaveCountiesButton.cs" id="7_1t2ay"]
+[ext_resource type="Script" path="res://Scripts/Map Editor/LogControl.cs" id="11_dk622"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kgbkv"]
 
@@ -22,6 +24,71 @@ script = ExtResource("2_exseq")
 camera = NodePath("Camera2D")
 
 [node name="Camera2D" type="Camera2D" parent="Camara CharacterBody2D"]
+
+[node name="Map Editor Player UI" type="CanvasLayer" parent="."]
+
+[node name="Buttons Control" type="Control" parent="Map Editor Player UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Map Editor Player UI/Buttons Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Generate Counties Button" type="Button" parent="Map Editor Player UI/Buttons Control/VBoxContainer"]
+layout_mode = 2
+text = "Generate Counties"
+
+[node name="Save Counties Button" type="Button" parent="Map Editor Player UI/Buttons Control/VBoxContainer"]
+layout_mode = 2
+text = "Save Counties
+"
+script = ExtResource("7_1t2ay")
+
+[node name="Delete Counties Button" type="Button" parent="Map Editor Player UI/Buttons Control/VBoxContainer"]
+layout_mode = 2
+text = "Delete Counties
+"
+script = ExtResource("4_kohm5")
+
+[node name="Log Control" type="Control" parent="Map Editor Player UI" node_paths=PackedStringArray("centerLogLabel")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("11_dk622")
+centerLogLabel = NodePath("PanelContainer/Center Log Label")
+
+[node name="PanelContainer" type="PanelContainer" parent="Map Editor Player UI/Log Control"]
+custom_minimum_size = Vector2(700, 50)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Center Log Label" type="Label" parent="Map Editor Player UI/Log Control/PanelContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "dsfgdsfgsdfgdfgdfgdfg"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="County Creator" type="Node" parent="."]
 
@@ -42,32 +109,6 @@ script = ExtResource("5_e0g14")
 [node name="County Creator" type="Node" parent="County Creator"]
 script = ExtResource("6_tqvbi")
 
-[node name="Map Editor Player UI" type="CanvasLayer" parent="."]
-
-[node name="Control" type="Control" parent="Map Editor Player UI"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Map Editor Player UI/Control"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Generate Counties Button" type="Button" parent="Map Editor Player UI/Control/VBoxContainer"]
-layout_mode = 2
-text = "Generate Counties"
-
-[node name="Save Counties Button" type="Button" parent="Map Editor Player UI/Control/VBoxContainer"]
-layout_mode = 2
-text = "Save Counties
-"
-script = ExtResource("7_1t2ay")
-
 [node name="Maps" type="Node" parent="."]
 
 [node name="Color Coded Map Sprite2D" type="Sprite2D" parent="Maps"]
@@ -80,5 +121,6 @@ centered = false
 
 [node name="Counties" type="Node2D" parent="."]
 
-[connection signal="button_up" from="Map Editor Player UI/Control/VBoxContainer/Generate Counties Button" to="County Creator/County Creator" method="GenerateAll"]
-[connection signal="button_up" from="Map Editor Player UI/Control/VBoxContainer/Save Counties Button" to="Map Editor Player UI/Control/VBoxContainer/Save Counties Button" method="ButtonUp"]
+[connection signal="button_up" from="Map Editor Player UI/Buttons Control/VBoxContainer/Generate Counties Button" to="County Creator/County Creator" method="GenerateAll"]
+[connection signal="button_up" from="Map Editor Player UI/Buttons Control/VBoxContainer/Save Counties Button" to="Map Editor Player UI/Buttons Control/VBoxContainer/Save Counties Button" method="ButtonUp"]
+[connection signal="pressed" from="Map Editor Player UI/Buttons Control/VBoxContainer/Delete Counties Button" to="Map Editor Player UI/Buttons Control/VBoxContainer/Delete Counties Button" method="ButtonPressed"]

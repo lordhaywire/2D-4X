@@ -15,8 +15,15 @@ namespace MapEditorSpace
 
         public async void GenerateAll()
         {
-            await GenerateMasks();
-            await CreateCounties();
+            if (MapEditorGlobals.Instance.countiesParent.GetChildren().Count == 0)
+            {
+                await GenerateMasks();
+                await CreateCounties();
+            }
+            else
+            {
+                LogControl.Instance.UpdateLabel("Counties have already been generated.  Delete them first.");
+            }
         }
         private async Task GenerateMasks()
         {
@@ -44,6 +51,7 @@ namespace MapEditorSpace
                 countyWidth = 0;
 
                 GD.Print("Creating mask for: " + countyData.countyName);
+                LogControl.Instance.UpdateLabel("Creating mask for: " + countyData.countyName);
                 int mapWidth = mapSize.X;
                 int mapHeight = mapSize.Y;
 
@@ -100,7 +108,7 @@ namespace MapEditorSpace
                 Image croppedCountyMapImage = Image.Create(rect2I.Size.X, rect2I.Size.Y, false, Image.Format.Rgba8);
                 GD.Print("Cropped County Map Top Image Size: " + croppedCountyMapImage.GetSize());
 
-                croppedCountyMapImage.BlitRect(countyMapImage, rect2I, Vector2I.Zero); 
+                croppedCountyMapImage.BlitRect(countyMapImage, rect2I, Vector2I.Zero);
                 countyData.mapTexture = ImageTexture.CreateFromImage(croppedCountyMapImage);
             }
 
@@ -117,6 +125,7 @@ namespace MapEditorSpace
                 MapEditorGlobals.Instance.countiesParent.AddChild(selectCounty);
                 selectCounty.Name = $"{countyData.countyId} {countyData.countyName}";
                 GD.Print("Generate Counties: " + selectCounty.countyData.countyNode.Name);
+                LogControl.Instance.UpdateLabel("Generate Counties: " + selectCounty.countyData.countyNode.Name);
                 selectCounty.maskSprite.Texture = countyData.maskTexture;
                 //county.maskSprite.Position = countyData.startMaskPosition;
                 selectCounty.maskSprite.Visible = false;
@@ -125,10 +134,10 @@ namespace MapEditorSpace
                 selectCounty.countySprite.SelfModulate = Colors.LightGreen;
                 selectCounty.Position = countyData.startMaskPosition;
                 Vector2 countySize = selectCounty.maskSprite.Texture.GetSize();
-                
+
                 // This takes the counties position and gets the center and added the manual County Overlay Local Position
                 // so that it shows up in the right place.
-                selectCounty.countyOverlayNode2D.Position = selectCounty.countyData.countyOverlayLocalPosition + countySize/2;
+                selectCounty.countyOverlayNode2D.Position = selectCounty.countyData.countyOverlayLocalPosition + countySize / 2;
                 selectCounty.countySprite.Visible = true;
 
                 // Clear out this data so it isn't keeping extra images.
@@ -138,8 +147,8 @@ namespace MapEditorSpace
                 await RootNode.Instance.WaitFrames(1);
             }
             MapEditorControls.Instance.controlsEnabled = true;
+            GD.Print("Generating Counties has finished.");
+            LogControl.Instance.UpdateLabel("Generating Counties has finished.");
         }
-
-
     }
 }

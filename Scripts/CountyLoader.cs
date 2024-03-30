@@ -35,7 +35,10 @@ namespace PlayerSpace
                 }
                 else
                 {
-                    GD.Print($"No files in {Globals.Instance.pathToCounties}");
+                    GD.PrintRich($"[color=red]No files in {Globals.Instance.pathToCounties}[/color]");
+                    GD.PrintRich($"[color=red]You need to generate the counties in the map editor![/color]");
+                    GetTree().Quit();
+                    return;
 
                 }
             }

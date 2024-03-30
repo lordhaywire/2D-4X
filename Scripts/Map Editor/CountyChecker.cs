@@ -12,6 +12,8 @@ namespace MapEditorSpace
 
         private void CheckMapAlreadyGenerated()
         {
+            // This probably is not going to work when it is available to the player after Export.  We need
+            // to update it to match the DirAccess crap in Globals.
             DirAccess directory = DirAccess.Open(MapEditorGlobals.Instance.pathToCounties);
             if (directory != null)
             {
@@ -33,16 +35,18 @@ namespace MapEditorSpace
                         CountyResourcesAutoLoad.Instance.countyDatas[i].countyNode 
                             = (PlayerSpace.County)MapEditorGlobals.Instance.countiesParent.GetChild(i);
                     }
+                    LogControl.Instance.UpdateLabel("Counties have been loaded from disk.");
                 }
                 else
                 {
                     GD.Print($"No files in {MapEditorGlobals.Instance.pathToCounties}");
-
+                    LogControl.Instance.UpdateLabel($"No files in {MapEditorGlobals.Instance.pathToCounties}");
                 }
             }
             else
             {
                 GD.Print($"{MapEditorGlobals.Instance.pathToCounties} directory is missing.");
+                LogControl.Instance.UpdateLabel($"{MapEditorGlobals.Instance.pathToCounties} directory is missing.");
             }
         }
     }
