@@ -39,7 +39,6 @@ namespace MapEditorSpace
                 }
                 else
                 {
-                    GD.Print($"No files in {MapEditorGlobals.Instance.pathToCounties}");
                     LogControl.Instance.UpdateLabel($"No files in {MapEditorGlobals.Instance.pathToCounties}");
                 }
             }

@@ -1,7 +1,6 @@
 using Godot;
-using System;
 using System.Threading.Tasks;
-
+using PlayerSpace;
 
 namespace MapEditorSpace
 {
@@ -14,19 +13,18 @@ namespace MapEditorSpace
 
         private async Task SaveCounties()
         {
-            DirAccess directory = DirAccess.Open(MapEditorGlobals.Instance.pathToCounties);
+            DirAccess directory = DirAccess.Open("res://Counties/");
             if (directory != null)
             {
-                directory.ListDirBegin();
                 string[] files = directory.GetFiles();
                 if (files.Length == 0)
                 {
                     if (MapEditorGlobals.Instance.countiesParent.GetChildCount() > 0)
                     {
-                        foreach (Node node in MapEditorGlobals.Instance.countiesParent.GetChildren())
+                        foreach (County node in MapEditorGlobals.Instance.countiesParent.GetChildren())
                         {
                             await RootNode.Instance.WaitFrames(1);
-                            Node2D node2d = (Node2D)node;
+                            Node2D node2d = node;
                             LogControl.Instance.UpdateLabel("Saving County " + node2d.Name);
                             PackedScene packedScene = new();
                             packedScene.Pack(node2d);

@@ -1,9 +1,9 @@
-[gd_scene load_steps=69 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=67 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_x1cy2"]
-[ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://Graphics/Provinces/Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
+[ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://World Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
 [ext_resource type="Script" path="res://Scripts/Globals.cs" id="2_yf7pt"]
-[ext_resource type="Texture2D" uid="uid://c2ye51evql40o" path="res://Graphics/Provinces/Maps/Pacific North West Reduced 32 inches.png" id="2_ygra7"]
+[ext_resource type="Texture2D" uid="uid://c2ye51evql40o" path="res://World Maps/Pacific North West Reduced 32 inches.png" id="2_ygra7"]
 [ext_resource type="Texture2D" uid="uid://dqlvmop4g8aam" path="res://Graphics/Tokens/HornedGuySelected.png" id="3_r5dcu"]
 [ext_resource type="Texture2D" uid="uid://7jvylb78h24w" path="res://Graphics/Tokens/HornedGuyUnselected.png" id="4_pxob5"]
 [ext_resource type="PackedScene" uid="uid://cwe0ergnkkfm0" path="res://Prefabs/HeroToken.tscn" id="5_w6a76"]
@@ -17,14 +17,11 @@
 [ext_resource type="Texture2D" uid="uid://cvc31dbpf0ptl" path="res://Graphics/Icons/Army Token Unselected.png" id="10_0wqfi"]
 [ext_resource type="Texture2D" uid="uid://bnau4cacldl0t" path="res://Graphics/Icons/Army Token Selected.png" id="11_e5ayq"]
 [ext_resource type="Script" path="res://Scripts/FactionGeneration.cs" id="11_ivpku"]
+[ext_resource type="Script" path="res://Scripts/AllResearch.cs" id="12_hmucs"]
 [ext_resource type="Script" path="res://Scripts/StoryEventList.cs" id="12_q0wdt"]
 [ext_resource type="PackedScene" uid="uid://cjgb8g7l3340p" path="res://Prefabs/FactionNode.tscn" id="12_r0ltm"]
 [ext_resource type="Script" path="res://Scripts/PlayerControls.cs" id="12_vfu86"]
 [ext_resource type="Resource" uid="uid://b4qv7wmpei808" path="res://Resources/Story Events/FoundFood.tres" id="13_6edvn"]
-[ext_resource type="Resource" uid="uid://bads4woc5toep" path="res://Resources/County Improvements/FisherShack.tres" id="13_43qw5"]
-[ext_resource type="Script" path="res://Scripts/FindNeighbors.cs" id="13_vibhq"]
-[ext_resource type="Resource" uid="uid://cpmbf5setweth" path="res://Resources/County Improvements/ForestersShack.tres" id="14_lgpja"]
-[ext_resource type="Resource" uid="uid://bkakbc8lqeex4" path="res://Resources/County Improvements/GardenersShack.tres" id="15_x6nav"]
 [ext_resource type="Script" path="res://Scripts/CountyGeneration.cs" id="16_pxxn4"]
 [ext_resource type="Script" path="res://Scripts/CountyPopulationGeneration.cs" id="17_1215r"]
 [ext_resource type="Script" path="res://Scripts/RandomFactionColor.cs" id="18_3aru6"]
@@ -32,6 +29,7 @@
 [ext_resource type="Script" path="res://Scripts/FactionsAI.cs" id="20_y5bnv"]
 [ext_resource type="Script" path="res://Scripts/PopulationAI.cs" id="21_nr3na"]
 [ext_resource type="Script" path="res://Scripts/Work.cs" id="22_ioynj"]
+[ext_resource type="Resource" uid="uid://bljrvhrjka1hs" path="res://ResearchItems/Basic Production.tres" id="22_ugyvd"]
 [ext_resource type="Script" path="res://Scripts/Banker.cs" id="23_lb4or"]
 [ext_resource type="Script" path="res://Scripts/UI/PlayerUICanvas.cs" id="24_s3wh2"]
 [ext_resource type="Script" path="res://Scripts/UI/CountyInfoControl.cs" id="26_8qp8l"]
@@ -122,15 +120,16 @@ selectedHeroTexture = ExtResource("3_r5dcu")
 unselectedArmyTexture = ExtResource("10_0wqfi")
 selectedArmyTexture = ExtResource("11_e5ayq")
 
+[node name="All Research" type="Node" parent="Game Controller Node"]
+script = ExtResource("12_hmucs")
+allTierOneResearchData = Array[Object]([ExtResource("22_ugyvd")])
+
 [node name="Story Event List" type="Node" parent="Game Controller Node"]
 script = ExtResource("12_q0wdt")
 storyEventDatas = Array[Object]([ExtResource("13_6edvn")])
 
 [node name="County Loader" type="Node" parent="Game Controller Node"]
 script = ExtResource("7_o23yn")
-
-[node name="Find Neighbors" type="Node" parent="Game Controller Node"]
-script = ExtResource("13_vibhq")
 
 [node name="Graphics" type="Node" parent="Game Controller Node"]
 script = ExtResource("6_48s64")
@@ -146,7 +145,7 @@ collisionRectangleShape = SubResource("RectangleShape2D_co2vr")
 [node name="Faction Generation" type="Node" parent="Game Controller Node"]
 script = ExtResource("11_ivpku")
 factionNodePackedScene = ExtResource("12_r0ltm")
-countyImprovementData = Array[Object]([ExtResource("13_43qw5"), ExtResource("14_lgpja"), ExtResource("15_x6nav")])
+countyImprovementData = Array[Object]([])
 
 [node name="County Generation" type="Node" parent="Game Controller Node"]
 script = ExtResource("16_pxxn4")

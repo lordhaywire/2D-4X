@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=3 format=3 uid="uid://bads4woc5toep"]
+
+[ext_resource type="Resource" uid="uid://c55q8uucl7cqe" path="res://Resources/Resources/Fish.tres" id="1_c5rex"]
+[ext_resource type="Script" path="res://Resources/CountyImprovementData.cs" id="2_iptt2"]
+
+[resource]
+script = ExtResource("2_iptt2")
+improvementName = "Fisher's Shed"
+improvementDescription = "A makeshift shed for fisher's tools."
+influenceCost = 500
+currentAmountOfConstruction = 0
+maxAmountOfConstruction = 100
+currentBuilders = 0
+maxBuilders = 5
+currentWorkers = 0
+maxWorkers = 5
+resourceData = ExtResource("1_c5rex")
+dailyResourceGenerationAmount = 0
+isBeingBuilt = false
+isBuilt = false

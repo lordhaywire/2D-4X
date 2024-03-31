@@ -75,7 +75,14 @@ namespace PlayerSpace
 
         private void AddStartingResearch(FactionData factionData)
         {
+            foreach(ResearchItemData researchItemData in AllResearch.Instance.allTierOneResearchData)
+            {
+                factionData.researchItems.Add(researchItemData);
+            }
+            
+            /*
             // Let's turn this into an array or some shit at some point so we don't have manually add everything, we could just do a foreach loop.
+
             factionData.researchItems.Add(new ResearchItemData(AllText.BuildingName.FISHERSSHACK, AllText.Descriptions.FISHERSSHACK
                 , (CountyImprovementData)countyImprovementData[0].Duplicate(), true));
             //GD.Print("Add Starting Research: " + factionData.researchItems[0].researchName);
@@ -85,6 +92,7 @@ namespace PlayerSpace
             factionData.researchItems.Add(new ResearchItemData(AllText.BuildingName.GARDENERSSHACK, AllText.Descriptions.GARDENERSSHACK
                 , (CountyImprovementData)countyImprovementData[2].Duplicate(), true));
             //GD.Print("Add Starting Research: " + factionData.researchItems[2].researchName);
+            */
         }
     }
 }

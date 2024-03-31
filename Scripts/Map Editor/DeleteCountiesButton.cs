@@ -31,6 +31,10 @@ namespace MapEditorSpace
             {
                 DirAccess countiesDirectory = DirAccess.Open("res://Counties");
                 string[] directoryArray = countiesDirectory.GetFiles();
+                foreach(string file in directoryArray)
+                {
+                    GD.Print("Before Deleted Files: " + file);
+                }
                 if (directoryArray.Length > 0)
                 {
                     foreach (string file in directoryArray)
@@ -40,6 +44,12 @@ namespace MapEditorSpace
                         countiesDirectory.Remove(file);
                     }
                     LogControl.Instance.UpdateLabel("All counties have been deleted.");
+                    // This is just for testing to see if the directory is really empty.
+                    directoryArray = countiesDirectory.GetFiles();
+                    foreach (string file in directoryArray)
+                    {
+                        GD.Print("After Deleted Files: " + file);
+                    }
                 }
                 else
                 {

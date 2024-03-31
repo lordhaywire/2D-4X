@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ResearchItemData" load_steps=5 format=3 uid="uid://bljrvhrjka1hs"]
+
+[ext_resource type="Resource" uid="uid://bads4woc5toep" path="res://Resources/County Improvements/FishersShed.tres" id="1_xk2ne"]
+[ext_resource type="Script" path="res://Resources/ResearchItemData.cs" id="1_xvogw"]
+[ext_resource type="Resource" uid="uid://cpmbf5setweth" path="res://Resources/County Improvements/LumberjackStation.tres" id="2_dydjr"]
+[ext_resource type="Resource" uid="uid://bkakbc8lqeex4" path="res://Resources/County Improvements/Garden.tres" id="3_oyq4t"]
+
+[resource]
+script = ExtResource("1_xvogw")
+researchName = "Basic Production"
+description = "The most basic of buildings for such things as gardening, fishing, and lumberjacking."
+isResearchDone = true
+countyImprovementDatas = Array[Object]([ExtResource("1_xk2ne"), ExtResource("2_dydjr"), ExtResource("3_oyq4t")])

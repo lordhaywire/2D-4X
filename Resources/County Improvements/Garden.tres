@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=3 format=3 uid="uid://bkakbc8lqeex4"]
+
+[ext_resource type="Resource" uid="uid://dpddpnnbjvql" path="res://Resources/Resources/Vegetables.tres" id="1_dngso"]
+[ext_resource type="Script" path="res://Resources/CountyImprovementData.cs" id="2_n4a1t"]
+
+[resource]
+script = ExtResource("2_n4a1t")
+improvementName = "Garden"
+improvementDescription = "A place to grow food."
+influenceCost = 50000
+currentAmountOfConstruction = 0
+maxAmountOfConstruction = 5
+currentBuilders = 0
+maxBuilders = 5
+currentWorkers = 0
+maxWorkers = 10
+resourceData = ExtResource("1_dngso")
+dailyResourceGenerationAmount = 0
+isBeingBuilt = false
+isBuilt = false

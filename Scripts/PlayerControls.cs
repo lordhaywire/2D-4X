@@ -72,7 +72,7 @@ namespace PlayerSpace
                             if (eventMouseButton.ButtonIndex == MouseButton.Right && eventMouseButton.Pressed == false
                                 && Globals.Instance.SelectedCountyPopulation != null)
                             {
-                                GD.Print("You right clicked, dude! " + selectCounty.countyData.countyName);
+                                GD.Print("You are moving to a place you right clicked, dude! " + selectCounty.countyData.countyName);
                                 if (Globals.Instance.SelectedCountyPopulation.destination == -1)
                                 {
                                     MoveSelectedToken(selectCounty.countyData);

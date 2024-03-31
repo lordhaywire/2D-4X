@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=3 format=3 uid="uid://cpmbf5setweth"]
+
+[ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/Resources/Wood.tres" id="1_3i4hb"]
+[ext_resource type="Script" path="res://Resources/CountyImprovementData.cs" id="2_26moa"]
+
+[resource]
+script = ExtResource("2_26moa")
+improvementName = "Lumberjack Station"
+improvementDescription = "A place for lumber jacks tools and organization."
+influenceCost = 250
+currentAmountOfConstruction = 0
+maxAmountOfConstruction = 15
+currentBuilders = 0
+maxBuilders = 2
+currentWorkers = 0
+maxWorkers = 3
+resourceData = ExtResource("1_3i4hb")
+dailyResourceGenerationAmount = 0
+isBeingBuilt = false
+isBuilt = false

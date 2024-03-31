@@ -1,23 +1,25 @@
 using Godot;
-using System;
 
 namespace PlayerSpace
 {
+    [GlobalClass]
     public partial class ResearchItemData : Resource
     {
-        public string researchName;
-        public string description;
+        [Export] public string researchName;
+        [Export] public string description;
 
-        public CountyImprovementData countyImprovementData;
-        public bool isResearchDone;
+        [Export] public bool isResearchDone;
+        [Export] public CountyImprovementData[] countyImprovementDatas;
 
-        public ResearchItemData(string researchName, string description, CountyImprovementData isCountyImprovement, bool isResearchDone)
+        /*
+        public ResearchItemData(string researchName, string description, CountyImprovementData[] countyImprovementDatas, bool isResearchDone)
         {
             this.researchName = researchName;
             this.description = description;
 
-            this.countyImprovementData = isCountyImprovement;
+            this.countyImprovementDatas = countyImprovementDatas;
             this.isResearchDone = isResearchDone;
         }
+        */
     }
 }

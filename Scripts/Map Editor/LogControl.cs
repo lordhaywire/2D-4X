@@ -2,8 +2,6 @@ using Godot;
 
 namespace MapEditorSpace
 {
-
-
 	public partial class LogControl : Control
 	{
 		public static LogControl Instance { get; set; }
