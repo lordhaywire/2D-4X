@@ -12,6 +12,7 @@ namespace MapEditorSpace
         public override void _Ready()
         {
             Instance = this;
+            GetTree().Paused = false;
         }
 
         public async Task WaitFrames(int frameCount)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=69 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_x1cy2"]
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://Graphics/Provinces/Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
@@ -64,6 +64,8 @@
 [ext_resource type="PackedScene" uid="uid://x41vmtlrl1cx" path="res://UIScenes/CombatLogTextPanel.tscn" id="44_qsgen"]
 [ext_resource type="Theme" uid="uid://b7f66fp0haa2c" path="res://Themes/FullScreenPanelTheme.tres" id="50_5cg3n"]
 [ext_resource type="Script" path="res://Scripts/UI/StoryEventControl.cs" id="62_onxgq"]
+[ext_resource type="Script" path="res://Scripts/MapEditorControl.cs" id="65_uqmnr"]
+[ext_resource type="PackedScene" uid="uid://iur3kq10dikl" path="res://Scenes/MapEditor.tscn" id="66_sq6pt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_co2vr"]
 
@@ -1751,6 +1753,27 @@ layout_mode = 2
 mouse_filter = 1
 text = "Decline Button"
 
+[node name="Map Editor Control" type="Control" parent="Player UI Canvas"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("65_uqmnr")
+mapEditorScene = ExtResource("66_sq6pt")
+
+[node name="Map Editor Button" type="Button" parent="Player UI Canvas/Map Editor Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -8.0
+offset_right = 8.0
+grow_vertical = 0
+text = "Map Editor"
+
 [node name="Player UI Canvas_Top Bar Control_Top Bar HBox#PanelContainer" type="PanelContainer" parent="."]
 
 [node name="Counties" type="Node2D" parent="."]
@@ -1809,3 +1832,4 @@ process_mode = 3
 [connection signal="mouse_exited" from="Player UI Canvas/Story Event Control/PanelContainer" to="Game Controller Node/Main" method="OnMouseExitedUI"]
 [connection signal="pressed" from="Player UI Canvas/Story Event Control/PanelContainer/VBoxContainer/Accept Button" to="Player UI Canvas/Story Event Control" method="AcceptButtonPressed"]
 [connection signal="pressed" from="Player UI Canvas/Story Event Control/PanelContainer/VBoxContainer/Decline Button" to="Player UI Canvas/Story Event Control" method="DeclineButtonPressed"]
+[connection signal="pressed" from="Player UI Canvas/Map Editor Control/Map Editor Button" to="Player UI Canvas/Map Editor Control" method="ButtonPressed"]
