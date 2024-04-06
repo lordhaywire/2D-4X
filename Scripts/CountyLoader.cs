@@ -30,7 +30,7 @@ namespace PlayerSpace
 
                         // Since we are already going through all the countyDatas we add the countyData ID to the countyData.
                         CountyResourcesAutoLoad.Instance.countyDatas[i].countyId = i;
-                        GD.Print($"County ID: {CountyResourcesAutoLoad.Instance.countyDatas[i].countyId} {county.Name}");
+                        //GD.Print($"County ID: {CountyResourcesAutoLoad.Instance.countyDatas[i].countyId} {county.Name}");
                     }
                 }
                 else

@@ -1,14 +1,15 @@
-[gd_scene load_steps=67 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=68 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_x1cy2"]
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://World Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
+[ext_resource type="Script" path="res://Scripts/LoadMaps.cs" id="2_nda5i"]
 [ext_resource type="Script" path="res://Scripts/Globals.cs" id="2_yf7pt"]
-[ext_resource type="Texture2D" uid="uid://c2ye51evql40o" path="res://World Maps/Pacific North West Reduced 32 inches.png" id="2_ygra7"]
 [ext_resource type="Texture2D" uid="uid://dqlvmop4g8aam" path="res://Graphics/Tokens/HornedGuySelected.png" id="3_r5dcu"]
 [ext_resource type="Texture2D" uid="uid://7jvylb78h24w" path="res://Graphics/Tokens/HornedGuyUnselected.png" id="4_pxob5"]
 [ext_resource type="PackedScene" uid="uid://cwe0ergnkkfm0" path="res://Prefabs/HeroToken.tscn" id="5_w6a76"]
 [ext_resource type="Script" path="res://Scripts/AllGraphics.cs" id="6_48s64"]
 [ext_resource type="Script" path="res://Scripts/Public Classes/AllTokenTextures.cs" id="7_7iyml"]
+[ext_resource type="Script" path="res://Scripts/UserFolderController.cs" id="7_fr5hn"]
 [ext_resource type="Texture2D" uid="uid://du76vrdfhckkd" path="res://Graphics/Icons/Population/resized faction leader icon.png" id="7_g78s2"]
 [ext_resource type="Script" path="res://Scripts/CountyLoader.cs" id="7_o23yn"]
 [ext_resource type="PackedScene" uid="uid://wlnn33lx7wjt" path="res://UIScenes/SpawnedTokenButton.tscn" id="8_ne3u6"]
@@ -89,12 +90,14 @@ camera = NodePath("Camera2D")
 [node name="Camera2D" type="Camera2D" parent="Camera CharacterBody2D"]
 position = Vector2(494, 479)
 
-[node name="Color Coded Map Sprite2D" type="Sprite2D" parent="."]
+[node name="Maps" type="Node" parent="."]
+script = ExtResource("2_nda5i")
+
+[node name="Color Coded Map Sprite2D" type="Sprite2D" parent="Maps"]
 texture = ExtResource("2_h1vmt")
 centered = false
 
-[node name="Map Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_ygra7")
+[node name="Map Sprite2D" type="Sprite2D" parent="Maps"]
 centered = false
 
 [node name="Game Controller Node" type="Node" parent="."]
@@ -112,6 +115,9 @@ heroToken = ExtResource("5_w6a76")
 spawnedTokenButton = ExtResource("8_ne3u6")
 movementSpeed = 1
 costOfHero = 500
+
+[node name="User Folder Controller" type="Node" parent="Game Controller Node"]
+script = ExtResource("7_fr5hn")
 
 [node name="All Token Textures" type="Node" parent="Game Controller Node"]
 script = ExtResource("7_7iyml")

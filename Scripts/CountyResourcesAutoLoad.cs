@@ -32,7 +32,7 @@ namespace GlobalSpace
                     {
                         CountyData countyData = (CountyData)GD.Load(pathToCountyDatas + name).Duplicate();
                         countyDatas.Add(countyData);
-                        GD.Print("County that was added: " + countyData.countyName);
+                        //GD.Print("County that was added: " + countyData.countyName);
                     }
                 }
                 else

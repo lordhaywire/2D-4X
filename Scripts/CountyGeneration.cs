@@ -67,9 +67,9 @@ namespace PlayerSpace
         {
             foreach (County selectCounty in Globals.Instance.countiesParent.GetChildren())
             {
-                GD.Print("County Generation: " + selectCounty.Name);
-                GD.Print("County Data: " + selectCounty.countyData.countyName);
-                GD.Print("Faction Data: " + selectCounty.countyData.factionData.factionName);
+                //GD.Print("County Generation: " + selectCounty.Name);
+                //GD.Print("County Data: " + selectCounty.countyData.countyName);
+                //GD.Print("Faction Data: " + selectCounty.countyData.factionData.factionName);
 
                 foreach (ResearchItemData researchItemData in selectCounty.countyData.factionData.researchItems)
                 {
@@ -78,7 +78,7 @@ namespace PlayerSpace
                         foreach (CountyImprovementData countyImprovementData in researchItemData.countyImprovementDatas)
                         {
                             selectCounty.countyData.allCountyImprovements.Add(countyImprovementData);
-                            GD.Print($"{selectCounty.countyData.countyName} improvement: {countyImprovementData.improvementName}");
+                            //GD.Print($"{selectCounty.countyData.countyName} improvement: {countyImprovementData.improvementName}");
                         }
                     }
                 }
