@@ -45,7 +45,7 @@ namespace MapEditorSpace
                 foreach (CountyData countyData in CountyResourcesAutoLoad.Instance.countyDatas)
                 {
                     //GD.Print("County Color: " + countyData.color);
-                    County county = (County)countyData.countyNode;
+                    County county = countyData.countyNode;
                     Sprite2D maskSprite = county.maskSprite;
 
                     if (countyData.color.IsEqualApprox(countyColor))

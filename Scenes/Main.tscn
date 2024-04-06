@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=72 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_x1cy2"]
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://World Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/Globals.cs" id="2_yf7pt"]
 [ext_resource type="Texture2D" uid="uid://dqlvmop4g8aam" path="res://Graphics/Tokens/HornedGuySelected.png" id="3_r5dcu"]
 [ext_resource type="Texture2D" uid="uid://7jvylb78h24w" path="res://Graphics/Tokens/HornedGuyUnselected.png" id="4_pxob5"]
+[ext_resource type="Texture2D" uid="uid://ds0cf60q1iwoj" path="res://Maps/map.png" id="4_w7iv8"]
 [ext_resource type="PackedScene" uid="uid://cwe0ergnkkfm0" path="res://Prefabs/HeroToken.tscn" id="5_w6a76"]
 [ext_resource type="Script" path="res://Scripts/AllGraphics.cs" id="6_48s64"]
 [ext_resource type="Script" path="res://Scripts/Public Classes/AllTokenTextures.cs" id="7_7iyml"]
@@ -30,7 +31,7 @@
 [ext_resource type="Script" path="res://Scripts/FactionsAI.cs" id="20_y5bnv"]
 [ext_resource type="Script" path="res://Scripts/PopulationAI.cs" id="21_nr3na"]
 [ext_resource type="Script" path="res://Scripts/Work.cs" id="22_ioynj"]
-[ext_resource type="Resource" uid="uid://bljrvhrjka1hs" path="res://ResearchItems/Basic Production.tres" id="22_ugyvd"]
+[ext_resource type="Resource" uid="uid://bljrvhrjka1hs" path="res://Resources/ResearchItems/Basic Production.tres" id="22_ugyvd"]
 [ext_resource type="Script" path="res://Scripts/Banker.cs" id="23_lb4or"]
 [ext_resource type="Script" path="res://Scripts/UI/PlayerUICanvas.cs" id="24_s3wh2"]
 [ext_resource type="Script" path="res://Scripts/UI/CountyInfoControl.cs" id="26_8qp8l"]
@@ -62,7 +63,10 @@
 [ext_resource type="PackedScene" uid="uid://bjgv6c8xhn4lo" path="res://UIScenes/Event Log Text Panel.tscn" id="44_du832"]
 [ext_resource type="PackedScene" uid="uid://x41vmtlrl1cx" path="res://UIScenes/CombatLogTextPanel.tscn" id="44_qsgen"]
 [ext_resource type="Theme" uid="uid://b7f66fp0haa2c" path="res://Themes/FullScreenPanelTheme.tres" id="50_5cg3n"]
+[ext_resource type="PackedScene" uid="uid://dbh44f2eysibn" path="res://UIScenes/UIResearchItemButton.tscn" id="62_nohy5"]
 [ext_resource type="Script" path="res://Scripts/UI/StoryEventControl.cs" id="62_onxgq"]
+[ext_resource type="PackedScene" uid="uid://8x8pmayaey4j" path="res://UIScenes/CountyImprovementInResearchLabel.tscn" id="64_qhimb"]
+[ext_resource type="Texture2D" uid="uid://dmeg24s68kkig" path="res://Graphics/Research/uncertainty.svg" id="65_b6pum"]
 [ext_resource type="Script" path="res://Scripts/MapEditorControl.cs" id="65_uqmnr"]
 [ext_resource type="PackedScene" uid="uid://iur3kq10dikl" path="res://Scenes/MapEditor.tscn" id="66_sq6pt"]
 
@@ -98,11 +102,13 @@ texture = ExtResource("2_h1vmt")
 centered = false
 
 [node name="Map Sprite2D" type="Sprite2D" parent="Maps"]
+visible = false
+texture = ExtResource("4_w7iv8")
 centered = false
 
 [node name="Game Controller Node" type="Node" parent="."]
 
-[node name="Main" type="Node" parent="Game Controller Node" node_paths=PackedStringArray("countiesParent")]
+[node name="Globals" type="Node" parent="Game Controller Node" node_paths=PackedStringArray("countiesParent")]
 script = ExtResource("2_yf7pt")
 dailyInfluenceGain = 5
 startPaused = true
@@ -1507,7 +1513,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "Close"
 
-[node name="Research Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("researchItemParent", "researchDescriptionPanel")]
+[node name="Research Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("researchItemParent")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -1518,8 +1524,7 @@ grow_vertical = 2
 mouse_filter = 1
 theme = ExtResource("50_5cg3n")
 script = ExtResource("40_t5amt")
-researchItemParent = NodePath("Research MarginContainer/Research PanelContainer/MarginContainer/Research Items VBoxContainer")
-researchDescriptionPanel = NodePath("Research MarginContainer/Research PanelContainer/MarginContainer/Research Description PanelContainer")
+researchItemParent = NodePath("Research MarginContainer/Research PanelContainer/MarginContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer")
 
 [node name="Research MarginContainer" type="MarginContainer" parent="Player UI Canvas/Research Control"]
 layout_mode = 1
@@ -1530,6 +1535,7 @@ offset_top = 1.0
 offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_top = 24
 
 [node name="Research PanelContainer" type="PanelContainer" parent="Player UI Canvas/Research Control/Research MarginContainer"]
 layout_mode = 2
@@ -1543,39 +1549,33 @@ text = "Research"
 
 [node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer"]
 layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 31
 
-[node name="Research Items VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Tier 1 Research Items VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/ScrollContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 alignment = 1
 
-[node name="Research Description PanelContainer" type="PanelContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer" node_paths=PackedStringArray("researchName", "researchDescription")]
-visible = false
-self_modulate = Color(1, 1, 1, 0)
+[node name="Basic Production Research Item" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer" instance=ExtResource("62_nohy5")]
 layout_mode = 2
-script = ExtResource("41_77kvj")
-researchName = NodePath("MarginContainer/Research Panel/Research Name")
-researchDescription = NodePath("MarginContainer/Research Panel/Research Description Label")
+researchItemData = ExtResource("22_ugyvd")
 
-[node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/Research Description PanelContainer"]
-layout_mode = 2
-
-[node name="Research Panel" type="PanelContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/Research Description PanelContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="Research Name" type="Label" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/Research Description PanelContainer/MarginContainer/Research Panel"]
+[node name="Tier 2 Research Items VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/ScrollContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 0
-theme_override_font_sizes/font_size = 24
-text = "TESTESDFjhsdfkjgdf"
-
-[node name="Research Description Label" type="Label" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/Research Description PanelContainer/MarginContainer/Research Panel"]
-layout_mode = 2
-text = "Test"
-horizontal_alignment = 1
-autowrap_mode = 3
+size_flags_vertical = 4
+alignment = 1
 
 [node name="Close Button" type="Button" parent="Player UI Canvas/Research Control"]
 layout_mode = 1
@@ -1590,6 +1590,95 @@ offset_right = 25.0
 grow_horizontal = 2
 grow_vertical = 0
 scale = Vector2(1, 1.03698)
+size_flags_vertical = 8
+text = "Close"
+
+[node name="Research Description PanelContainer" type="PanelContainer" parent="Player UI Canvas" node_paths=PackedStringArray("researchName", "researchTextureRect", "researchDescription", "amountOfResearchDoneLabel", "costOfResearchLabel", "countyImprovementsInResearchParent")]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("50_5cg3n")
+script = ExtResource("41_77kvj")
+researchName = NodePath("MarginContainer/Research Panel/VBoxContainer/Research Name")
+researchTextureRect = NodePath("MarginContainer/Research Panel/VBoxContainer/Research TextureRect")
+researchDescription = NodePath("MarginContainer/Research Panel/VBoxContainer/Research Description Label")
+amountOfResearchDoneLabel = NodePath("MarginContainer/Research Panel/VBoxContainer/HBoxContainer/Amount of Research Done Label")
+costOfResearchLabel = NodePath("MarginContainer/Research Panel/VBoxContainer/HBoxContainer/Total Cost of Research Label")
+countyImprovementsInResearchParent = NodePath("MarginContainer/Research Panel/VBoxContainer/County Improvement In Research Parent HBoxContainer")
+countyImprovementResearchPackedScene = ExtResource("64_qhimb")
+
+[node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Research Description PanelContainer"]
+layout_mode = 2
+
+[node name="Research Panel" type="PanelContainer" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel"]
+layout_mode = 2
+
+[node name="Research Name" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "TESTESDFjhsdfkjgdf"
+
+[node name="Research TextureRect" type="TextureRect" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("65_b6pum")
+expand_mode = 1
+
+[node name="Research Description Label" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
+custom_minimum_size = Vector2(500, 400)
+layout_mode = 2
+text = "This is the description"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Cost Label" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
+layout_mode = 2
+text = "Cost
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Amount of Research Done Label" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="Slash Label" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "/"
+
+[node name="Total Cost of Research Label" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "999"
+
+[node name="County Improvement Title Label" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
+layout_mode = 2
+text = "County Improvement"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="County Improvement In Research Parent HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Close Button" type="Button" parent="Player UI Canvas/Research Description PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "Close"
 
@@ -1799,8 +1888,8 @@ process_mode = 3
 [connection signal="mouse_entered" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/Heroes VBoxContainer" to="Player UI Canvas/County Info Control" method="OnMouseEntered"]
 [connection signal="mouse_exited" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/Heroes VBoxContainer" to="Player UI Canvas/County Info Control" method="OnMouseExited"]
 [connection signal="button_up" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Select Hero PanelContainer/Hero List Button" to="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Select Hero PanelContainer" method="HeroButton"]
-[connection signal="mouse_entered" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Select Hero PanelContainer/Hero List Button" to="Game Controller Node/Main" method="OnMouseEnteredUI"]
-[connection signal="mouse_exited" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Select Hero PanelContainer/Hero List Button" to="Game Controller Node/Main" method="OnMouseExitedUI"]
+[connection signal="mouse_entered" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Select Hero PanelContainer/Hero List Button" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Select Hero PanelContainer/Hero List Button" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
 [connection signal="visibility_changed" from="Player UI Canvas/Population List MarginContainer" to="Player UI Canvas/Population List MarginContainer" method="OnVisibilityChanged"]
 [connection signal="button_up" from="Player UI Canvas/Population List MarginContainer/Close Button" to="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer" method="CloseButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Population Description Control" to="Player UI Canvas/Population Description Control" method="OnVisibilityChanged"]
@@ -1822,8 +1911,9 @@ process_mode = 3
 [connection signal="visibility_changed" from="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer/MarginContainer/Build ConfirmationDialog" to="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer/MarginContainer/Build ConfirmationDialog" method="OnVisibilityChanged"]
 [connection signal="button_up" from="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Close Button" to="Player UI Canvas/County Improvements Control" method="CloseButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Research Control" to="Player UI Canvas/Research Control" method="OnVisibilityChange"]
-[connection signal="visibility_changed" from="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/Research Description PanelContainer" to="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/Research Description PanelContainer" method="OnVisibilityChanged"]
 [connection signal="button_up" from="Player UI Canvas/Research Control/Close Button" to="Player UI Canvas/Research Control" method="CloseButton"]
+[connection signal="visibility_changed" from="Player UI Canvas/Research Description PanelContainer" to="Player UI Canvas/Research Description PanelContainer" method="OnVisibilityChanged"]
+[connection signal="button_up" from="Player UI Canvas/Research Description PanelContainer/Close Button" to="Player UI Canvas/Research Control" method="CloseButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Recuit Hero Confirmation PanelContainer" to="Player UI Canvas/Recuit Hero Confirmation PanelContainer" method="OnVisibilityChange"]
 [connection signal="button_up" from="Player UI Canvas/Recuit Hero Confirmation PanelContainer/HBoxContainer/No Button" to="Player UI Canvas/Recuit Hero Confirmation PanelContainer" method="NoButton"]
 [connection signal="button_up" from="Player UI Canvas/Recuit Hero Confirmation PanelContainer/HBoxContainer/Yes Button" to="Player UI Canvas/Recuit Hero Confirmation PanelContainer" method="YesButton"]
@@ -1833,8 +1923,8 @@ process_mode = 3
 [connection signal="pressed" from="Player UI Canvas/Declare War Control/Declare War Confirmation PanelContainer/HBoxContainer/No Button" to="Player UI Canvas/Declare War Control" method="NoButton"]
 [connection signal="pressed" from="Player UI Canvas/Declare War Control/Declare War Confirmation PanelContainer/HBoxContainer/Yes Button" to="Player UI Canvas/Declare War Control" method="YesButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Story Event Control" to="Player UI Canvas/Story Event Control" method="OnVisibilityChanged"]
-[connection signal="mouse_entered" from="Player UI Canvas/Story Event Control/PanelContainer" to="Game Controller Node/Main" method="OnMouseEnteredUI"]
-[connection signal="mouse_exited" from="Player UI Canvas/Story Event Control/PanelContainer" to="Game Controller Node/Main" method="OnMouseExitedUI"]
+[connection signal="mouse_entered" from="Player UI Canvas/Story Event Control/PanelContainer" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="Player UI Canvas/Story Event Control/PanelContainer" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
 [connection signal="pressed" from="Player UI Canvas/Story Event Control/PanelContainer/VBoxContainer/Accept Button" to="Player UI Canvas/Story Event Control" method="AcceptButtonPressed"]
 [connection signal="pressed" from="Player UI Canvas/Story Event Control/PanelContainer/VBoxContainer/Decline Button" to="Player UI Canvas/Story Event Control" method="DeclineButtonPressed"]
 [connection signal="pressed" from="Player UI Canvas/Map Editor Control/Map Editor Button" to="Player UI Canvas/Map Editor Control" method="ButtonPressed"]

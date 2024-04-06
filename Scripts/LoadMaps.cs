@@ -10,6 +10,7 @@ namespace PlayerSpace
         {
             if (OS.HasFeature("editor"))
             {
+                
                 DirAccess directory = DirAccess.Open("res://");
                 if (directory.DirExists("res://" + mapDirectory))
                 {
@@ -21,6 +22,7 @@ namespace PlayerSpace
                 {
                     GD.Print(mapDirectory + " directory doesn't exist in pck!");
                 }
+                
             }
             else
             {

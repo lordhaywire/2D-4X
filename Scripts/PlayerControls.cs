@@ -44,11 +44,11 @@ namespace PlayerSpace
 
                 // Check every countyData to find the color it finds.  If it finds that color then it turns on the 
                 // grey overlay.
-                foreach (County selectCounty in Globals.Instance.countiesParent.GetChildren())
+                foreach (County county in Globals.Instance.countiesParent.GetChildren())
                 {
-                    Sprite2D maskSprite = selectCounty.maskSprite;
+                    Sprite2D maskSprite = county.maskSprite;
 
-                    if (selectCounty.countyData.color.IsEqualApprox(countyColor))
+                    if (county.countyData.color.IsEqualApprox(countyColor))
                     {
                         maskSprite.Show();
 
@@ -59,11 +59,11 @@ namespace PlayerSpace
                             if (eventMouseButton.ButtonIndex == MouseButton.Left && eventMouseButton.Pressed == false)
                             //&& Globals.Instance.isInsideToken == false)
                             {
-                                EventLog.Instance.AddLog($"{selectCounty.countyData.countyName} was clicked on.");
+                                EventLog.Instance.AddLog($"{county.countyData.countyName} was clicked on.");
 
-                                Globals.Instance.CurrentlySelectedCounty = selectCounty;
-                                Globals.Instance.selectedCountyId = selectCounty.countyData.countyId;
-                                Globals.Instance.selectedLeftClickCounty = selectCounty;
+                                Globals.Instance.CurrentlySelectedCounty = county;
+                                Globals.Instance.selectedCountyId = county.countyData.countyId;
+                                Globals.Instance.selectedLeftClickCounty = county;
                                 CountyInfoControl.Instance.UpdateEverything();
                                 CountyInfoControl.Instance.countyInfoControl.Show(); // This has to be last.
                             }
@@ -72,14 +72,14 @@ namespace PlayerSpace
                             if (eventMouseButton.ButtonIndex == MouseButton.Right && eventMouseButton.Pressed == false
                                 && Globals.Instance.SelectedCountyPopulation != null)
                             {
-                                GD.Print("You are moving to a place you right clicked, dude! " + selectCounty.countyData.countyName);
+                                GD.Print("You are moving to a place you right clicked, dude! " + county.countyData.countyName);
                                 if (Globals.Instance.SelectedCountyPopulation.destination == -1)
                                 {
-                                    MoveSelectedToken(selectCounty.countyData);
+                                    MoveSelectedToken(county.countyData);
                                 }
-                                else if (Globals.Instance.SelectedCountyPopulation.destination == selectCounty.countyData.countyId)
+                                else if (Globals.Instance.SelectedCountyPopulation.destination == county.countyData.countyId)
                                 {
-                                    MoveSelectedToken(selectCounty.countyData);
+                                    MoveSelectedToken(county.countyData);
                                 }
                                 else
                                 {
@@ -93,7 +93,7 @@ namespace PlayerSpace
                     }
                     else
                     {
-                        if (Globals.Instance.selectedCountyId != selectCounty.countyData.countyId)
+                        if (Globals.Instance.selectedCountyId != county.countyData.countyId)
                         {
                             maskSprite.Hide();
                         }

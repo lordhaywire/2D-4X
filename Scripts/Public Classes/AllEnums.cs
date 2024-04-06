@@ -14,6 +14,13 @@ namespace PlayerSpace
             AIFaction6,
         }
         */
+
+        public enum ResearchTiers
+        {
+            One,
+            Two,
+            Three,
+        }
         public enum Province
         {
             Oregon,

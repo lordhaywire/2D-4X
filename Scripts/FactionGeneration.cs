@@ -19,8 +19,6 @@ namespace PlayerSpace
             AddFactionsToDiplomacyWar();
         }
 
-
-
         private void AddFactionsToDiplomacyWar()
         {
             foreach (FactionData factionData in Globals.Instance.factionDatas)
@@ -75,8 +73,11 @@ namespace PlayerSpace
 
         private void AddStartingResearch(FactionData factionData)
         {
+            // We will probably have to rewrite this, because currently it is making all research completed.
             foreach(ResearchItemData researchItemData in AllResearch.Instance.allTierOneResearchData)
             {
+                // This is a temporary solution until we randomly set some of the factions to have less starting tech.
+                researchItemData.AmountOfResearchDone = researchItemData.costOfResearch; // This just sets the is done bool as done.
                 factionData.researchItems.Add(researchItemData);
             }
             

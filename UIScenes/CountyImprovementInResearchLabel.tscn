@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://8x8pmayaey4j"]
+
+[node name="BuildingInResearchLabel" type="Label"]
+size_flags_horizontal = 3
+text = "Building 1"
+horizontal_alignment = 1
+vertical_alignment = 1

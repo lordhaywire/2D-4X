@@ -19,7 +19,7 @@ namespace PlayerSpace
         [Export] public bool startPaused;
 
         [ExportGroup("Selected Items")]
-        [Export] public int selectedCountyId;
+        [Export] public int selectedCountyId = -1;
         [Export] private County currentlySelectedCounty;
 
         public County CurrentlySelectedCounty

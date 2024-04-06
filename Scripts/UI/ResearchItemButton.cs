@@ -1,18 +1,46 @@
 using Godot;
+using System;
 
 namespace PlayerSpace
 {
     public partial class ResearchItemButton : PanelContainer
     {
-        private void OpenResearchDescriptionPanel()
+        [Export] private ResearchItemData researchItemData;
+        [Export] private Button researchButton;
+        [Export] private CheckBox researchCheckBox;
+
+        public override void _Ready()
         {
-            //await ToSignal(GetTree(), "process_frame");
-            ResearchControl.Instance.researchDescriptionPanel.Show();
+            CallDeferred(nameof(SubscribeToResearchEvent));
+            InitialResearchInfoUpdate();
+        }
+
+        private void SubscribeToResearchEvent()
+        {
+            ResearchControl.Instance.ResearchVisible += UpdateIfResearched;
+        }
+
+        private void InitialResearchInfoUpdate()
+        {
+            researchButton.Text = researchItemData.researchName;
+            researchButton.Icon = researchItemData.researchTexture;
+        }
+
+        private void UpdateIfResearched()
+        {
+            GD.Print("Research Panel has opened and this item has updated: " + researchItemData.researchName);
+            CheckIfResearchIsDone();
+        }
+
+        private void CheckIfResearchIsDone()
+        {
+            researchCheckBox.ButtonPressed = researchItemData.isResearchDone;
+        }
+        private void OnButtonPressed()
+        {
+            ResearchDescriptionPanel.Instance.researchItemData = researchItemData;
+            ResearchDescriptionPanel.Instance.Show();
             ResearchControl.Instance.researchItemParent.Hide();
-            
-            //await ToSignal(GetTree(), "process_frame");
-            Globals.Instance.researchClicked = int.Parse(Name);
-            //GD.Print("Name of Button! " + Name);
         }
     }
 }

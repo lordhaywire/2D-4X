@@ -5,11 +5,31 @@ namespace PlayerSpace
     [GlobalClass]
     public partial class ResearchItemData : Resource
     {
+        [Export] public AllEnums.ResearchTiers tier; // We might not need this now that the research is manually added to the research panel.
         [Export] public string researchName;
-        [Export] public string description;
+        [Export] public string researchDescription;
+        [Export] public Texture2D researchTexture;
 
-        [Export] public bool isResearchDone;
-        [Export] public CountyImprovementData[] countyImprovementDatas;
+        [Export] private int amountOfResearchDone;
+        public int AmountOfResearchDone
+        {
+            get { return amountOfResearchDone; }
+            set
+            {
+                amountOfResearchDone = value;
+                if (amountOfResearchDone == costOfResearch)
+                {
+                    isResearchDone = true;
+                }
+                else
+                {
+                    isResearchDone = false;
+                }
+            }
+        }
+        [Export] public int costOfResearch;
+        [Export] public bool isResearchDone; // We might not need this because we could just compare the cost vs the amount done.
+        [Export] public CountyImprovementData[] countyImprovementDatas; 
 
         /*
         public ResearchItemData(string researchName, string description, CountyImprovementData[] countyImprovementDatas, bool isResearchDone)

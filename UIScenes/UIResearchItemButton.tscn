@@ -1,20 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://dbh44f2eysibn"]
+[gd_scene load_steps=3 format=3 uid="uid://dbh44f2eysibn"]
 
 [ext_resource type="Script" path="res://Scripts/UI/ResearchItemButton.cs" id="1_6bpef"]
+[ext_resource type="Texture2D" uid="uid://dmeg24s68kkig" path="res://Graphics/Research/uncertainty.svg" id="2_uk2ix"]
 
-[node name="Research Item" type="PanelContainer"]
+[node name="Research Item" type="PanelContainer" node_paths=PackedStringArray("researchButton", "researchCheckBox")]
 custom_minimum_size = Vector2(400, 200)
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_6bpef")
+researchButton = NodePath("Button")
+researchCheckBox = NodePath("CheckBox")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 2
 text = "Test Research Item"
+icon = ExtResource("2_uk2ix")
+icon_alignment = 2
+expand_icon = true
 
 [node name="CheckBox" type="CheckBox" parent="."]
 layout_mode = 2
 size_flags_horizontal = 0
 disabled = true
 
-[connection signal="button_up" from="Button" to="." method="OpenResearchDescriptionPanel"]
+[connection signal="pressed" from="Button" to="." method="OnButtonPressed"]

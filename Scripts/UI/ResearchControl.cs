@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 
 namespace PlayerSpace
@@ -10,7 +11,28 @@ namespace PlayerSpace
         string uIResearchItemButtonPath = "res://UIScenes/UIResearchItemButton.tscn";
 
         [Export] public VBoxContainer researchItemParent;
-        [Export] public PanelContainer researchDescriptionPanel;
+        //[Export] public PanelContainer researchDescriptionPanel;
+
+        public ResearchItemData researchItemData;
+
+        public event Action ResearchVisible;
+
+        private void OnVisibilityChange()
+        {
+            if (Visible == true)
+            {
+                //CreateResearchItemButtons();
+                PlayerControls.Instance.AdjustPlayerControls(false);
+                Clock.Instance.PauseTime();
+                ResearchVisible?.Invoke();
+            }
+            else
+            {
+                //DestroyResearchItemButtons();
+                PlayerControls.Instance.AdjustPlayerControls(true);
+                Clock.Instance.UnpauseTime();
+            }
+        }
 
         public void ShowResearchPanel()
         {
@@ -21,9 +43,9 @@ namespace PlayerSpace
 
         public void CloseButton()
         {
-            if(researchDescriptionPanel.Visible == true)
+            if(ResearchDescriptionPanel.Instance.Visible == true)
             {
-                researchDescriptionPanel.Hide();
+                ResearchDescriptionPanel.Instance.Hide();
                 researchItemParent.Show();
             }
             else
@@ -62,20 +84,6 @@ namespace PlayerSpace
                 researchItem.QueueFree();
             }
         }
-        private void OnVisibilityChange()
-        {
-            if (Visible == true)
-            {
-                CreateResearchItemButtons();
-                PlayerControls.Instance.AdjustPlayerControls(false);
-                Clock.Instance.PauseTime();
-            }
-            else
-            {
-                DestroyResearchItemButtons();
-                PlayerControls.Instance.AdjustPlayerControls(true);
-                Clock.Instance.UnpauseTime();
-            }
-        }
+
     }
 }
