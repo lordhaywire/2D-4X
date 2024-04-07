@@ -6,6 +6,7 @@ namespace PlayerSpace
     public partial class ResearchItemData : Resource
     {
         [Export] public AllEnums.ResearchTiers tier; // We might not need this now that the research is manually added to the research panel.
+        [Export] public bool researchedAtStart;
         [Export] public string researchName;
         [Export] public string researchDescription;
         [Export] public Texture2D researchTexture;

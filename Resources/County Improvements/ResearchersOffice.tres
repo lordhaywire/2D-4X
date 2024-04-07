@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=3 format=3 uid="uid://lxjruufeuqa1"]
+
+[ext_resource type="Texture2D" uid="uid://bx2dfaxw8ujc5" path="res://Graphics/County Improvements/Researchers Office County Improvement archive-research.svg" id="1_a1jyh"]
+[ext_resource type="Script" path="res://Resources/CountyImprovementData.cs" id="1_ga7gf"]
+
+[resource]
+script = ExtResource("1_ga7gf")
+improvementTexture = ExtResource("1_a1jyh")
+improvementName = "Researcher's Office"
+improvementDescription = "A place for books and reading."
+influenceCost = 500
+currentAmountOfConstruction = 0
+maxAmountOfConstruction = 500
+currentBuilders = 0
+maxBuilders = 5
+currentWorkers = 0
+maxWorkers = 1
+dailyResourceGenerationAmount = 0
+isBeingBuilt = false
+isBuilt = false

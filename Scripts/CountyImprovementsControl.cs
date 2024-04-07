@@ -42,13 +42,13 @@ namespace PlayerSpace
             {
                 if(countyImprovementData.isBeingBuilt == false && countyImprovementData.isBuilt == false)
                 {
-                    PossibleBuildingControl countyImprovementButton = (PossibleBuildingControl)countyImprovementButtonPackedScene.Instantiate();
+                    CountryImprovementDescriptionButton countyImprovementButton = (CountryImprovementDescriptionButton)countyImprovementButtonPackedScene.Instantiate();
                     possibleImprovementsScrollContainerParent.AddChild(countyImprovementButton);
                     countyImprovementButton.countyImprovementData = countyImprovementData;
                 }
                 else
                 {
-                    PossibleBuildingControl countyImprovementButton = (PossibleBuildingControl)countyImprovementButtonPackedScene.Instantiate();
+                    CountryImprovementDescriptionButton countyImprovementButton = (CountryImprovementDescriptionButton)countyImprovementButtonPackedScene.Instantiate();
                     currentImprovementsScrollContainerParent.AddChild(countyImprovementButton);
                     countyImprovementButton.countyImprovementData = countyImprovementData;
                 }

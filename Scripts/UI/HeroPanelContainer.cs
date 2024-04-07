@@ -12,6 +12,7 @@ namespace PlayerSpace
         [Export] public Label heroNameLabel;
         [Export] public Button heroListButton;
         [Export] public CheckButton spawnHeroButton;
+        [Export] public CheckBox researchCheckbox;
         private void HeroButton()
         {
             PopulationDescriptionControl.Instance.countyPopulation = countyPopulation;
@@ -35,6 +36,10 @@ namespace PlayerSpace
             }
         }
 
+        private void ResearchCheckBoxToggled(bool toggled)
+        {
+            GD.Print("Research Checkbox Toggled.");
+        }
         // This needs to be on this script because this is also instantiated.
         public void OnMouseEnteredUI()
         {

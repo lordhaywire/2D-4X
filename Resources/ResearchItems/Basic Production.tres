@@ -4,14 +4,15 @@
 [ext_resource type="Script" path="res://Resources/ResearchItemData.cs" id="1_xvogw"]
 [ext_resource type="Resource" uid="uid://cpmbf5setweth" path="res://Resources/County Improvements/LumberjackStation.tres" id="2_dydjr"]
 [ext_resource type="Resource" uid="uid://bkakbc8lqeex4" path="res://Resources/County Improvements/Garden.tres" id="3_oyq4t"]
-[ext_resource type="Texture2D" uid="uid://cesq4es6c4ej3" path="res://Graphics/Research/Basic Prodcution greenhouse.svg" id="4_p4yvm"]
+[ext_resource type="Texture2D" uid="uid://cesq4es6c4ej3" path="res://Graphics/Research/Basic Production greenhouse.svg" id="4_rnkye"]
 
 [resource]
 script = ExtResource("1_xvogw")
 tier = 0
+researchedAtStart = true
 researchName = "Basic Production"
 researchDescription = "We should probably have buildings for tool storage and a place to work for fishing, gardening and lumberjacking."
-researchTexture = ExtResource("4_p4yvm")
+researchTexture = ExtResource("4_rnkye")
 amountOfResearchDone = 0
 costOfResearch = 500
 isResearchDone = false

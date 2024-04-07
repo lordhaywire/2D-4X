@@ -2,10 +2,11 @@ using Godot;
 
 namespace PlayerSpace
 {
-	public partial class PossibleBuildingControl : Control
+	public partial class CountryImprovementDescriptionButton : Control
 	{
 		public CountyImprovementData countyImprovementData;
 
+		[Export] private TextureRect improvementTexture;
 		[Export] public Label improvementNameLabel;
 		[Export] private Label improvementDescriptionLabel;
 		[Export] private Label improvementInfluenceCostLabel;
@@ -23,34 +24,45 @@ namespace PlayerSpace
 
 		public void UpdatePossibleBuildingLabels()
 		{
+			improvementTexture.Texture = countyImprovementData.improvementTexture;
 			improvementNameLabel.Text = countyImprovementData.improvementName;
 			improvementDescriptionLabel.Text = countyImprovementData.improvementDescription;
 			improvementInfluenceCostLabel.Text = $"Influence Cost: {countyImprovementData.influenceCost}";
-            if (Banker.Instance.CheckBuildingCost(Globals.Instance.CurrentlySelectedCounty.countyData.factionData, countyImprovementData) == false)
-            {
-                buildingButton.Disabled = true; 
-            }
-            if (countyImprovementData.isBeingBuilt == true || countyImprovementData.isBuilt == true)
+			if (ResearchDescriptionPanel.Instance.Visible == true)
 			{
 				buildingButton.Disabled = true;
+                improvementMaxBuildersLabel.Text = $"{countyImprovementData.maxBuilders} Builders";
+                improvementAmountOfConstructionLabel.Text = $"{countyImprovementData.maxAmountOfConstruction} Amount of Contruction";
+                return;
 			}
-			if (countyImprovementData.isBeingBuilt != true)
+			else if(CountyImprovementsControl.Instance.Visible == true)
 			{
-				improvementAmountOfConstructionLabel.Text = $"Amount of construction: {countyImprovementData.maxAmountOfConstruction}";
-				improvementMaxBuildersLabel.Text = $"Max builders: {countyImprovementData.maxBuilders}";
-			}
-			else
-			{
-				improvementInfluenceCostLabel.Hide();
-				underContructionLabel.Show();
-				improvementAmountOfConstructionLabel.Text = $"{countyImprovementData.currentAmountOfConstruction}/{countyImprovementData.maxAmountOfConstruction} Amount of Contruction";
-				improvementMaxBuildersLabel.Text = $"{countyImprovementData.currentBuilders}/{countyImprovementData.maxBuilders} Builders";
-			}
-			if(countyImprovementData.isBuilt == true)
-			{
-				improvementMaxBuildersLabel.Text = $"{countyImprovementData.currentWorkers}/{countyImprovementData.maxWorkers} Workers";
-				improvementAmountOfConstructionLabel.Hide();
-				improvementInfluenceCostLabel.Hide();
+				if (Banker.Instance.CheckBuildingCost(Globals.Instance.CurrentlySelectedCounty.countyData.factionData, countyImprovementData) == false)
+				{
+					buildingButton.Disabled = true;
+				}
+				if (countyImprovementData.isBeingBuilt == true || countyImprovementData.isBuilt == true)
+				{
+					buildingButton.Disabled = true;
+				}
+				if (countyImprovementData.isBeingBuilt != true)
+				{
+					improvementAmountOfConstructionLabel.Text = $"Amount of construction: {countyImprovementData.maxAmountOfConstruction}";
+					improvementMaxBuildersLabel.Text = $"Max builders: {countyImprovementData.maxBuilders}";
+				}
+				else
+				{
+					improvementInfluenceCostLabel.Hide();
+					underContructionLabel.Show();
+					improvementAmountOfConstructionLabel.Text = $"{countyImprovementData.currentAmountOfConstruction}/{countyImprovementData.maxAmountOfConstruction} Amount of Contruction";
+					improvementMaxBuildersLabel.Text = $"{countyImprovementData.currentBuilders}/{countyImprovementData.maxBuilders} Builders";
+				}
+				if (countyImprovementData.isBuilt == true)
+				{
+					improvementMaxBuildersLabel.Text = $"{countyImprovementData.currentWorkers}/{countyImprovementData.maxWorkers} Workers";
+					improvementAmountOfConstructionLabel.Hide();
+					improvementInfluenceCostLabel.Hide();
+				}
 			}
         }
 		

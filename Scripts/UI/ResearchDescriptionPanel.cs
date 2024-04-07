@@ -13,7 +13,7 @@ namespace PlayerSpace
         [Export] private Label amountOfResearchDoneLabel;
         [Export] private Label costOfResearchLabel;
         [Export] private HBoxContainer countyImprovementsInResearchParent;
-        [Export] private PackedScene countyImprovementResearchPackedScene;
+        [Export] private PackedScene countyImprovementResearchPackedScene; // This is the label.
 
         public ResearchItemData researchItemData;
         public override void _Ready()
@@ -23,7 +23,7 @@ namespace PlayerSpace
         private void OnVisibilityChanged()
         {
             //GD.Print("Research Description Panel!");
-            RemoveLabels();
+            RemoveCountyImprovements();
             researchName.Text = researchItemData.researchName;
             researchTextureRect.Texture = researchItemData.researchTexture;
             researchDescription.Text = researchItemData.researchDescription;
@@ -34,19 +34,19 @@ namespace PlayerSpace
             {
                 foreach (CountyImprovementData countyImprovementData in researchItemData.countyImprovementDatas)
                 {
-                    Label buildingInResearchLabel = (Label)countyImprovementResearchPackedScene.Instantiate();
-                    buildingInResearchLabel.Text = countyImprovementData.improvementName;
-                    countyImprovementsInResearchParent.AddChild(buildingInResearchLabel);
+                    CountryImprovementDescriptionButton countyImprovementInResearchControl 
+                        = (CountryImprovementDescriptionButton)countyImprovementResearchPackedScene.Instantiate();
+                    countyImprovementInResearchControl.countyImprovementData = countyImprovementData;
+                    countyImprovementsInResearchParent.AddChild(countyImprovementInResearchControl);
                 }
             }
-
         }
 
-        private void RemoveLabels()
+        private void RemoveCountyImprovements()
         {
-            foreach(Label label in countyImprovementsInResearchParent.GetChildren())
+            foreach(Control control in countyImprovementsInResearchParent.GetChildren())
             {
-                label.QueueFree();
+                control.QueueFree();
             }
         }
     }

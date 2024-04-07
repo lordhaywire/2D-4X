@@ -5,7 +5,7 @@ namespace PlayerSpace
 {
     public partial class FactionGeneration : Node
     {
-        public static FactionGeneration Instance {  get; private set; }
+        public static FactionGeneration Instance { get; private set; }
 
         private string factionDataPath = "res://Resources/Factions/";
         [Export] private PackedScene factionNodePackedScene;
@@ -44,11 +44,11 @@ namespace PlayerSpace
                 for (int i = 0; i < fileNames.Length; i++)
                 {
                     GD.Print("Files in Faction Resources: " + fileNames[i]);
-                    FactionData newFactionData 
+                    FactionData newFactionData
                         = (FactionData)ResourceLoader.Load<FactionData>(factionDataPath + fileNames[i]).Duplicate();
                     Globals.Instance.factionDatas.Add(newFactionData);
                     newFactionData.factionID = i;
-                    
+
                     if (Globals.Instance.factionDatas[i].isPlayer == true)
                     {
                         Globals.Instance.playerFactionData = newFactionData;
@@ -74,13 +74,18 @@ namespace PlayerSpace
         private void AddStartingResearch(FactionData factionData)
         {
             // We will probably have to rewrite this, because currently it is making all research completed.
-            foreach(ResearchItemData researchItemData in AllResearch.Instance.allTierOneResearchData)
+            foreach (ResearchItemData researchItemData in AllResearch.Instance.allTierOneResearchData)
             {
-                // This is a temporary solution until we randomly set some of the factions to have less starting tech.
-                researchItemData.AmountOfResearchDone = researchItemData.costOfResearch; // This just sets the is done bool as done.
+                if (researchItemData.researchedAtStart == true)
+                {
+                    // We need to add some randomness to the starting factions starting research, except
+                    // for the player factions.
+                    researchItemData.AmountOfResearchDone = researchItemData.costOfResearch;
+                }
+
                 factionData.researchItems.Add(researchItemData);
             }
-            
+
             /*
             // Let's turn this into an array or some shit at some point so we don't have manually add everything, we could just do a foreach loop.
 

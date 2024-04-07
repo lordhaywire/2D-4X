@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ResearchItemData" load_steps=4 format=3 uid="uid://ceq8jssovq84m"]
+
+[ext_resource type="Script" path="res://Resources/ResearchItemData.cs" id="1_1pj02"]
+[ext_resource type="Resource" uid="uid://lxjruufeuqa1" path="res://Resources/County Improvements/ResearchersOffice.tres" id="1_os5ia"]
+[ext_resource type="Texture2D" uid="uid://dn7aobwo3atm7" path="res://Graphics/Research/Researchers Office archive-research.svg" id="1_s7yq0"]
+
+[resource]
+script = ExtResource("1_1pj02")
+tier = 0
+researchedAtStart = false
+researchName = "Researching"
+researchDescription = "Isn't it time to have a place for someone to rediscover things?"
+researchTexture = ExtResource("1_s7yq0")
+amountOfResearchDone = 0
+costOfResearch = 500
+isResearchDone = false
+countyImprovementDatas = Array[Object]([ExtResource("1_os5ia")])

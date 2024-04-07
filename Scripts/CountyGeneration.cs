@@ -21,8 +21,6 @@ namespace PlayerSpace
             }
         }
 
-
-
         // This is just temporary until we set up random faction generation.
         private void AssignFactionDataToCountyData()
         {
@@ -62,7 +60,6 @@ namespace PlayerSpace
             }
         }
 
-
         private void GenerateBuildings()
         {
             foreach (County selectCounty in Globals.Instance.countiesParent.GetChildren())
@@ -77,7 +74,8 @@ namespace PlayerSpace
                     {
                         foreach (CountyImprovementData countyImprovementData in researchItemData.countyImprovementDatas)
                         {
-                            selectCounty.countyData.allCountyImprovements.Add(countyImprovementData);
+                            selectCounty.countyData.allCountyImprovements
+                                .Add((CountyImprovementData)countyImprovementData.Duplicate());
                             //GD.Print($"{selectCounty.countyData.countyName} improvement: {countyImprovementData.improvementName}");
                         }
                     }

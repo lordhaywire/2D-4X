@@ -1,58 +1,91 @@
-[gd_scene load_steps=5 format=3 uid="uid://d4i6w8w8jld3d"]
+[gd_scene load_steps=6 format=3 uid="uid://d4i6w8w8jld3d"]
 
 [ext_resource type="Script" path="res://Scripts/UI/HeroPanelContainer.cs" id="1_u8h0k"]
 [ext_resource type="Texture2D" uid="uid://du76vrdfhckkd" path="res://Graphics/Icons/Population/resized faction leader icon.png" id="2_kbo0x"]
 [ext_resource type="Texture2D" uid="uid://b67d6nynwdq3o" path="res://Graphics/Icons/Population/resized faction aide.png" id="3_hrfe5"]
 [ext_resource type="Texture2D" uid="uid://cbpah1j3xx4f2" path="res://Graphics/Icons/Population/resized army icon.png" id="3_qqxdl"]
+[ext_resource type="Texture2D" uid="uid://ptgt05xnjvvc" path="res://Graphics/Heroes/Heroes Research.svg" id="5_uce2n"]
 
-[node name="Hero PanelContainer" type="PanelContainer" node_paths=PackedStringArray("factionLeaderTextureRect", "aideTextureRect", "armyLeaderTextureRect", "heroNameLabel", "heroListButton", "spawnHeroButton")]
+[node name="Hero PanelContainer" type="PanelContainer" node_paths=PackedStringArray("factionLeaderTextureRect", "aideTextureRect", "armyLeaderTextureRect", "heroNameLabel", "heroListButton", "spawnHeroButton", "researchCheckbox")]
 custom_minimum_size = Vector2(300, 50)
+offset_right = 300.0
+offset_bottom = 100.0
 mouse_filter = 2
 script = ExtResource("1_u8h0k")
-factionLeaderTextureRect = NodePath("Icon HBoxContainer/Leader TextureRect")
-aideTextureRect = NodePath("Icon HBoxContainer/Aide TextureRect")
-armyLeaderTextureRect = NodePath("Icon HBoxContainer/Army TextureRect")
-heroNameLabel = NodePath("Hero Name Label")
+factionLeaderTextureRect = NodePath("VBoxContainer/Icon HBoxContainer/Leader TextureRect")
+aideTextureRect = NodePath("VBoxContainer/Icon HBoxContainer/Aide TextureRect")
+armyLeaderTextureRect = NodePath("VBoxContainer/Icon HBoxContainer/Army TextureRect")
+heroNameLabel = NodePath("VBoxContainer/Hero Name Label")
 heroListButton = NodePath("Buttons HBoxContainer/Hero List Button")
 spawnHeroButton = NodePath("Buttons HBoxContainer/Spawn CheckButton")
+researchCheckbox = NodePath("VBoxContainer/HBoxContainer/Research CheckBox")
 
-[node name="Hero Name Label" type="Label" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Hero Name Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-size_flags_vertical = 0
+size_flags_vertical = 2
 text = "Whatevers"
 vertical_alignment = 1
 
-[node name="Icon HBoxContainer" type="HBoxContainer" parent="."]
+[node name="Icon HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="Leader TextureRect" type="TextureRect" parent="Icon HBoxContainer"]
+[node name="Leader TextureRect" type="TextureRect" parent="VBoxContainer/Icon HBoxContainer"]
 visible = false
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_horizontal = 4
+size_flags_vertical = 4
 mouse_filter = 2
 texture = ExtResource("2_kbo0x")
 stretch_mode = 2
 
-[node name="Aide TextureRect" type="TextureRect" parent="Icon HBoxContainer"]
+[node name="Aide TextureRect" type="TextureRect" parent="VBoxContainer/Icon HBoxContainer"]
 visible = false
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_vertical = 4
 mouse_filter = 2
 texture = ExtResource("3_hrfe5")
 stretch_mode = 2
 
-[node name="Army TextureRect" type="TextureRect" parent="Icon HBoxContainer"]
+[node name="Army TextureRect" type="TextureRect" parent="VBoxContainer/Icon HBoxContainer"]
 visible = false
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_vertical = 4
 mouse_filter = 2
 texture = ExtResource("3_qqxdl")
 stretch_mode = 2
 
-[node name="Buttons HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
+
+[node name="Research CheckBox" type="CheckBox" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+tooltip_text = "Research"
+focus_mode = 0
+icon = ExtResource("5_uce2n")
+
+[node name="Research CheckBox2" type="CheckBox" parent="VBoxContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+text = " Test Box"
+
+[node name="Research CheckBox3" type="CheckBox" parent="VBoxContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+text = " Test Box"
+
+[node name="Buttons HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 66)
+layout_mode = 2
+size_flags_vertical = 0
 mouse_filter = 2
 
 [node name="Hero List Button" type="Button" parent="Buttons HBoxContainer"]
@@ -64,8 +97,10 @@ size_flags_horizontal = 3
 [node name="Spawn CheckButton" type="CheckButton" parent="Buttons HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
+size_flags_vertical = 0
 focus_mode = 0
 
+[connection signal="toggled" from="VBoxContainer/HBoxContainer/Research CheckBox" to="." method="ResearchCheckBoxToggled"]
 [connection signal="button_up" from="Buttons HBoxContainer/Hero List Button" to="." method="HeroButton"]
 [connection signal="mouse_entered" from="Buttons HBoxContainer/Hero List Button" to="." method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="Buttons HBoxContainer/Hero List Button" to="." method="OnMouseExitedUI"]

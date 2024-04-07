@@ -55,7 +55,7 @@ namespace PlayerSpace
                 }
             }
         }
-        public PossibleBuildingControl selectedPossibleBuildingControl;
+        public CountryImprovementDescriptionButton selectedPossibleBuildingControl;
         public bool isVisitorList;
 
         [ExportGroup("Map")]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=71 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scenes/HidderNode.cs" id="1_gbt3x"]
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_x1cy2"]
@@ -52,9 +52,8 @@
 [ext_resource type="Texture2D" uid="uid://tqexbc3d8yy8" path="res://Graphics/Icons/Top Bar/Money.png" id="37_16y4w"]
 [ext_resource type="Script" path="res://Scripts/CountyImprovementsControl.cs" id="37_rkirm"]
 [ext_resource type="Texture2D" uid="uid://u6mmuhhiejnw" path="res://Graphics/Icons/Top Bar/Food.png" id="38_0q3s5"]
-[ext_resource type="PackedScene" uid="uid://bogeajbtl771s" path="res://UIScenes/PossibleBuildingControl.tscn" id="38_cyd52"]
+[ext_resource type="PackedScene" uid="uid://bogeajbtl771s" path="res://UIScenes/CountyImprovementButton.tscn" id="38_cyd52"]
 [ext_resource type="Script" path="res://Scripts/UI/BuildConfirmationDialog.cs" id="39_atdu5"]
-[ext_resource type="Theme" uid="uid://c47igin4dyt5x" path="res://Themes/LeftMarginPanelTheme.tres" id="39_huewd"]
 [ext_resource type="Texture2D" uid="uid://dmbho3pkucn34" path="res://Graphics/Icons/Top Bar/Scrap.png" id="39_mrqgp"]
 [ext_resource type="Script" path="res://Scripts/UI/ResearchControl.cs" id="40_t5amt"]
 [ext_resource type="Script" path="res://Scripts/UI/ResearchDescriptionPanel.cs" id="41_77kvj"]
@@ -65,7 +64,7 @@
 [ext_resource type="Theme" uid="uid://b7f66fp0haa2c" path="res://Themes/FullScreenPanelTheme.tres" id="50_5cg3n"]
 [ext_resource type="PackedScene" uid="uid://dbh44f2eysibn" path="res://UIScenes/UIResearchItemButton.tscn" id="62_nohy5"]
 [ext_resource type="Script" path="res://Scripts/UI/StoryEventControl.cs" id="62_onxgq"]
-[ext_resource type="PackedScene" uid="uid://8x8pmayaey4j" path="res://UIScenes/CountyImprovementInResearchLabel.tscn" id="64_qhimb"]
+[ext_resource type="Resource" uid="uid://ceq8jssovq84m" path="res://Resources/ResearchItems/Researching.tres" id="62_ujbl5"]
 [ext_resource type="Texture2D" uid="uid://dmeg24s68kkig" path="res://Graphics/Research/uncertainty.svg" id="65_b6pum"]
 [ext_resource type="Script" path="res://Scripts/MapEditorControl.cs" id="65_uqmnr"]
 [ext_resource type="PackedScene" uid="uid://iur3kq10dikl" path="res://Scenes/MapEditor.tscn" id="66_sq6pt"]
@@ -135,7 +134,7 @@ selectedArmyTexture = ExtResource("11_e5ayq")
 
 [node name="All Research" type="Node" parent="Game Controller Node"]
 script = ExtResource("12_hmucs")
-allTierOneResearchData = Array[Object]([ExtResource("22_ugyvd")])
+allTierOneResearchData = Array[Object]([ExtResource("22_ugyvd"), ExtResource("62_ujbl5")])
 
 [node name="Story Event List" type="Node" parent="Game Controller Node"]
 script = ExtResource("12_q0wdt")
@@ -704,7 +703,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 8
 mouse_filter = 0
-theme = ExtResource("39_huewd")
+theme = ExtResource("50_5cg3n")
 script = ExtResource("29_ts64q")
 populationListParent = NodePath("Population List PanelContainer/Population VBoxContainer")
 populationRowButtonPackedScene = ExtResource("30_bhu5o")
@@ -811,7 +810,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("39_huewd")
+theme = ExtResource("50_5cg3n")
 script = ExtResource("31_hwyyh")
 populationName = NodePath("MarginContainer/PanelContainer/Population Name Label")
 leaderTitleButton = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/HBoxContainer2/Faction Leader Title Button")
@@ -1432,7 +1431,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme = ExtResource("39_huewd")
+theme = ExtResource("50_5cg3n")
 script = ExtResource("37_rkirm")
 possibleImprovementsScrollContainerParent = NodePath("Buildings MarginContainer/Buildings PanelContainer/MarginContainer/HBoxContainer/Possible Building ScrollContainer/Possible Buildings VBoxContainer3")
 currentImprovementsScrollContainerParent = NodePath("Buildings MarginContainer/Buildings PanelContainer/MarginContainer/HBoxContainer/Current Building ScrollContainer/Current Buildings VBoxContainer")
@@ -1572,6 +1571,10 @@ alignment = 1
 layout_mode = 2
 researchItemData = ExtResource("22_ugyvd")
 
+[node name="Research Item" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer" instance=ExtResource("62_nohy5")]
+layout_mode = 2
+researchItemData = ExtResource("62_ujbl5")
+
 [node name="Tier 2 Research Items VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/ScrollContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -1610,7 +1613,7 @@ researchDescription = NodePath("MarginContainer/Research Panel/VBoxContainer/Res
 amountOfResearchDoneLabel = NodePath("MarginContainer/Research Panel/VBoxContainer/HBoxContainer/Amount of Research Done Label")
 costOfResearchLabel = NodePath("MarginContainer/Research Panel/VBoxContainer/HBoxContainer/Total Cost of Research Label")
 countyImprovementsInResearchParent = NodePath("MarginContainer/Research Panel/VBoxContainer/County Improvement In Research Parent HBoxContainer")
-countyImprovementResearchPackedScene = ExtResource("64_qhimb")
+countyImprovementResearchPackedScene = ExtResource("38_cyd52")
 
 [node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Research Description PanelContainer"]
 layout_mode = 2
@@ -1620,6 +1623,7 @@ layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel"]
 layout_mode = 2
+theme_override_constants/separation = 25
 
 [node name="Research Name" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
 layout_mode = 2
@@ -1637,7 +1641,7 @@ texture = ExtResource("65_b6pum")
 expand_mode = 1
 
 [node name="Research Description Label" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
-custom_minimum_size = Vector2(500, 400)
+custom_minimum_size = Vector2(500, 200)
 layout_mode = 2
 text = "This is the description"
 horizontal_alignment = 1
@@ -1676,6 +1680,22 @@ vertical_alignment = 1
 
 [node name="County Improvement In Research Parent HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="County Improvement Control" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer/County Improvement In Research Parent HBoxContainer" instance=ExtResource("38_cyd52")]
+layout_mode = 2
+
+[node name="MenuButton" type="MenuButton" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Assign Researcher"
+item_count = 3
+popup/item_0/text = "Test"
+popup/item_0/id = 0
+popup/item_1/text = "sdfsadfsadf"
+popup/item_1/id = 1
+popup/item_2/text = "asdfasdfasdf"
+popup/item_2/id = 2
 
 [node name="Close Button" type="Button" parent="Player UI Canvas/Research Description PanelContainer"]
 layout_mode = 2
