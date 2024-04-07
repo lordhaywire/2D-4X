@@ -8,6 +8,7 @@
 
 [resource]
 script = ExtResource("1_xvogw")
+tier = 0
 researchName = "Basic Production"
 researchDescription = "We should probably have buildings for tool storage and a place to work for fishing, gardening and lumberjacking."
 researchTexture = ExtResource("4_p4yvm")

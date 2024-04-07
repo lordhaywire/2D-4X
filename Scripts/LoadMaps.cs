@@ -6,17 +6,18 @@ namespace PlayerSpace
     public partial class LoadMaps : Node
     {
         private string mapDirectory = "Maps/";
+        string editorMapDirectory = "res://Maps/map.png";
+        string editorColorCodedMapDirectory = "res://Maps/colorcodedmap.png";
+
         public override void _Ready()
         {
             if (OS.HasFeature("editor"))
             {
-                
                 DirAccess directory = DirAccess.Open("res://");
                 if (directory.DirExists("res://" + mapDirectory))
                 {
-                    GD.Print(mapDirectory + " directory exists in pck!");
-                    Sprite2D mapSprite = (Sprite2D)GetChild(0);
-                    mapSprite.Texture = (Texture2D)GD.Load("res://Maps/map.png");
+                    EditorMapLoader(editorColorCodedMapDirectory, (Sprite2D)GetChild(0));
+                    EditorMapLoader(editorMapDirectory, (Sprite2D)GetChild(1));
                 }
                 else
                 {
@@ -41,8 +42,12 @@ namespace PlayerSpace
                     GD.Print(mapDirectory + " globalized directory doesn't exist!");
                 }
             }
-
         }
-        //$TextureRect.texture = ImageTexture.create_from_image(image)
+
+        private void EditorMapLoader(string mapDirectory, Sprite2D mapSprite)
+        {
+            GD.Print($"Map has been loaded from {mapDirectory}");
+            mapSprite.Texture = (Texture2D)GD.Load(mapDirectory);
+        }
     }
 }

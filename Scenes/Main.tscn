@@ -1,12 +1,12 @@
 [gd_scene load_steps=72 format=3 uid="uid://dcycrof2uq8gd"]
 
+[ext_resource type="Script" path="res://Scenes/HidderNode.cs" id="1_gbt3x"]
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_x1cy2"]
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://World Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
 [ext_resource type="Script" path="res://Scripts/LoadMaps.cs" id="2_nda5i"]
 [ext_resource type="Script" path="res://Scripts/Globals.cs" id="2_yf7pt"]
 [ext_resource type="Texture2D" uid="uid://dqlvmop4g8aam" path="res://Graphics/Tokens/HornedGuySelected.png" id="3_r5dcu"]
 [ext_resource type="Texture2D" uid="uid://7jvylb78h24w" path="res://Graphics/Tokens/HornedGuyUnselected.png" id="4_pxob5"]
-[ext_resource type="Texture2D" uid="uid://ds0cf60q1iwoj" path="res://Maps/map.png" id="4_w7iv8"]
 [ext_resource type="PackedScene" uid="uid://cwe0ergnkkfm0" path="res://Prefabs/HeroToken.tscn" id="5_w6a76"]
 [ext_resource type="Script" path="res://Scripts/AllGraphics.cs" id="6_48s64"]
 [ext_resource type="Script" path="res://Scripts/Public Classes/AllTokenTextures.cs" id="7_7iyml"]
@@ -85,6 +85,10 @@ corner_radius_bottom_left = 5
 
 [node name="Root Node" type="Node"]
 
+[node name="Hidder Node" type="Node" parent="." node_paths=PackedStringArray("nodesToHide")]
+script = ExtResource("1_gbt3x")
+nodesToHide = [NodePath("../Player UI Canvas/County Info Control"), NodePath("../Player UI Canvas/Population List MarginContainer"), NodePath("../Player UI Canvas/Population Description Control"), NodePath("../Player UI Canvas/Battle Log Control"), NodePath("../Player UI Canvas/County Improvements Control"), NodePath("../Player UI Canvas/Research Control"), NodePath("../Player UI Canvas/Research Description PanelContainer"), NodePath("../Player UI Canvas/Recuit Hero Confirmation PanelContainer"), NodePath("../Player UI Canvas/Declare War Control"), NodePath("../Player UI Canvas/Story Event Control")]
+
 [node name="Camera CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("camera")]
 process_mode = 3
 position = Vector2(465, 648)
@@ -98,12 +102,9 @@ position = Vector2(494, 479)
 script = ExtResource("2_nda5i")
 
 [node name="Color Coded Map Sprite2D" type="Sprite2D" parent="Maps"]
-texture = ExtResource("2_h1vmt")
 centered = false
 
 [node name="Map Sprite2D" type="Sprite2D" parent="Maps"]
-visible = false
-texture = ExtResource("4_w7iv8")
 centered = false
 
 [node name="Game Controller Node" type="Node" parent="."]
@@ -1867,8 +1868,6 @@ offset_top = -8.0
 offset_right = 8.0
 grow_vertical = 0
 text = "Map Editor"
-
-[node name="Player UI Canvas_Top Bar Control_Top Bar HBox#PanelContainer" type="PanelContainer" parent="."]
 
 [node name="Counties" type="Node2D" parent="."]
 process_mode = 3
