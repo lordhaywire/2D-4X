@@ -29,9 +29,10 @@ namespace PlayerSpace
             }
         }
         [Export] public int costOfResearch;
-        [Export] public bool isResearchDone; // We might not need this because we could just compare the cost vs the amount done.
-        [Export] public CountyImprovementData[] countyImprovementDatas; 
+        [Export] public CountyImprovementData[] countyImprovementDatas;
+        public CountyPopulation[] researchers;
 
+        [Export] public bool isResearchDone; // We might not need this because we could just compare the cost vs the amount done.
         /*
         public ResearchItemData(string researchName, string description, CountyImprovementData[] countyImprovementDatas, bool isResearchDone)
         {

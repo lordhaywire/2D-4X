@@ -1597,7 +1597,7 @@ scale = Vector2(1, 1.03698)
 size_flags_vertical = 8
 text = "Close"
 
-[node name="Research Description PanelContainer" type="PanelContainer" parent="Player UI Canvas" node_paths=PackedStringArray("researchName", "researchTextureRect", "researchDescription", "amountOfResearchDoneLabel", "costOfResearchLabel", "countyImprovementsInResearchParent")]
+[node name="Research Description PanelContainer" type="PanelContainer" parent="Player UI Canvas" node_paths=PackedStringArray("researchName", "researchTextureRect", "researchDescription", "amountOfResearchDoneLabel", "costOfResearchLabel", "countyImprovementsInResearchParent", "assignResearcherMenuButton")]
 visible = false
 self_modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
@@ -1614,6 +1614,7 @@ amountOfResearchDoneLabel = NodePath("MarginContainer/Research Panel/VBoxContain
 costOfResearchLabel = NodePath("MarginContainer/Research Panel/VBoxContainer/HBoxContainer/Total Cost of Research Label")
 countyImprovementsInResearchParent = NodePath("MarginContainer/Research Panel/VBoxContainer/County Improvement In Research Parent HBoxContainer")
 countyImprovementResearchPackedScene = ExtResource("38_cyd52")
+assignResearcherMenuButton = NodePath("MarginContainer/Research Panel/VBoxContainer/Assign Research MenuButton")
 
 [node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Research Description PanelContainer"]
 layout_mode = 2
@@ -1682,20 +1683,10 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="County Improvement Control" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer/County Improvement In Research Parent HBoxContainer" instance=ExtResource("38_cyd52")]
-layout_mode = 2
-
-[node name="MenuButton" type="MenuButton" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
+[node name="Assign Research MenuButton" type="MenuButton" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Assign Researcher"
-item_count = 3
-popup/item_0/text = "Test"
-popup/item_0/id = 0
-popup/item_1/text = "sdfsadfsadf"
-popup/item_1/id = 1
-popup/item_2/text = "asdfasdfasdf"
-popup/item_2/id = 2
 
 [node name="Close Button" type="Button" parent="Player UI Canvas/Research Description PanelContainer"]
 layout_mode = 2
