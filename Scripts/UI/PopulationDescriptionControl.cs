@@ -25,6 +25,7 @@ namespace PlayerSpace
         [Export] private Label noPerksLabel;
         [Export] private Label coolSkillLabel;
         [Export] private Label constructionSkillLabel;
+        [Export] private Label researchSkillLabel;
         [Export] private Label rifleSkillLabel;
         [Export] private Label currentActivityLabel;
         [Export] private Label nextActivityTitle;
@@ -213,6 +214,7 @@ namespace PlayerSpace
         {
             coolSkillLabel.Text = $"Cool: {countyPopulation.coolSkill}";
             constructionSkillLabel.Text = $"Contruction: {countyPopulation.constructionSkill}";
+            researchSkillLabel.Text = $"Research: {countyPopulation.researchingSkill}";
             rifleSkillLabel.Text = $"Rifle: {countyPopulation.rifleSkill}";
         }
     }

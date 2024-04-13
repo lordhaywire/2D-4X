@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://4t2ve1w4uvww"]
+
+[node name="Reseacher Assigned Button" type="Button"]
+text = "John Smith: Weapon Shop"

@@ -70,13 +70,13 @@ tooltip_text = "Research"
 focus_mode = 0
 icon = ExtResource("5_uce2n")
 
-[node name="Research CheckBox2" type="CheckBox" parent="VBoxContainer/HBoxContainer"]
+[node name="Test CheckBox" type="CheckBox" parent="VBoxContainer/HBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 text = " Test Box"
 
-[node name="Research CheckBox3" type="CheckBox" parent="VBoxContainer/HBoxContainer"]
+[node name="Text2 CheckBox" type="CheckBox" parent="VBoxContainer/HBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
@@ -101,9 +101,9 @@ size_flags_vertical = 0
 focus_mode = 0
 
 [connection signal="toggled" from="VBoxContainer/HBoxContainer/Research CheckBox" to="." method="ResearchCheckBoxToggled"]
-[connection signal="button_up" from="Buttons HBoxContainer/Hero List Button" to="." method="HeroButton"]
 [connection signal="mouse_entered" from="Buttons HBoxContainer/Hero List Button" to="." method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="Buttons HBoxContainer/Hero List Button" to="." method="OnMouseExitedUI"]
+[connection signal="pressed" from="Buttons HBoxContainer/Hero List Button" to="." method="HeroButtonOnPressed"]
 [connection signal="button_up" from="Buttons HBoxContainer/Spawn CheckButton" to="." method="SpawnHeroCheckBox" binds= [true]]
 [connection signal="mouse_entered" from="Buttons HBoxContainer/Spawn CheckButton" to="." method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="Buttons HBoxContainer/Spawn CheckButton" to="." method="OnMouseExitedUI"]

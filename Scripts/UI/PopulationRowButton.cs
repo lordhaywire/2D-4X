@@ -11,6 +11,7 @@ namespace PlayerSpace
         [Export] public Label loyaltyAttributeLabel;
         [Export] public Label coolSkillLabel;
         [Export] public Label constructionSkillLabel;
+        [Export] public Label researchSkillLabel;
         [Export] public Label rifleSkillLabel;
         [Export] public Label currentActivityLabel;
         [Export] public Label nextActivityLabel;

@@ -27,10 +27,11 @@ namespace PlayerSpace
         public class Activities
         {
             public const string IDLE = "Idle";
-            public const string SCAVENGING = "Scavenging";
             public const string BUILDING = "Building";
-            public const string MOVING = "Moving";
             public const string COMBAT = "In Combat!";
+            public const string MOVING = "Moving";
+            public const string RESEARCHING = "Researching";
+            public const string SCAVENGING = "Scavenging";
         }
         
         public class BuildingName

@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PlayerSpace
 {
@@ -8,14 +9,19 @@ namespace PlayerSpace
     {
         public static ResearchControl Instance { get; private set; }
 
-        string uIResearchItemButtonPath = "res://UIScenes/UIResearchItemButton.tscn";
+        //string uIResearchItemButtonPath = "res://UIScenes/UIResearchItemButton.tscn";
 
+        [Export] public Label assignedResearchersTitleLabel;
         [Export] public VBoxContainer researchItemParent;
+        [Export] private PackedScene assignedResearchersButton;
+        [Export] private GridContainer assignedResearchersParent;
         //[Export] public PanelContainer researchDescriptionPanel;
 
         public ResearchItemData researchItemData;
 
         public event Action ResearchVisible;
+
+        public List<CountyPopulation> assignedResearchers = [];
 
         private void OnVisibilityChange()
         {
@@ -25,12 +31,46 @@ namespace PlayerSpace
                 PlayerControls.Instance.AdjustPlayerControls(false);
                 Clock.Instance.PauseTime();
                 ResearchVisible?.Invoke();
+                GenerateAssignedResearchers();
+                CheckForResearchers();
             }
             else
             {
                 //DestroyResearchItemButtons();
                 PlayerControls.Instance.AdjustPlayerControls(true);
                 Clock.Instance.UnpauseTime();
+            }
+        }
+
+        public void CheckForResearchers()
+        {
+            if(assignedResearchers.Count == 0)
+            {
+                assignedResearchersTitleLabel.Hide();
+            }
+            else
+            {
+                assignedResearchersTitleLabel.Show();
+            }
+        }
+
+        public void GenerateAssignedResearchers()
+        {
+            ClearResearchers();
+            foreach (CountyPopulation countyPopulation in assignedResearchers)
+            {
+                Button researcherButton = (Button)assignedResearchersButton.Instantiate();
+                researcherButton.Text = $"{countyPopulation.firstName} {countyPopulation.lastName}: " +
+                        $"{countyPopulation.currentResearchItemData.researchName}";
+                assignedResearchersParent.AddChild(researcherButton);
+            }
+        }
+
+        private void ClearResearchers()
+        {
+            foreach(Button researcher in assignedResearchersParent.GetChildren().Cast<Button>())
+            {
+                researcher.QueueFree();
             }
         }
 
@@ -43,7 +83,7 @@ namespace PlayerSpace
 
         public void CloseButton()
         {
-            if(ResearchDescriptionPanel.Instance.Visible == true)
+            if (ResearchDescriptionPanel.Instance.Visible == true)
             {
                 ResearchDescriptionPanel.Instance.Hide();
                 researchItemParent.Show();
@@ -52,13 +92,14 @@ namespace PlayerSpace
             {
                 Hide();
                 PlayerControls.Instance.AdjustPlayerControls(true);
-            }  
+            }
         }
         public override void _Ready()
         {
             Instance = this;
         }
 
+        /*
         private void CreateResearchItemButtons()
         {
             List<ResearchItemData> researchItems = Globals.Instance.playerFactionData.researchItems;
@@ -76,7 +117,8 @@ namespace PlayerSpace
             }
             //GD.Print("Research Parent Count: " + researchItemParent.GetChildCount());
         }
-
+        */
+        /*
         private void DestroyResearchItemButtons()
         {
             foreach (Node researchItem in researchItemParent.GetChildren())
@@ -84,6 +126,6 @@ namespace PlayerSpace
                 researchItem.QueueFree();
             }
         }
-
+        */
     }
 }

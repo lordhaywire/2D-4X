@@ -102,6 +102,7 @@ namespace PlayerSpace
         {
             populationRow.coolSkillLabel.Text = $"{person.coolSkill}";
             populationRow.constructionSkillLabel.Text = $"{person.constructionSkill}";
+            populationRow.researchSkillLabel.Text = $"{person.researchingSkill}";
             populationRow.rifleSkillLabel.Text = $"{person.rifleSkill}";
         }
     }

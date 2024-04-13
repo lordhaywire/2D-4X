@@ -162,12 +162,19 @@ namespace PlayerSpace
         public void UpdateHeroInfo(HeroPanelContainer heroPrefab, CountyPopulation countyPopulation)
         {
             heroPrefab.heroNameLabel.Text = $"{countyPopulation.firstName} {countyPopulation.lastName}";
-            /*
-            GD.Print($"Faction Leader: {countyPopulation.isLeader}");
-            GD.Print($"Aide: {countyPopulation.isAide}");
-            GD.Print($"Army Leader: {countyPopulation.isArmyLeader}");
-            */
-            //countyPopulation.location = countyData.countyId; // I wonder why this is here.  It seems redundant.
+
+            // Check for hero activities
+            heroPrefab.researchCheckbox.ButtonPressed = false;
+            //GD.Print("Researching?" + countyPopulation.currentResearchItemData.researchName);
+            if (countyPopulation.currentResearchItemData != null)
+            {
+                GD.Print("Research CheckBox!?");
+                heroPrefab.researchCheckbox.ButtonPressed = true;
+            }
+            else
+            {
+                GD.Print($"{countyPopulation.firstName} research is null.");
+            }
 
             switch (countyPopulation)
             {

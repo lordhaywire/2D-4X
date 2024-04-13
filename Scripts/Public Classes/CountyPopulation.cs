@@ -48,6 +48,7 @@ namespace PlayerSpace
         [ExportGroup("Skills")]
         public int coolSkill; // I think this might be more of a skill.
         public int constructionSkill;
+        public int researchingSkill;
         public int rifleSkill;
 
         [ExportGroup("Activities")]
@@ -55,6 +56,7 @@ namespace PlayerSpace
         public CountyImprovementData currentImprovement; // What this person is currently building that day.
         public string nextActivity;
         public CountyImprovementData nextImprovement;
+        public ResearchItemData currentResearchItemData;
 
         [ExportGroup("Token")]
         public SelectToken token;
@@ -70,10 +72,11 @@ namespace PlayerSpace
         }
 
         public CountyPopulation(
-            FactionData factionData, int location, int lastLocation, int destination, string firstName, string lastName, bool isMale, int age, bool isHero, bool isLeader
-            , bool isAide, bool IsArmyLeader, bool isWorker, bool leaderOfPeoplePerk, int moraleExpendable,
-            int coolSkill, int loyaltyAttribute, int constructionSkill, int rifleSkill, string currentActivity
-            , CountyImprovementData currentImprovement, string nextActivity, CountyImprovementData nextImprovement)
+            FactionData factionData, int location, int lastLocation, int destination, string firstName, string lastName
+            , bool isMale, int age, bool isHero, bool isLeader, bool isAide, bool IsArmyLeader, bool isWorker
+            , bool leaderOfPeoplePerk, int moraleExpendable, int coolSkill, int loyaltyAttribute, int constructionSkill
+            , int researchingSkill, int rifleSkill, string currentActivity, CountyImprovementData currentImprovement
+            , string nextActivity, CountyImprovementData nextImprovement, ResearchItemData currentResearchItemData)
         {
             this.factionData = factionData;
             this.location = location;
@@ -98,12 +101,14 @@ namespace PlayerSpace
 
             this.coolSkill = coolSkill;
             this.constructionSkill = constructionSkill;
+            this.researchingSkill = researchingSkill;
             this.rifleSkill = rifleSkill;
 
-            this.currentImprovement = currentImprovement;
             this.currentActivity = currentActivity;
-            this.nextImprovement = nextImprovement;
+            this.currentImprovement = currentImprovement;
             this.nextActivity = nextActivity;
+            this.nextImprovement = nextImprovement;
+            this.currentResearchItemData = currentResearchItemData;
         }
     }
 }

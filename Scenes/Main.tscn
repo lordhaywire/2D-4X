@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=73 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scenes/HidderNode.cs" id="1_gbt3x"]
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_x1cy2"]
@@ -62,9 +62,10 @@
 [ext_resource type="PackedScene" uid="uid://bjgv6c8xhn4lo" path="res://UIScenes/Event Log Text Panel.tscn" id="44_du832"]
 [ext_resource type="PackedScene" uid="uid://x41vmtlrl1cx" path="res://UIScenes/CombatLogTextPanel.tscn" id="44_qsgen"]
 [ext_resource type="Theme" uid="uid://b7f66fp0haa2c" path="res://Themes/FullScreenPanelTheme.tres" id="50_5cg3n"]
+[ext_resource type="PackedScene" uid="uid://4t2ve1w4uvww" path="res://UIScenes/AssignedResearcherButton.tscn" id="62_dhpbg"]
 [ext_resource type="PackedScene" uid="uid://dbh44f2eysibn" path="res://UIScenes/UIResearchItemButton.tscn" id="62_nohy5"]
 [ext_resource type="Script" path="res://Scripts/UI/StoryEventControl.cs" id="62_onxgq"]
-[ext_resource type="Resource" uid="uid://ceq8jssovq84m" path="res://Resources/ResearchItems/Researching.tres" id="62_ujbl5"]
+[ext_resource type="Resource" uid="uid://ceq8jssovq84m" path="res://Resources/ResearchItems/Basic Researching.tres" id="62_ujbl5"]
 [ext_resource type="Texture2D" uid="uid://dmeg24s68kkig" path="res://Graphics/Research/uncertainty.svg" id="65_b6pum"]
 [ext_resource type="Script" path="res://Scripts/MapEditorControl.cs" id="65_uqmnr"]
 [ext_resource type="PackedScene" uid="uid://iur3kq10dikl" path="res://Scenes/MapEditor.tscn" id="66_sq6pt"]
@@ -81,6 +82,17 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fieoi"]
+bg_color = Color(0.333333, 0.333333, 0.333333, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
 
 [node name="Root Node" type="Node"]
 
@@ -772,6 +784,13 @@ text = "Construction
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Research Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Research"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Rifle Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -802,7 +821,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "Close"
 
-[node name="Population Description Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("populationName", "leaderTitleButton", "aideTitleButton", "armyLeaderTitleButton", "physicalStrengthLabel", "agilityLabel", "enduranceLabel", "intelligenceLabel", "mentalStrengthLabel", "awarenessLabel", "charismaLabel", "looksLabel", "loyaltyAttributeLabel", "ageLabel", "sexLabel", "firstPerkLabel", "noPerksLabel", "coolSkillLabel", "constructionSkillLabel", "rifleSkillLabel", "currentActivityLabel", "nextActivityTitle", "nextActivityLabel", "aideRecruitButton", "armyLeaderRecruitButton", "heroRecruitmentConfirmPanel")]
+[node name="Population Description Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("populationName", "leaderTitleButton", "aideTitleButton", "armyLeaderTitleButton", "physicalStrengthLabel", "agilityLabel", "enduranceLabel", "intelligenceLabel", "mentalStrengthLabel", "awarenessLabel", "charismaLabel", "looksLabel", "loyaltyAttributeLabel", "ageLabel", "sexLabel", "firstPerkLabel", "noPerksLabel", "coolSkillLabel", "constructionSkillLabel", "researchSkillLabel", "rifleSkillLabel", "currentActivityLabel", "nextActivityTitle", "nextActivityLabel", "aideRecruitButton", "armyLeaderRecruitButton", "heroRecruitmentConfirmPanel")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -831,6 +850,7 @@ firstPerkLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxCo
 noPerksLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Perks HBoxContainer/No Perks Label")
 coolSkillLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Cool Skill Label")
 constructionSkillLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Construction Skill Label")
+researchSkillLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Research Skill Label")
 rifleSkillLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Rifle Skill Label")
 currentActivityLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Current Activity Label")
 nextActivityTitle = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Next Activity Title Label")
@@ -1184,18 +1204,17 @@ text = "Contruction: 10000"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Research Skill Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Research: 666"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Rifle Skill Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Rifle 100"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Skill Label4" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Skill? 100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1513,7 +1532,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "Close"
 
-[node name="Research Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("researchItemParent")]
+[node name="Research Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("assignedResearchersTitleLabel", "researchItemParent", "assignedResearchersParent")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -1524,7 +1543,10 @@ grow_vertical = 2
 mouse_filter = 1
 theme = ExtResource("50_5cg3n")
 script = ExtResource("40_t5amt")
-researchItemParent = NodePath("Research MarginContainer/Research PanelContainer/MarginContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer")
+assignedResearchersTitleLabel = NodePath("Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/Assigned Researchers Title Label")
+researchItemParent = NodePath("Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer")
+assignedResearchersButton = ExtResource("62_dhpbg")
+assignedResearchersParent = NodePath("Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/Assigned Researcher GridContainer")
 
 [node name="Research MarginContainer" type="MarginContainer" parent="Player UI Canvas/Research Control"]
 layout_mode = 1
@@ -1554,28 +1576,45 @@ theme_override_constants/margin_top = 48
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 31
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/ScrollContainer"]
+[node name="Assigned Researchers Title Label" type="Label" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Assigned Researchers"
+
+[node name="Assigned Researcher GridContainer" type="GridContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+columns = 5
+
+[node name="Reseacher Assigned Button" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/Assigned Researcher GridContainer" instance=ExtResource("62_dhpbg")]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer"]
 layout_mode = 2
 theme_override_constants/separation = 25
 
-[node name="Tier 1 Research Items VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/ScrollContainer/HBoxContainer"]
+[node name="Tier 1 Research Items VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 alignment = 1
 
-[node name="Basic Production Research Item" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer" instance=ExtResource("62_nohy5")]
+[node name="Basic Production Research Item" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer" instance=ExtResource("62_nohy5")]
 layout_mode = 2
 researchItemData = ExtResource("22_ugyvd")
 
-[node name="Research Item" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer" instance=ExtResource("62_nohy5")]
+[node name="Research Item" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer" instance=ExtResource("62_nohy5")]
 layout_mode = 2
 researchItemData = ExtResource("62_ujbl5")
 
-[node name="Tier 2 Research Items VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/ScrollContainer/HBoxContainer"]
+[node name="Tier 2 Research Items VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -1686,7 +1725,9 @@ size_flags_horizontal = 4
 [node name="Assign Research MenuButton" type="MenuButton" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_fieoi")
 text = "Assign Researcher"
+flat = false
 
 [node name="Close Button" type="Button" parent="Player UI Canvas/Research Description PanelContainer"]
 layout_mode = 2

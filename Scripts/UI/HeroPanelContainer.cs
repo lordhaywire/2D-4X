@@ -13,7 +13,7 @@ namespace PlayerSpace
         [Export] public Button heroListButton;
         [Export] public CheckButton spawnHeroButton;
         [Export] public CheckBox researchCheckbox;
-        private void HeroButton()
+        private void HeroButtonOnPressed()
         {
             PopulationDescriptionControl.Instance.countyPopulation = countyPopulation;
             CountyInfoControl.Instance.populationDescriptionControl.Show();
@@ -30,7 +30,7 @@ namespace PlayerSpace
             if (toggleOn == true && countyPopulation.token == null)
             {
                 // Assign to Currently Selected Hero so it is ready to be moved.
-                Globals.Instance.SelectedCountyPopulation 
+                Globals.Instance.SelectedCountyPopulation
                 = Globals.Instance.playerFactionData.tokenSpawner.Spawn(Globals.Instance.selectedLeftClickCounty, countyPopulation);
                 GD.Print("Spawn Hero Check Box " + Globals.Instance.SelectedCountyPopulation.firstName);
             }
@@ -38,7 +38,7 @@ namespace PlayerSpace
 
         private void ResearchCheckBoxToggled(bool toggled)
         {
-            GD.Print("Research Checkbox Toggled.");
+            GD.Print("Research Checkbox Toggled: " + toggled);
         }
         // This needs to be on this script because this is also instantiated.
         public void OnMouseEnteredUI()
