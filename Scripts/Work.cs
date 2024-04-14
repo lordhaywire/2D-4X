@@ -41,7 +41,6 @@ namespace PlayerSpace
             CheckWorkComplete();
         }
 
-
         public void CountIdleWorkers(CountyData countyData)
         {
             // I don't think this is very efficient.

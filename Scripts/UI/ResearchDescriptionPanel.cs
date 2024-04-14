@@ -12,8 +12,9 @@ namespace PlayerSpace
         [Export] private Label researchName;
         [Export] private TextureRect researchTextureRect;
         [Export] private Label researchDescription;
-        [Export] private Label amountOfResearchDoneLabel;
+        [Export] private ProgressBar researchProgressBar;
         [Export] private Label costOfResearchLabel;
+        
         [Export] private HBoxContainer countyImprovementsInResearchParent;
         [Export] private PackedScene countyImprovementResearchPackedScene;
         [Export] private MenuButton assignResearcherMenuButton;
@@ -29,12 +30,15 @@ namespace PlayerSpace
         {
             GD.Print("Assigned Researcher ID: " + id);
             GD.Print($"Ass Researcher: {assignableResearchers[(int)id].firstName} {assignableResearchers[(int)id].lastName}");
-            assignableResearchers[(int)id].currentResearchItemData = researchItemData;
-            assignableResearchers[(int)id].currentActivity = AllText.Activities.RESEARCHING;
             ResearchControl.Instance.assignedResearchers.Add(assignableResearchers[(int)id]);
+            assignableResearchers[(int)id].CurrentResearchItemData = researchItemData;
+            assignableResearchers[(int)id].nextActivity = AllText.Activities.RESEARCHING;
+            GD.Print("Assigned Researcher in Select Reseacher Count: " + ResearchControl.Instance.assignedResearchers.Count);
             ResearchControl.Instance.GenerateAssignedResearchers();
-            ResearchControl.Instance.CheckForResearchers();
+            if(CountyInfoControl.Instance.Visible == true)
+            {
             CountyInfoControl.Instance.GenerateHeroesPanelList();
+            }
             EventLog.Instance.AddLog($"{assignableResearchers[(int)id].firstName} {assignableResearchers[(int)id].lastName}" +
                 $" is now researching {researchItemData.researchName}");
             AssignResearcherMenuButton(); // This clears the list.
@@ -54,10 +58,10 @@ namespace PlayerSpace
             {
                 foreach (CountyPopulation countyPopulation in countyData.herosInCountyList)
                 {
-                    if (countyPopulation.currentResearchItemData == null)
+                    if (countyPopulation.CurrentResearchItemData == null)
                     {
                         assignResearcherMenuButton.GetPopup().AddItem($"{countyPopulation.firstName} " +
-                            $"{countyPopulation.lastName}: {countyPopulation.currentActivity}");
+                            $"{countyPopulation.lastName}: {countyPopulation.nextActivity}");
                         assignableResearchers.Add(countyPopulation);
                     }
                 }
@@ -70,7 +74,6 @@ namespace PlayerSpace
             {
                 assignResearcherMenuButton.Show();
             }
-
         }
 
         private void OnVisibilityChanged()
@@ -104,8 +107,9 @@ namespace PlayerSpace
             researchName.Text = researchItemData.researchName;
             researchTextureRect.Texture = researchItemData.researchTexture;
             researchDescription.Text = researchItemData.researchDescription;
-            amountOfResearchDoneLabel.Text = researchItemData.AmountOfResearchDone.ToString();
             costOfResearchLabel.Text = researchItemData.costOfResearch.ToString();
+            researchProgressBar.MaxValue = researchItemData.costOfResearch;
+            researchProgressBar.Value = researchItemData.AmountOfResearchDone;
         }
 
         private void RemoveCountyImprovements()

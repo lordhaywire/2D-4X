@@ -15,7 +15,6 @@ namespace PlayerSpace
         [Export] public VBoxContainer researchItemParent;
         [Export] private PackedScene assignedResearchersButton;
         [Export] private GridContainer assignedResearchersParent;
-        //[Export] public PanelContainer researchDescriptionPanel;
 
         public ResearchItemData researchItemData;
 
@@ -44,6 +43,7 @@ namespace PlayerSpace
 
         public void CheckForResearchers()
         {
+            //GD.PrintRich($"[rainbow]Assigned Researchers Count: " + assignedResearchers.Count);
             if(assignedResearchers.Count == 0)
             {
                 assignedResearchersTitleLabel.Hide();
@@ -59,16 +59,18 @@ namespace PlayerSpace
             ClearResearchers();
             foreach (CountyPopulation countyPopulation in assignedResearchers)
             {
-                Button researcherButton = (Button)assignedResearchersButton.Instantiate();
-                researcherButton.Text = $"{countyPopulation.firstName} {countyPopulation.lastName}: " +
-                        $"{countyPopulation.currentResearchItemData.researchName}";
+                AssignedResearcherHboxContainer researcherButton = (AssignedResearcherHboxContainer)assignedResearchersButton.Instantiate();
+                researcherButton.assignedResearcherButton.Text 
+                    = $"{countyPopulation.firstName} {countyPopulation.lastName}: {countyPopulation.CurrentResearchItemData.researchName}";
+                researcherButton.countyPopulation = countyPopulation;
                 assignedResearchersParent.AddChild(researcherButton);
             }
         }
 
         private void ClearResearchers()
         {
-            foreach(Button researcher in assignedResearchersParent.GetChildren().Cast<Button>())
+            foreach(AssignedResearcherHboxContainer researcher in 
+                assignedResearchersParent.GetChildren().Cast<AssignedResearcherHboxContainer>())
             {
                 researcher.QueueFree();
             }

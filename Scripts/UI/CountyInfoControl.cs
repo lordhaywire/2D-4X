@@ -109,6 +109,7 @@ namespace PlayerSpace
             GenerateHeroes(countyData.armiesInCountyList);
             GenerateHeroes(countyData.visitingHeroList);
             GenerateHeroes(countyData.visitingArmyList);
+
         }
 
         private void ClearHeroList()
@@ -166,7 +167,7 @@ namespace PlayerSpace
             // Check for hero activities
             heroPrefab.researchCheckbox.ButtonPressed = false;
             //GD.Print("Researching?" + countyPopulation.currentResearchItemData.researchName);
-            if (countyPopulation.currentResearchItemData != null)
+            if (countyPopulation.CurrentResearchItemData != null)
             {
                 GD.Print("Research CheckBox!?");
                 heroPrefab.researchCheckbox.ButtonPressed = true;

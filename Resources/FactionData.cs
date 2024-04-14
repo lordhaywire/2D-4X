@@ -92,5 +92,7 @@ namespace PlayerSpace
 
         [ExportGroup("Diplomatic Matrix")]
         [Export] public Godot.Collections.Dictionary<string, bool> factionWarDictionary = [];
+
+
     }
 }

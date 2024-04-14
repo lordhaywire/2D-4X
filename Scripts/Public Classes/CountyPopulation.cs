@@ -56,7 +56,29 @@ namespace PlayerSpace
         public CountyImprovementData currentImprovement; // What this person is currently building that day.
         public string nextActivity;
         public CountyImprovementData nextImprovement;
-        public ResearchItemData currentResearchItemData;
+        private ResearchItemData currentResearchItemData;
+
+        public ResearchItemData CurrentResearchItemData
+        {
+            get { return currentResearchItemData; }
+            set
+            {
+                currentResearchItemData = value;
+                if (currentResearchItemData == null)
+                {
+                    nextActivity = AllText.Activities.IDLE;
+                    if (CountyInfoControl.Instance?.Visible == true)
+                    {
+                        CountyInfoControl.Instance.GenerateHeroesPanelList();
+                    }
+                }
+                if (ResearchControl.Instance?.Visible == true)
+                {
+                    //GD.Print("It got to the Visiblity Check on Current Research Item Data.");
+                    ResearchControl.Instance.CheckForResearchers();
+                }
+            }
+        }
 
         [ExportGroup("Token")]
         public SelectToken token;
@@ -76,7 +98,7 @@ namespace PlayerSpace
             , bool isMale, int age, bool isHero, bool isLeader, bool isAide, bool IsArmyLeader, bool isWorker
             , bool leaderOfPeoplePerk, int moraleExpendable, int coolSkill, int loyaltyAttribute, int constructionSkill
             , int researchingSkill, int rifleSkill, string currentActivity, CountyImprovementData currentImprovement
-            , string nextActivity, CountyImprovementData nextImprovement, ResearchItemData currentResearchItemData)
+            , string nextActivity, CountyImprovementData nextImprovement, ResearchItemData CurrentResearchItemData)
         {
             this.factionData = factionData;
             this.location = location;
@@ -108,7 +130,7 @@ namespace PlayerSpace
             this.currentImprovement = currentImprovement;
             this.nextActivity = nextActivity;
             this.nextImprovement = nextImprovement;
-            this.currentResearchItemData = currentResearchItemData;
+            this.CurrentResearchItemData = CurrentResearchItemData;
         }
     }
 }

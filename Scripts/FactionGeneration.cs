@@ -82,8 +82,7 @@ namespace PlayerSpace
                     // for the player factions.
                     researchItemData.AmountOfResearchDone = researchItemData.costOfResearch;
                 }
-
-                factionData.researchItems.Add(researchItemData);
+                factionData.researchItems.Add((ResearchItemData)researchItemData.Duplicate());
             }
 
             /*

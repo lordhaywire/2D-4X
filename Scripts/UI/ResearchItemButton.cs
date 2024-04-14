@@ -6,6 +6,7 @@ namespace PlayerSpace
     {
         [Export] private ResearchItemData researchItemData;
         [Export] private Button researchButton;
+        [Export] private ProgressBar researchProgressBar;
         [Export] private CheckBox researchCheckBox;
 
         public override void _Ready()
@@ -16,7 +17,7 @@ namespace PlayerSpace
 
         private void SubscribeToResearchEvent()
         {
-            ResearchControl.Instance.ResearchVisible += UpdateIfResearched;
+            ResearchControl.Instance.ResearchVisible += CheckIfResearchIsDone;
         }
 
         private void InitialResearchInfoUpdate()
@@ -25,15 +26,19 @@ namespace PlayerSpace
             researchButton.Icon = researchItemData.researchTexture;
         }
 
+        /*
         private void UpdateIfResearched()
         {
             GD.Print("Research Panel has opened and this item has updated: " + researchItemData.researchName);
             CheckIfResearchIsDone();
         }
+        */
 
         private void CheckIfResearchIsDone()
         {
-            researchCheckBox.ButtonPressed = researchItemData.isResearchDone;
+            //researchCheckBox.ButtonPressed = researchItemData.isResearchDone;
+            researchProgressBar.MaxValue = researchItemData.costOfResearch;
+            researchProgressBar.Value = researchItemData.AmountOfResearchDone;
         }
         private void OnButtonPressed()
         {

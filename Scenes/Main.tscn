@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=74 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scenes/HidderNode.cs" id="1_gbt3x"]
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_x1cy2"]
@@ -48,6 +48,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/RecruitHeroConfirmationPanelContainer.cs" id="34_mgqam"]
 [ext_resource type="Script" path="res://Scripts/UI/BattleLogControl.cs" id="35_10y8n"]
 [ext_resource type="Script" path="res://Scripts/UI/TopBarControl.cs" id="35_ecv6a"]
+[ext_resource type="Script" path="res://Scripts/Research.cs" id="35_mhu6t"]
 [ext_resource type="Texture2D" uid="uid://ddb0p4x0erycl" path="res://Graphics/Icons/Top Bar/Influence.png" id="36_fqvec"]
 [ext_resource type="Texture2D" uid="uid://tqexbc3d8yy8" path="res://Graphics/Icons/Top Bar/Money.png" id="37_16y4w"]
 [ext_resource type="Script" path="res://Scripts/CountyImprovementsControl.cs" id="37_rkirm"]
@@ -62,7 +63,7 @@
 [ext_resource type="PackedScene" uid="uid://bjgv6c8xhn4lo" path="res://UIScenes/Event Log Text Panel.tscn" id="44_du832"]
 [ext_resource type="PackedScene" uid="uid://x41vmtlrl1cx" path="res://UIScenes/CombatLogTextPanel.tscn" id="44_qsgen"]
 [ext_resource type="Theme" uid="uid://b7f66fp0haa2c" path="res://Themes/FullScreenPanelTheme.tres" id="50_5cg3n"]
-[ext_resource type="PackedScene" uid="uid://4t2ve1w4uvww" path="res://UIScenes/AssignedResearcherButton.tscn" id="62_dhpbg"]
+[ext_resource type="PackedScene" uid="uid://4t2ve1w4uvww" path="res://UIScenes/AssignedResearcherHBoxContainer.tscn" id="62_dhpbg"]
 [ext_resource type="PackedScene" uid="uid://dbh44f2eysibn" path="res://UIScenes/UIResearchItemButton.tscn" id="62_nohy5"]
 [ext_resource type="Script" path="res://Scripts/UI/StoryEventControl.cs" id="62_onxgq"]
 [ext_resource type="Resource" uid="uid://ceq8jssovq84m" path="res://Resources/ResearchItems/Basic Researching.tres" id="62_ujbl5"]
@@ -199,6 +200,9 @@ script = ExtResource("21_nr3na")
 
 [node name="Work" type="Node" parent="Game Controller Node"]
 script = ExtResource("22_ioynj")
+
+[node name="Research" type="Node" parent="Game Controller Node"]
+script = ExtResource("35_mhu6t")
 
 [node name="Banker" type="Node" parent="Game Controller Node"]
 script = ExtResource("23_lb4or")
@@ -1589,9 +1593,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 columns = 5
 
-[node name="Reseacher Assigned Button" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/Assigned Researcher GridContainer" instance=ExtResource("62_dhpbg")]
-layout_mode = 2
-
 [node name="ScrollContainer" type="ScrollContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -1636,7 +1637,7 @@ scale = Vector2(1, 1.03698)
 size_flags_vertical = 8
 text = "Close"
 
-[node name="Research Description PanelContainer" type="PanelContainer" parent="Player UI Canvas" node_paths=PackedStringArray("researchName", "researchTextureRect", "researchDescription", "amountOfResearchDoneLabel", "costOfResearchLabel", "countyImprovementsInResearchParent", "assignResearcherMenuButton")]
+[node name="Research Description PanelContainer" type="PanelContainer" parent="Player UI Canvas" node_paths=PackedStringArray("researchName", "researchTextureRect", "researchDescription", "researchProgressBar", "costOfResearchLabel", "countyImprovementsInResearchParent", "assignResearcherMenuButton")]
 visible = false
 self_modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
@@ -1649,8 +1650,8 @@ script = ExtResource("41_77kvj")
 researchName = NodePath("MarginContainer/Research Panel/VBoxContainer/Research Name")
 researchTextureRect = NodePath("MarginContainer/Research Panel/VBoxContainer/Research TextureRect")
 researchDescription = NodePath("MarginContainer/Research Panel/VBoxContainer/Research Description Label")
-amountOfResearchDoneLabel = NodePath("MarginContainer/Research Panel/VBoxContainer/HBoxContainer/Amount of Research Done Label")
-costOfResearchLabel = NodePath("MarginContainer/Research Panel/VBoxContainer/HBoxContainer/Total Cost of Research Label")
+researchProgressBar = NodePath("MarginContainer/Research Panel/VBoxContainer/Research ProgressBar")
+costOfResearchLabel = NodePath("MarginContainer/Research Panel/VBoxContainer/Total Cost of Research Label")
 countyImprovementsInResearchParent = NodePath("MarginContainer/Research Panel/VBoxContainer/County Improvement In Research Parent HBoxContainer")
 countyImprovementResearchPackedScene = ExtResource("38_cyd52")
 assignResearcherMenuButton = NodePath("MarginContainer/Research Panel/VBoxContainer/Assign Research MenuButton")
@@ -1663,7 +1664,7 @@ layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel"]
 layout_mode = 2
-theme_override_constants/separation = 25
+theme_override_constants/separation = 15
 
 [node name="Research Name" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
 layout_mode = 2
@@ -1681,36 +1682,31 @@ texture = ExtResource("65_b6pum")
 expand_mode = 1
 
 [node name="Research Description Label" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
-custom_minimum_size = Vector2(500, 200)
+custom_minimum_size = Vector2(800, 150)
 layout_mode = 2
+size_flags_horizontal = 4
 text = "This is the description"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="Cost Label" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
+[node name="Cost Title Label" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
 layout_mode = 2
-text = "Cost
+text = "Research Cost
 "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
-layout_mode = 2
-
-[node name="Amount of Research Done Label" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "0"
-horizontal_alignment = 2
-
-[node name="Slash Label" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "/"
-
-[node name="Total Cost of Research Label" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer/HBoxContainer"]
+[node name="Total Cost of Research Label" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "999"
+horizontal_alignment = 1
+
+[node name="Research ProgressBar" type="ProgressBar" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
+custom_minimum_size = Vector2(400, 27)
+layout_mode = 2
+size_flags_horizontal = 4
+value = 50.0
 
 [node name="County Improvement Title Label" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
 layout_mode = 2

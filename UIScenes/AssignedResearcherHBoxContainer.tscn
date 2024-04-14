@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://4t2ve1w4uvww"]
+
+[ext_resource type="Script" path="res://Scripts/UI/AssignedResearcherHboxContainer.cs" id="1_upg5b"]
+
+[node name="Assigned Researcher HBoxContainer" type="HBoxContainer" node_paths=PackedStringArray("assignedResearcherButton", "assignedResearcherCheckbox")]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_upg5b")
+assignedResearcherButton = NodePath("Reseacher Assigned Button")
+assignedResearcherCheckbox = NodePath("Researcher Assigned CheckBox")
+
+[node name="Reseacher Assigned Button" type="Button" parent="."]
+layout_mode = 2
+text = "John Smith: Weapon Shop"
+
+[node name="Researcher Assigned CheckBox" type="CheckBox" parent="."]
+layout_mode = 2
+button_pressed = true
+
+[connection signal="pressed" from="Reseacher Assigned Button" to="." method="AssignedResearcherButton"]
+[connection signal="toggled" from="Researcher Assigned CheckBox" to="." method="RemoveResearcherCheckBoxToggled"]

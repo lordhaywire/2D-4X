@@ -39,7 +39,12 @@ namespace PlayerSpace
         private void ResearchCheckBoxToggled(bool toggled)
         {
             GD.Print("Research Checkbox Toggled: " + toggled);
+            if (toggled == false)
+            {
+                Research.Instance.RemoveResearcher(countyPopulation);  
+            }
         }
+
         // This needs to be on this script because this is also instantiated.
         public void OnMouseEnteredUI()
         {

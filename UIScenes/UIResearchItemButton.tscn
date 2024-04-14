@@ -3,24 +3,33 @@
 [ext_resource type="Script" path="res://Scripts/UI/ResearchItemButton.cs" id="1_6bpef"]
 [ext_resource type="Texture2D" uid="uid://dmeg24s68kkig" path="res://Graphics/Research/uncertainty.svg" id="2_uk2ix"]
 
-[node name="Research Item" type="PanelContainer" node_paths=PackedStringArray("researchButton", "researchCheckBox")]
+[node name="Research Item" type="PanelContainer" node_paths=PackedStringArray("researchButton", "researchProgressBar", "researchCheckBox")]
 custom_minimum_size = Vector2(400, 200)
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_6bpef")
-researchButton = NodePath("Button")
+researchButton = NodePath("VBoxContainer/Button")
+researchProgressBar = NodePath("VBoxContainer/ProgressBar")
 researchCheckBox = NodePath("CheckBox")
 
-[node name="Button" type="Button" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 text = "Test Research Item"
 icon = ExtResource("2_uk2ix")
 icon_alignment = 2
 expand_icon = true
 
 [node name="CheckBox" type="CheckBox" parent="."]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 disabled = true
 
-[connection signal="pressed" from="Button" to="." method="OnButtonPressed"]
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="OnButtonPressed"]

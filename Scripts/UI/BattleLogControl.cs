@@ -64,13 +64,6 @@ namespace PlayerSpace
                 int lastDefenderChild = defenderVboxContainer.GetChildCount() - 1;
                 defenderVboxContainer.GetChild(lastDefenderChild).Free();
             }
-
-            UpdateBattleTitle();
-        }
-
-        private void UpdateBattleTitle()
-        {
-            
         }
 
         private void CloseButton()
