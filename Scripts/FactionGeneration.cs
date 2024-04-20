@@ -63,6 +63,7 @@ namespace PlayerSpace
                 GD.Print("You are so fucked.  This directory doesn't exist: " + factionDataPath);
             }
         }
+
         private void CreateFactionNode(FactionData newFactionData)
         {
             FactionNode factionNode = (FactionNode)factionNodePackedScene.Instantiate();

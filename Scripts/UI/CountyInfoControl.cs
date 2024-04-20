@@ -165,7 +165,10 @@ namespace PlayerSpace
             heroPrefab.heroNameLabel.Text = $"{countyPopulation.firstName} {countyPopulation.lastName}";
 
             // Check for hero activities
-            heroPrefab.researchCheckbox.ButtonPressed = false;
+            if (heroPrefab.researchCheckbox != null)
+            {
+                heroPrefab.researchCheckbox.ButtonPressed = false;
+            }
             //GD.Print("Researching?" + countyPopulation.currentResearchItemData.researchName);
             if (countyPopulation.CurrentResearchItemData != null)
             {

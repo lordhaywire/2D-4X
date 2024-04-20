@@ -24,6 +24,7 @@ namespace PlayerSpace
         public List<CountyPopulation> allHeroesList = [];
         public CountyPopulation factionLeader;
 
+        public SkillHandling skillHandling = new();
         public Diplomacy diplomacy = new();
         public TokenSpawner tokenSpawner = new();
 
@@ -92,7 +93,5 @@ namespace PlayerSpace
 
         [ExportGroup("Diplomatic Matrix")]
         [Export] public Godot.Collections.Dictionary<string, bool> factionWarDictionary = [];
-
-
     }
 }

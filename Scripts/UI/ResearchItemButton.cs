@@ -4,7 +4,7 @@ namespace PlayerSpace
 {
     public partial class ResearchItemButton : PanelContainer
     {
-        [Export] private ResearchItemData researchItemData;
+        [Export] public ResearchItemData researchItemData;
         [Export] private Button researchButton;
         [Export] private ProgressBar researchProgressBar;
         [Export] private CheckBox researchCheckBox;
@@ -36,7 +36,6 @@ namespace PlayerSpace
 
         private void CheckIfResearchIsDone()
         {
-            //researchCheckBox.ButtonPressed = researchItemData.isResearchDone;
             researchProgressBar.MaxValue = researchItemData.costOfResearch;
             researchProgressBar.Value = researchItemData.AmountOfResearchDone;
         }
@@ -44,7 +43,7 @@ namespace PlayerSpace
         {
             ResearchDescriptionPanel.Instance.researchItemData = researchItemData;
             ResearchDescriptionPanel.Instance.Show();
-            ResearchControl.Instance.researchItemParent.Hide();
+            //ResearchControl.Instance.researchItemParent.Hide();
         }
     }
 }

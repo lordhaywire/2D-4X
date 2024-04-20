@@ -29,11 +29,12 @@ namespace PlayerSpace
             if (Visible == true)
             {
                 Clock.Instance.PauseandUnpause();
+                PlayerControls.Instance.AdjustPlayerControls(false);
                 UpdateEventInfo();
-
             }
             else
             {
+                PlayerControls.Instance.AdjustPlayerControls(true);
                 Clock.Instance.PauseandUnpause();
             }
         }

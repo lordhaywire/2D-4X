@@ -9,7 +9,7 @@ namespace PlayerSpace
     {
         public static ResearchControl Instance { get; private set; }
 
-        //string uIResearchItemButtonPath = "res://UIScenes/UIResearchItemButton.tscn";
+        [Export] PackedScene uIResearchItemButton;
 
         [Export] public Label assignedResearchersTitleLabel;
         [Export] public VBoxContainer researchItemParent;
@@ -88,7 +88,6 @@ namespace PlayerSpace
             if (ResearchDescriptionPanel.Instance.Visible == true)
             {
                 ResearchDescriptionPanel.Instance.Hide();
-                researchItemParent.Show();
             }
             else
             {
@@ -99,6 +98,17 @@ namespace PlayerSpace
         public override void _Ready()
         {
             Instance = this;
+            AddPlayerResearchToUI();
+        }
+
+        private void AddPlayerResearchToUI()
+        {
+            for (int i = 0; i < researchItemParent.GetChildCount(); i++)
+            {
+                ResearchItemButton researchItemButton = (ResearchItemButton)researchItemParent.GetChild(i);
+                researchItemButton.researchItemData = Globals.Instance.playerFactionData.researchItems[i];
+                GD.Print("Research assigned: " + researchItemButton.researchItemData.researchName);
+            }
         }
 
         /*
@@ -107,8 +117,7 @@ namespace PlayerSpace
             List<ResearchItemData> researchItems = Globals.Instance.playerFactionData.researchItems;
             for (int i = 0; i < researchItems.Count; i++)
             {
-                PackedScene researchItemScene = (PackedScene)GD.Load(uIResearchItemButtonPath);
-                PanelContainer researchItem = (PanelContainer)researchItemScene.Instantiate();
+                PanelContainer researchItem = (PanelContainer)uIResearchItemButton.Instantiate();
                 researchItem.Name = i.ToString();
                 researchItemParent.AddChild(researchItem);
                 researchItem.GetNode<Button>("Button").Text = researchItems[i].researchName;
@@ -117,7 +126,7 @@ namespace PlayerSpace
                     researchItem.GetNode<CheckBox>("CheckBox").ButtonPressed = true;
                 }
             }
-            //GD.Print("Research Parent Count: " + researchItemParent.GetChildCount());
+            GD.Print("Research Parent Count: " + researchItemParent.GetChildCount());
         }
         */
         /*
@@ -129,5 +138,6 @@ namespace PlayerSpace
             }
         }
         */
+        
     }
 }

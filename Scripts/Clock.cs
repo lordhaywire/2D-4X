@@ -10,6 +10,7 @@ namespace PlayerSpace
         public event Action FirstRun;
         public event Action HourZero;
         public event Action WorkDayOver;
+        public event Action BeforeBed;
         public event Action HourChanged;
         
         [Export] private Label dayLabel;
@@ -34,7 +35,7 @@ namespace PlayerSpace
             set
             {
                 numberOfThingsPausing = value;
-                GD.PrintRich("[rainbow]Number of panels visible: " + numberOfThingsPausing);
+                //GD.PrintRich("[rainbow]Number of panels visible: " + numberOfThingsPausing);
                 /* This probably isn't needed anymore because we changed the event log to never go away.
                 if (numberOfThingsPausing > 0 && EventLog.Instance != null)
                 {
@@ -81,6 +82,8 @@ namespace PlayerSpace
                 if (days == 0 && hours == 1)
                 {
                     //GD.Print("It is 1 am on day zero.");
+                    // The problem with this happening at 1 am on the first day is the player has to wait for a tick to happen
+                    // before the computer does anything.
                     FirstRun?.Invoke();
 
                 }
@@ -96,7 +99,24 @@ namespace PlayerSpace
                     //GD.Print("Workday is over!");
                     WorkDayOver?.Invoke();
                 }
+                if(hours == 22)
+                {
+                    BeforeBed?.Invoke();
+                    ResearchTest();
+                }
                 HourChanged?.Invoke();
+                GD.Print("Hour Changed.");
+            }
+        }
+
+        private void ResearchTest()
+        {
+            foreach(FactionData factionData in Globals.Instance.factionDatas)
+            {
+                foreach(ResearchItemData researchItemData in factionData.researchItems)
+                {
+                    GD.Print($"{factionData.factionName} {researchItemData.researchName}: {researchItemData.AmountOfResearchDone}");
+                }
             }
         }
 

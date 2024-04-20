@@ -14,7 +14,7 @@ namespace PlayerSpace
         [Export] private Label researchDescription;
         [Export] private ProgressBar researchProgressBar;
         [Export] private Label costOfResearchLabel;
-        
+
         [Export] private HBoxContainer countyImprovementsInResearchParent;
         [Export] private PackedScene countyImprovementResearchPackedScene;
         [Export] private MenuButton assignResearcherMenuButton;
@@ -32,12 +32,12 @@ namespace PlayerSpace
             GD.Print($"Ass Researcher: {assignableResearchers[(int)id].firstName} {assignableResearchers[(int)id].lastName}");
             ResearchControl.Instance.assignedResearchers.Add(assignableResearchers[(int)id]);
             assignableResearchers[(int)id].CurrentResearchItemData = researchItemData;
-            assignableResearchers[(int)id].nextActivity = AllText.Activities.RESEARCHING;
+            //assignableResearchers[(int)id].nextActivity = AllText.Activities.RESEARCHING;
             GD.Print("Assigned Researcher in Select Reseacher Count: " + ResearchControl.Instance.assignedResearchers.Count);
             ResearchControl.Instance.GenerateAssignedResearchers();
-            if(CountyInfoControl.Instance.Visible == true)
+            if (CountyInfoControl.Instance.Visible == true)
             {
-            CountyInfoControl.Instance.GenerateHeroesPanelList();
+                CountyInfoControl.Instance.GenerateHeroesPanelList();
             }
             EventLog.Instance.AddLog($"{assignableResearchers[(int)id].firstName} {assignableResearchers[(int)id].lastName}" +
                 $" is now researching {researchItemData.researchName}");
@@ -107,7 +107,7 @@ namespace PlayerSpace
             researchName.Text = researchItemData.researchName;
             researchTextureRect.Texture = researchItemData.researchTexture;
             researchDescription.Text = researchItemData.researchDescription;
-            costOfResearchLabel.Text = researchItemData.costOfResearch.ToString();
+            costOfResearchLabel.Text = $"{researchItemData.AmountOfResearchDone} / {researchItemData.costOfResearch}";
             researchProgressBar.MaxValue = researchItemData.costOfResearch;
             researchProgressBar.Value = researchItemData.AmountOfResearchDone;
         }

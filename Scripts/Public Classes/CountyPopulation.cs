@@ -72,6 +72,10 @@ namespace PlayerSpace
                         CountyInfoControl.Instance.GenerateHeroesPanelList();
                     }
                 }
+                else
+                {
+                    nextActivity = AllText.Activities.RESEARCHING;
+                }
                 if (ResearchControl.Instance?.Visible == true)
                 {
                     //GD.Print("It got to the Visiblity Check on Current Research Item Data.");

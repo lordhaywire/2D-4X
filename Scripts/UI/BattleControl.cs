@@ -193,16 +193,12 @@ namespace PlayerSpace
         // This is confusing.  Needs a fucking rewrite.
         private void Attack(CountyPopulation gettingShotAtCountyPopulation, CountyPopulation shootingCountyPopulation, bool isAttacker)
         {
-            int attackRoll = random.Next(1, 101);
-            BattleLogControl.Instance.AddLog($"{shootingCountyPopulation.firstName} {shootingCountyPopulation.lastName} " +
-                $"attack roll: {attackRoll} vs rifle skill: {shootingCountyPopulation.rifleSkill}", isAttacker);
-
-            if (shootingCountyPopulation.rifleSkill > attackRoll)
+            if (shootingCountyPopulation.factionData.skillHandling.Check(shootingCountyPopulation.rifleSkill) == true)
             {
-                BattleLogControl.Instance.AddLog($"{shootingCountyPopulation.firstName} {shootingCountyPopulation.lastName} has hit!", isAttacker);
-                //GD.Print($"{attackerCountyPopulation.firstName} {attackerCountyPopulation.lastName} has hit!");
-                int coolRoll = random.Next(1, 101);
-                if (coolRoll > gettingShotAtCountyPopulation.coolSkill)
+                BattleLogControl.Instance.AddLog
+                    ($"{shootingCountyPopulation.firstName} {shootingCountyPopulation.lastName} has hit!", isAttacker);
+                if (gettingShotAtCountyPopulation.factionData.skillHandling
+                    .Check(gettingShotAtCountyPopulation.coolSkill) == false)
                 {
                     int moraleDamage = random.Next(Globals.Instance.moraleDamageMin, Globals.Instance.moraleDamageMax);
                     gettingShotAtCountyPopulation.moraleExpendable
@@ -210,6 +206,11 @@ namespace PlayerSpace
                     BattleLogControl.Instance.AddLog($"{gettingShotAtCountyPopulation.firstName} " +
                         $"{gettingShotAtCountyPopulation.lastName} has failed their cool roll!  " +
                         $"They have lost {moraleDamage} morale.", !isAttacker);
+                }
+                else
+                {
+                    BattleLogControl.Instance.AddLog($"{gettingShotAtCountyPopulation.firstName} " +
+                        $"{gettingShotAtCountyPopulation.lastName} isn't scared!", !isAttacker);
                 }
                 attackerMoraleLabel.Text = countyAttackerSelectToken.countyPopulation.moraleExpendable.ToString();
                 defenderMoraleLabel.Text = countyDefendersSelectToken.countyPopulation.moraleExpendable.ToString();
