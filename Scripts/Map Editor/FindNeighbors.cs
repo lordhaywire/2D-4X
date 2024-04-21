@@ -12,28 +12,28 @@ namespace MapEditorSpace
 
         private List<Sprite2D> countySprites = [];
 
-        public override void _Ready()
+        public async override void _Ready()
         {
             Instance = this;
-            //FindCountyNeighbors();
+            await FindCountyNeighbors();
         }
         public async Task FindCountyNeighbors()
         {
-            //ulong startTime = Time.GetTicksUsec();
+            ulong startTime = Time.GetTicksUsec();
             // Add all the sprites to a list.
-            if (MapEditorGlobals.Instance.countiesParent.GetChildren().Count > 0)
+            if (Globals.Instance.countiesParent.GetChildren().Count > 0)
             {
-                LogControl.Instance.UpdateLabel("Starting to find county neighbors.");
-                foreach (County county in MapEditorGlobals.Instance.countiesParent.GetChildren().Cast<County>())
+                //LogControl.Instance.UpdateLabel("Starting to find county neighbors.");
+                foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
                 {
                     Sprite2D sprite2D = county.countySprite;
                     countySprites.Add(sprite2D);
                 }
 
                 // Go through each county and find its neighbors and add them to its neighbors list.
-                foreach (County county in MapEditorGlobals.Instance.countiesParent.GetChildren().Cast<County>())
+                foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
                 {
-                    await RootNode.Instance.WaitFrames(1);
+                    await Globals.Instance.WaitFrames(1);
                     Sprite2D countySprite = county.countySprite;
                     foreach (Sprite2D sprite in countySprites)
                     {
@@ -46,7 +46,7 @@ namespace MapEditorSpace
 
                             if (overlapRect.Area > 0)
                             {
-                                LogControl.Instance.UpdateLabel($"{county.Name} overlaps with {sprite.GetParent().Name}");
+                                //LogControl.Instance.UpdateLabel($"{county.Name} overlaps with {sprite.GetParent().Name}");
                                 county.neighborCounties.Add((County)sprite.GetParent());
                             }
                         }
@@ -54,8 +54,8 @@ namespace MapEditorSpace
                 }
             }
 
-            //ulong endTime = Time.GetTicksUsec();
-            //GD.Print("Total time to generate: " + (endTime - startTime));
+            ulong endTime = Time.GetTicksUsec();
+            GD.Print("Total time to generate: " + (endTime - startTime));
         }
     }
 }

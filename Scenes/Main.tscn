@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=75 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scenes/HidderNode.cs" id="1_gbt3x"]
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_x1cy2"]
@@ -28,6 +28,7 @@
 [ext_resource type="Script" path="res://Scripts/CountyPopulationGeneration.cs" id="17_1215r"]
 [ext_resource type="Script" path="res://Scripts/RandomFactionColor.cs" id="18_3aru6"]
 [ext_resource type="Script" path="res://Scripts/Clock.cs" id="19_dn5gi"]
+[ext_resource type="Script" path="res://Scripts/Map Editor/FindNeighbors.cs" id="20_0i5kb"]
 [ext_resource type="Script" path="res://Scripts/FactionsAI.cs" id="20_y5bnv"]
 [ext_resource type="Script" path="res://Scripts/PopulationAI.cs" id="21_nr3na"]
 [ext_resource type="Script" path="res://Scripts/Work.cs" id="22_ioynj"]
@@ -155,6 +156,9 @@ storyEventDatas = Array[Object]([ExtResource("13_6edvn")])
 
 [node name="County Loader" type="Node" parent="Game Controller Node"]
 script = ExtResource("7_o23yn")
+
+[node name="Find Neigbors" type="Node" parent="Game Controller Node"]
+script = ExtResource("20_0i5kb")
 
 [node name="Graphics" type="Node" parent="Game Controller Node"]
 script = ExtResource("6_48s64")

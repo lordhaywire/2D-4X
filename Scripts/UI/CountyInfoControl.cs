@@ -39,7 +39,7 @@ namespace PlayerSpace
         private void OnVisibilityChanged()
         {
             // Idle workers changes if we change who is building stuff etc.
-            if (Visible == true)
+            if (Visible)
             {
                 Globals.Instance.CurrentlySelectedCounty.countyData.IdleWorkersChanged += UpdateIdleWorkersLabel;
             }
@@ -114,7 +114,7 @@ namespace PlayerSpace
 
         private void ClearHeroList()
         {
-            if (heroListParent.GetChildCount() != 0)
+            if (heroListParent.GetChildCount() > 0)
             {
                 foreach (Node hero in heroListParent.GetChildren())
                 {

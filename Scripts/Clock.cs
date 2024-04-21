@@ -54,7 +54,7 @@ namespace PlayerSpace
         {
             //GD.Print("Pause Time!");
 
-            if (ModifiedTimeScale != 0)
+            if (ModifiedTimeScale > 0)
             {
                 oldTimeSpeed = ModifiedTimeScale;
                 ModifiedTimeScale = 0;

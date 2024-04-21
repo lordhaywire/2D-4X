@@ -142,12 +142,13 @@ namespace PlayerSpace
 
         private void RandomNeighborMove(CountyPopulation countyPopulation)
         {
-            GD.Print("Random Neighors Move.");
+            GD.Print("Random Neighors Move!");
             County selectCounty = (County)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
             List<County> countyNeighbors = selectCounty.neighborCounties;
             County destinationCounty = FindFactionOwnedNeighborCounty(countyNeighbors, countyPopulation);
             if (destinationCounty != null)
             {
+                GD.Print("Destination County: " + destinationCounty.countyData.countyName);
                 countyPopulation.token.tokenMovement.StartMove(destinationCounty.countyData.countyId);
                 CountyCaptured();
             }
@@ -178,8 +179,6 @@ namespace PlayerSpace
                 return null;
             }
         }
-
-
 
         public void EndBattle()
         {

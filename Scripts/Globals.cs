@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PlayerSpace
 {
@@ -112,6 +113,13 @@ namespace PlayerSpace
             LoadNames();
         }
 
+        public async Task WaitFrames(int frameCount)
+        {
+            for (int i = 0; i < frameCount; i++)
+            {
+                await ToSignal(GetTree(), "process_frame");
+            }
+        }
         public void UpdateSelectedHero()
         {
             PlayerUICanvas.Instance.selectedHeroPanelContainer.countyPopulation = selectedCountyPopulation;
@@ -178,7 +186,7 @@ namespace PlayerSpace
             {
                 get
                 {
-                    if (list.Count != 0)
+                    if (list.Count > 0)
                     {
                         return list[i];
                     }
