@@ -36,9 +36,13 @@ namespace PlayerSpace
                 {
                     if (countyPopulation.currentActivity == AllText.Activities.RESEARCHING)
                     {
-                        bool passedCheck = factionData.skillHandling.Check(countyPopulation.researchingSkill);
+                        bool passedCheck = factionData.skillHandling.Check(countyPopulation.researchingSkill.skillLevel);
                         GD.PrintRich($"[rainbow]{countyPopulation.firstName} skill check: {passedCheck}");
                         IncreaseResearcherResearch(countyPopulation, passedCheck);
+
+                        // Only the researchers learn research skill.  Normal population who is just adding a tiny bit of research
+                        // does not get a learning check.
+                        countyPopulation.factionData.skillHandling.CheckLearning(countyPopulation, countyPopulation.researchingSkill);
                     }
                 }
             }

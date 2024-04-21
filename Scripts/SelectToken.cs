@@ -53,7 +53,7 @@ namespace PlayerSpace
             }
 
             int coolCheck = Globals.Instance.random.Next(1, 101);
-            if (countyPopulation.coolSkill > coolCheck)
+            if (countyPopulation.coolSkill.skillLevel > coolCheck)
             {
                 int moraleIncrease = Globals.Instance.random.Next(Globals.Instance.moraleRecoveryMin, Globals.Instance.moraleRecoveryMax);
                 countyPopulation.moraleExpendable = Math.Min(countyPopulation.moraleExpendable + moraleIncrease, 100);
@@ -137,6 +137,19 @@ namespace PlayerSpace
         public void UpdateCurrentActivity(string activity)
         {
             countyPopulation.currentActivity = activity;
+            switch (activity)
+            {
+                case AllText.Activities.RESEARCHING:
+                    break;
+                case AllText.Activities.MOVING:
+                    UpdateNextActivity(activity);
+                    countyPopulation.CurrentResearchItemData = null;
+                    break;
+                default:
+                    countyPopulation.CurrentResearchItemData = null;
+                    break;
+            }
+
         }
 
         public void UpdateNextActivity(string activity)

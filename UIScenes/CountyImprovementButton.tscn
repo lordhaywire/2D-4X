@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bogeajbtl771s"]
 
 [ext_resource type="Script" path="res://Scripts/UI/CountryImprovementDescriptionButton.cs" id="1_11tju"]
-[ext_resource type="Texture2D" uid="uid://mhuco6bk8l6y" path="res://Graphics/County Improvements/axe-in-log.svg" id="2_e8yg1"]
+[ext_resource type="Texture2D" uid="uid://duyyhx30r6vow" path="res://Graphics/County Improvements/Warehouse wooden-crate.svg" id="2_jdvn2"]
 
 [node name="County Improvement Control" type="Control" node_paths=PackedStringArray("improvementTexture", "improvementNameLabel", "improvementDescriptionLabel", "improvementInfluenceCostLabel", "improvementAmountOfConstructionLabel", "improvementMaxBuildersLabel", "underContructionLabel", "buildingButton")]
 custom_minimum_size = Vector2(450, 200)
@@ -89,10 +89,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="County Improvement Button/HBoxContainer"]
+custom_minimum_size = Vector2(0, 190)
 layout_mode = 2
 size_flags_horizontal = 8
-texture = ExtResource("2_e8yg1")
-expand_mode = 2
+texture = ExtResource("2_jdvn2")
+expand_mode = 3
 
 [node name="Under Contruction Label" type="Label" parent="."]
 visible = false

@@ -192,12 +192,12 @@ namespace PlayerSpace
         // This is confusing.  Needs a fucking rewrite.
         private void Attack(CountyPopulation gettingShotAtCountyPopulation, CountyPopulation shootingCountyPopulation, bool isAttacker)
         {
-            if (shootingCountyPopulation.factionData.skillHandling.Check(shootingCountyPopulation.rifleSkill) == true)
+            if (shootingCountyPopulation.factionData.skillHandling.Check(shootingCountyPopulation.rifleSkill.skillLevel) == true)
             {
                 BattleLogControl.Instance.AddLog
                     ($"{shootingCountyPopulation.firstName} {shootingCountyPopulation.lastName} has hit!", isAttacker);
                 if (gettingShotAtCountyPopulation.factionData.skillHandling
-                    .Check(gettingShotAtCountyPopulation.coolSkill) == false)
+                    .Check(gettingShotAtCountyPopulation.coolSkill.skillLevel) == false)
                 {
                     int moraleDamage = random.Next(Globals.Instance.moraleDamageMin, Globals.Instance.moraleDamageMax);
                     gettingShotAtCountyPopulation.moraleExpendable
@@ -219,6 +219,15 @@ namespace PlayerSpace
                 BattleLogControl.Instance.AddLog($"{shootingCountyPopulation.firstName} " +
                     $"{shootingCountyPopulation.lastName} has missed!", isAttacker);
             }
+
+            // Check if rifle experience is learned by the attacker.
+            shootingCountyPopulation.factionData.skillHandling.CheckLearning
+                (shootingCountyPopulation, shootingCountyPopulation.rifleSkill);
+
+            // Check if the defenders cool skill learns anything.
+            gettingShotAtCountyPopulation.factionData.skillHandling.CheckLearning
+                (gettingShotAtCountyPopulation, gettingShotAtCountyPopulation.coolSkill);
+
         }
         private void ButtonUp()
         {

@@ -11,6 +11,9 @@ namespace PlayerSpace
         public static Globals Instance { get; private set; }
         public Random random = new();
 
+        [ExportGroup("Player Faction BS")]
+        [Export] public FactionData playerFactionData;
+
         [Export] public Godot.Collections.Array<FactionData> factionDatas = [];
 
         [ExportGroup("Event Variables")]
@@ -73,10 +76,11 @@ namespace PlayerSpace
         [ExportGroup("Faction Shit")]
         [Export] public int minimumFood;
 
-        [ExportGroup("Player Faction BS")]
-        [Export] public FactionData playerFactionData;
+        [ExportGroup("County Stuff")]
+        [Export] public int startingPerishableStorage = 500;
+        [Export] public int startingNonperishableStorage = 500;
 
-        [ExportGroup("Hero Shit")]
+        [ExportGroup("Population Shit")]
         [Export] public PackedScene heroToken;
         [Export] public PackedScene spawnedTokenButton;
         [Export] public int movementSpeed = 10;
@@ -84,6 +88,9 @@ namespace PlayerSpace
         [Export] public Vector2 heroMoveTarget;
         [Export] public int costOfHero;
         [Export] public int loyaltyCheckNumber = 50;
+        [Export] public int maxLearningNeeded = 10;
+        [Export] public int combatSkillLearningNeeded = 100;
+        [Export] public int maxXPRoll = 5; // One above max.
         [Export] public int moraleDamageMin = 1;
         [Export] public int moraleDamageMax = 21; // One above max.
         [Export] public int moraleRecoveryMin = 1;

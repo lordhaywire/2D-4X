@@ -1,4 +1,5 @@
 using Godot;
+using System.ComponentModel;
 
 namespace PlayerSpace
 {
@@ -43,13 +44,22 @@ namespace PlayerSpace
         public int moraleExpendable; // I think we are going to have to have this as leader morale or army morale or some shit.
 
         [ExportGroup("Attributes")]
+        public int physicalStrength;
+        public int agility;
+        public int endurance;
+        public int intelligence;
+        public int mentalStrength;
+        public int awareness;
+        public int charisma;
+        public int looks;
+
         public int loyaltyAttribute;
 
         [ExportGroup("Skills")]
-        public int coolSkill; // I think this might be more of a skill.
-        public int constructionSkill;
-        public int researchingSkill;
-        public int rifleSkill;
+        public SkillData constructionSkill;
+        public SkillData coolSkill;
+        public SkillData researchingSkill;
+        public SkillData rifleSkill;
 
         [ExportGroup("Activities")]
         public string currentActivity;
@@ -100,9 +110,11 @@ namespace PlayerSpace
         public CountyPopulation(
             FactionData factionData, int location, int lastLocation, int destination, string firstName, string lastName
             , bool isMale, int age, bool isHero, bool isLeader, bool isAide, bool IsArmyLeader, bool isWorker
-            , bool leaderOfPeoplePerk, int moraleExpendable, int coolSkill, int loyaltyAttribute, int constructionSkill
-            , int researchingSkill, int rifleSkill, string currentActivity, CountyImprovementData currentImprovement
-            , string nextActivity, CountyImprovementData nextImprovement, ResearchItemData CurrentResearchItemData)
+            , bool leaderOfPeoplePerk, int moraleExpendable,  int physicalStrength, int agility, int endurance
+            , int intelligence, int mentalStrength, int awareness, int charisma, int looks, int loyaltyAttribute
+            ,  SkillData constructionSkill, SkillData coolSkill, SkillData researchingSkill, SkillData rifleSkill
+            , string currentActivity, CountyImprovementData currentImprovement, string nextActivity
+            , CountyImprovementData nextImprovement, ResearchItemData CurrentResearchItemData)
         {
             this.factionData = factionData;
             this.location = location;
@@ -123,10 +135,19 @@ namespace PlayerSpace
 
             this.moraleExpendable = moraleExpendable;
 
+            this.physicalStrength = physicalStrength;
+            this.agility = agility;
+            this.endurance = endurance;
+            this.intelligence = intelligence;
+            this.mentalStrength = mentalStrength;
+            this.awareness = awareness;
+            this.charisma = charisma;
+            this.looks = looks;
+
             this.loyaltyAttribute = loyaltyAttribute;
 
-            this.coolSkill = coolSkill;
             this.constructionSkill = constructionSkill;
+            this.coolSkill = coolSkill;
             this.researchingSkill = researchingSkill;
             this.rifleSkill = rifleSkill;
 

@@ -4,7 +4,7 @@ namespace PlayerSpace
 {
     public partial class ResearchItemButton : PanelContainer
     {
-        [Export] public ResearchItemData researchItemData;
+        [Export] public ResearchItemData researchItemData = new();
         [Export] private Button researchButton;
         [Export] private ProgressBar researchProgressBar;
         [Export] private CheckBox researchCheckBox;
@@ -25,14 +25,6 @@ namespace PlayerSpace
             researchButton.Text = researchItemData.researchName;
             researchButton.Icon = researchItemData.researchTexture;
         }
-
-        /*
-        private void UpdateIfResearched()
-        {
-            GD.Print("Research Panel has opened and this item has updated: " + researchItemData.researchName);
-            CheckIfResearchIsDone();
-        }
-        */
 
         private void CheckIfResearchIsDone()
         {

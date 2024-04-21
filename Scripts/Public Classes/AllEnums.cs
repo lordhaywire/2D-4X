@@ -15,16 +15,16 @@ namespace PlayerSpace
         }
         */
 
+        public enum Province
+        {
+            Oregon,
+            Washington,
+        }
         public enum ResearchTiers
         {
             One,
             Two,
             Three,
-        }
-        public enum Province
-        {
-            Oregon,
-            Washington,
         }
 
         public enum ResourceType
@@ -36,6 +36,17 @@ namespace PlayerSpace
             Wood,
         }
 
+        public enum SkillType
+        {
+            PhysicalStrength,
+            Agility,
+            Endurance,
+            Intelligence,
+            MentalStrength,
+            Awareness,
+            Charisma,
+            Looks,
+        }
         public enum Terrain
         {
             Coast,

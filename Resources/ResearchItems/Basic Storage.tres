@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ResearchItemData" load_steps=4 format=3 uid="uid://cwkooap4yvn10"]
+
+[ext_resource type="Texture2D" uid="uid://4qh2lfjkxnyy" path="res://Graphics/Research/Basic Storage cardboard-box-closed.svg" id="1_ardle"]
+[ext_resource type="Script" path="res://Resources/ResearchItemData.cs" id="1_hvkf1"]
+[ext_resource type="Resource" uid="uid://cxh2tykxlu76b" path="res://Resources/County Improvements/Warehouse.tres" id="1_jsy6f"]
+
+[resource]
+script = ExtResource("1_hvkf1")
+tier = 0
+researchedAtStart = false
+researchName = "Basic Storage"
+researchDescription = "Instead of having everything laying around, why don't we have a centralized place for our junk?"
+researchTexture = ExtResource("1_ardle")
+amountOfResearchDone = 0
+costOfResearch = 500
+countyImprovementDatas = Array[Object]([ExtResource("1_jsy6f")])
+isResearchDone = false

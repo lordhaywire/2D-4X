@@ -100,10 +100,10 @@ namespace PlayerSpace
         }
         private void UpdateSkills(PopulationRowButton populationRow, CountyPopulation person)
         {
-            populationRow.coolSkillLabel.Text = $"{person.coolSkill}";
-            populationRow.constructionSkillLabel.Text = $"{person.constructionSkill}";
-            populationRow.researchSkillLabel.Text = $"{person.researchingSkill}";
-            populationRow.rifleSkillLabel.Text = $"{person.rifleSkill}";
+            populationRow.coolSkillLabel.Text = $"{person.coolSkill.skillLevel}";
+            populationRow.constructionSkillLabel.Text = $"{person.constructionSkill.skillLevel}";
+            populationRow.researchSkillLabel.Text = $"{person.researchingSkill.skillLevel}";
+            populationRow.rifleSkillLabel.Text = $"{person.rifleSkill.skillLevel}";
         }
     }
 }

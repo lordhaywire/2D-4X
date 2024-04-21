@@ -74,7 +74,6 @@ namespace PlayerSpace
 
         private void AddStartingResearch(FactionData factionData)
         {
-            // We will probably have to rewrite this, because currently it is making all research completed.
             foreach (ResearchItemData researchItemData in AllResearch.Instance.allTierOneResearchData)
             {
                 if (researchItemData.researchedAtStart == true)

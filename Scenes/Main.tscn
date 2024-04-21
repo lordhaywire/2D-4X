@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=76 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scenes/HidderNode.cs" id="1_gbt3x"]
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_x1cy2"]
@@ -25,6 +25,7 @@
 [ext_resource type="Script" path="res://Scripts/PlayerControls.cs" id="12_vfu86"]
 [ext_resource type="Resource" uid="uid://b4qv7wmpei808" path="res://Resources/Story Events/FoundFood.tres" id="13_6edvn"]
 [ext_resource type="Script" path="res://Scripts/CountyGeneration.cs" id="16_pxxn4"]
+[ext_resource type="Resource" uid="uid://cwkooap4yvn10" path="res://Resources/ResearchItems/Basic Storage.tres" id="16_qtbxl"]
 [ext_resource type="Script" path="res://Scripts/CountyPopulationGeneration.cs" id="17_1215r"]
 [ext_resource type="Script" path="res://Scripts/RandomFactionColor.cs" id="18_3aru6"]
 [ext_resource type="Script" path="res://Scripts/Clock.cs" id="19_dn5gi"]
@@ -148,7 +149,7 @@ selectedArmyTexture = ExtResource("11_e5ayq")
 
 [node name="All Research" type="Node" parent="Game Controller Node"]
 script = ExtResource("12_hmucs")
-allTierOneResearchData = Array[Object]([ExtResource("22_ugyvd"), ExtResource("62_ujbl5")])
+allTierOneResearchData = Array[Object]([ExtResource("22_ugyvd"), ExtResource("16_qtbxl"), ExtResource("62_ujbl5")])
 
 [node name="Story Event List" type="Node" parent="Game Controller Node"]
 script = ExtResource("12_q0wdt")
@@ -659,7 +660,7 @@ text = "County Improvements"
 layout_mode = 2
 mouse_filter = 0
 
-[node name="Select Hero PanelContainer" type="PanelContainer" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer" node_paths=PackedStringArray("factionLeaderTextureRect", "aideTextureRect", "armyLeaderTextureRect", "heroNameLabel", "heroListButton")]
+[node name="Select Hero PanelContainer" type="PanelContainer" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer" node_paths=PackedStringArray("factionLeaderTextureRect", "aideTextureRect", "armyLeaderTextureRect", "heroNameLabel", "heroListButton", "researchCheckbox")]
 visible = false
 custom_minimum_size = Vector2(300, 50)
 layout_mode = 2
@@ -672,6 +673,7 @@ aideTextureRect = NodePath("HBoxContainer/Aide TextureRect")
 armyLeaderTextureRect = NodePath("HBoxContainer/Army TextureRect")
 heroNameLabel = NodePath("Hero Name Label")
 heroListButton = NodePath("Hero List Button")
+researchCheckbox = NodePath("Fake CheckBox")
 
 [node name="Hero Name Label" type="Label" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Select Hero PanelContainer"]
 layout_mode = 2
@@ -711,6 +713,9 @@ stretch_mode = 2
 [node name="Hero List Button" type="Button" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Select Hero PanelContainer"]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Fake CheckBox" type="CheckBox" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Select Hero PanelContainer"]
 layout_mode = 2
 
 [node name="Population List MarginContainer" type="MarginContainer" parent="Player UI Canvas" node_paths=PackedStringArray("populationListParent", "populationListTitle")]
@@ -1614,6 +1619,10 @@ alignment = 1
 [node name="Basic Production Research Item" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer" instance=ExtResource("62_nohy5")]
 layout_mode = 2
 researchItemData = ExtResource("22_ugyvd")
+
+[node name="Basic Storage Item" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer" instance=ExtResource("62_nohy5")]
+layout_mode = 2
+researchItemData = ExtResource("16_qtbxl")
 
 [node name="Research Item" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer" instance=ExtResource("62_nohy5")]
 layout_mode = 2

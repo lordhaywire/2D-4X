@@ -59,7 +59,7 @@ namespace PlayerSpace
                             if (eventMouseButton.ButtonIndex == MouseButton.Left && eventMouseButton.Pressed == false)
                             //&& Globals.Instance.isInsideToken == false)
                             {
-                                EventLog.Instance.AddLog($"{county.countyData.countyName} was clicked on.");
+                                //EventLog.Instance.AddLog($"{county.countyData.countyName} was clicked on.");
 
                                 Globals.Instance.CurrentlySelectedCounty = county;
                                 Globals.Instance.selectedCountyId = county.countyData.countyId;

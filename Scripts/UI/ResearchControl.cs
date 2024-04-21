@@ -24,9 +24,8 @@ namespace PlayerSpace
 
         private void OnVisibilityChange()
         {
-            if (Visible == true)
+            if (Visible)
             {
-                //CreateResearchItemButtons();
                 PlayerControls.Instance.AdjustPlayerControls(false);
                 Clock.Instance.PauseTime();
                 ResearchVisible?.Invoke();
@@ -35,7 +34,6 @@ namespace PlayerSpace
             }
             else
             {
-                //DestroyResearchItemButtons();
                 PlayerControls.Instance.AdjustPlayerControls(true);
                 Clock.Instance.UnpauseTime();
             }
@@ -109,35 +107,6 @@ namespace PlayerSpace
                 researchItemButton.researchItemData = Globals.Instance.playerFactionData.researchItems[i];
                 GD.Print("Research assigned: " + researchItemButton.researchItemData.researchName);
             }
-        }
-
-        /*
-        private void CreateResearchItemButtons()
-        {
-            List<ResearchItemData> researchItems = Globals.Instance.playerFactionData.researchItems;
-            for (int i = 0; i < researchItems.Count; i++)
-            {
-                PanelContainer researchItem = (PanelContainer)uIResearchItemButton.Instantiate();
-                researchItem.Name = i.ToString();
-                researchItemParent.AddChild(researchItem);
-                researchItem.GetNode<Button>("Button").Text = researchItems[i].researchName;
-                if (researchItems[i].isResearchDone == true)
-                {
-                    researchItem.GetNode<CheckBox>("CheckBox").ButtonPressed = true;
-                }
-            }
-            GD.Print("Research Parent Count: " + researchItemParent.GetChildCount());
-        }
-        */
-        /*
-        private void DestroyResearchItemButtons()
-        {
-            foreach (Node researchItem in researchItemParent.GetChildren())
-            {
-                researchItem.QueueFree();
-            }
-        }
-        */
-        
+        }      
     }
 }

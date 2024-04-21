@@ -85,7 +85,7 @@ namespace PlayerSpace
             CheckForArmyRecruitmentButton(selectCounty);
 
             CheckForTitles();
-            
+
             UpdateAttributes(countyPopulation);
 
             ageLabel.Text = countyPopulation.age.ToString();
@@ -192,6 +192,15 @@ namespace PlayerSpace
 
         private void UpdateAttributes(CountyPopulation countyPopulation)
         {
+            physicalStrengthLabel.Text = countyPopulation.physicalStrength.ToString();
+            agilityLabel.Text = countyPopulation.agility.ToString();
+            enduranceLabel.Text = countyPopulation.endurance.ToString();
+            intelligenceLabel.Text = countyPopulation.intelligence.ToString();
+            mentalStrengthLabel.Text = countyPopulation.mentalStrength.ToString();
+            awarenessLabel.Text = countyPopulation.awareness.ToString();
+            charismaLabel.Text = countyPopulation.charisma.ToString();
+            looksLabel.Text = countyPopulation.looks.ToString();
+
             loyaltyAttributeLabel.Text = countyPopulation.loyaltyAttribute.ToString();
         }
 
@@ -212,10 +221,10 @@ namespace PlayerSpace
 
         private void UpdateSkills(CountyPopulation countyPopulation)
         {
-            coolSkillLabel.Text = $"Cool: {countyPopulation.coolSkill}";
-            constructionSkillLabel.Text = $"Contruction: {countyPopulation.constructionSkill}";
-            researchSkillLabel.Text = $"Research: {countyPopulation.researchingSkill}";
-            rifleSkillLabel.Text = $"Rifle: {countyPopulation.rifleSkill}";
+            coolSkillLabel.Text = $"Cool: {countyPopulation.coolSkill.skillLevel}";
+            constructionSkillLabel.Text = $"Contruction: {countyPopulation.constructionSkill.skillLevel}";
+            researchSkillLabel.Text = $"Research: {countyPopulation.researchingSkill.skillLevel}";
+            rifleSkillLabel.Text = $"Rifle: {countyPopulation.rifleSkill.skillLevel}";
         }
     }
 }

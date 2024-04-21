@@ -71,42 +71,69 @@ namespace PlayerSpace
                 age = random.Next(18, 61);
 
                 // Generate random stats for each population.
-
                 int moraleExpendable = 100;
-                int coolAttribute = random.Next(20, 81); // This isn't going to be a random number eventually.  It will be based on other attributes.
+
+                int ps = random.Next(20, 81);
+                int ag = random.Next(20, 81);
+                int en = random.Next(20, 81);
+                int ie = random.Next(20, 81);
+                int ms = random.Next(20, 81);
+                int aw = random.Next(20, 81);
+                int ch = random.Next(20, 81);
+                int lo = random.Next(20, 81);
+
                 int loyaltyAttribute = 100; // This is a temporary number.
-                int constructionSkill = random.Next(20, 81);
-                int researchSkill = random.Next(20, 81);
-                int rifleSkill = random.Next(20, 81);
+
+                SkillData constructionSkill = new()
+                {
+                    skillName = "Construction",
+                    skillLevel = random.Next(20, 81),
+                    amountLearned = 0,
+                    isCombatSkill = false,
+                    skillType = AllEnums.SkillType.PhysicalStrength,
+                };
+                SkillData coolSkill = new()
+                {
+                    skillName = "Cool",
+                    skillLevel = random.Next(20, 81),
+                    amountLearned = 0,
+                    isCombatSkill = true,
+                    skillType = AllEnums.SkillType.MentalStrength,
+                }; 
+                SkillData researchSkill = new()
+                {
+                    skillName = "Research",
+                    skillLevel = random.Next(20, 81),
+                    amountLearned = 0,
+                    isCombatSkill = false,
+                    skillType = AllEnums.SkillType.Intelligence,
+                };
+                SkillData rifleSkill = new()
+                {
+                    skillName = "Rifle",
+                    skillLevel = random.Next(20, 81),
+                    amountLearned = 0,
+                    isCombatSkill = true,
+                    skillType = AllEnums.SkillType.Agility,
+                };
 
                 if (hero == false)
                 {
                     // This adds to the C# list.
                     countyData.countyPopulationList.Add(new CountyPopulation(countyData.factionData, countyData.countyId
                         , -1, -1, firstName, lastName, isMale, age, false, false, false, false, false, false
-                        , moraleExpendable, coolAttribute, loyaltyAttribute, constructionSkill, researchSkill
-                        , rifleSkill, AllText.Activities.IDLE, null, AllText.Activities.IDLE, null, null));
-
-                    /*
-                    CountyPopulation person = countyData.countyPopulation[i];
-                    GD.Print($"Name: {countyData.countyPopulation[i].firstName} {countyData.countyPopulation[i].lastName} " +
-                    $"Age: {person.age} isMale: {person.isMale} Leader of People: {person.leaderOfPeoplePerk} " +
-                    $"Faction Leader: {person.isFactionLeader}");
-                    */
+                        , moraleExpendable, ps, ag,en, ie, ms, aw, ch, lo, loyaltyAttribute, constructionSkill
+                        , coolSkill,  researchSkill, rifleSkill, AllText.Activities.IDLE, null
+                        , AllText.Activities.IDLE, null, null));
                 }
                 else
                 {
                     // This adds to a C# list.
                     countyData.herosInCountyList.Add(new CountyPopulation(countyData.factionData, countyData.countyId
                         , -1, -1, firstName, lastName, isMale, age, true, true, false, false, false, true
-                        , moraleExpendable, coolAttribute, loyaltyAttribute, constructionSkill, researchSkill
-                        , rifleSkill, AllText.Activities.IDLE, null, AllText.Activities.IDLE, null, null)) ;
-                    /*
-                    CountyPopulation heroPerson = countyData.heroCountyPopulation[i];
-                    GD.Print($"Hero Name: {heroPerson.firstName} {heroPerson.lastName} " +
-                    $"Age: {heroPerson.age} isLeader: {heroPerson.isLeader} isMale: {heroPerson.isMale} Leader of People: {heroPerson.leaderOfPeoplePerk} " +
-                    $"Faction Leader: {heroPerson.isLeader}");
-                    */
+                        , moraleExpendable, ps, ag, en, ie, ms, aw, ch, lo, loyaltyAttribute, constructionSkill
+                        , coolSkill, researchSkill, rifleSkill, AllText.Activities.IDLE, null
+                        , AllText.Activities.IDLE, null, null));
                 }
             }
 

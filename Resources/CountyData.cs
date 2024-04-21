@@ -44,6 +44,8 @@ namespace PlayerSpace
         public List<Battle> battles = [];
 
         [Export] public int population;
+        //[Export] public int perishableStorage = Globals.Instance.startingPerishableStorage;
+        //[Export] public int nonperishableStorage = Globals.Instance.startingNonperishableStorage;
 
         // These are used just to pass some data around.  Probably I should find a better way to do this.
         public Texture2D maskTexture;
