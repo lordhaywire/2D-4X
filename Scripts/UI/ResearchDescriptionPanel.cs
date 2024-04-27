@@ -58,7 +58,8 @@ namespace PlayerSpace
             {
                 foreach (CountyPopulation countyPopulation in countyData.herosInCountyList)
                 {
-                    if (countyPopulation.CurrentResearchItemData == null)
+                    if (countyPopulation.CurrentResearchItemData == null && countyPopulation.currentActivity 
+                        != AllText.Activities.MOVING)
                     {
                         assignResearcherMenuButton.GetPopup().AddItem($"{countyPopulation.firstName} " +
                             $"{countyPopulation.lastName}: {countyPopulation.nextActivity}");

@@ -28,26 +28,13 @@ namespace PlayerSpace
         public Diplomacy diplomacy = new();
         public TokenSpawner tokenSpawner = new();
 
-        private int food;
         private int influence;
         private int money;
-        private int scrap;
+
+        private int foodFaction;
+        private int scrapFaction;
 
         [ExportGroup("Getter Setter")]
-        [Export]
-        public int Food
-        {
-            get { return food; }
-            set
-            {
-                food = value;
-                if (isPlayer == true)
-                {
-                    FoodChanged?.Invoke();
-                }
-            }
-        }
-
         [Export]
         public int Influence
         {
@@ -75,15 +62,29 @@ namespace PlayerSpace
             }
         }
         [Export]
-        public int Scrap
+        public int ScrapFaction
         {
-            get { return scrap; }
+            get { return scrapFaction; }
             set
             {
-                scrap = value;
+                scrapFaction = value;
                 if (isPlayer == true)
                 {
                     ScrapChanged?.Invoke();
+                }
+            }
+        }
+
+        [Export]
+        public int FoodFaction
+        {
+            get { return foodFaction; }
+            set
+            {
+                foodFaction = value;
+                if (isPlayer == true)
+                {
+                    FoodChanged?.Invoke();
                 }
             }
         }

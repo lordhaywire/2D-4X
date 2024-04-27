@@ -27,7 +27,16 @@ namespace PlayerSpace
             Three,
         }
 
-        public enum ResourceType
+        public enum CountyResourceType
+        {
+            Fish,
+            Scrap,
+            Vegetables,
+            Wood,
+        }
+
+        // Scrap and wood should be combined into building materials.
+        public enum FactionResourceType
         {
             Food,
             Influence,

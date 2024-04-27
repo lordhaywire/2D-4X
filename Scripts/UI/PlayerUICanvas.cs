@@ -9,6 +9,7 @@ namespace PlayerSpace
 
         [Export] public Control BattleLogControl;
         [Export] public HeroPanelContainer selectedHeroPanelContainer;
+        [Export] public PanelContainer resourcesPanelContainer;
 
         public override void _Ready()
         {

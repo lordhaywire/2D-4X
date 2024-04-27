@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("2_e8w8c")
 color = Color(0, 0.0156863, 1, 1)
-countyOverlayLocalPosition = Vector2i(8, 30)
+countyOverlayLocalPosition = Vector2i(0, 0)
 countyId = 0
 countyName = "Portland"
 isPlayerCapital = true
@@ -14,6 +14,8 @@ isAICapital = false
 factionData = ExtResource("1_7tnvd")
 province = 0
 biomePrimary = 6
-biomeSecondary = 2
+biomeSecondary = 5
 biomeTertiary = 4
 population = 0
+perishableStorage = 0
+nonperishableStorage = 0

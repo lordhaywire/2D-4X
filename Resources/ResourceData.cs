@@ -6,6 +6,7 @@ namespace PlayerSpace
     public partial class ResourceData : Resource
     {
         [Export] public string resourceName;
-        [Export] public AllEnums.ResourceType resourceType;
+        [Export] public AllEnums.FactionResourceType resourceType;
+        public int amount;
     }
 }

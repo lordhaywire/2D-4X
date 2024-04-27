@@ -40,7 +40,7 @@ namespace PlayerSpace
 
             token.countyPopulation.destination = destinationCountyID;
             token.UpdateCurrentActivity(AllText.Activities.MOVING); // Next activity isn't shown on the description panel.
-            
+
             //GD.Print("Destination Global Position: " + destinationCounty.heroSpawn.GlobalPosition);
             target = destinationCounty.heroSpawn.GlobalPosition;
             //GD.Print("Target Global Position: " + target);
@@ -53,14 +53,14 @@ namespace PlayerSpace
 
         private void CheckForDefenders()
         {
-
             County selectCounty = (County)Globals.Instance.countiesParent.GetChild(token.countyPopulation.destination);
-            EventLog.Instance.AddLog($"{selectCounty.countyData.factionData.factionName}" +
-                $" is raising armies at {selectCounty.countyData.countyName}!");
+
             if (token.countyPopulation.factionData.factionWarDictionary
                 [selectCounty.countyData.factionData.factionName] == true && DefenderOnTheWay() == false)
             {
                 selectCounty.countyData.factionData.diplomacy.DefenderSpawnArmies(destinationCounty);
+                EventLog.Instance.AddLog($"{selectCounty.countyData.factionData.factionName}" +
+                        $" is raising armies at {selectCounty.countyData.countyName}!");
             }
             else
             {

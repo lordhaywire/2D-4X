@@ -24,7 +24,7 @@ namespace PlayerSpace
 
         private Battle battle;
 
-        private List<string> combatLogs;
+        //private List<string> combatLogs;
 
         private void CountyCaptured()
         {

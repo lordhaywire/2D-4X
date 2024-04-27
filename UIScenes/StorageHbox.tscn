@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://bif5f4i17oc2p"]
+
+[node name="Storage HBoxContainer" type="HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+
+[node name="Resource Name Label" type="Label" parent="."]
+layout_mode = 2
+text = "Resource:"
+
+[node name="Current Amount Label" type="Label" parent="."]
+layout_mode = 2
+text = "Current Amount"
+
+[node name="Max Amount Label" type="Label" parent="."]
+layout_mode = 2
+text = "Max Amount"
+
+[node name="SpinBox" type="SpinBox" parent="."]
+layout_mode = 2
+step = 5.0

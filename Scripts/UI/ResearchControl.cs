@@ -29,6 +29,7 @@ namespace PlayerSpace
                 PlayerControls.Instance.AdjustPlayerControls(false);
                 Clock.Instance.PauseTime();
                 ResearchVisible?.Invoke();
+
                 GenerateAssignedResearchers();
                 CheckForResearchers();
             }
@@ -42,7 +43,7 @@ namespace PlayerSpace
         public void CheckForResearchers()
         {
             //GD.PrintRich($"[rainbow]Assigned Researchers Count: " + assignedResearchers.Count);
-            if(assignedResearchers.Count == 0)
+            if (assignedResearchers.Count == 0)
             {
                 assignedResearchersTitleLabel.Hide();
             }
@@ -57,8 +58,9 @@ namespace PlayerSpace
             ClearResearchers();
             foreach (CountyPopulation countyPopulation in assignedResearchers)
             {
+                GD.Print("Generate Assigned Researchers: " + countyPopulation.firstName);
                 AssignedResearcherHboxContainer researcherButton = (AssignedResearcherHboxContainer)assignedResearchersButton.Instantiate();
-                researcherButton.assignedResearcherButton.Text 
+                researcherButton.assignedResearcherButton.Text
                     = $"{countyPopulation.firstName} {countyPopulation.lastName}: {countyPopulation.CurrentResearchItemData.researchName}";
                 researcherButton.countyPopulation = countyPopulation;
                 assignedResearchersParent.AddChild(researcherButton);
@@ -67,7 +69,7 @@ namespace PlayerSpace
 
         private void ClearResearchers()
         {
-            foreach(AssignedResearcherHboxContainer researcher in 
+            foreach (AssignedResearcherHboxContainer researcher in
                 assignedResearchersParent.GetChildren().Cast<AssignedResearcherHboxContainer>())
             {
                 researcher.QueueFree();
@@ -107,6 +109,6 @@ namespace PlayerSpace
                 researchItemButton.researchItemData = Globals.Instance.playerFactionData.researchItems[i];
                 GD.Print("Research assigned: " + researchItemButton.researchItemData.researchName);
             }
-        }      
+        }
     }
 }

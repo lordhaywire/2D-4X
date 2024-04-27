@@ -116,6 +116,7 @@ texture = ExtResource("4_be8vi")
 centered = false
 
 [node name="Map Sprite2D" type="Sprite2D" parent="Maps"]
+visible = false
 texture = ExtResource("5_fr3sx")
 centered = false
 

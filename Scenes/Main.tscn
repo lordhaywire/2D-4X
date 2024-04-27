@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=84 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scenes/HidderNode.cs" id="1_gbt3x"]
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_x1cy2"]
@@ -28,11 +28,16 @@
 [ext_resource type="Resource" uid="uid://cwkooap4yvn10" path="res://Resources/ResearchItems/Basic Storage.tres" id="16_qtbxl"]
 [ext_resource type="Script" path="res://Scripts/CountyPopulationGeneration.cs" id="17_1215r"]
 [ext_resource type="Script" path="res://Scripts/RandomFactionColor.cs" id="18_3aru6"]
+[ext_resource type="Script" path="res://Scripts/AllResources.cs" id="18_wf5kh"]
+[ext_resource type="Resource" uid="uid://c55q8uucl7cqe" path="res://Resources/Resources/Fish.tres" id="19_1e80i"]
 [ext_resource type="Script" path="res://Scripts/Clock.cs" id="19_dn5gi"]
 [ext_resource type="Script" path="res://Scripts/Map Editor/FindNeighbors.cs" id="20_0i5kb"]
+[ext_resource type="Resource" uid="uid://bhmwj5yptebic" path="res://Resources/Resources/Scrap.tres" id="20_k67vp"]
 [ext_resource type="Script" path="res://Scripts/FactionsAI.cs" id="20_y5bnv"]
 [ext_resource type="Script" path="res://Scripts/PopulationAI.cs" id="21_nr3na"]
+[ext_resource type="Resource" uid="uid://dpddpnnbjvql" path="res://Resources/Resources/Vegetables.tres" id="21_r83qp"]
 [ext_resource type="Script" path="res://Scripts/Work.cs" id="22_ioynj"]
+[ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/Resources/Wood.tres" id="22_leslc"]
 [ext_resource type="Resource" uid="uid://bljrvhrjka1hs" path="res://Resources/ResearchItems/Basic Production.tres" id="22_ugyvd"]
 [ext_resource type="Script" path="res://Scripts/Banker.cs" id="23_lb4or"]
 [ext_resource type="Script" path="res://Scripts/UI/PlayerUICanvas.cs" id="24_s3wh2"]
@@ -65,6 +70,9 @@
 [ext_resource type="PackedScene" uid="uid://bjgv6c8xhn4lo" path="res://UIScenes/Event Log Text Panel.tscn" id="44_du832"]
 [ext_resource type="PackedScene" uid="uid://x41vmtlrl1cx" path="res://UIScenes/CombatLogTextPanel.tscn" id="44_qsgen"]
 [ext_resource type="Theme" uid="uid://b7f66fp0haa2c" path="res://Themes/FullScreenPanelTheme.tres" id="50_5cg3n"]
+[ext_resource type="Texture2D" uid="uid://bmawb7v8d3eev" path="res://Graphics/Old Yellow Lined Paper.png" id="50_6hqe0"]
+[ext_resource type="PackedScene" uid="uid://bif5f4i17oc2p" path="res://UIScenes/StorageHbox.tscn" id="53_xnh1n"]
+[ext_resource type="Script" path="res://Scripts/UI/ResourcesPanelContainer.cs" id="54_ia1o5"]
 [ext_resource type="PackedScene" uid="uid://4t2ve1w4uvww" path="res://UIScenes/AssignedResearcherHBoxContainer.tscn" id="62_dhpbg"]
 [ext_resource type="PackedScene" uid="uid://dbh44f2eysibn" path="res://UIScenes/UIResearchItemButton.tscn" id="62_nohy5"]
 [ext_resource type="Script" path="res://Scripts/UI/StoryEventControl.cs" id="62_onxgq"]
@@ -151,6 +159,10 @@ selectedArmyTexture = ExtResource("11_e5ayq")
 script = ExtResource("12_hmucs")
 allTierOneResearchData = Array[Object]([ExtResource("22_ugyvd"), ExtResource("16_qtbxl"), ExtResource("62_ujbl5")])
 
+[node name="All Resources" type="Node" parent="Game Controller Node"]
+script = ExtResource("18_wf5kh")
+allResources = Array[Object]([ExtResource("19_1e80i"), ExtResource("20_k67vp"), ExtResource("21_r83qp"), ExtResource("22_leslc")])
+
 [node name="Story Event List" type="Node" parent="Game Controller Node"]
 script = ExtResource("12_q0wdt")
 storyEventDatas = Array[Object]([ExtResource("13_6edvn")])
@@ -212,11 +224,12 @@ script = ExtResource("35_mhu6t")
 [node name="Banker" type="Node" parent="Game Controller Node"]
 script = ExtResource("23_lb4or")
 
-[node name="Player UI Canvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("BattleLogControl", "selectedHeroPanelContainer")]
+[node name="Player UI Canvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("BattleLogControl", "selectedHeroPanelContainer", "resourcesPanelContainer")]
 process_mode = 3
 script = ExtResource("24_s3wh2")
 BattleLogControl = NodePath("Battle Log Control")
 selectedHeroPanelContainer = NodePath("County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Select Hero PanelContainer")
+resourcesPanelContainer = NodePath("Resources PanelContainer")
 
 [node name="Event Log Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("eventLogVBoxContainer")]
 custom_minimum_size = Vector2(300, 75)
@@ -358,21 +371,6 @@ text = "100000"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Food TextureRect" type="TextureRect" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox"]
-layout_mode = 2
-texture = ExtResource("38_0q3s5")
-expand_mode = 3
-
-[node name="Food Panel Container" type="PanelContainer" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox"]
-custom_minimum_size = Vector2(60, 0)
-layout_mode = 2
-
-[node name="Food Number" type="Label" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Food Panel Container"]
-layout_mode = 2
-text = "100000"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="Scrap TextureRect" type="TextureRect" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox"]
 layout_mode = 2
 texture = ExtResource("39_mrqgp")
@@ -383,6 +381,21 @@ custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 
 [node name="Scrap Number" type="Label" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Scrap Panel Container"]
+layout_mode = 2
+text = "100000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Food TextureRect" type="TextureRect" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox"]
+layout_mode = 2
+texture = ExtResource("38_0q3s5")
+expand_mode = 3
+
+[node name="Food Panel Container" type="PanelContainer" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
+[node name="Food Number" type="Label" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Food Panel Container"]
 layout_mode = 2
 text = "100000"
 horizontal_alignment = 1
@@ -527,6 +540,7 @@ mouse_filter = 1
 
 [node name="TextureRect" type="TextureRect" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel"]
 layout_mode = 2
+texture = ExtResource("50_6hqe0")
 expand_mode = 2
 
 [node name="County Title MarginContainer" type="MarginContainer" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel"]
@@ -545,6 +559,7 @@ layout_mode = 2
 [node name="Faction Name Label" type="Label" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(180, 25)
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Faction Smackson"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -554,6 +569,7 @@ autowrap_mode = 3
 custom_minimum_size = Vector2(180, 25)
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Smortland Oregon"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -648,6 +664,14 @@ text = "420
 "
 horizontal_alignment = 1
 
+[node name="Resources Button" type="Button" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+focus_mode = 0
+mouse_filter = 1
+text = "Resources"
+
 [node name="County Improvements Button" type="Button" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -717,6 +741,90 @@ layout_mode = 2
 
 [node name="Fake CheckBox" type="CheckBox" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Select Hero PanelContainer"]
 layout_mode = 2
+
+[node name="Resources PanelContainer" type="PanelContainer" parent="Player UI Canvas" node_paths=PackedStringArray("maxPerishableAmountLabel", "maxNonperisableAmountLabel", "resourceHboxContainers")]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("50_5cg3n")
+script = ExtResource("54_ia1o5")
+maxPerishableAmountLabel = NodePath("VBoxContainer/HBoxContainer/Max Perishable Amount Label")
+maxNonperisableAmountLabel = NodePath("VBoxContainer/HBoxContainer/Max Non-perishable Amount Label")
+resourceHboxContainers = [NodePath("MarginContainer/VBoxContainer/Storage HBoxContainer"), NodePath("MarginContainer/VBoxContainer/Storage HBoxContainer2"), NodePath("MarginContainer/VBoxContainer/Storage HBoxContainer3"), NodePath("MarginContainer/VBoxContainer/Storage HBoxContainer4")]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Resources PanelContainer"]
+layout_mode = 2
+
+[node name="County Name Title Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "County Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Max Perishable Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 16
+text = "Max Perishable: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Max Perishable Amount Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "500"
+
+[node name="VSeparator" type="VSeparator" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Max Non-perishable Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 16
+text = "Max Non-Perishable: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Max Non-perishable Amount Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "500"
+
+[node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Resources PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 70
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Resources PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Storage HBoxContainer" parent="Player UI Canvas/Resources PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("53_xnh1n")]
+layout_mode = 2
+
+[node name="Storage HBoxContainer2" parent="Player UI Canvas/Resources PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("53_xnh1n")]
+layout_mode = 2
+
+[node name="Storage HBoxContainer3" parent="Player UI Canvas/Resources PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("53_xnh1n")]
+layout_mode = 2
+
+[node name="Storage HBoxContainer4" parent="Player UI Canvas/Resources PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("53_xnh1n")]
+layout_mode = 2
+
+[node name="Close Button" type="Button" parent="Player UI Canvas/Resources PanelContainer"]
+custom_minimum_size = Vector2(75, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Close"
 
 [node name="Population List MarginContainer" type="MarginContainer" parent="Player UI Canvas" node_paths=PackedStringArray("populationListParent", "populationListTitle")]
 visible = false
@@ -879,6 +987,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("50_5cg3n")
 
 [node name="PanelContainer" type="PanelContainer" parent="Player UI Canvas/Population Description Control/MarginContainer"]
 layout_mode = 2
@@ -1943,12 +2052,15 @@ process_mode = 3
 [connection signal="mouse_exited" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer" to="Player UI Canvas/County Info Control" method="OnMouseExited"]
 [connection signal="button_up" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer/Population List Button" to="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer" method="OnButtonClick" binds= [false]]
 [connection signal="button_up" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer/Visitors List Button" to="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer" method="OnButtonClick" binds= [true]]
+[connection signal="pressed" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Resources Button" to="Player UI Canvas/County Info Control" method="ResourcesButtonPressed"]
 [connection signal="button_up" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/County Improvements Button" to="Player UI Canvas/County Info Control" method="CountyImprovementsButton"]
 [connection signal="mouse_entered" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/Heroes VBoxContainer" to="Player UI Canvas/County Info Control" method="OnMouseEntered"]
 [connection signal="mouse_exited" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/Heroes VBoxContainer" to="Player UI Canvas/County Info Control" method="OnMouseExited"]
 [connection signal="button_up" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Select Hero PanelContainer/Hero List Button" to="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Select Hero PanelContainer" method="HeroButton"]
 [connection signal="mouse_entered" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Select Hero PanelContainer/Hero List Button" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Select Hero PanelContainer/Hero List Button" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
+[connection signal="visibility_changed" from="Player UI Canvas/Resources PanelContainer" to="Player UI Canvas/Resources PanelContainer" method="OnVisibilityChanged"]
+[connection signal="pressed" from="Player UI Canvas/Resources PanelContainer/Close Button" to="Player UI Canvas/Resources PanelContainer" method="CloseButtonPressed"]
 [connection signal="visibility_changed" from="Player UI Canvas/Population List MarginContainer" to="Player UI Canvas/Population List MarginContainer" method="OnVisibilityChanged"]
 [connection signal="button_up" from="Player UI Canvas/Population List MarginContainer/Close Button" to="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer" method="CloseButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Population Description Control" to="Player UI Canvas/Population Description Control" method="OnVisibilityChanged"]

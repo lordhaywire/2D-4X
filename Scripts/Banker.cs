@@ -19,17 +19,17 @@ namespace PlayerSpace
                 $"{storyEventData.resource.resourceName}");
             switch (storyEventData.resource.resourceType)
             {
-                case AllEnums.ResourceType.Food:
-                    factionData.Food += storyEventData.resourceAmount;
+                case AllEnums.FactionResourceType.Food:
+                    factionData.FoodFaction += storyEventData.resourceAmount;
                     break;
-                case AllEnums.ResourceType.Influence:
+                case AllEnums.FactionResourceType.Influence:
                     factionData.Influence += storyEventData.resourceAmount;
                     break;
-                case AllEnums.ResourceType.Money:
+                case AllEnums.FactionResourceType.Money:
                     factionData.Money += storyEventData.resourceAmount;
                     break;
-                case AllEnums.ResourceType.Scrap:
-                    factionData.Scrap += storyEventData.resourceAmount;
+                case AllEnums.FactionResourceType.Scrap:
+                    factionData.ScrapFaction += storyEventData.resourceAmount;
                     break;
             }
         }
@@ -52,7 +52,7 @@ namespace PlayerSpace
 
         public bool CheckEnoughFood(FactionData faction)
         {
-            return faction.Food >= Globals.Instance.minimumFood;
+            return faction.FoodFaction >= Globals.Instance.minimumFood;
         }
 
         public void BuildImprovement(CountyData countyData, CountyImprovementData countyImprovementData)
@@ -78,7 +78,7 @@ namespace PlayerSpace
                         //GD.Print($"{improvementData.improvementName} is already being built.");
                         return;
                     }
-                    if (improvementData.resourceData.resourceType == AllEnums.ResourceType.Food)
+                    if (improvementData.resourceData.resourceType == AllEnums.FactionResourceType.Food)
                     {
                         //GD.Print($"{factionData.factionName} found {improvementData.improvementName} in {countyDataItem.countyName}.");
                         countyImprovementData = improvementData;

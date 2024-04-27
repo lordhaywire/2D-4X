@@ -240,6 +240,10 @@ namespace PlayerSpace
             countyIdleWorkersLabel.Text = Globals.Instance.CurrentlySelectedCounty.countyData.IdleWorkers.ToString();
         }
 
+        private void ResourcesButtonPressed()
+        {
+            PlayerUICanvas.Instance.resourcesPanelContainer.Show();
+        }
         private void CountyImprovementsButton()
         {
             //GD.Print("Buildings Button has been pressed.");

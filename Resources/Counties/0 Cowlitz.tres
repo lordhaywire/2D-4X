@@ -1,17 +1,21 @@
-[gd_resource type="Resource" script_class="CountyData" load_steps=2 format=3 uid="uid://cvc0wfljshom0"]
+[gd_resource type="Resource" script_class="CountyData" load_steps=3 format=3 uid="uid://cvc0wfljshom0"]
 
+[ext_resource type="Resource" uid="uid://8rlgk7ws51cg" path="res://Resources/Factions/AIFaction1.tres" id="1_mr4wl"]
 [ext_resource type="Script" path="res://Resources/CountyData.cs" id="2_bmxi8"]
 
 [resource]
 script = ExtResource("2_bmxi8")
 color = Color(0.909804, 0.8, 0, 1)
-countyOverlayLocalPosition = Vector2i(18, -8)
+countyOverlayLocalPosition = Vector2i(0, 0)
 countyId = 0
 countyName = "Cowlitz"
 isPlayerCapital = false
 isAICapital = true
+factionData = ExtResource("1_mr4wl")
 province = 1
-biomePrimary = 0
-biomeSecondary = 6
+biomePrimary = 6
+biomeSecondary = 0
 biomeTertiary = 5
-population = 0
+perishableStorage = 0
+nonperishableStorage = 0
+resources = Array[Object]([])

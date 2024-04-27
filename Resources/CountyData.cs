@@ -1,9 +1,6 @@
 using Godot;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 
 namespace PlayerSpace
 {
@@ -43,9 +40,11 @@ namespace PlayerSpace
         public List<CountyImprovementData> underConstructionCountyImprovements = [];
         public List<Battle> battles = [];
 
-        [Export] public int population;
-        //[Export] public int perishableStorage = Globals.Instance.startingPerishableStorage;
-        //[Export] public int nonperishableStorage = Globals.Instance.startingNonperishableStorage;
+        public int population = 0;
+        [Export] public int perishableStorage;
+        [Export] public int nonperishableStorage;
+
+        [Export] public ResourceData[] resources = new ResourceData[4];
 
         // These are used just to pass some data around.  Probably I should find a better way to do this.
         public Texture2D maskTexture;

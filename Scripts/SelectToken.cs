@@ -143,15 +143,22 @@ namespace PlayerSpace
                     break;
                 case AllText.Activities.MOVING:
                     UpdateNextActivity(activity);
-                    countyPopulation.CurrentResearchItemData = null;
+                    RemoveFromResearch();
                     break;
                 default:
-                    countyPopulation.CurrentResearchItemData = null;
+                    RemoveFromResearch();
                     break;
             }
 
         }
 
+        private void RemoveFromResearch()
+        {
+            countyPopulation.CurrentResearchItemData = null;
+            ResearchControl.Instance.assignedResearchers.Remove(countyPopulation);
+            GD.Print("Removed from Research - Assigned Researchers Count: " + ResearchControl.Instance.assignedResearchers.Count);
+            CountyInfoControl.Instance.GenerateHeroesPanelList();
+        }
         public void UpdateNextActivity(string activity)
         {
             countyPopulation.nextActivity = activity;

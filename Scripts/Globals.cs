@@ -54,7 +54,7 @@ namespace PlayerSpace
                 }
                 else
                 {
-                    CallDeferred("UpdateSelectedHero");
+                    CallDeferred(nameof(UpdateSelectedHero));
                     PlayerUICanvas.Instance.selectedHeroPanelContainer.Show();
                 }
             }
@@ -77,8 +77,8 @@ namespace PlayerSpace
         [Export] public int minimumFood;
 
         [ExportGroup("County Stuff")]
-        [Export] public int startingPerishableStorage = 500;
-        [Export] public int startingNonperishableStorage = 500;
+        [Export] public int startingPerishableStorage = 5000;
+        [Export] public int startingNonperishableStorage = 5000;
 
         [ExportGroup("Population Shit")]
         [Export] public PackedScene heroToken;

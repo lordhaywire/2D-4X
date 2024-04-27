@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq;
 
 namespace PlayerSpace
 {
@@ -11,6 +12,32 @@ namespace PlayerSpace
             GenerateBuildings();
             AssignCountyDataToFaction();
             SubscribeToCountyHeroLists();
+            UpdateResources();
+            UpdateStorage();
+
+        }
+
+        private void UpdateResources()
+        {
+            foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
+            {
+                for(int i = 0; i < AllResources.Instance.allResources.Length; i++)
+                {
+                    county.countyData.resources[i] = (ResourceData)AllResources.Instance.allResources[i].Duplicate();
+                    GD.Print($"{county.countyData.countyName} - {county.countyData.resources[i].resourceName}: " +
+                        $"{county.countyData.resources[i].amount}");
+                }
+            }
+        }
+
+        private void UpdateStorage()
+        {
+            foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
+            {
+                county.countyData.perishableStorage = Globals.Instance.startingPerishableStorage;
+                county.countyData.nonperishableStorage = Globals.Instance.startingNonperishableStorage;
+                GD.Print($"{county.countyData.countyName} has {county.countyData.perishableStorage} perishable storage.");
+            }
         }
 
         private void SubscribeToCountyHeroLists()
