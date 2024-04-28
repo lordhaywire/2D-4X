@@ -18,4 +18,5 @@ biomeSecondary = 0
 biomeTertiary = 5
 perishableStorage = 0
 nonperishableStorage = 0
-resources = Array[Object]([])
+perishableResources = [null, null]
+nonperishableResources = [null, null]

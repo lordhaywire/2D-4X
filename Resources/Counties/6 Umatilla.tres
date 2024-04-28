@@ -18,3 +18,5 @@ biomeSecondary = 3
 biomeTertiary = 4
 perishableStorage = 0
 nonperishableStorage = 0
+perishableResources = [null, null]
+nonperishableResources = [null, null]

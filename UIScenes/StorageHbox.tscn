@@ -1,7 +1,15 @@
-[gd_scene format=3 uid="uid://bif5f4i17oc2p"]
+[gd_scene load_steps=2 format=3 uid="uid://bif5f4i17oc2p"]
 
-[node name="Storage HBoxContainer" type="HBoxContainer"]
+[ext_resource type="Script" path="res://Scripts/UI/StorageHbox.cs" id="1_j0r4g"]
+
+[node name="Storage HBoxContainer" type="HBoxContainer" node_paths=PackedStringArray("resourceNameLabel", "resourceAmountLabel", "resourceMaxAmountLabel", "maxAmountSpinBox")]
 custom_minimum_size = Vector2(50, 0)
+alignment = 1
+script = ExtResource("1_j0r4g")
+resourceNameLabel = NodePath("Resource Name Label")
+resourceAmountLabel = NodePath("Current Amount Label")
+resourceMaxAmountLabel = NodePath("Max Amount Label")
+maxAmountSpinBox = NodePath("SpinBox")
 
 [node name="Resource Name Label" type="Label" parent="."]
 layout_mode = 2
@@ -11,10 +19,18 @@ text = "Resource:"
 layout_mode = 2
 text = "Current Amount"
 
+[node name="Slash Label" type="Label" parent="."]
+layout_mode = 2
+text = "/"
+
 [node name="Max Amount Label" type="Label" parent="."]
+visible = false
 layout_mode = 2
 text = "Max Amount"
 
 [node name="SpinBox" type="SpinBox" parent="."]
 layout_mode = 2
-step = 5.0
+step = 50.0
+value = 100.0
+
+[connection signal="value_changed" from="SpinBox" to="." method="ValueChanged"]

@@ -2,14 +2,17 @@ using Godot;
 using PlayerSpace;
 using System;
 
-public partial class AllResources : Node
+namespace PlayerSpace
 {
-    public static AllResources Instance { get; private set; }
-    
-    [Export] public ResourceData[] allResources;
-
-    public override void _Ready()
+    public partial class AllResources : Node
     {
-        Instance = this;
+        public static AllResources Instance { get; private set; }
+
+        [Export] public ResourceData[] allResources;
+
+        public override void _Ready()
+        {
+            Instance = this;
+        }
     }
 }

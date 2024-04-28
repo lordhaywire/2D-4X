@@ -6,3 +6,4 @@
 script = ExtResource("1_4tpxq")
 resourceName = "Fish"
 resourceType = 0
+perishable = true

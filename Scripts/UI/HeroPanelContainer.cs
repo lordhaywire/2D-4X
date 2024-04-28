@@ -41,7 +41,7 @@ namespace PlayerSpace
             GD.Print("Research Checkbox Toggled: " + toggled);
             if (toggled == false)
             {
-                Research.Instance.RemoveResearcher(countyPopulation);  
+                Research.Instance.RemoveResearcher(countyPopulation);
             }
         }
 

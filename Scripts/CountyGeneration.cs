@@ -1,11 +1,14 @@
 using Godot;
 using System;
+using System.Diagnostics.Metrics;
 using System.Linq;
 
 namespace PlayerSpace
 {
     public partial class CountyGeneration : Node
     {
+        private int perishable;
+        private int nonperishable;
         public override void _Ready()
         {
             AssignFactionDataToCountyData();
@@ -14,19 +17,54 @@ namespace PlayerSpace
             SubscribeToCountyHeroLists();
             UpdateResources();
             UpdateStorage();
-
         }
 
         private void UpdateResources()
         {
+            // Assign a copy of each resource to each county.
             foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
             {
-                for(int i = 0; i < AllResources.Instance.allResources.Length; i++)
+                CopyAndAssignResources(county, AllResources.Instance.allResources);
+            }
+        }
+
+        private void CopyAndAssignResources(County county, ResourceData[] resources)
+        {
+            perishable = 0;
+            nonperishable = 0;
+
+            for (int i = 0; i < resources.Length; i++)
+            {
+                if (resources[i].perishable)
                 {
-                    county.countyData.resources[i] = (ResourceData)AllResources.Instance.allResources[i].Duplicate();
-                    GD.Print($"{county.countyData.countyName} - {county.countyData.resources[i].resourceName}: " +
-                        $"{county.countyData.resources[i].amount}");
+                    county.countyData.perishableResources[perishable] = (ResourceData)resources[i].Duplicate();
+                    perishable++;
                 }
+                else
+                {
+                    county.countyData.nonperishableResources[nonperishable] = (ResourceData)resources[i].Duplicate();
+                    nonperishable++;
+                }
+            }
+            GD.Print($"Perishable: {perishable}, Nonperishable: {nonperishable}");
+            SetMaxStorage(county, county.countyData.perishableResources);
+            SetMaxStorage(county, county.countyData.nonperishableResources);
+        }
+
+        private void SetMaxStorage(County county, ResourceData[] resources)
+        {
+            foreach (ResourceData resource in resources)
+            {
+                if (resource.perishable)
+                {
+                    resource.maxAmount = Globals.Instance.startingPerishableStorage / resources.Length;
+                }
+                else
+                {
+                    resource.maxAmount = Globals.Instance.startingNonperishableStorage / resources.Length;
+                }
+                GD.Print($"{county.countyData.countyName} - {resource.resourceName}: " +
+                        $"{resource.maxAmount}");
             }
         }
 

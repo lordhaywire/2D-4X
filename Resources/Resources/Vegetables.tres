@@ -6,3 +6,4 @@
 script = ExtResource("1_tyovi")
 resourceName = "Vegetables"
 resourceType = 0
+perishable = true
