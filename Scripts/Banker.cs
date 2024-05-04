@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 
 namespace PlayerSpace
@@ -13,12 +14,20 @@ namespace PlayerSpace
 
         }
 
-        public void AddResource(FactionData factionData, StoryEventData storyEventData)
+        public void AddCountyResource(FactionData factionData, StoryEventData storyEventData)
         {
             GD.Print($"Faction: {factionData.factionName} is adding {storyEventData.resourceAmount} " +
                 $"{storyEventData.resource.resourceName}");
-            switch (storyEventData.resource.resourceType)
+            switch (storyEventData.resource.countyResourceType)
             {
+                // This is what you were working on.
+                case AllEnums.CountyResourceType.Fish:
+                    foreach(ResourceData resourceData in storyEventData.eventCounty.countyData.perishableResources)
+                    {
+                        //if(resourceData.countyResourceType =)
+                    }
+                    break;
+                /*
                 case AllEnums.FactionResourceType.Food:
                     factionData.FoodFaction += storyEventData.resourceAmount;
                     break;
@@ -31,8 +40,15 @@ namespace PlayerSpace
                 case AllEnums.FactionResourceType.Scrap:
                     factionData.ScrapFaction += storyEventData.resourceAmount;
                     break;
+                */
             }
         }
+
+        private void AddResourceToCounty()
+        {
+            throw new NotImplementedException();
+        }
+
         public void ChargeForHero()
         {
             //GD.Print("Player Influence: " + Globals.Instance.playerFactionData.Influence);
@@ -78,7 +94,7 @@ namespace PlayerSpace
                         //GD.Print($"{improvementData.improvementName} is already being built.");
                         return;
                     }
-                    if (improvementData.resourceData.resourceType == AllEnums.FactionResourceType.Food)
+                    if (improvementData.resourceData.factionResourceType == AllEnums.FactionResourceType.Food)
                     {
                         //GD.Print($"{factionData.factionName} found {improvementData.improvementName} in {countyDataItem.countyName}.");
                         countyImprovementData = improvementData;

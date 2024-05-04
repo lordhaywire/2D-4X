@@ -38,11 +38,11 @@ namespace PlayerSpace
         // Scrap and wood should be combined into building materials.
         public enum FactionResourceType
         {
+            BuildingMaterial,
             Food,
             Influence,
             Money,
             Scrap,
-            Wood,
         }
 
         public enum SkillType

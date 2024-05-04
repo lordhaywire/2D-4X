@@ -9,6 +9,7 @@ namespace PlayerSpace
     public partial class Globals : Node
     {
         public static Globals Instance { get; private set; }
+
         public Random random = new();
 
         [ExportGroup("Player Faction BS")]
@@ -138,7 +139,8 @@ namespace PlayerSpace
             // Load all the names from disk.
 
             string listDirectory = "";
-            // This doesn't seem like it should work, but it does.
+            // I think the variable can be used, if we open up the root directory first.
+            // Right now this code is doing nothing, except the GD.Print stuff.
             if (OS.HasFeature("editor"))
             {
                 GD.Print("Is in the editor!!!");
@@ -148,8 +150,6 @@ namespace PlayerSpace
             {
                 GD.Print("Is not in the editor!");
                 listDirectory = ProjectSettings.LocalizePath(listsPath);
-
-
             }
 
             DirAccess directory = DirAccess.Open("res://");

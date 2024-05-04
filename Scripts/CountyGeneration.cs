@@ -1,12 +1,11 @@
 using Godot;
-using System;
-using System.Diagnostics.Metrics;
 using System.Linq;
 
 namespace PlayerSpace
 {
     public partial class CountyGeneration : Node
     {
+        // I think we might be able to get rid of these.
         private int perishable;
         private int nonperishable;
         public override void _Ready()
@@ -16,7 +15,7 @@ namespace PlayerSpace
             AssignCountyDataToFaction();
             SubscribeToCountyHeroLists();
             UpdateResources();
-            UpdateStorage();
+            UpdateInitialCountyStorage();
         }
 
         private void UpdateResources()
@@ -37,7 +36,9 @@ namespace PlayerSpace
             {
                 if (resources[i].perishable)
                 {
+                    GD.Print("Perishable: " + perishable);
                     county.countyData.perishableResources[perishable] = (ResourceData)resources[i].Duplicate();
+                    GD.Print("Assigned Resource: " + county.countyData.perishableResources[perishable].resourceName);
                     perishable++;
                 }
                 else
@@ -47,28 +48,28 @@ namespace PlayerSpace
                 }
             }
             GD.Print($"Perishable: {perishable}, Nonperishable: {nonperishable}");
-            SetMaxStorage(county, county.countyData.perishableResources);
-            SetMaxStorage(county, county.countyData.nonperishableResources);
+            SetInitialMaxStorage(county, county.countyData.perishableResources);
+            SetInitialMaxStorage(county, county.countyData.nonperishableResources);
         }
 
-        private void SetMaxStorage(County county, ResourceData[] resources)
+        private static void SetInitialMaxStorage(County county, ResourceData[] resources)
         {
             foreach (ResourceData resource in resources)
             {
                 if (resource.perishable)
                 {
-                    resource.maxAmount = Globals.Instance.startingPerishableStorage / resources.Length;
+                    resource.MaxAmount = Globals.Instance.startingPerishableStorage / resources.Length;
                 }
                 else
                 {
-                    resource.maxAmount = Globals.Instance.startingNonperishableStorage / resources.Length;
+                    resource.MaxAmount = Globals.Instance.startingNonperishableStorage / resources.Length;
                 }
                 GD.Print($"{county.countyData.countyName} - {resource.resourceName}: " +
-                        $"{resource.maxAmount}");
+                        $"{resource.MaxAmount}");
             }
         }
 
-        private void UpdateStorage()
+        private static void UpdateInitialCountyStorage()
         {
             foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
             {
@@ -78,16 +79,16 @@ namespace PlayerSpace
             }
         }
 
-        private void SubscribeToCountyHeroLists()
+        private static void SubscribeToCountyHeroLists()
         {
-            foreach (County selectCounty in Globals.Instance.countiesParent.GetChildren())
+            foreach (County selectCounty in Globals.Instance.countiesParent.GetChildren().Cast<County>())
             {
                 selectCounty.countyData.herosInCountyList.ItemAdded += (sender, item) => Globals.Instance.AddToFactionHeroList(item);
             }
         }
 
         // This is just temporary until we set up random faction generation.
-        private void AssignFactionDataToCountyData()
+        private static void AssignFactionDataToCountyData()
         {
             // Cowlitz
             County selectCounty = (County)Globals.Instance.countiesParent.GetChild(0);
@@ -115,19 +116,19 @@ namespace PlayerSpace
         }
 
 
-        private void AssignCountyDataToFaction()
+        private static void AssignCountyDataToFaction()
         {
             // This goes through every county and adds itself to the faction data that is already assigned to the county.
-            foreach (County selectCounty in Globals.Instance.countiesParent.GetChildren())
+            foreach (County selectCounty in Globals.Instance.countiesParent.GetChildren().Cast<County>())
             {
                 selectCounty.countyData.factionData.countiesFactionOwns.Add(selectCounty.countyData);
                 //GD.Print($"Faction: {selectCounty.countyData.factionData.factionName} {selectCounty.countyData.countyName}");
             }
         }
 
-        private void GenerateBuildings()
+        private static void GenerateBuildings()
         {
-            foreach (County selectCounty in Globals.Instance.countiesParent.GetChildren())
+            foreach (County selectCounty in Globals.Instance.countiesParent.GetChildren().Cast<County>())
             {
                 //GD.Print("County Generation: " + selectCounty.Name);
                 //GD.Print("County Data: " + selectCounty.countyData.countyName);

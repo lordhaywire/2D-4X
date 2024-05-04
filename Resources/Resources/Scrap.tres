@@ -5,4 +5,6 @@
 [resource]
 script = ExtResource("1_mrv0t")
 resourceName = "Scrap"
-resourceType = 3
+countyResourceType = 1
+factionResourceType = 4
+perishable = false

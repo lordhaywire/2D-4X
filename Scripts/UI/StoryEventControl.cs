@@ -75,7 +75,7 @@ namespace PlayerSpace
         }
         private void AcceptButtonPressed()
         {
-            Banker.Instance.AddResource(Globals.Instance.playerFactionData, currentStoryEventData);
+            Banker.Instance.AddCountyResource(Globals.Instance.playerFactionData, currentStoryEventData);
             Hide();
             GD.Print("Accept Button has been pressed.");
         }

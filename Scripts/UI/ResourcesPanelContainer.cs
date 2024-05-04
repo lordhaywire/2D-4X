@@ -1,6 +1,6 @@
 using Godot;
 using System;
-using System.Linq;
+using System.Diagnostics.Metrics;
 
 namespace PlayerSpace
 {
@@ -19,57 +19,94 @@ namespace PlayerSpace
 
         public override void _Ready()
         {
-           Instance = this;
+            Instance = this;
+        }
+
+        private void AssignResourcesToStorageHboxes()
+        {
+            County county = Globals.Instance.selectedLeftClickCounty;
+            GD.Print("County: " + county.countyData.countyName);
+            for (int i = 0; i < perishableResourceStorageHbox.Length; i++)
+            {
+                GD.Print("County Resource: " + county.countyData.perishableResources[i]);
+                perishableResourceStorageHbox[i].resourceData = county.countyData.perishableResources[i];
+            }
+            for (int i = 0; i < nonperishableResourceStorageHbox.Length; i++)
+            {
+                nonperishableResourceStorageHbox[i].resourceData = county.countyData.nonperishableResources[i];
+            }
         }
 
         private void OnVisibilityChanged()
         {
             if (Visible)
             {
+                AssignResourcesToStorageHboxes();
                 PlayerControls.Instance.playerControlsEnabled = false;
                 UpdateMaxAmountLabels();
                 UpdateResourceLabels();
             }
             else
             {
+                // Set the county resource max storage to equal whatever the player left it as.
+                SetResourceMaxValues(perishableResourceStorageHbox);
+                SetResourceMaxValues(nonperishableResourceStorageHbox);
+
                 PlayerControls.Instance.playerControlsEnabled = true;
             }
         }
 
-        public void UpdateSpinBoxMaxValue(int amount, bool perishable, int index)
+        
+        private void SetResourceMaxValues(StorageHbox[] storageHbox)
         {
-            CountyData countyData = Globals.Instance.selectedLeftClickCounty.countyData;
-
-            if(perishable)
+            for(int i = 0; i < storageHbox.Length; i++)
             {
-                for (int i = 0; i < perishableResourceStorageHbox.Length; i++)
-                {
-                    if(i != index)
-                    {
-                        GD.Print("Perishable Storage: " + countyData.perishableStorage);
-                        GD.Print("Perishable Resources Length: " + countyData.perishableResources.Length);
-                        
-                        perishableResourceStorageHbox[i].maxAmountSpinBox.MaxValue 
-                            = (countyData.perishableStorage / countyData.perishableResources.Length) 
-                            + int.Parse(currentPerishableAvailableLabel.Text);
-                        GD.Print(perishableResourceStorageHbox[i].maxAmountSpinBox.MaxValue);
-                    }
-                }
+                storageHbox[i].resourceData.MaxAmount = (int)storageHbox[i].maxAmountSpinBox.Value;
             }
-
         }
-        public void UpdateAvailableStorage(int amount, bool perishable)
+
+        public void UpdateSpinBoxMaxValue(bool perishable)
+        {
+            if (perishable)
+            {
+                UpdateMaxValue(perishableResourceStorageHbox, currentPerishableAvailableLabel);
+            }
+            else
+            {
+                UpdateMaxValue(nonperishableResourceStorageHbox, currentNonperishableAvailableLabel);
+            }
+        }
+
+        private void UpdateMaxValue(StorageHbox[] storageHboxArray, Label availableLabel)
+        {
+            foreach (StorageHbox storageHbox in storageHboxArray)
+            {
+                storageHbox.maxAmountSpinBox.MaxValue = storageHbox.maxAmountSpinBox.Value + int.Parse(availableLabel.Text);
+            }
+        }
+
+        public void UpdateCountyAvailableStorage(bool perishable)
         {
             CountyData countyData = Globals.Instance.selectedLeftClickCounty.countyData;
             if (perishable)
             {
-                currentPerishableAvailableLabel.Text
-                    = (countyData.perishableStorage / countyData.perishableResources.Length - amount).ToString();
+                int totalUsedStorage = 0;
+                foreach (StorageHbox storageHBox in perishableResourceStorageHbox)
+                {
+                    totalUsedStorage += (int)storageHBox.maxAmountSpinBox.Value;
+                }
+                int totalAvailableStorage = countyData.perishableStorage - totalUsedStorage;
+                currentPerishableAvailableLabel.Text = totalAvailableStorage.ToString();
             }
             else
             {
-                currentNonperishableAvailableLabel.Text
-                = (countyData.nonperishableStorage / countyData.nonperishableResources.Length - amount).ToString();
+                int totalUsedStorage = 0;
+                foreach (StorageHbox storageHBox in nonperishableResourceStorageHbox)
+                {
+                    totalUsedStorage += (int)storageHBox.maxAmountSpinBox.Value;
+                }
+                int totalAvailableStorage = countyData.nonperishableStorage - totalUsedStorage;
+                currentNonperishableAvailableLabel.Text = totalAvailableStorage.ToString();
             }
         }
         private void UpdateResourceLabels()
@@ -92,10 +129,9 @@ namespace PlayerSpace
                     = $"{resources[i].resourceName}:";
                 storageHboxes[i].resourceAmountLabel.Text
                     = resources[i].amount.ToString();
-                GD.Print(resources[i].maxAmount);
+                GD.Print(resources[i].MaxAmount);
                 storageHboxes[i].resourceMaxAmountLabel.Text
-                    = resources[i].maxAmount.ToString();
-
+                    = resources[i].MaxAmount.ToString();
 
                 // Spinbox
                 if (resources[i].perishable)
@@ -108,7 +144,7 @@ namespace PlayerSpace
                     storageHboxes[i].maxAmountSpinBox.MaxValue
                         = Globals.Instance.selectedLeftClickCounty.countyData.nonperishableStorage / resources.Length;
                 }
-                storageHboxes[i].maxAmountSpinBox.Value = resources[i].maxAmount;
+                storageHboxes[i].maxAmountSpinBox.Value = resources[i].MaxAmount;
             }
         }
 
@@ -131,7 +167,7 @@ namespace PlayerSpace
             int storage = 0;
             foreach (ResourceData resource in resources)
             {
-                storage += resource.maxAmount;
+                storage += resource.MaxAmount;
             }
             int availableStorage = maxStorage - storage;
             return availableStorage;

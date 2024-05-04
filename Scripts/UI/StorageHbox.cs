@@ -4,6 +4,7 @@ namespace PlayerSpace
 {
     public partial class StorageHbox : HBoxContainer
     {
+        [Export] public ResourceData resourceData;
         public int storageHboxIndex;
         [Export] public Label resourceNameLabel;
         [Export] public Label resourceAmountLabel;
@@ -14,8 +15,8 @@ namespace PlayerSpace
 
         private void ValueChanged(float value)
         {
-            ResourcesPanelContainer.Instance.UpdateAvailableStorage((int)value, perishable);
-            ResourcesPanelContainer.Instance.UpdateSpinBoxMaxValue((int)value, perishable, storageHboxIndex);
+            ResourcesPanelContainer.Instance.UpdateCountyAvailableStorage(perishable);
+            ResourcesPanelContainer.Instance.UpdateSpinBoxMaxValue(perishable);
         }
     }
 }

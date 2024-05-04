@@ -5,4 +5,6 @@
 [resource]
 script = ExtResource("1_5vlxb")
 resourceName = "Wood"
-resourceType = 4
+countyResourceType = 3
+factionResourceType = 0
+perishable = false
