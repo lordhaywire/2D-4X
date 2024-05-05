@@ -29,7 +29,7 @@ namespace PlayerSpace
             CheckForBuildingCountyImprovements();
         }
 
-        private void DecideHeroAction()
+        private static void DecideHeroAction()
         {
             foreach (FactionData factionData in Globals.Instance.factionDatas)
             {
@@ -44,7 +44,7 @@ namespace PlayerSpace
             }
         }
 
-        private void CheckForBuildingCountyImprovements()
+        private static void CheckForBuildingCountyImprovements()
         {
             foreach (FactionData factionData in Globals.Instance.factionDatas)
             {

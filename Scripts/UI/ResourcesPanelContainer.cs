@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 
 namespace PlayerSpace
@@ -26,14 +27,20 @@ namespace PlayerSpace
         {
             County county = Globals.Instance.selectedLeftClickCounty;
             GD.Print("County: " + county.countyData.countyName);
-            for (int i = 0; i < perishableResourceStorageHbox.Length; i++)
+            int perishable = 0;
+            int nonperishable = 0;
+            foreach (KeyValuePair<AllEnums.CountyResourceType, ResourceData> keyValuePair 
+                in county.countyData.perishableResources)
             {
-                GD.Print("County Resource: " + county.countyData.perishableResources[i]);
-                perishableResourceStorageHbox[i].resourceData = county.countyData.perishableResources[i];
+                perishableResourceStorageHbox[perishable].resourceData = keyValuePair.Value;
+                perishable++;
             }
-            for (int i = 0; i < nonperishableResourceStorageHbox.Length; i++)
+
+            foreach (KeyValuePair<AllEnums.CountyResourceType, ResourceData> keyValuePair 
+                in county.countyData.nonperishableResources)
             {
-                nonperishableResourceStorageHbox[i].resourceData = county.countyData.nonperishableResources[i];
+                nonperishableResourceStorageHbox[nonperishable].resourceData = keyValuePair.Value;
+                nonperishable++;
             }
         }
 
@@ -56,8 +63,7 @@ namespace PlayerSpace
             }
         }
 
-        
-        private void SetResourceMaxValues(StorageHbox[] storageHbox)
+        private static void SetResourceMaxValues(StorageHbox[] storageHbox)
         {
             for(int i = 0; i < storageHbox.Length; i++)
             {
@@ -77,7 +83,7 @@ namespace PlayerSpace
             }
         }
 
-        private void UpdateMaxValue(StorageHbox[] storageHboxArray, Label availableLabel)
+        private static void UpdateMaxValue(StorageHbox[] storageHboxArray, Label availableLabel)
         {
             foreach (StorageHbox storageHbox in storageHboxArray)
             {
@@ -119,32 +125,35 @@ namespace PlayerSpace
                 , Globals.Instance.selectedLeftClickCounty.countyData.nonperishableResources);
         }
 
-        private void UpdateEachTypeOfResource(StorageHbox[] storageHboxes, ResourceData[] resources)
+        private static void UpdateEachTypeOfResource(StorageHbox[] storageHboxes
+            , Godot.Collections.Dictionary<AllEnums.CountyResourceType, ResourceData> resources)
         {
-            for (int i = 0; i < resources.Length; i++)
+            int i = 0;
+            foreach (KeyValuePair<AllEnums.CountyResourceType, ResourceData> keyValuePair in resources)
             {
-                storageHboxes[i].perishable = resources[i].perishable;
+                //AllEnums.CountyResourceType key = keyValuePair.Key;
+                ResourceData resource = keyValuePair.Value;
+
+                storageHboxes[i].perishable = resource.perishable;
                 storageHboxes[i].storageHboxIndex = i;
-                storageHboxes[i].resourceNameLabel.Text
-                    = $"{resources[i].resourceName}:";
-                storageHboxes[i].resourceAmountLabel.Text
-                    = resources[i].amount.ToString();
-                GD.Print(resources[i].MaxAmount);
-                storageHboxes[i].resourceMaxAmountLabel.Text
-                    = resources[i].MaxAmount.ToString();
+                storageHboxes[i].resourceNameLabel.Text = $"{resource.resourceName}:";
+                storageHboxes[i].resourceAmountLabel.Text = resource.amount.ToString();
+                GD.Print(resource.MaxAmount);
+                storageHboxes[i].resourceMaxAmountLabel.Text = resource.MaxAmount.ToString();
 
                 // Spinbox
-                if (resources[i].perishable)
+                if (resource.perishable)
                 {
-                    storageHboxes[i].maxAmountSpinBox.MaxValue
-                        = Globals.Instance.selectedLeftClickCounty.countyData.perishableStorage / resources.Length;
+                    storageHboxes[i].maxAmountSpinBox.MaxValue 
+                        = Globals.Instance.selectedLeftClickCounty.countyData.perishableStorage / resources.Count;
                 }
                 else
                 {
-                    storageHboxes[i].maxAmountSpinBox.MaxValue
-                        = Globals.Instance.selectedLeftClickCounty.countyData.nonperishableStorage / resources.Length;
+                    storageHboxes[i].maxAmountSpinBox.MaxValue 
+                        = Globals.Instance.selectedLeftClickCounty.countyData.nonperishableStorage / resources.Count;
                 }
-                storageHboxes[i].maxAmountSpinBox.Value = resources[i].MaxAmount;
+                storageHboxes[i].maxAmountSpinBox.Value = resource.MaxAmount;
+                i++;
             }
         }
 
@@ -162,10 +171,11 @@ namespace PlayerSpace
                 = Globals.Instance.selectedLeftClickCounty.countyData.nonperishableStorage.ToString();
         }
 
-        private int CountStorageAmounts(ResourceData[] resources, int maxStorage)
+        private static int CountStorageAmounts(Godot.Collections.Dictionary<AllEnums.CountyResourceType, ResourceData> resources
+            , int maxStorage)
         {
             int storage = 0;
-            foreach (ResourceData resource in resources)
+            foreach (ResourceData resource in resources.Values)
             {
                 storage += resource.MaxAmount;
             }

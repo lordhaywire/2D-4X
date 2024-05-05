@@ -1,6 +1,7 @@
 using GlobalSpace;
 using Godot;
 using System;
+using System.Linq;
 
 namespace PlayerSpace
 {
@@ -44,7 +45,7 @@ namespace PlayerSpace
 
                 // Check every countyData to find the color it finds.  If it finds that color then it turns on the 
                 // grey overlay.
-                foreach (County county in Globals.Instance.countiesParent.GetChildren())
+                foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
                 {
                     Sprite2D maskSprite = county.maskSprite;
 
@@ -64,6 +65,7 @@ namespace PlayerSpace
                                 Globals.Instance.CurrentlySelectedCounty = county;
                                 Globals.Instance.selectedCountyId = county.countyData.countyId;
                                 Globals.Instance.selectedLeftClickCounty = county;
+                                TopBarControl.Instance.UpdateTopBarWithCountyResources();
                                 CountyInfoControl.Instance.UpdateEverything();
                                 CountyInfoControl.Instance.countyInfoControl.Show(); // This has to be last.
                             }
@@ -116,7 +118,7 @@ namespace PlayerSpace
             }
         }
 
-        private void MoveSelectedToken(CountyData moveTargetCountyData)
+        private static void MoveSelectedToken(CountyData moveTargetCountyData)
         {
             Globals.Instance.selectedRightClickCounty = moveTargetCountyData.countyNode;
             GD.Print($"Move Target County: {moveTargetCountyData.countyName}" +

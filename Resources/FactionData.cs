@@ -7,10 +7,11 @@ namespace PlayerSpace
     [GlobalClass]
     public partial class FactionData : Resource
     {
-        public event Action FoodChanged;
         public event Action InfluenceChanged;
         public event Action MoneyChanged;
         public event Action ScrapChanged;
+        public event Action BuildingMaterialsChanged;
+        public event Action FoodChanged;
 
         [ExportGroup("Faction Info")]
         [Export] public int factionID;
@@ -31,8 +32,9 @@ namespace PlayerSpace
         private int influence;
         private int money;
 
-        private int foodFaction;
         private int scrapFaction;
+        private int buildingMaterialsFaction;
+        private int foodFaction;
 
         [ExportGroup("Getter Setter")]
         [Export]
@@ -61,6 +63,7 @@ namespace PlayerSpace
                 }
             }
         }
+
         [Export]
         public int ScrapFaction
         {
@@ -68,12 +71,27 @@ namespace PlayerSpace
             set
             {
                 scrapFaction = value;
-                if (isPlayer == true)
+                if(isPlayer == true)
                 {
                     ScrapChanged?.Invoke();
                 }
             }
         }
+
+        [Export]
+        public int BuildingMaterialsFaction
+        {
+            get { return buildingMaterialsFaction; }
+            set
+            {
+                buildingMaterialsFaction = value;
+                if (isPlayer == true)
+                {
+                    BuildingMaterialsChanged?.Invoke();
+                }
+            }
+        }
+
 
         [Export]
         public int FoodFaction

@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=85 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scenes/HidderNode.cs" id="1_gbt3x"]
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_x1cy2"]
@@ -71,6 +71,7 @@
 [ext_resource type="PackedScene" uid="uid://x41vmtlrl1cx" path="res://UIScenes/CombatLogTextPanel.tscn" id="44_qsgen"]
 [ext_resource type="Theme" uid="uid://b7f66fp0haa2c" path="res://Themes/FullScreenPanelTheme.tres" id="50_5cg3n"]
 [ext_resource type="Texture2D" uid="uid://bmawb7v8d3eev" path="res://Graphics/Old Yellow Lined Paper.png" id="50_6hqe0"]
+[ext_resource type="Texture2D" uid="uid://buiql8w31bmgq" path="res://Graphics/Icons/Top Bar/Building Materials concrete-bag.svg" id="52_5fb6h"]
 [ext_resource type="PackedScene" uid="uid://bif5f4i17oc2p" path="res://UIScenes/StorageHbox.tscn" id="53_xnh1n"]
 [ext_resource type="Script" path="res://Scripts/UI/ResourcesPanelContainer.cs" id="54_ia1o5"]
 [ext_resource type="PackedScene" uid="uid://4t2ve1w4uvww" path="res://UIScenes/AssignedResearcherHBoxContainer.tscn" id="62_dhpbg"]
@@ -265,7 +266,7 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 1
 
-[node name="Top Bar Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("clock", "influenceLabel", "moneyLabel", "foodLabel", "scrapLabel")]
+[node name="Top Bar Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("clock", "influenceLabel", "moneyLabel", "foodLabel", "scrapLabel", "buildingMaterialsLabel")]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 3
 anchors_preset = 10
@@ -279,6 +280,7 @@ influenceLabel = NodePath("PanelContainer/Top Bar HBox/Influence Panel Container
 moneyLabel = NodePath("PanelContainer/Top Bar HBox/Money Panel Container/Money Number")
 foodLabel = NodePath("PanelContainer/Top Bar HBox/Food Panel Container/Food Number")
 scrapLabel = NodePath("PanelContainer/Top Bar HBox/Scrap Panel Container/Scrap Number")
+buildingMaterialsLabel = NodePath("PanelContainer/Top Bar HBox/Building Materials Panel Container/Building Materials Number")
 
 [node name="PanelContainer" type="PanelContainer" parent="Player UI Canvas/Top Bar Control"]
 layout_mode = 1
@@ -381,6 +383,21 @@ custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 
 [node name="Scrap Number" type="Label" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Scrap Panel Container"]
+layout_mode = 2
+text = "100000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Building Materials TextureRect" type="TextureRect" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox"]
+layout_mode = 2
+texture = ExtResource("52_5fb6h")
+expand_mode = 3
+
+[node name="Building Materials Panel Container" type="PanelContainer" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
+[node name="Building Materials Number" type="Label" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Building Materials Panel Container"]
 layout_mode = 2
 text = "100000"
 horizontal_alignment = 1
@@ -740,6 +757,7 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
 [node name="Fake CheckBox" type="CheckBox" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Select Hero PanelContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Resources PanelContainer" type="PanelContainer" parent="Player UI Canvas" node_paths=PackedStringArray("countyNameTitleLabel", "currentPerishableAvailableLabel", "maxPerishableAmountAvailableLabel", "currentNonperishableAvailableLabel", "maxNonperisableAmountAvailableLabel", "perishableResourceStorageHbox", "nonperishableResourceStorageHbox")]

@@ -14,34 +14,16 @@ namespace PlayerSpace
 
         }
 
-        public void AddCountyResource(FactionData factionData, StoryEventData storyEventData)
+        public void AddCountyResource(StoryEventData storyEventData)
         {
-            GD.Print($"Faction: {factionData.factionName} is adding {storyEventData.resourceAmount} " +
-                $"{storyEventData.resource.resourceName}");
-            switch (storyEventData.resource.countyResourceType)
+            GD.Print($"Faction: {storyEventData.eventCounty.countyData.factionData.factionName} is adding " +
+                $"{storyEventData.resourceAmount} {storyEventData.resource.resourceName}");
+            if (storyEventData.resource.perishable)
             {
-                // This is what you were working on.
-                case AllEnums.CountyResourceType.Fish:
-                    foreach(ResourceData resourceData in storyEventData.eventCounty.countyData.perishableResources)
-                    {
-                        //if(resourceData.countyResourceType =)
-                    }
-                    break;
-                /*
-                case AllEnums.FactionResourceType.Food:
-                    factionData.FoodFaction += storyEventData.resourceAmount;
-                    break;
-                case AllEnums.FactionResourceType.Influence:
-                    factionData.Influence += storyEventData.resourceAmount;
-                    break;
-                case AllEnums.FactionResourceType.Money:
-                    factionData.Money += storyEventData.resourceAmount;
-                    break;
-                case AllEnums.FactionResourceType.Scrap:
-                    factionData.ScrapFaction += storyEventData.resourceAmount;
-                    break;
-                */
+                storyEventData.eventCounty.countyData.perishableResources[storyEventData.resource.countyResourceType].amount
+                    += storyEventData.resourceAmount;
             }
+            TopBarControl.Instance.UpdateTopBarWithCountyResources();
         }
 
         private void AddResourceToCounty()

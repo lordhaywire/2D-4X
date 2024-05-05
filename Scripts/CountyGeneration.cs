@@ -1,4 +1,5 @@
 using Godot;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace PlayerSpace
@@ -18,7 +19,7 @@ namespace PlayerSpace
             UpdateInitialCountyStorage();
         }
 
-        private void UpdateResources()
+        private static void UpdateResources()
         {
             // Assign a copy of each resource to each county.
             foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
@@ -27,42 +28,39 @@ namespace PlayerSpace
             }
         }
 
-        private void CopyAndAssignResources(County county, ResourceData[] resources)
+        private static void CopyAndAssignResources(County county, ResourceData[] resources)
         {
-            perishable = 0;
-            nonperishable = 0;
 
-            for (int i = 0; i < resources.Length; i++)
-            {
-                if (resources[i].perishable)
-                {
-                    GD.Print("Perishable: " + perishable);
-                    county.countyData.perishableResources[perishable] = (ResourceData)resources[i].Duplicate();
-                    GD.Print("Assigned Resource: " + county.countyData.perishableResources[perishable].resourceName);
-                    perishable++;
-                }
-                else
-                {
-                    county.countyData.nonperishableResources[nonperishable] = (ResourceData)resources[i].Duplicate();
-                    nonperishable++;
-                }
-            }
-            GD.Print($"Perishable: {perishable}, Nonperishable: {nonperishable}");
-            SetInitialMaxStorage(county, county.countyData.perishableResources);
-            SetInitialMaxStorage(county, county.countyData.nonperishableResources);
-        }
-
-        private static void SetInitialMaxStorage(County county, ResourceData[] resources)
-        {
             foreach (ResourceData resource in resources)
             {
                 if (resource.perishable)
                 {
-                    resource.MaxAmount = Globals.Instance.startingPerishableStorage / resources.Length;
+                    AllEnums.CountyResourceType key = resource.countyResourceType;
+                    county.countyData.perishableResources[key] = (ResourceData)resource.Duplicate();
                 }
                 else
                 {
-                    resource.MaxAmount = Globals.Instance.startingNonperishableStorage / resources.Length;
+                    AllEnums.CountyResourceType key = resource.countyResourceType;
+                    county.countyData.nonperishableResources[key] = (ResourceData)resource.Duplicate();
+                }
+            }
+
+            SetInitialMaxStorage(county, county.countyData.perishableResources);
+            SetInitialMaxStorage(county, county.countyData.nonperishableResources);
+        }
+        private static void SetInitialMaxStorage(County county, Godot.Collections.Dictionary<AllEnums.CountyResourceType, ResourceData> resources)
+        {
+            foreach (KeyValuePair<AllEnums.CountyResourceType, ResourceData> keyValuePair in resources)
+            {
+                ResourceData resource = keyValuePair.Value;
+
+                if (resource.perishable)
+                {
+                    resource.MaxAmount = Globals.Instance.startingPerishableStorage / resources.Count;
+                }
+                else
+                {
+                    resource.MaxAmount = Globals.Instance.startingNonperishableStorage / resources.Count;
                 }
                 GD.Print($"{county.countyData.countyName} - {resource.resourceName}: " +
                         $"{resource.MaxAmount}");

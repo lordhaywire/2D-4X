@@ -49,13 +49,13 @@ namespace PlayerSpace
             }
         }
 
-        public void OnMouseEntered()
+        public static void OnMouseEntered()
         {
             PlayerControls.Instance.stopClickThrough = true;
             //GD.Print("Mouse Over UI: " + PlayerControls.Instance.mouseOverUI);
         }
 
-        public void OnMouseExited()
+        public static void OnMouseExited()
         {
             PlayerControls.Instance.stopClickThrough = false;
             //GD.Print("Mouse Over UI: " + PlayerControls.Instance.mouseOverUI);
@@ -240,7 +240,7 @@ namespace PlayerSpace
             countyIdleWorkersLabel.Text = Globals.Instance.CurrentlySelectedCounty.countyData.IdleWorkers.ToString();
         }
 
-        private void ResourcesButtonPressed()
+        private static void ResourcesButtonPressed()
         {
             PlayerUICanvas.Instance.resourcesPanelContainer.Show();
         }

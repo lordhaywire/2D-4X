@@ -44,9 +44,8 @@ namespace PlayerSpace
         [Export] public int perishableStorage;
         [Export] public int nonperishableStorage;
 
-        [Export] public ResourceData[] perishableResources = new ResourceData[2];
-        [Export] public ResourceData[] nonperishableResources = new ResourceData[2];
-
+        [Export] public Godot.Collections.Dictionary<AllEnums.CountyResourceType, ResourceData> perishableResources = [];
+        [Export] public Godot.Collections.Dictionary<AllEnums.CountyResourceType, ResourceData> nonperishableResources = [];
 
         // These are used just to pass some data around.  Probably I should find a better way to do this.
         public Texture2D maskTexture;

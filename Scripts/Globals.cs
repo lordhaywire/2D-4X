@@ -138,18 +138,18 @@ namespace PlayerSpace
         {
             // Load all the names from disk.
 
-            string listDirectory = "";
+            //string listDirectory = "";
             // I think the variable can be used, if we open up the root directory first.
             // Right now this code is doing nothing, except the GD.Print stuff.
             if (OS.HasFeature("editor"))
             {
                 GD.Print("Is in the editor!!!");
-                listDirectory = ProjectSettings.LocalizePath(listsPath); 
+                //listDirectory = ProjectSettings.LocalizePath(listsPath); 
             }
             else
             {
                 GD.Print("Is not in the editor!");
-                listDirectory = ProjectSettings.LocalizePath(listsPath);
+                //listDirectory = ProjectSettings.LocalizePath(listsPath);
             }
 
             DirAccess directory = DirAccess.Open("res://");
@@ -260,13 +260,13 @@ namespace PlayerSpace
                 GD.Print($"Add To {countyPopulation.factionData.factionName} Hero List: " + countyPopulation.lastName);
             }
         }
-        public void OnMouseEnteredUI()
+        public static void OnMouseEnteredUI()
         {
             PlayerControls.Instance.stopClickThrough = true;
             //GD.Print("Mouse Over UI: " + PlayerControls.Instance.stopClickThrough);
         }
 
-        public void OnMouseExitedUI()
+        public static void OnMouseExitedUI()
         {
             PlayerControls.Instance.stopClickThrough = false;
             //GD.Print("Mouse Over UI: " + PlayerControls.Instance.stopClickThrough);

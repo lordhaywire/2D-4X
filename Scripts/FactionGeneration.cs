@@ -19,7 +19,7 @@ namespace PlayerSpace
             AddFactionsToDiplomacyWar();
         }
 
-        private void AddFactionsToDiplomacyWar()
+        private static void AddFactionsToDiplomacyWar()
         {
             foreach (FactionData factionData in Globals.Instance.factionDatas)
             {
@@ -72,7 +72,7 @@ namespace PlayerSpace
             AddChild(factionNode);
         }
 
-        private void AddStartingResearch(FactionData factionData)
+        private static void AddStartingResearch(FactionData factionData)
         {
             foreach (ResearchItemData researchItemData in AllResearch.Instance.allTierOneResearchData)
             {

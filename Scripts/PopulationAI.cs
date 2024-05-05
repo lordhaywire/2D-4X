@@ -18,7 +18,7 @@ namespace PlayerSpace
         }
 
         // Have the world population decide what they are doing the next day.
-        private void DecideNextActivity()
+        private static void DecideNextActivity()
         {
             // Go through every county.
             foreach (Node node in Globals.Instance.countiesParent.GetChildren())

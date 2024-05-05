@@ -14,6 +14,8 @@ namespace PlayerSpace
         public override void _Ready()
         {
             Clock.Instance.HourChanged += CheckForEvent;
+
+
         }
 
         private void CheckForEvent()
@@ -44,7 +46,10 @@ namespace PlayerSpace
             // Hide the middle 2 buttons just in case they were shown before.
             HideButtons();
 
+            // This is some hard coded bullshit just for the test fish event.
             currentStoryEventData = StoryEventList.Instance.storyEventDatas[0];
+            currentStoryEventData.eventCounty = (County)Globals.Instance.countiesParent.GetChild(3);
+
             storyEventTitle.Text = currentStoryEventData.storyEventTitle;
             storyEventDescription.Text = currentStoryEventData.storyEventDescription;
 
@@ -75,7 +80,7 @@ namespace PlayerSpace
         }
         private void AcceptButtonPressed()
         {
-            Banker.Instance.AddCountyResource(Globals.Instance.playerFactionData, currentStoryEventData);
+            Banker.Instance.AddCountyResource(currentStoryEventData);
             Hide();
             GD.Print("Accept Button has been pressed.");
         }
