@@ -28,6 +28,7 @@ namespace PlayerSpace
         [Export] private Button populationListButton;
         [Export] private Button visitorsListButton;
         [Export] private Button countyImprovementsButton;
+        [Export] private Button resourcesButton;
 
         [Export] private PackedScene heroListPrefab;
 
@@ -218,11 +219,13 @@ namespace PlayerSpace
             {
                 populationListButton.Disabled = true;
                 countyImprovementsButton.Disabled = true;
+                resourcesButton.Disabled = true;
             }
             else
             {
                 populationListButton.Disabled = false;
                 countyImprovementsButton.Disabled = false;
+                resourcesButton.Disabled = false;
             }
         }
         public void UpdateCountyPopulationLabel()

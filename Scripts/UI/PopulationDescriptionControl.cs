@@ -1,4 +1,7 @@
 using Godot;
+using System;
+using System.Collections.Generic;
+using System.Resources;
 
 namespace PlayerSpace
 {
@@ -22,6 +25,7 @@ namespace PlayerSpace
         [Export] private Label ageLabel;
         [Export] private Label sexLabel;
         [Export] private Label firstPerkLabel;
+        [Export] private Label secondPerkLabel;
         [Export] private Label noPerksLabel;
         [Export] private Label coolSkillLabel;
         [Export] private Label constructionSkillLabel;
@@ -99,18 +103,7 @@ namespace PlayerSpace
                 sexLabel.Text = "Female";
             }
 
-            if (countyPopulation.leaderOfPeoplePerk == true)
-            {
-                firstPerkLabel.Text = "Leader of People";
-                firstPerkLabel.Show();
-                noPerksLabel.Hide();
-            }
-            else
-            {
-                firstPerkLabel.Hide();
-                noPerksLabel.Show();
-            }
-
+            UpdatePerks();
             UpdateSkills(countyPopulation);
 
             if (countyPopulation.currentImprovement != null)
@@ -137,6 +130,43 @@ namespace PlayerSpace
             else
             {
                 aideRecruitButton.Disabled = false;
+            }
+        }
+
+        // All perks are known for now, but eventually we want the player not to know all of their population's perks.
+        private void UpdatePerks()
+        {
+            noPerksLabel.Hide();
+            bool anyPerks = false;
+            // Lets change this to an array and have it just turn on each label and label the text.
+            foreach (KeyValuePair<string, bool> keyValuePair in countyPopulation.perks)
+            {
+                switch (keyValuePair.Key)
+                {
+                    case "Leader of People" when keyValuePair.Value:
+                        firstPerkLabel.Show();
+                        anyPerks = true;
+                        break;
+                    case "Leader of People" when !keyValuePair.Value:
+                        firstPerkLabel.Hide();
+                        break;
+                    case "Unhelpful" when keyValuePair.Value:
+                        secondPerkLabel.Show();
+                        anyPerks = true;
+                        break;
+                    case "Unhelpful" when !keyValuePair.Value:
+                        secondPerkLabel.Hide();
+                        break;
+                    default:
+                        GD.Print("Perks are fucked up somehow.");
+                        break;
+                }
+            }
+
+            if (!anyPerks)
+            {
+                noPerksLabel.Show();
+                GD.Print("No perks are active.");
             }
         }
 

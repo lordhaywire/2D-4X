@@ -8,6 +8,7 @@ namespace PlayerSpace
         private StoryEventData currentStoryEventData;
         [Export] private Label storyEventTitle;
         [Export] private Label storyEventDescription;
+        [Export] private Label storyEventLocation;
 
         [Export] private Button[] choiceButtons;
 
@@ -52,6 +53,7 @@ namespace PlayerSpace
 
             storyEventTitle.Text = currentStoryEventData.storyEventTitle;
             storyEventDescription.Text = currentStoryEventData.storyEventDescription;
+            storyEventLocation.Text = $"County: {currentStoryEventData.eventCounty.countyData.countyName}";
 
             // The top button and the bottom button are accept and decline, and the first string and second string
             // choices are accept and decline;

@@ -13,7 +13,7 @@ namespace PlayerSpace
         private void OnVisibilityChanged()
         {
             DestroyPopulationRows(); // Clears out the population, so it doesn't duplicate.
-            if (Visible == true)
+            if (Visible)
             {
                 CountyInfoControl.Instance.DisableSpawnHeroCheckButton(true);
                 CountyInfoControl.Instance.populationDescriptionControl.Hide();
@@ -70,6 +70,7 @@ namespace PlayerSpace
                     populationRow.sexLabel.Text = "Female";
                 }
 
+                UpdatePerks(populationRow, person);
                 UpdateAttributes(populationRow, person);
                 UpdateSkills(populationRow, person);
 
@@ -94,11 +95,19 @@ namespace PlayerSpace
                 populationRowButton.countyPopulation = person;
             }
         }
-        private void UpdateAttributes(PopulationRowButton populationRow, CountyPopulation person)
+
+        // This will not be shown in to the player eventually.  It is just shown right now for testing.
+        // We might need a second testing bar to show these things later.
+        private static void UpdatePerks(PopulationRowButton populationRow, CountyPopulation person)
+        {
+            populationRow.UnhelpfulLabel.Text = $"{person.perks["Unhelpful"]}";
+        }
+
+        private static void UpdateAttributes(PopulationRowButton populationRow, CountyPopulation person)
         {
             populationRow.loyaltyAttributeLabel.Text = $"{person.loyaltyAttribute}";
         }
-        private void UpdateSkills(PopulationRowButton populationRow, CountyPopulation person)
+        private static void UpdateSkills(PopulationRowButton populationRow, CountyPopulation person)
         {
             populationRow.coolSkillLabel.Text = $"{person.coolSkill.skillLevel}";
             populationRow.constructionSkillLabel.Text = $"{person.constructionSkill.skillLevel}";

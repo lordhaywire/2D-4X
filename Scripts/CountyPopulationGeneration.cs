@@ -70,6 +70,18 @@ namespace PlayerSpace
                 // Determine the person's age.
                 age = random.Next(18, 61);
 
+                // Generate the UnUnhelpful perk.
+                bool isUnhelpful;
+                int randomUnhelpfulNumber = random.Next(0, 101);
+                if (randomUnhelpfulNumber <= 10)
+                {
+                    isUnhelpful = true;
+                }
+                else
+                {
+                    isUnhelpful = false;
+                }
+
                 // Generate random stats for each population.
                 int moraleExpendable = 100;
 
@@ -99,7 +111,7 @@ namespace PlayerSpace
                     amountLearned = 0,
                     isCombatSkill = true,
                     skillType = AllEnums.SkillType.MentalStrength,
-                }; 
+                };
                 SkillData researchSkill = new()
                 {
                     skillName = "Research",
@@ -117,20 +129,31 @@ namespace PlayerSpace
                     skillType = AllEnums.SkillType.Agility,
                 };
 
+
                 if (hero == false)
                 {
                     // This adds to the C# list.
                     countyData.countyPopulationList.Add(new CountyPopulation(countyData.factionData, countyData.countyId
-                        , -1, -1, firstName, lastName, isMale, age, false, false, false, false, false, false
-                        , moraleExpendable, ps, ag,en, ie, ms, aw, ch, lo, loyaltyAttribute, constructionSkill
-                        , coolSkill,  researchSkill, rifleSkill, AllText.Activities.IDLE, null
+                        , -1, -1, firstName, lastName, isMale, age, false, false, false, false, false
+                        , new Godot.Collections.Dictionary<string, bool>
+                        {
+                            { "Leader of People", false },
+                            { "Unhelpful", isUnhelpful }
+                        }
+                        , moraleExpendable, ps, ag, en, ie, ms, aw, ch, lo, loyaltyAttribute, constructionSkill
+                        , coolSkill, researchSkill, rifleSkill, AllText.Activities.IDLE, null
                         , AllText.Activities.IDLE, null, null));
                 }
                 else
                 {
                     // This adds to a C# list.
                     countyData.herosInCountyList.Add(new CountyPopulation(countyData.factionData, countyData.countyId
-                        , -1, -1, firstName, lastName, isMale, age, true, true, false, false, false, true
+                        , -1, -1, firstName, lastName, isMale, age, true, true, false, false, false
+                        , new Godot.Collections.Dictionary<string, bool>
+                        {
+                            { "Leader of People", true },
+                            { "Unhelpful", false }
+                        }
                         , moraleExpendable, ps, ag, en, ie, ms, aw, ch, lo, loyaltyAttribute, constructionSkill
                         , coolSkill, researchSkill, rifleSkill, AllText.Activities.IDLE, null
                         , AllText.Activities.IDLE, null, null));

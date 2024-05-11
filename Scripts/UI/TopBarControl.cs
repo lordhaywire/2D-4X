@@ -36,16 +36,14 @@ namespace PlayerSpace
             if (Globals.Instance.selectedLeftClickCounty != null)
             {
                 County county = Globals.Instance.selectedLeftClickCounty;
-                CountFactionResources(county, county.countyData.perishableResources);
-                CountFactionResources(county, county.countyData.nonperishableResources);
+                CountFactionResources(county.countyData.perishableResources);
+                CountFactionResources(county.countyData.nonperishableResources);
             }
         }
 
-        private void CountFactionResources(County county
-            , Godot.Collections.Dictionary<AllEnums.CountyResourceType, ResourceData> resources)
+        private static void CountFactionResources(Godot.Collections.Dictionary<AllEnums.CountyResourceType, ResourceData> resources)
         {
-            foreach (KeyValuePair<AllEnums.CountyResourceType
-                    , ResourceData> keyValuePair in resources)
+            foreach (KeyValuePair<AllEnums.CountyResourceType, ResourceData> keyValuePair in resources)
             {
                 ResourceData resource = keyValuePair.Value;
                 switch (resource.factionResourceType)

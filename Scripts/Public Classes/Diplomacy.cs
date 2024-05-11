@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace PlayerSpace
 {
+    // Should this be dependancy injection?
     public class Diplomacy
     {
         public void DeclareWar(War war)
@@ -11,7 +12,7 @@ namespace PlayerSpace
             GD.Print($"{war.aggressorFactionData.factionName} has declared war on {war.defenderFactionData.factionName}.");
             EventLog.Instance.AddLog($"{war.aggressorFactionData.factionName} has declared war on {war.defenderFactionData.factionName}.");
             Globals.Instance.selectedRightClickCounty.countyData
-                .factionData.diplomacy.RespondToDeclarationOfWar(war, Globals.Instance.selectedRightClickCounty);
+                .factionData.diplomacy.RespondToDeclarationOfWar(war);
         }
 
         public void DeclareWarConfirmation(CountyData countyData)
@@ -23,7 +24,7 @@ namespace PlayerSpace
             
         }
 
-        public void RespondToDeclarationOfWar(War war, County battleLocation)
+        public void RespondToDeclarationOfWar(War war)
         {
             GD.Print($"{war.defenderFactionData.factionName} is responding to the declaration of war.");
 
@@ -48,7 +49,7 @@ namespace PlayerSpace
             }
         }
 
-        public CountyPopulation CheckForArmies(County battleLocation)
+        public static CountyPopulation CheckForArmies(County battleLocation)
         {
             // Checkes for spawned armies.  If there is one, then it returns null, otherwise it spawns one.
             //GD.Print("Defending Army List Count: " + battleLocation.countyData.armiesInCountyList.Count());
@@ -109,9 +110,9 @@ namespace PlayerSpace
                     if (possibleDefenders.Count > 0)
                     {
                         // Order the possbileDefenders list by highest cool and rifle skill.
-                        possibleDefenders = possibleDefenders.OrderByDescending(countyPopulation => countyPopulation.coolSkill.skillLevel)
-                                     .ThenByDescending(countyPopulation => countyPopulation.rifleSkill.skillLevel)
-                                     .ToList();
+                        possibleDefenders = [.. possibleDefenders.OrderByDescending(countyPopulation 
+                            => countyPopulation.coolSkill.skillLevel).ThenByDescending(countyPopulation 
+                            => countyPopulation.rifleSkill.skillLevel)];
                         foreach (CountyPopulation countyPopulation in possibleDefenders)
                         {
                             GD.Print($"{countyPopulation.firstName} {countyPopulation.coolSkill.skillLevel} " +

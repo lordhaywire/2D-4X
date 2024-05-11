@@ -38,7 +38,7 @@ namespace PlayerSpace
         }
 
         [ExportGroup("Perks")]
-        public bool leaderOfPeoplePerk;
+        public Godot.Collections.Dictionary<string, bool> perks;
 
         [ExportGroup("Token Expendables")]
         public int moraleExpendable; // I think we are going to have to have this as leader morale or army morale or some shit.
@@ -110,11 +110,12 @@ namespace PlayerSpace
         public CountyPopulation(
             FactionData factionData, int location, int lastLocation, int destination, string firstName, string lastName
             , bool isMale, int age, bool isHero, bool isLeader, bool isAide, bool IsArmyLeader, bool isWorker
-            , bool leaderOfPeoplePerk, int moraleExpendable,  int physicalStrength, int agility, int endurance
-            , int intelligence, int mentalStrength, int awareness, int charisma, int looks, int loyaltyAttribute
-            ,  SkillData constructionSkill, SkillData coolSkill, SkillData researchingSkill, SkillData rifleSkill
-            , string currentActivity, CountyImprovementData currentImprovement, string nextActivity
-            , CountyImprovementData nextImprovement, ResearchItemData CurrentResearchItemData)
+            , Godot.Collections.Dictionary<string, bool> perks, int moraleExpendable, int physicalStrength
+            , int agility, int endurance, int intelligence, int mentalStrength, int awareness, int charisma
+            , int looks, int loyaltyAttribute, SkillData constructionSkill, SkillData coolSkill
+            , SkillData researchingSkill, SkillData rifleSkill, string currentActivity
+            , CountyImprovementData currentImprovement, string nextActivity, CountyImprovementData nextImprovement
+            , ResearchItemData CurrentResearchItemData)
         {
             this.factionData = factionData;
             this.location = location;
@@ -126,12 +127,12 @@ namespace PlayerSpace
             this.age = age;
 
             this.isHero = isHero;
-            this.isFactionLeader = isLeader;
+            this.isFactionLeader = isLeader; // What the fuck?
             this.isAide = isAide;
             this.IsArmyLeader = IsArmyLeader;
             this.isWorker = isWorker;
 
-            this.leaderOfPeoplePerk = leaderOfPeoplePerk;
+            this.perks = perks;
 
             this.moraleExpendable = moraleExpendable;
 

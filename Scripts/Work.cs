@@ -23,7 +23,7 @@ namespace PlayerSpace
         {
             foreach (FactionData factionData in Globals.Instance.factionDatas)
             {
-                if (factionData.factionLeader.leaderOfPeoplePerk == true)
+                if (factionData.factionLeader.perks["Leader of People"] == true)
                 {
                     factionData.Influence += Globals.Instance.dailyInfluenceGain;
                     //GD.PrintRich($"[rainbow]{factionData.factionName} has {factionData.Influence}.");

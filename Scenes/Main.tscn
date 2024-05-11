@@ -506,7 +506,7 @@ text = "Paused"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="County Info Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("countyInfoControl", "factionNamelabel", "countyNameLabel", "countyPopulationLabel", "countyIdleWorkersLabel", "visitorsLabel", "populationListMarginContainer", "populationDescriptionControl", "countyImprovementsPanelControl", "heroListParent", "heroSpawnCheckButtonParent", "populationListButton", "visitorsListButton", "countyImprovementsButton")]
+[node name="County Info Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("countyInfoControl", "factionNamelabel", "countyNameLabel", "countyPopulationLabel", "countyIdleWorkersLabel", "visitorsLabel", "populationListMarginContainer", "populationDescriptionControl", "countyImprovementsPanelControl", "heroListParent", "heroSpawnCheckButtonParent", "populationListButton", "visitorsListButton", "countyImprovementsButton", "resourcesButton")]
 visible = false
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 3
@@ -531,6 +531,7 @@ heroSpawnCheckButtonParent = NodePath("MarginContainer/County Info and Selected 
 populationListButton = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer/Population List Button")
 visitorsListButton = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer/Visitors List Button")
 countyImprovementsButton = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/County Improvements Button")
+resourcesButton = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Resources Button")
 heroListPrefab = ExtResource("27_03q5w")
 
 [node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/County Info Control"]
@@ -932,6 +933,14 @@ text = "Sex
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Helpful Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "ForTesting: Helpful
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Loyalty Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -985,6 +994,9 @@ text = "Next Day Activity
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Population Row Button" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer" instance=ExtResource("30_bhu5o")]
+layout_mode = 2
+
 [node name="Close Button" type="Button" parent="Player UI Canvas/Population List MarginContainer"]
 custom_minimum_size = Vector2(75, 50)
 layout_mode = 2
@@ -992,7 +1004,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "Close"
 
-[node name="Population Description Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("populationName", "leaderTitleButton", "aideTitleButton", "armyLeaderTitleButton", "physicalStrengthLabel", "agilityLabel", "enduranceLabel", "intelligenceLabel", "mentalStrengthLabel", "awarenessLabel", "charismaLabel", "looksLabel", "loyaltyAttributeLabel", "ageLabel", "sexLabel", "firstPerkLabel", "noPerksLabel", "coolSkillLabel", "constructionSkillLabel", "researchSkillLabel", "rifleSkillLabel", "currentActivityLabel", "nextActivityTitle", "nextActivityLabel", "aideRecruitButton", "armyLeaderRecruitButton", "heroRecruitmentConfirmPanel")]
+[node name="Population Description Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("populationName", "leaderTitleButton", "aideTitleButton", "armyLeaderTitleButton", "physicalStrengthLabel", "agilityLabel", "enduranceLabel", "intelligenceLabel", "mentalStrengthLabel", "awarenessLabel", "charismaLabel", "looksLabel", "loyaltyAttributeLabel", "ageLabel", "sexLabel", "firstPerkLabel", "secondPerkLabel", "noPerksLabel", "coolSkillLabel", "constructionSkillLabel", "researchSkillLabel", "rifleSkillLabel", "currentActivityLabel", "nextActivityTitle", "nextActivityLabel", "aideRecruitButton", "armyLeaderRecruitButton", "heroRecruitmentConfirmPanel")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -1018,6 +1030,7 @@ loyaltyAttributeLabel = NodePath("MarginContainer/PanelContainer/MarginContainer
 ageLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Age Label")
 sexLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Sex Label")
 firstPerkLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Perks HBoxContainer/First Perk Label")
+secondPerkLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Perks HBoxContainer/Second Perk Label")
 noPerksLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Perks HBoxContainer/No Perks Label")
 coolSkillLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Cool Skill Label")
 constructionSkillLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Construction Skill Label")
@@ -1344,10 +1357,19 @@ text = "Leader of People"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="No Perks Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Perks HBoxContainer"]
+[node name="Second Perk Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Perks HBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Unknown"
+text = "Unhelpful"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="No Perks Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Perks HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+text = "No Perks"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -2001,7 +2023,7 @@ size_flags_horizontal = 3
 tooltip_text = "You are a piece of shit!"
 text = "Yes"
 
-[node name="Story Event Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("storyEventTitle", "storyEventDescription", "choiceButtons")]
+[node name="Story Event Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("storyEventTitle", "storyEventDescription", "storyEventLocation", "choiceButtons")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -2014,6 +2036,7 @@ size_flags_vertical = 3
 script = ExtResource("62_onxgq")
 storyEventTitle = NodePath("PanelContainer/VBoxContainer/Story Event Title Label")
 storyEventDescription = NodePath("PanelContainer/VBoxContainer/Story Event Description Label")
+storyEventLocation = NodePath("PanelContainer/VBoxContainer/Story Event Location Label")
 choiceButtons = [NodePath("PanelContainer/VBoxContainer/Accept Button"), NodePath("PanelContainer/VBoxContainer/Option 2 Button"), NodePath("PanelContainer/VBoxContainer/Option 3 Button"), NodePath("PanelContainer/VBoxContainer/Decline Button")]
 
 [node name="PanelContainer" type="PanelContainer" parent="Player UI Canvas/Story Event Control"]
@@ -2046,6 +2069,12 @@ custom_minimum_size = Vector2(575, 250)
 layout_mode = 2
 text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
 autowrap_mode = 3
+
+[node name="Story Event Location Label" type="Label" parent="Player UI Canvas/Story Event Control/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "County: Some Place"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Accept Button" type="Button" parent="Player UI Canvas/Story Event Control/PanelContainer/VBoxContainer"]
 layout_mode = 2

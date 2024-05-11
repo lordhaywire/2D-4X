@@ -8,6 +8,7 @@ namespace PlayerSpace
         [Export] public Label populationNameLabel;
         [Export] public Label ageLabel;
         [Export] public Label sexLabel;
+        [Export] public Label UnhelpfulLabel;
         [Export] public Label loyaltyAttributeLabel;
         [Export] public Label coolSkillLabel;
         [Export] public Label constructionSkillLabel;

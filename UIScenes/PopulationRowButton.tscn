@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/UI/PopulationRowButton.cs" id="1_dhxh4"]
 
-[node name="Population Row Button" type="Button" node_paths=PackedStringArray("populationNameLabel", "ageLabel", "sexLabel", "loyaltyAttributeLabel", "coolSkillLabel", "constructionSkillLabel", "researchSkillLabel", "rifleSkillLabel", "currentActivityLabel", "nextActivityLabel")]
+[node name="Population Row Button" type="Button" node_paths=PackedStringArray("populationNameLabel", "ageLabel", "sexLabel", "UnhelpfulLabel", "loyaltyAttributeLabel", "coolSkillLabel", "constructionSkillLabel", "researchSkillLabel", "rifleSkillLabel", "currentActivityLabel", "nextActivityLabel")]
 custom_minimum_size = Vector2(0, 25)
 anchors_preset = 10
 anchor_right = 1.0
@@ -12,6 +12,7 @@ script = ExtResource("1_dhxh4")
 populationNameLabel = NodePath("Population Row HBoxContainer/Name Label")
 ageLabel = NodePath("Population Row HBoxContainer/Age Label")
 sexLabel = NodePath("Population Row HBoxContainer/Sex Label")
+UnhelpfulLabel = NodePath("Population Row HBoxContainer/Unhelpful Label")
 loyaltyAttributeLabel = NodePath("Population Row HBoxContainer/Loyalty Attribute Label")
 coolSkillLabel = NodePath("Population Row HBoxContainer/Cool Skill Label")
 constructionSkillLabel = NodePath("Population Row HBoxContainer/Contruction Skill Label")
@@ -48,6 +49,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "SexTest
 "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Unhelpful Label" type="Label" parent="Population Row HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "IsUnhelpful"
 horizontal_alignment = 1
 vertical_alignment = 1
 
