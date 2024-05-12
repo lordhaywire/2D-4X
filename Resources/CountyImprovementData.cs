@@ -21,7 +21,7 @@ namespace PlayerSpace
         [Export] public ResourceData resourceData;
         [Export] public int dailyResourceGenerationAmount;
 
-        [Export] public bool isBeingBuilt;
+        [Export] public bool underConstruction;
         [Export] public bool isBuilt;
     }
 }

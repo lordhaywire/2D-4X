@@ -2,31 +2,6 @@ namespace PlayerSpace
 {
     public class AllEnums
     {
-        /*
-        public enum Factions
-        {
-            PlayerFaction,
-            AIFaction1,
-            AIFaction2,
-            AIFaction3,
-            AIFaction4,
-            AIFaction5,
-            AIFaction6,
-        }
-        */
-
-        public enum Province
-        {
-            Oregon,
-            Washington,
-        }
-        public enum ResearchTiers
-        {
-            One,
-            Two,
-            Three,
-        }
-
         public enum CountyResourceType
         {
             Fish,
@@ -45,6 +20,25 @@ namespace PlayerSpace
             Scrap,
         }
 
+        public enum Perks
+        {
+            LeaderofPeople,
+            Unhelpful,
+        }
+
+        public enum Province
+        {
+            Oregon,
+            Washington,
+        }
+
+        public enum ResearchTiers
+        {
+            One,
+            Two,
+            Three,
+        }
+
         public enum SkillType
         {
             PhysicalStrength,
@@ -56,6 +50,7 @@ namespace PlayerSpace
             Charisma,
             Looks,
         }
+
         public enum Terrain
         {
             Coast,

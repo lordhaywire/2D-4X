@@ -1,6 +1,4 @@
 using Godot;
-using System;
-using System.Collections.Generic;
 
 namespace PlayerSpace
 {
@@ -70,7 +68,7 @@ namespace PlayerSpace
                     populationRow.sexLabel.Text = "Female";
                 }
 
-                UpdatePerks(populationRow, person);
+                UpdateUnHelpfulPerk(populationRow, person);
                 UpdateAttributes(populationRow, person);
                 UpdateSkills(populationRow, person);
 
@@ -98,9 +96,19 @@ namespace PlayerSpace
 
         // This will not be shown in to the player eventually.  It is just shown right now for testing.
         // We might need a second testing bar to show these things later.
-        private static void UpdatePerks(PopulationRowButton populationRow, CountyPopulation person)
+        private static void UpdateUnHelpfulPerk(PopulationRowButton populationRow, CountyPopulation person)
         {
-            populationRow.UnhelpfulLabel.Text = $"{person.perks["Unhelpful"]}";
+            foreach (PerkData perkData in person.perks) 
+            {
+                if(AllPerks.Instance.allPerks[(int)AllEnums.Perks.Unhelpful].perkName == perkData.perkName)
+                {
+                    populationRow.UnhelpfulLabel.Text = $"{perkData.perkName}";
+                }
+                else
+                {
+                    populationRow.UnhelpfulLabel.Text = "Helpful";
+                }
+            }
         }
 
         private static void UpdateAttributes(PopulationRowButton populationRow, CountyPopulation person)

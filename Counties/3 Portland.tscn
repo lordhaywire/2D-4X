@@ -1,9 +1,9 @@
 [gd_scene load_steps=14 format=3]
 
 [ext_resource type="Script" path="res://Scripts/County.cs" id="1_4tjp1"]
-[ext_resource type="Resource" path="res://Resources/Factions/PlayerFaction.tres" id="2_2r3fy"]
+[ext_resource type="Resource" uid="uid://b0hrfplmtylyr" path="res://Resources/Factions/PlayerFaction.tres" id="2_2r3fy"]
 [ext_resource type="Script" path="res://Resources/CountyData.cs" id="3_4mjl6"]
-[ext_resource type="Texture2D" path="res://Graphics/Icons/Top Bar/Capital Icon.png" id="4_sdtcx"]
+[ext_resource type="Texture2D" uid="uid://c3bhckl88r540" path="res://Graphics/Icons/Top Bar/Capital Icon.png" id="4_sdtcx"]
 [ext_resource type="Script" path="res://Scripts/UI/BattleControl.cs" id="5_tl4hb"]
 
 [sub_resource type="Resource" id="Resource_v0et0"]

@@ -1,4 +1,5 @@
 using Godot;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace PlayerSpace
@@ -38,7 +39,7 @@ namespace PlayerSpace
         }
 
         [ExportGroup("Perks")]
-        public Godot.Collections.Dictionary<string, bool> perks;
+        public List<PerkData> perks;
 
         [ExportGroup("Token Expendables")]
         public int moraleExpendable; // I think we are going to have to have this as leader morale or army morale or some shit.
@@ -110,7 +111,7 @@ namespace PlayerSpace
         public CountyPopulation(
             FactionData factionData, int location, int lastLocation, int destination, string firstName, string lastName
             , bool isMale, int age, bool isHero, bool isLeader, bool isAide, bool IsArmyLeader, bool isWorker
-            , Godot.Collections.Dictionary<string, bool> perks, int moraleExpendable, int physicalStrength
+            , List<PerkData> perks, int moraleExpendable, int physicalStrength
             , int agility, int endurance, int intelligence, int mentalStrength, int awareness, int charisma
             , int looks, int loyaltyAttribute, SkillData constructionSkill, SkillData coolSkill
             , SkillData researchingSkill, SkillData rifleSkill, string currentActivity

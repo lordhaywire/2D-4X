@@ -40,7 +40,7 @@ namespace PlayerSpace
 
             foreach(CountyImprovementData countyImprovementData in Globals.Instance.CurrentlySelectedCounty.countyData.allCountyImprovements)
             {
-                if(countyImprovementData.isBeingBuilt == false && countyImprovementData.isBuilt == false)
+                if(countyImprovementData.underConstruction == false && countyImprovementData.isBuilt == false)
                 {
                     CountryImprovementDescriptionButton countyImprovementButton = (CountryImprovementDescriptionButton)countyImprovementButtonPackedScene.Instantiate();
                     possibleImprovementsScrollContainerParent.AddChild(countyImprovementButton);

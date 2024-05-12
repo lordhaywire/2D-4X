@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3 uid="uid://dfbunjvsc63da"]
+
+[ext_resource type="Script" path="res://Resources/SkillData.cs" id="1_5fovt"]
+
+[resource]
+script = ExtResource("1_5fovt")
+skillName = "Rifle"
+skillLevel = 0
+amountLearned = 0
+isCombatSkill = true
+skillType = 1

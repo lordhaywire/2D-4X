@@ -54,7 +54,7 @@ namespace PlayerSpace
 
         public void BuildImprovement(CountyData countyData, CountyImprovementData countyImprovementData)
         {
-            countyImprovementData.isBeingBuilt = true;
+            countyImprovementData.underConstruction = true;
             countyData.underConstructionCountyImprovements.Add(countyImprovementData);
             GD.Print($"{countyData.factionData.factionName} is building {countyImprovementData.improvementName}.");
         }
@@ -70,7 +70,7 @@ namespace PlayerSpace
             {
                 foreach (CountyImprovementData improvementData in countyDataItem.allCountyImprovements)
                 {
-                    if (improvementData.isBeingBuilt || improvementData.isBuilt)
+                    if (improvementData.underConstruction || improvementData.isBuilt)
                     {
                         //GD.Print($"{improvementData.improvementName} is already being built.");
                         return;

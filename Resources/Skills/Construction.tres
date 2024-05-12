@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3 uid="uid://cccdqp8m65auf"]
+
+[ext_resource type="Script" path="res://Resources/SkillData.cs" id="1_d6avv"]
+
+[resource]
+script = ExtResource("1_d6avv")
+skillName = "Construction"
+skillLevel = 0
+amountLearned = 0
+isCombatSkill = false
+skillType = 0

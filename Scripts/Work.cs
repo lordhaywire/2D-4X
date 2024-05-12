@@ -23,14 +23,13 @@ namespace PlayerSpace
         {
             foreach (FactionData factionData in Globals.Instance.factionDatas)
             {
-                if (factionData.factionLeader.perks["Leader of People"] == true)
+                foreach (PerkData perkData in factionData.factionLeader.perks)
                 {
-                    factionData.Influence += Globals.Instance.dailyInfluenceGain;
-                    //GD.PrintRich($"[rainbow]{factionData.factionName} has {factionData.Influence}.");
-                }
-                else
-                {
-                    //GD.Print($"The leader of {factionData.factionName} isn't a leader of people.");
+                    if (AllPerks.Instance.allPerks[(int)AllEnums.Perks.LeaderofPeople].perkName
+                        == perkData.perkName)
+                    {
+                        factionData.Influence += Globals.Instance.dailyInfluenceGain;
+                    }
                 }
             }
         }
@@ -47,7 +46,7 @@ namespace PlayerSpace
             // I don't think this is very efficient.
             int idleWorkers = 0;
 
-            foreach(CountyPopulation person in countyData.countyPopulationList)
+            foreach (CountyPopulation person in countyData.countyPopulationList)
             {
                 if (person.currentActivity == AllText.Activities.IDLE && person.nextActivity == AllText.Activities.IDLE)
                 {
@@ -97,7 +96,7 @@ namespace PlayerSpace
                             // So it is repeating the setting to true a bunch of times.  This is ineffecient code.
                             // Some of the population will be working on different buildings too....
                             person.currentImprovement.isBuilt = true;
-                            person.currentImprovement.isBeingBuilt = false;
+                            person.currentImprovement.underConstruction = false;
                         }
                     }
                 }

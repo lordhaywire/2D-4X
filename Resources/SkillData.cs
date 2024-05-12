@@ -3,12 +3,13 @@ using System;
 
 namespace PlayerSpace
 {
+    [GlobalClass]
     public partial class SkillData : Resource
     {
-        public string skillName;
-        public int skillLevel;
-        public int amountLearned;
-        public bool isCombatSkill;
-        public AllEnums.SkillType skillType;
+        [Export] public string skillName;
+        [Export] public int skillLevel;
+        [Export] public int amountLearned;
+        [Export] public bool isCombatSkill;
+        [Export] public AllEnums.SkillType skillType;
     }
 }

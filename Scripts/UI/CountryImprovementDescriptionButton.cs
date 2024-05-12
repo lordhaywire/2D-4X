@@ -41,11 +41,11 @@ namespace PlayerSpace
 				{
 					buildingButton.Disabled = true;
 				}
-				if (countyImprovementData.isBeingBuilt == true || countyImprovementData.isBuilt == true)
+				if (countyImprovementData.underConstruction == true || countyImprovementData.isBuilt == true)
 				{
 					buildingButton.Disabled = true;
 				}
-				if (countyImprovementData.isBeingBuilt != true)
+				if (countyImprovementData.underConstruction != true)
 				{
 					improvementAmountOfConstructionLabel.Text = $"Amount of construction: {countyImprovementData.maxAmountOfConstruction}";
 					improvementMaxBuildersLabel.Text = $"Max builders: {countyImprovementData.maxBuilders}";

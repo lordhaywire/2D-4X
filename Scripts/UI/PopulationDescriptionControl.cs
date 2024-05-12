@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Resources;
 
 namespace PlayerSpace
@@ -8,6 +9,9 @@ namespace PlayerSpace
     public partial class PopulationDescriptionControl : Control
     {
         public static PopulationDescriptionControl Instance { get; private set; }
+
+        [Export] private HBoxContainer perksParent;
+        [Export] private PackedScene perkLabel;
 
         [Export] private Label populationName;
         [Export] private Button leaderTitleButton;
@@ -24,9 +28,6 @@ namespace PlayerSpace
         [Export] private Label loyaltyAttributeLabel;
         [Export] private Label ageLabel;
         [Export] private Label sexLabel;
-        [Export] private Label firstPerkLabel;
-        [Export] private Label secondPerkLabel;
-        [Export] private Label noPerksLabel;
         [Export] private Label coolSkillLabel;
         [Export] private Label constructionSkillLabel;
         [Export] private Label researchSkillLabel;
@@ -136,37 +137,28 @@ namespace PlayerSpace
         // All perks are known for now, but eventually we want the player not to know all of their population's perks.
         private void UpdatePerks()
         {
-            noPerksLabel.Hide();
-            bool anyPerks = false;
-            // Lets change this to an array and have it just turn on each label and label the text.
-            foreach (KeyValuePair<string, bool> keyValuePair in countyPopulation.perks)
+            ClearPerks();
+            if(countyPopulation.perks.Count < 1)
             {
-                switch (keyValuePair.Key)
+                Label perksLabel = (Label)perkLabel.Instantiate();
+                perksParent.AddChild(perksLabel);
+            }
+            else
+            {
+                foreach (PerkData perkData in countyPopulation.perks)
                 {
-                    case "Leader of People" when keyValuePair.Value:
-                        firstPerkLabel.Show();
-                        anyPerks = true;
-                        break;
-                    case "Leader of People" when !keyValuePair.Value:
-                        firstPerkLabel.Hide();
-                        break;
-                    case "Unhelpful" when keyValuePair.Value:
-                        secondPerkLabel.Show();
-                        anyPerks = true;
-                        break;
-                    case "Unhelpful" when !keyValuePair.Value:
-                        secondPerkLabel.Hide();
-                        break;
-                    default:
-                        GD.Print("Perks are fucked up somehow.");
-                        break;
+                    Label perksLabel = (Label)perkLabel.Instantiate();
+                    perksLabel.Text = perkData.perkName;
+                    perksParent.AddChild(perksLabel);
                 }
             }
+        }
 
-            if (!anyPerks)
+        private void ClearPerks()
+        {
+            foreach(Label label in perksParent.GetChildren().Cast<Label>().Skip(0))
             {
-                noPerksLabel.Show();
-                GD.Print("No perks are active.");
+                label.QueueFree();
             }
         }
 

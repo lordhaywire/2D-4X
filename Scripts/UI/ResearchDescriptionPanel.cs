@@ -20,7 +20,7 @@ namespace PlayerSpace
         [Export] private MenuButton assignResearcherMenuButton;
 
         public ResearchItemData researchItemData;
-        private List<CountyPopulation> assignableResearchers = [];
+        private readonly List<CountyPopulation> assignableResearchers = [];
         public override void _Ready()
         {
             Instance = this;

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3 uid="uid://cyqbb45ma7w6w"]
+
+[ext_resource type="Script" path="res://Resources/SkillData.cs" id="1_c5pl3"]
+
+[resource]
+script = ExtResource("1_c5pl3")
+skillName = "Fishing"
+skillLevel = 0
+amountLearned = 0
+isCombatSkill = false
+skillType = 1

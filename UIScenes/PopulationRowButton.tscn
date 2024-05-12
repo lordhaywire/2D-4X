@@ -55,7 +55,7 @@ vertical_alignment = 1
 [node name="Unhelpful Label" type="Label" parent="Population Row HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "IsUnhelpful"
+text = "Helpful"
 horizontal_alignment = 1
 vertical_alignment = 1
 

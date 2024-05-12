@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="PerkData" load_steps=2 format=3 uid="uid://dhai1v7kfto40"]
+
+[ext_resource type="Script" path="res://Resources/PerkData.cs" id="1_125qb"]
+
+[resource]
+script = ExtResource("1_125qb")
+perkName = "Unhelpful"
+perkDescription = "This person is just generally an ass."

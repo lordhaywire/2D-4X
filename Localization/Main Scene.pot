@@ -1,0 +1,416 @@
+# LANGUAGE translation for 2D 4X for the following files:
+# res://Scenes/Main.tscn
+#
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 2D 4X\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#: Scenes/Main.tscn
+msgid "Day:"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "0"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Time:"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "00:01"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "100000"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Research\n"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Speed:"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "x0\n"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "x1\n"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "x2\n"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "x4\n"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "x8\n"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Paused"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Faction Smackson"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Smortland Oregon"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Population"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "666\n"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Idle Workers"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "69\n"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Visitors\n"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "420\n"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Resources"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "County Improvements"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Whatevers"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "County Name"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Max Perishable Available: "
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "500"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "/"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Max Nonperishable Available: "
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Perishable"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Nonperishable"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Close"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "County Population"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Name"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Age"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Sex\n"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "For Testing: Unhelpful\n"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Loyalty"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Cool\n"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Construction\n"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Research"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Rifle"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Current Activity\n"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Next Day Activity\n"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Population Name"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Titles"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Faction Leader"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Aide"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Army Leader"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Attributes"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Physical Strength"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Agility"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Endurance"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Intelligence"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Mental Strength"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Awareness"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Charisma"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Looks"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "100"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "100\t"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Loyalty Number"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Age Number"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Sex Bool\n"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Recruit as Army Leader\n"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Perks"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Skills"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Cool Skill Whatever"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Contruction: 10000"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Research: 666"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Rifle 100"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Skill? 100"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Current Activity"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Next Activity"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Recruit as Aide\n"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Battle Log"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Defender"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Attacker"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Do you want to recruit bill smill for realz?"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "No"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "You are a piece of shit!"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Yes"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Buildings"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Current Improvement"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Possible Improvement"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "gfhfdfhgfdhgfgh"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Assigned Researchers"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "TESTESDFjhsdfkjgdf"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "This is the description"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Research Cost\n"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "999"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "County Improvement"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Assign Researcher"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Do you want to declare war?"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "This is going to be the story event title"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "County: Some Place"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Accept Button"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Option 2"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Option 3"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Decline Button"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Map Editor"
+msgstr ""

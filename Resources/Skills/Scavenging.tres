@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3 uid="uid://pmphig2vnrjx"]
+
+[ext_resource type="Script" path="res://Resources/SkillData.cs" id="1_k5jbl"]
+
+[resource]
+script = ExtResource("1_k5jbl")
+skillName = "Scavenging"
+skillLevel = 0
+amountLearned = 0
+isCombatSkill = false
+skillType = 5

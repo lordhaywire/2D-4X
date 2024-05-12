@@ -16,8 +16,9 @@ namespace PlayerSpace
         private string lastName;
         private bool isMale;
         private int age;
-        private bool leaderOfPeoplePerk = false;
+        private bool leaderOfPeoplePerk = false; // What the flying fuck is this?
 
+        [Export] private int chanceOfBeingUnhelpful = 10;
         public override void _Ready()
         {
             CreateFactionLeaders();
@@ -70,18 +71,6 @@ namespace PlayerSpace
                 // Determine the person's age.
                 age = random.Next(18, 61);
 
-                // Generate the UnUnhelpful perk.
-                bool isUnhelpful;
-                int randomUnhelpfulNumber = random.Next(0, 101);
-                if (randomUnhelpfulNumber <= 10)
-                {
-                    isUnhelpful = true;
-                }
-                else
-                {
-                    isUnhelpful = false;
-                }
-
                 // Generate random stats for each population.
                 int moraleExpendable = 100;
 
@@ -96,6 +85,7 @@ namespace PlayerSpace
 
                 int loyaltyAttribute = 100; // This is a temporary number.
 
+                // Why did I do it this way instead of just creating a resource for each?
                 SkillData constructionSkill = new()
                 {
                     skillName = "Construction",
@@ -129,38 +119,48 @@ namespace PlayerSpace
                     skillType = AllEnums.SkillType.Agility,
                 };
 
-
                 if (hero == false)
                 {
                     // This adds to the C# list.
                     countyData.countyPopulationList.Add(new CountyPopulation(countyData.factionData, countyData.countyId
                         , -1, -1, firstName, lastName, isMale, age, false, false, false, false, false
-                        , new Godot.Collections.Dictionary<string, bool>
-                        {
-                            { "Leader of People", false },
-                            { "Unhelpful", isUnhelpful }
-                        }
+                        , GeneratePopulationPerks()
                         , moraleExpendable, ps, ag, en, ie, ms, aw, ch, lo, loyaltyAttribute, constructionSkill
                         , coolSkill, researchSkill, rifleSkill, AllText.Activities.IDLE, null
                         , AllText.Activities.IDLE, null, null));
+
                 }
                 else
                 {
-                    // This adds to a C# list.
+                    // This is adding the Faction Leader.
                     countyData.herosInCountyList.Add(new CountyPopulation(countyData.factionData, countyData.countyId
                         , -1, -1, firstName, lastName, isMale, age, true, true, false, false, false
-                        , new Godot.Collections.Dictionary<string, bool>
-                        {
-                            { "Leader of People", true },
-                            { "Unhelpful", false }
-                        }
+                        , GenerateLeaderPerks()
                         , moraleExpendable, ps, ag, en, ie, ms, aw, ch, lo, loyaltyAttribute, constructionSkill
                         , coolSkill, researchSkill, rifleSkill, AllText.Activities.IDLE, null
                         , AllText.Activities.IDLE, null, null));
+
                 }
             }
-
         }
+
+        private static List<PerkData> GenerateLeaderPerks()
+        {
+            List<PerkData> perkList = [];
+            perkList.Add(AllPerks.Instance.allPerks[(int)AllEnums.Perks.LeaderofPeople]);
+            return perkList;
+        }
+        private List<PerkData> GeneratePopulationPerks()
+        {
+            List<PerkData> perkList = [];
+            int unhelpfulRoll = random.Next(0, 101);
+            if (unhelpfulRoll <= chanceOfBeingUnhelpful)
+            {
+                perkList.Add(AllPerks.Instance.allPerks[(int)AllEnums.Perks.Unhelpful]);
+            }
+            return perkList;
+        }
+
         private void CreatePopulation()
         {
             countiesParent = Globals.Instance.countiesParent;

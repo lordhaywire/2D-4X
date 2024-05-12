@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=98 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scenes/HidderNode.cs" id="1_gbt3x"]
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_x1cy2"]
@@ -39,14 +39,26 @@
 [ext_resource type="Script" path="res://Scripts/Work.cs" id="22_ioynj"]
 [ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/Resources/Wood.tres" id="22_leslc"]
 [ext_resource type="Resource" uid="uid://bljrvhrjka1hs" path="res://Resources/ResearchItems/Basic Production.tres" id="22_ugyvd"]
+[ext_resource type="Script" path="res://Scripts/AllPerks.cs" id="23_8jwco"]
+[ext_resource type="Script" path="res://Scripts/AllSkills.cs" id="23_jme5x"]
 [ext_resource type="Script" path="res://Scripts/Banker.cs" id="23_lb4or"]
+[ext_resource type="Resource" uid="uid://cccdqp8m65auf" path="res://Resources/Skills/Construction.tres" id="24_8xnmt"]
+[ext_resource type="Resource" uid="uid://d00kar3t6pno1" path="res://Resources/Perks/LeaderofPeople.tres" id="24_edv5e"]
 [ext_resource type="Script" path="res://Scripts/UI/PlayerUICanvas.cs" id="24_s3wh2"]
+[ext_resource type="Resource" uid="uid://dhai1v7kfto40" path="res://Resources/Perks/Unhelpful.tres" id="25_626s1"]
+[ext_resource type="Resource" uid="uid://2v8mmbcoopy3" path="res://Resources/Skills/Cool.tres" id="25_xv245"]
 [ext_resource type="Script" path="res://Scripts/UI/CountyInfoControl.cs" id="26_8qp8l"]
+[ext_resource type="Resource" uid="uid://bdji8r13qaily" path="res://Resources/Skills/Farming.tres" id="26_dr7ub"]
 [ext_resource type="PackedScene" uid="uid://d4i6w8w8jld3d" path="res://UIScenes/HeroListCheckBoxPanelContainer.tscn" id="27_03q5w"]
+[ext_resource type="Resource" uid="uid://cyqbb45ma7w6w" path="res://Resources/Skills/Fishing.tres" id="27_gvn1c"]
+[ext_resource type="Resource" uid="uid://bg3pq5mc2ukh6" path="res://Resources/Skills/Lumberjacking.tres" id="28_1iuk7"]
 [ext_resource type="Script" path="res://Scripts/UI/PopAndIdleButtons.cs" id="28_celvx"]
 [ext_resource type="Script" path="res://Scripts/CountyDictator.cs" id="28_qe8u4"]
+[ext_resource type="Resource" uid="uid://b25ofn4b1igjp" path="res://Resources/Skills/Research.tres" id="29_8u7ma"]
 [ext_resource type="Script" path="res://Scripts/UI/PopulationListUIElement.cs" id="29_ts64q"]
 [ext_resource type="PackedScene" uid="uid://djph5cv7o4atl" path="res://UIScenes/PopulationRowButton.tscn" id="30_bhu5o"]
+[ext_resource type="Resource" uid="uid://dfbunjvsc63da" path="res://Resources/Skills/Rifle.tres" id="30_d528s"]
+[ext_resource type="Resource" uid="uid://pmphig2vnrjx" path="res://Resources/Skills/Scavenging.tres" id="31_0vaa8"]
 [ext_resource type="Script" path="res://Scripts/UI/PopulationDescriptionControl.cs" id="31_hwyyh"]
 [ext_resource type="Texture2D" uid="uid://jyr4u6ph1nu6" path="res://Graphics/Icons/Population/portrait.svg" id="32_s1dhj"]
 [ext_resource type="Script" path="res://Scripts/UI/RecruitButton.cs" id="33_ec2f1"]
@@ -81,6 +93,7 @@
 [ext_resource type="Texture2D" uid="uid://dmeg24s68kkig" path="res://Graphics/Research/uncertainty.svg" id="65_b6pum"]
 [ext_resource type="Script" path="res://Scripts/MapEditorControl.cs" id="65_uqmnr"]
 [ext_resource type="PackedScene" uid="uid://iur3kq10dikl" path="res://Scenes/MapEditor.tscn" id="66_sq6pt"]
+[ext_resource type="PackedScene" uid="uid://bhgbnf6lykhb6" path="res://UIScenes/PerkLabel.tscn" id="68_6cv3c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_co2vr"]
 
@@ -163,6 +176,14 @@ allTierOneResearchData = Array[Object]([ExtResource("22_ugyvd"), ExtResource("16
 [node name="All Resources" type="Node" parent="Game Controller Node"]
 script = ExtResource("18_wf5kh")
 allResources = Array[Object]([ExtResource("19_1e80i"), ExtResource("20_k67vp"), ExtResource("21_r83qp"), ExtResource("22_leslc")])
+
+[node name="All Skills" type="Node" parent="Game Controller Node"]
+script = ExtResource("23_jme5x")
+allSkills = Array[Object]([ExtResource("24_8xnmt"), ExtResource("25_xv245"), ExtResource("26_dr7ub"), ExtResource("27_gvn1c"), ExtResource("28_1iuk7"), ExtResource("29_8u7ma"), ExtResource("30_d528s"), ExtResource("31_0vaa8")])
+
+[node name="All Perks" type="Node" parent="Game Controller Node"]
+script = ExtResource("23_8jwco")
+allPerks = Array[Object]([ExtResource("24_edv5e"), ExtResource("25_626s1")])
 
 [node name="Story Event List" type="Node" parent="Game Controller Node"]
 script = ExtResource("12_q0wdt")
@@ -933,10 +954,10 @@ text = "Sex
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Helpful Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+[node name="Unhelpful Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "ForTesting: Helpful
+text = "For Testing: Unhelpful
 "
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -1004,7 +1025,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "Close"
 
-[node name="Population Description Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("populationName", "leaderTitleButton", "aideTitleButton", "armyLeaderTitleButton", "physicalStrengthLabel", "agilityLabel", "enduranceLabel", "intelligenceLabel", "mentalStrengthLabel", "awarenessLabel", "charismaLabel", "looksLabel", "loyaltyAttributeLabel", "ageLabel", "sexLabel", "firstPerkLabel", "secondPerkLabel", "noPerksLabel", "coolSkillLabel", "constructionSkillLabel", "researchSkillLabel", "rifleSkillLabel", "currentActivityLabel", "nextActivityTitle", "nextActivityLabel", "aideRecruitButton", "armyLeaderRecruitButton", "heroRecruitmentConfirmPanel")]
+[node name="Population Description Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("perksParent", "populationName", "leaderTitleButton", "aideTitleButton", "armyLeaderTitleButton", "physicalStrengthLabel", "agilityLabel", "enduranceLabel", "intelligenceLabel", "mentalStrengthLabel", "awarenessLabel", "charismaLabel", "looksLabel", "loyaltyAttributeLabel", "ageLabel", "sexLabel", "coolSkillLabel", "constructionSkillLabel", "researchSkillLabel", "rifleSkillLabel", "currentActivityLabel", "nextActivityTitle", "nextActivityLabel", "aideRecruitButton", "armyLeaderRecruitButton", "heroRecruitmentConfirmPanel")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -1014,6 +1035,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("50_5cg3n")
 script = ExtResource("31_hwyyh")
+perksParent = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Perks HBoxContainer")
+perkLabel = ExtResource("68_6cv3c")
 populationName = NodePath("MarginContainer/PanelContainer/Population Name Label")
 leaderTitleButton = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/HBoxContainer2/Faction Leader Title Button")
 aideTitleButton = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/HBoxContainer2/Aide Title Button")
@@ -1029,9 +1052,6 @@ looksLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContai
 loyaltyAttributeLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Loyalty Label")
 ageLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Age Label")
 sexLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Sex Label")
-firstPerkLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Perks HBoxContainer/First Perk Label")
-secondPerkLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Perks HBoxContainer/Second Perk Label")
-noPerksLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Perks HBoxContainer/No Perks Label")
 coolSkillLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Cool Skill Label")
 constructionSkillLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Construction Skill Label")
 researchSkillLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Research Skill Label")
@@ -1349,29 +1369,8 @@ vertical_alignment = 1
 [node name="Perks HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer"]
 layout_mode = 2
 
-[node name="First Perk Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Perks HBoxContainer"]
-visible = false
+[node name="Perk Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Perks HBoxContainer" instance=ExtResource("68_6cv3c")]
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Leader of People"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Second Perk Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Perks HBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Unhelpful"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="No Perks Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Perks HBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-text = "No Perks"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="Skills Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer"]
 layout_mode = 2

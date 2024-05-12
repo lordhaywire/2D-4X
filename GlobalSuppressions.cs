@@ -22,3 +22,5 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~M:PlayerSpace.Diplomacy.RespondToDeclarationOfWar(PlayerSpace.War,PlayerSpace.County)")]
 [assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~M:PlayerSpace.Diplomacy.RespondToDeclarationOfWar(PlayerSpace.War)")]
 [assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~M:PlayerSpace.Diplomacy.DefenderSpawnArmies(PlayerSpace.County)")]
+[assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~M:PlayerSpace.SkillHandling.Check(System.Int32)~System.Boolean")]
+[assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~M:PlayerSpace.SkillHandling.CheckLearning(PlayerSpace.CountyPopulation,PlayerSpace.SkillData)")]

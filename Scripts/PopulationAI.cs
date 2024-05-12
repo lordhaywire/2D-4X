@@ -1,10 +1,13 @@
 using Godot;
 using System;
+using System.Diagnostics.Metrics;
+using System.Linq;
 
 namespace PlayerSpace
 {
     public partial class PopulationAI : Node
     {
+        [Export] private int willWorkLoyalty = 50;
         public override void _Ready()
         {
             Clock.Instance.FirstRun += HourZero;
@@ -18,39 +21,68 @@ namespace PlayerSpace
         }
 
         // Have the world population decide what they are doing the next day.
-        private static void DecideNextActivity()
+        private void DecideNextActivity()
         {
             // Go through every county.
-            foreach (Node node in Globals.Instance.countiesParent.GetChildren())
+            foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
             {
-                County selectCounty = (County)node;
-                // Go through every building in that county and see if it is being built.
-                foreach (CountyImprovementData countyImprovementData in selectCounty.countyData.underConstructionCountyImprovements)
+                foreach (CountyPopulation countyPopulation in county.countyData.countyPopulationList)
                 {
-                    if (countyImprovementData.isBeingBuilt == true)
+                    if (CheckLoyalty(countyPopulation) == true && CheckForUnhelpful(countyPopulation) == false)
                     {
-                        // Go through this counties population.
-                        foreach (CountyPopulation person in selectCounty.countyData.countyPopulationList)
-                        {
-                            if (person.nextActivity == AllText.Activities.IDLE && countyImprovementData.currentBuilders
-                                < countyImprovementData.maxBuilders)
-                            {
-                                person.nextActivity = AllText.Activities.BUILDING;
-                                person.nextImprovement = countyImprovementData;
-                                countyImprovementData.currentBuilders++;
-                                //GD.Print($"{person.firstName} {person.lastName} is building {countyImprovementData.improvementName}");
-                            }
-                            else
-                            {
-                                //GD.Print($"{person.firstName} {person.lastName} not getting reassigned.");
-                            }
-                        }
+                        CheckForAvailableWork(county, countyPopulation);
+                    }
+
+                }
+            }
+        }
+
+        private void CheckForAvailableWork(County county, CountyPopulation countyPopulation)
+        {
+            foreach (CountyImprovementData countyImprovementData in county.countyData.underConstructionCountyImprovements)
+            {
+                if (countyImprovementData.underConstruction == true)
+                {
+                    if (countyPopulation.nextActivity == AllText.Activities.IDLE && countyImprovementData.currentBuilders
+                        < countyImprovementData.maxBuilders)
+                    {
+                        countyPopulation.nextActivity = AllText.Activities.BUILDING;
+                        countyPopulation.nextImprovement = countyImprovementData;
+                        countyImprovementData.currentBuilders++;
+                        GD.Print($"{countyPopulation.firstName} {countyPopulation.lastName} is building {countyImprovementData.improvementName}");
                     }
                     else
                     {
-                        //GD.Print($"{countyImprovementData.improvementName} is not being built.");
+                        GD.Print($"{countyPopulation.firstName} {countyPopulation.lastName} not getting reassigned.");
                     }
                 }
+                else
+                {
+                    GD.Print($"{countyImprovementData.improvementName} is not being built.");
+                }
+            }
+        }
+        private bool CheckForUnhelpful(CountyPopulation countyPopulation)
+        {
+            bool isUnhelpful = false;
+            foreach (PerkData perkData in countyPopulation.perks)
+            {
+                if (perkData.perkName == AllPerks.Instance.allPerks[(int)AllEnums.Perks.Unhelpful].perkName)
+                {
+                    isUnhelpful = true;
+                }
+            }
+            return isUnhelpful;
+        }
+        private bool CheckLoyalty(CountyPopulation countyPopulation)
+        {
+            if (countyPopulation.loyaltyAttribute > willWorkLoyalty)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
