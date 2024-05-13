@@ -1,8 +1,5 @@
 using Godot;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Resources;
 
 namespace PlayerSpace
 {
@@ -28,12 +25,17 @@ namespace PlayerSpace
         [Export] private Label loyaltyAttributeLabel;
         [Export] private Label ageLabel;
         [Export] private Label sexLabel;
-        [Export] private Label coolSkillLabel;
         [Export] private Label constructionSkillLabel;
+        [Export] private Label coolSkillLabel;
+        [Export] private Label farmSkillLabel;
+        [Export] private Label fishSkillLabel;
+        [Export] private Label lumberjackSkillLabel;
         [Export] private Label researchSkillLabel;
         [Export] private Label rifleSkillLabel;
+        [Export] private Label scavengeSkillLabel;
+
         [Export] private Label currentActivityLabel;
-        [Export] private Label nextActivityTitle;
+        [Export] private Label nextActivityTitle; // Why is this here?
         [Export] private Label nextActivityLabel;
 
         [Export] private Button aideRecruitButton;
@@ -50,7 +52,7 @@ namespace PlayerSpace
 
         private void OnVisibilityChanged()
         {
-            if (Visible == true)
+            if (Visible)
             {
                 CallDeferred("UpdateDescriptionInfo");
                 Clock.Instance.PauseTime();
@@ -243,10 +245,15 @@ namespace PlayerSpace
 
         private void UpdateSkills(CountyPopulation countyPopulation)
         {
-            coolSkillLabel.Text = $"Cool: {countyPopulation.coolSkill.skillLevel}";
-            constructionSkillLabel.Text = $"Contruction: {countyPopulation.constructionSkill.skillLevel}";
-            researchSkillLabel.Text = $"Research: {countyPopulation.researchingSkill.skillLevel}";
-            rifleSkillLabel.Text = $"Rifle: {countyPopulation.rifleSkill.skillLevel}";
+            constructionSkillLabel.Text = $"Contruction: {countyPopulation.skills[AllEnums.Skills.Construction].skillLevel}";
+            coolSkillLabel.Text = $"Cool: {countyPopulation.skills[AllEnums.Skills.Cool].skillLevel}";
+            farmSkillLabel.Text = $"Farm: {countyPopulation.skills[AllEnums.Skills.Farm].skillLevel}";
+            fishSkillLabel.Text = $"Fish: {countyPopulation.skills[AllEnums.Skills.Fish].skillLevel}";
+            lumberjackSkillLabel.Text = $"Lumberjack: {countyPopulation.skills[AllEnums.Skills.Lumberjack].skillLevel}";
+            researchSkillLabel.Text = $"Research: {countyPopulation.skills[AllEnums.Skills.Research].skillLevel}";
+            rifleSkillLabel.Text = $"Rifle: {countyPopulation.skills[AllEnums.Skills.Rifle].skillLevel}";
+            scavengeSkillLabel.Text = $"Scavenge: {countyPopulation.skills[AllEnums.Skills.Scavenge].skillLevel}";
+
         }
     }
 }

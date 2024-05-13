@@ -24,3 +24,5 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~M:PlayerSpace.Diplomacy.DefenderSpawnArmies(PlayerSpace.County)")]
 [assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~M:PlayerSpace.SkillHandling.Check(System.Int32)~System.Boolean")]
 [assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~M:PlayerSpace.SkillHandling.CheckLearning(PlayerSpace.CountyPopulation,PlayerSpace.SkillData)")]
+[assembly: SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>", Scope = "member", Target = "~M:PlayerSpace.SelectToken.OnClick(Godot.Viewport,Godot.InputEvent,System.Int32)")]
+[assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~M:PlayerSpace.Research.RemoveResearcher(PlayerSpace.CountyPopulation)")]

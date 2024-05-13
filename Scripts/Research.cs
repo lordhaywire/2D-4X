@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq;
 
 namespace PlayerSpace
 {
@@ -15,9 +16,9 @@ namespace PlayerSpace
 
         private void PopulationResearch()
         {
-            foreach(County county in Globals.Instance.countiesParent.GetChildren())
+            foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
             {
-                foreach(CountyPopulation countyPopulation in county.countyData.countyPopulationList)
+                foreach (CountyPopulation countyPopulation in county.countyData.countyPopulationList)
                 {
                     // Currently manually set to the second Research (Researching) to be updated later.
                     county.countyData.factionData.researchItems[1].AmountOfResearchDone += Globals.Instance.populationResearchIncrease;
@@ -36,19 +37,19 @@ namespace PlayerSpace
                 {
                     if (countyPopulation.currentActivity == AllText.Activities.RESEARCHING)
                     {
-                        bool passedCheck = factionData.skillHandling.Check(countyPopulation.researchingSkill.skillLevel);
+                        bool passedCheck = factionData.skillHandling.Check(countyPopulation.skills[AllEnums.Skills.Research].skillLevel);
                         GD.PrintRich($"[rainbow]{countyPopulation.firstName} skill check: {passedCheck}");
                         IncreaseResearcherResearch(countyPopulation, passedCheck);
 
                         // Only the researchers learn research skill.  Normal population who is just adding a tiny bit of research
                         // does not get a learning check.
-                        countyPopulation.factionData.skillHandling.CheckLearning(countyPopulation, countyPopulation.researchingSkill);
+                        countyPopulation.factionData.skillHandling.CheckLearning(countyPopulation, countyPopulation.skills[AllEnums.Skills.Research]);
                     }
                 }
             }
         }
 
-        private void IncreaseResearcherResearch(CountyPopulation countyPopulation, bool passedCheck)
+        private static void IncreaseResearcherResearch(CountyPopulation countyPopulation, bool passedCheck)
         {
             int bonusResearchIncrease = 0;
             if (passedCheck == true)

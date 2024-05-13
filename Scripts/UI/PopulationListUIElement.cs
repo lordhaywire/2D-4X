@@ -13,7 +13,7 @@ namespace PlayerSpace
             DestroyPopulationRows(); // Clears out the population, so it doesn't duplicate.
             if (Visible)
             {
-                CountyInfoControl.Instance.DisableSpawnHeroCheckButton(true);
+                //CountyInfoControl.Instance.DisableSpawnHeroCheckButton(true);
                 CountyInfoControl.Instance.populationDescriptionControl.Hide();
                 CountyInfoControl.Instance.countyImprovementsPanelControl.Hide();
                 PlayerUICanvas.Instance.BattleLogControl.Hide();
@@ -37,7 +37,7 @@ namespace PlayerSpace
             }
             else
             {
-                CountyInfoControl.Instance.DisableSpawnHeroCheckButton(false);
+                //CountyInfoControl.Instance.DisableSpawnHeroCheckButton(false);
                 PlayerControls.Instance.AdjustPlayerControls(true);
                 Clock.Instance.UnpauseTime();
             }
@@ -117,10 +117,15 @@ namespace PlayerSpace
         }
         private static void UpdateSkills(PopulationRowButton populationRow, CountyPopulation person)
         {
-            populationRow.coolSkillLabel.Text = $"{person.coolSkill.skillLevel}";
-            populationRow.constructionSkillLabel.Text = $"{person.constructionSkill.skillLevel}";
-            populationRow.researchSkillLabel.Text = $"{person.researchingSkill.skillLevel}";
-            populationRow.rifleSkillLabel.Text = $"{person.rifleSkill.skillLevel}";
+            populationRow.constructionSkillLabel.Text = $"{person.skills[AllEnums.Skills.Construction].skillLevel}";
+            populationRow.coolSkillLabel.Text = $"{person.skills[AllEnums.Skills.Cool].skillLevel}";
+            populationRow.farmSkillLabel.Text = $"{person.skills[AllEnums.Skills.Farm].skillLevel}";
+            populationRow.fishSkillLabel.Text = $"{person.skills[AllEnums.Skills.Fish].skillLevel}";
+            populationRow.lumberjackSkillLabel.Text = $"{person.skills[AllEnums.Skills.Lumberjack].skillLevel}";
+            populationRow.researchSkillLabel.Text = $"{person.skills[AllEnums.Skills.Research].skillLevel}";
+            populationRow.rifleSkillLabel.Text = $"{person.skills[AllEnums.Skills.Rifle].skillLevel}";
+            populationRow.scavengeSkillLabel.Text = $"{person.skills[AllEnums.Skills.Scavenge].skillLevel}";
+
         }
     }
 }

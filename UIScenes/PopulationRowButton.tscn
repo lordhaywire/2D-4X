@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/UI/PopulationRowButton.cs" id="1_dhxh4"]
 
-[node name="Population Row Button" type="Button" node_paths=PackedStringArray("populationNameLabel", "ageLabel", "sexLabel", "UnhelpfulLabel", "loyaltyAttributeLabel", "coolSkillLabel", "constructionSkillLabel", "researchSkillLabel", "rifleSkillLabel", "currentActivityLabel", "nextActivityLabel")]
+[node name="Population Row Button" type="Button" node_paths=PackedStringArray("populationNameLabel", "ageLabel", "sexLabel", "UnhelpfulLabel", "loyaltyAttributeLabel", "constructionSkillLabel", "coolSkillLabel", "farmSkillLabel", "fishSkillLabel", "lumberjackSkillLabel", "researchSkillLabel", "rifleSkillLabel", "scavengeSkillLabel", "currentActivityLabel", "nextActivityLabel")]
 custom_minimum_size = Vector2(0, 25)
 anchors_preset = 10
 anchor_right = 1.0
@@ -14,10 +14,14 @@ ageLabel = NodePath("Population Row HBoxContainer/Age Label")
 sexLabel = NodePath("Population Row HBoxContainer/Sex Label")
 UnhelpfulLabel = NodePath("Population Row HBoxContainer/Unhelpful Label")
 loyaltyAttributeLabel = NodePath("Population Row HBoxContainer/Loyalty Attribute Label")
+constructionSkillLabel = NodePath("Population Row HBoxContainer/Construction Skill Label")
 coolSkillLabel = NodePath("Population Row HBoxContainer/Cool Skill Label")
-constructionSkillLabel = NodePath("Population Row HBoxContainer/Contruction Skill Label")
+farmSkillLabel = NodePath("Population Row HBoxContainer/Farm Skill Label")
+fishSkillLabel = NodePath("Population Row HBoxContainer/Fish Skill Label")
+lumberjackSkillLabel = NodePath("Population Row HBoxContainer/Lumberjack Skill Label")
 researchSkillLabel = NodePath("Population Row HBoxContainer/Research Skill Label")
 rifleSkillLabel = NodePath("Population Row HBoxContainer/Rifle Skill Label")
+scavengeSkillLabel = NodePath("Population Row HBoxContainer/Scavenge Skill Label")
 currentActivityLabel = NodePath("Population Row HBoxContainer/Current Activity Label")
 nextActivityLabel = NodePath("Population Row HBoxContainer/Next Actvity Label")
 
@@ -31,6 +35,7 @@ grow_vertical = 2
 alignment = 1
 
 [node name="Name Label" type="Label" parent="Population Row HBoxContainer"]
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "NameTest"
@@ -66,24 +71,45 @@ text = "Loyalty Attribute"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Cool Skill Label" type="Label" parent="Population Row HBoxContainer"]
+[node name="Construction Skill Label" type="Label" parent="Population Row HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Cool Attribute"
+text = "Construct"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Contruction Skill Label" type="Label" parent="Population Row HBoxContainer"]
+[node name="Cool Skill Label" type="Label" parent="Population Row HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Construction Skill Test"
+text = "Cool"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Farm Skill Label" type="Label" parent="Population Row HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Farm"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Fish Skill Label" type="Label" parent="Population Row HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Fish"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Lumberjack Skill Label" type="Label" parent="Population Row HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Lumberjack"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Research Skill Label" type="Label" parent="Population Row HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Research Skill Test
+text = "Research
 "
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -91,7 +117,15 @@ vertical_alignment = 1
 [node name="Rifle Skill Label" type="Label" parent="Population Row HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Rifle Skill Test
+text = "Rifle
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Scavenge Skill Label" type="Label" parent="Population Row HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Scave
 "
 horizontal_alignment = 1
 vertical_alignment = 1

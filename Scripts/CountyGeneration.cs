@@ -6,9 +6,14 @@ namespace PlayerSpace
 {
     public partial class CountyGeneration : Node
     {
+        [Export] private int maxScavengableScrap = 10000;
+        [Export] private int maxScavengableFood = 10000;
+
         // I think we might be able to get rid of these.
         private int perishable;
         private int nonperishable;
+
+        
         public override void _Ready()
         {
             AssignFactionDataToCountyData();
@@ -19,13 +24,23 @@ namespace PlayerSpace
             UpdateInitialCountyStorage();
         }
 
-        private static void UpdateResources()
+
+        
+        private void UpdateResources()
         {
             // Assign a copy of each resource to each county.
             foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
             {
                 CopyAndAssignResources(county, AllResources.Instance.allResources);
+                UpdateScavengableResources(county);
+
             }
+        }
+
+        private void UpdateScavengableResources(County county)
+        {
+            county.countyData.scavengableFood = maxScavengableFood;
+            county.countyData.scavengableScrap = maxScavengableScrap;
         }
 
         private static void CopyAndAssignResources(County county, ResourceData[] resources)

@@ -158,7 +158,7 @@ namespace PlayerSpace
             }
         }
 
-        private County FindFactionOwnedNeighborCounty(List<County> countyNeighbors, CountyPopulation countyPopulation)
+        private static County FindFactionOwnedNeighborCounty(List<County> countyNeighbors, CountyPopulation countyPopulation)
         {
             List<County> eligibleCounties = countyNeighbors
                 .Where(c => c.countyData.factionData == countyPopulation.factionData)
@@ -192,12 +192,12 @@ namespace PlayerSpace
         // This is confusing.  Needs a fucking rewrite.
         private void Attack(CountyPopulation gettingShotAtCountyPopulation, CountyPopulation shootingCountyPopulation, bool isAttacker)
         {
-            if (shootingCountyPopulation.factionData.skillHandling.Check(shootingCountyPopulation.rifleSkill.skillLevel) == true)
+            if (shootingCountyPopulation.factionData.skillHandling.Check(shootingCountyPopulation.skills[AllEnums.Skills.Rifle].skillLevel) == true)
             {
                 BattleLogControl.Instance.AddLog
                     ($"{shootingCountyPopulation.firstName} {shootingCountyPopulation.lastName} has hit!", isAttacker);
                 if (gettingShotAtCountyPopulation.factionData.skillHandling
-                    .Check(gettingShotAtCountyPopulation.coolSkill.skillLevel) == false)
+                    .Check(gettingShotAtCountyPopulation.skills[AllEnums.Skills.Cool].skillLevel) == false)
                 {
                     int moraleDamage = random.Next(Globals.Instance.moraleDamageMin, Globals.Instance.moraleDamageMax);
                     gettingShotAtCountyPopulation.moraleExpendable
@@ -222,14 +222,14 @@ namespace PlayerSpace
 
             // Check if rifle experience is learned by the attacker.
             shootingCountyPopulation.factionData.skillHandling.CheckLearning
-                (shootingCountyPopulation, shootingCountyPopulation.rifleSkill);
+                (shootingCountyPopulation, shootingCountyPopulation.skills[AllEnums.Skills.Rifle]);
 
             // Check if the defenders cool skill learns anything.
             gettingShotAtCountyPopulation.factionData.skillHandling.CheckLearning
-                (gettingShotAtCountyPopulation, gettingShotAtCountyPopulation.coolSkill);
+                (gettingShotAtCountyPopulation, gettingShotAtCountyPopulation.skills[AllEnums.Skills.Cool]);
 
         }
-        private void ButtonUp()
+        private static void ButtonUp()
         {
             GD.Print("Battle Log Control Clicked.");
             PlayerUICanvas.Instance.BattleLogControl.Show();

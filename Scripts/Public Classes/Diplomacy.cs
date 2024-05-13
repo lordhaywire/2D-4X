@@ -111,12 +111,12 @@ namespace PlayerSpace
                     {
                         // Order the possbileDefenders list by highest cool and rifle skill.
                         possibleDefenders = [.. possibleDefenders.OrderByDescending(countyPopulation 
-                            => countyPopulation.coolSkill.skillLevel).ThenByDescending(countyPopulation 
-                            => countyPopulation.rifleSkill.skillLevel)];
+                            => countyPopulation.skills[AllEnums.Skills.Cool].skillLevel).ThenByDescending(countyPopulation 
+                            => countyPopulation.skills[AllEnums.Skills.Rifle].skillLevel)];
                         foreach (CountyPopulation countyPopulation in possibleDefenders)
                         {
-                            GD.Print($"{countyPopulation.firstName} {countyPopulation.coolSkill.skillLevel} " +
-                                $"{countyPopulation.rifleSkill.skillName}");
+                            GD.Print($"{countyPopulation.firstName} {countyPopulation.skills[AllEnums.Skills.Cool].skillLevel} " +
+                                $"{countyPopulation.skills[AllEnums.Skills.Rifle].skillLevel}");
                         }
                         County selectCounty = (County)Globals.Instance.countiesParent.GetChild(possibleDefenders[0].location);
                         selectCounty.countyData.herosInCountyList.Add(possibleDefenders[0]);

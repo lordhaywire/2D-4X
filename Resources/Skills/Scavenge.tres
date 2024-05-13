@@ -4,7 +4,8 @@
 
 [resource]
 script = ExtResource("1_k5jbl")
-skillName = "Scavenging"
+skill = 7
+skillName = "Scavenge"
 skillLevel = 0
 amountLearned = 0
 isCombatSkill = false

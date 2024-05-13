@@ -6,6 +6,7 @@ namespace PlayerSpace
     [GlobalClass]
     public partial class SkillData : Resource
     {
+        [Export] public AllEnums.Skills skill;
         [Export] public string skillName;
         [Export] public int skillLevel;
         [Export] public int amountLearned;

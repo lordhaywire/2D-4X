@@ -44,6 +44,9 @@ namespace PlayerSpace
         [Export] public int perishableStorage;
         [Export] public int nonperishableStorage;
 
+        [Export] public int scavengableScrap;
+        [Export] public int scavengableFood;
+
         [Export] public Godot.Collections.Dictionary<AllEnums.CountyResourceType, ResourceData> perishableResources = [];
         [Export] public Godot.Collections.Dictionary<AllEnums.CountyResourceType, ResourceData> nonperishableResources = [];
 

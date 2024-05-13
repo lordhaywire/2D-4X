@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_5fovt")
+skill = 6
 skillName = "Rifle"
 skillLevel = 0
 amountLearned = 0

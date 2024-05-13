@@ -4,7 +4,8 @@
 
 [resource]
 script = ExtResource("1_rw78v")
-skillName = "Farming"
+skill = 2
+skillName = "Farm"
 skillLevel = 0
 amountLearned = 0
 isCombatSkill = false

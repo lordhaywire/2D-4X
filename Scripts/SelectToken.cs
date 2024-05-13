@@ -53,7 +53,7 @@ namespace PlayerSpace
             }
 
             int coolCheck = Globals.Instance.random.Next(1, 101);
-            if (countyPopulation.coolSkill.skillLevel > coolCheck)
+            if (countyPopulation.skills[AllEnums.Skills.Cool].skillLevel > coolCheck)
             {
                 int moraleIncrease = Globals.Instance.random.Next(Globals.Instance.moraleRecoveryMin, Globals.Instance.moraleRecoveryMax);
                 countyPopulation.moraleExpendable = Math.Min(countyPopulation.moraleExpendable + moraleIncrease, 100);
@@ -116,7 +116,7 @@ namespace PlayerSpace
                 $"\n Morale: {countyPopulation.moraleExpendable}";
         }
 
-        private void OnMouseExit()
+        private static void OnMouseExit()
         {
             //GD.Print("Mouse is outside the token.");
             PlayerControls.Instance.stopClickThrough = false;

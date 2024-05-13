@@ -48,17 +48,17 @@
 [ext_resource type="Resource" uid="uid://dhai1v7kfto40" path="res://Resources/Perks/Unhelpful.tres" id="25_626s1"]
 [ext_resource type="Resource" uid="uid://2v8mmbcoopy3" path="res://Resources/Skills/Cool.tres" id="25_xv245"]
 [ext_resource type="Script" path="res://Scripts/UI/CountyInfoControl.cs" id="26_8qp8l"]
-[ext_resource type="Resource" uid="uid://bdji8r13qaily" path="res://Resources/Skills/Farming.tres" id="26_dr7ub"]
+[ext_resource type="Resource" uid="uid://bdji8r13qaily" path="res://Resources/Skills/Farm.tres" id="26_dr7ub"]
 [ext_resource type="PackedScene" uid="uid://d4i6w8w8jld3d" path="res://UIScenes/HeroListCheckBoxPanelContainer.tscn" id="27_03q5w"]
-[ext_resource type="Resource" uid="uid://cyqbb45ma7w6w" path="res://Resources/Skills/Fishing.tres" id="27_gvn1c"]
-[ext_resource type="Resource" uid="uid://bg3pq5mc2ukh6" path="res://Resources/Skills/Lumberjacking.tres" id="28_1iuk7"]
+[ext_resource type="Resource" uid="uid://cyqbb45ma7w6w" path="res://Resources/Skills/Fish.tres" id="27_gvn1c"]
+[ext_resource type="Resource" uid="uid://bg3pq5mc2ukh6" path="res://Resources/Skills/Lumberjack.tres" id="28_1iuk7"]
 [ext_resource type="Script" path="res://Scripts/UI/PopAndIdleButtons.cs" id="28_celvx"]
 [ext_resource type="Script" path="res://Scripts/CountyDictator.cs" id="28_qe8u4"]
 [ext_resource type="Resource" uid="uid://b25ofn4b1igjp" path="res://Resources/Skills/Research.tres" id="29_8u7ma"]
 [ext_resource type="Script" path="res://Scripts/UI/PopulationListUIElement.cs" id="29_ts64q"]
 [ext_resource type="PackedScene" uid="uid://djph5cv7o4atl" path="res://UIScenes/PopulationRowButton.tscn" id="30_bhu5o"]
 [ext_resource type="Resource" uid="uid://dfbunjvsc63da" path="res://Resources/Skills/Rifle.tres" id="30_d528s"]
-[ext_resource type="Resource" uid="uid://pmphig2vnrjx" path="res://Resources/Skills/Scavenging.tres" id="31_0vaa8"]
+[ext_resource type="Resource" uid="uid://pmphig2vnrjx" path="res://Resources/Skills/Scavenge.tres" id="31_0vaa8"]
 [ext_resource type="Script" path="res://Scripts/UI/PopulationDescriptionControl.cs" id="31_hwyyh"]
 [ext_resource type="Texture2D" uid="uid://jyr4u6ph1nu6" path="res://Graphics/Icons/Population/portrait.svg" id="32_s1dhj"]
 [ext_resource type="Script" path="res://Scripts/UI/RecruitButton.cs" id="33_ec2f1"]
@@ -527,7 +527,7 @@ text = "Paused"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="County Info Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("countyInfoControl", "factionNamelabel", "countyNameLabel", "countyPopulationLabel", "countyIdleWorkersLabel", "visitorsLabel", "populationListMarginContainer", "populationDescriptionControl", "countyImprovementsPanelControl", "heroListParent", "heroSpawnCheckButtonParent", "populationListButton", "visitorsListButton", "countyImprovementsButton", "resourcesButton")]
+[node name="County Info Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("countyInfoControl", "factionNamelabel", "countyNameLabel", "countyFoodLabel", "countyScrapLabel", "countyPopulationLabel", "countyIdleWorkersLabel", "visitorsLabel", "populationListMarginContainer", "populationDescriptionControl", "countyImprovementsPanelControl", "heroListParent", "heroSpawnCheckButtonParent", "populationListButton", "visitorsListButton", "countyImprovementsButton", "resourcesButton")]
 visible = false
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 3
@@ -539,8 +539,10 @@ size_flags_vertical = 0
 mouse_filter = 2
 script = ExtResource("26_8qp8l")
 countyInfoControl = NodePath(".")
-factionNamelabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/VBoxContainer/Faction Name Label")
-countyNameLabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/VBoxContainer/County Name Label")
+factionNamelabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer/Faction Name Label")
+countyNameLabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer/County Name Label")
+countyFoodLabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer/HBoxContainer/County Food")
+countyScrapLabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer/HBoxContainer/County Scrap")
 countyPopulationLabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer/Population List Button/Population Button PanelContainer/Population Number Label")
 countyIdleWorkersLabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer/Idle Workers List Button/Idle Workers Button PanelContainer/Idle Workers Number Label")
 visitorsLabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer/Visitors List Button/Visitors Button PanelContainer/Vistors Number Label")
@@ -557,8 +559,8 @@ heroListPrefab = ExtResource("27_03q5w")
 
 [node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/County Info Control"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 335.0
+offset_bottom = 365.0
 mouse_filter = 2
 theme_override_constants/margin_top = 26
 
@@ -580,7 +582,7 @@ mouse_filter = 1
 [node name="TextureRect" type="TextureRect" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel"]
 layout_mode = 2
 texture = ExtResource("50_6hqe0")
-expand_mode = 2
+expand_mode = 4
 
 [node name="County Title MarginContainer" type="MarginContainer" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel"]
 layout_mode = 2
@@ -592,10 +594,10 @@ theme_override_constants/margin_bottom = 10
 [node name="VBoxContainer2" type="VBoxContainer" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2"]
+[node name="Faction and County Title VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2"]
 layout_mode = 2
 
-[node name="Faction Name Label" type="Label" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/VBoxContainer"]
+[node name="Faction Name Label" type="Label" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer"]
 custom_minimum_size = Vector2(180, 25)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -604,7 +606,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="County Name Label" type="Label" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/VBoxContainer"]
+[node name="County Name Label" type="Label" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer"]
 custom_minimum_size = Vector2(180, 25)
 layout_mode = 2
 size_flags_vertical = 0
@@ -613,6 +615,29 @@ text = "Smortland Oregon"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer"]
+layout_mode = 2
+
+[node name="County Food" type="Label" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Food: 100000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="County Scrap" type="Label" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Scrap: 100000"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Pop and Idle Workers VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2" node_paths=PackedStringArray("populationListMarginContainer")]
 layout_mode = 2
@@ -933,6 +958,7 @@ layout_mode = 2
 alignment = 1
 
 [node name="Name Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Name"
@@ -947,6 +973,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Sex Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(122, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Sex
@@ -957,8 +984,7 @@ vertical_alignment = 1
 [node name="Unhelpful Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "For Testing: Unhelpful
-"
+text = "Helpful?"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -966,6 +992,14 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Loyalty"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Construction Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Construct
+"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -977,10 +1011,26 @@ text = "Cool
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Construction Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+[node name="Farm Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Construction
+text = "Farm
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Fish Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Fish
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Lumberjack Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Lumberjack
 "
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -999,6 +1049,13 @@ text = "Rifle"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Scavenge Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Scavenge"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Current Activity Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1010,8 +1067,7 @@ vertical_alignment = 1
 [node name="Next Activity Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Next Day Activity
-"
+text = "Next Activity"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1025,7 +1081,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "Close"
 
-[node name="Population Description Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("perksParent", "populationName", "leaderTitleButton", "aideTitleButton", "armyLeaderTitleButton", "physicalStrengthLabel", "agilityLabel", "enduranceLabel", "intelligenceLabel", "mentalStrengthLabel", "awarenessLabel", "charismaLabel", "looksLabel", "loyaltyAttributeLabel", "ageLabel", "sexLabel", "coolSkillLabel", "constructionSkillLabel", "researchSkillLabel", "rifleSkillLabel", "currentActivityLabel", "nextActivityTitle", "nextActivityLabel", "aideRecruitButton", "armyLeaderRecruitButton", "heroRecruitmentConfirmPanel")]
+[node name="Population Description Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("perksParent", "populationName", "leaderTitleButton", "aideTitleButton", "armyLeaderTitleButton", "physicalStrengthLabel", "agilityLabel", "enduranceLabel", "intelligenceLabel", "mentalStrengthLabel", "awarenessLabel", "charismaLabel", "looksLabel", "loyaltyAttributeLabel", "ageLabel", "sexLabel", "constructionSkillLabel", "coolSkillLabel", "farmSkillLabel", "fishSkillLabel", "lumberjackSkillLabel", "researchSkillLabel", "rifleSkillLabel", "scavengeSkillLabel", "currentActivityLabel", "nextActivityTitle", "nextActivityLabel", "aideRecruitButton", "armyLeaderRecruitButton", "heroRecruitmentConfirmPanel")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -1052,10 +1108,14 @@ looksLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContai
 loyaltyAttributeLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Loyalty Label")
 ageLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Age Label")
 sexLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Sex Label")
-coolSkillLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Cool Skill Label")
 constructionSkillLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Construction Skill Label")
+coolSkillLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Cool Skill Label")
+farmSkillLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Farm Label")
+fishSkillLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Fish Label")
+lumberjackSkillLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Lumberjack Label")
 researchSkillLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Research Skill Label")
 rifleSkillLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Rifle Skill Label")
+scavengeSkillLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Scavenge Skill Label")
 currentActivityLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Current Activity Label")
 nextActivityTitle = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Next Activity Title Label")
 nextActivityLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Next Activity Label")
@@ -1383,6 +1443,13 @@ vertical_alignment = 1
 layout_mode = 2
 columns = 3
 
+[node name="Construction Skill Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Contruction: 10000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Cool Skill Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1390,10 +1457,24 @@ text = "Cool Skill Whatever"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Construction Skill Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer"]
+[node name="Farm Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Contruction: 10000"
+text = "Farm 100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Fish Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Fish 100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Lumberjack Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Lumberjack 100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1411,19 +1492,10 @@ text = "Rifle 100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Skill Label5" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer"]
-visible = false
+[node name="Scavenge Skill Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Skill? 100"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Skill Label6" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Skill? 100"
+text = "Scavenge 100"
 horizontal_alignment = 1
 vertical_alignment = 1
 

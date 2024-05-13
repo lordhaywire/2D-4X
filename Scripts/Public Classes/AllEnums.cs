@@ -39,6 +39,17 @@ namespace PlayerSpace
             Three,
         }
 
+        public enum Skills
+        {
+            Construction,
+            Cool,
+            Farm,
+            Fish,
+            Lumberjack,
+            Research,
+            Rifle,
+            Scavenge,
+        }
         public enum SkillType
         {
             PhysicalStrength,

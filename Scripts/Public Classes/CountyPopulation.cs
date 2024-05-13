@@ -1,6 +1,5 @@
 using Godot;
 using System.Collections.Generic;
-using System.ComponentModel;
 
 namespace PlayerSpace
 {
@@ -57,10 +56,7 @@ namespace PlayerSpace
         public int loyaltyAttribute;
 
         [ExportGroup("Skills")]
-        public SkillData constructionSkill;
-        public SkillData coolSkill;
-        public SkillData researchingSkill;
-        public SkillData rifleSkill;
+        public Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills = [];
 
         [ExportGroup("Activities")]
         public string currentActivity;
@@ -113,8 +109,8 @@ namespace PlayerSpace
             , bool isMale, int age, bool isHero, bool isLeader, bool isAide, bool IsArmyLeader, bool isWorker
             , List<PerkData> perks, int moraleExpendable, int physicalStrength
             , int agility, int endurance, int intelligence, int mentalStrength, int awareness, int charisma
-            , int looks, int loyaltyAttribute, SkillData constructionSkill, SkillData coolSkill
-            , SkillData researchingSkill, SkillData rifleSkill, string currentActivity
+            , int looks, int loyaltyAttribute, Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills
+            , string currentActivity
             , CountyImprovementData currentImprovement, string nextActivity, CountyImprovementData nextImprovement
             , ResearchItemData CurrentResearchItemData)
         {
@@ -147,11 +143,8 @@ namespace PlayerSpace
             this.looks = looks;
 
             this.loyaltyAttribute = loyaltyAttribute;
-
-            this.constructionSkill = constructionSkill;
-            this.coolSkill = coolSkill;
-            this.researchingSkill = researchingSkill;
-            this.rifleSkill = rifleSkill;
+            
+            this.skills = skills;
 
             this.currentActivity = currentActivity;
             this.currentImprovement = currentImprovement;

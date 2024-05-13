@@ -1,6 +1,6 @@
 using Godot;
 using System;
-using System.Collections.Generic;
+
 
 namespace PlayerSpace
 {
@@ -12,6 +12,8 @@ namespace PlayerSpace
         [Export] public Control countyInfoControl;
         [Export] public Label factionNamelabel;
         [Export] public Label countyNameLabel;
+        [Export] private Label countyFoodLabel;
+        [Export] private Label countyScrapLabel;
         [Export] private Label countyPopulationLabel;
         [Export] private Label countyIdleWorkersLabel;
         [Export] private Label visitorsLabel;
@@ -64,12 +66,20 @@ namespace PlayerSpace
 
         public void UpdateEverything()
         {
+            countyData = Globals.Instance.CurrentlySelectedCounty.countyData;
             CheckForOwnership();
             UpdateNameLabels();
+            UpdateCountyResources();
             UpdateCountyPopulationLabel();
             UpdateVisitorsPopulationLabel();
             UpdateIdleWorkersLabel();
             GenerateHeroesPanelList();
+        }
+
+        private void UpdateCountyResources()
+        {
+            countyFoodLabel.Text = $"Food: {countyData.scavengableFood}";
+            countyScrapLabel.Text = $"Scrap: {countyData.scavengableScrap}";
         }
 
         private void UpdateVisitorsPopulationLabel()
@@ -104,7 +114,6 @@ namespace PlayerSpace
         }
         public void GenerateHeroesPanelList()
         {
-            countyData = Globals.Instance.CurrentlySelectedCounty.countyData;
             ClearHeroList();
             GenerateHeroes(countyData.herosInCountyList);
             GenerateHeroes(countyData.armiesInCountyList);

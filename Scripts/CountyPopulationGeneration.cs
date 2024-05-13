@@ -83,9 +83,15 @@ namespace PlayerSpace
                 int ch = random.Next(20, 81);
                 int lo = random.Next(20, 81);
 
-                int loyaltyAttribute = 100; // This is a temporary number.
+                int loyaltyAttribute = random.Next(30, 101); // This is a temporary number.
 
-                // Why did I do it this way instead of just creating a resource for each?
+                Godot.Collections.Dictionary<AllEnums.Skills, SkillData> newSkills = [];
+                foreach (SkillData skillData in AllSkills.Instance.allSkills)
+                {
+                    newSkills.Add(skillData.skill, (SkillData)skillData.Duplicate());
+                    newSkills[skillData.skill].skillLevel = random.Next(20, 81);
+                }
+                /*
                 SkillData constructionSkill = new()
                 {
                     skillName = "Construction",
@@ -118,15 +124,15 @@ namespace PlayerSpace
                     isCombatSkill = true,
                     skillType = AllEnums.SkillType.Agility,
                 };
-
+                */
                 if (hero == false)
                 {
-                    // This adds to the C# list.
+                    // This is for the standard population.
                     countyData.countyPopulationList.Add(new CountyPopulation(countyData.factionData, countyData.countyId
                         , -1, -1, firstName, lastName, isMale, age, false, false, false, false, false
-                        , GeneratePopulationPerks()
-                        , moraleExpendable, ps, ag, en, ie, ms, aw, ch, lo, loyaltyAttribute, constructionSkill
-                        , coolSkill, researchSkill, rifleSkill, AllText.Activities.IDLE, null
+                        , GeneratePopulationPerks(),  
+                         moraleExpendable, ps, ag, en, ie, ms, aw, ch, lo, loyaltyAttribute, newSkills
+                        , AllText.Activities.IDLE, null
                         , AllText.Activities.IDLE, null, null));
 
                 }
@@ -136,8 +142,8 @@ namespace PlayerSpace
                     countyData.herosInCountyList.Add(new CountyPopulation(countyData.factionData, countyData.countyId
                         , -1, -1, firstName, lastName, isMale, age, true, true, false, false, false
                         , GenerateLeaderPerks()
-                        , moraleExpendable, ps, ag, en, ie, ms, aw, ch, lo, loyaltyAttribute, constructionSkill
-                        , coolSkill, researchSkill, rifleSkill, AllText.Activities.IDLE, null
+                        , moraleExpendable, ps, ag, en, ie, ms, aw, ch, lo, loyaltyAttribute, newSkills 
+                        , AllText.Activities.IDLE, null
                         , AllText.Activities.IDLE, null, null));
 
                 }
