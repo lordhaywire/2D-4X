@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AttributeData" load_steps=2 format=3 uid="uid://dbydedpcih0ai"]
+
+[ext_resource type="Script" path="res://Resources/AttributeData.cs" id="1_yfm2o"]
+
+[resource]
+script = ExtResource("1_yfm2o")
+attribute = 0
+attributeAbbreviation = "AG"
+attributeName = "Agility"
+attributeDescription = ""
+attributeLevel = 0

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AttributeData" load_steps=2 format=3 uid="uid://brpboms0hfwgq"]
+
+[ext_resource type="Script" path="res://Resources/AttributeData.cs" id="1_ry7eb"]
+
+[resource]
+script = ExtResource("1_ry7eb")
+attribute = 3
+attributeAbbreviation = "EN"
+attributeName = "Endurance"
+attributeDescription = ""
+attributeLevel = 0

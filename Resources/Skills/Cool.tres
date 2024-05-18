@@ -6,7 +6,8 @@
 script = ExtResource("1_l1o6m")
 skill = 1
 skillName = "Cool"
+skillDescription = ""
 skillLevel = 0
 amountLearned = 0
-isCombatSkill = false
-skillType = 4
+isCombatSkill = true
+skillType = 6

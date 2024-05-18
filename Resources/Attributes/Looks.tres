@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AttributeData" load_steps=2 format=3 uid="uid://bkqqewiydjtb2"]
+
+[ext_resource type="Script" path="res://Resources/AttributeData.cs" id="1_ktq1y"]
+
+[resource]
+script = ExtResource("1_ktq1y")
+attribute = 5
+attributeAbbreviation = "LO"
+attributeName = "Looks"
+attributeDescription = ""
+attributeLevel = 0

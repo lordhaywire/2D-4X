@@ -2,6 +2,17 @@ namespace PlayerSpace
 {
     public class AllEnums
     {
+        public enum Attributes
+        {
+            Agility,
+            Awareness,
+            Charisma,
+            Endurance,
+            Intelligence,
+            Looks,
+            MentalStrength,
+            PhysicalStrength,
+        }
         public enum CountyResourceType
         {
             Fish,
@@ -45,22 +56,13 @@ namespace PlayerSpace
             Cool,
             Farm,
             Fish,
+            Labor, // Possibly make two skills, one of them hauling.
             Lumberjack,
             Research,
             Rifle,
             Scavenge,
         }
-        public enum SkillType
-        {
-            PhysicalStrength,
-            Agility,
-            Endurance,
-            Intelligence,
-            MentalStrength,
-            Awareness,
-            Charisma,
-            Looks,
-        }
+
 
         public enum Terrain
         {

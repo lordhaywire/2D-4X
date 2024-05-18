@@ -9,7 +9,9 @@ namespace PlayerSpace
         [Export] public Texture2D improvementTexture;
         [Export] public string improvementName;
         [Export] public string improvementDescription;
+        [Export] public int numberBuilt;
 
+        [Export] public AllEnums.Skills workSkill;
         // We will eventually be adding resource costs as well.
         [Export] public int influenceCost;
         [Export] public int currentAmountOfConstruction;

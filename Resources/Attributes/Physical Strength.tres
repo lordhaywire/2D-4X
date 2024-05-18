@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AttributeData" load_steps=2 format=3 uid="uid://dc6rsi4v4mw1g"]
+
+[ext_resource type="Script" path="res://Resources/AttributeData.cs" id="1_1ndgo"]
+
+[resource]
+script = ExtResource("1_1ndgo")
+attribute = 7
+attributeAbbreviation = "PS"
+attributeName = "Physical Strength"
+attributeDescription = ""
+attributeLevel = 0

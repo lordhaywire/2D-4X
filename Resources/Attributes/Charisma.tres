@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AttributeData" load_steps=2 format=3 uid="uid://cis6df0tnolhg"]
+
+[ext_resource type="Script" path="res://Resources/AttributeData.cs" id="1_w420n"]
+
+[resource]
+script = ExtResource("1_w420n")
+attribute = 2
+attributeAbbreviation = "CH"
+attributeName = "Charisma"
+attributeDescription = ""
+attributeLevel = 0

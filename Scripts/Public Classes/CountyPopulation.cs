@@ -42,21 +42,14 @@ namespace PlayerSpace
 
         [ExportGroup("Token Expendables")]
         public int moraleExpendable; // I think we are going to have to have this as leader morale or army morale or some shit.
+        public int loyaltyAttribute; // I think this needs to be renamed to an expendable.
 
         [ExportGroup("Attributes")]
-        public int physicalStrength;
-        public int agility;
-        public int endurance;
-        public int intelligence;
-        public int mentalStrength;
-        public int awareness;
-        public int charisma;
-        public int looks;
-
-        public int loyaltyAttribute;
+        public Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes = [];
 
         [ExportGroup("Skills")]
         public Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills = [];
+        public SkillData preferredSkill;
 
         [ExportGroup("Activities")]
         public string currentActivity;
@@ -107,10 +100,10 @@ namespace PlayerSpace
         public CountyPopulation(
             FactionData factionData, int location, int lastLocation, int destination, string firstName, string lastName
             , bool isMale, int age, bool isHero, bool isLeader, bool isAide, bool IsArmyLeader, bool isWorker
-            , List<PerkData> perks, int moraleExpendable, int physicalStrength
-            , int agility, int endurance, int intelligence, int mentalStrength, int awareness, int charisma
-            , int looks, int loyaltyAttribute, Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills
-            , string currentActivity
+            , List<PerkData> perks, int moraleExpendable, int loyaltyAttribute
+            , Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes
+            , Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills
+            , SkillData preferredSkill, string currentActivity
             , CountyImprovementData currentImprovement, string nextActivity, CountyImprovementData nextImprovement
             , ResearchItemData CurrentResearchItemData)
         {
@@ -132,19 +125,11 @@ namespace PlayerSpace
             this.perks = perks;
 
             this.moraleExpendable = moraleExpendable;
-
-            this.physicalStrength = physicalStrength;
-            this.agility = agility;
-            this.endurance = endurance;
-            this.intelligence = intelligence;
-            this.mentalStrength = mentalStrength;
-            this.awareness = awareness;
-            this.charisma = charisma;
-            this.looks = looks;
-
             this.loyaltyAttribute = loyaltyAttribute;
-            
+            this.attributes = attributes;
+
             this.skills = skills;
+            this.preferredSkill = preferredSkill;
 
             this.currentActivity = currentActivity;
             this.currentImprovement = currentImprovement;

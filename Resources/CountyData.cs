@@ -36,8 +36,9 @@ namespace PlayerSpace
 
         public List<Button> spawnedTokenButtons = [];
 
-        public List<CountyImprovementData> allCountyImprovements = [];
+        public List<CountyImprovementData> allCountyImprovements = []; // This includes all county improvements, even possible ones.
         public List<CountyImprovementData> underConstructionCountyImprovements = [];
+        public List<CountyImprovementData> completedCountyImprovements = [];
         public List<Battle> battles = [];
 
         public int population = 0;

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3 uid="uid://48te5c2ywvyh"]
+
+[ext_resource type="Script" path="res://Resources/SkillData.cs" id="1_vcjw6"]
+
+[resource]
+script = ExtResource("1_vcjw6")
+skill = 4
+skillName = "Labor"
+skillDescription = ""
+skillLevel = 0
+amountLearned = 0
+isCombatSkill = false
+skillType = 3

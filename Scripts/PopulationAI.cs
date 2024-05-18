@@ -1,6 +1,6 @@
 using Godot;
 using System;
-using System.Diagnostics.Metrics;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace PlayerSpace
@@ -8,6 +8,7 @@ namespace PlayerSpace
     public partial class PopulationAI : Node
     {
         [Export] private int willWorkLoyalty = 50;
+        private List<CountyImprovementData> prioritizedCountyImprovements = [];
         public override void _Ready()
         {
             Clock.Instance.FirstRun += HourZero;
@@ -17,27 +18,65 @@ namespace PlayerSpace
         private void HourZero()
         {
             AdjustPopulationActivity();
+            //PrioritizeWork();
             DecideNextActivity();
+        }
+
+        private void PrioritizeWork()
+        {
+            foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
+            {
+                foreach (CountyImprovementData countyImprovementData
+                    in county.countyData.underConstructionCountyImprovements)
+                {
+                    //prioritizedCountyImprovements =
+
+                }
+
+
+            }
         }
 
         // Have the world population decide what they are doing the next day.
         private void DecideNextActivity()
         {
-            // Go through every county.
+            // Go through each county.
             foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
             {
+                // Go through each person in the county.
                 foreach (CountyPopulation countyPopulation in county.countyData.countyPopulationList)
                 {
-                    if (CheckLoyalty(countyPopulation) == true && CheckForUnhelpful(countyPopulation) == false)
+                    if(countyPopulation.currentActivity != AllText.Activities.IDLE)
                     {
-                        CheckForAvailableWork(county, countyPopulation);
+                        GD.Print("Is not idle.");
+                        return; // I am not sure this will work.
                     }
-
+                    else
+                    {
+                        // Check if they are loyal and helpful.
+                        if (CheckLoyalty(countyPopulation) == true && CheckForUnhelpful(countyPopulation) == false)
+                        {
+                            GD.Print($"{countyPopulation.firstName} is loyal and helpful.");
+                            CheckForPreferredWork(county, countyPopulation);
+                            //CheckForAvailableWork(county, countyPopulation);
+                        }
+                    }
                 }
             }
         }
 
-        private void CheckForAvailableWork(County county, CountyPopulation countyPopulation)
+        private void CheckForPreferredWork(County county, CountyPopulation countyPopulation)
+        {
+            foreach (CountyImprovementData countyImprovementData in county.countyData.completedCountyImprovements)
+            {
+                if(countyPopulation.preferredSkill.skill == countyImprovementData.workSkill)
+                {
+                    // Check to see if there is available spot to work.
+                }
+            }
+        }
+
+        private static void CheckForAvailableWork(County county, CountyPopulation countyPopulation)
         {
             foreach (CountyImprovementData countyImprovementData in county.countyData.underConstructionCountyImprovements)
             {
@@ -62,7 +101,7 @@ namespace PlayerSpace
                 }
             }
         }
-        private bool CheckForUnhelpful(CountyPopulation countyPopulation)
+        private static bool CheckForUnhelpful(CountyPopulation countyPopulation)
         {
             bool isUnhelpful = false;
             foreach (PerkData perkData in countyPopulation.perks)

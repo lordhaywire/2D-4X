@@ -8,9 +8,10 @@ namespace PlayerSpace
     {
         [Export] public AllEnums.Skills skill;
         [Export] public string skillName;
+        [Export] public string skillDescription;
         [Export] public int skillLevel;
         [Export] public int amountLearned;
         [Export] public bool isCombatSkill;
-        [Export] public AllEnums.SkillType skillType;
+        [Export] public AllEnums.Attributes skillType;
     }
 }

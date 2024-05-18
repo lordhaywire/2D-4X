@@ -95,6 +95,7 @@ namespace PlayerSpace
                             // This is having every population working on that building set that building as built.
                             // So it is repeating the setting to true a bunch of times.  This is ineffecient code.
                             // Some of the population will be working on different buildings too....
+                            county.countyData.completedCountyImprovements.Add(person.currentImprovement);
                             person.currentImprovement.isBuilt = true;
                             person.currentImprovement.underConstruction = false;
                         }

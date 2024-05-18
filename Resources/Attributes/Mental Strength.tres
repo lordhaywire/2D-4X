@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AttributeData" load_steps=2 format=3 uid="uid://dqsfduf2ukjae"]
+
+[ext_resource type="Script" path="res://Resources/AttributeData.cs" id="1_gnh0m"]
+
+[resource]
+script = ExtResource("1_gnh0m")
+attribute = 6
+attributeAbbreviation = "MS"
+attributeName = "Mental Strength"
+attributeDescription = ""
+attributeLevel = 0

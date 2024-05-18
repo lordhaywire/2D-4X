@@ -6,7 +6,8 @@
 script = ExtResource("1_rw78v")
 skill = 2
 skillName = "Farm"
+skillDescription = ""
 skillLevel = 0
 amountLearned = 0
 isCombatSkill = false
-skillType = 0
+skillType = 7

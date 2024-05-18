@@ -117,15 +117,11 @@ namespace PlayerSpace
         }
         private static void UpdateSkills(PopulationRowButton populationRow, CountyPopulation person)
         {
-            populationRow.constructionSkillLabel.Text = $"{person.skills[AllEnums.Skills.Construction].skillLevel}";
-            populationRow.coolSkillLabel.Text = $"{person.skills[AllEnums.Skills.Cool].skillLevel}";
-            populationRow.farmSkillLabel.Text = $"{person.skills[AllEnums.Skills.Farm].skillLevel}";
-            populationRow.fishSkillLabel.Text = $"{person.skills[AllEnums.Skills.Fish].skillLevel}";
-            populationRow.lumberjackSkillLabel.Text = $"{person.skills[AllEnums.Skills.Lumberjack].skillLevel}";
-            populationRow.researchSkillLabel.Text = $"{person.skills[AllEnums.Skills.Research].skillLevel}";
-            populationRow.rifleSkillLabel.Text = $"{person.skills[AllEnums.Skills.Rifle].skillLevel}";
-            populationRow.scavengeSkillLabel.Text = $"{person.skills[AllEnums.Skills.Scavenge].skillLevel}";
-
+            for(int i = 0; i < person.skills.Count; i++)
+            {
+                AllEnums.Skills skillNumber = (AllEnums.Skills)i;
+                populationRow.skillLabels[i].Text = $"{person.skills[skillNumber].skillLevel}";
+            }
         }
     }
 }

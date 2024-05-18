@@ -89,6 +89,7 @@ namespace PlayerSpace
         [Export] public Vector2 heroMoveTarget;
         [Export] public int costOfHero;
         [Export] public int loyaltyCheckNumber = 50;
+
         [Export] public int maxLearningNeeded = 10;
         [Export] public int combatSkillLearningNeeded = 100;
         [Export] public int maxXPRoll = 5; // One above max.

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AttributeData" load_steps=2 format=3 uid="uid://dy4bltm86q63n"]
+
+[ext_resource type="Script" path="res://Resources/AttributeData.cs" id="1_dklns"]
+
+[resource]
+script = ExtResource("1_dklns")
+attribute = 4
+attributeAbbreviation = "IN"
+attributeName = "Intelligence"
+attributeDescription = ""
+attributeLevel = 0

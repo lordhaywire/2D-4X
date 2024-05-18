@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Linq;
 
 namespace PlayerSpace
@@ -25,14 +26,7 @@ namespace PlayerSpace
         [Export] private Label loyaltyAttributeLabel;
         [Export] private Label ageLabel;
         [Export] private Label sexLabel;
-        [Export] private Label constructionSkillLabel;
-        [Export] private Label coolSkillLabel;
-        [Export] private Label farmSkillLabel;
-        [Export] private Label fishSkillLabel;
-        [Export] private Label lumberjackSkillLabel;
-        [Export] private Label researchSkillLabel;
-        [Export] private Label rifleSkillLabel;
-        [Export] private Label scavengeSkillLabel;
+        [Export] private Label[] skillLabels;
 
         [Export] private Label currentActivityLabel;
         [Export] private Label nextActivityTitle; // Why is this here?
@@ -183,28 +177,6 @@ namespace PlayerSpace
             }
         }
 
-        /*
-        private void CheckForTitles()
-        {
-            GD.Print("Check for Titles! " + countyPopulation.IsArmyLeader);
-            switch (countyPopulation)
-            {
-                case { isFactionLeader: true }:
-                    leaderCheckbox.Disabled = false;
-                    break;
-
-                case { isAide: true }:
-                    aideCheckbox.Disabled = false;
-                    break;
-
-                case { IsArmyLeader: true }:
-                    GD.Print("Army Leader is true!");
-                    armyLeaderTitleButton.Disabled = false;
-                    break;
-            }
-        }
-        */
-
         // This means nothing to me.  This was a simplification written by ChatGPT.
         private void CheckForArmyRecruitmentButton(County selectCounty)
         {
@@ -216,14 +188,14 @@ namespace PlayerSpace
 
         private void UpdateAttributes(CountyPopulation countyPopulation)
         {
-            physicalStrengthLabel.Text = countyPopulation.physicalStrength.ToString();
-            agilityLabel.Text = countyPopulation.agility.ToString();
-            enduranceLabel.Text = countyPopulation.endurance.ToString();
-            intelligenceLabel.Text = countyPopulation.intelligence.ToString();
-            mentalStrengthLabel.Text = countyPopulation.mentalStrength.ToString();
-            awarenessLabel.Text = countyPopulation.awareness.ToString();
-            charismaLabel.Text = countyPopulation.charisma.ToString();
-            looksLabel.Text = countyPopulation.looks.ToString();
+            physicalStrengthLabel.Text = countyPopulation.attributes[AllEnums.Attributes.PhysicalStrength].attributeLevel.ToString();
+            agilityLabel.Text = countyPopulation.attributes[AllEnums.Attributes.Agility].attributeLevel.ToString();
+            enduranceLabel.Text = countyPopulation.attributes[AllEnums.Attributes.Endurance].attributeLevel.ToString();
+            intelligenceLabel.Text = countyPopulation.attributes[AllEnums.Attributes.Intelligence].attributeLevel.ToString();
+            mentalStrengthLabel.Text = countyPopulation.attributes[AllEnums.Attributes.MentalStrength].attributeLevel.ToString();
+            awarenessLabel.Text = countyPopulation.attributes[AllEnums.Attributes.Awareness].attributeLevel.ToString();
+            charismaLabel.Text = countyPopulation.attributes[AllEnums.Attributes.Charisma].attributeLevel.ToString();
+            looksLabel.Text = countyPopulation.attributes[AllEnums.Attributes.Looks].attributeLevel.ToString();
 
             loyaltyAttributeLabel.Text = countyPopulation.loyaltyAttribute.ToString();
         }
@@ -245,15 +217,11 @@ namespace PlayerSpace
 
         private void UpdateSkills(CountyPopulation countyPopulation)
         {
-            constructionSkillLabel.Text = $"Contruction: {countyPopulation.skills[AllEnums.Skills.Construction].skillLevel}";
-            coolSkillLabel.Text = $"Cool: {countyPopulation.skills[AllEnums.Skills.Cool].skillLevel}";
-            farmSkillLabel.Text = $"Farm: {countyPopulation.skills[AllEnums.Skills.Farm].skillLevel}";
-            fishSkillLabel.Text = $"Fish: {countyPopulation.skills[AllEnums.Skills.Fish].skillLevel}";
-            lumberjackSkillLabel.Text = $"Lumberjack: {countyPopulation.skills[AllEnums.Skills.Lumberjack].skillLevel}";
-            researchSkillLabel.Text = $"Research: {countyPopulation.skills[AllEnums.Skills.Research].skillLevel}";
-            rifleSkillLabel.Text = $"Rifle: {countyPopulation.skills[AllEnums.Skills.Rifle].skillLevel}";
-            scavengeSkillLabel.Text = $"Scavenge: {countyPopulation.skills[AllEnums.Skills.Scavenge].skillLevel}";
-
+            for (int i = 0; i < countyPopulation.skills.Count; i++)
+            {
+                AllEnums.Skills skillNumber = (AllEnums.Skills)i;
+                skillLabels[i].Text = $"{countyPopulation.skills[skillNumber].skillName} {countyPopulation.skills[skillNumber].skillLevel}";
+            }
         }
     }
 }
