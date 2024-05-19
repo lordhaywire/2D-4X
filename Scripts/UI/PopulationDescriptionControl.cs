@@ -103,17 +103,17 @@ namespace PlayerSpace
             UpdatePerks();
             UpdateSkills(countyPopulation);
 
-            if (countyPopulation.currentImprovement != null)
+            if (countyPopulation.CurrentConstruction != null)
             {
-                currentActivityLabel.Text = $"{countyPopulation.currentActivity} {countyPopulation.currentImprovement.improvementName}";
+                currentActivityLabel.Text = $"{countyPopulation.currentActivity} {countyPopulation.CurrentConstruction.improvementName}";
             }
             else
             {
                 currentActivityLabel.Text = $"{countyPopulation.currentActivity}";
             }
-            if (countyPopulation.nextImprovement != null)
+            if (countyPopulation.NextConstruction != null)
             {
-                nextActivityLabel.Text = $"{countyPopulation.nextActivity} {countyPopulation.nextImprovement.improvementName}";
+                nextActivityLabel.Text = $"{countyPopulation.nextActivity} {countyPopulation.NextConstruction.improvementName}";
             }
             else
             {

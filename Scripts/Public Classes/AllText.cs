@@ -32,6 +32,7 @@ namespace PlayerSpace
             public const string MOVING = "Moving";
             public const string RESEARCHING = "Researching";
             public const string SCAVENGING = "Scavenging";
+            public const string WORKING = "Working";
         }
         
         public class BuildingName

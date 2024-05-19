@@ -136,13 +136,14 @@ namespace PlayerSpace
 
         public void UpdateCurrentActivity(string activity)
         {
+            Activities activities = new();
             countyPopulation.currentActivity = activity;
             switch (activity)
             {
                 case AllText.Activities.RESEARCHING:
                     break;
                 case AllText.Activities.MOVING:
-                    UpdateNextActivity(activity);
+                    activities.UpdateNext(countyPopulation, activity);
                     RemoveFromResearch();
                     break;
                 default:
@@ -158,10 +159,6 @@ namespace PlayerSpace
             ResearchControl.Instance.assignedResearchers.Remove(countyPopulation);
             GD.Print("Removed from Research - Assigned Researchers Count: " + ResearchControl.Instance.assignedResearchers.Count);
             CountyInfoControl.Instance.GenerateHeroesPanelList();
-        }
-        public void UpdateNextActivity(string activity)
-        {
-            countyPopulation.nextActivity = activity;
         }
     }
 }

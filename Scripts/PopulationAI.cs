@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,8 +6,13 @@ namespace PlayerSpace
 {
     public partial class PopulationAI : Node
     {
-        [Export] private int willWorkLoyalty = 50;
-        private List<CountyImprovementData> prioritizedCountyImprovements = [];
+        [Export] private int willWorkLoyalty = 20; // The loyalty a population needs to be willing to work.
+                                                    // 50 is too high for testing, but might work well for the real game.
+        [Export] private int foodBeforeScavenge = 500; // Less then this amount will make people scavenge.
+        [Export] private int scrapBeforeScavenge = 500; // Less then this amount will make people scavenge.
+
+        private readonly List<CountyPopulation> possibleWorkers = [];
+        private readonly List<CountyPopulation> workersToRemove = []; // List to collect county populations to be removed
         public override void _Ready()
         {
             Clock.Instance.FirstRun += HourZero;
@@ -18,89 +22,170 @@ namespace PlayerSpace
         private void HourZero()
         {
             AdjustPopulationActivity();
-            //PrioritizeWork();
-            DecideNextActivity();
+            GoThroughEachCounty();
         }
 
-        private void PrioritizeWork()
-        {
-            foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
-            {
-                foreach (CountyImprovementData countyImprovementData
-                    in county.countyData.underConstructionCountyImprovements)
-                {
-                    //prioritizedCountyImprovements =
-
-                }
-
-
-            }
-        }
-
-        // Have the world population decide what they are doing the next day.
-        private void DecideNextActivity()
+        private void GoThroughEachCounty()
         {
             // Go through each county.
             foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
             {
-                // Go through each person in the county.
-                foreach (CountyPopulation countyPopulation in county.countyData.countyPopulationList)
+                possibleWorkers.Clear(); // Clear the list at the start of each county.
+
+                CheckForIdle(county);
+                CheckForPreferredWork(county);
+                CheckForAnyWork(county);
+                CheckForConstruction(county);
+                CheckForScavengingFood(county);
+                CheckForScavengingScrap(county);
+            }
+        }
+
+        // Adjust all of the world population!
+        private static void AdjustPopulationActivity()
+        {
+            // Go through every county.
+            foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
+            {
+                // Go through this counties population.
+                foreach (CountyPopulation person in county.countyData.countyPopulationList)
                 {
-                    if(countyPopulation.currentActivity != AllText.Activities.IDLE)
+                    person.currentActivity = person.nextActivity;
+                    person.CurrentConstruction = person.NextConstruction;
+                    person.CurrentWork = person.NextWork;
+                }
+
+                // What the fuck is this?  Heroes can't do any sort of work.
+                // I think I was setting this up so heroes can do work, but it currently isn't checking in the PopulationAI
+                // for heroes.
+                foreach (CountyPopulation hero in county.countyData.herosInCountyList)
+                {
+                    if (hero.token == null)
                     {
-                        GD.Print("Is not idle.");
-                        return; // I am not sure this will work.
+                        hero.currentActivity = hero.nextActivity;
+                        hero.CurrentConstruction = hero.NextConstruction;
                     }
-                    else
+                }
+                Work.Instance.CountIdleWorkers(county.countyData);
+            }
+        }
+        private void CheckForScavengingScrap(County county)
+        {
+            EnounghStored(county.countyData.nonperishableResources[AllEnums.CountyResourceType.Scrap].amount, scrapBeforeScavenge);
+        }
+
+        private void CheckForScavengingFood(County county)
+        {
+            int amountOfFood = county.countyData.perishableResources[AllEnums.CountyResourceType.Fish].amount
+                + county.countyData.perishableResources[AllEnums.CountyResourceType.Vegetables].amount;
+
+            EnounghStored(amountOfFood, foodBeforeScavenge);
+        }
+
+        private void EnounghStored(int amountOfStored, int resourceBeforeScavenge)
+        {
+            Activities activities = new();
+            if (amountOfStored > resourceBeforeScavenge)
+            {
+                return;
+            }
+            else
+            {
+                // This will set it everybody, but we probably want it to check to see how low the food is.
+                foreach (CountyPopulation countyPopulation in possibleWorkers)
+                {
+                    activities.UpdateNext(countyPopulation, AllText.Activities.SCAVENGING);
+                }
+            }
+        }
+
+        private void CheckForConstruction(County county)
+        {
+            foreach (CountyImprovementData countyImprovementData in county.countyData.underConstructionCountyImprovements)
+            {
+                foreach (CountyPopulation countyPopulation in possibleWorkers)
+                {
+                    if(countyImprovementData.currentBuilders < countyImprovementData.maxBuilders)
                     {
-                        // Check if they are loyal and helpful.
-                        if (CheckLoyalty(countyPopulation) == true && CheckForUnhelpful(countyPopulation) == false)
+                        countyImprovementData.currentBuilders++;
+                        countyPopulation.NextConstruction = countyImprovementData;
+                        workersToRemove.Add(countyPopulation);
+                    }
+                }
+                RemoveWorkersFromPossibleWorkers();
+            }
+        }
+
+        private void CheckForAnyWork(County county)
+        {
+            foreach (CountyImprovementData countyImprovementData in county.countyData.completedCountyImprovements)
+            {
+                foreach (CountyPopulation countyPopulation in possibleWorkers)
+                {
+                    if (countyImprovementData.currentWorkers < countyImprovementData.maxWorkers)
+                    {
+                        countyImprovementData.currentWorkers++;
+                        countyPopulation.NextWork = countyImprovementData;
+                        workersToRemove.Add(countyPopulation);
+                    }
+                }
+
+                RemoveWorkersFromPossibleWorkers();
+            }
+        }
+
+        private void CheckForIdle(County county)
+        {
+            // Go through each person in the county.
+            foreach (CountyPopulation countyPopulation in county.countyData.countyPopulationList)
+            {
+                // Go through everyone and if they are idle add them to the possibleWorkers list.
+                if (countyPopulation.nextActivity == AllText.Activities.IDLE
+                    && CheckLoyalty(countyPopulation) == true
+                    && CheckForUnhelpful(countyPopulation) == false)
+                {
+                    GD.Print($"{countyPopulation.firstName} is idle, is loyal and is not unhelpful.");
+                    possibleWorkers.Add(countyPopulation);
+                }
+            }
+            
+        }
+
+        private void CheckForPreferredWork(County county)
+        {
+            GD.Print("Checking for Preferred Work!");
+            foreach (CountyImprovementData countyImprovementData in county.countyData.completedCountyImprovements)
+            {
+                foreach (CountyPopulation countyPopulation in possibleWorkers)
+                {
+                    if (countyPopulation.preferredSkill.skill == countyImprovementData.workSkill)
+                    {
+                        // If they have the preferred skill, they are added to the county improvement
+                        // and marked for removal from the possibleWorkers list.
+                        if (countyImprovementData.currentWorkers < countyImprovementData.maxWorkers)
                         {
-                            GD.Print($"{countyPopulation.firstName} is loyal and helpful.");
-                            CheckForPreferredWork(county, countyPopulation);
-                            //CheckForAvailableWork(county, countyPopulation);
+                            countyImprovementData.currentWorkers++;
+                            countyPopulation.NextWork = countyImprovementData;
+                            workersToRemove.Add(countyPopulation);
                         }
                     }
                 }
             }
+
+            RemoveWorkersFromPossibleWorkers();
+            
         }
 
-        private void CheckForPreferredWork(County county, CountyPopulation countyPopulation)
+        private void RemoveWorkersFromPossibleWorkers()
         {
-            foreach (CountyImprovementData countyImprovementData in county.countyData.completedCountyImprovements)
+            // Remove the collected items from the possibleWorkers list
+            foreach (CountyPopulation worker in workersToRemove)
             {
-                if(countyPopulation.preferredSkill.skill == countyImprovementData.workSkill)
-                {
-                    // Check to see if there is available spot to work.
-                }
+                possibleWorkers.Remove(worker);
             }
+            workersToRemove.Clear();
         }
 
-        private static void CheckForAvailableWork(County county, CountyPopulation countyPopulation)
-        {
-            foreach (CountyImprovementData countyImprovementData in county.countyData.underConstructionCountyImprovements)
-            {
-                if (countyImprovementData.underConstruction == true)
-                {
-                    if (countyPopulation.nextActivity == AllText.Activities.IDLE && countyImprovementData.currentBuilders
-                        < countyImprovementData.maxBuilders)
-                    {
-                        countyPopulation.nextActivity = AllText.Activities.BUILDING;
-                        countyPopulation.nextImprovement = countyImprovementData;
-                        countyImprovementData.currentBuilders++;
-                        GD.Print($"{countyPopulation.firstName} {countyPopulation.lastName} is building {countyImprovementData.improvementName}");
-                    }
-                    else
-                    {
-                        GD.Print($"{countyPopulation.firstName} {countyPopulation.lastName} not getting reassigned.");
-                    }
-                }
-                else
-                {
-                    GD.Print($"{countyImprovementData.improvementName} is not being built.");
-                }
-            }
-        }
         private static bool CheckForUnhelpful(CountyPopulation countyPopulation)
         {
             bool isUnhelpful = false;
@@ -115,7 +200,7 @@ namespace PlayerSpace
         }
         private bool CheckLoyalty(CountyPopulation countyPopulation)
         {
-            if (countyPopulation.loyaltyAttribute > willWorkLoyalty)
+            if (countyPopulation.loyaltyAttribute >= willWorkLoyalty)
             {
                 return true;
             }
@@ -125,30 +210,6 @@ namespace PlayerSpace
             }
         }
 
-        // Adjust all of the world population!
-        private static void AdjustPopulationActivity()
-        {
-            // Go through every county.
-            foreach (Node node in Globals.Instance.countiesParent.GetChildren())
-            {
-                County selectCounty = (County)node;
-                // Go through this counties population.
-                foreach (CountyPopulation person in selectCounty.countyData.countyPopulationList)
-                {
-                    person.currentActivity = person.nextActivity;
-                    person.currentImprovement = person.nextImprovement;
-                }
-
-                foreach (CountyPopulation hero in selectCounty.countyData.herosInCountyList)
-                {
-                    if (hero.token == null)
-                    {
-                        hero.currentActivity = hero.nextActivity;
-                        hero.currentImprovement = hero.nextImprovement;
-                    }
-                }
-                Work.Instance.CountIdleWorkers(selectCounty.countyData);
-            }
-        }
+        
     }
 }

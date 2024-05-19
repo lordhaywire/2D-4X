@@ -105,7 +105,7 @@ namespace PlayerSpace
                     ResearchTest();
                 }
                 HourChanged?.Invoke();
-                GD.Print("Hour Changed.");
+                //GD.Print("Hour Changed.");
             }
         }
 

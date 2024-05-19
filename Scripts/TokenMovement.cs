@@ -107,6 +107,7 @@ namespace PlayerSpace
 
         private void ReachedDestination()
         {
+            Activities activities = new();
             MoveToken = false;
             GD.Print("Top of Reached Destination County Population: " + token.countyPopulation.firstName);
             GD.Print("Token Destination: " + token.countyPopulation.destination);
@@ -118,13 +119,13 @@ namespace PlayerSpace
                 {
                     HeroReachedCounty();
                     token.UpdateCurrentActivity(AllText.Activities.IDLE);
-                    token.UpdateNextActivity(AllText.Activities.IDLE);
+                    activities.UpdateNext(token.countyPopulation, AllText.Activities.IDLE);
                 }
                 else
                 {
                     ArmyReachedCounty();
                     token.UpdateCurrentActivity(AllText.Activities.IDLE);
-                    token.UpdateNextActivity(AllText.Activities.IDLE);
+                    activities.UpdateNext(token.countyPopulation, AllText.Activities.IDLE);
                 }
             }
             else
@@ -135,13 +136,13 @@ namespace PlayerSpace
                     // We will probably need to change this to what the token occupation does.
                     // For example, if the token is a diplomat, then the activity will be diplmating.
                     token.UpdateCurrentActivity(AllText.Activities.IDLE);
-                    token.UpdateNextActivity(AllText.Activities.IDLE);
+                    activities.UpdateNext(token.countyPopulation, AllText.Activities.IDLE);
                 }
                 else
                 {
                     ArmyAttackingCounty();
                     token.UpdateCurrentActivity(AllText.Activities.COMBAT);
-                    token.UpdateNextActivity(AllText.Activities.COMBAT);
+                    activities.UpdateNext(token.countyPopulation, AllText.Activities.COMBAT);
                 }
 
             }

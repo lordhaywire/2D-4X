@@ -64,10 +64,10 @@ namespace PlayerSpace
                 foreach (CountyPopulation person in selectCounty.countyData.countyPopulationList)
                 {
                     // ? is null checking currentImprovement.
-                    if (person.currentImprovement?.isBuilt == true)
+                    if (person.CurrentConstruction?.isBuilt == true)
                     {
-                        person.currentImprovement = null;
-                        person.nextImprovement = null;
+                        person.CurrentConstruction = null;
+                        person.NextConstruction = null;
                         person.currentActivity = AllText.Activities.IDLE;
                         person.nextActivity = AllText.Activities.IDLE;
                         //GD.Print($"{person.firstName} is {person.nextActivity}.");
@@ -78,26 +78,27 @@ namespace PlayerSpace
         }
         private static void CompleteWorkPerPerson()
         {
+            // This is fucked.
             // Go through all the counties and have people building add their work to the building.
             foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
             {
                 foreach (CountyPopulation person in county.countyData.countyPopulationList)
                 {
-                    if (person.currentImprovement != null)
+                    if (person.CurrentConstruction != null)
                     {
                         //GD.Print($"{person.firstName} is building {person.currentImprovement.improvementName}.");
-
-                        person.currentImprovement.currentAmountOfConstruction++; // This is eventually going to be a skill check.
+                        // This needs to check if the county improvement is being built or if they are working there.
+                        person.CurrentConstruction.currentAmountOfConstruction++; // This is eventually going to be a skill check.
 
                         // Checks to see if the building is completed.
-                        if (person.currentImprovement.currentAmountOfConstruction >= person.currentImprovement.maxAmountOfConstruction)
+                        if (person.CurrentConstruction.currentAmountOfConstruction >= person.CurrentConstruction.maxAmountOfConstruction)
                         {
                             // This is having every population working on that building set that building as built.
                             // So it is repeating the setting to true a bunch of times.  This is ineffecient code.
                             // Some of the population will be working on different buildings too....
-                            county.countyData.completedCountyImprovements.Add(person.currentImprovement);
-                            person.currentImprovement.isBuilt = true;
-                            person.currentImprovement.underConstruction = false;
+                            county.countyData.completedCountyImprovements.Add(person.CurrentConstruction);
+                            person.CurrentConstruction.isBuilt = true;
+                            person.CurrentConstruction.underConstruction = false;
                         }
                     }
                 }

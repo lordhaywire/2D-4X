@@ -72,17 +72,17 @@ namespace PlayerSpace
                 UpdateAttributes(populationRow, person);
                 UpdateSkills(populationRow, person);
 
-                if(person.currentImprovement != null)
+                if(person.CurrentConstruction != null)
                 {
-                    populationRow.currentActivityLabel.Text = $"{person.currentActivity} {person.currentImprovement.improvementName}";
+                    populationRow.currentActivityLabel.Text = $"{person.currentActivity} {person.CurrentConstruction.improvementName}";
                 }
                 else
                 {
                     populationRow.currentActivityLabel.Text = person.currentActivity;
                 }
-                if(person.nextImprovement != null)
+                if(person.NextConstruction != null)
                 {
-                    populationRow.nextActivityLabel.Text = $"{person.nextActivity} {person.nextImprovement.improvementName}";
+                    populationRow.nextActivityLabel.Text = $"{person.nextActivity} {person.NextConstruction.improvementName}";
                 }
                 else
                 {

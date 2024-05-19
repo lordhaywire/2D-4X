@@ -11,7 +11,6 @@ namespace PlayerSpace
         public int lastLocation;
         public int destination;
 
-        //public string faction;
         [ExportGroup("Info")]
         [Export] public string firstName;
         public string lastName;
@@ -51,11 +50,84 @@ namespace PlayerSpace
         public Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills = [];
         public SkillData preferredSkill;
 
-        [ExportGroup("Activities")]
+        [ExportGroup("Work")]
         public string currentActivity;
-        public CountyImprovementData currentImprovement; // What this person is currently building that day.
         public string nextActivity;
-        public CountyImprovementData nextImprovement;
+        private CountyImprovementData currentWork;
+        public CountyImprovementData CurrentWork
+        {
+            get { return currentWork; }
+            set
+            {
+                Activities activities = new();
+                currentWork = value;
+                if (currentWork == null)
+                {
+                    activities.UpdateNext(this, AllText.Activities.IDLE);
+                }
+                else
+                {
+                    activities.UpdateNext(this, AllText.Activities.WORKING);
+                }
+            }
+        }
+        private CountyImprovementData nextWork;
+        public CountyImprovementData NextWork
+        {
+            get { return nextWork; }
+            set
+            {
+                Activities activities = new();
+                nextWork = value;
+                if (nextWork == null)
+                {
+                    activities.UpdateNext(this, AllText.Activities.IDLE);
+                }
+                else
+                {
+                    activities.UpdateNext(this, AllText.Activities.WORKING);
+                }
+            }
+        }
+
+        private CountyImprovementData currentConstruction; // Building that day.
+        public CountyImprovementData CurrentConstruction // Building the next day.
+        {
+            get { return currentConstruction; }
+            set
+            {
+                Activities activities = new();
+                currentConstruction = value;
+                if (currentConstruction == null)
+                {
+                    activities.UpdateNext(this, AllText.Activities.IDLE);
+                }
+                else
+                {
+                    activities.UpdateNext(this, AllText.Activities.BUILDING);
+                }
+            }
+        }
+
+        private CountyImprovementData nextContruction;
+        public CountyImprovementData NextConstruction // Building the next day.
+        {
+            get { return nextContruction; }
+            set
+            {
+                Activities activities = new();
+                nextContruction = value;
+                if (nextContruction == null)
+                {
+                    activities.UpdateNext(this, AllText.Activities.IDLE);
+                }
+                else
+                {
+                    activities.UpdateNext(this, AllText.Activities.BUILDING);
+                }
+            }
+        }
+
         private ResearchItemData currentResearchItemData;
 
         public ResearchItemData CurrentResearchItemData
@@ -66,6 +138,7 @@ namespace PlayerSpace
                 currentResearchItemData = value;
                 if (currentResearchItemData == null)
                 {
+                    // Change to use Activies public class.
                     nextActivity = AllText.Activities.IDLE;
                     if (CountyInfoControl.Instance?.Visible == true)
                     {
@@ -99,12 +172,13 @@ namespace PlayerSpace
 
         public CountyPopulation(
             FactionData factionData, int location, int lastLocation, int destination, string firstName, string lastName
-            , bool isMale, int age, bool isHero, bool isLeader, bool isAide, bool IsArmyLeader, bool isWorker
+            , bool isMale, int age, bool isHero, bool isFactionLeader, bool isAide, bool IsArmyLeader, bool isWorker
             , List<PerkData> perks, int moraleExpendable, int loyaltyAttribute
             , Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes
             , Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills
-            , SkillData preferredSkill, string currentActivity
-            , CountyImprovementData currentImprovement, string nextActivity, CountyImprovementData nextImprovement
+            , SkillData preferredSkill, string currentActivity, string nextActivity, CountyImprovementData CurrentWork
+            , CountyImprovementData NextWork
+            , CountyImprovementData CurrentConstruction, CountyImprovementData NextConstruction
             , ResearchItemData CurrentResearchItemData)
         {
             this.factionData = factionData;
@@ -117,7 +191,7 @@ namespace PlayerSpace
             this.age = age;
 
             this.isHero = isHero;
-            this.isFactionLeader = isLeader; // What the fuck?
+            this.isFactionLeader = isFactionLeader;
             this.isAide = isAide;
             this.IsArmyLeader = IsArmyLeader;
             this.isWorker = isWorker;
@@ -132,9 +206,11 @@ namespace PlayerSpace
             this.preferredSkill = preferredSkill;
 
             this.currentActivity = currentActivity;
-            this.currentImprovement = currentImprovement;
             this.nextActivity = nextActivity;
-            this.nextImprovement = nextImprovement;
+            this.CurrentWork = CurrentWork;
+            this.NextWork = NextWork;
+            this.CurrentConstruction = CurrentConstruction;
+            this.NextConstruction = NextConstruction;
             this.CurrentResearchItemData = CurrentResearchItemData;
         }
     }

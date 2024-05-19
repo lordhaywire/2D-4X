@@ -998,7 +998,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Sex Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(122, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Sex

@@ -45,8 +45,8 @@ namespace PlayerSpace
         [Export] public int perishableStorage;
         [Export] public int nonperishableStorage;
 
-        [Export] public int scavengableScrap;
-        [Export] public int scavengableFood;
+        [Export] public int scavengableScrap; // This the total a county has available to scavenge.
+        [Export] public int scavengableFood; // This the total a county has available to scavenge.
 
         [Export] public Godot.Collections.Dictionary<AllEnums.CountyResourceType, ResourceData> perishableResources = [];
         [Export] public Godot.Collections.Dictionary<AllEnums.CountyResourceType, ResourceData> nonperishableResources = [];
