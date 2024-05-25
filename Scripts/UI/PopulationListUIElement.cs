@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 namespace PlayerSpace
 {
@@ -13,7 +14,6 @@ namespace PlayerSpace
             DestroyPopulationRows(); // Clears out the population, so it doesn't duplicate.
             if (Visible)
             {
-                //CountyInfoControl.Instance.DisableSpawnHeroCheckButton(true);
                 CountyInfoControl.Instance.populationDescriptionControl.Hide();
                 CountyInfoControl.Instance.countyImprovementsPanelControl.Hide();
                 PlayerUICanvas.Instance.BattleLogControl.Hide();
@@ -71,26 +71,38 @@ namespace PlayerSpace
                 UpdateUnHelpfulPerk(populationRow, person);
                 UpdateAttributes(populationRow, person);
                 UpdateSkills(populationRow, person);
+                UpdateActivities(populationRow, person);
 
-                if(person.CurrentConstruction != null)
-                {
-                    populationRow.currentActivityLabel.Text = $"{person.currentActivity} {person.CurrentConstruction.improvementName}";
-                }
-                else
-                {
-                    populationRow.currentActivityLabel.Text = person.currentActivity;
-                }
-                if(person.NextConstruction != null)
-                {
-                    populationRow.nextActivityLabel.Text = $"{person.nextActivity} {person.NextConstruction.improvementName}";
-                }
-                else
-                {
-                    populationRow.nextActivityLabel.Text = person.nextActivity;
-                }
                 populationListParent.AddChild(populationRow);
                 PopulationRowButton populationRowButton = populationRow;
                 populationRowButton.countyPopulation = person;
+            }
+        }
+
+
+        // This are all broken.
+        // This is where we would us a method to return the name.
+        private static void UpdateActivities(PopulationRowButton populationRow, CountyPopulation countyPopulation)
+        {
+            Activities activities = new();
+
+            if (countyPopulation.CurrentConstruction != null)
+            {
+                populationRow.currentActivityLabel.Text = $"{activities.GetActivityName(countyPopulation.currentActivity)} " +
+                    $"{countyPopulation.CurrentConstruction.improvementName}";
+            }
+            else
+            {
+                populationRow.currentActivityLabel.Text = activities.GetActivityName(countyPopulation.currentActivity);
+            }
+            if (countyPopulation.NextConstruction != null)
+            {
+                populationRow.nextActivityLabel.Text = $"{activities.GetActivityName(countyPopulation.nextActivity)} " +
+                    $"{countyPopulation.NextConstruction.improvementName}";
+            }
+            else
+            {
+                populationRow.nextActivityLabel.Text = activities.GetActivityName(countyPopulation.nextActivity);
             }
         }
 

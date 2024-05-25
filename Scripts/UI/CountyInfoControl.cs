@@ -55,13 +55,11 @@ namespace PlayerSpace
         public static void OnMouseEntered()
         {
             PlayerControls.Instance.stopClickThrough = true;
-            //GD.Print("Mouse Over UI: " + PlayerControls.Instance.mouseOverUI);
         }
 
         public static void OnMouseExited()
         {
             PlayerControls.Instance.stopClickThrough = false;
-            //GD.Print("Mouse Over UI: " + PlayerControls.Instance.mouseOverUI);
         }
 
         public void UpdateEverything()

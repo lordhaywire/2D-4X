@@ -28,6 +28,7 @@ namespace PlayerSpace
         [Export] private Label sexLabel;
         [Export] private Label[] skillLabels;
 
+        [Export] private Label preferredWorkLabel;
         [Export] private Label currentActivityLabel;
         [Export] private Label nextActivityTitle; // Why is this here?
         [Export] private Label nextActivityLabel;
@@ -101,7 +102,8 @@ namespace PlayerSpace
             }
 
             UpdatePerks();
-            UpdateSkills(countyPopulation);
+            UpdatePreferredWork();
+            UpdateSkills();
 
             if (countyPopulation.CurrentConstruction != null)
             {
@@ -128,6 +130,11 @@ namespace PlayerSpace
             {
                 aideRecruitButton.Disabled = false;
             }
+        }
+
+        private void UpdatePreferredWork()
+        {
+            preferredWorkLabel.Text = countyPopulation.preferredSkill.skillName;
         }
 
         // All perks are known for now, but eventually we want the player not to know all of their population's perks.
@@ -209,18 +216,17 @@ namespace PlayerSpace
             nextActivityTitle.Hide();
             nextActivityLabel.Hide();
         }
-
         private void CloseButton()
         {
             Hide();
         }
 
-        private void UpdateSkills(CountyPopulation countyPopulation)
+        private void UpdateSkills()
         {
             for (int i = 0; i < countyPopulation.skills.Count; i++)
             {
                 AllEnums.Skills skillNumber = (AllEnums.Skills)i;
-                skillLabels[i].Text = $"{countyPopulation.skills[skillNumber].skillName} {countyPopulation.skills[skillNumber].skillLevel}";
+                skillLabels[i].Text = $"{Tr(countyPopulation.skills[skillNumber].skillName)} {countyPopulation.skills[skillNumber].skillLevel}";
             }
         }
     }

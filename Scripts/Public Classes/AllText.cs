@@ -24,17 +24,6 @@ namespace PlayerSpace
             public const string RECRUITHEROCONFIRM = "Do you want to recruit";
         }
         
-        public class Activities
-        {
-            public const string IDLE = "Idle";
-            public const string BUILDING = "Building";
-            public const string COMBAT = "In Combat!";
-            public const string MOVING = "Moving";
-            public const string RESEARCHING = "Researching";
-            public const string SCAVENGING = "Scavenging";
-            public const string WORKING = "Working";
-        }
-        
         public class BuildingName
         {
             public const string FISHERSSHACK = "Fisher's Shack";

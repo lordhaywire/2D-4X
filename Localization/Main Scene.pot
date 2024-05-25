@@ -72,6 +72,18 @@ msgid "Smortland Oregon"
 msgstr ""
 
 #: Scenes/Main.tscn
+msgid "Scavengable Resources"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Food: 100000"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Scrap: 100000"
+msgstr ""
+
+#: Scenes/Main.tscn
 msgid "Population"
 msgstr ""
 
@@ -156,7 +168,7 @@ msgid "Sex\n"
 msgstr ""
 
 #: Scenes/Main.tscn
-msgid "For Testing: Unhelpful\n"
+msgid "Helpful?"
 msgstr ""
 
 #: Scenes/Main.tscn
@@ -164,11 +176,27 @@ msgid "Loyalty"
 msgstr ""
 
 #: Scenes/Main.tscn
+msgid "Construct\n"
+msgstr ""
+
+#: Scenes/Main.tscn
 msgid "Cool\n"
 msgstr ""
 
 #: Scenes/Main.tscn
-msgid "Construction\n"
+msgid "Farm\n"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Fish\n"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Labor\n"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Lumberjack\n"
 msgstr ""
 
 #: Scenes/Main.tscn
@@ -180,11 +208,15 @@ msgid "Rifle"
 msgstr ""
 
 #: Scenes/Main.tscn
+msgid "Scavenge"
+msgstr ""
+
+#: Scenes/Main.tscn
 msgid "Current Activity\n"
 msgstr ""
 
 #: Scenes/Main.tscn
-msgid "Next Day Activity\n"
+msgid "Next Activity"
 msgstr ""
 
 #: Scenes/Main.tscn
@@ -276,11 +308,27 @@ msgid "Skills"
 msgstr ""
 
 #: Scenes/Main.tscn
+msgid "Contruction: 10000"
+msgstr ""
+
+#: Scenes/Main.tscn
 msgid "Cool Skill Whatever"
 msgstr ""
 
 #: Scenes/Main.tscn
-msgid "Contruction: 10000"
+msgid "Farm 100"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Fish 100"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Labor 100"
+msgstr ""
+
+#: Scenes/Main.tscn
+msgid "Lumberjack 100"
 msgstr ""
 
 #: Scenes/Main.tscn
@@ -292,15 +340,11 @@ msgid "Rifle 100"
 msgstr ""
 
 #: Scenes/Main.tscn
-msgid "Skill? 100"
+msgid "Scavenge 100"
 msgstr ""
 
 #: Scenes/Main.tscn
 msgid "Current Activity"
-msgstr ""
-
-#: Scenes/Main.tscn
-msgid "Next Activity"
 msgstr ""
 
 #: Scenes/Main.tscn

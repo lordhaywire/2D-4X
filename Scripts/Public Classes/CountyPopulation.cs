@@ -1,10 +1,13 @@
 using Godot;
 using System.Collections.Generic;
+using static PlayerSpace.AllEnums;
 
 namespace PlayerSpace
 {
     public class CountyPopulation
     {
+        readonly Activities activities = new();
+
         public FactionData factionData;
         public int location;
 
@@ -51,23 +54,22 @@ namespace PlayerSpace
         public SkillData preferredSkill;
 
         [ExportGroup("Work")]
-        public string currentActivity;
-        public string nextActivity;
+        public AllEnums.Activities currentActivity;
+        public AllEnums.Activities nextActivity;
         private CountyImprovementData currentWork;
         public CountyImprovementData CurrentWork
         {
             get { return currentWork; }
             set
             {
-                Activities activities = new();
                 currentWork = value;
                 if (currentWork == null)
                 {
-                    activities.UpdateNext(this, AllText.Activities.IDLE);
+                    activities.UpdateNext(this, AllEnums.Activities.Idle);
                 }
                 else
                 {
-                    activities.UpdateNext(this, AllText.Activities.WORKING);
+                    activities.UpdateNext(this, AllEnums.Activities.Work);
                 }
             }
         }
@@ -77,15 +79,14 @@ namespace PlayerSpace
             get { return nextWork; }
             set
             {
-                Activities activities = new();
                 nextWork = value;
                 if (nextWork == null)
                 {
-                    activities.UpdateNext(this, AllText.Activities.IDLE);
+                    activities.UpdateNext(this, AllEnums.Activities.Idle);
                 }
                 else
                 {
-                    activities.UpdateNext(this, AllText.Activities.WORKING);
+                    activities.UpdateNext(this, AllEnums.Activities.Work);
                 }
             }
         }
@@ -96,15 +97,14 @@ namespace PlayerSpace
             get { return currentConstruction; }
             set
             {
-                Activities activities = new();
                 currentConstruction = value;
                 if (currentConstruction == null)
                 {
-                    activities.UpdateNext(this, AllText.Activities.IDLE);
+                    activities.UpdateNext(this, AllEnums.Activities.Idle);
                 }
                 else
                 {
-                    activities.UpdateNext(this, AllText.Activities.BUILDING);
+                    activities.UpdateNext(this, AllEnums.Activities.Build);
                 }
             }
         }
@@ -115,15 +115,14 @@ namespace PlayerSpace
             get { return nextContruction; }
             set
             {
-                Activities activities = new();
                 nextContruction = value;
                 if (nextContruction == null)
                 {
-                    activities.UpdateNext(this, AllText.Activities.IDLE);
+                    activities.UpdateNext(this, AllEnums.Activities.Idle);
                 }
                 else
                 {
-                    activities.UpdateNext(this, AllText.Activities.BUILDING);
+                    activities.UpdateNext(this, AllEnums.Activities.Build);
                 }
             }
         }
@@ -138,8 +137,7 @@ namespace PlayerSpace
                 currentResearchItemData = value;
                 if (currentResearchItemData == null)
                 {
-                    // Change to use Activies public class.
-                    nextActivity = AllText.Activities.IDLE;
+                    activities.UpdateNext(this, AllEnums.Activities.Idle);
                     if (CountyInfoControl.Instance?.Visible == true)
                     {
                         CountyInfoControl.Instance.GenerateHeroesPanelList();
@@ -147,11 +145,11 @@ namespace PlayerSpace
                 }
                 else
                 {
-                    nextActivity = AllText.Activities.RESEARCHING;
+                    activities.UpdateNext(this, AllEnums.Activities.Research);
                 }
+
                 if (ResearchControl.Instance?.Visible == true)
                 {
-                    //GD.Print("It got to the Visiblity Check on Current Research Item Data.");
                     ResearchControl.Instance.CheckForResearchers();
                 }
             }
@@ -176,7 +174,8 @@ namespace PlayerSpace
             , List<PerkData> perks, int moraleExpendable, int loyaltyAttribute
             , Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes
             , Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills
-            , SkillData preferredSkill, string currentActivity, string nextActivity, CountyImprovementData CurrentWork
+            , SkillData preferredSkill, AllEnums.Activities currentActivity, AllEnums.Activities nextActivity
+            , CountyImprovementData CurrentWork
             , CountyImprovementData NextWork
             , CountyImprovementData CurrentConstruction, CountyImprovementData NextConstruction
             , ResearchItemData CurrentResearchItemData)

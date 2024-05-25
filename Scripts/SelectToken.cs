@@ -134,15 +134,16 @@ namespace PlayerSpace
             }
         }
 
-        public void UpdateCurrentActivity(string activity)
+        public void UpdateCurrentActivity(AllEnums.Activities activity)
         {
             Activities activities = new();
-            countyPopulation.currentActivity = activity;
+            activities.UpdateCurrent(countyPopulation, activity);
+
             switch (activity)
             {
-                case AllText.Activities.RESEARCHING:
+                case AllEnums.Activities.Research:
                     break;
-                case AllText.Activities.MOVING:
+                case AllEnums.Activities.Move:
                     activities.UpdateNext(countyPopulation, activity);
                     RemoveFromResearch();
                     break;

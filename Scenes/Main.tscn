@@ -1,4 +1,4 @@
-[gd_scene load_steps=109 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=110 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scenes/HidderNode.cs" id="1_gbt3x"]
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_x1cy2"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://Scripts/CountyLoader.cs" id="7_o23yn"]
 [ext_resource type="PackedScene" uid="uid://wlnn33lx7wjt" path="res://UIScenes/SpawnedTokenButton.tscn" id="8_ne3u6"]
 [ext_resource type="Texture2D" uid="uid://b67d6nynwdq3o" path="res://Graphics/Icons/Population/resized faction aide.png" id="8_rm8kv"]
+[ext_resource type="Script" path="res://Scripts/AllActivities.cs" id="9_bq1ko"]
 [ext_resource type="Texture2D" uid="uid://cbpah1j3xx4f2" path="res://Graphics/Icons/Population/resized army icon.png" id="9_ft7d6"]
 [ext_resource type="Texture2D" uid="uid://cvc31dbpf0ptl" path="res://Graphics/Icons/Army Token Unselected.png" id="10_0wqfi"]
 [ext_resource type="Texture2D" uid="uid://bnau4cacldl0t" path="res://Graphics/Icons/Army Token Selected.png" id="11_e5ayq"]
@@ -175,12 +176,16 @@ script = ExtResource("7_fr5hn")
 
 [node name="Arrays" type="Node" parent="Game Controller Node"]
 
-[node name="All Token Textures" type="Node" parent="Game Controller Node/Arrays"]
-script = ExtResource("7_7iyml")
-unselectedHeroTexture = ExtResource("4_pxob5")
-selectedHeroTexture = ExtResource("3_r5dcu")
-unselectedArmyTexture = ExtResource("10_0wqfi")
-selectedArmyTexture = ExtResource("11_e5ayq")
+[node name="All Activities" type="Node" parent="Game Controller Node/Arrays"]
+script = ExtResource("9_bq1ko")
+
+[node name="All Attributes" type="Node" parent="Game Controller Node/Arrays"]
+script = ExtResource("23_ucd0c")
+allAttributes = Array[Object]([ExtResource("24_kqay3"), ExtResource("25_arsfn"), ExtResource("26_eof2h"), ExtResource("27_fmdgm"), ExtResource("28_scnv0"), ExtResource("29_xoqji"), ExtResource("30_lqs38"), ExtResource("31_odxrg")])
+
+[node name="All Perks" type="Node" parent="Game Controller Node/Arrays"]
+script = ExtResource("23_8jwco")
+allPerks = Array[Object]([ExtResource("24_edv5e"), ExtResource("25_626s1")])
 
 [node name="All Research" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("12_hmucs")
@@ -190,17 +195,16 @@ allTierOneResearchData = Array[Object]([ExtResource("22_ugyvd"), ExtResource("16
 script = ExtResource("18_wf5kh")
 allResources = Array[Object]([ExtResource("19_1e80i"), ExtResource("20_k67vp"), ExtResource("21_r83qp"), ExtResource("22_leslc")])
 
-[node name="All Attributes" type="Node" parent="Game Controller Node/Arrays"]
-script = ExtResource("23_ucd0c")
-allAttributes = Array[Object]([ExtResource("24_kqay3"), ExtResource("25_arsfn"), ExtResource("26_eof2h"), ExtResource("27_fmdgm"), ExtResource("28_scnv0"), ExtResource("29_xoqji"), ExtResource("30_lqs38"), ExtResource("31_odxrg")])
-
 [node name="All Skills" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("23_jme5x")
 allSkills = Array[Object]([ExtResource("24_8xnmt"), ExtResource("25_xv245"), ExtResource("26_dr7ub"), ExtResource("27_gvn1c"), ExtResource("37_c2oha"), ExtResource("28_1iuk7"), ExtResource("29_8u7ma"), ExtResource("30_d528s"), ExtResource("31_0vaa8")])
 
-[node name="All Perks" type="Node" parent="Game Controller Node/Arrays"]
-script = ExtResource("23_8jwco")
-allPerks = Array[Object]([ExtResource("24_edv5e"), ExtResource("25_626s1")])
+[node name="All Token Textures" type="Node" parent="Game Controller Node/Arrays"]
+script = ExtResource("7_7iyml")
+unselectedHeroTexture = ExtResource("4_pxob5")
+selectedHeroTexture = ExtResource("3_r5dcu")
+unselectedArmyTexture = ExtResource("10_0wqfi")
+selectedArmyTexture = ExtResource("11_e5ayq")
 
 [node name="Story Event List" type="Node" parent="Game Controller Node"]
 script = ExtResource("12_q0wdt")
@@ -558,8 +562,8 @@ script = ExtResource("26_8qp8l")
 countyInfoControl = NodePath(".")
 factionNamelabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer/Faction Name Label")
 countyNameLabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer/County Name Label")
-countyFoodLabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer/HBoxContainer/County Food")
-countyScrapLabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer/HBoxContainer/County Scrap")
+countyFoodLabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer/Scavengable Resources PanelContainer/Scavengable Resources VBoxContainer/HBoxContainer/County Food")
+countyScrapLabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer/Scavengable Resources PanelContainer/Scavengable Resources VBoxContainer/HBoxContainer/County Scrap")
 countyPopulationLabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer/Population List Button/Population Button PanelContainer/Population Number Label")
 countyIdleWorkersLabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer/Idle Workers List Button/Idle Workers Button PanelContainer/Idle Workers Number Label")
 visitorsLabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer/Visitors List Button/Visitors Button PanelContainer/Vistors Number Label")
@@ -633,25 +637,39 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer"]
+[node name="Scavengable Resources PanelContainer" type="PanelContainer" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Scavengable Resources VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer/Scavengable Resources PanelContainer"]
 layout_mode = 2
 
-[node name="County Food" type="Label" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer/HBoxContainer"]
+[node name="Scavengable Resources Title Label" type="Label" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer/Scavengable Resources PanelContainer/Scavengable Resources VBoxContainer"]
+custom_minimum_size = Vector2(180, 25)
+layout_mode = 2
+size_flags_vertical = 0
+text = "Scavengable Resources"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer/Scavengable Resources PanelContainer/Scavengable Resources VBoxContainer"]
+layout_mode = 2
+
+[node name="County Food" type="Label" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer/Scavengable Resources PanelContainer/Scavengable Resources VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 25)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Food: 100000"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="County Scrap" type="Label" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer/HBoxContainer"]
+[node name="County Scrap" type="Label" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer/Scavengable Resources PanelContainer/Scavengable Resources VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 25)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Scrap: 100000"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -1089,6 +1107,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Current Activity Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Current Activity
@@ -1097,6 +1116,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Next Activity Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Next Activity"
@@ -1114,7 +1134,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "Close"
 
-[node name="Population Description Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("perksParent", "populationName", "leaderTitleButton", "aideTitleButton", "armyLeaderTitleButton", "physicalStrengthLabel", "agilityLabel", "enduranceLabel", "intelligenceLabel", "mentalStrengthLabel", "awarenessLabel", "charismaLabel", "looksLabel", "loyaltyAttributeLabel", "ageLabel", "sexLabel", "skillLabels", "currentActivityLabel", "nextActivityTitle", "nextActivityLabel", "aideRecruitButton", "armyLeaderRecruitButton", "heroRecruitmentConfirmPanel")]
+[node name="Population Description Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("perksParent", "populationName", "leaderTitleButton", "aideTitleButton", "armyLeaderTitleButton", "physicalStrengthLabel", "agilityLabel", "enduranceLabel", "intelligenceLabel", "mentalStrengthLabel", "awarenessLabel", "charismaLabel", "looksLabel", "loyaltyAttributeLabel", "ageLabel", "sexLabel", "skillLabels", "preferredWorkLabel", "currentActivityLabel", "nextActivityTitle", "nextActivityLabel", "aideRecruitButton", "armyLeaderRecruitButton", "heroRecruitmentConfirmPanel")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -1142,6 +1162,7 @@ loyaltyAttributeLabel = NodePath("MarginContainer/PanelContainer/MarginContainer
 ageLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Age Label")
 sexLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Sex Label")
 skillLabels = [NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Construction Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Cool Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Farm Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Fish Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Labor Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Lumberjack Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Research Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Rifle Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Scavenge Skill Label")]
+preferredWorkLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Preferred Work Label")
 currentActivityLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Current Activity Label")
 nextActivityTitle = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Next Activity Title Label")
 nextActivityLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Next Activity Label")
@@ -1532,7 +1553,23 @@ text = "Scavenge 100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Current Activity Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer"]
+[node name="Preferred Work Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "TITLE_PREFERRED_WORK"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Preferred Work Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "Whatevs"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Current Activity Title Label3" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 16

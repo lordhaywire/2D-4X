@@ -109,7 +109,7 @@ namespace PlayerSpace
             }
         }
 
-        private void ResearchTest()
+        private static void ResearchTest()
         {
             foreach(FactionData factionData in Globals.Instance.factionDatas)
             {
@@ -192,7 +192,7 @@ namespace PlayerSpace
 
         public void PauseandUnpause()
         {
-            //GD.Print("Keyboard has been pressed!");
+            GD.Print("Keyboard has been pressed!");
             if (ModifiedTimeScale > 0)
             {
                 NumberOfThingsPausing++;
@@ -204,7 +204,7 @@ namespace PlayerSpace
                 (ModifiedTimeScale, oldTimeSpeed) = (oldTimeSpeed, ModifiedTimeScale);
                 NumberOfThingsPausing--;
             }
-            //GD.Print($"Modified Time: {ModifiedTimeScale} and Old Time Speed: {oldTimeSpeed}.");
+            GD.Print($"Modified Time: {ModifiedTimeScale} and Old Time Speed: {oldTimeSpeed}.");
         }
 
         public void ChangeSpeed(int speed)

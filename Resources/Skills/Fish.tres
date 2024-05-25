@@ -5,7 +5,8 @@
 [resource]
 script = ExtResource("1_c5pl3")
 skill = 3
-skillName = "Fish"
+skillName = "SKILL_FISH"
+skillDescription = ""
 skillLevel = 0
 amountLearned = 0
 isCombatSkill = false

@@ -55,15 +55,12 @@ namespace PlayerSpace
                     person.CurrentWork = person.NextWork;
                 }
 
-                // What the fuck is this?  Heroes can't do any sort of work.
-                // I think I was setting this up so heroes can do work, but it currently isn't checking in the PopulationAI
-                // for heroes.
+                // Heroes can research.
                 foreach (CountyPopulation hero in county.countyData.herosInCountyList)
                 {
                     if (hero.token == null)
                     {
                         hero.currentActivity = hero.nextActivity;
-                        hero.CurrentConstruction = hero.NextConstruction;
                     }
                 }
                 Work.Instance.CountIdleWorkers(county.countyData);
@@ -94,7 +91,7 @@ namespace PlayerSpace
                 // This will set it everybody, but we probably want it to check to see how low the food is.
                 foreach (CountyPopulation countyPopulation in possibleWorkers)
                 {
-                    activities.UpdateNext(countyPopulation, AllText.Activities.SCAVENGING);
+                    activities.UpdateNext(countyPopulation, AllEnums.Activities.Scavenge);
                 }
             }
         }
@@ -140,7 +137,7 @@ namespace PlayerSpace
             foreach (CountyPopulation countyPopulation in county.countyData.countyPopulationList)
             {
                 // Go through everyone and if they are idle add them to the possibleWorkers list.
-                if (countyPopulation.nextActivity == AllText.Activities.IDLE
+                if (countyPopulation.nextActivity == AllEnums.Activities.Idle
                     && CheckLoyalty(countyPopulation) == true
                     && CheckForUnhelpful(countyPopulation) == false)
                 {

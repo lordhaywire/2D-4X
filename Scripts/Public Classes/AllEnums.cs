@@ -2,6 +2,16 @@ namespace PlayerSpace
 {
     public class AllEnums
     {
+        public enum Activities
+        {
+            Build,
+            Combat,
+            Idle,
+            Move,
+            Research,
+            Scavenge,
+            Work,
+        }
         public enum Attributes
         {
             Agility,

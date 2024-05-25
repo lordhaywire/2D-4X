@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 namespace PlayerSpace
 {
@@ -51,7 +50,8 @@ namespace PlayerSpace
                     int experienceLearned = Globals.Instance.random.Next(1, Globals.Instance.maxXPRoll);
                     if (countyPopulation.factionData.isPlayer)
                     {
-                        EventLog.Instance.AddLog($"{countyPopulation.firstName} learned {experienceLearned} in {skillData.skillName}");
+                        EventLog.Instance.AddLog($"{countyPopulation.firstName} learned {experienceLearned} in " +
+                            $"{TranslationServer.Translate(skillData.skillName)}");
                     }
                     skillData.skillLevel += experienceLearned;
                 }
@@ -59,7 +59,8 @@ namespace PlayerSpace
                 {
                     if (countyPopulation.factionData.isPlayer)
                     {
-                        EventLog.Instance.AddLog($"{countyPopulation.firstName} learned nothing in {skillData.skillName}");
+                        EventLog.Instance.AddLog($"{countyPopulation.firstName} learned nothing in" +
+                            $" {TranslationServer.Translate(skillData.skillName)}");
                     }
                 }
                 skillData.amountLearned = 0;

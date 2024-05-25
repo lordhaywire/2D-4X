@@ -65,7 +65,7 @@ namespace PlayerSpace
                         , newAttributes // We could change this just to the variable since it is now up at the top.
                         , GenerateSkillsList()
                         , preferredSkill
-                        , AllText.Activities.IDLE, AllText.Activities.IDLE, null, null, null,  null, null));
+                        , AllEnums.Activities.Idle, AllEnums.Activities.Idle, null, null, null,  null, null));
                 }
                 else
                 {
@@ -76,7 +76,7 @@ namespace PlayerSpace
                         , newAttributes // We could change this just to the variable since is is now in the class declaration.
                         , GenerateSkillsList()
                         , preferredSkill
-                        , AllText.Activities.IDLE, AllText.Activities.IDLE, null, null, null, null, null));
+                        , AllEnums.Activities.Idle, AllEnums.Activities.Idle, null, null, null, null, null));
                 }
             }
         }
@@ -89,7 +89,6 @@ namespace PlayerSpace
 
             // Get the skill with the highest skill level
             SkillData possiblePreferredSkill = sortedSkills.First().Value;
-            //GD.Print("Before check preferred skill: " + possiblePreferredSkill.skillName);
             preferredSkill = possiblePreferredSkill;
 
             // Roll an Intellgence check and if it passes then the top skill is the preferred skill.
@@ -99,9 +98,7 @@ namespace PlayerSpace
                 int randomRoll = random.Next(0, skills.Count);
                 AllEnums.Skills randomSkill = (AllEnums.Skills)randomRoll;
                 preferredSkill = skills[randomSkill];
-                //GD.Print("Random Skill Rolled.");
             }
-            //GD.Print($"{firstName} Preferred Skill: " + preferredSkill.skillName);
         }
         private Godot.Collections.Dictionary<AllEnums.Skills, SkillData> GenerateSkillsList()
         {

@@ -1,0 +1,32 @@
+﻿,en,es
+ACTIVITY_BUILD_DESCRIPTION,This is the description for build.,Esta es la descripción de la compilación.
+ACTIVITY_BUILD_NAME,Build,Construir
+ACTIVITY_BUILD_TOOLTIP,This is the tooltip for build.,Esta es la información sobre herramientas para la compilación.
+ACTIVITY_COMBAT_TOOLTIP,This is the tooltip for combat.,Esta es la descripción del combate.
+ACTIVITY_COMBAT_DESCRIPTION,This is the description for combat.,Esta es la descripción para el combate.
+ACTIVITY_COMBAT_NAME,Combat,Combate
+ACTIVITY_IDLE_DESCRIPTION,This is the description for idle.,Esta es la descripción de inactivo.
+ACTIVITY_IDLE_NAME,Idle,Ocioso
+ACTIVITY_IDLE_TOOLTIP,This is the tooltip for idle.,Esta es la información sobre herramientas para inactivo.
+ACTIVITY_MOVE_DESCRIPTION,This is the description for move.,Esta es la descripción de move.
+ACTIVITY_MOVE_NAME,Move,Mover
+ACTIVITY_MOVE_TOOLTIP,This is the tooltip for move.,Esta es la información sobre herramientas para moverse.
+ACTIVITY_RESEARCH_DESCRIPTION,This is the description for research.,Esta es la descripción de la investigación.
+ACTIVITY_RESEARCH_NAME,Research,Investigación
+ACTIVITY_RESEARCH_TOOLTIP,This is the tooltip for research.,Esta es la información sobre herramientas para la investigación.
+ACTIVITY_SCAVENGE_DESCRIPTION,This is the description for scavenge.,Esta es la descripción de scavenge.
+ACTIVITY_SCAVENGE_NAME,Scavenge,Recoger la basura
+ACTIVITY_SCAVENGE_TOOLTIP,This is the tooltip for scavenge.,Esta es la descripción emergente de la búsqueda.
+ACTIVITY_WORK_DESCRIPTION,This is the description for work.,Esta es la descripción del trabajo.
+ACTIVITY_WORK_NAME,Work,Trabajo
+ACTIVITY_WORK_TOOLTIP,This is the tooltip for work.,Esta es la información sobre herramientas para el trabajo.
+SKILL_CONSTRUCTION,Construction,Construcción
+SKILL_COOL,Cool,Fresco
+SKILL_FARM,Farm,Granja
+SKILL_FISH,Fish,Pescado
+SKILL_LABOR,Labor,Trabajo
+SKILL_LUMBERJACK,Lumberjack,Leñador
+SKILL_RESEARCH,Research,Investigación
+SKILL_RIFLE,Rifle,Fusil
+SKILL_SCAVENGE,Scavenge,Recoger la basura
+TITLE_PREFERRED_WORK,Preferred Work,Trabajo preferido
