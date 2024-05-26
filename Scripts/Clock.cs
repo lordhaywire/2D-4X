@@ -81,7 +81,6 @@ namespace PlayerSpace
                 // This isn't used yet.
                 if (days == 0 && hours == 1)
                 {
-                    //GD.Print("It is 1 am on day zero.");
                     // The problem with this happening at 1 am on the first day is the player has to wait for a tick to happen
                     // before the computer does anything.
                     FirstRun?.Invoke();
@@ -90,13 +89,10 @@ namespace PlayerSpace
                 // This will not trigger on day zero.
                 if (hours == 0)
                 {
-                    //GD.Print("Hour is ZERO!!!");
                     HourZero?.Invoke();
                 }
                 if (hours == 17)
                 {
-                    //GD.Print("Workday is over!");
-                    //GD.Print("Workday is over!");
                     WorkDayOver?.Invoke();
                 }
                 if(hours == 22)
@@ -105,7 +101,6 @@ namespace PlayerSpace
                     ResearchTest();
                 }
                 HourChanged?.Invoke();
-                //GD.Print("Hour Changed.");
             }
         }
 

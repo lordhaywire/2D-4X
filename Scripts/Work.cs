@@ -6,6 +6,7 @@ namespace PlayerSpace
     public partial class Work : Node
     {
         public static Work Instance { get; private set; }
+
         public override void _Ready()
         {
             Instance = this;
@@ -37,24 +38,70 @@ namespace PlayerSpace
         // End work for all of the world population!        
         private void WorkDayOverForPopulation()
         {
-            CompleteWorkPerPerson();
-            CheckWorkComplete();
+            foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
+            {
+                CompleteScavengingPerPerson(county);
+                CompleteBuildingPerPerson();
+                CheckWorkComplete();
+                GiveIdlePeopleBonusHappyness();
+            }
         }
 
-        public void CountIdleWorkers(CountyData countyData)
+        private void CompleteScavengingPerPerson(County county)
         {
-            // I don't think this is very efficient.
-            int idleWorkers = 0;
-
-            foreach (CountyPopulation person in countyData.countyPopulationList)
+            foreach (CountyPopulation countyPopulation in county.countyData.countyPopulationList)
             {
-                if (person.currentActivity == AllText.Activities.IDLE && person.nextActivity == AllText.Activities.IDLE)
+                if(countyPopulation.currentActivity == AllEnums.Activities.Scavenge)
                 {
-                    idleWorkers++;
+                    GenerateScavengedResources(county);
+                    CheckForEnoughFood();
+                    CheckForEnoughScrap();
+                    CheckForAvailableJobs();
                 }
             }
-            countyData.IdleWorkers = idleWorkers;
         }
+
+        // This should be updated with canned goods instead of vegetables.
+        // 5 should probably be changed to a global int.
+        private void GenerateScavengedResources(County county)
+        {
+            int randomResourceNumber = Globals.Instance.random.Next(0, 2);
+            if(randomResourceNumber == 0)
+            {
+                Banker.Instance.AddResourceToCounty(county, AllEnums.CountyResourceType.Vegetables, true, 5);
+            }
+            else
+            {
+                Banker.Instance.AddResourceToCounty(county, AllEnums.CountyResourceType.Scrap, false, 5);
+            }
+        }
+
+        private void CompleteBuildingPerPerson(County county)
+        {
+            // This is fucked.
+            // Go through all the counties and have people building add their work to the building.
+
+            foreach (CountyPopulation person in county.countyData.countyPopulationList)
+            {
+                if (person.CurrentConstruction != null)
+                {
+                    // This needs to check if the county improvement is being built or if they are working there.
+                    person.CurrentConstruction.currentAmountOfConstruction++; // This is eventually going to be a skill check.
+
+                    // Checks to see if the building is completed.
+                    if (person.CurrentConstruction.currentAmountOfConstruction >= person.CurrentConstruction.maxAmountOfConstruction)
+                    {
+                        // This is having every population working on that building set that building as built.
+                        // So it is repeating the setting to true a bunch of times.  This is ineffecient code.
+                        // Some of the population will be working on different buildings too....
+                        county.countyData.completedCountyImprovements.Add(person.CurrentConstruction);
+                        person.CurrentConstruction.isBuilt = true;
+                        person.CurrentConstruction.underConstruction = false;
+                    }
+                }
+            }
+        }
+
 
         // Go through everyone in this county again and clear out their job if their building is done.
         private void CheckWorkComplete()
@@ -68,55 +115,27 @@ namespace PlayerSpace
                     {
                         person.CurrentConstruction = null;
                         person.NextConstruction = null;
-                        person.currentActivity = AllText.Activities.IDLE;
-                        person.nextActivity = AllText.Activities.IDLE;
-                        //GD.Print($"{person.firstName} is {person.nextActivity}.");
+                        person.currentActivity = AllEnums.Activities.Idle;
+                        person.nextActivity = AllEnums.Activities.Idle;
                     }
                 }
                 CountIdleWorkers(selectCounty.countyData);
             }
         }
-        private static void CompleteWorkPerPerson()
+
+        public void CountIdleWorkers(CountyData countyData)
         {
-            // This is fucked.
-            // Go through all the counties and have people building add their work to the building.
-            foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
+            // I don't think this is very efficient.
+            int idleWorkers = 0;
+
+            foreach (CountyPopulation person in countyData.countyPopulationList)
             {
-                foreach (CountyPopulation person in county.countyData.countyPopulationList)
+                if (person.currentActivity == AllEnums.Activities.Idle && person.nextActivity == AllEnums.Activities.Idle)
                 {
-                    if (person.CurrentConstruction != null)
-                    {
-                        //GD.Print($"{person.firstName} is building {person.currentImprovement.improvementName}.");
-                        // This needs to check if the county improvement is being built or if they are working there.
-                        person.CurrentConstruction.currentAmountOfConstruction++; // This is eventually going to be a skill check.
-
-                        // Checks to see if the building is completed.
-                        if (person.CurrentConstruction.currentAmountOfConstruction >= person.CurrentConstruction.maxAmountOfConstruction)
-                        {
-                            // This is having every population working on that building set that building as built.
-                            // So it is repeating the setting to true a bunch of times.  This is ineffecient code.
-                            // Some of the population will be working on different buildings too....
-                            county.countyData.completedCountyImprovements.Add(person.CurrentConstruction);
-                            person.CurrentConstruction.isBuilt = true;
-                            person.CurrentConstruction.underConstruction = false;
-                        }
-                    }
+                    idleWorkers++;
                 }
-                /*
-                foreach (CountyImprovementData countyImprovementData in county.countyData.underConstructionCountyImprovements)
-                {
-                    GD.Print($"{countyImprovementData.improvementName} has completed {countyImprovementData.currentAmountOfConstruction} work.");
-                }
-                */
             }
+            countyData.IdleWorkers = idleWorkers;
         }
-
-        // This doesn't work.
-        private void UnsubscribeEvents()
-        {
-            GD.Print("Exiting a tree.");
-            Clock.Instance.WorkDayOver -= WorkDayOverForPopulation;
-        }
-
     }
 }

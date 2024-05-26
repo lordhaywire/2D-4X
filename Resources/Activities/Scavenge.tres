@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ActivityData" load_steps=2 format=3 uid="uid://ml2vlmwrtlgp"]
+
+[ext_resource type="Script" path="res://Resources/ActivityData.cs" id="1_a2j4c"]
+
+[resource]
+script = ExtResource("1_a2j4c")
+name = "ACTIVITY_SCAVENGE_NAME"
+description = "ACTIVITY_SCAVENGE_DESCRIPTION"
+toolTip = "ACTIVITY_SCAVENGE_TOOLTIP"

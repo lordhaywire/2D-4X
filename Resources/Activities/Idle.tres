@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ActivityData" load_steps=2 format=3 uid="uid://lhdb8c25eymt"]
+
+[ext_resource type="Script" path="res://Resources/ActivityData.cs" id="1_cd2ac"]
+
+[resource]
+script = ExtResource("1_cd2ac")
+name = "ACTIVITY_IDLE_NAME"
+description = "ACTIVITY_IDLE_DESCRIPTION"
+toolTip = "ACTIVITY_IDLE_TOOLTIP"

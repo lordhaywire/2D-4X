@@ -35,7 +35,7 @@ namespace PlayerSpace
             {
                 foreach (CountyPopulation countyPopulation in factionData.allHeroesList)
                 {
-                    if (countyPopulation.currentActivity == AllText.Activities.RESEARCHING)
+                    if (countyPopulation.currentActivity == AllEnums.Activities.Research)
                     {
                         bool passedCheck = factionData.skillHandling.Check(countyPopulation.skills[AllEnums.Skills.Research].skillLevel);
                         GD.PrintRich($"[rainbow]{countyPopulation.firstName} skill check: {passedCheck}");

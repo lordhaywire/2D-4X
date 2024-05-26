@@ -8,7 +8,7 @@ namespace PlayerSpace
         [Export] private VBoxContainer populationListParent;
         [Export] private PackedScene populationRowButtonPackedScene;
         [Export] private Label populationListTitle;
-        
+
         private void OnVisibilityChanged()
         {
             DestroyPopulationRows(); // Clears out the population, so it doesn't duplicate.
@@ -20,8 +20,8 @@ namespace PlayerSpace
 
                 PlayerControls.Instance.AdjustPlayerControls(false);
                 Clock.Instance.PauseTime();
-                
-                if(Globals.Instance.isVisitorList == false)
+
+                if (Globals.Instance.isVisitorList == false)
                 {
                     populationListTitle.Text = $"{Globals.Instance.CurrentlySelectedCounty.countyData.countyName} " +
                         $"{AllText.Titles.POPLIST}";
@@ -30,7 +30,7 @@ namespace PlayerSpace
                 }
                 else
                 {
-                    populationListTitle.Text = $"{Globals.Instance.CurrentlySelectedCounty.countyData.countyName} " + 
+                    populationListTitle.Text = $"{Globals.Instance.CurrentlySelectedCounty.countyData.countyName} " +
                         AllText.Titles.VISITORLIST;
                     GeneratePopulationRows(Globals.Instance.CurrentlySelectedCounty.countyData.visitingHeroList);
                 }
@@ -86,33 +86,32 @@ namespace PlayerSpace
         {
             Activities activities = new();
 
-            if (countyPopulation.CurrentConstruction != null)
-            {
-                populationRow.currentActivityLabel.Text = $"{activities.GetActivityName(countyPopulation.currentActivity)} " +
-                    $"{countyPopulation.CurrentConstruction.improvementName}";
-            }
-            else
-            {
-                populationRow.currentActivityLabel.Text = activities.GetActivityName(countyPopulation.currentActivity);
-            }
-            if (countyPopulation.NextConstruction != null)
-            {
-                populationRow.nextActivityLabel.Text = $"{activities.GetActivityName(countyPopulation.nextActivity)} " +
-                    $"{countyPopulation.NextConstruction.improvementName}";
-            }
-            else
-            {
-                populationRow.nextActivityLabel.Text = activities.GetActivityName(countyPopulation.nextActivity);
-            }
+            // This sets their current activity then checks to see if Building, Work, or Research is null and if it isn't
+            // then it adds where to the end of the label.  If they are all null then it puts nothing.
+            populationRow.currentActivityLabel.Text = activities.GetActivityName(countyPopulation.currentActivity);
+            string currentWhere = countyPopulation.CurrentConstruction?.improvementName
+                ?? countyPopulation.CurrentWork?.improvementName
+                ?? countyPopulation.CurrentResearchItemData?.researchName
+                ?? string.Empty;
+            populationRow.currentActivityLabel.Text += $" {currentWhere}";
+
+            // This sets their current activity then checks to see if Building, Work, or Research is null and if it isn't
+            // then it adds where to the end of the label.  If they are all null then it puts nothing.
+            populationRow.nextActivityLabel.Text = activities.GetActivityName(countyPopulation.nextActivity);
+            string nextWhere = countyPopulation.NextConstruction?.improvementName
+                ?? countyPopulation.NextWork?.improvementName
+                ?? countyPopulation.CurrentResearchItemData?.researchName
+                ?? string.Empty;
+            populationRow.nextActivityLabel.Text += $" {nextWhere}";
         }
 
         // This will not be shown in to the player eventually.  It is just shown right now for testing.
         // We might need a second testing bar to show these things later.
         private static void UpdateUnHelpfulPerk(PopulationRowButton populationRow, CountyPopulation person)
         {
-            foreach (PerkData perkData in person.perks) 
+            foreach (PerkData perkData in person.perks)
             {
-                if(AllPerks.Instance.allPerks[(int)AllEnums.Perks.Unhelpful].perkName == perkData.perkName)
+                if (AllPerks.Instance.allPerks[(int)AllEnums.Perks.Unhelpful].perkName == perkData.perkName)
                 {
                     populationRow.UnhelpfulLabel.Text = $"{perkData.perkName}";
                 }
@@ -129,7 +128,7 @@ namespace PlayerSpace
         }
         private static void UpdateSkills(PopulationRowButton populationRow, CountyPopulation person)
         {
-            for(int i = 0; i < person.skills.Count; i++)
+            for (int i = 0; i < person.skills.Count; i++)
             {
                 AllEnums.Skills skillNumber = (AllEnums.Skills)i;
                 populationRow.skillLabels[i].Text = $"{person.skills[skillNumber].skillLevel}";

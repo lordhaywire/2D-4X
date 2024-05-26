@@ -13,7 +13,7 @@ namespace PlayerSpace
             Instance = this;
         }
 
-        public void AddCountyResource(StoryEventData storyEventData)
+        public void AddStoryEventCountyResource(StoryEventData storyEventData)
         {
             GD.Print($"Faction: {storyEventData.eventCounty.countyData.factionData.factionName} is adding " +
                 $"{storyEventData.resourceAmount} {storyEventData.resource.resourceName}");
@@ -25,9 +25,16 @@ namespace PlayerSpace
             TopBarControl.Instance.UpdateTopBarWithCountyResources();
         }
 
-        private void AddResourceToCounty()
+        public void AddResourceToCounty(County county, AllEnums.CountyResourceType countyResourceType, bool perishable, int amount)
         {
-            throw new NotImplementedException();
+            if(perishable == true)
+            {
+                county.countyData.perishableResources[countyResourceType].amount = amount;
+            }
+            else
+            {
+                county.countyData.nonperishableResources[countyResourceType].amount = amount;
+            }
         }
 
         public void ChargeForHero()

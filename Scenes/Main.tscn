@@ -1,4 +1,4 @@
-[gd_scene load_steps=110 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=117 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scenes/HidderNode.cs" id="1_gbt3x"]
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_x1cy2"]
@@ -18,13 +18,20 @@
 [ext_resource type="Script" path="res://Scripts/AllActivities.cs" id="9_bq1ko"]
 [ext_resource type="Texture2D" uid="uid://cbpah1j3xx4f2" path="res://Graphics/Icons/Population/resized army icon.png" id="9_ft7d6"]
 [ext_resource type="Texture2D" uid="uid://cvc31dbpf0ptl" path="res://Graphics/Icons/Army Token Unselected.png" id="10_0wqfi"]
+[ext_resource type="Resource" uid="uid://bxvneetx5vawp" path="res://Resources/Activities/Build.tres" id="10_6i1wp"]
 [ext_resource type="Texture2D" uid="uid://bnau4cacldl0t" path="res://Graphics/Icons/Army Token Selected.png" id="11_e5ayq"]
 [ext_resource type="Script" path="res://Scripts/FactionGeneration.cs" id="11_ivpku"]
+[ext_resource type="Resource" uid="uid://kyks3jywqan4" path="res://Resources/Activities/Combat.tres" id="11_pouup"]
 [ext_resource type="Script" path="res://Scripts/AllResearch.cs" id="12_hmucs"]
 [ext_resource type="Script" path="res://Scripts/StoryEventList.cs" id="12_q0wdt"]
 [ext_resource type="PackedScene" uid="uid://cjgb8g7l3340p" path="res://Prefabs/FactionNode.tscn" id="12_r0ltm"]
+[ext_resource type="Resource" uid="uid://lhdb8c25eymt" path="res://Resources/Activities/Idle.tres" id="12_rh1yq"]
 [ext_resource type="Script" path="res://Scripts/PlayerControls.cs" id="12_vfu86"]
 [ext_resource type="Resource" uid="uid://b4qv7wmpei808" path="res://Resources/Story Events/FoundFood.tres" id="13_6edvn"]
+[ext_resource type="Resource" uid="uid://iakdlh7d4160" path="res://Resources/Activities/Move.tres" id="13_fv5u6"]
+[ext_resource type="Resource" uid="uid://dpu273ogyv7pf" path="res://Resources/Activities/Research.tres" id="14_e28rg"]
+[ext_resource type="Resource" uid="uid://ml2vlmwrtlgp" path="res://Resources/Activities/Scavenge.tres" id="15_k2peh"]
+[ext_resource type="Resource" uid="uid://bvsprrlr6rs15" path="res://Resources/Activities/Work.tres" id="16_er5gf"]
 [ext_resource type="Script" path="res://Scripts/CountyGeneration.cs" id="16_pxxn4"]
 [ext_resource type="Resource" uid="uid://cwkooap4yvn10" path="res://Resources/ResearchItems/Basic Storage.tres" id="16_qtbxl"]
 [ext_resource type="Script" path="res://Scripts/CountyPopulationGeneration.cs" id="17_1215r"]
@@ -178,6 +185,7 @@ script = ExtResource("7_fr5hn")
 
 [node name="All Activities" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("9_bq1ko")
+allActivityData = Array[Object]([ExtResource("10_6i1wp"), ExtResource("11_pouup"), ExtResource("12_rh1yq"), ExtResource("13_fv5u6"), ExtResource("14_e28rg"), ExtResource("15_k2peh"), ExtResource("16_er5gf")])
 
 [node name="All Attributes" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("23_ucd0c")

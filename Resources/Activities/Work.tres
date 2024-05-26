@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ActivityData" load_steps=2 format=3 uid="uid://bvsprrlr6rs15"]
+
+[ext_resource type="Script" path="res://Resources/ActivityData.cs" id="1_sebdb"]
+
+[resource]
+script = ExtResource("1_sebdb")
+name = "ACTIVITY_WORK_NAME"
+description = "ACTIVITY_WORK_DESCRIPTION"
+toolTip = "ACTIVITY_WORK_TOOLTIP"

@@ -38,7 +38,7 @@ namespace PlayerSpace
 
             collisionRectangleShape.Size = new Vector2(mapWidth, mapHeight);
 
-            // First check to make sure it is inside the map (a tiny bit more then the size of the map.)
+            // First check to make sure it is inside the map (a tiny bit more (a tiny bit less?) then the size of the map.)
             if (x > 0 && y > 0 && x < mapWidth - 5 && y < mapHeight - 5 && playerControlsEnabled == true && stopClickThrough == false)
             {
                 Color countyColor = mapImage.GetPixel(x, y);
@@ -101,18 +101,18 @@ namespace PlayerSpace
                         }
                     }
                 }
+            }
 
-                if (@event is InputEventKey keyEvent && keyEvent.Pressed == false)
+            if (@event is InputEventKey keyEvent && keyEvent.Pressed == false)
+            {
+                if (playerControlsEnabled == true)
                 {
-                    if (playerControlsEnabled == true)
+                    GD.Print($"{keyEvent.Keycode}");
+                    switch (keyEvent.Keycode)
                     {
-                        GD.Print($"{keyEvent.Keycode}");
-                        switch (keyEvent.Keycode)
-                        {
-                            case Key.Space:
-                                Clock.Instance.PauseandUnpause();
-                                break;
-                        }
+                        case Key.Space:
+                            Clock.Instance.PauseandUnpause();
+                            break;
                     }
                 }
             }

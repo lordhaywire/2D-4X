@@ -7,7 +7,7 @@ namespace PlayerSpace
     public partial class PopulationAI : Node
     {
         [Export] private int willWorkLoyalty = 20; // The loyalty a population needs to be willing to work.
-                                                    // 50 is too high for testing, but might work well for the real game.
+                                                   // 50 is too high for testing, but might work well for the real game.
         [Export] private int foodBeforeScavenge = 500; // Less then this amount will make people scavenge.
         [Export] private int scrapBeforeScavenge = 500; // Less then this amount will make people scavenge.
 
@@ -31,7 +31,6 @@ namespace PlayerSpace
             foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
             {
                 possibleWorkers.Clear(); // Clear the list at the start of each county.
-
                 CheckForIdle(county);
                 CheckForPreferredWork(county);
                 CheckForAnyWork(county);
@@ -63,71 +62,7 @@ namespace PlayerSpace
                         hero.currentActivity = hero.nextActivity;
                     }
                 }
-                Work.Instance.CountIdleWorkers(county.countyData);
-            }
-        }
-        private void CheckForScavengingScrap(County county)
-        {
-            EnounghStored(county.countyData.nonperishableResources[AllEnums.CountyResourceType.Scrap].amount, scrapBeforeScavenge);
-        }
-
-        private void CheckForScavengingFood(County county)
-        {
-            int amountOfFood = county.countyData.perishableResources[AllEnums.CountyResourceType.Fish].amount
-                + county.countyData.perishableResources[AllEnums.CountyResourceType.Vegetables].amount;
-
-            EnounghStored(amountOfFood, foodBeforeScavenge);
-        }
-
-        private void EnounghStored(int amountOfStored, int resourceBeforeScavenge)
-        {
-            Activities activities = new();
-            if (amountOfStored > resourceBeforeScavenge)
-            {
-                return;
-            }
-            else
-            {
-                // This will set it everybody, but we probably want it to check to see how low the food is.
-                foreach (CountyPopulation countyPopulation in possibleWorkers)
-                {
-                    activities.UpdateNext(countyPopulation, AllEnums.Activities.Scavenge);
-                }
-            }
-        }
-
-        private void CheckForConstruction(County county)
-        {
-            foreach (CountyImprovementData countyImprovementData in county.countyData.underConstructionCountyImprovements)
-            {
-                foreach (CountyPopulation countyPopulation in possibleWorkers)
-                {
-                    if(countyImprovementData.currentBuilders < countyImprovementData.maxBuilders)
-                    {
-                        countyImprovementData.currentBuilders++;
-                        countyPopulation.NextConstruction = countyImprovementData;
-                        workersToRemove.Add(countyPopulation);
-                    }
-                }
-                RemoveWorkersFromPossibleWorkers();
-            }
-        }
-
-        private void CheckForAnyWork(County county)
-        {
-            foreach (CountyImprovementData countyImprovementData in county.countyData.completedCountyImprovements)
-            {
-                foreach (CountyPopulation countyPopulation in possibleWorkers)
-                {
-                    if (countyImprovementData.currentWorkers < countyImprovementData.maxWorkers)
-                    {
-                        countyImprovementData.currentWorkers++;
-                        countyPopulation.NextWork = countyImprovementData;
-                        workersToRemove.Add(countyPopulation);
-                    }
-                }
-
-                RemoveWorkersFromPossibleWorkers();
+                Work.Instance.CountIdleWorkers(county.countyData);  // This should be its own method somewhere.
             }
         }
 
@@ -145,7 +80,6 @@ namespace PlayerSpace
                     possibleWorkers.Add(countyPopulation);
                 }
             }
-            
         }
 
         private void CheckForPreferredWork(County county)
@@ -167,10 +101,71 @@ namespace PlayerSpace
                         }
                     }
                 }
+                RemoveWorkersFromPossibleWorkers();
             }
+        }
 
-            RemoveWorkersFromPossibleWorkers();
-            
+        private void CheckForAnyWork(County county)
+        {
+            foreach (CountyImprovementData countyImprovementData in county.countyData.completedCountyImprovements)
+            {
+                foreach (CountyPopulation countyPopulation in possibleWorkers)
+                {
+                    if (countyImprovementData.currentWorkers < countyImprovementData.maxWorkers)
+                    {
+                        countyImprovementData.currentWorkers++;
+                        countyPopulation.NextWork = countyImprovementData;
+                        workersToRemove.Add(countyPopulation);
+                    }
+                }
+                RemoveWorkersFromPossibleWorkers();
+            }
+        }
+
+        private void CheckForConstruction(County county)
+        {
+            foreach (CountyImprovementData countyImprovementData in county.countyData.underConstructionCountyImprovements)
+            {
+                foreach (CountyPopulation countyPopulation in possibleWorkers)
+                {
+                    if (countyImprovementData.currentBuilders < countyImprovementData.maxBuilders)
+                    {
+                        countyImprovementData.currentBuilders++;
+                        countyPopulation.NextConstruction = countyImprovementData;
+                        workersToRemove.Add(countyPopulation);
+                    }
+                }
+                RemoveWorkersFromPossibleWorkers();
+            }
+        }
+        private void CheckForScavengingFood(County county)
+        {
+            int amountOfFood = county.countyData.perishableResources[AllEnums.CountyResourceType.Fish].amount
+                + county.countyData.perishableResources[AllEnums.CountyResourceType.Vegetables].amount;
+
+            EnounghStored(amountOfFood, foodBeforeScavenge);
+        }
+
+        private void CheckForScavengingScrap(County county)
+        {
+            EnounghStored(county.countyData.nonperishableResources[AllEnums.CountyResourceType.Scrap].amount, scrapBeforeScavenge);
+        }
+
+        private void EnounghStored(int amountOfStored, int resourceBeforeScavenge)
+        {
+            Activities activities = new();
+            if (amountOfStored > resourceBeforeScavenge)
+            {
+                return;
+            }
+            else
+            {
+                // This will set it everybody, but we probably want it to check to see how low the food is.
+                foreach (CountyPopulation countyPopulation in possibleWorkers)
+                {
+                    activities.UpdateNext(countyPopulation, AllEnums.Activities.Scavenge);
+                }
+            }
         }
 
         private void RemoveWorkersFromPossibleWorkers()
@@ -206,7 +201,5 @@ namespace PlayerSpace
                 return false;
             }
         }
-
-        
     }
 }

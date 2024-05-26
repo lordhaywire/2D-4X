@@ -57,12 +57,16 @@ namespace PlayerSpace
         public AllEnums.Activities currentActivity;
         public AllEnums.Activities nextActivity;
         private CountyImprovementData currentWork;
+
+        // I don't think this needs to be a getter setter because we never set the current construction.  The PopulationAI
+        // script does that.
         public CountyImprovementData CurrentWork
         {
             get { return currentWork; }
             set
             {
                 currentWork = value;
+                /*
                 if (currentWork == null)
                 {
                     activities.UpdateNext(this, AllEnums.Activities.Idle);
@@ -71,6 +75,7 @@ namespace PlayerSpace
                 {
                     activities.UpdateNext(this, AllEnums.Activities.Work);
                 }
+                */
             }
         }
         private CountyImprovementData nextWork;
@@ -92,12 +97,16 @@ namespace PlayerSpace
         }
 
         private CountyImprovementData currentConstruction; // Building that day.
-        public CountyImprovementData CurrentConstruction // Building the next day.
+
+        // I don't think this needs to be a getter setter because we never set the current construction.  The PopulationAI
+        // script does that.
+        public CountyImprovementData CurrentConstruction 
         {
             get { return currentConstruction; }
             set
             {
                 currentConstruction = value;
+                /*
                 if (currentConstruction == null)
                 {
                     activities.UpdateNext(this, AllEnums.Activities.Idle);
@@ -106,6 +115,7 @@ namespace PlayerSpace
                 {
                     activities.UpdateNext(this, AllEnums.Activities.Build);
                 }
+                */
             }
         }
 
