@@ -24,6 +24,7 @@ namespace PlayerSpace
 
 		public void UpdatePossibleBuildingLabels()
 		{
+			Banker banker = new();
 			improvementTexture.Texture = countyImprovementData.improvementTexture;
 			improvementNameLabel.Text = countyImprovementData.improvementName;
 			improvementDescriptionLabel.Text = countyImprovementData.improvementDescription;
@@ -37,7 +38,7 @@ namespace PlayerSpace
 			}
 			else if(CountyImprovementsControl.Instance.Visible == true)
 			{
-				if (Banker.Instance.CheckBuildingCost(Globals.Instance.CurrentlySelectedCounty.countyData.factionData, countyImprovementData) == false)
+				if (banker.CheckBuildingCost(Globals.Instance.CurrentlySelectedCounty.countyData.factionData, countyImprovementData) == false)
 				{
 					buildingButton.Disabled = true;
 				}

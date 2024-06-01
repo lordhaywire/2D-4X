@@ -258,7 +258,7 @@ namespace PlayerSpace
             if (!countyPopulation.factionData.allHeroesList.Contains(countyPopulation))
             {
                 countyPopulation.factionData.allHeroesList.Add(countyPopulation);
-                GD.Print($"Add To {countyPopulation.factionData.factionName} Hero List: " + countyPopulation.lastName);
+                //GD.Print($"Add To {countyPopulation.factionData.factionName} Hero List: " + countyPopulation.lastName);
             }
         }
         public static void OnMouseEnteredUI()

@@ -4,3 +4,5 @@
 
 [node name="Faction Node" type="Node"]
 script = ExtResource("1_giqyd")
+
+[connection signal="tree_exited" from="." to="." method="OnTreeExit"]

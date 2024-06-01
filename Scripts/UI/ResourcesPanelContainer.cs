@@ -49,9 +49,10 @@ namespace PlayerSpace
             if (Visible)
             {
                 AssignResourcesToStorageHboxes();
-                PlayerControls.Instance.playerControlsEnabled = false;
                 UpdateMaxAmountLabels();
                 UpdateResourceLabels();
+                Clock.Instance.PauseandUnpause();
+                PlayerControls.Instance.playerControlsEnabled = false;
             }
             else
             {
@@ -59,6 +60,7 @@ namespace PlayerSpace
                 SetResourceMaxValues(perishableResourceStorageHbox);
                 SetResourceMaxValues(nonperishableResourceStorageHbox);
 
+                Clock.Instance.PauseandUnpause();
                 PlayerControls.Instance.playerControlsEnabled = true;
             }
         }

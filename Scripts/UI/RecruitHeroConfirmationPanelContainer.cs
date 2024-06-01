@@ -23,6 +23,7 @@ namespace PlayerSpace
         }
         private void YesButton()
         {
+            Banker banker = new();
             CountyPopulation countyPopulation = PopulationDescriptionControl.Instance.countyPopulation;
             County selectCounty = (County)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
 
@@ -53,7 +54,7 @@ namespace PlayerSpace
                 countyPopulation.token.spawnedTokenButton.UpdateButtonIcon();
             }
 
-            Banker.Instance.ChargeForHero();
+            banker.ChargeForHero();
             PopulationDescriptionControl.Instance.UpdateDescriptionInfo();
             CountyInfoControl.Instance.GenerateHeroesPanelList();
 

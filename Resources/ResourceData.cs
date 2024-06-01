@@ -22,7 +22,7 @@ namespace PlayerSpace
             {
                 maxAmount = value;
                 amount = Math.Min(amount, maxAmount);
-                GD.Print($"Getter Setter: {resourceName} {maxAmount}");
+                //GD.Print($"Getter Setter: {resourceName} {maxAmount}");
             }
         }
     }

@@ -1,6 +1,6 @@
-[gd_scene load_steps=117 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=114 format=3 uid="uid://dcycrof2uq8gd"]
 
-[ext_resource type="Script" path="res://Scenes/HidderNode.cs" id="1_gbt3x"]
+[ext_resource type="Script" path="res://Scripts/HidderNode.cs" id="1_gbt3x"]
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_x1cy2"]
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://World Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
 [ext_resource type="Script" path="res://Scripts/LoadMaps.cs" id="2_nda5i"]
@@ -24,7 +24,7 @@
 [ext_resource type="Resource" uid="uid://kyks3jywqan4" path="res://Resources/Activities/Combat.tres" id="11_pouup"]
 [ext_resource type="Script" path="res://Scripts/AllResearch.cs" id="12_hmucs"]
 [ext_resource type="Script" path="res://Scripts/StoryEventList.cs" id="12_q0wdt"]
-[ext_resource type="PackedScene" uid="uid://cjgb8g7l3340p" path="res://Prefabs/FactionNode.tscn" id="12_r0ltm"]
+[ext_resource type="PackedScene" uid="uid://cjgb8g7l3340p" path="res://Scenes/FactionNode.tscn" id="12_r0ltm"]
 [ext_resource type="Resource" uid="uid://lhdb8c25eymt" path="res://Resources/Activities/Idle.tres" id="12_rh1yq"]
 [ext_resource type="Script" path="res://Scripts/PlayerControls.cs" id="12_vfu86"]
 [ext_resource type="Resource" uid="uid://b4qv7wmpei808" path="res://Resources/Story Events/FoundFood.tres" id="13_6edvn"]
@@ -42,14 +42,11 @@
 [ext_resource type="Script" path="res://Scripts/Map Editor/FindNeighbors.cs" id="20_0i5kb"]
 [ext_resource type="Resource" uid="uid://bhmwj5yptebic" path="res://Resources/Resources/Scrap.tres" id="20_k67vp"]
 [ext_resource type="Script" path="res://Scripts/FactionsAI.cs" id="20_y5bnv"]
-[ext_resource type="Script" path="res://Scripts/PopulationAI.cs" id="21_nr3na"]
 [ext_resource type="Resource" uid="uid://dpddpnnbjvql" path="res://Resources/Resources/Vegetables.tres" id="21_r83qp"]
-[ext_resource type="Script" path="res://Scripts/Work.cs" id="22_ioynj"]
 [ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/Resources/Wood.tres" id="22_leslc"]
 [ext_resource type="Resource" uid="uid://bljrvhrjka1hs" path="res://Resources/ResearchItems/Basic Production.tres" id="22_ugyvd"]
 [ext_resource type="Script" path="res://Scripts/AllPerks.cs" id="23_8jwco"]
 [ext_resource type="Script" path="res://Scripts/AllSkills.cs" id="23_jme5x"]
-[ext_resource type="Script" path="res://Scripts/Banker.cs" id="23_lb4or"]
 [ext_resource type="Script" path="res://Scripts/AllAttributes.cs" id="23_ucd0c"]
 [ext_resource type="Resource" uid="uid://cccdqp8m65auf" path="res://Resources/Skills/Construction.tres" id="24_8xnmt"]
 [ext_resource type="Resource" uid="uid://d00kar3t6pno1" path="res://Resources/Perks/LeaderofPeople.tres" id="24_edv5e"]
@@ -142,7 +139,7 @@ expand_margin_bottom = 5.0
 
 [node name="Hidder Node" type="Node" parent="." node_paths=PackedStringArray("nodesToHide")]
 script = ExtResource("1_gbt3x")
-nodesToHide = [NodePath("../Player UI Canvas/County Info Control"), NodePath("../Player UI Canvas/Population List MarginContainer"), NodePath("../Player UI Canvas/Population Description Control"), NodePath("../Player UI Canvas/Battle Log Control"), NodePath("../Player UI Canvas/County Improvements Control"), NodePath("../Player UI Canvas/Research Control"), NodePath("../Player UI Canvas/Research Description PanelContainer"), NodePath("../Player UI Canvas/Recuit Hero Confirmation PanelContainer"), NodePath("../Player UI Canvas/Declare War Control"), NodePath("../Player UI Canvas/Story Event Control")]
+nodesToHide = []
 
 [node name="Camera CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("camera")]
 process_mode = 3
@@ -238,7 +235,7 @@ collisionRectangleShape = SubResource("RectangleShape2D_co2vr")
 [node name="Faction Generation" type="Node" parent="Game Controller Node"]
 script = ExtResource("11_ivpku")
 factionNodePackedScene = ExtResource("12_r0ltm")
-countyImprovementData = Array[Object]([])
+countyImprovementData = []
 
 [node name="County Generation" type="Node" parent="Game Controller Node"]
 script = ExtResource("16_pxxn4")
@@ -257,23 +254,14 @@ currentSpeedLabel = NodePath("../../Player UI Canvas/Top Bar Control/PanelContai
 pausedLabel = NodePath("../../Player UI Canvas/Top Bar Control/Pause Control/Pause Label")
 ticks = 100
 
-[node name="County Dictator" type="Node" parent="Game Controller Node"]
-script = ExtResource("28_qe8u4")
-
 [node name="Factions AI" type="Node" parent="Game Controller Node"]
 script = ExtResource("20_y5bnv")
 
-[node name="Population AI" type="Node" parent="Game Controller Node"]
-script = ExtResource("21_nr3na")
-
-[node name="Work" type="Node" parent="Game Controller Node"]
-script = ExtResource("22_ioynj")
+[node name="County Dictator" type="Node" parent="Game Controller Node"]
+script = ExtResource("28_qe8u4")
 
 [node name="Research" type="Node" parent="Game Controller Node"]
 script = ExtResource("35_mhu6t")
-
-[node name="Banker" type="Node" parent="Game Controller Node"]
-script = ExtResource("23_lb4or")
 
 [node name="Player UI Canvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("BattleLogControl", "selectedHeroPanelContainer", "resourcesPanelContainer")]
 process_mode = 3
@@ -887,7 +875,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 16
-text = "Max Perishable Available: "
+text = "Max Perishable Storage Available: "
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -911,7 +899,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 16
-text = "Max Nonperishable Available: "
+text = "Max Nonperishable Storage Available: "
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1133,7 +1121,7 @@ vertical_alignment = 1
 
 [node name="Population Row Button" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer" node_paths=PackedStringArray("skillLabels") instance=ExtResource("30_bhu5o")]
 layout_mode = 2
-skillLabels = Array[Object]([])
+skillLabels = []
 
 [node name="Close Button" type="Button" parent="Player UI Canvas/Population List MarginContainer"]
 custom_minimum_size = Vector2(75, 50)

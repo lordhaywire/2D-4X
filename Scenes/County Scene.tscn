@@ -171,4 +171,5 @@ visible = false
 layout_mode = 2
 mouse_filter = 1
 
+[connection signal="tree_exited" from="." to="." method="OnTreeExit"]
 [connection signal="button_up" from="County Overlay Node2D/Battle Control/Battle Button" to="County Overlay Node2D/Battle Control" method="ButtonUp"]

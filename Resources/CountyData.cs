@@ -10,7 +10,7 @@ namespace PlayerSpace
         public event Action IdleWorkersChanged;
 
         [ExportGroup("MapEditor")]
-        public County countyNode;
+        public County countyNode; // See if we can get rid of this somehow.
         [Export] public Color color;
         public Vector2I startMaskPosition; // I think this is the local position....
         [Export] public Vector2I countyOverlayLocalPosition;

@@ -36,7 +36,7 @@ namespace PlayerSpace
             }
         }
 
-        private void DestroyFaction(County selectCounty)
+        private static void DestroyFaction(County selectCounty)
         {
             GD.Print("All Heroes List Count: " + selectCounty.countyData.factionData.allHeroesList.Count);
             // Remove all of this factions heroes from game.
@@ -48,7 +48,7 @@ namespace PlayerSpace
         }
 
         // Maybe move to a Faction Dictator script.
-        private void FactionCountyPopulationDestroyer(List<CountyPopulation> allHeroesList)
+        private static void FactionCountyPopulationDestroyer(List<CountyPopulation> allHeroesList)
         {
             foreach (CountyPopulation countyPopulation in allHeroesList)
             {

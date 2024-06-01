@@ -15,8 +15,6 @@ namespace PlayerSpace
         public override void _Ready()
         {
             Clock.Instance.HourChanged += CheckForEvent;
-
-
         }
 
         private void CheckForEvent()
@@ -82,7 +80,8 @@ namespace PlayerSpace
         }
         private void AcceptButtonPressed()
         {
-            Banker.Instance.AddStoryEventCountyResource(currentStoryEventData);
+            Banker banker = new();
+            banker.AddStoryEventCountyResource(currentStoryEventData);
             Hide();
             GD.Print("Accept Button has been pressed.");
         }

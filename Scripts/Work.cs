@@ -3,80 +3,60 @@ using System.Linq;
 
 namespace PlayerSpace
 {
-    public partial class Work : Node
+    public class Work
     {
-        public static Work Instance { get; private set; }
+        private readonly Banker banker = new();
+        private County county;
 
-        public override void _Ready()
-        {
-            Instance = this;
-
-            Clock.Instance.HourZero += DayStart;
-            Clock.Instance.WorkDayOver += WorkDayOverForPopulation;
-        }
-
-        private void DayStart()
-        {
-            GenerateLeaderInfluence();
-        }
-
-        private static void GenerateLeaderInfluence()
-        {
-            foreach (FactionData factionData in Globals.Instance.factionDatas)
-            {
-                foreach (PerkData perkData in factionData.factionLeader.perks)
-                {
-                    if (AllPerks.Instance.allPerks[(int)AllEnums.Perks.LeaderofPeople].perkName
-                        == perkData.perkName)
-                    {
-                        factionData.Influence += Globals.Instance.dailyInfluenceGain;
-                    }
-                }
-            }
-        }
-
+        private readonly int dailyScavengedFood = 5;
+        private readonly int dailyScavengedRemnants = 5;
         // End work for all of the world population!        
-        private void WorkDayOverForPopulation()
+        public void WorkDayOverForPopulation(County county)
         {
-            foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
-            {
-                CompleteScavengingPerPerson(county);
-                CompleteBuildingPerPerson();
-                CheckWorkComplete();
-                GiveIdlePeopleBonusHappyness();
-            }
+            this.county = county;
+            CompleteScavengingPerPerson();
+            CompleteBuildingPerPerson();
+            CheckWorkComplete();
+            GiveIdlePeopleBonusHappyness();
         }
 
-        private void CompleteScavengingPerPerson(County county)
+        private static void GiveIdlePeopleBonusHappyness()
+        {
+            GD.Print("Give Idle People Bonus Happyness.");
+        }
+
+        // Once they have generated they have generated what they have scavenged they are set to idle
+        // so they only scavenge every other day.
+        private void CompleteScavengingPerPerson()
         {
             foreach (CountyPopulation countyPopulation in county.countyData.countyPopulationList)
             {
-                if(countyPopulation.currentActivity == AllEnums.Activities.Scavenge)
+                if (countyPopulation.currentActivity == AllEnums.Activities.Scavenge)
                 {
-                    GenerateScavengedResources(county);
-                    CheckForEnoughFood();
-                    CheckForEnoughScrap();
-                    CheckForAvailableJobs();
+                    Activities activities = new();
+                    GD.Print($"{countyPopulation.firstName} is generating resources.");
+                    GenerateScavengedResources();
+                    activities.UpdateNext(countyPopulation, AllEnums.Activities.Idle);
                 }
             }
         }
 
         // This should be updated with canned goods instead of vegetables.
-        // 5 should probably be changed to a global int.
-        private void GenerateScavengedResources(County county)
+        // We need to skill check this for bonus resources.
+        private void GenerateScavengedResources()
         {
             int randomResourceNumber = Globals.Instance.random.Next(0, 2);
-            if(randomResourceNumber == 0)
+            if (randomResourceNumber == 0)
             {
-                Banker.Instance.AddResourceToCounty(county, AllEnums.CountyResourceType.Vegetables, true, 5);
+                banker.AddResourceToCounty(county, AllEnums.CountyResourceType.Vegetables, true, dailyScavengedFood);
             }
             else
             {
-                Banker.Instance.AddResourceToCounty(county, AllEnums.CountyResourceType.Scrap, false, 5);
+                banker.AddResourceToCounty(county, AllEnums.CountyResourceType.Scrap, false, dailyScavengedRemnants);
             }
         }
 
-        private void CompleteBuildingPerPerson(County county)
+        private void CompleteBuildingPerPerson()
         {
             // This is fucked.
             // Go through all the counties and have people building add their work to the building.
@@ -102,40 +82,27 @@ namespace PlayerSpace
             }
         }
 
-
         // Go through everyone in this county again and clear out their job if their building is done.
         private void CheckWorkComplete()
         {
-            foreach (County selectCounty in Globals.Instance.countiesParent.GetChildren().Cast<County>())
+            Banker banker = new();
+            foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
             {
-                foreach (CountyPopulation person in selectCounty.countyData.countyPopulationList)
+                foreach (CountyPopulation countyPopulation in county.countyData.countyPopulationList)
                 {
                     // ? is null checking currentImprovement.
-                    if (person.CurrentConstruction?.isBuilt == true)
+                    if (countyPopulation.CurrentConstruction?.isBuilt == true)
                     {
-                        person.CurrentConstruction = null;
-                        person.NextConstruction = null;
-                        person.currentActivity = AllEnums.Activities.Idle;
-                        person.nextActivity = AllEnums.Activities.Idle;
+                        Activities activities = new();
+                        countyPopulation.CurrentConstruction = null;
+                        countyPopulation.NextConstruction = null;
+                        activities.UpdateNext(countyPopulation, AllEnums.Activities.Idle);
                     }
                 }
-                CountIdleWorkers(selectCounty.countyData);
+                banker.CountIdleWorkers(county.countyData);
             }
         }
 
-        public void CountIdleWorkers(CountyData countyData)
-        {
-            // I don't think this is very efficient.
-            int idleWorkers = 0;
 
-            foreach (CountyPopulation person in countyData.countyPopulationList)
-            {
-                if (person.currentActivity == AllEnums.Activities.Idle && person.nextActivity == AllEnums.Activities.Idle)
-                {
-                    idleWorkers++;
-                }
-            }
-            countyData.IdleWorkers = idleWorkers;
-        }
     }
 }

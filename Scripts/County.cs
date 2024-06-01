@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 
 
@@ -19,13 +20,41 @@ namespace PlayerSpace
         [Export] public HBoxContainer armiesHBox;
         [Export] public HBoxContainer heroesHBox;
 
-        private SelectToken selectToken; 
+        private SelectToken selectToken;
 
         public List<County> neighborCounties = [];
 
         public override void _Ready()
         {
-            countyData.countyNode = this;
+            countyData.countyNode = this; // Figure out why I did this.
+
+            Clock.Instance.FirstRun += HourZero;
+            Clock.Instance.HourZero += HourZero;
+
+            Clock.Instance.WorkDayOver += WorkDayOverForPopulation;
+        }
+
+        private void WorkDayOverForPopulation()
+        {
+            Work work = new();
+            work.WorkDayOverForPopulation(this);
+        }
+
+        private void HourZero()
+        {
+            CountyAI countyAI = new();
+            PopulationAI populationAI = new();
+
+            countyAI.CheckForBuildingCountyImprovements(this);
+            populationAI.HourZero(this);
+        }
+
+        private void OnTreeExit()
+        {
+            Clock.Instance.FirstRun -= HourZero;
+            Clock.Instance.HourZero -= HourZero;
+
+            Clock.Instance.WorkDayOver -= WorkDayOverForPopulation;
         }
     }
 }

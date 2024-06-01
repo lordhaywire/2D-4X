@@ -1,72 +1,64 @@
 using Godot;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace PlayerSpace
 {
-    public partial class PopulationAI : Node
+    public class PopulationAI
     {
-        [Export] private int willWorkLoyalty = 20; // The loyalty a population needs to be willing to work.
-                                                   // 50 is too high for testing, but might work well for the real game.
-        [Export] private int foodBeforeScavenge = 500; // Less then this amount will make people scavenge.
-        [Export] private int scrapBeforeScavenge = 500; // Less then this amount will make people scavenge.
+        private readonly int willWorkLoyalty = 20; // The loyalty a population needs to be willing to work.
+                                          // 50 is too high for testing, but might work well for the real game.
+        private readonly int foodBeforeScavenge = 500; // Less then this amount will make people scavenge.
+        private readonly int scrapBeforeScavenge = 500; // Less then this amount will make people scavenge.
 
         private readonly List<CountyPopulation> possibleWorkers = [];
         private readonly List<CountyPopulation> workersToRemove = []; // List to collect county populations to be removed
-        public override void _Ready()
-        {
-            Clock.Instance.FirstRun += HourZero;
-            Clock.Instance.HourZero += HourZero;
-        }
 
-        private void HourZero()
+        private County county;
+        public void HourZero(County county)
         {
+            this.county = county;
+
             AdjustPopulationActivity();
-            GoThroughEachCounty();
+            CheckForWork();
         }
 
-        private void GoThroughEachCounty()
+        // This is now a dumb name for this method.
+        private void CheckForWork()
         {
-            // Go through each county.
-            foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
-            {
-                possibleWorkers.Clear(); // Clear the list at the start of each county.
-                CheckForIdle(county);
-                CheckForPreferredWork(county);
-                CheckForAnyWork(county);
-                CheckForConstruction(county);
-                CheckForScavengingFood(county);
-                CheckForScavengingScrap(county);
-            }
+            possibleWorkers.Clear(); // Clear the list at the start of each county.
+            CheckForIdle();
+            CheckForPreferredWork();
+            CheckForAnyWork();
+            CheckForConstruction();
+            CheckForScavengingFood();
+            CheckForScavengingScrap();
         }
 
         // Adjust all of the world population!
-        private static void AdjustPopulationActivity()
+        private void AdjustPopulationActivity()
         {
-            // Go through every county.
-            foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
-            {
-                // Go through this counties population.
-                foreach (CountyPopulation person in county.countyData.countyPopulationList)
-                {
-                    person.currentActivity = person.nextActivity;
-                    person.CurrentConstruction = person.NextConstruction;
-                    person.CurrentWork = person.NextWork;
-                }
+            Banker banker = new();
 
-                // Heroes can research.
-                foreach (CountyPopulation hero in county.countyData.herosInCountyList)
-                {
-                    if (hero.token == null)
-                    {
-                        hero.currentActivity = hero.nextActivity;
-                    }
-                }
-                Work.Instance.CountIdleWorkers(county.countyData);  // This should be its own method somewhere.
+            // Go through this counties population.
+            foreach (CountyPopulation person in county.countyData.countyPopulationList)
+            {
+                person.currentActivity = person.nextActivity;
+                person.CurrentConstruction = person.NextConstruction;
+                person.CurrentWork = person.NextWork;
             }
+
+            // Heroes can research.
+            foreach (CountyPopulation hero in county.countyData.herosInCountyList)
+            {
+                if (hero.token == null)
+                {
+                    hero.currentActivity = hero.nextActivity;
+                }
+            }
+            banker.CountIdleWorkers(county.countyData);  // This should be its own method somewhere.
         }
 
-        private void CheckForIdle(County county)
+        private void CheckForIdle()
         {
             // Go through each person in the county.
             foreach (CountyPopulation countyPopulation in county.countyData.countyPopulationList)
@@ -76,15 +68,15 @@ namespace PlayerSpace
                     && CheckLoyalty(countyPopulation) == true
                     && CheckForUnhelpful(countyPopulation) == false)
                 {
-                    GD.Print($"{countyPopulation.firstName} is idle, is loyal and is not unhelpful.");
+                    GD.Print($"{county.countyData.countyName}: {countyPopulation.firstName} is idle, is loyal and is not unhelpful.");
                     possibleWorkers.Add(countyPopulation);
                 }
             }
         }
 
-        private void CheckForPreferredWork(County county)
+        private void CheckForPreferredWork()
         {
-            GD.Print("Checking for Preferred Work!");
+            GD.Print($"{county.countyData.countyName}: Checking for Preferred Work!");
             foreach (CountyImprovementData countyImprovementData in county.countyData.completedCountyImprovements)
             {
                 foreach (CountyPopulation countyPopulation in possibleWorkers)
@@ -105,7 +97,7 @@ namespace PlayerSpace
             }
         }
 
-        private void CheckForAnyWork(County county)
+        private void CheckForAnyWork()
         {
             foreach (CountyImprovementData countyImprovementData in county.countyData.completedCountyImprovements)
             {
@@ -122,7 +114,7 @@ namespace PlayerSpace
             }
         }
 
-        private void CheckForConstruction(County county)
+        private void CheckForConstruction()
         {
             foreach (CountyImprovementData countyImprovementData in county.countyData.underConstructionCountyImprovements)
             {
@@ -138,7 +130,7 @@ namespace PlayerSpace
                 RemoveWorkersFromPossibleWorkers();
             }
         }
-        private void CheckForScavengingFood(County county)
+        private void CheckForScavengingFood()
         {
             int amountOfFood = county.countyData.perishableResources[AllEnums.CountyResourceType.Fish].amount
                 + county.countyData.perishableResources[AllEnums.CountyResourceType.Vegetables].amount;
@@ -146,7 +138,7 @@ namespace PlayerSpace
             EnounghStored(amountOfFood, foodBeforeScavenge);
         }
 
-        private void CheckForScavengingScrap(County county)
+        private void CheckForScavengingScrap()
         {
             EnounghStored(county.countyData.nonperishableResources[AllEnums.CountyResourceType.Scrap].amount, scrapBeforeScavenge);
         }
