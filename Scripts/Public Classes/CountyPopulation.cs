@@ -1,6 +1,5 @@
 using Godot;
 using System.Collections.Generic;
-using static PlayerSpace.AllEnums;
 
 namespace PlayerSpace
 {
@@ -66,16 +65,6 @@ namespace PlayerSpace
             set
             {
                 currentWork = value;
-                /*
-                if (currentWork == null)
-                {
-                    activities.UpdateNext(this, AllEnums.Activities.Idle);
-                }
-                else
-                {
-                    activities.UpdateNext(this, AllEnums.Activities.Work);
-                }
-                */
             }
         }
         private CountyImprovementData nextWork;
@@ -85,6 +74,7 @@ namespace PlayerSpace
             set
             {
                 nextWork = value;
+                
                 if (nextWork == null)
                 {
                     activities.UpdateNext(this, AllEnums.Activities.Idle);
@@ -106,16 +96,6 @@ namespace PlayerSpace
             set
             {
                 currentConstruction = value;
-                /*
-                if (currentConstruction == null)
-                {
-                    activities.UpdateNext(this, AllEnums.Activities.Idle);
-                }
-                else
-                {
-                    activities.UpdateNext(this, AllEnums.Activities.Build);
-                }
-                */
             }
         }
 
@@ -126,6 +106,7 @@ namespace PlayerSpace
             set
             {
                 nextContruction = value;
+                
                 if (nextContruction == null)
                 {
                     activities.UpdateNext(this, AllEnums.Activities.Idle);
@@ -134,6 +115,7 @@ namespace PlayerSpace
                 {
                     activities.UpdateNext(this, AllEnums.Activities.Build);
                 }
+                
             }
         }
 
@@ -145,6 +127,7 @@ namespace PlayerSpace
             set
             {
                 currentResearchItemData = value;
+                
                 if (currentResearchItemData == null)
                 {
                     activities.UpdateNext(this, AllEnums.Activities.Idle);
@@ -157,11 +140,12 @@ namespace PlayerSpace
                 {
                     activities.UpdateNext(this, AllEnums.Activities.Research);
                 }
-
+                
                 if (ResearchControl.Instance?.Visible == true)
                 {
                     ResearchControl.Instance.CheckForResearchers();
                 }
+                
             }
         }
 

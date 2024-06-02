@@ -38,7 +38,7 @@ namespace PlayerSpace
         {
             ClearImprovements();
 
-            foreach(CountyImprovementData countyImprovementData in Globals.Instance.CurrentlySelectedCounty.countyData.allCountyImprovements)
+            foreach(CountyImprovementData countyImprovementData in Globals.Instance.SelectedLeftClickCounty.countyData.allCountyImprovements)
             {
                 if(countyImprovementData.underConstruction == false && countyImprovementData.isBuilt == false)
                 {

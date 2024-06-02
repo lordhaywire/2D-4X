@@ -25,6 +25,7 @@ namespace PlayerSpace
         // This is now a dumb name for this method.
         private void CheckForWork()
         {
+            Banker banker = new();
             possibleWorkers.Clear(); // Clear the list at the start of each county.
             CheckForIdle();
             CheckForPreferredWork();
@@ -32,13 +33,13 @@ namespace PlayerSpace
             CheckForConstruction();
             CheckForScavengingFood();
             CheckForScavengingScrap();
+            banker.CountIdleWorkers(county);
         }
 
         // Adjust all of the world population!
         private void AdjustPopulationActivity()
         {
-            Banker banker = new();
-
+            GD.Print($"{county.countyData.countyName} is adjusting their population activity.");
             // Go through this counties population.
             foreach (CountyPopulation person in county.countyData.countyPopulationList)
             {
@@ -55,7 +56,6 @@ namespace PlayerSpace
                     hero.currentActivity = hero.nextActivity;
                 }
             }
-            banker.CountIdleWorkers(county.countyData);  // This should be its own method somewhere.
         }
 
         private void CheckForIdle()

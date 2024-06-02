@@ -62,9 +62,8 @@ namespace PlayerSpace
                             {
                                 //EventLog.Instance.AddLog($"{county.countyData.countyName} was clicked on.");
 
-                                Globals.Instance.CurrentlySelectedCounty = county;
                                 Globals.Instance.selectedCountyId = county.countyData.countyId;
-                                Globals.Instance.selectedLeftClickCounty = county;
+                                Globals.Instance.SelectedLeftClickCounty = county;
                                 TopBarControl.Instance.UpdateTopBarWithCountyResources();
                                 CountyInfoControl.Instance.UpdateEverything();
                                 CountyInfoControl.Instance.countyInfoControl.Show(); // This has to be last.

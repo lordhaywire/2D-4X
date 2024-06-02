@@ -31,7 +31,7 @@ namespace PlayerSpace
             {
                 // Assign to Currently Selected Hero so it is ready to be moved.
                 Globals.Instance.SelectedCountyPopulation
-                = Globals.Instance.playerFactionData.tokenSpawner.Spawn(Globals.Instance.selectedLeftClickCounty, countyPopulation);
+                = Globals.Instance.playerFactionData.tokenSpawner.Spawn(Globals.Instance.SelectedLeftClickCounty, countyPopulation);
                 GD.Print("Spawn Hero Check Box " + Globals.Instance.SelectedCountyPopulation.firstName);
             }
         }
@@ -41,7 +41,8 @@ namespace PlayerSpace
             GD.Print("Research Checkbox Toggled: " + toggled);
             if (toggled == false)
             {
-                Research.Instance.RemoveResearcher(countyPopulation);
+                Research research = new();
+                research.RemoveResearcher(countyPopulation);
             }
         }
 

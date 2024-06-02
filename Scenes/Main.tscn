@@ -1,4 +1,4 @@
-[gd_scene load_steps=114 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=112 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scripts/HidderNode.cs" id="1_gbt3x"]
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_x1cy2"]
@@ -41,7 +41,6 @@
 [ext_resource type="Script" path="res://Scripts/Clock.cs" id="19_dn5gi"]
 [ext_resource type="Script" path="res://Scripts/Map Editor/FindNeighbors.cs" id="20_0i5kb"]
 [ext_resource type="Resource" uid="uid://bhmwj5yptebic" path="res://Resources/Resources/Scrap.tres" id="20_k67vp"]
-[ext_resource type="Script" path="res://Scripts/FactionsAI.cs" id="20_y5bnv"]
 [ext_resource type="Resource" uid="uid://dpddpnnbjvql" path="res://Resources/Resources/Vegetables.tres" id="21_r83qp"]
 [ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/Resources/Wood.tres" id="22_leslc"]
 [ext_resource type="Resource" uid="uid://bljrvhrjka1hs" path="res://Resources/ResearchItems/Basic Production.tres" id="22_ugyvd"]
@@ -81,7 +80,6 @@
 [ext_resource type="Script" path="res://Scripts/UI/RecruitHeroConfirmationPanelContainer.cs" id="34_mgqam"]
 [ext_resource type="Script" path="res://Scripts/UI/BattleLogControl.cs" id="35_10y8n"]
 [ext_resource type="Script" path="res://Scripts/UI/TopBarControl.cs" id="35_ecv6a"]
-[ext_resource type="Script" path="res://Scripts/Research.cs" id="35_mhu6t"]
 [ext_resource type="Texture2D" uid="uid://ddb0p4x0erycl" path="res://Graphics/Icons/Top Bar/Influence.png" id="36_fqvec"]
 [ext_resource type="Texture2D" uid="uid://tqexbc3d8yy8" path="res://Graphics/Icons/Top Bar/Money.png" id="37_16y4w"]
 [ext_resource type="Resource" uid="uid://48te5c2ywvyh" path="res://Resources/Skills/Labor.tres" id="37_c2oha"]
@@ -254,14 +252,8 @@ currentSpeedLabel = NodePath("../../Player UI Canvas/Top Bar Control/PanelContai
 pausedLabel = NodePath("../../Player UI Canvas/Top Bar Control/Pause Control/Pause Label")
 ticks = 100
 
-[node name="Factions AI" type="Node" parent="Game Controller Node"]
-script = ExtResource("20_y5bnv")
-
 [node name="County Dictator" type="Node" parent="Game Controller Node"]
 script = ExtResource("28_qe8u4")
-
-[node name="Research" type="Node" parent="Game Controller Node"]
-script = ExtResource("35_mhu6t")
 
 [node name="Player UI Canvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("BattleLogControl", "selectedHeroPanelContainer", "resourcesPanelContainer")]
 process_mode = 3

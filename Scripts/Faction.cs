@@ -1,9 +1,8 @@
 using Godot;
-using System;
 
 namespace PlayerSpace
 {
-    public partial class FactionNode : Node
+    public partial class Faction : Node
     {
         [Export] public FactionData factionData;
 
@@ -14,12 +13,17 @@ namespace PlayerSpace
 
         private void SubscribeToEvents()
         {
+            Clock.Instance.FirstRun += DayStart;
             Clock.Instance.HourZero += DayStart;
         }
         private void DayStart()
         {
+            FactionAI factionAI = new();
             Banker banker = new();
+            Research research = new();
             banker.GenerateLeaderInfluence();
+            research.ApplyHeroResearch(factionData);
+            factionAI.AssignResearch(factionData);
         }
 
         private void OnTreeExit()

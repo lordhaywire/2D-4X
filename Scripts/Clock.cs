@@ -9,9 +9,7 @@ namespace PlayerSpace
 
         public event Action FirstRun;
         public event Action HourZero;
-        public event Action WorkDayOver;
-        public event Action BeforeBed;
-        public event Action HourChanged;
+        public event Action HourChanged; // This is currently used for battles.
         
         [Export] private Label dayLabel;
         [Export] private Label HourLabel;
@@ -91,27 +89,7 @@ namespace PlayerSpace
                 {
                     HourZero?.Invoke();
                 }
-                if (hours == 17)
-                {
-                    WorkDayOver?.Invoke();
-                }
-                if(hours == 22)
-                {
-                    BeforeBed?.Invoke();
-                    ResearchTest();
-                }
                 HourChanged?.Invoke();
-            }
-        }
-
-        private static void ResearchTest()
-        {
-            foreach(FactionData factionData in Globals.Instance.factionDatas)
-            {
-                foreach(ResearchItemData researchItemData in factionData.researchItems)
-                {
-                    GD.Print($"{factionData.factionName} {researchItemData.researchName}: {researchItemData.AmountOfResearchDone}");
-                }
             }
         }
 

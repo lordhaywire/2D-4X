@@ -1,7 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-
+using System.Diagnostics.Metrics;
 
 namespace PlayerSpace
 {
@@ -30,22 +30,19 @@ namespace PlayerSpace
 
             Clock.Instance.FirstRun += HourZero;
             Clock.Instance.HourZero += HourZero;
-
-            Clock.Instance.WorkDayOver += WorkDayOverForPopulation;
-        }
-
-        private void WorkDayOverForPopulation()
-        {
-            Work work = new();
-            work.WorkDayOverForPopulation(this);
         }
 
         private void HourZero()
         {
             CountyAI countyAI = new();
             PopulationAI populationAI = new();
+            Research research = new();
+            Work work = new();
 
             countyAI.CheckForBuildingCountyImprovements(this);
+            research.PopulationResearch(this);
+
+            work.WorkDayOverForPopulation(countyData.countyNode);
             populationAI.HourZero(this);
         }
 
@@ -53,8 +50,6 @@ namespace PlayerSpace
         {
             Clock.Instance.FirstRun -= HourZero;
             Clock.Instance.HourZero -= HourZero;
-
-            Clock.Instance.WorkDayOver -= WorkDayOverForPopulation;
         }
     }
 }

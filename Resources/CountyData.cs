@@ -7,8 +7,6 @@ namespace PlayerSpace
     [GlobalClass]
     public partial class CountyData : Resource
     {
-        public event Action IdleWorkersChanged;
-
         [ExportGroup("MapEditor")]
         public County countyNode; // See if we can get rid of this somehow.
         [Export] public Color color;
@@ -89,7 +87,12 @@ namespace PlayerSpace
             set
             {
                 idleWorkers = value;
-                IdleWorkersChanged?.Invoke();
+                GD.Print("Idle workers: " + idleWorkers);
+                if(Globals.Instance.SelectedLeftClickCounty?.countyData == this)
+                {
+                    CountyInfoControl.Instance.UpdateIdleWorkersLabel();
+                    GD.Print("Why didn't you update?! " + idleWorkers);
+                }
             }
         }
     }

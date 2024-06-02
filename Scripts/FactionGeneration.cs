@@ -66,10 +66,10 @@ namespace PlayerSpace
 
         private void CreateFactionNode(FactionData newFactionData)
         {
-            FactionNode factionNode = (FactionNode)factionNodePackedScene.Instantiate();
-            factionNode.factionData = newFactionData;
-            factionNode.Name = factionNode.factionData.factionName;
-            AddChild(factionNode);
+            Faction faction = (Faction)factionNodePackedScene.Instantiate();
+            faction.factionData = newFactionData;
+            faction.Name = faction.factionData.factionName;
+            AddChild(faction);
         }
 
         private static void AddStartingResearch(FactionData factionData)

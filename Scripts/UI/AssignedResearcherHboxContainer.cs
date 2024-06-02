@@ -14,7 +14,8 @@ namespace PlayerSpace
             if(toggled == false)
             {
                 //GD.Print("Research Checkbox has been unchecked.");
-                Research.Instance.RemoveResearcher(countyPopulation);
+                Research research = new();
+                research.RemoveResearcher(countyPopulation);
                 QueueFree();
             }
         }

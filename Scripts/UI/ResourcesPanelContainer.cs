@@ -25,7 +25,7 @@ namespace PlayerSpace
 
         private void AssignResourcesToStorageHboxes()
         {
-            County county = Globals.Instance.selectedLeftClickCounty;
+            County county = Globals.Instance.SelectedLeftClickCounty;
             GD.Print("County: " + county.countyData.countyName);
             int perishable = 0;
             int nonperishable = 0;
@@ -95,7 +95,7 @@ namespace PlayerSpace
 
         public void UpdateCountyAvailableStorage(bool perishable)
         {
-            CountyData countyData = Globals.Instance.selectedLeftClickCounty.countyData;
+            CountyData countyData = Globals.Instance.SelectedLeftClickCounty.countyData;
             if (perishable)
             {
                 int totalUsedStorage = 0;
@@ -119,12 +119,12 @@ namespace PlayerSpace
         }
         private void UpdateResourceLabels()
         {
-            countyNameTitleLabel.Text = Globals.Instance.selectedLeftClickCounty.countyData.countyName;
+            countyNameTitleLabel.Text = Globals.Instance.SelectedLeftClickCounty.countyData.countyName;
 
             UpdateEachTypeOfResource(perishableResourceStorageHbox
-                , Globals.Instance.selectedLeftClickCounty.countyData.perishableResources);
+                , Globals.Instance.SelectedLeftClickCounty.countyData.perishableResources);
             UpdateEachTypeOfResource(nonperishableResourceStorageHbox
-                , Globals.Instance.selectedLeftClickCounty.countyData.nonperishableResources);
+                , Globals.Instance.SelectedLeftClickCounty.countyData.nonperishableResources);
         }
 
         private static void UpdateEachTypeOfResource(StorageHbox[] storageHboxes
@@ -147,12 +147,12 @@ namespace PlayerSpace
                 if (resource.perishable)
                 {
                     storageHboxes[i].maxAmountSpinBox.MaxValue 
-                        = Globals.Instance.selectedLeftClickCounty.countyData.perishableStorage / resources.Count;
+                        = Globals.Instance.SelectedLeftClickCounty.countyData.perishableStorage / resources.Count;
                 }
                 else
                 {
                     storageHboxes[i].maxAmountSpinBox.MaxValue 
-                        = Globals.Instance.selectedLeftClickCounty.countyData.nonperishableStorage / resources.Count;
+                        = Globals.Instance.SelectedLeftClickCounty.countyData.nonperishableStorage / resources.Count;
                 }
                 storageHboxes[i].maxAmountSpinBox.Value = resource.MaxAmount;
                 i++;
@@ -162,15 +162,15 @@ namespace PlayerSpace
         private void UpdateMaxAmountLabels()
         {
             currentPerishableAvailableLabel.Text
-                = CountStorageAmounts(Globals.Instance.selectedLeftClickCounty.countyData.perishableResources
-                , Globals.Instance.selectedLeftClickCounty.countyData.perishableStorage).ToString();
+                = CountStorageAmounts(Globals.Instance.SelectedLeftClickCounty.countyData.perishableResources
+                , Globals.Instance.SelectedLeftClickCounty.countyData.perishableStorage).ToString();
             maxPerishableAmountAvailableLabel.Text
-                = Globals.Instance.selectedLeftClickCounty.countyData.perishableStorage.ToString();
+                = Globals.Instance.SelectedLeftClickCounty.countyData.perishableStorage.ToString();
             currentNonperishableAvailableLabel.Text
-                = CountStorageAmounts(Globals.Instance.selectedLeftClickCounty.countyData.nonperishableResources
-                , Globals.Instance.selectedLeftClickCounty.countyData.nonperishableStorage).ToString();
+                = CountStorageAmounts(Globals.Instance.SelectedLeftClickCounty.countyData.nonperishableResources
+                , Globals.Instance.SelectedLeftClickCounty.countyData.nonperishableStorage).ToString();
             maxNonperisableAmountAvailableLabel.Text
-                = Globals.Instance.selectedLeftClickCounty.countyData.nonperishableStorage.ToString();
+                = Globals.Instance.SelectedLeftClickCounty.countyData.nonperishableStorage.ToString();
         }
 
         private static int CountStorageAmounts(Godot.Collections.Dictionary<AllEnums.CountyResourceType, ResourceData> resources

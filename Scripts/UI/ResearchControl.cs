@@ -107,7 +107,6 @@ namespace PlayerSpace
             {
                 ResearchItemButton researchItemButton = (ResearchItemButton)researchItemParent.GetChild(i);
                 researchItemButton.researchItemData = Globals.Instance.playerFactionData.researchItems[i];
-                GD.Print("Research assigned: " + researchItemButton.researchItemData.researchName);
             }
         }
     }

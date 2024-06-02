@@ -5,19 +5,17 @@ namespace PlayerSpace
 {
     public class Banker
     {
-        public void CountIdleWorkers(CountyData countyData)
+        public void CountIdleWorkers(County county)
         {
-            // I don't think this is very efficient.
             int idleWorkers = 0;
-
-            foreach (CountyPopulation person in countyData.countyPopulationList)
+            foreach (CountyPopulation person in county.countyData.countyPopulationList)
             {
                 if (person.currentActivity == AllEnums.Activities.Idle && person.nextActivity == AllEnums.Activities.Idle)
                 {
                     idleWorkers++;
                 }
             }
-            countyData.IdleWorkers = idleWorkers;
+            county.countyData.IdleWorkers = idleWorkers;
         }
         public void AddStoryEventCountyResource(StoryEventData storyEventData)
         {
@@ -76,7 +74,7 @@ namespace PlayerSpace
                 county.countyData.nonperishableResources[countyResourceType].amount += amount;
             }
             // Update the top bar if the player has a county selected.
-            if (Globals.Instance.CurrentlySelectedCounty == county)
+            if (Globals.Instance.SelectedLeftClickCounty == county)
             {
                 TopBarControl.Instance.UpdateTopBarWithCountyResources();
             }

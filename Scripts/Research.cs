@@ -1,50 +1,34 @@
 using Godot;
-using System;
-using System.Linq;
 
 namespace PlayerSpace
 {
-    public partial class Research : Node
+    public class Research
     {
-        public static Research Instance { get; private set; }
-        public override void _Ready()
+        public void PopulationResearch(County county)
         {
-            Instance = this;
-            Clock.Instance.WorkDayOver += ApplyHeroResearch;
-            Clock.Instance.BeforeBed += PopulationResearch;
-        }
-
-        private void PopulationResearch()
-        {
-            foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
+            foreach (CountyPopulation countyPopulation in county.countyData.countyPopulationList)
             {
-                foreach (CountyPopulation countyPopulation in county.countyData.countyPopulationList)
-                {
-                    // Currently manually set to the second Research (Researching) to be updated later.
-                    county.countyData.factionData.researchItems[1].AmountOfResearchDone += Globals.Instance.populationResearchIncrease;
-                    GD.Print($"{county.countyData.countyName}: {countyPopulation.firstName} increased " +
-                        $"{county.countyData.factionData.researchItems[1].researchName} to:" +
-                        $"{county.countyData.factionData.researchItems[1].AmountOfResearchDone}");
-                }
+                // Currently manually set to the second Research (Researching) to be updated later.
+                county.countyData.factionData.researchItems[1].AmountOfResearchDone += Globals.Instance.populationResearchIncrease;
+                GD.Print($"{county.countyData.countyName}: {countyPopulation.firstName} increased " +
+                    $"{county.countyData.factionData.researchItems[1].researchName} to:" +
+                    $"{county.countyData.factionData.researchItems[1].AmountOfResearchDone}");
             }
         }
 
-        private void ApplyHeroResearch()
+        public void ApplyHeroResearch(FactionData factionData)
         {
-            foreach (FactionData factionData in Globals.Instance.factionDatas)
+            foreach (CountyPopulation countyPopulation in factionData.allHeroesList)
             {
-                foreach (CountyPopulation countyPopulation in factionData.allHeroesList)
+                if (countyPopulation.currentActivity == AllEnums.Activities.Research)
                 {
-                    if (countyPopulation.currentActivity == AllEnums.Activities.Research)
-                    {
-                        bool passedCheck = factionData.skillHandling.Check(countyPopulation.skills[AllEnums.Skills.Research].skillLevel);
-                        GD.PrintRich($"[rainbow]{countyPopulation.firstName} skill check: {passedCheck}");
-                        IncreaseResearcherResearch(countyPopulation, passedCheck);
+                    bool passedCheck = factionData.skillHandling.Check(countyPopulation.skills[AllEnums.Skills.Research].skillLevel);
+                    GD.PrintRich($"[rainbow]{countyPopulation.firstName} skill check: {passedCheck}");
+                    IncreaseResearcherResearch(countyPopulation, passedCheck);
 
-                        // Only the researchers learn research skill.  Normal population who is just adding a tiny bit of research
-                        // does not get a learning check.
-                        countyPopulation.factionData.skillHandling.CheckLearning(countyPopulation, countyPopulation.skills[AllEnums.Skills.Research]);
-                    }
+                    // Only the researchers learn research skill.  Normal population who is just adding a tiny bit of research
+                    // does not get a learning check.
+                    countyPopulation.factionData.skillHandling.CheckLearning(countyPopulation, countyPopulation.skills[AllEnums.Skills.Research]);
                 }
             }
         }

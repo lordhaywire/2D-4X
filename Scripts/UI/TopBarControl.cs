@@ -33,9 +33,9 @@ namespace PlayerSpace
             Globals.Instance.playerFactionData.BuildingMaterialsFaction = 0;
             Globals.Instance.playerFactionData.FoodFaction = 0;
 
-            if (Globals.Instance.selectedLeftClickCounty != null)
+            if (Globals.Instance.SelectedLeftClickCounty != null)
             {
-                County county = Globals.Instance.selectedLeftClickCounty;
+                County county = Globals.Instance.SelectedLeftClickCounty;
                 CountFactionResources(county.countyData.perishableResources);
                 CountFactionResources(county.countyData.nonperishableResources);
             }

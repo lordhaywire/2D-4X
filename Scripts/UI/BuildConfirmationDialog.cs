@@ -21,7 +21,7 @@ namespace PlayerSpace
             Banker banker = new();
             CountyImprovementData countyImprovementData = Globals.Instance.selectedPossibleBuildingControl.countyImprovementData;
             
-            banker.BuildImprovement(Globals.Instance.selectedLeftClickCounty.countyData, countyImprovementData);
+            banker.BuildImprovement(Globals.Instance.SelectedLeftClickCounty.countyData, countyImprovementData);
             banker.ChargeForBuilding(Globals.Instance.playerFactionData
                 , Globals.Instance.selectedPossibleBuildingControl.countyImprovementData);
 

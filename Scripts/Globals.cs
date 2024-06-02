@@ -25,22 +25,21 @@ namespace PlayerSpace
 
         [ExportGroup("Selected Items")]
         [Export] public int selectedCountyId = -1;
-        [Export] private County currentlySelectedCounty;
+        [Export] private County selectedLeftClickCounty;
 
-        public County CurrentlySelectedCounty
+        public County SelectedLeftClickCounty
         {
-            get { return currentlySelectedCounty; }
+            get { return selectedLeftClickCounty; }
             set
             {
-                if (currentlySelectedCounty != null)
+                if (selectedLeftClickCounty != null)
                 {
-                    currentlySelectedCounty.maskSprite.SelfModulate = new Color(1, 1, 1, 1f);
+                    selectedLeftClickCounty.maskSprite.SelfModulate = new Color(1, 1, 1, 1f);
                 }
-                currentlySelectedCounty = value;
-                currentlySelectedCounty.maskSprite.SelfModulate = new Color(0, 0, 0, 1f);
+                selectedLeftClickCounty = value;
+                selectedLeftClickCounty.maskSprite.SelfModulate = new Color(0, 0, 0, 1f);
             }
         }
-        [Export] public County selectedLeftClickCounty;
         [Export] public County selectedRightClickCounty;
         private CountyPopulation selectedCountyPopulation;
         public CountyPopulation SelectedCountyPopulation

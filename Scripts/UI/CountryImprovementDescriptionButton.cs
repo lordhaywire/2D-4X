@@ -38,7 +38,7 @@ namespace PlayerSpace
 			}
 			else if(CountyImprovementsControl.Instance.Visible == true)
 			{
-				if (banker.CheckBuildingCost(Globals.Instance.CurrentlySelectedCounty.countyData.factionData, countyImprovementData) == false)
+				if (banker.CheckBuildingCost(Globals.Instance.SelectedLeftClickCounty.countyData.factionData, countyImprovementData) == false)
 				{
 					buildingButton.Disabled = true;
 				}

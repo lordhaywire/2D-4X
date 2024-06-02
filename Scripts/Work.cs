@@ -16,11 +16,11 @@ namespace PlayerSpace
             this.county = county;
             CompleteScavengingPerPerson();
             CompleteBuildingPerPerson();
-            CheckWorkComplete();
-            GiveIdlePeopleBonusHappyness();
+            CheckConstructionComplete();
+            GiveIdlePeopleBonusHappiness(); // This would have to be somewhere else, I think.  Like up above.
         }
 
-        private static void GiveIdlePeopleBonusHappyness()
+        private static void GiveIdlePeopleBonusHappiness()
         {
             GD.Print("Give Idle People Bonus Happyness.");
         }
@@ -63,6 +63,7 @@ namespace PlayerSpace
 
             foreach (CountyPopulation person in county.countyData.countyPopulationList)
             {
+                GD.Print($"If this is blank then it is null: {person?.CurrentConstruction}");
                 if (person.CurrentConstruction != null)
                 {
                     // This needs to check if the county improvement is being built or if they are working there.
@@ -83,26 +84,22 @@ namespace PlayerSpace
         }
 
         // Go through everyone in this county again and clear out their job if their building is done.
-        private void CheckWorkComplete()
+        private void CheckConstructionComplete()
         {
             Banker banker = new();
-            foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
+
+            foreach (CountyPopulation countyPopulation in county.countyData.countyPopulationList)
             {
-                foreach (CountyPopulation countyPopulation in county.countyData.countyPopulationList)
+                // ? is null checking currentImprovement.
+                if (countyPopulation.CurrentConstruction?.isBuilt == true)
                 {
-                    // ? is null checking currentImprovement.
-                    if (countyPopulation.CurrentConstruction?.isBuilt == true)
-                    {
-                        Activities activities = new();
-                        countyPopulation.CurrentConstruction = null;
-                        countyPopulation.NextConstruction = null;
-                        activities.UpdateNext(countyPopulation, AllEnums.Activities.Idle);
-                    }
+                    Activities activities = new();
+                    countyPopulation.CurrentConstruction = null;
+                    countyPopulation.NextConstruction = null;
+                    activities.UpdateNext(countyPopulation, AllEnums.Activities.Idle);
                 }
-                banker.CountIdleWorkers(county.countyData);
             }
+            banker.CountIdleWorkers(county);
         }
-
-
     }
 }
