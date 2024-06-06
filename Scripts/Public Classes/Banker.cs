@@ -1,5 +1,4 @@
 using Godot;
-using System.Collections.Generic;
 
 namespace PlayerSpace
 {
@@ -48,19 +47,49 @@ namespace PlayerSpace
             }
             return amount;
         }
-        public void GenerateLeaderInfluence()
+
+        public void AddLeaderInfluence(FactionData factionData)
         {
-            foreach (FactionData factionData in Globals.Instance.factionDatas)
+            PerkData perkData = new();
+            if (perkData.CheckForPerk(factionData.factionLeader, AllEnums.Perks.LeaderOfPeople) == true)
             {
-                foreach (PerkData perkData in factionData.factionLeader.perks)
+                factionData.Influence += Globals.Instance.dailyInfluenceGain;
+            }
+        }
+
+        public void AddHeroResearch(FactionData factionData)
+        {
+            // We have it going through all the heroes because heroes could be researching in other faction territories.
+            foreach (CountyPopulation countyPopulation in factionData.allHeroesList)
+            {
+                if (countyPopulation.currentActivity == AllEnums.Activities.Research)
                 {
-                    if (AllPerks.Instance.allPerks[(int)AllEnums.Perks.LeaderofPeople].perkName
-                        == perkData.perkName)
-                    {
-                        factionData.Influence += Globals.Instance.dailyInfluenceGain;
-                    }
+                    SkillHandling skillHandling = new();
+
+                    bool passedCheck = skillHandling.Check(countyPopulation.skills[AllEnums.Skills.Research].skillLevel);
+
+                    // This needs to be broken into two different things.  One increased the research
+                    // the other checks for a bonus.
+                    IncreaseResearcherResearch(countyPopulation, passedCheck);
+
+                    // Only the researchers learn research skill.  Normal population who is just adding a tiny bit of research
+                    // does not get a learning check.
+                    skillHandling.CheckLearning(countyPopulation, countyPopulation.skills[AllEnums.Skills.Research]);
                 }
             }
+        }
+
+        private static void IncreaseResearcherResearch(CountyPopulation countyPopulation, bool passedCheck)
+        {
+            int bonusResearchIncrease = 0;
+            if (passedCheck == true)
+            {
+                bonusResearchIncrease = Globals.Instance.random.Next(1, Globals.Instance.researchIncreaseBonus);
+            }
+            countyPopulation.CurrentResearchItemData.AmountOfResearchDone
+                += Globals.Instance.researcherResearchIncrease + bonusResearchIncrease;
+
+            GD.Print($"Amount of Research Done: {countyPopulation.CurrentResearchItemData.AmountOfResearchDone}");
         }
         public void AddResourceToCounty(County county, AllEnums.CountyResourceType countyResourceType, bool perishable, int amount)
         {

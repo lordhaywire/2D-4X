@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 namespace PlayerSpace
 {
@@ -13,22 +14,28 @@ namespace PlayerSpace
 
         private void SubscribeToEvents()
         {
-            Clock.Instance.FirstRun += DayStart;
-            Clock.Instance.HourZero += DayStart;
+            Clock.Instance.SetDay += EndOfDay;
+            Clock.Instance.SetDay += DayStart;
         }
+
+        private void EndOfDay()
+        {
+            Banker banker = new();
+
+            banker.AddLeaderInfluence(factionData);
+            banker.AddHeroResearch(factionData);
+        }
+
         private void DayStart()
         {
             FactionAI factionAI = new();
-            Banker banker = new();
-            Research research = new();
-            banker.GenerateLeaderInfluence();
-            research.ApplyHeroResearch(factionData);
             factionAI.AssignResearch(factionData);
         }
 
         private void OnTreeExit()
         {
-            Clock.Instance.HourZero -= DayStart;
+            Clock.Instance.SetDay -= EndOfDay;
+            Clock.Instance.SetDay -= DayStart;
         }
     }
 }

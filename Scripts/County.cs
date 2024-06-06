@@ -28,8 +28,7 @@ namespace PlayerSpace
         {
             countyData.countyNode = this; // Figure out why I did this.
 
-            Clock.Instance.FirstRun += HourZero;
-            Clock.Instance.HourZero += HourZero;
+            Clock.Instance.SetDay += HourZero;
         }
 
         private void HourZero()
@@ -38,18 +37,17 @@ namespace PlayerSpace
             PopulationAI populationAI = new();
             Research research = new();
             Work work = new();
-
-            countyAI.CheckForBuildingCountyImprovements(this);
+            GD.Print("County Hour Zero.");
+            countyAI.DecideBuildingCountyImprovements(this);
             research.PopulationResearch(this);
 
             work.WorkDayOverForPopulation(countyData.countyNode);
-            populationAI.HourZero(this);
+            populationAI.CheckForWork(this);
         }
 
         private void OnTreeExit()
         {
-            Clock.Instance.FirstRun -= HourZero;
-            Clock.Instance.HourZero -= HourZero;
+            Clock.Instance.SetDay -= HourZero;
         }
     }
 }

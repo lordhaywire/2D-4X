@@ -6,31 +6,29 @@ namespace PlayerSpace
     public class PopulationAI
     {
         private readonly int willWorkLoyalty = 20; // The loyalty a population needs to be willing to work.
-                                          // 50 is too high for testing, but might work well for the real game.
+                                                   // 50 is too high for testing, but might work well for the real game.
         private readonly int foodBeforeScavenge = 500; // Less then this amount will make people scavenge.
         private readonly int scrapBeforeScavenge = 500; // Less then this amount will make people scavenge.
 
         private readonly List<CountyPopulation> possibleWorkers = [];
-        private readonly List<CountyPopulation> workersToRemove = []; // List to collect county populations to be removed
+        private readonly List<CountyPopulation> workersToRemove = []; // List to collect county populations to be removed from the possibleWorkers.
 
         private County county;
-        public void HourZero(County county)
-        {
-            this.county = county;
-
-            AdjustPopulationActivity();
-            CheckForWork();
-        }
 
         // This is now a dumb name for this method.
-        private void CheckForWork()
+        public void CheckForWork(County county)
         {
+            this.county = county;
             Banker banker = new();
             possibleWorkers.Clear(); // Clear the list at the start of each county.
+            workersToRemove.Clear();
+            AdjustPopulationActivity();
+
             CheckForIdle();
             CheckForPreferredWork();
             CheckForAnyWork();
             CheckForConstruction();
+            // Sets people to scavenge.
             CheckForScavengingFood();
             CheckForScavengingScrap();
             banker.CountIdleWorkers(county);
@@ -41,9 +39,10 @@ namespace PlayerSpace
         {
             GD.Print($"{county.countyData.countyName} is adjusting their population activity.");
             // Go through this counties population.
+            Activities activities = new();
             foreach (CountyPopulation person in county.countyData.countyPopulationList)
             {
-                person.currentActivity = person.nextActivity;
+                activities.UpdateCurrent(person, person.nextActivity);
                 person.CurrentConstruction = person.NextConstruction;
                 person.CurrentWork = person.NextWork;
             }
@@ -53,7 +52,7 @@ namespace PlayerSpace
             {
                 if (hero.token == null)
                 {
-                    hero.currentActivity = hero.nextActivity;
+                    activities.UpdateCurrent(hero, hero.nextActivity);
                 }
             }
         }
@@ -63,10 +62,11 @@ namespace PlayerSpace
             // Go through each person in the county.
             foreach (CountyPopulation countyPopulation in county.countyData.countyPopulationList)
             {
-                // Go through everyone and if they are idle add them to the possibleWorkers list.
-                if (countyPopulation.nextActivity == AllEnums.Activities.Idle
+                PerkData perkData = new();
+                // Go through everyone and if they are idle, helpful and loyal add them to the possibleWorkers list.
+                if (countyPopulation.currentActivity == AllEnums.Activities.Idle
                     && CheckLoyalty(countyPopulation) == true
-                    && CheckForUnhelpful(countyPopulation) == false)
+                    && perkData.CheckForPerk(countyPopulation, AllEnums.Perks.Unhelpful) == false)
                 {
                     GD.Print($"{county.countyData.countyName}: {countyPopulation.firstName} is idle, is loyal and is not unhelpful.");
                     possibleWorkers.Add(countyPopulation);
@@ -134,29 +134,27 @@ namespace PlayerSpace
         {
             int amountOfFood = county.countyData.perishableResources[AllEnums.CountyResourceType.Fish].amount
                 + county.countyData.perishableResources[AllEnums.CountyResourceType.Vegetables].amount;
-
+            GD.Print($"{county.countyData.countyName} Amount of food: " + amountOfFood);
             EnounghStored(amountOfFood, foodBeforeScavenge);
         }
 
         private void CheckForScavengingScrap()
         {
+            GD.Print($"{county.countyData.countyName} Amount of scrap: " + county.countyData.nonperishableResources[AllEnums.CountyResourceType.Scrap].amount);
             EnounghStored(county.countyData.nonperishableResources[AllEnums.CountyResourceType.Scrap].amount, scrapBeforeScavenge);
         }
 
         private void EnounghStored(int amountOfStored, int resourceBeforeScavenge)
         {
             Activities activities = new();
-            if (amountOfStored > resourceBeforeScavenge)
+            if (amountOfStored < resourceBeforeScavenge)
             {
-                return;
-            }
-            else
-            {
-                // This will set it everybody, but we probably want it to check to see how low the food is.
                 foreach (CountyPopulation countyPopulation in possibleWorkers)
                 {
                     activities.UpdateNext(countyPopulation, AllEnums.Activities.Scavenge);
+                    workersToRemove.Add(countyPopulation);
                 }
+                RemoveWorkersFromPossibleWorkers();
             }
         }
 
@@ -170,18 +168,6 @@ namespace PlayerSpace
             workersToRemove.Clear();
         }
 
-        private static bool CheckForUnhelpful(CountyPopulation countyPopulation)
-        {
-            bool isUnhelpful = false;
-            foreach (PerkData perkData in countyPopulation.perks)
-            {
-                if (perkData.perkName == AllPerks.Instance.allPerks[(int)AllEnums.Perks.Unhelpful].perkName)
-                {
-                    isUnhelpful = true;
-                }
-            }
-            return isUnhelpful;
-        }
         private bool CheckLoyalty(CountyPopulation countyPopulation)
         {
             if (countyPopulation.loyaltyAttribute >= willWorkLoyalty)

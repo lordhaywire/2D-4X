@@ -43,7 +43,7 @@ namespace PlayerSpace
 
         public enum Perks
         {
-            LeaderofPeople,
+            LeaderOfPeople,
             Unhelpful,
         }
 

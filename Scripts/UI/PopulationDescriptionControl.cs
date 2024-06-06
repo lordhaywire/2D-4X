@@ -1,6 +1,8 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Resources;
 
 namespace PlayerSpace
 {
@@ -148,10 +150,10 @@ namespace PlayerSpace
             }
             else
             {
-                foreach (PerkData perkData in countyPopulation.perks)
+                foreach (KeyValuePair<AllEnums.Perks, PerkData> keyValuePair in countyPopulation.perks)
                 {
                     Label perksLabel = (Label)perkLabel.Instantiate();
-                    perksLabel.Text = perkData.perkName;
+                    perksLabel.Text = keyValuePair.Value.perkName;
                     perksParent.AddChild(perksLabel);
                 }
             }

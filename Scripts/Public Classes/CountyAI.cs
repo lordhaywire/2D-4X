@@ -5,7 +5,7 @@ namespace PlayerSpace
 {
     public class CountyAI
     {
-        public void CheckForBuildingCountyImprovements(County county)
+        public void DecideBuildingCountyImprovements(County county)
         {
             if (county.countyData.factionData.isPlayer)
             {

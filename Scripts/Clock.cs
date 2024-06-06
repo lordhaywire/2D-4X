@@ -7,8 +7,7 @@ namespace PlayerSpace
     {
         public static Clock Instance { get; private set; }
 
-        public event Action FirstRun;
-        public event Action HourZero;
+        public event Action SetDay;
         public event Action HourChanged; // This is currently used for battles.
         
         [Export] private Label dayLabel;
@@ -33,18 +32,6 @@ namespace PlayerSpace
             set
             {
                 numberOfThingsPausing = value;
-                //GD.PrintRich("[rainbow]Number of panels visible: " + numberOfThingsPausing);
-                /* This probably isn't needed anymore because we changed the event log to never go away.
-                if (numberOfThingsPausing > 0 && EventLog.Instance != null)
-                {
-                    EventLog.Instance.Hide(); // Couldn't I just do the question mark thing like below?
-                }
-                else
-                {
-                    EventLog.Instance?.Show(); // This is a null check.
-                    
-                }
-                */
             }
         }
 
@@ -76,20 +63,13 @@ namespace PlayerSpace
             set
             {
                 hours = value;
-                // This isn't used yet.
-                if (days == 0 && hours == 1)
-                {
-                    // The problem with this happening at 1 am on the first day is the player has to wait for a tick to happen
-                    // before the computer does anything.
-                    FirstRun?.Invoke();
-
-                }
                 // This will not trigger on day zero.
-                if (hours == 0)
+                if (hours == 1)
                 {
-                    HourZero?.Invoke();
+                    SetDay?.Invoke();
                 }
                 HourChanged?.Invoke();
+                GD.Print("Hours: " + hours);
             }
         }
 
@@ -185,7 +165,5 @@ namespace PlayerSpace
             oldTimeSpeed = ModifiedTimeScale;
             ModifiedTimeScale = speed;
         }
-
-
     }
 }

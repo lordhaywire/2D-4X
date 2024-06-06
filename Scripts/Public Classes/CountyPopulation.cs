@@ -1,5 +1,4 @@
 using Godot;
-using System.Collections.Generic;
 
 namespace PlayerSpace
 {
@@ -39,7 +38,7 @@ namespace PlayerSpace
         }
 
         [ExportGroup("Perks")]
-        public List<PerkData> perks;
+        public Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks;
 
         [ExportGroup("Token Expendables")]
         public int moraleExpendable; // I think we are going to have to have this as leader morale or army morale or some shit.
@@ -74,7 +73,6 @@ namespace PlayerSpace
             set
             {
                 nextWork = value;
-                
                 if (nextWork == null)
                 {
                     activities.UpdateNext(this, AllEnums.Activities.Idle);
@@ -106,7 +104,6 @@ namespace PlayerSpace
             set
             {
                 nextContruction = value;
-                
                 if (nextContruction == null)
                 {
                     activities.UpdateNext(this, AllEnums.Activities.Idle);
@@ -165,7 +162,7 @@ namespace PlayerSpace
         public CountyPopulation(
             FactionData factionData, int location, int lastLocation, int destination, string firstName, string lastName
             , bool isMale, int age, bool isHero, bool isFactionLeader, bool isAide, bool IsArmyLeader, bool isWorker
-            , List<PerkData> perks, int moraleExpendable, int loyaltyAttribute
+            , Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks, int moraleExpendable, int loyaltyAttribute
             , Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes
             , Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills
             , SkillData preferredSkill, AllEnums.Activities currentActivity, AllEnums.Activities nextActivity

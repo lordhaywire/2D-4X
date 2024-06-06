@@ -19,7 +19,7 @@ namespace PlayerSpace
 
         private void CheckForEvent()
         {
-            if (Clock.Instance.days == 0 && Clock.Instance.Hours == 3)
+            if (Clock.Instance.days == 0 && Clock.Instance.Hours == 3 && Globals.Instance.turnOffStoryEvents == false)
             {
                 Show();
             }

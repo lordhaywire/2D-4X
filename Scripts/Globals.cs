@@ -22,6 +22,7 @@ namespace PlayerSpace
 
         [ExportGroup("Game Settings")]
         [Export] public bool startPaused;
+        [Export] public bool turnOffStoryEvents = false;
 
         [ExportGroup("Selected Items")]
         [Export] public int selectedCountyId = -1;

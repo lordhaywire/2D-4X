@@ -165,21 +165,17 @@ namespace PlayerSpace
             }
         }
 
-        private static List<PerkData> GenerateLeaderPerks()
+        private static Godot.Collections.Dictionary<AllEnums.Perks, PerkData> GenerateLeaderPerks()
         {
-            List<PerkData> perkList = [];
-            perkList.Add(AllPerks.Instance.allPerks[(int)AllEnums.Perks.LeaderofPeople]);
-            return perkList;
+            Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks = [];
+            perks.Add(AllEnums.Perks.LeaderOfPeople, AllPerks.Instance.allPerks[(int)AllEnums.Perks.LeaderOfPeople]);
+            return perks;
         }
-        private List<PerkData> GeneratePopulationPerks()
+        private static Godot.Collections.Dictionary<AllEnums.Perks, PerkData> GeneratePopulationPerks()
         {
-            List<PerkData> perkList = [];
-            int unhelpfulRoll = random.Next(0, 101);
-            if (unhelpfulRoll <= chanceOfBeingUnhelpful)
-            {
-                perkList.Add(AllPerks.Instance.allPerks[(int)AllEnums.Perks.Unhelpful]);
-            }
-            return perkList;
+            Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks = [];
+            perks.Add(AllEnums.Perks.Unhelpful, AllPerks.Instance.allPerks[(int)AllEnums.Perks.Unhelpful]);
+            return perks;
         }
 
         private void CreatePopulation()

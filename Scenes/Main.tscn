@@ -163,6 +163,7 @@ centered = false
 script = ExtResource("2_yf7pt")
 dailyInfluenceGain = 5
 startPaused = true
+turnOffStoryEvents = true
 mapColorCoded = ExtResource("2_h1vmt")
 countiesParent = NodePath("../../Counties")
 minimumCountyPop = 5
@@ -230,10 +231,11 @@ process_mode = 3
 script = ExtResource("12_vfu86")
 collisionRectangleShape = SubResource("RectangleShape2D_co2vr")
 
-[node name="Faction Generation" type="Node" parent="Game Controller Node"]
+[node name="Faction Generation" type="Node" parent="Game Controller Node" node_paths=PackedStringArray("factions")]
 script = ExtResource("11_ivpku")
 factionNodePackedScene = ExtResource("12_r0ltm")
 countyImprovementData = []
+factions = NodePath("../../Factions")
 
 [node name="County Generation" type="Node" parent="Game Controller Node"]
 script = ExtResource("16_pxxn4")
@@ -1098,12 +1100,13 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Current Activity
+text = "Activity
 "
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Next Activity Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -2245,6 +2248,8 @@ offset_top = -8.0
 offset_right = 8.0
 grow_vertical = 0
 text = "Map Editor"
+
+[node name="Factions" type="Node" parent="."]
 
 [node name="Counties" type="Node2D" parent="."]
 process_mode = 3

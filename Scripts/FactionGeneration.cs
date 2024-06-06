@@ -10,6 +10,7 @@ namespace PlayerSpace
         private string factionDataPath = "res://Resources/Factions/";
         [Export] private PackedScene factionNodePackedScene;
         [Export] private CountyImprovementData[] countyImprovementData;
+        [Export] private Node factions;
 
         public override void _Ready()
         {
@@ -53,7 +54,6 @@ namespace PlayerSpace
                     {
                         Globals.Instance.playerFactionData = newFactionData;
                     }
-
                     AddStartingResearch(newFactionData);
                     CreateFactionNode(newFactionData);
                 }
@@ -69,7 +69,7 @@ namespace PlayerSpace
             Faction faction = (Faction)factionNodePackedScene.Instantiate();
             faction.factionData = newFactionData;
             faction.Name = faction.factionData.factionName;
-            AddChild(faction);
+            factions.AddChild(faction);
         }
 
         private static void AddStartingResearch(FactionData factionData)
@@ -84,20 +84,6 @@ namespace PlayerSpace
                 }
                 factionData.researchItems.Add((ResearchItemData)researchItemData.Duplicate());
             }
-
-            /*
-            // Let's turn this into an array or some shit at some point so we don't have manually add everything, we could just do a foreach loop.
-
-            factionData.researchItems.Add(new ResearchItemData(AllText.BuildingName.FISHERSSHACK, AllText.Descriptions.FISHERSSHACK
-                , (CountyImprovementData)countyImprovementData[0].Duplicate(), true));
-            //GD.Print("Add Starting Research: " + factionData.researchItems[0].researchName);
-            factionData.researchItems.Add(new ResearchItemData(AllText.BuildingName.FORESTERSSHACK, AllText.Descriptions.FORESTERSSHACK
-                , (CountyImprovementData)countyImprovementData[1].Duplicate(), true));
-            //GD.Print("Add Starting Research: " + factionData.researchItems[1].researchName);
-            factionData.researchItems.Add(new ResearchItemData(AllText.BuildingName.GARDENERSSHACK, AllText.Descriptions.GARDENERSSHACK
-                , (CountyImprovementData)countyImprovementData[2].Duplicate(), true));
-            //GD.Print("Add Starting Research: " + factionData.researchItems[2].researchName);
-            */
         }
     }
 }

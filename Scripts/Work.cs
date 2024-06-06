@@ -14,6 +14,7 @@ namespace PlayerSpace
         public void WorkDayOverForPopulation(County county)
         {
             this.county = county;
+            GD.Print("Work Hour Zero");
             CompleteScavengingPerPerson();
             CompleteBuildingPerPerson();
             CheckConstructionComplete();
@@ -63,7 +64,7 @@ namespace PlayerSpace
 
             foreach (CountyPopulation person in county.countyData.countyPopulationList)
             {
-                GD.Print($"If this is blank then it is null: {person?.CurrentConstruction}");
+                //GD.Print($"If this is blank then it is null: {person?.CurrentConstruction}");
                 if (person.CurrentConstruction != null)
                 {
                     // This needs to check if the county improvement is being built or if they are working there.
