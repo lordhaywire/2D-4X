@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 
 namespace PlayerSpace
@@ -15,6 +16,54 @@ namespace PlayerSpace
 
         private County county;
 
+        // Goes through all the population and adds a set number to research.
+        // It should check what they are doing and try to add that research then if they aren't doing anything
+        // it should add to a random research that isn't done yet.
+
+        // Don't forget about idle heroes researching other things.
+        public void PopulationResearch(County county)
+        {
+            List<ResearchItemData> researchableResearch = [];
+            Banker banker = new();
+
+            // Get a list of all the research that isn't done.
+            foreach (ResearchItemData researchItemData in county.countyData.factionData.researchItems)
+            {
+                if (researchItemData.isResearchDone == false)
+                {
+                    researchableResearch.Add(researchItemData);
+                }
+            }
+
+            foreach (CountyPopulation countyPopulation in county.countyData.countyPopulationList)
+            {
+                ResearchItemData whatPopulationIsResearching = null;
+
+                foreach (ResearchItemData researchItemData in researchableResearch)
+                {
+                    /*
+                    if (countyPopulation.currentActivity == researchItemData.skill)
+                    {
+                        whatPopulationIsResearching = researchItemData;
+                        GD.Print($"{countyPopulation.firstName} preferred skill is having them research {researchItemData.researchName}");
+                    }
+                    */
+                }
+
+                if (whatPopulationIsResearching == null)
+                {
+                    Random random = new();
+                    int randomResearchNumber = random.Next(0, researchableResearch.Count);
+                    whatPopulationIsResearching = researchableResearch[randomResearchNumber];
+                    GD.Print($"{countyPopulation.firstName} is randomly researching: " +
+                        $"{whatPopulationIsResearching.researchName}");
+                }
+
+                // Have the banker add the research to the research.
+                banker.AddResearchAmount(whatPopulationIsResearching, Globals.Instance.populationResearchIncrease);
+                banker.IncreaseResearchAmountBonus(countyPopulation, whatPopulationIsResearching, Globals.Instance.populationResearchBonus);
+            }
+        }
         // This is now a dumb name for this method.
         public void CheckForWork(County county)
         {

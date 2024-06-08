@@ -30,6 +30,13 @@ namespace PlayerSpace
         {
             FactionAI factionAI = new();
             factionAI.AssignResearch(factionData);
+            /* This is just for testing.
+            foreach (ResearchItemData researchItemData in factionData.researchItems)
+            {
+                GD.Print($"{factionData.factionName} research in " +
+                    $"{researchItemData.researchName}: {researchItemData.AmountOfResearchDone}");
+            }
+            */
         }
 
         private void OnTreeExit()

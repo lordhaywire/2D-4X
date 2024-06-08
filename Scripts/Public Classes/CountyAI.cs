@@ -15,9 +15,9 @@ namespace PlayerSpace
             Banker banker = new();
 
             // Check if the county has enough food. If not, build a food building.
-            if (!banker.CheckEnoughCountyFood(county))
+            if (!banker.CheckEnoughCountyFactionResource(county, AllEnums.FactionResourceType.Food))
             {
-                banker.FindFoodBuilding(county, out CountyImprovementData foodBuilding);
+                CountyImprovementData foodBuilding = FindCountyImpovementOfType(county, AllEnums.FactionResourceType.Food);
 
                 if (foodBuilding != null)
                 {
@@ -27,7 +27,7 @@ namespace PlayerSpace
                     if (banker.CheckBuildingCost(county.countyData.factionData, foodBuilding))
                     {
                         banker.ChargeForBuilding(county.countyData.factionData, foodBuilding);
-                        banker.BuildImprovement(county.countyData, foodBuilding);
+                        BuildImprovement(county.countyData, foodBuilding);
                     }
                     else
                     {
@@ -43,6 +43,31 @@ namespace PlayerSpace
             {
                 GD.Print($"{county.countyData.factionData.factionName} has enough food.");
             }
+        }
+
+
+        public void BuildImprovement(CountyData countyData, CountyImprovementData countyImprovementData)
+        {
+            countyImprovementData.underConstruction = true;
+            countyData.underConstructionCountyImprovements.Add(countyImprovementData);
+            GD.Print($"{countyData.factionData.factionName} is building {countyImprovementData.improvementName}.");
+        }
+        public static CountyImprovementData FindCountyImpovementOfType(County county, AllEnums.FactionResourceType factionResourceType)
+        {
+            foreach (CountyImprovementData countyImprovementData in county.countyData.allCountyImprovements)
+            {
+                if (countyImprovementData.underConstruction || countyImprovementData.isBuilt)
+                {
+                    //GD.Print($"{improvementData.improvementName} is already being built.");
+                    return null;
+                }
+                if (countyImprovementData.resourceData.factionResourceType == factionResourceType)
+                {
+                    //GD.Print($"{factionData.factionName} found {improvementData.improvementName} in {countyDataItem.countyName}.");
+                    return countyImprovementData;
+                }
+            }
+            return null;
         }
     }
 }

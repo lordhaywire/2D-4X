@@ -1,9 +1,26 @@
 using Godot;
+using System;
+using System.ComponentModel;
 
 namespace PlayerSpace
 {
     public class Banker
     {
+        public void AddResearchAmount(ResearchItemData researchItemData, int amount)
+        {
+            researchItemData.AmountOfResearchDone += amount;
+        }
+
+        public void IncreaseResearchAmountBonus(CountyPopulation countyPopulation
+            , ResearchItemData researchItemData, int amount)
+        {
+            SkillData skillData = new();
+            if (skillData.Check(countyPopulation.skills[researchItemData.skill].skillLevel) == true)
+            {
+                researchItemData.AmountOfResearchDone += amount;
+            }
+        }
+
         public void CountIdleWorkers(County county)
         {
             int idleWorkers = 0;
@@ -50,31 +67,42 @@ namespace PlayerSpace
 
         public void AddLeaderInfluence(FactionData factionData)
         {
+            factionData.Influence += Globals.Instance.dailyInfluenceGain + AddLeaderBonusInfluence(factionData);
+        }
+
+        // This should probably either in the perk data for the bonus, or it should be a generic perk bonus check.
+        // Or both.
+        public static int AddLeaderBonusInfluence(FactionData factionData)
+        {
             PerkData perkData = new();
+            int bonus = 0;
             if (perkData.CheckForPerk(factionData.factionLeader, AllEnums.Perks.LeaderOfPeople) == true)
             {
-                factionData.Influence += Globals.Instance.dailyInfluenceGain;
+                bonus = Globals.Instance.leaderOfPeopleInfluenceBonus;
+                return bonus;
             }
+            return bonus;
         }
+
 
         public void AddHeroResearch(FactionData factionData)
         {
-            // We have it going through all the heroes because heroes could be researching in other faction territories.
+            // We have it go through all the heroes because heroes could be researching in other faction territories.
             foreach (CountyPopulation countyPopulation in factionData.allHeroesList)
             {
                 if (countyPopulation.currentActivity == AllEnums.Activities.Research)
                 {
-                    SkillHandling skillHandling = new();
+                    SkillData skillData = new();
 
-                    bool passedCheck = skillHandling.Check(countyPopulation.skills[AllEnums.Skills.Research].skillLevel);
+                    bool passedCheck = skillData.Check(countyPopulation.skills[AllEnums.Skills.Research].skillLevel);
 
-                    // This needs to be broken into two different things.  One increased the research
+                    // This needs to be broken into two different things.  One increases the research
                     // the other checks for a bonus.
                     IncreaseResearcherResearch(countyPopulation, passedCheck);
 
                     // Only the researchers learn research skill.  Normal population who is just adding a tiny bit of research
                     // does not get a learning check.
-                    skillHandling.CheckLearning(countyPopulation, countyPopulation.skills[AllEnums.Skills.Research]);
+                    skillData.CheckLearning(countyPopulation, countyPopulation.skills[AllEnums.Skills.Research]);
                 }
             }
         }
@@ -91,9 +119,9 @@ namespace PlayerSpace
 
             GD.Print($"Amount of Research Done: {countyPopulation.CurrentResearchItemData.AmountOfResearchDone}");
         }
+
         public void AddResourceToCounty(County county, AllEnums.CountyResourceType countyResourceType, bool perishable, int amount)
         {
-
             if (perishable == true)
             {
                 county.countyData.perishableResources[countyResourceType].amount += amount;
@@ -127,37 +155,10 @@ namespace PlayerSpace
         }
 
         // This needs to be checking county level food.
-        public bool CheckEnoughCountyFood(County county)
+        public bool CheckEnoughCountyFactionResource(County county, AllEnums.FactionResourceType resource)
         {
-            int amountOfFood = CountFactionResourceOfType(county, AllEnums.FactionResourceType.Food);
+            int amountOfFood = CountFactionResourceOfType(county, resource);
             return amountOfFood >= Globals.Instance.minimumFood;
-        }
-
-        public void BuildImprovement(CountyData countyData, CountyImprovementData countyImprovementData)
-        {
-            countyImprovementData.underConstruction = true;
-            countyData.underConstructionCountyImprovements.Add(countyImprovementData);
-            GD.Print($"{countyData.factionData.factionName} is building {countyImprovementData.improvementName}.");
-        }
-
-        public void FindFoodBuilding(County county, out CountyImprovementData countyImprovementData)
-        {
-            countyImprovementData = null;
-
-            foreach (CountyImprovementData improvementData in county.countyData.allCountyImprovements)
-            {
-                if (improvementData.underConstruction || improvementData.isBuilt)
-                {
-                    //GD.Print($"{improvementData.improvementName} is already being built.");
-                    return;
-                }
-                if (improvementData.resourceData.factionResourceType == AllEnums.FactionResourceType.Food)
-                {
-                    //GD.Print($"{factionData.factionName} found {improvementData.improvementName} in {countyDataItem.countyName}.");
-                    countyImprovementData = improvementData;
-                    return;
-                }
-            }
         }
     }
 }

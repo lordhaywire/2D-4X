@@ -17,8 +17,9 @@ namespace PlayerSpace
 
         [Export] public Godot.Collections.Array<FactionData> factionDatas = [];
 
-        [ExportGroup("Event Variables")]
+        [ExportGroup("Faction Variables")]
         [Export] public int dailyInfluenceGain;
+        [Export] public int leaderOfPeopleInfluenceBonus;
 
         [ExportGroup("Game Settings")]
         [Export] public bool startPaused;
@@ -60,6 +61,8 @@ namespace PlayerSpace
                 }
             }
         }
+
+
         public CountryImprovementDescriptionButton selectedPossibleBuildingControl;
         public bool isVisitorList;
 
@@ -100,6 +103,8 @@ namespace PlayerSpace
         [Export] public int researcherResearchIncrease = 10;
         [Export] public int researchIncreaseBonus = 4; // One above max.
         [Export] public int populationResearchIncrease = 1;
+        [Export] public int populationResearchBonus = 1;
+
         public int researchClicked; // This is so the Research description panel knows which research was clicked.
 
         string listsPath = "Lists/";

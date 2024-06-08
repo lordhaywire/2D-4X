@@ -9,12 +9,12 @@ namespace PlayerSpace
         {
             foreach (CountyPopulation countyPopulation in factionData.allHeroesList)
             {
-                //Temporarily assign all heroes to research Researching.
+                // Temporarily assign all heroes to research Researching.
                 if(countyPopulation.currentActivity == AllEnums.Activities.Idle)
                 {
                     if (countyPopulation.factionData != Globals.Instance.playerFactionData)
                     {
-                        countyPopulation.CurrentResearchItemData = factionData.researchItems[1];
+                        countyPopulation.CurrentResearchItemData = factionData.researchItems[2];
                         GD.Print($"{countyPopulation.firstName} is researching {countyPopulation.CurrentResearchItemData.researchName}");
                     }
                 }

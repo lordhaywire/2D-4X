@@ -6,6 +6,7 @@ namespace PlayerSpace
     public partial class ResearchItemData : Resource
     {
         [Export] public AllEnums.ResearchTiers tier; // We might not need this now that the research is manually added to the research panel.
+        [Export] public AllEnums.Skills skill;
         [Export] public bool researchedAtStart;
         [Export] public string researchName;
         [Export] public string researchDescription;
@@ -33,15 +34,5 @@ namespace PlayerSpace
         public CountyPopulation[] researchers;
 
         [Export] public bool isResearchDone; // We might not need this because we could just compare the cost vs the amount done.
-        /*
-        public ResearchItemData(string researchName, string description, CountyImprovementData[] countyImprovementDatas, bool isResearchDone)
-        {
-            this.researchName = researchName;
-            this.description = description;
-
-            this.countyImprovementDatas = countyImprovementDatas;
-            this.isResearchDone = isResearchDone;
-        }
-        */
     }
 }

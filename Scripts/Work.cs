@@ -17,7 +17,7 @@ namespace PlayerSpace
             GD.Print("Work Hour Zero");
             CompleteScavengingPerPerson();
             CompleteBuildingPerPerson();
-            CheckConstructionComplete();
+            CheckConstructionComplete();  //  Why isn't this naming consistant?
             GiveIdlePeopleBonusHappiness(); // This would have to be somewhere else, I think.  Like up above.
         }
 
@@ -35,13 +35,20 @@ namespace PlayerSpace
                 if (countyPopulation.currentActivity == AllEnums.Activities.Scavenge)
                 {
                     Activities activities = new();
-                    GD.Print($"{countyPopulation.firstName} is generating resources.");
+                    GD.Print($"{countyPopulation.firstName} is generating scavenged resources.");
                     GenerateScavengedResources();
+
+
+                    // This is going to be the current activity.
                     activities.UpdateNext(countyPopulation, AllEnums.Activities.Idle);
                 }
             }
         }
 
+        public void PopulationDailyResearch(CountyPopulation countPopulation, AllEnums.Skills skill)
+        {
+
+        }
         // This should be updated with canned goods instead of vegetables.
         // We need to skill check this for bonus resources.
         private void GenerateScavengedResources()

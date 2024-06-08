@@ -162,6 +162,7 @@ centered = false
 [node name="Globals" type="Node" parent="Game Controller Node" node_paths=PackedStringArray("countiesParent")]
 script = ExtResource("2_yf7pt")
 dailyInfluenceGain = 5
+leaderOfPeopleInfluenceBonus = 5
 startPaused = true
 turnOffStoryEvents = true
 mapColorCoded = ExtResource("2_h1vmt")

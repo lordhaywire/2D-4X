@@ -115,6 +115,7 @@ namespace PlayerSpace
             }
         }
 
+        // Should this be _PhysicsProcess or just _Process
         public override void _PhysicsProcess(double delta)
         {
             //GD.Print("Delta: " + delta);

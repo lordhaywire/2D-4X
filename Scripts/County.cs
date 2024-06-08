@@ -28,26 +28,32 @@ namespace PlayerSpace
         {
             countyData.countyNode = this; // Figure out why I did this.
 
-            Clock.Instance.SetDay += HourZero;
+            Clock.Instance.SetDay += EndOfDay;
+            Clock.Instance.SetDay += DayStart;
         }
 
-        private void HourZero()
+        private void EndOfDay()
         {
             CountyAI countyAI = new();
             PopulationAI populationAI = new();
-            Research research = new();
             Work work = new();
+
             GD.Print("County Hour Zero.");
             countyAI.DecideBuildingCountyImprovements(this);
-            research.PopulationResearch(this);
-
+            // We are probably going to get rid of work, meaning move the code to another script.
             work.WorkDayOverForPopulation(countyData.countyNode);
-            populationAI.CheckForWork(this);
         }
 
+        private void DayStart()
+        {
+            PopulationAI populationAI = new();
+            // This is the one with the dumb name.
+            populationAI.CheckForWork(this);
+        }
         private void OnTreeExit()
         {
-            Clock.Instance.SetDay -= HourZero;
+            Clock.Instance.SetDay -= EndOfDay;
+            Clock.Instance.SetDay -= DayStart;
         }
     }
 }

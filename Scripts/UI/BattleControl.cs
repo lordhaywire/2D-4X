@@ -192,12 +192,12 @@ namespace PlayerSpace
         // This is confusing.  Needs a fucking rewrite.
         private void Attack(CountyPopulation gettingShotAtCountyPopulation, CountyPopulation shootingCountyPopulation, bool isAttacker)
         {
-            SkillHandling skillHandling = new();
-            if (skillHandling.Check(shootingCountyPopulation.skills[AllEnums.Skills.Rifle].skillLevel) == true)
+            SkillData skillData = new();
+            if (skillData.Check(shootingCountyPopulation.skills[AllEnums.Skills.Rifle].skillLevel) == true)
             {
                 BattleLogControl.Instance.AddLog
                     ($"{shootingCountyPopulation.firstName} {shootingCountyPopulation.lastName} has hit!", isAttacker);
-                if (skillHandling.Check(gettingShotAtCountyPopulation.skills[AllEnums.Skills.Cool].skillLevel) == false)
+                if (skillData.Check(gettingShotAtCountyPopulation.skills[AllEnums.Skills.Cool].skillLevel) == false)
                 {
                     int moraleDamage = random.Next(Globals.Instance.moraleDamageMin, Globals.Instance.moraleDamageMax);
                     gettingShotAtCountyPopulation.moraleExpendable
@@ -221,10 +221,10 @@ namespace PlayerSpace
             }
 
             // Check if rifle experience is learned by the attacker.
-            skillHandling.CheckLearning(shootingCountyPopulation, shootingCountyPopulation.skills[AllEnums.Skills.Rifle]);
+            skillData.CheckLearning(shootingCountyPopulation, shootingCountyPopulation.skills[AllEnums.Skills.Rifle]);
 
             // Check if the defenders cool skill learns anything.
-            skillHandling.CheckLearning(gettingShotAtCountyPopulation, gettingShotAtCountyPopulation.skills[AllEnums.Skills.Cool]);
+            skillData.CheckLearning(gettingShotAtCountyPopulation, gettingShotAtCountyPopulation.skills[AllEnums.Skills.Cool]);
         }
         private static void ButtonUp()
         {
