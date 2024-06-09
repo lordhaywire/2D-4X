@@ -29,15 +29,14 @@ namespace PlayerSpace
 
         public void UpdateTopBarWithCountyResources()
         {
-            Globals.Instance.playerFactionData.ScrapFaction = 0;
+            Globals.Instance.playerFactionData.RemnantsFaction = 0;
             Globals.Instance.playerFactionData.BuildingMaterialsFaction = 0;
             Globals.Instance.playerFactionData.FoodFaction = 0;
 
             if (Globals.Instance.SelectedLeftClickCounty != null)
             {
                 County county = Globals.Instance.SelectedLeftClickCounty;
-                CountFactionResources(county.countyData.perishableResources);
-                CountFactionResources(county.countyData.nonperishableResources);
+                CountFactionResources(county.countyData.resources);
             }
         }
 
@@ -51,8 +50,8 @@ namespace PlayerSpace
                     case AllEnums.FactionResourceType.Food:
                         Globals.Instance.playerFactionData.FoodFaction += resource.amount;
                         break;
-                    case AllEnums.FactionResourceType.Scrap:
-                        Globals.Instance.playerFactionData.ScrapFaction += resource.amount;
+                    case AllEnums.FactionResourceType.Remnants:
+                        Globals.Instance.playerFactionData.RemnantsFaction += resource.amount;
                         break;
                     case AllEnums.FactionResourceType.BuildingMaterial:
                         Globals.Instance.playerFactionData.BuildingMaterialsFaction += resource.amount;
@@ -60,13 +59,14 @@ namespace PlayerSpace
                 }
             }
         }
+
         public void UpdateExpendables()
         {
             //GD.Print("Expendables have been updated, motherfucker!");
             influenceLabel.Text = Globals.Instance.playerFactionData.Influence.ToString();
             moneyLabel.Text = Globals.Instance.playerFactionData.Money.ToString();
             foodLabel.Text = Globals.Instance.playerFactionData.FoodFaction.ToString();
-            scrapLabel.Text = Globals.Instance.playerFactionData.ScrapFaction.ToString();
+            scrapLabel.Text = Globals.Instance.playerFactionData.RemnantsFaction.ToString();
             buildingMaterialsLabel.Text = Globals.Instance.playerFactionData.BuildingMaterialsFaction.ToString();
         }
 

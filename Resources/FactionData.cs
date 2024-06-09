@@ -64,7 +64,7 @@ namespace PlayerSpace
         }
 
         [Export]
-        public int ScrapFaction
+        public int RemnantsFaction
         {
             get { return scrapFaction; }
             set

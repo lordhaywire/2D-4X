@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_4tpxq")
-resourceName = "Fish"
-countyResourceType = 0
+name = "Fish"
+countyResourceType = 1
 factionResourceType = 1
 perishable = true

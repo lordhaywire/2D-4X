@@ -46,8 +46,7 @@ namespace PlayerSpace
         [Export] public int scavengableScrap; // This the total a county has available to scavenge.
         [Export] public int scavengableFood; // This the total a county has available to scavenge.
 
-        [Export] public Godot.Collections.Dictionary<AllEnums.CountyResourceType, ResourceData> perishableResources = [];
-        [Export] public Godot.Collections.Dictionary<AllEnums.CountyResourceType, ResourceData> nonperishableResources = [];
+        [Export] public Godot.Collections.Dictionary<AllEnums.CountyResourceType, ResourceData> resources = [];
 
         // These are used just to pass some data around.  Probably I should find a better way to do this.
         public Texture2D maskTexture;

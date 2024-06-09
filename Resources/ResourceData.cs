@@ -6,7 +6,7 @@ namespace PlayerSpace
     [GlobalClass]
     public partial class ResourceData : Resource
     {
-        [Export] public string resourceName;
+        [Export] public string name;
         [Export] public AllEnums.CountyResourceType countyResourceType;
         [Export] public AllEnums.FactionResourceType factionResourceType;
         [Export] public bool perishable;

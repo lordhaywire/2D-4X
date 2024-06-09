@@ -69,7 +69,7 @@ namespace PlayerSpace
                     SetDay?.Invoke();
                 }
                 HourChanged?.Invoke();
-                GD.Print("Hours: " + hours);
+                //GD.Print("Hours: " + hours);
             }
         }
 

@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="ResourceData" load_steps=2 format=3 uid="uid://bhmwj5yptebic"]
 
-[ext_resource type="Script" path="res://Resources/ResourceData.cs" id="1_mrv0t"]
+[ext_resource type="Script" path="res://Resources/ResourceData.cs" id="1_lhf4k"]
 
 [resource]
-script = ExtResource("1_mrv0t")
-resourceName = "Scrap"
-countyResourceType = 1
+script = ExtResource("1_lhf4k")
+name = "Remnants"
+countyResourceType = 2
 factionResourceType = 4
 perishable = false

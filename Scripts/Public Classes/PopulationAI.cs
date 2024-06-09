@@ -10,7 +10,7 @@ namespace PlayerSpace
         private readonly int willWorkLoyalty = 20; // The loyalty a population needs to be willing to work.
                                                    // 50 is too high for testing, but might work well for the real game.
         private readonly int foodBeforeScavenge = 500; // Less then this amount will make people scavenge.
-        private readonly int scrapBeforeScavenge = 500; // Less then this amount will make people scavenge.
+        private readonly int remnantsBeforeScavenge = 500; // Less then this amount will make people scavenge.
 
         private readonly List<CountyPopulation> possibleWorkers = [];
         private readonly List<CountyPopulation> workersToRemove = []; // List to collect county populations to be removed from the possibleWorkers.
@@ -33,9 +33,11 @@ namespace PlayerSpace
                         break;
                     case AllEnums.Activities.Build:
                         CompleteConstruction(countyPopulation);
+                        // If the building is done they will be set to idle somewhere else.
                         break;
                     case AllEnums.Activities.Work:
                         // Produce resources based on the countyimprovement
+                        //countybanker.GenerateWorkResourceWithSkillCheck()
                         // Check loyalty to see if they still want to work there and if they don't then they
                         // get set to idle.
                         break;
@@ -119,8 +121,10 @@ namespace PlayerSpace
             possibleWorkers.Clear(); // Clear the list at the start of each county.
             workersToRemove.Clear();
             AdjustPopulationActivity();
+            // This needs to be at the start of the day - Produce other items based on countyimprovement such as extra storage.
 
             CheckForIdle();
+            
             CheckForPreferredWork();
             CheckForAnyWork();
             CheckForConstruction();
@@ -228,16 +232,16 @@ namespace PlayerSpace
         }
         private void CheckForScavengingFood()
         {
-            int amountOfFood = county.countyData.perishableResources[AllEnums.CountyResourceType.Fish].amount
-                + county.countyData.perishableResources[AllEnums.CountyResourceType.Vegetables].amount;
+            int amountOfFood = county.countyData.resources[AllEnums.CountyResourceType.Fish].amount
+                + county.countyData.resources[AllEnums.CountyResourceType.Vegetables].amount;
             GD.Print($"{county.countyData.countyName} Amount of food: " + amountOfFood);
             EnounghStored(amountOfFood, foodBeforeScavenge);
         }
 
         private void CheckForScavengingScrap()
         {
-            GD.Print($"{county.countyData.countyName} Amount of scrap: " + county.countyData.nonperishableResources[AllEnums.CountyResourceType.Scrap].amount);
-            EnounghStored(county.countyData.nonperishableResources[AllEnums.CountyResourceType.Scrap].amount, scrapBeforeScavenge);
+            GD.Print($"{county.countyData.countyName} Amount of scrap: " + county.countyData.resources[AllEnums.CountyResourceType.Remnants].amount);
+            EnounghStored(county.countyData.resources[AllEnums.CountyResourceType.Remnants].amount, remnantsBeforeScavenge);
         }
 
         private void EnounghStored(int amountOfStored, int resourceBeforeScavenge)

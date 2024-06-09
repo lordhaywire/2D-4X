@@ -20,11 +20,26 @@ namespace PlayerSpace
             }
             else
             {
-                AddResourceToCounty(county, AllEnums.CountyResourceType.Scrap, false
+                AddResourceToCounty(county, AllEnums.CountyResourceType.Remnants, false
                     , GenerateScavengedResourceWithSkillCheck(countyPopulation.skills[AllEnums.Skills.Scavenge].skillLevel));
             }
         }
 
+        public int GenerateWorkResourceWithSkillCheck(CountyImprovementData countyImprovementData, int skillLevel)
+        {
+            SkillData skillData = new();
+            int amount;
+            if (skillData.Check(skillLevel) == true)
+            {
+                amount = countyImprovementData.dailyResourceGenerationAmount + countyImprovementData.dailyResourceGenerationBonus;
+                return amount;
+            }
+            else
+            {
+                amount = countyImprovementData.dailyResourceGenerationAmount;
+                return amount;
+            }
+        }
         public int GenerateScavengedResourceWithSkillCheck(int skillLevel)
         {
             SkillData skillData = new();
@@ -66,10 +81,10 @@ namespace PlayerSpace
         public void AddStoryEventCountyResource(StoryEventData storyEventData)
         {
             GD.Print($"Faction: {storyEventData.eventCounty.countyData.factionData.factionName} is adding " +
-                $"{storyEventData.resourceAmount} {storyEventData.resource.resourceName}");
+                $"{storyEventData.resourceAmount} {storyEventData.resource.name}");
             if (storyEventData.resource.perishable)
             {
-                storyEventData.eventCounty.countyData.perishableResources[storyEventData.resource.countyResourceType].amount
+                storyEventData.eventCounty.countyData.resources[storyEventData.resource.countyResourceType].amount
                     += storyEventData.resourceAmount;
             }
             TopBarControl.Instance.UpdateTopBarWithCountyResources();
@@ -78,14 +93,7 @@ namespace PlayerSpace
         public static int CountFactionResourceOfType(County county, AllEnums.FactionResourceType type)
         {
             int amount = 0;
-            foreach (ResourceData resourceData in county.countyData.perishableResources.Values)
-            {
-                if (resourceData.factionResourceType == type)
-                {
-                    amount += resourceData.amount;
-                }
-            }
-            foreach (ResourceData resourceData in county.countyData.nonperishableResources.Values)
+            foreach (ResourceData resourceData in county.countyData.resources.Values)
             {
                 if (resourceData.factionResourceType == type)
                 {
@@ -150,14 +158,9 @@ namespace PlayerSpace
 
         public void AddResourceToCounty(County county, AllEnums.CountyResourceType countyResourceType, bool perishable, int amount)
         {
-            if (perishable == true)
-            {
-                county.countyData.perishableResources[countyResourceType].amount += amount;
-            }
-            else
-            {
-                county.countyData.nonperishableResources[countyResourceType].amount += amount;
-            }
+
+            county.countyData.resources[countyResourceType].amount += amount;
+            
             // Update the top bar if the player has a county selected.
             if (Globals.Instance.SelectedLeftClickCounty == county)
             {

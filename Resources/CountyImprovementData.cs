@@ -23,6 +23,7 @@ namespace PlayerSpace
         [Export] public int maxWorkers;
         [Export] public ResourceData resourceData;
         [Export] public int dailyResourceGenerationAmount;
+        [Export] public int dailyResourceGenerationBonus;
 
         [Export] public AllEnums.CountyImprovementStatus status;
         public List<CountyPopulation> countyPopulationAtImprovement;

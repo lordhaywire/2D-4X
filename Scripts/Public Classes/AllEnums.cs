@@ -32,8 +32,9 @@ namespace PlayerSpace
         }
         public enum CountyResourceType
         {
+            CannedFood,
             Fish,
-            Scrap,
+            Remnants,
             Vegetables,
             Wood,
         }
@@ -45,7 +46,7 @@ namespace PlayerSpace
             Food,
             Influence,
             Money,
-            Scrap,
+            Remnants
         }
 
         public enum Perks

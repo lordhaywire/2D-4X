@@ -1,4 +1,4 @@
-[gd_scene load_steps=112 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=113 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scripts/HidderNode.cs" id="1_gbt3x"]
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_x1cy2"]
@@ -40,7 +40,7 @@
 [ext_resource type="Resource" uid="uid://c55q8uucl7cqe" path="res://Resources/Resources/Fish.tres" id="19_1e80i"]
 [ext_resource type="Script" path="res://Scripts/Clock.cs" id="19_dn5gi"]
 [ext_resource type="Script" path="res://Scripts/Map Editor/FindNeighbors.cs" id="20_0i5kb"]
-[ext_resource type="Resource" uid="uid://bhmwj5yptebic" path="res://Resources/Resources/Scrap.tres" id="20_k67vp"]
+[ext_resource type="Resource" uid="uid://bhmwj5yptebic" path="res://Resources/Resources/Remnants.tres" id="20_k67vp"]
 [ext_resource type="Resource" uid="uid://dpddpnnbjvql" path="res://Resources/Resources/Vegetables.tres" id="21_r83qp"]
 [ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/Resources/Wood.tres" id="22_leslc"]
 [ext_resource type="Resource" uid="uid://bljrvhrjka1hs" path="res://Resources/ResearchItems/Basic Production.tres" id="22_ugyvd"]
@@ -77,6 +77,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/RecruitButton.cs" id="33_ec2f1"]
 [ext_resource type="Script" path="res://Scripts/UI/HeroPanelContainer.cs" id="34_8wj68"]
 [ext_resource type="Theme" uid="uid://bcc8wsoqypsuc" path="res://Themes/TopBarTheme.tres" id="34_e2d2b"]
+[ext_resource type="Resource" uid="uid://rs4bgxx8ctc8" path="res://Resources/Resources/Canned Food.tres" id="34_hf6gg"]
 [ext_resource type="Script" path="res://Scripts/UI/RecruitHeroConfirmationPanelContainer.cs" id="34_mgqam"]
 [ext_resource type="Script" path="res://Scripts/UI/BattleLogControl.cs" id="35_10y8n"]
 [ext_resource type="Script" path="res://Scripts/UI/TopBarControl.cs" id="35_ecv6a"]
@@ -198,7 +199,7 @@ allTierOneResearchData = Array[Object]([ExtResource("22_ugyvd"), ExtResource("16
 
 [node name="All Resources" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("18_wf5kh")
-allResources = Array[Object]([ExtResource("19_1e80i"), ExtResource("20_k67vp"), ExtResource("21_r83qp"), ExtResource("22_leslc")])
+allResources = Array[Object]([ExtResource("34_hf6gg"), ExtResource("19_1e80i"), ExtResource("20_k67vp"), ExtResource("21_r83qp"), ExtResource("22_leslc")])
 
 [node name="All Skills" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("23_jme5x")
@@ -833,7 +834,7 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
-[node name="Resources PanelContainer" type="PanelContainer" parent="Player UI Canvas" node_paths=PackedStringArray("countyNameTitleLabel", "currentPerishableAvailableLabel", "maxPerishableAmountAvailableLabel", "currentNonperishableAvailableLabel", "maxNonperisableAmountAvailableLabel", "perishableResourceStorageHbox", "nonperishableResourceStorageHbox")]
+[node name="Resources PanelContainer" type="PanelContainer" parent="Player UI Canvas" node_paths=PackedStringArray("countyNameTitleLabel", "currentPerishableAvailableLabel", "maxPerishableAmountAvailableLabel", "currentNonperishableAvailableLabel", "maxNonperisableAmountAvailableLabel", "perishableLabelSibling", "nonperishableLabelSibling")]
 visible = false
 anchors_preset = 15
 anchor_right = 1.0
@@ -847,8 +848,9 @@ currentPerishableAvailableLabel = NodePath("VBoxContainer/HBoxContainer/Current 
 maxPerishableAmountAvailableLabel = NodePath("VBoxContainer/HBoxContainer/Max Perishable Max Amount Available Label")
 currentNonperishableAvailableLabel = NodePath("VBoxContainer/HBoxContainer/Current Nonperishable Amount Available Label")
 maxNonperisableAmountAvailableLabel = NodePath("VBoxContainer/HBoxContainer/Max Nonperishable Max Amount Available Label")
-perishableResourceStorageHbox = [NodePath("MarginContainer/VBoxContainer/Fish Storage HBoxContainer"), NodePath("MarginContainer/VBoxContainer/Veggies Storage HBoxContainer2")]
-nonperishableResourceStorageHbox = [NodePath("MarginContainer/VBoxContainer/Scrap Storage HBoxContainer3"), NodePath("MarginContainer/VBoxContainer/Wood Storage HBoxContainer4")]
+storageHBoxPackedScene = ExtResource("53_xnh1n")
+perishableLabelSibling = NodePath("MarginContainer/VBoxContainer/Perishable Label")
+nonperishableLabelSibling = NodePath("MarginContainer/VBoxContainer/Nonperishable Label")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Resources PanelContainer"]
 layout_mode = 2
@@ -925,9 +927,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Fish Storage HBoxContainer" parent="Player UI Canvas/Resources PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("53_xnh1n")]
+visible = false
 layout_mode = 2
 
 [node name="Veggies Storage HBoxContainer2" parent="Player UI Canvas/Resources PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("53_xnh1n")]
+visible = false
 layout_mode = 2
 
 [node name="Nonperishable Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/MarginContainer/VBoxContainer"]
@@ -937,9 +941,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Scrap Storage HBoxContainer3" parent="Player UI Canvas/Resources PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("53_xnh1n")]
+visible = false
 layout_mode = 2
 
 [node name="Wood Storage HBoxContainer4" parent="Player UI Canvas/Resources PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("53_xnh1n")]
+visible = false
 layout_mode = 2
 
 [node name="Close Button" type="Button" parent="Player UI Canvas/Resources PanelContainer"]
@@ -1103,15 +1109,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Activity
 "
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Next Activity Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Next Activity"
 horizontal_alignment = 1
 vertical_alignment = 1
 

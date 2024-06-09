@@ -9,38 +9,56 @@ namespace PlayerSpace
     {
         public static ResourcesPanelContainer Instance { get; private set; }
 
+        [ExportGroup("Storage Labels")]
         [Export] private Label countyNameTitleLabel;
         [Export] private Label currentPerishableAvailableLabel;
         [Export] private Label maxPerishableAmountAvailableLabel;
         [Export] private Label currentNonperishableAvailableLabel;
         [Export] private Label maxNonperisableAmountAvailableLabel;
 
-        [Export] public StorageHbox[] perishableResourceStorageHbox;
-        [Export] public StorageHbox[] nonperishableResourceStorageHbox;
+        [ExportGroup("Storage Hboxes")]
+        [Export] private PackedScene storageHBoxPackedScene;
+        [Export] private Label perishableLabelSibling;
+        [Export] private Label nonperishableLabelSibling;
+
+        public Godot.Collections.Dictionary<AllEnums.CountyResourceType, StorageHbox> resourceStorageHboxDictionary = [];
 
         public override void _Ready()
         {
             Instance = this;
+            GenerateStorageHBoxes();
         }
 
+        private void GenerateStorageHBoxes()
+        {
+            foreach (ResourceData resourceData in AllResources.Instance.allResources)
+            {
+                StorageHbox storageHbox = (StorageHbox)storageHBoxPackedScene.Instantiate();
+                GD.Print("Resource Name: " + resourceData.name);
+                storageHbox.Name = resourceData.name;
+                storageHbox.resourceData = resourceData; // This is strange.
+
+                if (storageHbox.resourceData.perishable)
+                {
+                    perishableLabelSibling.AddSibling(storageHbox);
+                }
+                else
+                {
+                    nonperishableLabelSibling.AddSibling(storageHbox);
+                }
+                resourceStorageHboxDictionary.Add(storageHbox.resourceData.countyResourceType, storageHbox);
+            }
+        }
+
+        // This assigns the county's resources to the Storage Hboxes when this becomes visible.
         private void AssignResourcesToStorageHboxes()
         {
             County county = Globals.Instance.SelectedLeftClickCounty;
             GD.Print("County: " + county.countyData.countyName);
-            int perishable = 0;
-            int nonperishable = 0;
-            foreach (KeyValuePair<AllEnums.CountyResourceType, ResourceData> keyValuePair 
-                in county.countyData.perishableResources)
+            foreach (KeyValuePair<AllEnums.CountyResourceType, ResourceData> keyValuePair
+                in county.countyData.resources)
             {
-                perishableResourceStorageHbox[perishable].resourceData = keyValuePair.Value;
-                perishable++;
-            }
-
-            foreach (KeyValuePair<AllEnums.CountyResourceType, ResourceData> keyValuePair 
-                in county.countyData.nonperishableResources)
-            {
-                nonperishableResourceStorageHbox[nonperishable].resourceData = keyValuePair.Value;
-                nonperishable++;
+                resourceStorageHboxDictionary[keyValuePair.Key].resourceData = keyValuePair.Value;
             }
         }
 
@@ -57,104 +75,99 @@ namespace PlayerSpace
             else
             {
                 // Set the county resource max storage to equal whatever the player left it as.
-                SetResourceMaxValues(perishableResourceStorageHbox);
-                SetResourceMaxValues(nonperishableResourceStorageHbox);
+                SetResourceMaxValues(resourceStorageHboxDictionary);
 
                 Clock.Instance.PauseandUnpause();
                 PlayerControls.Instance.playerControlsEnabled = true;
             }
         }
 
-        private static void SetResourceMaxValues(StorageHbox[] storageHbox)
+        private static void SetResourceMaxValues(Godot.Collections.Dictionary<AllEnums.CountyResourceType, StorageHbox> storageHboxes)
         {
-            for(int i = 0; i < storageHbox.Length; i++)
+            foreach (KeyValuePair<AllEnums.CountyResourceType, StorageHbox> keyValuePair in storageHboxes)
             {
-                storageHbox[i].resourceData.MaxAmount = (int)storageHbox[i].maxAmountSpinBox.Value;
+                keyValuePair.Value.resourceData.MaxAmount = (int)keyValuePair.Value.maxAmountSpinBox.Value;
             }
         }
 
         public void UpdateSpinBoxMaxValue(bool perishable)
         {
-            if (perishable)
-            {
-                UpdateMaxValue(perishableResourceStorageHbox, currentPerishableAvailableLabel);
-            }
-            else
-            {
-                UpdateMaxValue(nonperishableResourceStorageHbox, currentNonperishableAvailableLabel);
-            }
+            UpdateMaxValue(resourceStorageHboxDictionary);
         }
 
-        private static void UpdateMaxValue(StorageHbox[] storageHboxArray, Label availableLabel)
+        private void UpdateMaxValue(
+            Godot.Collections.Dictionary<AllEnums.CountyResourceType, StorageHbox> storageHboxes)
         {
-            foreach (StorageHbox storageHbox in storageHboxArray)
+            foreach (KeyValuePair<AllEnums.CountyResourceType, StorageHbox> keyValuePair in storageHboxes)
             {
-                storageHbox.maxAmountSpinBox.MaxValue = storageHbox.maxAmountSpinBox.Value + int.Parse(availableLabel.Text);
+                if (keyValuePair.Value.resourceData.perishable)
+                {
+                    keyValuePair.Value.maxAmountSpinBox.MaxValue = keyValuePair.Value.maxAmountSpinBox.Value
+                            + int.Parse(currentPerishableAvailableLabel.Text);
+                }
+                else
+                {
+                    keyValuePair.Value.maxAmountSpinBox.MaxValue = keyValuePair.Value.maxAmountSpinBox.Value
+                            + int.Parse(currentNonperishableAvailableLabel.Text);
+                }
             }
         }
 
-        public void UpdateCountyAvailableStorage(bool perishable)
+        public void UpdateCountyAvailableStorage()
         {
             CountyData countyData = Globals.Instance.SelectedLeftClickCounty.countyData;
-            if (perishable)
+            int totalUsedPerishableStorage = 0;
+            int totalUsedNonperishableStorage = 0;
+            foreach (KeyValuePair<AllEnums.CountyResourceType, StorageHbox> keyValuePair in resourceStorageHboxDictionary)
             {
-                int totalUsedStorage = 0;
-                foreach (StorageHbox storageHBox in perishableResourceStorageHbox)
+                if (keyValuePair.Value.resourceData.perishable)
                 {
-                    totalUsedStorage += (int)storageHBox.maxAmountSpinBox.Value;
+                    totalUsedPerishableStorage += (int)keyValuePair.Value.maxAmountSpinBox.Value;
                 }
-                int totalAvailableStorage = countyData.perishableStorage - totalUsedStorage;
-                currentPerishableAvailableLabel.Text = totalAvailableStorage.ToString();
-            }
-            else
-            {
-                int totalUsedStorage = 0;
-                foreach (StorageHbox storageHBox in nonperishableResourceStorageHbox)
+                else
                 {
-                    totalUsedStorage += (int)storageHBox.maxAmountSpinBox.Value;
+                    totalUsedNonperishableStorage += (int)keyValuePair.Value.maxAmountSpinBox.Value;
+
                 }
-                int totalAvailableStorage = countyData.nonperishableStorage - totalUsedStorage;
-                currentNonperishableAvailableLabel.Text = totalAvailableStorage.ToString();
+                int totalAvailablePerishableStorage = countyData.perishableStorage - totalUsedPerishableStorage;
+                currentPerishableAvailableLabel.Text = totalAvailablePerishableStorage.ToString();
+
+                int totalAvailableNonperishableStorage = countyData.nonperishableStorage - totalUsedPerishableStorage;
+                currentNonperishableAvailableLabel.Text = totalAvailablePerishableStorage.ToString();
             }
+           
         }
         private void UpdateResourceLabels()
         {
             countyNameTitleLabel.Text = Globals.Instance.SelectedLeftClickCounty.countyData.countyName;
 
-            UpdateEachTypeOfResource(perishableResourceStorageHbox
-                , Globals.Instance.SelectedLeftClickCounty.countyData.perishableResources);
-            UpdateEachTypeOfResource(nonperishableResourceStorageHbox
-                , Globals.Instance.SelectedLeftClickCounty.countyData.nonperishableResources);
+            UpdateEachHboxWithResource(Globals.Instance.SelectedLeftClickCounty.countyData.resources);
         }
 
-        private static void UpdateEachTypeOfResource(StorageHbox[] storageHboxes
-            , Godot.Collections.Dictionary<AllEnums.CountyResourceType, ResourceData> resources)
+        private void UpdateEachHboxWithResource(Godot.Collections.Dictionary<AllEnums.CountyResourceType, ResourceData> resources)
         {
             int i = 0;
-            foreach (KeyValuePair<AllEnums.CountyResourceType, ResourceData> keyValuePair in resources)
+            foreach (KeyValuePair<AllEnums.CountyResourceType, StorageHbox> keyValuePair in resourceStorageHboxDictionary)
             {
-                //AllEnums.CountyResourceType key = keyValuePair.Key;
-                ResourceData resource = keyValuePair.Value;
-
-                storageHboxes[i].perishable = resource.perishable;
-                storageHboxes[i].storageHboxIndex = i;
-                storageHboxes[i].resourceNameLabel.Text = $"{resource.resourceName}:";
-                storageHboxes[i].resourceAmountLabel.Text = resource.amount.ToString();
-                GD.Print(resource.MaxAmount);
-                storageHboxes[i].resourceMaxAmountLabel.Text = resource.MaxAmount.ToString();
+                resourceStorageHboxDictionary[keyValuePair.Key].resourceData = resources[keyValuePair.Key];
+                GD.Print("Update Each Type of Resource:" + resources[keyValuePair.Key].name);
+                resourceStorageHboxDictionary[keyValuePair.Key].resourceNameLabel.Text = $"{resourceStorageHboxDictionary[keyValuePair.Key].resourceData.name}:";
+                resourceStorageHboxDictionary[keyValuePair.Key].resourceAmountLabel.Text = resourceStorageHboxDictionary[keyValuePair.Key].resourceData.amount.ToString();
+                resourceStorageHboxDictionary[keyValuePair.Key].resourceMaxAmountLabel.Text = resourceStorageHboxDictionary[keyValuePair.Key].resourceData.MaxAmount.ToString();
 
                 // Spinbox
-                if (resource.perishable)
+                if (resourceStorageHboxDictionary[keyValuePair.Key].resourceData.perishable)
                 {
-                    storageHboxes[i].maxAmountSpinBox.MaxValue 
+                    resourceStorageHboxDictionary[keyValuePair.Key].maxAmountSpinBox.MaxValue
                         = Globals.Instance.SelectedLeftClickCounty.countyData.perishableStorage / resources.Count;
                 }
                 else
                 {
-                    storageHboxes[i].maxAmountSpinBox.MaxValue 
+                    resourceStorageHboxDictionary[keyValuePair.Key].maxAmountSpinBox.MaxValue
                         = Globals.Instance.SelectedLeftClickCounty.countyData.nonperishableStorage / resources.Count;
                 }
-                storageHboxes[i].maxAmountSpinBox.Value = resource.MaxAmount;
+                resourceStorageHboxDictionary[keyValuePair.Key].maxAmountSpinBox.Value 
+                    = resourceStorageHboxDictionary[keyValuePair.Key].resourceData.MaxAmount;
                 i++;
             }
         }
@@ -162,29 +175,31 @@ namespace PlayerSpace
         private void UpdateMaxAmountLabels()
         {
             currentPerishableAvailableLabel.Text
-                = CountStorageAmounts(Globals.Instance.SelectedLeftClickCounty.countyData.perishableResources
-                , Globals.Instance.SelectedLeftClickCounty.countyData.perishableStorage).ToString();
+                = CountStorageAmounts(Globals.Instance.SelectedLeftClickCounty.countyData.resources
+                , Globals.Instance.SelectedLeftClickCounty.countyData.perishableStorage, true).ToString();
             maxPerishableAmountAvailableLabel.Text
                 = Globals.Instance.SelectedLeftClickCounty.countyData.perishableStorage.ToString();
             currentNonperishableAvailableLabel.Text
-                = CountStorageAmounts(Globals.Instance.SelectedLeftClickCounty.countyData.nonperishableResources
-                , Globals.Instance.SelectedLeftClickCounty.countyData.nonperishableStorage).ToString();
+                = CountStorageAmounts(Globals.Instance.SelectedLeftClickCounty.countyData.resources
+                , Globals.Instance.SelectedLeftClickCounty.countyData.nonperishableStorage, false).ToString();
             maxNonperisableAmountAvailableLabel.Text
                 = Globals.Instance.SelectedLeftClickCounty.countyData.nonperishableStorage.ToString();
         }
 
         private static int CountStorageAmounts(Godot.Collections.Dictionary<AllEnums.CountyResourceType, ResourceData> resources
-            , int maxStorage)
+            , int maxStorage, bool perishable)
         {
             int storage = 0;
             foreach (ResourceData resource in resources.Values)
             {
-                storage += resource.MaxAmount;
+                if (resource.perishable == perishable)
+                {
+                    storage += resource.MaxAmount;
+                }
             }
             int availableStorage = maxStorage - storage;
             return availableStorage;
         }
-
         private void CloseButtonPressed()
         {
             Hide();

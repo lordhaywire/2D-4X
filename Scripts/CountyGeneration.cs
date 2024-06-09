@@ -13,7 +13,7 @@ namespace PlayerSpace
         private int perishable;
         private int nonperishable;
 
-        
+
         public override void _Ready()
         {
             AssignFactionDataToCountyData();
@@ -25,7 +25,7 @@ namespace PlayerSpace
         }
 
 
-        
+
         private void UpdateResources()
         {
             // Assign a copy of each resource to each county.
@@ -33,7 +33,6 @@ namespace PlayerSpace
             {
                 CopyAndAssignResources(county, AllResources.Instance.allResources);
                 UpdateScavengableResources(county);
-
             }
         }
 
@@ -45,23 +44,13 @@ namespace PlayerSpace
 
         private static void CopyAndAssignResources(County county, ResourceData[] resources)
         {
-
             foreach (ResourceData resource in resources)
             {
-                if (resource.perishable)
-                {
-                    AllEnums.CountyResourceType key = resource.countyResourceType;
-                    county.countyData.perishableResources[key] = (ResourceData)resource.Duplicate();
-                }
-                else
-                {
-                    AllEnums.CountyResourceType key = resource.countyResourceType;
-                    county.countyData.nonperishableResources[key] = (ResourceData)resource.Duplicate();
-                }
+                AllEnums.CountyResourceType key = resource.countyResourceType;
+                county.countyData.resources[key] = (ResourceData)resource.Duplicate();
             }
 
-            SetInitialMaxStorage(county, county.countyData.perishableResources);
-            SetInitialMaxStorage(county, county.countyData.nonperishableResources);
+            SetInitialMaxStorage(county, county.countyData.resources);
         }
         private static void SetInitialMaxStorage(County county, Godot.Collections.Dictionary<AllEnums.CountyResourceType, ResourceData> resources)
         {
@@ -77,7 +66,7 @@ namespace PlayerSpace
                 {
                     resource.MaxAmount = Globals.Instance.startingNonperishableStorage / resources.Count;
                 }
-                GD.Print($"{county.countyData.countyName} - {resource.resourceName}: " +
+                GD.Print($"{county.countyData.countyName} - {resource.name}: " +
                         $"{resource.MaxAmount}");
             }
         }
