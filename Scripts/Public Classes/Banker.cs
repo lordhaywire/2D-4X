@@ -1,6 +1,4 @@
 using Godot;
-using System;
-using System.ComponentModel;
 
 namespace PlayerSpace
 {
@@ -11,6 +9,38 @@ namespace PlayerSpace
             researchItemData.AmountOfResearchDone += amount;
         }
 
+        // This should be updated with canned goods instead of vegetables.
+        public void GenerateScavengedResources(County county, CountyPopulation countyPopulation)
+        {
+            int randomResourceNumber = Globals.Instance.random.Next(0, 2);
+            if (randomResourceNumber == 0)
+            {
+                AddResourceToCounty(county, AllEnums.CountyResourceType.Vegetables, true
+                    , GenerateScavengedResourceWithSkillCheck(countyPopulation.skills[AllEnums.Skills.Scavenge].skillLevel));
+            }
+            else
+            {
+                AddResourceToCounty(county, AllEnums.CountyResourceType.Scrap, false
+                    , GenerateScavengedResourceWithSkillCheck(countyPopulation.skills[AllEnums.Skills.Scavenge].skillLevel));
+            }
+        }
+
+        public int GenerateScavengedResourceWithSkillCheck(int skillLevel)
+        {
+            SkillData skillData = new();
+            int amount;
+            if (skillData.Check(skillLevel) == true)
+            {
+                amount = Globals.Instance.dailyScavengedAmount + Globals.Instance.dailyScavengedAmountBonus;
+            }
+            else
+            {
+                amount = Globals.Instance.dailyScavengedAmount;
+            }
+            return amount;
+        }
+
+        // This is weird.  We aren't rolling for a bonus amount?  Also why are we passing in the amount?
         public void IncreaseResearchAmountBonus(CountyPopulation countyPopulation
             , ResearchItemData researchItemData, int amount)
         {
@@ -84,7 +114,6 @@ namespace PlayerSpace
             return bonus;
         }
 
-
         public void AddHeroResearch(FactionData factionData)
         {
             // We have it go through all the heroes because heroes could be researching in other faction territories.
@@ -106,7 +135,6 @@ namespace PlayerSpace
                 }
             }
         }
-
         private static void IncreaseResearcherResearch(CountyPopulation countyPopulation, bool passedCheck)
         {
             int bonusResearchIncrease = 0;

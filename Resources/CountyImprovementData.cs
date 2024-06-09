@@ -1,4 +1,5 @@
 using Godot;
+using System.Collections.Generic;
 
 namespace PlayerSpace
 {
@@ -23,7 +24,7 @@ namespace PlayerSpace
         [Export] public ResourceData resourceData;
         [Export] public int dailyResourceGenerationAmount;
 
-        [Export] public bool underConstruction;
-        [Export] public bool isBuilt;
+        [Export] public AllEnums.CountyImprovementStatus status;
+        public List<CountyPopulation> countyPopulationAtImprovement;
     }
 }

@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace PlayerSpace
 {
@@ -16,10 +17,56 @@ namespace PlayerSpace
 
         private County county;
 
+        public void WorkDayOverForPopulation(County county)
+        {
+            Activities activities = new();
+            Banker banker = new();
+
+            foreach (CountyPopulation countyPopulation in county.countyData.countyPopulationList)
+            {
+                switch (countyPopulation.currentActivity)
+                {
+                    case AllEnums.Activities.Scavenge:
+                        GD.Print($"{countyPopulation.firstName} is generating scavenged resources.");
+                        banker.GenerateScavengedResources(county, countyPopulation);
+                        activities.UpdateCurrent(countyPopulation, AllEnums.Activities.Idle);
+                        break;
+                    case AllEnums.Activities.Build:
+                        CompleteConstruction(countyPopulation);
+                        break;
+                    case AllEnums.Activities.Work:
+                        // Produce resources based on the countyimprovement
+                        // Check loyalty to see if they still want to work there and if they don't then they
+                        // get set to idle.
+                        break;
+                    case AllEnums.Activities.Idle:
+                        // Give idle people their bonus happiness.
+                        break;
+                }
+            }
+            GD.Print($"{county.countyData.countyName}: Work Day Over For Population.");
+        }
+
+        private void CompleteConstruction(CountyPopulation countyPopulation)
+        {
+            SkillData skillData = new();
+            if (skillData.Check(countyPopulation.skills[AllEnums.Skills.Construction].skillLevel))
+            {
+                countyPopulation.CurrentConstruction.currentAmountOfConstruction 
+                    += Globals.Instance.dailyConstructionAmount + Globals.Instance.dailyConstructionAmountBonus;
+            }
+            else
+            {
+                countyPopulation.CurrentConstruction.currentAmountOfConstruction 
+                    += Globals.Instance.dailyConstructionAmount;
+            }
+        }
+
+
+
         // Goes through all the population and adds a set number to research.
         // It should check what they are doing and try to add that research then if they aren't doing anything
         // it should add to a random research that isn't done yet.
-
         // Don't forget about idle heroes researching other things.
         public void PopulationResearch(County county)
         {

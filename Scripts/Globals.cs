@@ -83,6 +83,10 @@ namespace PlayerSpace
         [ExportGroup("County Stuff")]
         [Export] public int startingPerishableStorage = 5000;
         [Export] public int startingNonperishableStorage = 5000;
+        [Export] public int dailyScavengedAmount = 2;
+        [Export] public int dailyScavengedAmountBonus = 1;
+        [Export] public int dailyConstructionAmount = 5;
+        [Export] public int dailyConstructionAmountBonus = 2;
 
         [ExportGroup("Population Shit")]
         [Export] public PackedScene heroToken;

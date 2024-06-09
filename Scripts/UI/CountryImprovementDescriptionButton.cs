@@ -38,15 +38,18 @@ namespace PlayerSpace
 			}
 			else if(CountyImprovementsControl.Instance.Visible == true)
 			{
+				// Something is going to get fucked up here.
 				if (banker.CheckBuildingCost(Globals.Instance.SelectedLeftClickCounty.countyData.factionData, countyImprovementData) == false)
 				{
 					buildingButton.Disabled = true;
 				}
-				if (countyImprovementData.underConstruction == true || countyImprovementData.isBuilt == true)
+				// We can get rid of this since we can have multiple of the same building.
+				if (countyImprovementData.status == AllEnums.CountyImprovementStatus.UnderConstruction
+					|| countyImprovementData.status == AllEnums.CountyImprovementStatus.Completed)
 				{
 					buildingButton.Disabled = true;
 				}
-				if (countyImprovementData.underConstruction != true)
+				if (countyImprovementData.status == AllEnums.CountyImprovementStatus.None)
 				{
 					improvementAmountOfConstructionLabel.Text = $"Amount of construction: {countyImprovementData.maxAmountOfConstruction}";
 					improvementMaxBuildersLabel.Text = $"Max builders: {countyImprovementData.maxBuilders}";
@@ -58,7 +61,7 @@ namespace PlayerSpace
 					improvementAmountOfConstructionLabel.Text = $"{countyImprovementData.currentAmountOfConstruction}/{countyImprovementData.maxAmountOfConstruction} Amount of Contruction";
 					improvementMaxBuildersLabel.Text = $"{countyImprovementData.currentBuilders}/{countyImprovementData.maxBuilders} Builders";
 				}
-				if (countyImprovementData.isBuilt == true)
+				if (countyImprovementData.status == AllEnums.CountyImprovementStatus.Completed)
 				{
 					improvementMaxBuildersLabel.Text = $"{countyImprovementData.currentWorkers}/{countyImprovementData.maxWorkers} Workers";
 					improvementAmountOfConstructionLabel.Hide();

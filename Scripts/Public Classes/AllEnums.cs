@@ -23,6 +23,13 @@ namespace PlayerSpace
             MentalStrength,
             PhysicalStrength,
         }
+
+        public enum CountyImprovementStatus
+        {
+            None,
+            Completed,
+            UnderConstruction,
+        }
         public enum CountyResourceType
         {
             Fish,

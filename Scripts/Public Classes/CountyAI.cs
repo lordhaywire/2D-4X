@@ -48,7 +48,7 @@ namespace PlayerSpace
 
         public void BuildImprovement(CountyData countyData, CountyImprovementData countyImprovementData)
         {
-            countyImprovementData.underConstruction = true;
+            countyImprovementData.status = AllEnums.CountyImprovementStatus.UnderConstruction;
             countyData.underConstructionCountyImprovements.Add(countyImprovementData);
             GD.Print($"{countyData.factionData.factionName} is building {countyImprovementData.improvementName}.");
         }
@@ -56,12 +56,8 @@ namespace PlayerSpace
         {
             foreach (CountyImprovementData countyImprovementData in county.countyData.allCountyImprovements)
             {
-                if (countyImprovementData.underConstruction || countyImprovementData.isBuilt)
-                {
-                    //GD.Print($"{improvementData.improvementName} is already being built.");
-                    return null;
-                }
-                if (countyImprovementData.resourceData.factionResourceType == factionResourceType)
+                if (countyImprovementData.resourceData.factionResourceType == factionResourceType 
+                    && countyImprovementData.status == AllEnums.CountyImprovementStatus.None)
                 {
                     //GD.Print($"{factionData.factionName} found {improvementData.improvementName} in {countyDataItem.countyName}.");
                     return countyImprovementData;

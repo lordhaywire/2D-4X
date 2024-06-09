@@ -34,13 +34,14 @@ namespace PlayerSpace
             }
         }
 
+        // This is still set up as if you can only generate one county improvement of each type.
+        // We want people to be able to build more then 1 of each.
         public void GenerateCountyImprovementButtons()
         {
             ClearImprovements();
-
-            foreach(CountyImprovementData countyImprovementData in Globals.Instance.SelectedLeftClickCounty.countyData.allCountyImprovements)
+            foreach (CountyImprovementData countyImprovementData in Globals.Instance.SelectedLeftClickCounty.countyData.allCountyImprovements)
             {
-                if(countyImprovementData.underConstruction == false && countyImprovementData.isBuilt == false)
+                if (countyImprovementData.status == AllEnums.CountyImprovementStatus.None)
                 {
                     CountryImprovementDescriptionButton countyImprovementButton = (CountryImprovementDescriptionButton)countyImprovementButtonPackedScene.Instantiate();
                     possibleImprovementsScrollContainerParent.AddChild(countyImprovementButton);
@@ -57,7 +58,7 @@ namespace PlayerSpace
 
         private void ClearImprovements()
         {
-            foreach(Node node in possibleImprovementsScrollContainerParent.GetChildren().Skip(1))
+            foreach (Node node in possibleImprovementsScrollContainerParent.GetChildren().Skip(1))
             {
                 node.QueueFree();
             }
