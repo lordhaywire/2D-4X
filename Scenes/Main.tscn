@@ -834,7 +834,7 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
-[node name="Resources PanelContainer" type="PanelContainer" parent="Player UI Canvas" node_paths=PackedStringArray("countyNameTitleLabel", "currentPerishableAvailableLabel", "maxPerishableAmountAvailableLabel", "currentNonperishableAvailableLabel", "maxNonperisableAmountAvailableLabel", "perishableLabelSibling", "nonperishableLabelSibling")]
+[node name="Resources PanelContainer" type="PanelContainer" parent="Player UI Canvas" node_paths=PackedStringArray("countyNameTitleLabel", "currentPerishableAvailableLabel", "maxPerishableAmountAvailableLabel", "currentNonperishableAvailableLabel", "maxNonperisableAmountAvailableLabel", "perishableVboxParent", "nonperishableVboxParent")]
 visible = false
 anchors_preset = 15
 anchor_right = 1.0
@@ -844,13 +844,13 @@ grow_vertical = 2
 theme = ExtResource("50_5cg3n")
 script = ExtResource("54_ia1o5")
 countyNameTitleLabel = NodePath("VBoxContainer/County Name Title Label")
-currentPerishableAvailableLabel = NodePath("VBoxContainer/HBoxContainer/Current Perishable Amount Available Label")
-maxPerishableAmountAvailableLabel = NodePath("VBoxContainer/HBoxContainer/Max Perishable Max Amount Available Label")
-currentNonperishableAvailableLabel = NodePath("VBoxContainer/HBoxContainer/Current Nonperishable Amount Available Label")
-maxNonperisableAmountAvailableLabel = NodePath("VBoxContainer/HBoxContainer/Max Nonperishable Max Amount Available Label")
+currentPerishableAvailableLabel = NodePath("VBoxContainer/Available Storage HBoxContainer/Current Perishable Amount Available Label")
+maxPerishableAmountAvailableLabel = NodePath("VBoxContainer/Available Storage HBoxContainer/Max Perishable Max Amount Available Label")
+currentNonperishableAvailableLabel = NodePath("VBoxContainer/Available Storage HBoxContainer/Current Nonperishable Amount Available Label")
+maxNonperisableAmountAvailableLabel = NodePath("VBoxContainer/Available Storage HBoxContainer/Max Nonperishable Max Amount Available Label")
 storageHBoxPackedScene = ExtResource("53_xnh1n")
-perishableLabelSibling = NodePath("MarginContainer/VBoxContainer/Perishable Label")
-nonperishableLabelSibling = NodePath("MarginContainer/VBoxContainer/Nonperishable Label")
+perishableVboxParent = NodePath("MarginContainer/All Resources VBoxContainer/Perishable VBoxContainer")
+nonperishableVboxParent = NodePath("MarginContainer/All Resources VBoxContainer/Nonperishable VBoxContainer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Resources PanelContainer"]
 layout_mode = 2
@@ -863,11 +863,11 @@ text = "County Name"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer"]
+[node name="Available Storage HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Max Perishable Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Max Perishable Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/Available Storage HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -876,22 +876,22 @@ text = "Max Perishable Storage Available: "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Current Perishable Amount Available Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Current Perishable Amount Available Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/Available Storage HBoxContainer"]
 layout_mode = 2
 text = "500"
 
-[node name="Slash Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Slash Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/Available Storage HBoxContainer"]
 layout_mode = 2
 text = "/"
 
-[node name="Max Perishable Max Amount Available Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Max Perishable Max Amount Available Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/Available Storage HBoxContainer"]
 layout_mode = 2
 text = "500"
 
-[node name="VSeparator" type="VSeparator" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/Available Storage HBoxContainer"]
 layout_mode = 2
 
-[node name="Max Nonperishable Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Max Nonperishable Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/Available Storage HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -900,15 +900,15 @@ text = "Max Nonperishable Storage Available: "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Current Nonperishable Amount Available Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Current Nonperishable Amount Available Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/Available Storage HBoxContainer"]
 layout_mode = 2
 text = "500"
 
-[node name="Slash Label2" type="Label" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Slash Label2" type="Label" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/Available Storage HBoxContainer"]
 layout_mode = 2
 text = "/"
 
-[node name="Max Nonperishable Max Amount Available Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Max Nonperishable Max Amount Available Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/Available Storage HBoxContainer"]
 layout_mode = 2
 text = "500"
 
@@ -916,37 +916,27 @@ text = "500"
 layout_mode = 2
 theme_override_constants/margin_top = 70
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Resources PanelContainer/MarginContainer"]
+[node name="All Resources VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Resources PanelContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Perishable Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Perishable VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Resources PanelContainer/MarginContainer/All Resources VBoxContainer"]
+layout_mode = 2
+
+[node name="Perishable Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/MarginContainer/All Resources VBoxContainer/Perishable VBoxContainer"]
 layout_mode = 2
 text = "Perishable"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Fish Storage HBoxContainer" parent="Player UI Canvas/Resources PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("53_xnh1n")]
-visible = false
+[node name="Nonperishable VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Resources PanelContainer/MarginContainer/All Resources VBoxContainer"]
 layout_mode = 2
 
-[node name="Veggies Storage HBoxContainer2" parent="Player UI Canvas/Resources PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("53_xnh1n")]
-visible = false
-layout_mode = 2
-
-[node name="Nonperishable Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Nonperishable Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/MarginContainer/All Resources VBoxContainer/Nonperishable VBoxContainer"]
 layout_mode = 2
 text = "Nonperishable"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Scrap Storage HBoxContainer3" parent="Player UI Canvas/Resources PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("53_xnh1n")]
-visible = false
-layout_mode = 2
-
-[node name="Wood Storage HBoxContainer4" parent="Player UI Canvas/Resources PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("53_xnh1n")]
-visible = false
-layout_mode = 2
 
 [node name="Close Button" type="Button" parent="Player UI Canvas/Resources PanelContainer"]
 custom_minimum_size = Vector2(75, 50)

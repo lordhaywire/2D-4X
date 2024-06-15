@@ -12,6 +12,10 @@ namespace PlayerSpace
 
         public Random random = new();
 
+        [ExportGroup("Game Variables")]
+        [Export] public int numberOfPerishableResources;
+        [Export] public int numberOfNonperishableResources;
+
         [ExportGroup("Player Faction BS")]
         [Export] public FactionData playerFactionData;
 
@@ -61,7 +65,6 @@ namespace PlayerSpace
                 }
             }
         }
-
 
         public CountryImprovementDescriptionButton selectedPossibleBuildingControl;
         public bool isVisitorList;

@@ -60,11 +60,16 @@ namespace PlayerSpace
 
                 if (resource.perishable)
                 {
-                    resource.MaxAmount = Globals.Instance.startingPerishableStorage / resources.Count;
+                    resource.MaxAmount = Globals.Instance.startingPerishableStorage 
+                        / Globals.Instance.numberOfPerishableResources
+                        + (Globals.Instance.startingPerishableStorage % Globals.Instance.numberOfPerishableResources);
+
                 }
                 else
                 {
-                    resource.MaxAmount = Globals.Instance.startingNonperishableStorage / resources.Count;
+                    resource.MaxAmount = Globals.Instance.startingNonperishableStorage 
+                        / Globals.Instance.numberOfNonperishableResources
+                        + (Globals.Instance.startingNonperishableStorage % Globals.Instance.numberOfNonperishableResources);
                 }
                 GD.Print($"{county.countyData.countyName} - {resource.name}: " +
                         $"{resource.MaxAmount}");

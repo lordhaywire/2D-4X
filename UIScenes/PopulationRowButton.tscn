@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/UI/PopulationRowButton.cs" id="1_dhxh4"]
 
-[node name="Population Row Button" type="Button" node_paths=PackedStringArray("populationNameLabel", "ageLabel", "sexLabel", "UnhelpfulLabel", "loyaltyAttributeLabel", "skillLabels", "currentActivityLabel", "nextActivityLabel")]
+[node name="Population Row Button" type="Button" node_paths=PackedStringArray("populationNameLabel", "ageLabel", "sexLabel", "UnhelpfulLabel", "loyaltyAttributeLabel", "skillLabels", "currentActivityLabel")]
 custom_minimum_size = Vector2(0, 25)
 anchors_preset = 10
 anchor_right = 1.0
@@ -16,7 +16,6 @@ UnhelpfulLabel = NodePath("Population Row HBoxContainer/Unhelpful Label")
 loyaltyAttributeLabel = NodePath("Population Row HBoxContainer/Loyalty Attribute Label")
 skillLabels = [NodePath("Population Row HBoxContainer/Construction Skill Label"), NodePath("Population Row HBoxContainer/Cool Skill Label"), NodePath("Population Row HBoxContainer/Farm Skill Label"), NodePath("Population Row HBoxContainer/Fish Skill Label"), NodePath("Population Row HBoxContainer/Labor Skill Label"), NodePath("Population Row HBoxContainer/Lumberjack Skill Label"), NodePath("Population Row HBoxContainer/Research Skill Label"), NodePath("Population Row HBoxContainer/Rifle Skill Label"), NodePath("Population Row HBoxContainer/Scavenge Skill Label")]
 currentActivityLabel = NodePath("Population Row HBoxContainer/Current Activity Label")
-nextActivityLabel = NodePath("")
 
 [node name="Population Row HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1

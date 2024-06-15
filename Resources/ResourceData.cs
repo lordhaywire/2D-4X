@@ -7,14 +7,16 @@ namespace PlayerSpace
     public partial class ResourceData : Resource
     {
         [Export] public string name;
+        [Export] public string description;
         [Export] public AllEnums.CountyResourceType countyResourceType;
         [Export] public AllEnums.FactionResourceType factionResourceType;
         [Export] public bool perishable;
 
-        public int amount;
-        private int maxAmount;
+        public int amount; // The amount of resource.
+        private int maxAmount; // This is the max amount that can be stored.
 
-        // Write a getter setter for amount never to be above maxAmount.
+        // Write a getter setter for amount never to be above maxAmount - That getter setter looks wrong to me.
+        // Shouldn't the amount be zero?
         public int MaxAmount
         {
             get { return maxAmount; }

@@ -84,7 +84,6 @@ namespace PlayerSpace
             set
             {
                 modifiedTimeScale = value;
-                //GD.Print($"ModifiedScale has changed to {modifiedTimeScale}");
                 
                 currentSpeedLabel.Text = modifiedTimeScale.ToString();
 

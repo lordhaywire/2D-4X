@@ -8,8 +8,8 @@ alignment = 1
 script = ExtResource("1_j0r4g")
 resourceNameLabel = NodePath("Resource Name Label")
 resourceAmountLabel = NodePath("Current Amount Label")
-resourceMaxAmountLabel = NodePath("Max Amount Label")
-maxAmountSpinBox = NodePath("SpinBox")
+resourceMaxAmountLabel = NodePath("")
+maxAmountSpinBox = NodePath("Max Amount SpinBox")
 
 [node name="Resource Name Label" type="Label" parent="."]
 layout_mode = 2
@@ -23,14 +23,8 @@ text = "Current Amount"
 layout_mode = 2
 text = "/"
 
-[node name="Max Amount Label" type="Label" parent="."]
-visible = false
+[node name="Max Amount SpinBox" type="SpinBox" parent="."]
 layout_mode = 2
-text = "Max Amount"
-
-[node name="SpinBox" type="SpinBox" parent="."]
-layout_mode = 2
-step = 50.0
 value = 100.0
 
-[connection signal="value_changed" from="SpinBox" to="." method="ValueChanged"]
+[connection signal="value_changed" from="Max Amount SpinBox" to="." method="ValueChanged"]
