@@ -11,10 +11,11 @@ namespace PlayerSpace
 
         [Export] public SpinBox maxAmountSpinBox;
 
-        private void ValueChanged(float value)
+        private static void ValueChanged(float value)
         {
-            ResourcesPanelContainer.Instance.UpdateCountyAvailableStorage();
-            ResourcesPanelContainer.Instance.UpdateSpinBoxMaxValue(resourceData.perishable);
+            GD.Print("Value Changed:" + value);
+            ResourcesPanelContainer.Instance.UpdateCountyAvailableStorageLabels();
+            ResourcesPanelContainer.Instance.UpdateSpinBoxMaxValuePlusLabel();
         }
     }
 }

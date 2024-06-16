@@ -128,16 +128,28 @@ namespace PlayerSpace
             }
         }
 
-        public void UpdateSpinBoxMaxValue(bool perishable)
+        // This one needs to differentiate between perishable and nonperishable.
+        // It needs to add the label amount so that the player can add more to the spinbox.
+        public void UpdateSpinBoxMaxValuePlusLabel()
         {
-            UpdateSpinBoxMaxValuePlusLabel(resourceStorageHboxDictionary);
+            foreach (KeyValuePair<AllEnums.CountyResourceType, StorageHbox> keyValuePair in resourceStorageHboxDictionary)
+            {
+                if (keyValuePair.Value.resourceData.perishable)
+                {
+                    keyValuePair.Value.maxAmountSpinBox.MaxValue = keyValuePair.Value.maxAmountSpinBox.Value
+                            + int.Parse(currentPerishableAvailableLabel.Text);
+                }
+                else
+                {
+                    keyValuePair.Value.maxAmountSpinBox.MaxValue = keyValuePair.Value.maxAmountSpinBox.Value
+                            + int.Parse(currentNonperishableAvailableLabel.Text);
+                }
+            }
         }
 
-
-        public void UpdateCountyAvailableStorage()
+        // This one needs to keep the perishable vs nonperishable.
+        public void UpdateCountyAvailableStorageLabels()
         {
-            // This one needs to keep the perishable vs nonperishable.
-            CountyData countyData = Globals.Instance.SelectedLeftClickCounty.countyData;
             int totalUsedPerishableStorage = 0;
             int totalUsedNonperishableStorage = 0;
             foreach (KeyValuePair<AllEnums.CountyResourceType, StorageHbox> keyValuePair in resourceStorageHboxDictionary)
@@ -158,51 +170,30 @@ namespace PlayerSpace
                 currentNonperishableAvailableLabel.Text = totalAvailableNonperishableStorage.ToString();
             }
         }
-
         // This has to be the problem!!
         private void UpdateEachHboxWithResource()
         {
             foreach (KeyValuePair<AllEnums.CountyResourceType, StorageHbox> keyValuePair in resourceStorageHboxDictionary)
             {
-                resourceStorageHboxDictionary[keyValuePair.Key].resourceData = countyData.resources[keyValuePair.Key];
-                //GD.Print("Update Each Type of Resource:" + resources[keyValuePair.Key].name);
-                resourceStorageHboxDictionary[keyValuePair.Key].resourceNameLabel.Text = $"{resourceStorageHboxDictionary[keyValuePair.Key].resourceData.name}:";
-                resourceStorageHboxDictionary[keyValuePair.Key].resourceAmountLabel.Text = resourceStorageHboxDictionary[keyValuePair.Key].resourceData.amount.ToString();
-                // Spinbox
-                if (resourceStorageHboxDictionary[keyValuePair.Key].resourceData.perishable)
-                {
-                    resourceStorageHboxDictionary[keyValuePair.Key].maxAmountSpinBox.MaxValue
-                        = countyData.perishableStorage / Globals.Instance.numberOfPerishableResources;
-                }
-                else
-                {
-                    resourceStorageHboxDictionary[keyValuePair.Key].maxAmountSpinBox.MaxValue
-                        = countyData.nonperishableStorage / Globals.Instance.numberOfNonperishableResources;
-                }
+                UpdateStorageHboxLabels(keyValuePair);
+                GD.Print(resourceStorageHboxDictionary[keyValuePair.Key].resourceData.MaxAmount);
+                resourceStorageHboxDictionary[keyValuePair.Key].maxAmountSpinBox.MaxValue
+                    = resourceStorageHboxDictionary[keyValuePair.Key].resourceData.MaxAmount;
                 resourceStorageHboxDictionary[keyValuePair.Key].maxAmountSpinBox.Value
                     = resourceStorageHboxDictionary[keyValuePair.Key].resourceData.MaxAmount;
             }
         }
 
-        // This one needs to differentiate between perishable and nonperishable.
-        // It needs to get the label amount so that the player can add more to the spinbox.
-        private void UpdateSpinBoxMaxValuePlusLabel(
-            Godot.Collections.Dictionary<AllEnums.CountyResourceType, StorageHbox> storageHboxes)
+
+        private void UpdateStorageHboxLabels(KeyValuePair<AllEnums.CountyResourceType, StorageHbox> keyValuePair)
         {
-            foreach (KeyValuePair<AllEnums.CountyResourceType, StorageHbox> keyValuePair in storageHboxes)
-            {
-                if (keyValuePair.Value.resourceData.perishable)
-                {
-                    keyValuePair.Value.maxAmountSpinBox.MaxValue = keyValuePair.Value.maxAmountSpinBox.Value
-                            + int.Parse(currentPerishableAvailableLabel.Text);
-                }
-                else
-                {
-                    keyValuePair.Value.maxAmountSpinBox.MaxValue = keyValuePair.Value.maxAmountSpinBox.Value
-                            + int.Parse(currentNonperishableAvailableLabel.Text);
-                }
-            }
+            resourceStorageHboxDictionary[keyValuePair.Key].resourceData = countyData.resources[keyValuePair.Key];
+            //GD.Print("Update Storage Hbox Labels Resource:" + countyData.resources[keyValuePair.Key].name);
+            resourceStorageHboxDictionary[keyValuePair.Key].resourceNameLabel.Text = $"{resourceStorageHboxDictionary[keyValuePair.Key].resourceData.name}:";
+            resourceStorageHboxDictionary[keyValuePair.Key].resourceAmountLabel.Text = resourceStorageHboxDictionary[keyValuePair.Key].resourceData.amount.ToString();
         }
+
+
 
         private void CloseButtonPressed()
         {

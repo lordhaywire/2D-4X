@@ -2,13 +2,12 @@
 
 [ext_resource type="Script" path="res://Scripts/UI/StorageHbox.cs" id="1_j0r4g"]
 
-[node name="Storage HBoxContainer" type="HBoxContainer" node_paths=PackedStringArray("resourceNameLabel", "resourceAmountLabel", "resourceMaxAmountLabel", "maxAmountSpinBox")]
+[node name="Storage HBoxContainer" type="HBoxContainer" node_paths=PackedStringArray("resourceNameLabel", "resourceAmountLabel", "maxAmountSpinBox")]
 custom_minimum_size = Vector2(50, 0)
 alignment = 1
 script = ExtResource("1_j0r4g")
 resourceNameLabel = NodePath("Resource Name Label")
 resourceAmountLabel = NodePath("Current Amount Label")
-resourceMaxAmountLabel = NodePath("")
 maxAmountSpinBox = NodePath("Max Amount SpinBox")
 
 [node name="Resource Name Label" type="Label" parent="."]
