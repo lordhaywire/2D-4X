@@ -1,7 +1,6 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 
 namespace PlayerSpace
 {
@@ -17,10 +16,9 @@ namespace PlayerSpace
 
         private County county;
 
-        public void WorkDayOverForPopulation(County county)
+        public static void WorkDayOverForPopulation(County county)
         {
             Activities activities = new();
-            Banker banker = new();
 
             foreach (CountyPopulation countyPopulation in county.countyData.countyPopulationList)
             {
@@ -28,7 +26,7 @@ namespace PlayerSpace
                 {
                     case AllEnums.Activities.Scavenge:
                         GD.Print($"{countyPopulation.firstName} is generating scavenged resources.");
-                        banker.GenerateScavengedResources(county, countyPopulation);
+                        Banker.GenerateScavengedResources(county, countyPopulation);
                         activities.UpdateCurrent(countyPopulation, AllEnums.Activities.Idle);
                         break;
                     case AllEnums.Activities.Build:
@@ -37,43 +35,54 @@ namespace PlayerSpace
                         break;
                     case AllEnums.Activities.Work:
                         // Produce resources based on the countyimprovement
-                        //countybanker.GenerateWorkResourceWithSkillCheck()
+                        county.countyData.resources[countyPopulation.CurrentWork.resourceData.countyResourceType].amount +=
+                            Banker.GenerateWorkResourceWithSkillCheck(countyPopulation.CurrentWork
+                            , countyPopulation.skills[countyPopulation.CurrentWork.workSkill].skillLevel);
+                        GD.Print($"{countyPopulation.firstName} worked at {countyPopulation.CurrentWork.improvementName}" +
+                            $" and now {county.countyData.countyName} has " +
+                            $"{county.countyData.resources[countyPopulation.CurrentWork.resourceData.countyResourceType].amount}");
                         // Check loyalty to see if they still want to work there and if they don't then they
                         // get set to idle.
+                        KeepWorkingAtCountyImprovement(countyPopulation);
                         break;
                     case AllEnums.Activities.Idle:
                         // Give idle people their bonus happiness.
+                        countyPopulation.AddRandomHappiness();
                         break;
                 }
             }
-            GD.Print($"{county.countyData.countyName}: Work Day Over For Population.");
+            GD.PrintRich($"[rainbow]{county.countyData.countyName}: Work Day Over For Population.");
         }
 
-        private void CompleteConstruction(CountyPopulation countyPopulation)
+        private static void KeepWorkingAtCountyImprovement(CountyPopulation countyPopulation)
+        {
+            if (CheckLoyaltyWithSkillCheck(countyPopulation) != true)
+            {
+                countyPopulation.currentActivity = AllEnums.Activities.Idle;
+            }
+        }
+        private static void CompleteConstruction(CountyPopulation countyPopulation)
         {
             SkillData skillData = new();
             if (skillData.Check(countyPopulation.skills[AllEnums.Skills.Construction].skillLevel))
             {
-                countyPopulation.CurrentConstruction.currentAmountOfConstruction 
+                countyPopulation.CurrentConstruction.CurrentAmountOfConstruction
                     += Globals.Instance.dailyConstructionAmount + Globals.Instance.dailyConstructionAmountBonus;
             }
             else
             {
-                countyPopulation.CurrentConstruction.currentAmountOfConstruction 
+                countyPopulation.CurrentConstruction.CurrentAmountOfConstruction
                     += Globals.Instance.dailyConstructionAmount;
             }
         }
-
-
 
         // Goes through all the population and adds a set number to research.
         // It should check what they are doing and try to add that research then if they aren't doing anything
         // it should add to a random research that isn't done yet.
         // Don't forget about idle heroes researching other things.
-        public void PopulationResearch(County county)
+        public static void PopulationResearch(County county)
         {
             List<ResearchItemData> researchableResearch = [];
-            Banker banker = new();
 
             // Get a list of all the research that isn't done.
             foreach (ResearchItemData researchItemData in county.countyData.factionData.researchItems)
@@ -109,8 +118,8 @@ namespace PlayerSpace
                 }
 
                 // Have the banker add the research to the research.
-                banker.AddResearchAmount(whatPopulationIsResearching, Globals.Instance.populationResearchIncrease);
-                banker.IncreaseResearchAmountBonus(countyPopulation, whatPopulationIsResearching, Globals.Instance.populationResearchBonus);
+                Banker.AddResearchAmount(whatPopulationIsResearching, Globals.Instance.populationResearchIncrease);
+                Banker.IncreaseResearchAmountBonus(countyPopulation, whatPopulationIsResearching, Globals.Instance.populationResearchBonus);
             }
         }
         // This is now a dumb name for this method.
@@ -124,7 +133,7 @@ namespace PlayerSpace
             // This needs to be at the start of the day - Produce other items based on countyimprovement such as extra storage.
 
             CheckForIdle();
-            
+
             CheckForPreferredWork();
             CheckForAnyWork();
             CheckForConstruction();
@@ -268,9 +277,20 @@ namespace PlayerSpace
             workersToRemove.Clear();
         }
 
+        // This should be moved to the Resource that Loyalty will be part of once we figure out
+        // what catagory Loyalty is.  For example, it isn't a skill, or a perk.
+        private static bool CheckLoyaltyWithSkillCheck(CountyPopulation countyPopulation)
+        {
+            SkillData skillData = new();
+            if (skillData.Check(countyPopulation.LoyaltyAdjusted))
+            {
+                return true;
+            }
+            return false;
+        }
         private bool CheckLoyalty(CountyPopulation countyPopulation)
         {
-            if (countyPopulation.loyaltyAttribute >= willWorkLoyalty)
+            if (countyPopulation.LoyaltyAdjusted >= willWorkLoyalty)
             {
                 return true;
             }

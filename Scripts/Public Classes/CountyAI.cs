@@ -1,5 +1,5 @@
 using Godot;
-using PlayerSpace;
+using System;
 
 namespace PlayerSpace
 {
@@ -45,7 +45,20 @@ namespace PlayerSpace
             }
         }
 
-
+        public void CheckIfCountyImprovementsAreDone(CountyData countyData)
+        {
+            foreach (CountyImprovementData countyImprovementData in countyData.underConstructionCountyImprovements)
+            {
+                if (countyImprovementData.CheckIfCountyInprovementDone())
+                {
+                    foreach(CountyPopulation countyPopulation in countyImprovementData.countyPopulationAtImprovement)
+                    {
+                        Activities activities = new();
+                        activities.UpdateCurrent(countyPopulation, AllEnums.Activities.Idle);
+                    }
+                }
+            }
+        }
         public void BuildImprovement(CountyData countyData, CountyImprovementData countyImprovementData)
         {
             countyImprovementData.status = AllEnums.CountyImprovementStatus.UnderConstruction;
@@ -56,7 +69,7 @@ namespace PlayerSpace
         {
             foreach (CountyImprovementData countyImprovementData in county.countyData.allCountyImprovements)
             {
-                if (countyImprovementData.resourceData.factionResourceType == factionResourceType 
+                if (countyImprovementData.resourceData.factionResourceType == factionResourceType
                     && countyImprovementData.status == AllEnums.CountyImprovementStatus.None)
                 {
                     //GD.Print($"{factionData.factionName} found {improvementData.improvementName} in {countyDataItem.countyName}.");

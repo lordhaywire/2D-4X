@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 
 namespace PlayerSpace
@@ -15,7 +16,15 @@ namespace PlayerSpace
         [Export] public AllEnums.Skills workSkill;
         // We will eventually be adding resource costs as well.
         [Export] public int influenceCost;
-        [Export] public int currentAmountOfConstruction;
+        private int currentAmountOfCounstruction;
+        [Export] public int CurrentAmountOfConstruction
+        {
+            get { return currentAmountOfCounstruction; }
+            set
+            {
+                currentAmountOfCounstruction = Math.Min(value, maxAmountOfConstruction);
+            }
+        }
         [Export] public int maxAmountOfConstruction;
         [Export] public int currentBuilders;
         [Export] public int maxBuilders;
@@ -27,5 +36,14 @@ namespace PlayerSpace
 
         [Export] public AllEnums.CountyImprovementStatus status;
         public List<CountyPopulation> countyPopulationAtImprovement;
+
+        public bool CheckIfCountyInprovementDone()
+        {
+            if (CurrentAmountOfConstruction == maxAmountOfConstruction)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

@@ -206,7 +206,7 @@ namespace PlayerSpace
             charismaLabel.Text = countyPopulation.attributes[AllEnums.Attributes.Charisma].attributeLevel.ToString();
             looksLabel.Text = countyPopulation.attributes[AllEnums.Attributes.Looks].attributeLevel.ToString();
 
-            loyaltyAttributeLabel.Text = countyPopulation.loyaltyAttribute.ToString();
+            loyaltyAttributeLabel.Text = countyPopulation.LoyaltyAdjusted.ToString();
         }
 
         private void DisableUIElements()

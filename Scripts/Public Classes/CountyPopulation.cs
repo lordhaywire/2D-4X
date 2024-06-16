@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 namespace PlayerSpace
 {
@@ -40,10 +41,32 @@ namespace PlayerSpace
         [ExportGroup("Perks")]
         public Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks;
 
-        [ExportGroup("Token Expendables")]
+        [ExportGroup("Expendables")]
         public int moraleExpendable; // I think we are going to have to have this as leader morale or army morale or some shit.
-        public int loyaltyAttribute; // I think this needs to be renamed to an expendable.
+        private readonly int loyaltyBase;
+        private int loyaltyAdjusted;
+        public int LoyaltyAdjusted
+        {
+            get { return loyaltyAdjusted; }
+            set
+            {
+                // Make it so that loyaltyAdjusted can't go above 100.
+                loyaltyAdjusted = Math.Min(value, 100);
+            }
+        }
+        private int happiness;
 
+        public int Happiness
+        {
+            get { return happiness; }
+            set 
+            {
+                happiness = Math.Min(value, 100);
+                // Visual Studio says I can do this...Meaning I don't need the new AttributeData.
+                LoyaltyAdjusted = loyaltyBase + AttributeData.ApplyAttributeBonuses(value);
+                GD.Print($"{firstName} {lastName} loyalty adjusted: {LoyaltyAdjusted}");
+            }
+        }
         [ExportGroup("Attributes")]
         public Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes = [];
 
@@ -112,7 +135,6 @@ namespace PlayerSpace
                 {
                     activities.UpdateNext(this, AllEnums.Activities.Build);
                 }
-                
             }
         }
 
@@ -159,10 +181,17 @@ namespace PlayerSpace
             selectCounty.countyData.herosInCountyList.Remove(this);
         }
 
+        public void AddRandomHappiness()
+        {
+            Random random = new();
+            Happiness += random.Next(0, 4);
+            GD.Print($"{firstName} {lastName} happiness is now {Happiness}");
+        }
         public CountyPopulation(
             FactionData factionData, int location, int lastLocation, int destination, string firstName, string lastName
             , bool isMale, int age, bool isHero, bool isFactionLeader, bool isAide, bool IsArmyLeader, bool isWorker
-            , Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks, int moraleExpendable, int loyaltyAttribute
+            , Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks, int moraleExpendable
+            , int loyaltyBase, int loyaltyAdjusted, int Happiness
             , Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes
             , Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills
             , SkillData preferredSkill, AllEnums.Activities currentActivity, AllEnums.Activities nextActivity
@@ -189,7 +218,9 @@ namespace PlayerSpace
             this.perks = perks;
 
             this.moraleExpendable = moraleExpendable;
-            this.loyaltyAttribute = loyaltyAttribute;
+            this.loyaltyBase = loyaltyBase;
+            this.LoyaltyAdjusted = loyaltyAdjusted;
+            this.Happiness = Happiness;
             this.attributes = attributes;
 
             this.skills = skills;

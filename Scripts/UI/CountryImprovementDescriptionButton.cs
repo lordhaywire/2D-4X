@@ -58,7 +58,7 @@ namespace PlayerSpace
 				{
 					improvementInfluenceCostLabel.Hide();
 					underContructionLabel.Show();
-					improvementAmountOfConstructionLabel.Text = $"{countyImprovementData.currentAmountOfConstruction}/{countyImprovementData.maxAmountOfConstruction} Amount of Contruction";
+					improvementAmountOfConstructionLabel.Text = $"{countyImprovementData.CurrentAmountOfConstruction}/{countyImprovementData.maxAmountOfConstruction} Amount of Contruction";
 					improvementMaxBuildersLabel.Text = $"{countyImprovementData.currentBuilders}/{countyImprovementData.maxBuilders} Builders";
 				}
 				if (countyImprovementData.status == AllEnums.CountyImprovementStatus.Completed)

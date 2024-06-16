@@ -124,7 +124,7 @@ namespace PlayerSpace
 
         private static void UpdateAttributes(PopulationRowButton populationRow, CountyPopulation person)
         {
-            populationRow.loyaltyAttributeLabel.Text = $"{person.loyaltyAttribute}";
+            populationRow.loyaltyAttributeLabel.Text = $"{person.LoyaltyAdjusted}";
         }
         private static void UpdateSkills(PopulationRowButton populationRow, CountyPopulation person)
         {

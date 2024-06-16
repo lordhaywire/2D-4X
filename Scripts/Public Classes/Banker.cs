@@ -4,28 +4,27 @@ namespace PlayerSpace
 {
     public class Banker
     {
-        public void AddResearchAmount(ResearchItemData researchItemData, int amount)
+        public static void AddResearchAmount(ResearchItemData researchItemData, int amount)
         {
             researchItemData.AmountOfResearchDone += amount;
         }
 
-        // This should be updated with canned goods instead of vegetables.
-        public void GenerateScavengedResources(County county, CountyPopulation countyPopulation)
+        public static void GenerateScavengedResources(County county, CountyPopulation countyPopulation)
         {
             int randomResourceNumber = Globals.Instance.random.Next(0, 2);
             if (randomResourceNumber == 0)
             {
-                AddResourceToCounty(county, AllEnums.CountyResourceType.Vegetables, true
+                AddResourceToCounty(county, AllEnums.CountyResourceType.CannedFood
                     , GenerateScavengedResourceWithSkillCheck(countyPopulation.skills[AllEnums.Skills.Scavenge].skillLevel));
             }
             else
             {
-                AddResourceToCounty(county, AllEnums.CountyResourceType.Remnants, false
+                AddResourceToCounty(county, AllEnums.CountyResourceType.Remnants
                     , GenerateScavengedResourceWithSkillCheck(countyPopulation.skills[AllEnums.Skills.Scavenge].skillLevel));
             }
         }
 
-        public int GenerateWorkResourceWithSkillCheck(CountyImprovementData countyImprovementData, int skillLevel)
+        public static int GenerateWorkResourceWithSkillCheck(CountyImprovementData countyImprovementData, int skillLevel)
         {
             SkillData skillData = new();
             int amount;
@@ -40,7 +39,7 @@ namespace PlayerSpace
                 return amount;
             }
         }
-        public int GenerateScavengedResourceWithSkillCheck(int skillLevel)
+        public static int GenerateScavengedResourceWithSkillCheck(int skillLevel)
         {
             SkillData skillData = new();
             int amount;
@@ -56,7 +55,7 @@ namespace PlayerSpace
         }
 
         // This is weird.  We aren't rolling for a bonus amount?  Also why are we passing in the amount?
-        public void IncreaseResearchAmountBonus(CountyPopulation countyPopulation
+        public static void IncreaseResearchAmountBonus(CountyPopulation countyPopulation
             , ResearchItemData researchItemData, int amount)
         {
             SkillData skillData = new();
@@ -156,9 +155,8 @@ namespace PlayerSpace
             GD.Print($"Amount of Research Done: {countyPopulation.CurrentResearchItemData.AmountOfResearchDone}");
         }
 
-        public void AddResourceToCounty(County county, AllEnums.CountyResourceType countyResourceType, bool perishable, int amount)
+        public static void AddResourceToCounty(County county, AllEnums.CountyResourceType countyResourceType, int amount)
         {
-
             county.countyData.resources[countyResourceType].amount += amount;
             
             // Update the top bar if the player has a county selected.

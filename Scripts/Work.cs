@@ -5,22 +5,14 @@ namespace PlayerSpace
 {
     public class Work
     {
-        private readonly Banker banker = new();
-        private County county;
+        private readonly County county;
 
         // End work for all of the world population!        
-        private static void GiveIdlePeopleBonusHappiness()
-        {
-            GD.Print("Give Idle People Bonus Happyness.");
-        }
-
         // This is what we are probably getting rid of, sort of.
-        public void PopulationDailyResearch(CountyPopulation countPopulation, AllEnums.Skills skill)
+        public static void PopulationDailyResearch(CountyPopulation countPopulation, AllEnums.Skills skill)
         {
             GD.Print("Population Daily Research?  Are we using this?");
         }
-
-        
 
         // Go through everyone in this county again and clear out their job if their building is done.
         private void CheckConstructionComplete()

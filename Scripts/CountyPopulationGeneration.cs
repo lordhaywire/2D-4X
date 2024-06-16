@@ -20,7 +20,7 @@ namespace PlayerSpace
         [ExportGroup("For Population Generation")]
         [Export] private int startingAttributeMin = 21;
         [Export] private int startingAttributeMax = 81; // One above max.
-        [Export] private int startingSkillMin = 0;
+        [Export] private int startingSkillMin = 1;
         [Export] private int startingSkillMax = 51; // One above max.
         [Export] private int chanceOfBeingUnhelpful = 11; // One above max.
 
@@ -54,14 +54,15 @@ namespace PlayerSpace
             {
                 GenerateNameAndSex();  // This could probably be broken into two methods.
                 GenerateAttribute();
-                int loyaltyAttribute = random.Next(30, 101); // This is a temporary number.
+                int loyaltyBase = random.Next(31, 101); // This is a temporary number.
+                int happiness = random.Next(31, 101); // This is a temporary number.
 
                 if (hero == false)
                 {
                     // This is for the standard population.
                     countyData.countyPopulationList.Add(new CountyPopulation(countyData.factionData, countyData.countyId
                         , -1, -1, firstName, lastName, isMale, GenerateAge(), false, false, false, false, false
-                        , GeneratePopulationPerks(), GenerateExpendables(), loyaltyAttribute
+                        , GeneratePopulationPerks(), GenerateExpendables(), loyaltyBase, loyaltyBase, happiness
                         , newAttributes // We could change this just to the variable since it is now up at the top.
                         , GenerateSkillsList()
                         , preferredSkill
@@ -72,7 +73,7 @@ namespace PlayerSpace
                     // This is adding the Faction Leader.
                     countyData.herosInCountyList.Add(new CountyPopulation(countyData.factionData, countyData.countyId
                         , -1, -1, firstName, lastName, isMale, GenerateAge(), true, true, false, false, false
-                        , GenerateLeaderPerks(), GenerateExpendables(), loyaltyAttribute
+                        , GenerateLeaderPerks(), GenerateExpendables(), loyaltyBase, loyaltyBase, happiness
                         , newAttributes // We could change this just to the variable since is is now in the class declaration.
                         , GenerateSkillsList()
                         , preferredSkill

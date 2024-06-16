@@ -79,7 +79,7 @@ namespace PlayerSpace
                     }
                     else
                     {
-                        if (countyPopulation.loyaltyAttribute > Globals.Instance.loyaltyCheckNumber)
+                        if (countyPopulation.LoyaltyAdjusted > Globals.Instance.loyaltyCheckNumber)
                         {
                             countyPopulation.ChangeToArmy();
                             return countyPopulation;
@@ -101,7 +101,7 @@ namespace PlayerSpace
                     List<CountyPopulation> possibleDefenders = [];
                     foreach (CountyPopulation countyPopulation in battleLocation.countyData.countyPopulationList)
                     {
-                        if (countyPopulation.loyaltyAttribute > Globals.Instance.loyaltyCheckNumber)
+                        if (countyPopulation.LoyaltyAdjusted > Globals.Instance.loyaltyCheckNumber)
                         {
                             possibleDefenders.Add(countyPopulation);
                         }
