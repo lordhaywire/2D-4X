@@ -36,12 +36,8 @@ namespace PlayerSpace
 
             GD.Print("County Hour Zero.");
             countyAI.DecideBuildingCountyImprovements(this);
-            PopulationAI.WorkDayOverForPopulation(countyData.countyNode);
-            countyAI.CheckIfCountyImprovementsAreDone(countyData);
-            // We also need to set the county improvement status to Completed.
-            // We need to remove everyone from the county improvement who is working there list.
-            // We need to move the county improvement from the under construction list to the completed
-            // county improvement list.
+            PopulationAI.WorkDayOverForPopulation(this);
+            CountyAI.CheckIfCountyImprovementsAreDone(countyData);
 
             // Have population uses resources.
         }

@@ -70,7 +70,7 @@ namespace PlayerSpace
             int idleWorkers = 0;
             foreach (CountyPopulation person in county.countyData.countyPopulationList)
             {
-                if (person.currentActivity == AllEnums.Activities.Idle && person.nextActivity == AllEnums.Activities.Idle)
+                if (person.activity == AllEnums.Activities.Idle && person.nextActivity == AllEnums.Activities.Idle)
                 {
                     idleWorkers++;
                 }
@@ -126,7 +126,7 @@ namespace PlayerSpace
             // We have it go through all the heroes because heroes could be researching in other faction territories.
             foreach (CountyPopulation countyPopulation in factionData.allHeroesList)
             {
-                if (countyPopulation.currentActivity == AllEnums.Activities.Research)
+                if (countyPopulation.activity == AllEnums.Activities.Research)
                 {
                     SkillData skillData = new();
 

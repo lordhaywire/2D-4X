@@ -94,6 +94,12 @@ namespace PlayerSpace
                 }
             }
         }
+
+        public void MoveCountyImprovementToCompletedList(CountyImprovementData countyImprovementData)
+        {
+            completedCountyImprovements.Add(countyImprovementData);
+            underConstructionCountyImprovements.Remove(countyImprovementData);
+        }
     }
 }
 

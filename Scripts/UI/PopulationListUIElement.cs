@@ -88,7 +88,7 @@ namespace PlayerSpace
 
             // This sets their current activity then checks to see if Building, Work, or Research is null and if it isn't
             // then it adds where to the end of the label.  If they are all null then it puts nothing.
-            populationRow.currentActivityLabel.Text = activities.GetActivityName(countyPopulation.currentActivity);
+            populationRow.currentActivityLabel.Text = activities.GetActivityName(countyPopulation.activity);
             string currentWhere = countyPopulation.CurrentConstruction?.improvementName
                 ?? countyPopulation.CurrentWork?.improvementName
                 ?? countyPopulation.CurrentResearchItemData?.researchName

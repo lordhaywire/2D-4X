@@ -18,16 +18,14 @@ namespace PlayerSpace
 
         public static void WorkDayOverForPopulation(County county)
         {
-            Activities activities = new();
-
             foreach (CountyPopulation countyPopulation in county.countyData.countyPopulationList)
             {
-                switch (countyPopulation.currentActivity)
+                switch (countyPopulation.activity)
                 {
                     case AllEnums.Activities.Scavenge:
                         GD.Print($"{countyPopulation.firstName} is generating scavenged resources.");
                         Banker.GenerateScavengedResources(county, countyPopulation);
-                        activities.UpdateCurrent(countyPopulation, AllEnums.Activities.Idle);
+                        countyPopulation.UpdateActivity(AllEnums.Activities.Idle);
                         break;
                     case AllEnums.Activities.Build:
                         CompleteConstruction(countyPopulation);
@@ -58,7 +56,7 @@ namespace PlayerSpace
         {
             if (CheckLoyaltyWithSkillCheck(countyPopulation) != true)
             {
-                countyPopulation.currentActivity = AllEnums.Activities.Idle;
+                countyPopulation.UpdateActivity(AllEnums.Activities.Idle);
             }
         }
         private static void CompleteConstruction(CountyPopulation countyPopulation)
@@ -173,7 +171,7 @@ namespace PlayerSpace
             {
                 PerkData perkData = new();
                 // Go through everyone and if they are idle, helpful and loyal add them to the possibleWorkers list.
-                if (countyPopulation.currentActivity == AllEnums.Activities.Idle
+                if (countyPopulation.activity == AllEnums.Activities.Idle
                     && CheckLoyalty(countyPopulation) == true
                     && perkData.CheckForPerk(countyPopulation, AllEnums.Perks.Unhelpful) == false)
                 {

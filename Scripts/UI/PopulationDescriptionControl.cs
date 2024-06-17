@@ -109,11 +109,11 @@ namespace PlayerSpace
 
             if (countyPopulation.CurrentConstruction != null)
             {
-                currentActivityLabel.Text = $"{countyPopulation.currentActivity} {countyPopulation.CurrentConstruction.improvementName}";
+                currentActivityLabel.Text = $"{countyPopulation.activity} {countyPopulation.CurrentConstruction.improvementName}";
             }
             else
             {
-                currentActivityLabel.Text = $"{countyPopulation.currentActivity}";
+                currentActivityLabel.Text = $"{countyPopulation.activity}";
             }
             if (countyPopulation.NextConstruction != null)
             {

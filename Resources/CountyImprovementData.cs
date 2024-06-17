@@ -45,5 +45,15 @@ namespace PlayerSpace
             }
             return false;
         }
+
+        public void RemovePopulationFromCountyImprovementList(CountyPopulation countyPopulation)
+        {
+            countyPopulationAtImprovement.Remove(countyPopulation);
+        }
+
+        public void SetCountyImprovementComplete()
+        {
+            status = AllEnums.CountyImprovementStatus.Complete;
+        }
     }
 }

@@ -27,7 +27,7 @@ namespace PlayerSpace
         public enum CountyImprovementStatus
         {
             None,
-            Completed,
+            Complete,
             UnderConstruction,
         }
         public enum CountyResourceType

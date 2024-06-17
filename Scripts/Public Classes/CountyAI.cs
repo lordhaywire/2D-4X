@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 namespace PlayerSpace
 {
@@ -45,20 +44,29 @@ namespace PlayerSpace
             }
         }
 
-        public void CheckIfCountyImprovementsAreDone(CountyData countyData)
+        public static void CheckIfCountyImprovementsAreDone(CountyData countyData)
         {
             foreach (CountyImprovementData countyImprovementData in countyData.underConstructionCountyImprovements)
             {
+                // If the county improvement is done, make everyone working on it idle.
+                // Set their current work to null.
                 if (countyImprovementData.CheckIfCountyInprovementDone())
                 {
                     foreach(CountyPopulation countyPopulation in countyImprovementData.countyPopulationAtImprovement)
                     {
-                        Activities activities = new();
-                        activities.UpdateCurrent(countyPopulation, AllEnums.Activities.Idle);
+                        countyPopulation.UpdateActivity(AllEnums.Activities.Idle);
+                        countyPopulation.UpdateCurrentWork(null);
                     }
+                    // Set countyImprovement status to Complete
+                    countyImprovementData.SetCountyImprovementComplete();
+                    // Clear the people on the county improvement list.
+                    countyImprovementData.countyPopulationAtImprovement.Clear();
+                    // Move the county improvement to the correct list and remove it from the old list.
+                    countyData.MoveCountyImprovementToCompletedList(countyImprovementData);
                 }
             }
         }
+
         public void BuildImprovement(CountyData countyData, CountyImprovementData countyImprovementData)
         {
             countyImprovementData.status = AllEnums.CountyImprovementStatus.UnderConstruction;

@@ -22,7 +22,7 @@ namespace PlayerSpace
             foreach (CountyPopulation countyPopulation in county.countyData.countyPopulationList)
             {
                 // ? is null checking currentImprovement.
-                if (countyPopulation.CurrentConstruction?.status == AllEnums.CountyImprovementStatus.Completed)
+                if (countyPopulation.CurrentConstruction?.status == AllEnums.CountyImprovementStatus.Complete)
                 {
                     Activities activities = new();
                     countyPopulation.CurrentConstruction = null;

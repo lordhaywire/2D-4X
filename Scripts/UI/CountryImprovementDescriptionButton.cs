@@ -45,7 +45,7 @@ namespace PlayerSpace
 				}
 				// We can get rid of this since we can have multiple of the same building.
 				if (countyImprovementData.status == AllEnums.CountyImprovementStatus.UnderConstruction
-					|| countyImprovementData.status == AllEnums.CountyImprovementStatus.Completed)
+					|| countyImprovementData.status == AllEnums.CountyImprovementStatus.Complete)
 				{
 					buildingButton.Disabled = true;
 				}
@@ -61,7 +61,7 @@ namespace PlayerSpace
 					improvementAmountOfConstructionLabel.Text = $"{countyImprovementData.CurrentAmountOfConstruction}/{countyImprovementData.maxAmountOfConstruction} Amount of Contruction";
 					improvementMaxBuildersLabel.Text = $"{countyImprovementData.currentBuilders}/{countyImprovementData.maxBuilders} Builders";
 				}
-				if (countyImprovementData.status == AllEnums.CountyImprovementStatus.Completed)
+				if (countyImprovementData.status == AllEnums.CountyImprovementStatus.Complete)
 				{
 					improvementMaxBuildersLabel.Text = $"{countyImprovementData.currentWorkers}/{countyImprovementData.maxWorkers} Workers";
 					improvementAmountOfConstructionLabel.Hide();

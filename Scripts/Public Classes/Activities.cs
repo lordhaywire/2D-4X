@@ -11,7 +11,7 @@ namespace PlayerSpace
 
         public void UpdateCurrent(CountyPopulation countyPopulation, AllEnums.Activities activity)
         {
-            countyPopulation.currentActivity = activity;
+            countyPopulation.activity = activity;
         }
 
         public string GetActivityName(AllEnums.Activities activity)

@@ -62,7 +62,6 @@ namespace PlayerSpace
             set 
             {
                 happiness = Math.Min(value, 100);
-                // Visual Studio says I can do this...Meaning I don't need the new AttributeData.
                 LoyaltyAdjusted = loyaltyBase + AttributeData.ApplyAttributeBonuses(value);
                 GD.Print($"{firstName} {lastName} loyalty adjusted: {LoyaltyAdjusted}");
             }
@@ -75,7 +74,7 @@ namespace PlayerSpace
         public SkillData preferredSkill;
 
         [ExportGroup("Work")]
-        public AllEnums.Activities currentActivity;
+        public AllEnums.Activities activity;
         public AllEnums.Activities nextActivity;
         private CountyImprovementData currentWork;
 
@@ -180,7 +179,16 @@ namespace PlayerSpace
             selectCounty.countyData.armiesInCountyList.Add(this);
             selectCounty.countyData.herosInCountyList.Remove(this);
         }
-
+        public void UpdateActivity(AllEnums.Activities activity)
+        {
+            this.activity = activity;
+        }
+        
+        public void UpdateCurrentWork(CountyImprovementData countyImprovementData)
+        {
+            currentWork = countyImprovementData;
+        }
+        
         public void AddRandomHappiness()
         {
             Random random = new();
@@ -226,7 +234,7 @@ namespace PlayerSpace
             this.skills = skills;
             this.preferredSkill = preferredSkill;
 
-            this.currentActivity = currentActivity;
+            this.activity = currentActivity;
             this.nextActivity = nextActivity;
             this.CurrentWork = CurrentWork;
             this.NextWork = NextWork;
