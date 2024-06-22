@@ -12,6 +12,7 @@ namespace PlayerSpace
             Scavenge,
             Work,
         }
+
         public enum Attributes
         {
             Agility,
@@ -80,7 +81,6 @@ namespace PlayerSpace
             Rifle,
             Scavenge,
         }
-
 
         public enum Terrain
         {

@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_ag1o6")
 name = "Canned Food"
+description = ""
 countyResourceType = 0
-factionResourceType = 0
+factionResourceType = 1
 perishable = false

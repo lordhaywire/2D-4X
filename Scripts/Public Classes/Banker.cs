@@ -9,6 +9,16 @@ namespace PlayerSpace
             researchItemData.AmountOfResearchDone += amount;
         }
 
+        // This includes the armies in the county, but it only works while the army is one person.
+        public static int CountEveryoneInCounty(CountyData countyData)
+        {
+            int numberOfPeople = countyData.countyPopulationList.Count()
+                + countyData.herosInCountyList.Count() + countyData.visitingHeroList.Count()
+                + countyData.armiesInCountyList.Count();
+            GD.Print($"{countyData.countyName} has {numberOfPeople}");
+            return numberOfPeople;
+        }
+
         public static void GenerateScavengedResources(County county, CountyPopulation countyPopulation)
         {
             int randomResourceNumber = Globals.Instance.random.Next(0, 2);
@@ -89,10 +99,23 @@ namespace PlayerSpace
             TopBarControl.Instance.UpdateTopBarWithCountyResources();
         }
 
-        public static int CountFactionResourceOfType(County county, AllEnums.FactionResourceType type)
+        // This is currently unused.
+        public static int CountCountyResourceOfType(CountyData countyData, AllEnums.CountyResourceType resourceType)
         {
             int amount = 0;
-            foreach (ResourceData resourceData in county.countyData.resources.Values)
+            foreach (ResourceData resourceData in countyData.resources.Values)
+            {
+                if (resourceData.countyResourceType == resourceType)
+                {
+                    amount += resourceData.amount;
+                }
+            }
+            return amount;
+        }
+        public static int CountFactionResourceOfType(CountyData countyData, AllEnums.FactionResourceType type)
+        {
+            int amount = 0;
+            foreach (ResourceData resourceData in countyData.resources.Values)
             {
                 if (resourceData.factionResourceType == type)
                 {
@@ -158,7 +181,7 @@ namespace PlayerSpace
         public static void AddResourceToCounty(County county, AllEnums.CountyResourceType countyResourceType, int amount)
         {
             county.countyData.resources[countyResourceType].amount += amount;
-            
+
             // Update the top bar if the player has a county selected.
             if (Globals.Instance.SelectedLeftClickCounty == county)
             {
@@ -186,7 +209,7 @@ namespace PlayerSpace
         // This needs to be checking county level food.
         public bool CheckEnoughCountyFactionResource(County county, AllEnums.FactionResourceType resource)
         {
-            int amountOfFood = CountFactionResourceOfType(county, resource);
+            int amountOfFood = CountFactionResourceOfType(county.countyData, resource);
             return amountOfFood >= Globals.Instance.minimumFood;
         }
     }

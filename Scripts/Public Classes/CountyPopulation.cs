@@ -42,6 +42,7 @@ namespace PlayerSpace
         public Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks;
 
         [ExportGroup("Expendables")]
+        public int hitpoints;
         public int moraleExpendable; // I think we are going to have to have this as leader morale or army morale or some shit.
         private readonly int loyaltyBase;
         private int loyaltyAdjusted;
@@ -163,7 +164,6 @@ namespace PlayerSpace
                 {
                     ResearchControl.Instance.CheckForResearchers();
                 }
-                
             }
         }
 
@@ -198,11 +198,11 @@ namespace PlayerSpace
         public CountyPopulation(
             FactionData factionData, int location, int lastLocation, int destination, string firstName, string lastName
             , bool isMale, int age, bool isHero, bool isFactionLeader, bool isAide, bool IsArmyLeader, bool isWorker
-            , Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks, int moraleExpendable
-            , int loyaltyBase, int loyaltyAdjusted, int Happiness
+            , Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks, int hitpoints, int moraleExpendable
+            , int loyaltyBase, int LoyaltyAdjusted, int Happiness
             , Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes
             , Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills
-            , SkillData preferredSkill, AllEnums.Activities currentActivity, AllEnums.Activities nextActivity
+            , SkillData preferredSkill, AllEnums.Activities activity, AllEnums.Activities nextActivity
             , CountyImprovementData CurrentWork
             , CountyImprovementData NextWork
             , CountyImprovementData CurrentConstruction, CountyImprovementData NextConstruction
@@ -225,16 +225,17 @@ namespace PlayerSpace
 
             this.perks = perks;
 
+            this.hitpoints = hitpoints;
             this.moraleExpendable = moraleExpendable;
             this.loyaltyBase = loyaltyBase;
-            this.LoyaltyAdjusted = loyaltyAdjusted;
+            this.LoyaltyAdjusted = LoyaltyAdjusted;
             this.Happiness = Happiness;
             this.attributes = attributes;
 
             this.skills = skills;
             this.preferredSkill = preferredSkill;
 
-            this.activity = currentActivity;
+            this.activity = activity;
             this.nextActivity = nextActivity;
             this.CurrentWork = CurrentWork;
             this.NextWork = NextWork;

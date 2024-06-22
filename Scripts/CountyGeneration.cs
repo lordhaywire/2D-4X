@@ -48,6 +48,8 @@ namespace PlayerSpace
             {
                 AllEnums.CountyResourceType key = resource.countyResourceType;
                 county.countyData.resources[key] = (ResourceData)resource.Duplicate();
+                // This is just for testing.
+                county.countyData.resources[key].amount = 4;
             }
 
             SetInitialMaxStorage(county, county.countyData.resources);

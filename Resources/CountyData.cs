@@ -78,7 +78,7 @@ namespace PlayerSpace
             CountySelected?.Invoke(isSelected);
         }
 
-        private int idleWorkers;
+        int idleWorkers;
 
         public int IdleWorkers
         {
@@ -87,12 +87,108 @@ namespace PlayerSpace
             {
                 idleWorkers = value;
                 GD.Print("Idle workers: " + idleWorkers);
-                if(Globals.Instance.SelectedLeftClickCounty?.countyData == this)
+                if (Globals.Instance.SelectedLeftClickCounty?.countyData == this)
                 {
                     CountyInfoControl.Instance.UpdateIdleWorkersLabel();
                     GD.Print("Why didn't you update?! " + idleWorkers);
                 }
             }
+        }
+
+        private FoodLists
+            GetListsOfFood()
+        {
+            List<ResourceData> perishableFoodList = [];
+            List<ResourceData> nonperishableFoodList = [];
+            foreach (ResourceData resourceData in resources.Values)
+            {
+                if (resourceData.factionResourceType == AllEnums.FactionResourceType.Food
+                    && resourceData.perishable == true)
+                {
+                    perishableFoodList.Add(resourceData);
+                }
+                else
+                {
+                    nonperishableFoodList.Add(resourceData);
+                }
+            }
+            FoodLists foodlists = new()
+            {
+                perishableFoodList = perishableFoodList,
+                nonperishableFoodList = nonperishableFoodList
+            };
+            return foodlists;
+        }
+
+        public class FoodLists
+        {
+            public List<ResourceData> perishableFoodList = [];
+            public List<ResourceData> nonperishableFoodList = [];
+        }
+        public void PopulationEatsFood(Globals.ListWithNotify<CountyPopulation> countyPopulationList, int amount)
+        {
+            Random random = new();
+            FoodLists foodLists = GetListsOfFood();
+            foreach (CountyPopulation countyPopulation in countyPopulationList)
+            {
+                if (foodLists.perishableFoodList.Count > 0)
+                {
+                    int randomNumber = random.Next(0, foodLists.perishableFoodList.Count);
+                    // If the amount of food left is greater then zero they eat something.
+                    if (foodLists.perishableFoodList[randomNumber].amount > 1)
+                    {
+                        foodLists.perishableFoodList[randomNumber].amount -= amount;
+                        GD.Print($"{countyPopulation.firstName} {countyPopulation.lastName} ate {amount}" +
+                            $" now that county has {foodLists.perishableFoodList[randomNumber].amount}");
+                    }
+                    // Person eats first, then the food is removed from the list.
+                    else
+                    {
+                        foodLists.perishableFoodList[randomNumber].amount -= amount;
+                        GD.Print($"{countyPopulation.firstName} {countyPopulation.lastName} ate {amount}" +
+                            $"now that county has {foodLists.perishableFoodList[randomNumber].amount}");
+                        foodLists.perishableFoodList.Remove(foodLists.perishableFoodList[randomNumber]);
+                    }
+                }
+                else if (foodLists.nonperishableFoodList.Count > 0)
+                {
+                    int randomNumber = random.Next(0, foodLists.nonperishableFoodList.Count);
+                    // If the amount of food left is greater then zero they eat something.
+                    if (foodLists.nonperishableFoodList[randomNumber].amount > 1)
+                    {
+                        foodLists.nonperishableFoodList[randomNumber].amount -= amount;
+                        GD.Print($"{countyPopulation.firstName} {countyPopulation.lastName} ate {amount}" +
+                            $"now that county has {foodLists.nonperishableFoodList[randomNumber].amount}");
+                    }
+                    // Person eats first, then the food is removed from the list.
+                    else
+                    {
+                        foodLists.nonperishableFoodList[randomNumber].amount -= amount;
+                        GD.Print($"{countyPopulation.firstName} {countyPopulation.lastName} ate {amount}" +
+                            $"now that county has {foodLists.nonperishableFoodList[randomNumber].amount}");
+                        foodLists.nonperishableFoodList.Remove(foodLists.nonperishableFoodList[randomNumber]);
+                    }
+                }
+                else
+                {
+                    GD.PrintRich($"[rainbow]There is no food at all!");
+                }
+                AdjustPopulationHappiness(amount, countyPopulation);
+            }
+        }
+
+        private static void AdjustPopulationHappiness(int amount, CountyPopulation countyPopulation)
+        {
+            GD.Print($"{countyPopulation.firstName} happiness: {countyPopulation.Happiness}");
+            if (amount == Globals.Instance.foodToGainHappiness)
+            {
+                countyPopulation.Happiness++;
+            }
+            else if (amount == Globals.Instance.foodToLoseHappiness)
+            {
+                countyPopulation.Happiness--;
+            }
+            GD.Print($"{countyPopulation.firstName} happiness: {countyPopulation.Happiness}");
         }
 
         public void MoveCountyImprovementToCompletedList(CountyImprovementData countyImprovementData)

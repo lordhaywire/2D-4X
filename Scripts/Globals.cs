@@ -31,7 +31,7 @@ namespace PlayerSpace
 
         [ExportGroup("Selected Items")]
         [Export] public int selectedCountyId = -1;
-        [Export] private County selectedLeftClickCounty;
+        [Export] County selectedLeftClickCounty;
 
         public County SelectedLeftClickCounty
         {
@@ -90,6 +90,10 @@ namespace PlayerSpace
         [Export] public int dailyScavengedAmountBonus = 1;
         [Export] public int dailyConstructionAmount = 5;
         [Export] public int dailyConstructionAmountBonus = 2;
+        [Export] public int foodToGainHappiness = 3;
+        [Export] public int foodToGainNothing = 2;
+        [Export] public int foodToLoseHappiness = 1;
+        [Export] public int daysUntilDamageFromStarvation = 15;
 
         [ExportGroup("Population Shit")]
         [Export] public PackedScene heroToken;
@@ -100,6 +104,7 @@ namespace PlayerSpace
         [Export] public int costOfHero;
         [Export] public int loyaltyCheckNumber = 50;
 
+        [Export] public int startingHitPoints = 10;
         [Export] public int maxLearningNeeded = 10;
         [Export] public int combatSkillLearningNeeded = 100;
         [Export] public int maxXPRoll = 5; // One above max.

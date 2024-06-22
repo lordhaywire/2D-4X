@@ -62,7 +62,7 @@ namespace PlayerSpace
                     // This is for the standard population.
                     countyData.countyPopulationList.Add(new CountyPopulation(countyData.factionData, countyData.countyId
                         , -1, -1, firstName, lastName, isMale, GenerateAge(), false, false, false, false, false
-                        , GeneratePopulationPerks(), GenerateExpendables(), loyaltyBase, loyaltyBase, happiness
+                        , GeneratePopulationPerks(), Globals.Instance.startingHitPoints, GenerateExpendables(), loyaltyBase, loyaltyBase, happiness
                         , newAttributes // We could change this just to the variable since it is now up at the top.
                         , GenerateSkillsList()
                         , preferredSkill
@@ -73,7 +73,7 @@ namespace PlayerSpace
                     // This is adding the Faction Leader.
                     countyData.herosInCountyList.Add(new CountyPopulation(countyData.factionData, countyData.countyId
                         , -1, -1, firstName, lastName, isMale, GenerateAge(), true, true, false, false, false
-                        , GenerateLeaderPerks(), GenerateExpendables(), loyaltyBase, loyaltyBase, happiness
+                        , GenerateLeaderPerks(), Globals.Instance.startingHitPoints, GenerateExpendables(), loyaltyBase, loyaltyBase, happiness
                         , newAttributes // We could change this just to the variable since is is now in the class declaration.
                         , GenerateSkillsList()
                         , preferredSkill
@@ -125,9 +125,9 @@ namespace PlayerSpace
             return newAttributes;
         }
 
+        // This doesn't seem that useful.
         private static int GenerateExpendables()
         {
-            // Generate random stats for each population.
             int moraleExpendable = 100;
             return moraleExpendable;
         }

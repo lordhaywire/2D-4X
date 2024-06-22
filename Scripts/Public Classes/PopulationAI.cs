@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace PlayerSpace
 {
@@ -15,6 +16,52 @@ namespace PlayerSpace
         private readonly List<CountyPopulation> workersToRemove = []; // List to collect county populations to be removed from the possibleWorkers.
 
         private County county;
+
+        public static void IsThereEnoughFood(CountyData countyData)
+        {
+            int amountOfFood = Banker.CountFactionResourceOfType(countyData, AllEnums.FactionResourceType.Food);
+            int amountOfPeople = Banker.CountEveryoneInCounty(countyData);
+            if (amountOfFood >= (Globals.Instance.foodToGainHappiness * amountOfPeople))
+            {
+                // Happiness is added when the people eat the food.
+                countyData.PopulationEatsFood(countyData.herosInCountyList,
+                    Globals.Instance.foodToGainHappiness);
+                countyData.PopulationEatsFood(countyData.armiesInCountyList,
+                    Globals.Instance.foodToGainHappiness);
+                countyData.PopulationEatsFood(countyData.countyPopulationList,
+                    Globals.Instance.foodToGainHappiness);
+            }
+            else if (amountOfFood >= (Globals.Instance.foodToGainNothing * amountOfPeople))
+            {
+                GD.Print("People get jack shit for happiness.");
+                // Happiness is added when the people eat the food.
+
+                countyData.PopulationEatsFood(countyData.herosInCountyList,
+                    Globals.Instance.foodToGainNothing);
+                countyData.PopulationEatsFood(countyData.armiesInCountyList,
+                    Globals.Instance.foodToGainNothing);
+                countyData.PopulationEatsFood(countyData.countyPopulationList,
+                    Globals.Instance.foodToGainNothing);
+            }
+            else if (amountOfFood >= amountOfPeople)
+            {
+                // Happiness is removed when the people eat the food.
+                countyData.PopulationEatsFood(countyData.herosInCountyList,
+                    Globals.Instance.foodToLoseHappiness);
+                countyData.PopulationEatsFood(countyData.armiesInCountyList,
+                    Globals.Instance.foodToLoseHappiness);
+                countyData.PopulationEatsFood(countyData.countyPopulationList,
+                    Globals.Instance.foodToLoseHappiness);
+            }
+            else
+            {
+                GD.PrintRich($"[rainbow]Everyone is starving!!");
+                // People should eat the leftover food.
+                // Whoever has been starving the longest should eat the leftover food first.
+                // Everyone loses happiness - This will need to be a number in globals so we can adjust balance.
+                // Everyone starts taking damage.
+            }
+        }
 
         public static void WorkDayOverForPopulation(County county)
         {

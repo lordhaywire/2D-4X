@@ -37,6 +37,7 @@ namespace PlayerSpace
             GD.Print("County Hour Zero.");
             countyAI.DecideBuildingCountyImprovements(this);
             PopulationAI.WorkDayOverForPopulation(this);
+            PopulationAI.IsThereEnoughFood(countyData);
             CountyAI.CheckIfCountyImprovementsAreDone(countyData);
 
             // Have population uses resources.

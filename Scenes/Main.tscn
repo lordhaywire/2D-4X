@@ -1102,9 +1102,15 @@ text = "Activity
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Population Row Button" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer" node_paths=PackedStringArray("skillLabels") instance=ExtResource("30_bhu5o")]
+[node name="Population Row Button" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer" node_paths=PackedStringArray("populationNameLabel", "ageLabel", "sexLabel", "UnhelpfulLabel", "loyaltyAttributeLabel", "skillLabels", "currentActivityLabel") instance=ExtResource("30_bhu5o")]
 layout_mode = 2
+populationNameLabel = NodePath("Population Row HBoxContainer/Name Label")
+ageLabel = NodePath("Population Row HBoxContainer/Age Label")
+sexLabel = NodePath("Population Row HBoxContainer/Sex Label")
+UnhelpfulLabel = NodePath("Population Row HBoxContainer/Unhelpful Label")
+loyaltyAttributeLabel = NodePath("Population Row HBoxContainer/Loyalty Attribute Label")
 skillLabels = []
+currentActivityLabel = NodePath("Population Row HBoxContainer/Current Activity Label")
 
 [node name="Close Button" type="Button" parent="Player UI Canvas/Population List MarginContainer"]
 custom_minimum_size = Vector2(75, 50)
@@ -1917,17 +1923,26 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 alignment = 1
 
-[node name="Basic Production Research Item" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer" instance=ExtResource("62_nohy5")]
+[node name="Basic Production Research Item" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer" node_paths=PackedStringArray("researchButton", "researchProgressBar", "researchCheckBox") instance=ExtResource("62_nohy5")]
 layout_mode = 2
 researchItemData = ExtResource("22_ugyvd")
+researchButton = NodePath("VBoxContainer/Button")
+researchProgressBar = NodePath("VBoxContainer/ProgressBar")
+researchCheckBox = NodePath("CheckBox")
 
-[node name="Basic Storage Item" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer" instance=ExtResource("62_nohy5")]
+[node name="Basic Storage Item" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer" node_paths=PackedStringArray("researchButton", "researchProgressBar", "researchCheckBox") instance=ExtResource("62_nohy5")]
 layout_mode = 2
 researchItemData = ExtResource("16_qtbxl")
+researchButton = NodePath("VBoxContainer/Button")
+researchProgressBar = NodePath("VBoxContainer/ProgressBar")
+researchCheckBox = NodePath("CheckBox")
 
-[node name="Research Item" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer" instance=ExtResource("62_nohy5")]
+[node name="Research Item" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer" node_paths=PackedStringArray("researchButton", "researchProgressBar", "researchCheckBox") instance=ExtResource("62_nohy5")]
 layout_mode = 2
 researchItemData = ExtResource("62_ujbl5")
+researchButton = NodePath("VBoxContainer/Button")
+researchProgressBar = NodePath("VBoxContainer/ProgressBar")
+researchCheckBox = NodePath("CheckBox")
 
 [node name="Tier 2 Research Items VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer"]
 layout_mode = 2

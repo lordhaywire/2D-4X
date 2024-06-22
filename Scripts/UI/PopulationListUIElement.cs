@@ -102,7 +102,7 @@ namespace PlayerSpace
                 ?? countyPopulation.NextWork?.improvementName
                 ?? countyPopulation.CurrentResearchItemData?.researchName
                 ?? string.Empty;
-            populationRow.nextActivityLabel.Text += $" {nextWhere}";
+            //populationRow.nextActivityLabel.Text += $" {nextWhere}";
         }
 
         // This will not be shown in to the player eventually.  It is just shown right now for testing.
