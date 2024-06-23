@@ -42,7 +42,25 @@ namespace PlayerSpace
         public Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks;
 
         [ExportGroup("Expendables")]
-        public int hitpoints;
+        private int hitpoints;
+        public int Hitpoints
+        {
+            get { return hitpoints; }
+            set
+            {
+                hitpoints = value;
+                if (hitpoints < 1)
+                {
+                    HasDied();
+                }
+            }
+        }
+
+        private void HasDied()
+        {
+            // Get rid of this crap.  The whole method, and the getter setter.
+        }
+
         public int moraleExpendable; // I think we are going to have to have this as leader morale or army morale or some shit.
         private readonly int loyaltyBase;
         private int loyaltyAdjusted;
@@ -67,6 +85,9 @@ namespace PlayerSpace
                 GD.Print($"{firstName} {lastName} loyalty adjusted: {LoyaltyAdjusted}");
             }
         }
+
+        public int daysStarving;
+
         [ExportGroup("Attributes")]
         public Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes = [];
 
@@ -199,7 +220,7 @@ namespace PlayerSpace
             FactionData factionData, int location, int lastLocation, int destination, string firstName, string lastName
             , bool isMale, int age, bool isHero, bool isFactionLeader, bool isAide, bool IsArmyLeader, bool isWorker
             , Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks, int hitpoints, int moraleExpendable
-            , int loyaltyBase, int LoyaltyAdjusted, int Happiness
+            , int loyaltyBase, int LoyaltyAdjusted, int Happiness, int daysStarving
             , Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes
             , Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills
             , SkillData preferredSkill, AllEnums.Activities activity, AllEnums.Activities nextActivity
@@ -225,11 +246,12 @@ namespace PlayerSpace
 
             this.perks = perks;
 
-            this.hitpoints = hitpoints;
+            this.Hitpoints = hitpoints;
             this.moraleExpendable = moraleExpendable;
             this.loyaltyBase = loyaltyBase;
             this.LoyaltyAdjusted = LoyaltyAdjusted;
             this.Happiness = Happiness;
+            this.daysStarving = daysStarving;
             this.attributes = attributes;
 
             this.skills = skills;

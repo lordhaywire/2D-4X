@@ -30,6 +30,7 @@ namespace PlayerSpace
                     Globals.Instance.foodToGainHappiness);
                 countyData.PopulationEatsFood(countyData.countyPopulationList,
                     Globals.Instance.foodToGainHappiness);
+                // Visiting heroes need to be able to eat food too.  It needs to improve faction relations.
             }
             else if (amountOfFood >= (Globals.Instance.foodToGainNothing * amountOfPeople))
             {
@@ -42,6 +43,8 @@ namespace PlayerSpace
                     Globals.Instance.foodToGainNothing);
                 countyData.PopulationEatsFood(countyData.countyPopulationList,
                     Globals.Instance.foodToGainNothing);
+                // Visiting heroes need to be able to eat food too.  It needs to improve faction relations.
+
             }
             else if (amountOfFood >= amountOfPeople)
             {
@@ -52,14 +55,21 @@ namespace PlayerSpace
                     Globals.Instance.foodToLoseHappiness);
                 countyData.PopulationEatsFood(countyData.countyPopulationList,
                     Globals.Instance.foodToLoseHappiness);
+                // Visiting heroes need to be able to eat food too.  It needs to improve faction relations.
+
             }
             else
             {
-                GD.PrintRich($"[rainbow]Everyone is starving!!");
-                // People should eat the leftover food.
-                // Whoever has been starving the longest should eat the leftover food first.
-                // Everyone loses happiness - This will need to be a number in globals so we can adjust balance.
-                // Everyone starts taking damage.
+                GD.PrintRich($"[rainbow]People are starting to starve!!");
+                // Eating the last of the food, then major penalty for starvation.
+                // It will already reduce their happiness by 1 in the Population Eats Food method.
+                countyData.PopulationEatsFood(countyData.herosInCountyList,
+                    Globals.Instance.foodToLoseHappiness);
+                countyData.PopulationEatsFood(countyData.armiesInCountyList,
+                    Globals.Instance.foodToLoseHappiness);
+                countyData.PopulationEatsFood(countyData.countyPopulationList,
+                    Globals.Instance.foodToLoseHappiness);
+                // Visiting heroes need to be able to eat food too.  It needs to improve faction relations.
             }
         }
 
@@ -286,8 +296,7 @@ namespace PlayerSpace
         }
         private void CheckForScavengingFood()
         {
-            int amountOfFood = county.countyData.resources[AllEnums.CountyResourceType.Fish].amount
-                + county.countyData.resources[AllEnums.CountyResourceType.Vegetables].amount;
+            int amountOfFood = Banker.CountFactionResourceOfType(county.countyData, AllEnums.FactionResourceType.Food);
             GD.Print($"{county.countyData.countyName} Amount of food: " + amountOfFood);
             EnounghStored(amountOfFood, foodBeforeScavenge);
         }

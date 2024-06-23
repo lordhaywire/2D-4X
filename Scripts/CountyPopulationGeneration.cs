@@ -62,7 +62,8 @@ namespace PlayerSpace
                     // This is for the standard population.
                     countyData.countyPopulationList.Add(new CountyPopulation(countyData.factionData, countyData.countyId
                         , -1, -1, firstName, lastName, isMale, GenerateAge(), false, false, false, false, false
-                        , GeneratePopulationPerks(), Globals.Instance.startingHitPoints, GenerateExpendables(), loyaltyBase, loyaltyBase, happiness
+                        , GeneratePopulationPerks(), Globals.Instance.startingHitPoints, GenerateExpendables()
+                        , loyaltyBase, loyaltyBase, happiness, 0
                         , newAttributes // We could change this just to the variable since it is now up at the top.
                         , GenerateSkillsList()
                         , preferredSkill
@@ -73,7 +74,8 @@ namespace PlayerSpace
                     // This is adding the Faction Leader.
                     countyData.herosInCountyList.Add(new CountyPopulation(countyData.factionData, countyData.countyId
                         , -1, -1, firstName, lastName, isMale, GenerateAge(), true, true, false, false, false
-                        , GenerateLeaderPerks(), Globals.Instance.startingHitPoints, GenerateExpendables(), loyaltyBase, loyaltyBase, happiness
+                        , GenerateLeaderPerks(), Globals.Instance.startingHitPoints, GenerateExpendables()
+                        , loyaltyBase, loyaltyBase, happiness, 0
                         , newAttributes // We could change this just to the variable since is is now in the class declaration.
                         , GenerateSkillsList()
                         , preferredSkill

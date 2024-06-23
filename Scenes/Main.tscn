@@ -175,6 +175,8 @@ heroToken = ExtResource("5_w6a76")
 spawnedTokenButton = ExtResource("8_ne3u6")
 movementSpeed = 1
 costOfHero = 500
+startingHitPoints = 2
+daysUntilDamageFromStarvation = 2
 
 [node name="User Folder Controller" type="Node" parent="Game Controller Node"]
 script = ExtResource("7_fr5hn")
@@ -250,8 +252,8 @@ script = ExtResource("18_3aru6")
 
 [node name="Clock" type="Node" parent="Game Controller Node" node_paths=PackedStringArray("dayLabel", "HourLabel", "currentSpeedLabel", "pausedLabel")]
 script = ExtResource("19_dn5gi")
-dayLabel = NodePath("../../Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Day Panel/MarginContainer/Day Numbers Label")
-HourLabel = NodePath("../../Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Time Panel/MarginContainer/Hours Numbers Label")
+dayLabel = NodePath("../../Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Day Panel/Hbox/Day Numbers Label")
+HourLabel = NodePath("../../Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Time Panel/Hbox/Hours Numbers Label")
 currentSpeedLabel = NodePath("../../Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/Speed Panel/Speed Number Label")
 pausedLabel = NodePath("../../Player UI Canvas/Top Bar Control/Pause Control/Pause Label")
 ticks = 100
@@ -301,7 +303,7 @@ grow_vertical = 0
 theme_override_constants/separation = 1
 
 [node name="Top Bar Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("clock", "influenceLabel", "moneyLabel", "foodLabel", "scrapLabel", "buildingMaterialsLabel")]
-custom_minimum_size = Vector2(0, 25)
+custom_minimum_size = Vector2(0, 31)
 layout_mode = 3
 anchors_preset = 10
 anchor_right = 1.0
@@ -324,30 +326,30 @@ offset_bottom = 25.0
 grow_horizontal = 2
 
 [node name="Top Bar HBox" type="HBoxContainer" parent="Player UI Canvas/Top Bar Control/PanelContainer"]
-custom_minimum_size = Vector2(0, 25)
+custom_minimum_size = Vector2(0, 31)
 layout_mode = 2
 theme_override_constants/separation = 1
 
 [node name="Day Panel" type="Panel" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox"]
-custom_minimum_size = Vector2(75, 25)
+custom_minimum_size = Vector2(100, 31)
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Day Panel"]
-custom_minimum_size = Vector2(75, 0)
+[node name="Hbox" type="HBoxContainer" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Day Panel"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 15
 anchor_right = 1.0
-offset_bottom = 26.0
+anchor_bottom = 1.0
 grow_horizontal = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_right = 5
+grow_vertical = 2
 
-[node name="Day Label" type="Label" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Day Panel/MarginContainer"]
+[node name="Day Label" type="Label" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Day Panel/Hbox"]
 layout_mode = 2
+size_flags_vertical = 1
 text = "Day:"
 vertical_alignment = 1
 
-[node name="Day Numbers Label" type="Label" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Day Panel/MarginContainer"]
+[node name="Day Numbers Label" type="Label" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Day Panel/Hbox"]
 layout_mode = 2
 text = "0"
 horizontal_alignment = 2
@@ -357,24 +359,23 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(100, 25)
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Time Panel"]
+[node name="Hbox" type="HBoxContainer" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Time Panel"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 15
 anchor_right = 1.0
-offset_bottom = 26.0
+anchor_bottom = 1.0
 grow_horizontal = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_right = 5
+grow_vertical = 2
 
-[node name="Hour Label" type="Label" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Time Panel/MarginContainer"]
+[node name="Hour Label" type="Label" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Time Panel/Hbox"]
 layout_mode = 2
 text = "Time:"
+vertical_alignment = 1
 
-[node name="Hours Numbers Label" type="Label" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Time Panel/MarginContainer"]
+[node name="Hours Numbers Label" type="Label" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Time Panel/Hbox"]
 layout_mode = 2
 text = "00:01"
-horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="Influence TextureRect" type="TextureRect" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox"]
@@ -515,7 +516,7 @@ text = "x8
 "
 
 [node name="Pause Control" type="Control" parent="Player UI Canvas/Top Bar Control"]
-custom_minimum_size = Vector2(0, 24)
+custom_minimum_size = Vector2(0, 31)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -575,7 +576,7 @@ layout_mode = 0
 offset_right = 335.0
 offset_bottom = 365.0
 mouse_filter = 2
-theme_override_constants/margin_top = 26
+theme_override_constants/margin_top = 31
 
 [node name="County Info and Selected Hero HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/County Info Control/MarginContainer"]
 custom_minimum_size = Vector2(300, 300)
@@ -1102,15 +1103,9 @@ text = "Activity
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Population Row Button" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer" node_paths=PackedStringArray("populationNameLabel", "ageLabel", "sexLabel", "UnhelpfulLabel", "loyaltyAttributeLabel", "skillLabels", "currentActivityLabel") instance=ExtResource("30_bhu5o")]
+[node name="Population Row Button" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer" node_paths=PackedStringArray("skillLabels") instance=ExtResource("30_bhu5o")]
 layout_mode = 2
-populationNameLabel = NodePath("Population Row HBoxContainer/Name Label")
-ageLabel = NodePath("Population Row HBoxContainer/Age Label")
-sexLabel = NodePath("Population Row HBoxContainer/Sex Label")
-UnhelpfulLabel = NodePath("Population Row HBoxContainer/Unhelpful Label")
-loyaltyAttributeLabel = NodePath("Population Row HBoxContainer/Loyalty Attribute Label")
 skillLabels = []
-currentActivityLabel = NodePath("Population Row HBoxContainer/Current Activity Label")
 
 [node name="Close Button" type="Button" parent="Player UI Canvas/Population List MarginContainer"]
 custom_minimum_size = Vector2(75, 50)
@@ -1873,11 +1868,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 1.0
-offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_top = 24
 
 [node name="Research PanelContainer" type="PanelContainer" parent="Player UI Canvas/Research Control/Research MarginContainer"]
 layout_mode = 2
@@ -1923,26 +1915,17 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 alignment = 1
 
-[node name="Basic Production Research Item" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer" node_paths=PackedStringArray("researchButton", "researchProgressBar", "researchCheckBox") instance=ExtResource("62_nohy5")]
+[node name="Basic Production Research Item" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer" instance=ExtResource("62_nohy5")]
 layout_mode = 2
 researchItemData = ExtResource("22_ugyvd")
-researchButton = NodePath("VBoxContainer/Button")
-researchProgressBar = NodePath("VBoxContainer/ProgressBar")
-researchCheckBox = NodePath("CheckBox")
 
-[node name="Basic Storage Item" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer" node_paths=PackedStringArray("researchButton", "researchProgressBar", "researchCheckBox") instance=ExtResource("62_nohy5")]
+[node name="Basic Storage Item" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer" instance=ExtResource("62_nohy5")]
 layout_mode = 2
 researchItemData = ExtResource("16_qtbxl")
-researchButton = NodePath("VBoxContainer/Button")
-researchProgressBar = NodePath("VBoxContainer/ProgressBar")
-researchCheckBox = NodePath("CheckBox")
 
-[node name="Research Item" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer" node_paths=PackedStringArray("researchButton", "researchProgressBar", "researchCheckBox") instance=ExtResource("62_nohy5")]
+[node name="Research Item" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer" instance=ExtResource("62_nohy5")]
 layout_mode = 2
 researchItemData = ExtResource("62_ujbl5")
-researchButton = NodePath("VBoxContainer/Button")
-researchProgressBar = NodePath("VBoxContainer/ProgressBar")
-researchCheckBox = NodePath("CheckBox")
 
 [node name="Tier 2 Research Items VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer"]
 layout_mode = 2

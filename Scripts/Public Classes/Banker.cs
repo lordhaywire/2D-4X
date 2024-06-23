@@ -15,7 +15,7 @@ namespace PlayerSpace
             int numberOfPeople = countyData.countyPopulationList.Count()
                 + countyData.herosInCountyList.Count() + countyData.visitingHeroList.Count()
                 + countyData.armiesInCountyList.Count();
-            GD.Print($"{countyData.countyName} has {numberOfPeople}");
+            GD.Print($"{countyData.countyName} has {numberOfPeople} people.");
             return numberOfPeople;
         }
 
@@ -120,6 +120,7 @@ namespace PlayerSpace
                 if (resourceData.factionResourceType == type)
                 {
                     amount += resourceData.amount;
+                    GD.Print($"{countyData.countyName} is counting food: {resourceData.name} {resourceData.amount}");
                 }
             }
             return amount;

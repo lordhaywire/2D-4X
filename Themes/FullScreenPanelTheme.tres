@@ -3,5 +3,5 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ttwm7"]
 
 [resource]
-MarginContainer/constants/margin_top = 24
+MarginContainer/constants/margin_top = 31
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_ttwm7")

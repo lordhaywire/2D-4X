@@ -93,7 +93,6 @@ namespace PlayerSpace
         [Export] public int foodToGainHappiness = 3;
         [Export] public int foodToGainNothing = 2;
         [Export] public int foodToLoseHappiness = 1;
-        [Export] public int daysUntilDamageFromStarvation = 15;
 
         [ExportGroup("Population Shit")]
         [Export] public PackedScene heroToken;
@@ -116,6 +115,7 @@ namespace PlayerSpace
         [Export] public int researchIncreaseBonus = 4; // One above max.
         [Export] public int populationResearchIncrease = 1;
         [Export] public int populationResearchBonus = 1;
+        [Export] public int daysUntilDamageFromStarvation = 15;
 
         public int researchClicked; // This is so the Research description panel knows which research was clicked.
 

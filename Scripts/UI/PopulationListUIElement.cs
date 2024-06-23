@@ -67,7 +67,6 @@ namespace PlayerSpace
                 {
                     populationRow.sexLabel.Text = "Female";
                 }
-
                 UpdateUnHelpfulPerk(populationRow, person);
                 UpdateAttributes(populationRow, person);
                 UpdateSkills(populationRow, person);
