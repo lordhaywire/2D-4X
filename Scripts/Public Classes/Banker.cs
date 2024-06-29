@@ -135,9 +135,8 @@ namespace PlayerSpace
         // Or both.
         public static int AddLeaderBonusInfluence(FactionData factionData)
         {
-            PerkData perkData = new();
             int bonus = 0;
-            if (perkData.CheckForPerk(factionData.factionLeader, AllEnums.Perks.LeaderOfPeople) == true)
+            if (factionData.factionLeader.CheckForPerk(AllEnums.Perks.LeaderOfPeople) == true)
             {
                 bonus = Globals.Instance.leaderOfPeopleInfluenceBonus;
                 return bonus;

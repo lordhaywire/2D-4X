@@ -24,10 +24,12 @@ namespace PlayerSpace
 
         public override void _Ready()
         {
-            countyData.countyNode = this; // Figure out why I did this.
-
-            Clock.Instance.SetDay += EndOfDay;
-            Clock.Instance.SetDay += DayStart;
+            countyData.countyNode = this; // Figure out why I did this.  I bet you this could be removed.
+            if (GetTree().CurrentScene.SceneFilePath == "res://Scenes/Main.tscn")
+            {
+                Clock.Instance.SetDay += EndOfDay;
+                Clock.Instance.SetDay += DayStart;
+            }
         }
 
         private void EndOfDay()
@@ -37,7 +39,12 @@ namespace PlayerSpace
             GD.Print("County Hour Zero.");
             countyAI.DecideBuildingCountyImprovements(this);
             PopulationAI.WorkDayOverForPopulation(this);
-            PopulationAI.IsThereEnoughFood(countyData);
+            PopulationAI.IsThereEnoughFood(countyData); // This is a terrible name for this method.
+            // Population uses other resources besides food.
+
+            // Update the Top Bar with the resources used yesterday.
+            TopBarControl.Instance.UpdateResourcesUsedYesterday();
+            // This is busted until we add people to the County Improvement List.
             CountyAI.CheckIfCountyImprovementsAreDone(countyData);
 
             // Have population uses resources.

@@ -11,10 +11,16 @@ namespace PlayerSpace
 
         [Export] private Clock clock;
         [Export] private Label influenceLabel;
+        [Export] private Label influenceAmountUsed;
         [Export] private Label moneyLabel;
-        [Export] private Label foodLabel;
-        [Export] private Label scrapLabel;
+        [Export] private Label moneyAmountUsed;
+        [Export] private Label remnantsLabel;
+        [Export] private Label remnantsAmountUsed;
         [Export] private Label buildingMaterialsLabel;
+        [Export] private Label buildingMaterialsAmountUsed;
+        [Export] private Label foodLabel;
+        [Export] private Label foodAmountUsed;
+
 
         public override void _Ready()
         {
@@ -25,6 +31,19 @@ namespace PlayerSpace
             Globals.Instance.playerFactionData.BuildingMaterialsChanged += UpdateExpendables;
             Globals.Instance.playerFactionData.FoodChanged += UpdateExpendables;
             UpdateExpendables();
+        }
+
+        public void UpdateResourcesUsedYesterday()
+        {
+            if(Globals.Instance.SelectedLeftClickCounty != null)
+            {
+                CountyData countyData = Globals.Instance.SelectedLeftClickCounty.countyData;
+                influenceAmountUsed.Text = countyData.resourcesUsedYesterday[AllEnums.FactionResourceType.Influence].ToString();
+                moneyAmountUsed.Text = countyData.resourcesUsedYesterday[AllEnums.FactionResourceType.Money].ToString();
+                remnantsAmountUsed.Text = countyData.resourcesUsedYesterday[AllEnums.FactionResourceType.Remnants].ToString();
+                buildingMaterialsAmountUsed.Text = countyData.resourcesUsedYesterday[AllEnums.FactionResourceType.BuildingMaterial].ToString();
+                foodAmountUsed.Text = countyData.resourcesUsedYesterday[AllEnums.FactionResourceType.Food].ToString();
+            }
         }
 
         public void UpdateTopBarWithCountyResources()
@@ -66,7 +85,7 @@ namespace PlayerSpace
             influenceLabel.Text = Globals.Instance.playerFactionData.Influence.ToString();
             moneyLabel.Text = Globals.Instance.playerFactionData.Money.ToString();
             foodLabel.Text = Globals.Instance.playerFactionData.FoodFaction.ToString();
-            scrapLabel.Text = Globals.Instance.playerFactionData.RemnantsFaction.ToString();
+            remnantsLabel.Text = Globals.Instance.playerFactionData.RemnantsFaction.ToString();
             buildingMaterialsLabel.Text = Globals.Instance.playerFactionData.BuildingMaterialsFaction.ToString();
         }
 

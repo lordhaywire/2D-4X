@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -33,6 +34,16 @@ namespace PlayerSpace
             {
                 CopyAndAssignResources(county, AllResources.Instance.allResources);
                 UpdateScavengableResources(county);
+                AddResourcesToResourcesUsedYesterday(county);
+            }
+        }
+
+        private static void AddResourcesToResourcesUsedYesterday(County county)
+        {
+            // Add the resources to the resourcesUsedYesterday dictionary.
+            foreach (AllEnums.FactionResourceType resourceType in Enum.GetValues(typeof(AllEnums.FactionResourceType)))
+            {
+                county.countyData.resourcesUsedYesterday.Add(resourceType, 0);
             }
         }
 

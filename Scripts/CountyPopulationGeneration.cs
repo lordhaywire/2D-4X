@@ -67,7 +67,7 @@ namespace PlayerSpace
                         , newAttributes // We could change this just to the variable since it is now up at the top.
                         , GenerateSkillsList()
                         , preferredSkill
-                        , AllEnums.Activities.Idle, AllEnums.Activities.Idle, null, null, null,  null, null));
+                        , AllEnums.Activities.Idle, AllEnums.Activities.Idle, null, null, null, null, null));
                 }
                 else
                 {
@@ -174,10 +174,14 @@ namespace PlayerSpace
             perks.Add(AllEnums.Perks.LeaderOfPeople, AllPerks.Instance.allPerks[(int)AllEnums.Perks.LeaderOfPeople]);
             return perks;
         }
-        private static Godot.Collections.Dictionary<AllEnums.Perks, PerkData> GeneratePopulationPerks()
+        private Godot.Collections.Dictionary<AllEnums.Perks, PerkData> GeneratePopulationPerks()
         {
             Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks = [];
-            perks.Add(AllEnums.Perks.Unhelpful, AllPerks.Instance.allPerks[(int)AllEnums.Perks.Unhelpful]);
+            int unhelpfulRoll = random.Next(1, 101);
+            if (unhelpfulRoll < chanceOfBeingUnhelpful)
+            {
+                perks.Add(AllEnums.Perks.Unhelpful, AllPerks.Instance.allPerks[(int)AllEnums.Perks.Unhelpful]);
+            }
             return perks;
         }
 

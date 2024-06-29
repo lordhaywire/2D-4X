@@ -191,6 +191,15 @@ namespace PlayerSpace
         [ExportGroup("Token")]
         public SelectToken token;
 
+        public bool CheckForPerk(AllEnums.Perks perk)
+        {
+            if (perks.ContainsKey(perk))
+            {
+                return true;
+            }
+            return false;
+        }
+
         // They always need to be a hero first for everything else to work.
         public void ChangeToArmy()
         {

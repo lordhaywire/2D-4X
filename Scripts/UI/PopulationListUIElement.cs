@@ -106,12 +106,12 @@ namespace PlayerSpace
 
         // This will not be shown in to the player eventually.  It is just shown right now for testing.
         // We might need a second testing bar to show these things later.
+        // This should be not equal to null.
         private static void UpdateUnHelpfulPerk(PopulationRowButton populationRow, CountyPopulation countyPopulation)
         {
-            PerkData perkData = new();
-            if (perkData.CheckForPerk(countyPopulation, AllEnums.Perks.Unhelpful) == true)
+            if (countyPopulation.CheckForPerk(AllEnums.Perks.Unhelpful) == true)
             {
-                populationRow.UnhelpfulLabel.Text = $"{perkData.perkName}";
+                populationRow.UnhelpfulLabel.Text = $"{countyPopulation.perks[AllEnums.Perks.Unhelpful].perkName}";
 
             }
             else

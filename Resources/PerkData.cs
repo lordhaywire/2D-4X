@@ -8,14 +8,5 @@ namespace PlayerSpace
     {
         [Export] public string perkName;
         [Export] public string perkDescription;
-
-        public bool CheckForPerk(CountyPopulation countyPopulation, AllEnums.Perks perk)
-        {
-            if (countyPopulation.perks.ContainsKey(perk))
-            {
-                return true;
-            }
-            return false;
-        }
     }
 }

@@ -1,7 +1,6 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 namespace PlayerSpace
 {
@@ -226,11 +225,10 @@ namespace PlayerSpace
             // Go through each person in the county.
             foreach (CountyPopulation countyPopulation in county.countyData.countyPopulationList)
             {
-                PerkData perkData = new();
                 // Go through everyone and if they are idle, helpful and loyal add them to the possibleWorkers list.
                 if (countyPopulation.activity == AllEnums.Activities.Idle
                     && CheckLoyalty(countyPopulation) == true
-                    && perkData.CheckForPerk(countyPopulation, AllEnums.Perks.Unhelpful) == false)
+                    && countyPopulation.CheckForPerk(AllEnums.Perks.Unhelpful) == false)
                 {
                     GD.Print($"{county.countyData.countyName}: {countyPopulation.firstName} is idle, is loyal and is not unhelpful.");
                     possibleWorkers.Add(countyPopulation);

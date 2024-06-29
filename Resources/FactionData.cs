@@ -91,7 +91,6 @@ namespace PlayerSpace
             }
         }
 
-
         [Export]
         public int FoodFaction
         {

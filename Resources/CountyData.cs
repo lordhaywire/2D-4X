@@ -48,6 +48,7 @@ namespace PlayerSpace
         [Export] public int scavengableFood; // This the total a county has available to scavenge.
 
         [Export] public Godot.Collections.Dictionary<AllEnums.CountyResourceType, ResourceData> resources = [];
+        public Godot.Collections.Dictionary<AllEnums.FactionResourceType, int> resourcesUsedYesterday = [];
 
         // These are used just to pass some data around.  Probably I should find a better way to do this.
         public Texture2D maskTexture;
@@ -117,6 +118,7 @@ namespace PlayerSpace
                     nonperishableFoodList.Add(resourceData);
                 }
             }
+            // This a temporary list.
             FoodLists foodlists = new()
             {
                 perishableFoodList = perishableFoodList,

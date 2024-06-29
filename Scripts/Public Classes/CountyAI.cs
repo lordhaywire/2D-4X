@@ -44,6 +44,7 @@ namespace PlayerSpace
             }
         }
 
+        // This doesn't work until we assign people to the list of workers on the County Improvement.
         public static void CheckIfCountyImprovementsAreDone(CountyData countyData)
         {
             foreach (CountyImprovementData countyImprovementData in countyData.underConstructionCountyImprovements)

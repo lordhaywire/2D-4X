@@ -32,12 +32,13 @@ namespace PlayerSpace
             set
             {
                 numberOfThingsPausing = value;
+                GD.Print("Number of things paused: " + numberOfThingsPausing);
             }
         }
 
         public void PauseTime()
         {
-            //GD.Print("Pause Time!");
+            GD.Print("Pause Time!");
 
             if (ModifiedTimeScale > 0)
             {
@@ -49,7 +50,7 @@ namespace PlayerSpace
 
         public void UnpauseTime()
         {
-            //GD.Print("Unpause Time!");
+            GD.Print("Unpause Time!");
             NumberOfThingsPausing--;
             if (NumberOfThingsPausing == 0)
             {
