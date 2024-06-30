@@ -16,6 +16,8 @@ namespace PlayerSpace
 
         private County county;
 
+
+        // This is a dumb name for this method.
         public static void IsThereEnoughFood(CountyData countyData)
         {
             int amountOfFood = Banker.CountFactionResourceOfType(countyData, AllEnums.FactionResourceType.Food);
@@ -33,9 +35,8 @@ namespace PlayerSpace
             }
             else if (amountOfFood >= (Globals.Instance.foodToGainNothing * amountOfPeople))
             {
-                GD.Print("People get jack shit for happiness.");
+                //GD.Print("People get jack shit for happiness.");
                 // Happiness is added when the people eat the food.
-
                 countyData.PopulationEatsFood(countyData.herosInCountyList,
                     Globals.Instance.foodToGainNothing);
                 countyData.PopulationEatsFood(countyData.armiesInCountyList,
@@ -59,7 +60,7 @@ namespace PlayerSpace
             }
             else
             {
-                GD.PrintRich($"[rainbow]People are starting to starve!!");
+                //GD.PrintRich($"[rainbow]People are starting to starve!!");
                 // Eating the last of the food, then major penalty for starvation.
                 // It will already reduce their happiness by 1 in the Population Eats Food method.
                 countyData.PopulationEatsFood(countyData.herosInCountyList,
@@ -92,16 +93,18 @@ namespace PlayerSpace
                         county.countyData.resources[countyPopulation.CurrentWork.resourceData.countyResourceType].amount +=
                             Banker.GenerateWorkResourceWithSkillCheck(countyPopulation.CurrentWork
                             , countyPopulation.skills[countyPopulation.CurrentWork.workSkill].skillLevel);
+                        /*
                         GD.Print($"{countyPopulation.firstName} worked at {countyPopulation.CurrentWork.improvementName}" +
                             $" and now {county.countyData.countyName} has " +
                             $"{county.countyData.resources[countyPopulation.CurrentWork.resourceData.countyResourceType].amount}");
+                        */
                         // Check loyalty to see if they still want to work there and if they don't then they
                         // get set to idle.
                         KeepWorkingAtCountyImprovement(countyPopulation);
                         break;
                     case AllEnums.Activities.Idle:
                         // Give idle people their bonus happiness.
-                        countyPopulation.AddRandomHappiness();
+                        countyPopulation.AddRandomHappiness(5);
                         break;
                 }
             }
@@ -151,24 +154,28 @@ namespace PlayerSpace
             {
                 ResearchItemData whatPopulationIsResearching = null;
 
+                /*
                 foreach (ResearchItemData researchItemData in researchableResearch)
                 {
-                    /*
+                    
                     if (countyPopulation.currentActivity == researchItemData.skill)
                     {
                         whatPopulationIsResearching = researchItemData;
                         GD.Print($"{countyPopulation.firstName} preferred skill is having them research {researchItemData.researchName}");
                     }
-                    */
+                    
                 }
+                */
 
                 if (whatPopulationIsResearching == null)
                 {
                     Random random = new();
                     int randomResearchNumber = random.Next(0, researchableResearch.Count);
                     whatPopulationIsResearching = researchableResearch[randomResearchNumber];
+                    /*
                     GD.Print($"{countyPopulation.firstName} is randomly researching: " +
                         $"{whatPopulationIsResearching.researchName}");
+                    */
                 }
 
                 // Have the banker add the research to the research.
@@ -230,7 +237,7 @@ namespace PlayerSpace
                     && CheckLoyalty(countyPopulation) == true
                     && countyPopulation.CheckForPerk(AllEnums.Perks.Unhelpful) == false)
                 {
-                    GD.Print($"{county.countyData.countyName}: {countyPopulation.firstName} is idle, is loyal and is not unhelpful.");
+                    //GD.Print($"{county.countyData.countyName}: {countyPopulation.firstName} is idle, is loyal and is not unhelpful.");
                     possibleWorkers.Add(countyPopulation);
                 }
             }
@@ -238,7 +245,7 @@ namespace PlayerSpace
 
         private void CheckForPreferredWork()
         {
-            GD.Print($"{county.countyData.countyName}: Checking for Preferred Work!");
+            //GD.Print($"{county.countyData.countyName}: Checking for Preferred Work!");
             foreach (CountyImprovementData countyImprovementData in county.countyData.completedCountyImprovements)
             {
                 foreach (CountyPopulation countyPopulation in possibleWorkers)
@@ -295,13 +302,13 @@ namespace PlayerSpace
         private void CheckForScavengingFood()
         {
             int amountOfFood = Banker.CountFactionResourceOfType(county.countyData, AllEnums.FactionResourceType.Food);
-            GD.Print($"{county.countyData.countyName} Amount of food: " + amountOfFood);
+            //GD.Print($"{county.countyData.countyName} Amount of food: " + amountOfFood);
             EnounghStored(amountOfFood, foodBeforeScavenge);
         }
 
         private void CheckForScavengingScrap()
         {
-            GD.Print($"{county.countyData.countyName} Amount of scrap: " + county.countyData.resources[AllEnums.CountyResourceType.Remnants].amount);
+            //GD.Print($"{county.countyData.countyName} Amount of scrap: " + county.countyData.resources[AllEnums.CountyResourceType.Remnants].amount);
             EnounghStored(county.countyData.resources[AllEnums.CountyResourceType.Remnants].amount, remnantsBeforeScavenge);
         }
 

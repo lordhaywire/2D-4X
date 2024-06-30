@@ -178,12 +178,12 @@ namespace PlayerSpace
             //GD.Print("Researching?" + countyPopulation.currentResearchItemData.researchName);
             if (countyPopulation.CurrentResearchItemData != null)
             {
-                GD.Print("Research CheckBox!?");
+                //GD.Print("Research CheckBox!?");
                 heroPrefab.researchCheckbox.ButtonPressed = true;
             }
             else
             {
-                GD.Print($"{countyPopulation.firstName} research is null.");
+                //GD.Print($"{countyPopulation.firstName} research is null.");
             }
 
             switch (countyPopulation)
@@ -244,7 +244,7 @@ namespace PlayerSpace
         // This is going to break once we put people to work.
         public void UpdateIdleWorkersLabel()
         {
-            GD.Print("Update Idle Workers!! " + Globals.Instance.SelectedLeftClickCounty.countyData.IdleWorkers.ToString());
+            //GD.Print("Update Idle Workers!! " + Globals.Instance.SelectedLeftClickCounty.countyData.IdleWorkers.ToString());
             countyIdleWorkersLabel.Text = Globals.Instance.SelectedLeftClickCounty.countyData.IdleWorkers.ToString();
         }
 

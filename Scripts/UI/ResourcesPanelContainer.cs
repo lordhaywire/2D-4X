@@ -37,7 +37,7 @@ namespace PlayerSpace
             foreach (ResourceData resourceData in AllResources.Instance.allResources)
             {
                 StorageHbox storageHbox = (StorageHbox)storageHBoxPackedScene.Instantiate();
-                GD.Print("Resource Name: " + resourceData.name);
+                //GD.Print("Resource Name: " + resourceData.name);
                 storageHbox.Name = resourceData.name;
                 storageHbox.resourceData = resourceData; // This is strange.
 

@@ -34,16 +34,6 @@ namespace PlayerSpace
             {
                 CopyAndAssignResources(county, AllResources.Instance.allResources);
                 UpdateScavengableResources(county);
-                AddResourcesToResourcesUsedYesterday(county);
-            }
-        }
-
-        private static void AddResourcesToResourcesUsedYesterday(County county)
-        {
-            // Add the resources to the resourcesUsedYesterday dictionary.
-            foreach (AllEnums.FactionResourceType resourceType in Enum.GetValues(typeof(AllEnums.FactionResourceType)))
-            {
-                county.countyData.resourcesUsedYesterday.Add(resourceType, 0);
             }
         }
 
@@ -63,9 +53,9 @@ namespace PlayerSpace
                 county.countyData.resources[key].amount = 1;
             }
 
-            SetInitialMaxStorage(county, county.countyData.resources);
+            SetInitialMaxStorage(county.countyData.resources);
         }
-        private static void SetInitialMaxStorage(County county, Godot.Collections.Dictionary<AllEnums.CountyResourceType, ResourceData> resources)
+        private static void SetInitialMaxStorage(Godot.Collections.Dictionary<AllEnums.CountyResourceType, ResourceData> resources)
         {
             foreach (KeyValuePair<AllEnums.CountyResourceType, ResourceData> keyValuePair in resources)
             {
@@ -84,8 +74,8 @@ namespace PlayerSpace
                         / Globals.Instance.numberOfNonperishableResources
                         + (Globals.Instance.startingNonperishableStorage % Globals.Instance.numberOfNonperishableResources);
                 }
-                GD.Print($"{county.countyData.countyName} - {resource.name}: " +
-                        $"{resource.MaxAmount}");
+                //GD.Print($"{county.countyData.countyName} - {resource.name}: " +
+                 //       $"{resource.MaxAmount}");
             }
         }
 
@@ -95,7 +85,7 @@ namespace PlayerSpace
             {
                 county.countyData.perishableStorage = Globals.Instance.startingPerishableStorage;
                 county.countyData.nonperishableStorage = Globals.Instance.startingNonperishableStorage;
-                GD.Print($"{county.countyData.countyName} has {county.countyData.perishableStorage} perishable storage.");
+                //GD.Print($"{county.countyData.countyName} has {county.countyData.perishableStorage} perishable storage.");
             }
         }
 

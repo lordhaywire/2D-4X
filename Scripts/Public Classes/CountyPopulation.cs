@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Resources;
 
 namespace PlayerSpace
 {
@@ -49,16 +51,7 @@ namespace PlayerSpace
             set
             {
                 hitpoints = value;
-                if (hitpoints < 1)
-                {
-                    HasDied();
-                }
             }
-        }
-
-        private void HasDied()
-        {
-            // Get rid of this crap.  The whole method, and the getter setter.
         }
 
         public int moraleExpendable; // I think we are going to have to have this as leader morale or army morale or some shit.
@@ -78,15 +71,17 @@ namespace PlayerSpace
         public int Happiness
         {
             get { return happiness; }
-            set 
+            set
             {
                 happiness = Math.Min(value, 100);
                 LoyaltyAdjusted = loyaltyBase + AttributeData.ApplyAttributeBonuses(value);
-                GD.Print($"{firstName} {lastName} loyalty adjusted: {LoyaltyAdjusted}");
+                //GD.Print($"{firstName} {lastName} loyalty adjusted: {LoyaltyAdjusted}");
             }
         }
 
         public int daysStarving;
+        // Resource needs.
+        public Godot.Collections.Dictionary<AllEnums.CountyResourceType, int> needs;
 
         [ExportGroup("Attributes")]
         public Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes = [];
@@ -132,7 +127,7 @@ namespace PlayerSpace
 
         // I don't think this needs to be a getter setter because we never set the current construction.  The PopulationAI
         // script does that.
-        public CountyImprovementData CurrentConstruction 
+        public CountyImprovementData CurrentConstruction
         {
             get { return currentConstruction; }
             set
@@ -167,7 +162,7 @@ namespace PlayerSpace
             set
             {
                 currentResearchItemData = value;
-                
+
                 if (currentResearchItemData == null)
                 {
                     activities.UpdateNext(this, AllEnums.Activities.Idle);
@@ -180,7 +175,7 @@ namespace PlayerSpace
                 {
                     activities.UpdateNext(this, AllEnums.Activities.Research);
                 }
-                
+
                 if (ResearchControl.Instance?.Visible == true)
                 {
                     ResearchControl.Instance.CheckForResearchers();
@@ -213,23 +208,31 @@ namespace PlayerSpace
         {
             this.activity = activity;
         }
-        
+
         public void UpdateCurrentWork(CountyImprovementData countyImprovementData)
         {
             currentWork = countyImprovementData;
         }
-        
-        public void AddRandomHappiness()
+
+        public void AddRandomHappiness(int maxHappiness)
         {
             Random random = new();
-            Happiness += random.Next(0, 4);
-            GD.Print($"{firstName} {lastName} happiness is now {Happiness}");
+            Happiness += random.Next(1, maxHappiness);
+            //GD.Print($"Happiness gained: {firstName} {lastName} happiness is now {Happiness}");
+        }
+
+        public void RemoveRandomHappiness(int maxHappiness)
+        {
+            Random random = new();
+            Happiness -= random.Next(1, maxHappiness);
+            //GD.Print($"Happiness lost: {firstName} {lastName} happiness is now {Happiness}");
         }
         public CountyPopulation(
             FactionData factionData, int location, int lastLocation, int destination, string firstName, string lastName
             , bool isMale, int age, bool isHero, bool isFactionLeader, bool isAide, bool IsArmyLeader, bool isWorker
             , Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks, int hitpoints, int moraleExpendable
             , int loyaltyBase, int LoyaltyAdjusted, int Happiness, int daysStarving
+            , Godot.Collections.Dictionary<AllEnums.CountyResourceType, int> needs
             , Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes
             , Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills
             , SkillData preferredSkill, AllEnums.Activities activity, AllEnums.Activities nextActivity
@@ -261,6 +264,7 @@ namespace PlayerSpace
             this.LoyaltyAdjusted = LoyaltyAdjusted;
             this.Happiness = Happiness;
             this.daysStarving = daysStarving;
+            this.needs = needs;
             this.attributes = attributes;
 
             this.skills = skills;

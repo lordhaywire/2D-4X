@@ -15,7 +15,7 @@ namespace PlayerSpace
             int numberOfPeople = countyData.countyPopulationList.Count()
                 + countyData.herosInCountyList.Count() + countyData.visitingHeroList.Count()
                 + countyData.armiesInCountyList.Count();
-            GD.Print($"{countyData.countyName} has {numberOfPeople} people.");
+            //GD.Print($"{countyData.countyName} has {numberOfPeople} people.");
             return numberOfPeople;
         }
 
@@ -89,17 +89,17 @@ namespace PlayerSpace
         }
         public void AddStoryEventCountyResource(StoryEventData storyEventData)
         {
-            GD.Print($"Faction: {storyEventData.eventCounty.countyData.factionData.factionName} is adding " +
-                $"{storyEventData.resourceAmount} {storyEventData.resource.name}");
+            //GD.Print($"Faction: {storyEventData.eventCounty.countyData.factionData.factionName} is adding " +
+             //   $"{storyEventData.resourceAmount} {storyEventData.resource.name}");
             if (storyEventData.resource.perishable)
             {
                 storyEventData.eventCounty.countyData.resources[storyEventData.resource.countyResourceType].amount
                     += storyEventData.resourceAmount;
             }
-            TopBarControl.Instance.UpdateTopBarWithCountyResources();
+            TopBarControl.UpdateTopBarWithCountyResources();
         }
 
-        // This is currently unused.
+        // This is currently unused.  I am pretty sure we don't need this.
         public static int CountCountyResourceOfType(CountyData countyData, AllEnums.CountyResourceType resourceType)
         {
             int amount = 0;
@@ -120,7 +120,7 @@ namespace PlayerSpace
                 if (resourceData.factionResourceType == type)
                 {
                     amount += resourceData.amount;
-                    GD.Print($"{countyData.countyName} is counting food: {resourceData.name} {resourceData.amount}");
+                    //GD.Print($"{countyData.countyName} is counting food: {resourceData.name} {resourceData.amount}");
                 }
             }
             return amount;
@@ -175,7 +175,7 @@ namespace PlayerSpace
             countyPopulation.CurrentResearchItemData.AmountOfResearchDone
                 += Globals.Instance.researcherResearchIncrease + bonusResearchIncrease;
 
-            GD.Print($"Amount of Research Done: {countyPopulation.CurrentResearchItemData.AmountOfResearchDone}");
+            //GD.Print($"Amount of Research Done: {countyPopulation.CurrentResearchItemData.AmountOfResearchDone}");
         }
 
         public static void AddResourceToCounty(County county, AllEnums.CountyResourceType countyResourceType, int amount)
@@ -185,7 +185,7 @@ namespace PlayerSpace
             // Update the top bar if the player has a county selected.
             if (Globals.Instance.SelectedLeftClickCounty == county)
             {
-                TopBarControl.Instance.UpdateTopBarWithCountyResources();
+                TopBarControl.UpdateTopBarWithCountyResources();
             }
         }
 

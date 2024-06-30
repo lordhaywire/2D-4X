@@ -70,25 +70,25 @@ namespace PlayerSpace
                 isSelected = value;
                 if (value == true)
                 {
-                    GD.Print("Token County Population? " + countyPopulation.firstName);
+                    //GD.Print("Token County Population? " + countyPopulation.firstName);
                     sprite.Texture = selectedTexture;
                     if (Globals.Instance.SelectedCountyPopulation != null && countyPopulation != Globals.Instance.SelectedCountyPopulation)
                     {
                         SelectToken currentSelectToken = Globals.Instance.SelectedCountyPopulation.token;
-                        GD.PrintRich("[rainbow]Current Select Token Value True: " + currentSelectToken.Name);
+                        //GD.PrintRich("[rainbow]Current Select Token Value True: " + currentSelectToken.Name);
                         currentSelectToken.IsSelected = false;
                     }
                     Globals.Instance.SelectedCountyPopulation = countyPopulation;
-                    GD.Print("Globals Instance County Population: " + Globals.Instance.SelectedCountyPopulation.firstName);
+                    //GD.Print("Globals Instance County Population: " + Globals.Instance.SelectedCountyPopulation.firstName);
 
                 }
                 else
                 {
                     sprite.Texture = unselectedTexture;
                     spawnedTokenButton.tokenIconTextureRect.Texture = sprite.Texture;
-                    GD.Print($"Is Selected: {value} {unselectedTexture} {sprite.Texture}");
+                    //GD.Print($"Is Selected: {value} {unselectedTexture} {sprite.Texture}");
                 }
-                GD.Print($"{Name} selection is: " + value);
+                //GD.Print($"{Name} selection is: " + value);
             }
         }
 
@@ -158,7 +158,7 @@ namespace PlayerSpace
         {
             countyPopulation.CurrentResearchItemData = null;
             ResearchControl.Instance.assignedResearchers.Remove(countyPopulation);
-            GD.Print("Removed from Research - Assigned Researchers Count: " + ResearchControl.Instance.assignedResearchers.Count);
+            //GD.Print("Removed from Research - Assigned Researchers Count: " + ResearchControl.Instance.assignedResearchers.Count);
             CountyInfoControl.Instance.GenerateHeroesPanelList();
         }
     }

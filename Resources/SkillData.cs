@@ -9,7 +9,7 @@ namespace PlayerSpace
         [Export] public string skillName;
         [Export] public string skillDescription;
         [Export] public int skillLevel;
-        [Export] public int amountLearned;
+        [Export] public int amountUntilLearned;
         [Export] public bool isCombatSkill;
         [Export] public AllEnums.Attributes skillType;
 
@@ -33,10 +33,10 @@ namespace PlayerSpace
             // Every time a skill is used the amount learned goes up.
             if (countyPopulation.factionData.isPlayer)
             {
-                GD.Print($"{countyPopulation.firstName} has amount learned: {skillData.amountLearned}");
+                //GD.Print($"{countyPopulation.firstName} currently has amount learned: {skillData.amountUntilLearned}");
             }
 
-            skillData.amountLearned++;
+            skillData.amountUntilLearned++;
             int learningNeeded;
 
             if (skillData.isCombatSkill)
@@ -47,9 +47,9 @@ namespace PlayerSpace
             {
                 learningNeeded = Globals.Instance.maxLearningNeeded;
             }
-            if (skillData.amountLearned == learningNeeded)
+            if (skillData.amountUntilLearned == learningNeeded)
             {
-                GD.Print("Skill Amount to Fail:" + skillData.skillLevel);
+                //GD.Print("Skill Amount to Fail:" + skillData.skillLevel);
 
                 int failRoll = Globals.Instance.random.Next(0, 101);
                 //GD.Print("Fail Roll: " + failRoll);
@@ -72,11 +72,11 @@ namespace PlayerSpace
                             $" {TranslationServer.Translate(skillData.skillName)}");
                     }
                 }
-                skillData.amountLearned = 0;
+                skillData.amountUntilLearned = 0;
             }
             else
             {
-                GD.Print($"{countyPopulation.firstName} skill is not ready to level up.");
+                //GD.Print($"{countyPopulation.firstName} skill is not ready to level up.");
             }
         }
     }

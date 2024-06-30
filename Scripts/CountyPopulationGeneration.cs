@@ -39,7 +39,7 @@ namespace PlayerSpace
             {
                 countiesParent = Globals.Instance.countiesParent;
                 // Generate Faction Leader County Population
-                GD.Print($"{factionData.factionName} Capital ID: {factionData.factionCapitalCounty}");
+                //GD.Print($"{factionData.factionName} Capital ID: {factionData.factionCapitalCounty}");
                 selectCounty = (County)countiesParent.GetChild(factionData.factionCapitalCounty);
                 countyData = selectCounty.countyData;
                 GeneratePopulation(true, 1); // There is never going to be more then 1 faction leader.
@@ -56,14 +56,14 @@ namespace PlayerSpace
                 GenerateAttribute();
                 int loyaltyBase = random.Next(31, 101); // This is a temporary number.
                 int happiness = random.Next(31, 101); // This is a temporary number.
-
+                int daysStarving = 0;
                 if (hero == false)
                 {
                     // This is for the standard population.
                     countyData.countyPopulationList.Add(new CountyPopulation(countyData.factionData, countyData.countyId
                         , -1, -1, firstName, lastName, isMale, GenerateAge(), false, false, false, false, false
                         , GeneratePopulationPerks(), Globals.Instance.startingHitPoints, GenerateExpendables()
-                        , loyaltyBase, loyaltyBase, happiness, 0
+                        , loyaltyBase, loyaltyBase, happiness, daysStarving, GenerateNeeds()
                         , newAttributes // We could change this just to the variable since it is now up at the top.
                         , GenerateSkillsList()
                         , preferredSkill
@@ -75,13 +75,20 @@ namespace PlayerSpace
                     countyData.herosInCountyList.Add(new CountyPopulation(countyData.factionData, countyData.countyId
                         , -1, -1, firstName, lastName, isMale, GenerateAge(), true, true, false, false, false
                         , GenerateLeaderPerks(), Globals.Instance.startingHitPoints, GenerateExpendables()
-                        , loyaltyBase, loyaltyBase, happiness, 0
+                        , loyaltyBase, loyaltyBase, happiness, daysStarving, GenerateNeeds()
                         , newAttributes // We could change this just to the variable since is is now in the class declaration.
                         , GenerateSkillsList()
                         , preferredSkill
                         , AllEnums.Activities.Idle, AllEnums.Activities.Idle, null, null, null, null, null));
                 }
             }
+        }
+
+        private static Godot.Collections.Dictionary<AllEnums.CountyResourceType, int> GenerateNeeds()
+        {
+            Godot.Collections.Dictionary<AllEnums.CountyResourceType, int> needs = [];
+            needs.Add(AllEnums.CountyResourceType.Remnants, 75);
+            return needs;
         }
 
         private void GeneratePreferredWork(Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills)

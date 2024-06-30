@@ -71,7 +71,7 @@ namespace PlayerSpace
             CountyInfoControl.Instance.DisableSpawnHeroCheckButton(true);
             PlayerControls.Instance.AdjustPlayerControls(false); // This was probably happening too fast which is why it is here.
             County selectCounty = (County)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
-            GD.Print("Select County Location: " + countyPopulation.location);
+            //GD.Print("Select County Location: " + countyPopulation.location);
 
             //GD.Print("It goes to the update description: " + person.firstName);
             populationName.Text = $"{countyPopulation.firstName} {countyPopulation.lastName}";
@@ -169,7 +169,7 @@ namespace PlayerSpace
 
         private void CheckForTitles()
         {
-            GD.Print("Check for Titles! " + countyPopulation.IsArmyLeader);
+            //GD.Print("Check for Titles! " + countyPopulation.IsArmyLeader);
 
             if (countyPopulation.isFactionLeader)
             {
@@ -181,7 +181,7 @@ namespace PlayerSpace
             }
             if (countyPopulation.IsArmyLeader)
             {
-                GD.Print("Army Leader is true!");
+                //GD.Print("Army Leader is true!");
                 armyLeaderTitleButton.Disabled = false;
             }
         }

@@ -20,9 +20,10 @@ namespace PlayerSpace
 
                 if (foodBuilding != null)
                 {
+                    /*
                     GD.Print($"{county.countyData.factionData.factionName}: {county.countyData.countyName} " +
                              $"wants to build a {foodBuilding.improvementName}");
-
+                    */
                     if (banker.CheckBuildingCost(county.countyData.factionData, foodBuilding))
                     {
                         banker.ChargeForBuilding(county.countyData.factionData, foodBuilding);
@@ -30,7 +31,7 @@ namespace PlayerSpace
                     }
                     else
                     {
-                        GD.Print($"{county.countyData.factionData.factionName} doesn't have enough resources to build {foodBuilding.improvementName}.");
+                        //GD.Print($"{county.countyData.factionData.factionName} doesn't have enough resources to build {foodBuilding.improvementName}.");
                     }
                 }
                 else
@@ -40,7 +41,7 @@ namespace PlayerSpace
             }
             else
             {
-                GD.Print($"{county.countyData.factionData.factionName} has enough food.");
+                //GD.Print($"{county.countyData.factionData.factionName} has enough food.");
             }
         }
 
@@ -72,7 +73,7 @@ namespace PlayerSpace
         {
             countyImprovementData.status = AllEnums.CountyImprovementStatus.UnderConstruction;
             countyData.underConstructionCountyImprovements.Add(countyImprovementData);
-            GD.Print($"{countyData.factionData.factionName} is building {countyImprovementData.improvementName}.");
+            //GD.Print($"{countyData.factionData.factionName} is building {countyImprovementData.improvementName}.");
         }
         public static CountyImprovementData FindCountyImpovementOfType(County county, AllEnums.FactionResourceType factionResourceType)
         {

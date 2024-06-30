@@ -37,17 +37,20 @@ namespace PlayerSpace
         {
             if(Globals.Instance.SelectedLeftClickCounty != null)
             {
+                /*
                 CountyData countyData = Globals.Instance.SelectedLeftClickCounty.countyData;
                 influenceAmountUsed.Text = countyData.resourcesUsedYesterday[AllEnums.FactionResourceType.Influence].ToString();
                 moneyAmountUsed.Text = countyData.resourcesUsedYesterday[AllEnums.FactionResourceType.Money].ToString();
                 remnantsAmountUsed.Text = countyData.resourcesUsedYesterday[AllEnums.FactionResourceType.Remnants].ToString();
                 buildingMaterialsAmountUsed.Text = countyData.resourcesUsedYesterday[AllEnums.FactionResourceType.BuildingMaterial].ToString();
                 foodAmountUsed.Text = countyData.resourcesUsedYesterday[AllEnums.FactionResourceType.Food].ToString();
+                */
             }
         }
 
-        public void UpdateTopBarWithCountyResources()
+        public static void UpdateTopBarWithCountyResources()
         {
+            // This is crazy.  Why is this here and like this!?
             Globals.Instance.playerFactionData.RemnantsFaction = 0;
             Globals.Instance.playerFactionData.BuildingMaterialsFaction = 0;
             Globals.Instance.playerFactionData.FoodFaction = 0;

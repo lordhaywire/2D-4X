@@ -34,8 +34,8 @@ namespace PlayerSpace
         public void UpdateTokenTextures()
         {
             County selectCounty = (County)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
-            GD.Print($"Select County Name: {selectCounty.Name} vs County Population Location {countyPopulation.location}");
-            GD.Print("Select Counties Spawned Token Buttons List Count: " + selectCounty.countyData.spawnedTokenButtons.Count);
+            //GD.Print($"Select County Name: {selectCounty.Name} vs County Population Location {countyPopulation.location}");
+            //GD.Print("Select Counties Spawned Token Buttons List Count: " + selectCounty.countyData.spawnedTokenButtons.Count);
             foreach (SpawnedTokenButton spawnedTokenButton in selectCounty.countyData.spawnedTokenButtons.Cast<SpawnedTokenButton>())
             {
                 //GD.Print($"Going through buttons {spawnedTokenButton.countyPopulation.firstName}");
@@ -50,16 +50,14 @@ namespace PlayerSpace
             TooltipText = $"{selectToken.countyPopulation.firstName} {selectToken.countyPopulation.lastName}";
         }
 
-        public void OnMouseEntered()
+        public static void OnMouseEntered()
         {
             PlayerControls.Instance.stopClickThrough = true;
-            //GD.Print("Hero Token Control Mouse Over UI: " + PlayerControls.Instance.mouseOverUI);
         }
 
-        public void OnMouseExited()
+        public static void OnMouseExited()
         {
             PlayerControls.Instance.stopClickThrough = false;
-            //GD.Print("Hero Token Control Mouse Over UI: " + PlayerControls.Instance.mouseOverUI);
         }
 
     }

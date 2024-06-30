@@ -25,6 +25,7 @@ namespace PlayerSpace
         public override void _Ready()
         {
             countyData.countyNode = this; // Figure out why I did this.  I bet you this could be removed.
+            // This is here so that it doesn't subscribe to the clock when the Map Editor is running.
             if (GetTree().CurrentScene.SceneFilePath == "res://Scenes/Main.tscn")
             {
                 Clock.Instance.SetDay += EndOfDay;
@@ -36,18 +37,27 @@ namespace PlayerSpace
         {
             CountyAI countyAI = new();
 
-            GD.Print("County Hour Zero.");
-            countyAI.DecideBuildingCountyImprovements(this);
-            PopulationAI.WorkDayOverForPopulation(this);
-            PopulationAI.IsThereEnoughFood(countyData); // This is a terrible name for this method.
-            // Population uses other resources besides food.
-
+            GD.Print("County Hour One.");
+            // That way any time we Update the top bar we update the how much used yesterday numbers.
             // Update the Top Bar with the resources used yesterday.
             TopBarControl.Instance.UpdateResourcesUsedYesterday();
+            // Make a copy of the resource list for yesterday.
+            countyData.CopyResourcesToYesterday(); // We will use this data to update the numbers on the top bar all day.
+
+            countyAI.DecideBuildingCountyImprovements(this);
+            PopulationAI.WorkDayOverForPopulation(this);
+            // This should probably be a check for "Every day needs vs Occational needs."
+            PopulationAI.IsThereEnoughFood(countyData); // This is a terrible name for this method.
+            // This is a check for Occational needs.
+            // Population uses other resources besides food.
+            countyData.OccationalNeeds();
+            TopBarControl.UpdateTopBarWithCountyResources();
+
             // This is busted until we add people to the County Improvement List.
             CountyAI.CheckIfCountyImprovementsAreDone(countyData);
 
             // Have population uses resources.
+
         }
 
         private void DayStart()

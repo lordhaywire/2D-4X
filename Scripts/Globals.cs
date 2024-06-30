@@ -93,6 +93,8 @@ namespace PlayerSpace
         [Export] public int foodToGainHappiness = 3;
         [Export] public int foodToGainNothing = 2;
         [Export] public int foodToLoseHappiness = 1;
+        [Export] public int occationalResourceUsageAmount = 1;
+        [Export] public int occationalNeedIncreaseAmount = 5;
 
         [ExportGroup("Population Shit")]
         [Export] public PackedScene heroToken;
@@ -188,7 +190,7 @@ namespace PlayerSpace
                 {
                     lastNames.Add(lastNameFile.GetLine());
                 }
-                GD.Print("Names have been loaded.");
+                //GD.Print("Names have been loaded.");
             }
             /*
             else
@@ -281,13 +283,13 @@ namespace PlayerSpace
         public static void OnMouseEnteredUI()
         {
             PlayerControls.Instance.stopClickThrough = true;
-            GD.Print("Mouse Over UI: " + PlayerControls.Instance.stopClickThrough);
+            //GD.Print("Mouse Over UI: " + PlayerControls.Instance.stopClickThrough);
         }
 
         public static void OnMouseExitedUI()
         {
             PlayerControls.Instance.stopClickThrough = false;
-            GD.Print("Mouse Over UI: " + PlayerControls.Instance.stopClickThrough);
+            //GD.Print("Mouse Over UI: " + PlayerControls.Instance.stopClickThrough);
         }
     }
 }
