@@ -30,7 +30,7 @@ namespace PlayerSpace
         [Export] public int maxBuilders;
         [Export] public int currentWorkers;
         [Export] public int maxWorkers;
-        [Export] public ResourceData resourceData;
+        [Export] public CountyResourceData resourceData;
         [Export] public int dailyResourceGenerationAmount;
         [Export] public int dailyResourceGenerationBonus;
 

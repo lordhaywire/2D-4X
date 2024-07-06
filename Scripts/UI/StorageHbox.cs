@@ -4,7 +4,7 @@ namespace PlayerSpace
 {
     public partial class StorageHbox : HBoxContainer
     {
-        [Export] public ResourceData resourceData;
+        [Export] public CountyResourceData resourceData;
         [Export] public Label resourceNameLabel;
         [Export] public Label resourceAmountLabel;
         [Export] public Label resourceMaxAmountLabel;

@@ -257,5 +257,11 @@ namespace PlayerSpace
             //GD.Print("Buildings Button has been pressed.");
             countyImprovementsPanelControl.Show();
         }
+
+        private void OnXButtonPressed()
+        {
+            Hide();
+            TopBarControl.Instance.UpdateFactionExpendables();
+        }
     }
 }

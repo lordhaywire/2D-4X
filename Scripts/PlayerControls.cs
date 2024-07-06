@@ -31,6 +31,7 @@ namespace PlayerSpace
             mapHeight = mapImage.GetHeight();
         }
 
+        // I think I need to change this to unhandled input.
         public override void _Input(InputEvent @event)
         {
             int x = (int)GetGlobalMousePosition().X;

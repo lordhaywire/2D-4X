@@ -47,8 +47,8 @@ namespace PlayerSpace
         [Export] public int scavengableScrap; // This the total a county has available to scavenge.
         [Export] public int scavengableFood; // This the total a county has available to scavenge.
 
-        [Export] public Godot.Collections.Dictionary<AllEnums.CountyResourceType, ResourceData> resources = [];
-        [Export] public Godot.Collections.Dictionary<AllEnums.CountyResourceType, ResourceData> yesterdaysResources = [];
+        [Export] public Godot.Collections.Dictionary<AllEnums.CountyResourceType, CountyResourceData> resources = [];
+        [Export] public Godot.Collections.Dictionary<AllEnums.CountyResourceType, CountyResourceData> yesterdaysResources = [];
 
         // These are used just to pass some data around.  Probably I should find a better way to do this.
         public Texture2D maskTexture;
@@ -173,9 +173,9 @@ namespace PlayerSpace
         private FoodLists
             GetListsOfFood()
         {
-            List<ResourceData> perishableFoodList = [];
-            List<ResourceData> nonperishableFoodList = [];
-            foreach (ResourceData resourceData in resources.Values)
+            List<CountyResourceData> perishableFoodList = [];
+            List<CountyResourceData> nonperishableFoodList = [];
+            foreach (CountyResourceData resourceData in resources.Values)
             {
                 // Is food, and there is some food.
                 if (resourceData.factionResourceType == AllEnums.FactionResourceType.Food
@@ -202,8 +202,8 @@ namespace PlayerSpace
 
         public class FoodLists
         {
-            public List<ResourceData> perishableFoodList = [];
-            public List<ResourceData> nonperishableFoodList = [];
+            public List<CountyResourceData> perishableFoodList = [];
+            public List<CountyResourceData> nonperishableFoodList = [];
         }
         public void PopulationEatsFood(Globals.ListWithNotify<CountyPopulation> countyPopulationList, int amount)
         {
@@ -334,7 +334,7 @@ namespace PlayerSpace
             underConstructionCountyImprovements.Remove(countyImprovementData);
         }
 
-        internal void CopyResourcesToYesterday()
+        public void CopyCountyResourcesToYesterday()
         {
             // This is a "deep" copy.
             yesterdaysResources = resources.Duplicate(true);

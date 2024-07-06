@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CountyImprovementData" load_steps=4 format=3 uid="uid://cpmbf5setweth"]
 
-[ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/Resources/Wood.tres" id="1_3i4hb"]
+[ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/County Resources/Wood.tres" id="1_3i4hb"]
 [ext_resource type="Texture2D" uid="uid://mhuco6bk8l6y" path="res://Graphics/County Improvements/axe-in-log.svg" id="1_fohtd"]
 [ext_resource type="Script" path="res://Resources/CountyImprovementData.cs" id="2_26moa"]
 

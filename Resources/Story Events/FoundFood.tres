@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="StoryEventData" load_steps=3 format=3 uid="uid://b4qv7wmpei808"]
 
 [ext_resource type="Script" path="res://Resources/StoryEventData.cs" id="1_13g2d"]
-[ext_resource type="Resource" uid="uid://c55q8uucl7cqe" path="res://Resources/Resources/Fish.tres" id="1_wtef7"]
+[ext_resource type="Resource" uid="uid://c55q8uucl7cqe" path="res://Resources/County Resources/Fish.tres" id="1_wtef7"]
 
 [resource]
 script = ExtResource("1_13g2d")

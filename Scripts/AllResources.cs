@@ -6,7 +6,7 @@ namespace PlayerSpace
     {
         public static AllResources Instance { get; private set; }
 
-        [Export] public ResourceData[] allResources;
+        [Export] public CountyResourceData[] allResources;
 
         public override void _Ready()
         {
@@ -19,7 +19,7 @@ namespace PlayerSpace
             int perishable = 0;
             int nonperishable = 0;
 
-            foreach (ResourceData resourceData in allResources)
+            foreach (CountyResourceData resourceData in allResources)
             {
                 if (resourceData.perishable)
                 {

@@ -103,7 +103,7 @@ namespace PlayerSpace
         public static int CountCountyResourceOfType(CountyData countyData, AllEnums.CountyResourceType resourceType)
         {
             int amount = 0;
-            foreach (ResourceData resourceData in countyData.resources.Values)
+            foreach (CountyResourceData resourceData in countyData.resources.Values)
             {
                 if (resourceData.countyResourceType == resourceType)
                 {
@@ -115,7 +115,7 @@ namespace PlayerSpace
         public static int CountFactionResourceOfType(CountyData countyData, AllEnums.FactionResourceType type)
         {
             int amount = 0;
-            foreach (ResourceData resourceData in countyData.resources.Values)
+            foreach (CountyResourceData resourceData in countyData.resources.Values)
             {
                 if (resourceData.factionResourceType == type)
                 {
@@ -128,7 +128,8 @@ namespace PlayerSpace
 
         public void AddLeaderInfluence(FactionData factionData)
         {
-            factionData.Influence += Globals.Instance.dailyInfluenceGain + AddLeaderBonusInfluence(factionData);
+            factionData.factionResources[AllEnums.FactionResourceType.Influence].amount 
+                += Globals.Instance.dailyInfluenceGain + AddLeaderBonusInfluence(factionData);
         }
 
         // This should probably either in the perk data for the bonus, or it should be a generic perk bonus check.
@@ -189,21 +190,24 @@ namespace PlayerSpace
             }
         }
 
-        public void ChargeForHero()
+        public void ChargeForHero(FactionData factionData)
         {
             //GD.Print("Player Influence: " + Globals.Instance.playerFactionData.Influence);
-            Globals.Instance.playerFactionData.Influence -= Globals.Instance.costOfHero;
+            factionData.factionResources[AllEnums.FactionResourceType.Influence].amount 
+                -= Globals.Instance.costOfHero;
         }
 
         public bool CheckBuildingCost(FactionData factionData, CountyImprovementData countyImprovementData)
         {
-            return factionData.Influence >= countyImprovementData.influenceCost;
+            return factionData.factionResources[AllEnums.FactionResourceType.Influence].amount 
+                >= countyImprovementData.influenceCost;
         }
 
         // Charge for building and also assign it to the underConstructionList.
         public void ChargeForBuilding(FactionData factionData, CountyImprovementData countyImprovementData)
         {
-            factionData.Influence -= countyImprovementData.influenceCost;
+            factionData.factionResources[AllEnums.FactionResourceType.Influence].amount 
+                -= countyImprovementData.influenceCost;
         }
 
         // This needs to be checking county level food.

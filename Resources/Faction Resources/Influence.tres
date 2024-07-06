@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="FactionResourceData" load_steps=2 format=3 uid="uid://cxxk8e3iy0fmq"]
+
+[ext_resource type="Script" path="res://Resources/FactionResourceData.cs" id="1_m0mjc"]
+
+[resource]
+script = ExtResource("1_m0mjc")
+name = "Influence"
+description = ""
+resourceType = 2
+amount = 0

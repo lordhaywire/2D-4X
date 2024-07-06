@@ -43,23 +43,24 @@ namespace PlayerSpace
             county.countyData.scavengableScrap = maxScavengableScrap;
         }
 
-        private static void CopyAndAssignResources(County county, ResourceData[] resources)
+        private static void CopyAndAssignResources(County county, CountyResourceData[] resources)
         {
-            foreach (ResourceData resource in resources)
+            foreach (CountyResourceData resource in resources)
             {
                 AllEnums.CountyResourceType key = resource.countyResourceType;
-                county.countyData.resources[key] = (ResourceData)resource.Duplicate();
+                county.countyData.resources[key] = (CountyResourceData)resource.Duplicate();
                 // This is just for testing.
                 county.countyData.resources[key].amount = 1;
             }
 
             SetInitialMaxStorage(county.countyData.resources);
+            county.countyData.CopyCountyResourcesToYesterday();
         }
-        private static void SetInitialMaxStorage(Godot.Collections.Dictionary<AllEnums.CountyResourceType, ResourceData> resources)
+        private static void SetInitialMaxStorage(Godot.Collections.Dictionary<AllEnums.CountyResourceType, CountyResourceData> resources)
         {
-            foreach (KeyValuePair<AllEnums.CountyResourceType, ResourceData> keyValuePair in resources)
+            foreach (KeyValuePair<AllEnums.CountyResourceType, CountyResourceData> keyValuePair in resources)
             {
-                ResourceData resource = keyValuePair.Value;
+                CountyResourceData resource = keyValuePair.Value;
 
                 if (resource.perishable)
                 {

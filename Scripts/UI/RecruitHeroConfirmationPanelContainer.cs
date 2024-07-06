@@ -54,7 +54,7 @@ namespace PlayerSpace
                 countyPopulation.token.spawnedTokenButton.UpdateButtonIcon();
             }
 
-            banker.ChargeForHero();
+            banker.ChargeForHero(Globals.Instance.playerFactionData);
             PopulationDescriptionControl.Instance.UpdateDescriptionInfo();
             CountyInfoControl.Instance.GenerateHeroesPanelList();
 

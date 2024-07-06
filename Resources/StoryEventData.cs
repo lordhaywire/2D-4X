@@ -9,7 +9,7 @@ namespace PlayerSpace
         [Export] public string storyEventDescription;
 
         [ExportGroup("Event Rewards")]
-        [Export] public ResourceData resource;
+        [Export] public CountyResourceData resource;
         [Export] public AllEnums.CountyResourceType resourceType;
         [Export] public int resourceAmount;
 

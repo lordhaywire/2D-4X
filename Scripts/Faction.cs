@@ -22,6 +22,7 @@ namespace PlayerSpace
         {
             Banker banker = new();
 
+            factionData.CopyFactionResourcesToYesterday();
             banker.AddLeaderInfluence(factionData);
             banker.AddHeroResearch(factionData);
         }

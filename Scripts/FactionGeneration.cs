@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 namespace PlayerSpace
 {
@@ -16,24 +15,10 @@ namespace PlayerSpace
         {
             Instance = this;
 
-            GetFactionsFromDisk();
-            AddFactionsToDiplomacyWar();
+            CreateFactionsFromDisk();
         }
 
-        private static void AddFactionsToDiplomacyWar()
-        {
-            foreach (FactionData factionData in Globals.Instance.factionDatas)
-            {
-                //GD.Print("Faction Name: " + factionData.factionName);
-                foreach (FactionData warFactionData in Globals.Instance.factionDatas)
-                {
-                    // Add warFactionData to factionWarDictionary with a default value of false
-                    factionData.factionWarDictionary[warFactionData.factionName] = false;
-                }
-            }
-        }
-
-        private void GetFactionsFromDisk()
+        private void CreateFactionsFromDisk()
         {
             DirAccess directory = DirAccess.Open("res://");//(factionDataPath);
             if (directory.DirExists("res://Resources/Factions/")) //(factionDataPath))
@@ -47,7 +32,8 @@ namespace PlayerSpace
                     GD.Print("Files in Faction Resources: " + fileNames[i]);
                     FactionData newFactionData
                         = (FactionData)ResourceLoader.Load<FactionData>(factionDataPath + fileNames[i]).Duplicate();
-                    Globals.Instance.factionDatas.Add(newFactionData);
+                    Globals.Instance.factionDatas.Add(newFactionData); // We should probably get rid of this.  We already
+                    // have it in the FactioNode children.
                     newFactionData.factionID = i;
 
                     if (Globals.Instance.factionDatas[i].isPlayer == true)
@@ -56,20 +42,14 @@ namespace PlayerSpace
                     }
                     AddStartingResearch(newFactionData);
                     CreateFactionNode(newFactionData);
+                    CreateFactionResourceDictionary(newFactionData);
+                    AddFactionsToDiplomacyWar(newFactionData);
                 }
             }
             else
             {
                 GD.Print("You are so fucked.  This directory doesn't exist: " + factionDataPath);
             }
-        }
-
-        private void CreateFactionNode(FactionData newFactionData)
-        {
-            Faction faction = (Faction)factionNodePackedScene.Instantiate();
-            faction.factionData = newFactionData;
-            faction.Name = faction.factionData.factionName;
-            factions.AddChild(faction);
         }
 
         private static void AddStartingResearch(FactionData factionData)
@@ -84,6 +64,40 @@ namespace PlayerSpace
                 }
                 factionData.researchItems.Add((ResearchItemData)researchItemData.Duplicate());
             }
+        }
+        private void CreateFactionResourceDictionary(FactionData factionData)
+        {
+            // Creates both lists, we don't want it to have yesterday because it should get copied before anything happens.
+            foreach (FactionResourceData factionResourceDatas in AllFactionResources.Instance.factionResourceDatas)
+            {
+                GD.Print($"{factionResourceDatas.name} has been added to {factionData.factionName}");
+                factionData.factionResources.Add(factionResourceDatas.resourceType, (FactionResourceData)factionResourceDatas.Duplicate());
+                factionData.yesterdaysFactionResources.Add(factionResourceDatas.resourceType, (FactionResourceData)factionResourceDatas.Duplicate());
+                factionData.amountUsedFactionResources.Add(factionResourceDatas.resourceType, (FactionResourceData)factionResourceDatas.Duplicate());
+
+            }
+            // This is for testing.  We are going to have to have a different, more random way of
+            // generating starting resources for each faction.
+            factionData.factionResources[AllEnums.FactionResourceType.Influence].amount = 500;
+            factionData.factionResources[AllEnums.FactionResourceType.Money].amount = 500;
+        }
+
+        private static void AddFactionsToDiplomacyWar(FactionData factionData)
+        {
+            //GD.Print("Faction Name: " + factionData.factionName);
+            foreach (FactionData warFactionData in Globals.Instance.factionDatas)
+            {
+                // Add warFactionData to factionWarDictionary with a default value of false
+                factionData.factionWarDictionary[warFactionData.factionName] = false;
+            }
+        }
+
+        private void CreateFactionNode(FactionData newFactionData)
+        {
+            Faction faction = (Faction)factionNodePackedScene.Instantiate();
+            faction.factionData = newFactionData;
+            faction.Name = faction.factionData.factionName;
+            factions.AddChild(faction);
         }
     }
 }

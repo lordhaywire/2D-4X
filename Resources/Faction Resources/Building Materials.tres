@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="FactionResourceData" load_steps=2 format=3 uid="uid://271rf0nd50ir"]
+
+[ext_resource type="Script" path="res://Resources/FactionResourceData.cs" id="1_5vfsl"]
+
+[resource]
+script = ExtResource("1_5vfsl")
+name = "Building Materials"
+description = ""
+resourceType = 0
+amount = 0

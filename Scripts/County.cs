@@ -25,6 +25,7 @@ namespace PlayerSpace
         public override void _Ready()
         {
             countyData.countyNode = this; // Figure out why I did this.  I bet you this could be removed.
+
             // This is here so that it doesn't subscribe to the clock when the Map Editor is running.
             if (GetTree().CurrentScene.SceneFilePath == "res://Scenes/Main.tscn")
             {
@@ -41,8 +42,9 @@ namespace PlayerSpace
             // That way any time we Update the top bar we update the how much used yesterday numbers.
             // Update the Top Bar with the resources used yesterday.
             TopBarControl.Instance.UpdateResourcesUsedYesterday();
+
             // Make a copy of the resource list for yesterday.
-            countyData.CopyResourcesToYesterday(); // We will use this data to update the numbers on the top bar all day.
+            countyData.CopyCountyResourcesToYesterday(); // We will use this data to update the numbers on the top bar all day.
 
             countyAI.DecideBuildingCountyImprovements(this);
             PopulationAI.WorkDayOverForPopulation(this);

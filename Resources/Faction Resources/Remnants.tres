@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="FactionResourceData" load_steps=2 format=3 uid="uid://c75yh0abtmowb"]
+
+[ext_resource type="Script" path="res://Resources/FactionResourceData.cs" id="1_2uhyr"]
+
+[resource]
+script = ExtResource("1_2uhyr")
+name = "Remnants"
+description = ""
+resourceType = 4
+amount = 0

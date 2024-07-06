@@ -31,7 +31,7 @@ namespace MapEditorSpace
             Image colorCodedMapImage = MapEditorGlobals.Instance.mapColorCoded.GetImage();
             Image mapImage = MapEditorGlobals.Instance.map.GetImage();
             Vector2I mapSize = (Vector2I)MapEditorGlobals.Instance.mapColorCoded.GetSize();
-            Image countyMaskImage = Image.Create(mapSize.X, mapSize.Y, false, Image.Format.Rgba8);
+            Image countyMaskImage = Image.CreateEmpty(mapSize.X, mapSize.Y, false, Image.Format.Rgba8);
 
             foreach (CountyData countyData in CountyResourcesAutoLoad.Instance.countyDatas)
             {
@@ -98,14 +98,14 @@ namespace MapEditorSpace
                 rect2I.End += Vector2I.One;
 
                 // Crop the mask image after it has been created.
-                Image croppedCountyMaskImage = Image.Create(rect2I.Size.X, rect2I.Size.Y, false, Image.Format.Rgba8);
+                Image croppedCountyMaskImage = Image.CreateEmpty(rect2I.Size.X, rect2I.Size.Y, false, Image.Format.Rgba8);
                 croppedCountyMaskImage.BlitRect(countyMaskImage, rect2I, Vector2I.Zero);
 
                 countyData.maskTexture = ImageTexture.CreateFromImage(croppedCountyMaskImage);
                 countyData.startMaskPosition = startVector2I;
 
                 // Crop the top map image after it has been created.                
-                Image croppedCountyMapImage = Image.Create(rect2I.Size.X, rect2I.Size.Y, false, Image.Format.Rgba8);
+                Image croppedCountyMapImage = Image.CreateEmpty(rect2I.Size.X, rect2I.Size.Y, false, Image.Format.Rgba8);
                 GD.Print("Cropped County Map Top Image Size: " + croppedCountyMapImage.GetSize());
 
                 croppedCountyMapImage.BlitRect(countyMapImage, rect2I, Vector2I.Zero);

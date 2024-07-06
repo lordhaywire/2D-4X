@@ -124,7 +124,8 @@ namespace PlayerSpace
                 nextActivityLabel.Text = $"{countyPopulation.nextActivity}";
             }
 
-            if (Globals.Instance.playerFactionData.Influence < Globals.Instance.costOfHero || countyPopulation.isHero == true)
+            if (Globals.Instance.playerFactionData.factionResources[AllEnums.FactionResourceType.Influence].amount 
+                < Globals.Instance.costOfHero || countyPopulation.isHero == true)
             {
                 aideRecruitButton.Disabled = true;
             }

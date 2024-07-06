@@ -34,7 +34,7 @@ namespace PlayerSpace
         // Creates the Storage Hboxes when the game starts.
         private void GenerateStorageHBoxes()
         {
-            foreach (ResourceData resourceData in AllResources.Instance.allResources)
+            foreach (CountyResourceData resourceData in AllResources.Instance.allResources)
             {
                 StorageHbox storageHbox = (StorageHbox)storageHBoxPackedScene.Instantiate();
                 //GD.Print("Resource Name: " + resourceData.name);
@@ -85,7 +85,7 @@ namespace PlayerSpace
         // This assigns the county's resources to the Storage Hboxes when this becomes visible.
         private void AssignResourcesToStorageHboxes()
         {
-            foreach (KeyValuePair<AllEnums.CountyResourceType, ResourceData> keyValuePair
+            foreach (KeyValuePair<AllEnums.CountyResourceType, CountyResourceData> keyValuePair
                 in countyData.resources)
             {
                 resourceStorageHboxDictionary[keyValuePair.Key].resourceData = keyValuePair.Value;
@@ -108,7 +108,7 @@ namespace PlayerSpace
         private int CountAvailableStorageAmounts(int maxStorage, bool perishable)
         {
             int storage = 0;
-            foreach (ResourceData resourceData in countyData.resources.Values)
+            foreach (CountyResourceData resourceData in countyData.resources.Values)
             {
                 if (resourceData.perishable == perishable)
                 {

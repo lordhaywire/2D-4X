@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Resources;
 
 namespace PlayerSpace
 {
@@ -28,87 +29,30 @@ namespace PlayerSpace
         public Diplomacy diplomacy = new();
         public TokenSpawner tokenSpawner = new();
 
-        private int influence;
-        private int money;
-
-        private int scrapFaction;
-        private int buildingMaterialsFaction;
-        private int foodFaction;
-
-        [ExportGroup("Getter Setter")]
-        [Export]
-        public int Influence
-        {
-            get { return influence; }
-            set
-            {
-                influence = value;
-                if (isPlayer == true)
-                {
-                    InfluenceChanged?.Invoke();
-                }
-            }
-        }
-        [Export]
-        public int Money
-        {
-            get { return money; }
-            set
-            {
-                money = value;
-                if (isPlayer == true)
-                {
-                    MoneyChanged?.Invoke();
-                }
-            }
-        }
-
-        [Export]
-        public int RemnantsFaction
-        {
-            get { return scrapFaction; }
-            set
-            {
-                scrapFaction = value;
-                if(isPlayer == true)
-                {
-                    ScrapChanged?.Invoke();
-                }
-            }
-        }
-
-        [Export]
-        public int BuildingMaterialsFaction
-        {
-            get { return buildingMaterialsFaction; }
-            set
-            {
-                buildingMaterialsFaction = value;
-                if (isPlayer == true)
-                {
-                    BuildingMaterialsChanged?.Invoke();
-                }
-            }
-        }
-
-        [Export]
-        public int FoodFaction
-        {
-            get { return foodFaction; }
-            set
-            {
-                foodFaction = value;
-                if (isPlayer == true)
-                {
-                    FoodChanged?.Invoke();
-                }
-            }
-        }
+        // Resources.
+        public Godot.Collections.Dictionary<AllEnums.FactionResourceType, FactionResourceData> factionResources = [];
+        public Godot.Collections.Dictionary<AllEnums.FactionResourceType, FactionResourceData> yesterdaysFactionResources = [];
+        public Godot.Collections.Dictionary<AllEnums.FactionResourceType, FactionResourceData> amountUsedFactionResources = [];
 
         [ExportGroup("Diplomatic Incidences")]
         public List<War> wars = [];
 
         [ExportGroup("Diplomatic Matrix")]
         [Export] public Godot.Collections.Dictionary<string, bool> factionWarDictionary = [];
+
+        public void CopyFactionResourcesToYesterday()
+        {
+            // Do the math for amount used. Subtract yesterdays from todays and that is how much we have used.
+            foreach (KeyValuePair<AllEnums.FactionResourceType, FactionResourceData> keyValuePair in factionResources)
+            {
+                amountUsedFactionResources[keyValuePair.Key].amount = factionResources[keyValuePair.Key].amount -
+                    yesterdaysFactionResources[keyValuePair.Key].amount;
+                GD.Print("Amount Used: " + amountUsedFactionResources[keyValuePair.Key].amount);
+            }
+
+            // This is a "deep" copy.
+            yesterdaysFactionResources = factionResources.Duplicate(true);
+            TopBarControl.Instance.UpdateFactionExpendables();
+        }
     }
 }
