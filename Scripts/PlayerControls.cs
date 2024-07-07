@@ -65,7 +65,9 @@ namespace PlayerSpace
 
                                 Globals.Instance.selectedCountyId = county.countyData.countyId;
                                 Globals.Instance.SelectedLeftClickCounty = county;
-                                TopBarControl.UpdateTopBarWithCountyResources();
+
+                                // I commented this out because it should be happening in visibility change.
+                                // TopBarControl.UpdateTopBarWithCountyResources();
                                 CountyInfoControl.Instance.UpdateEverything();
                                 CountyInfoControl.Instance.countyInfoControl.Show(); // This has to be last.
                             }

@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using System;
 using System.Collections.Generic;
 
@@ -47,8 +48,9 @@ namespace PlayerSpace
         [Export] public int scavengableScrap; // This the total a county has available to scavenge.
         [Export] public int scavengableFood; // This the total a county has available to scavenge.
 
-        [Export] public Godot.Collections.Dictionary<AllEnums.CountyResourceType, CountyResourceData> resources = [];
-        [Export] public Godot.Collections.Dictionary<AllEnums.CountyResourceType, CountyResourceData> yesterdaysResources = [];
+        [Export] public Godot.Collections.Dictionary<AllEnums.CountyResourceType, CountyResourceData> countyResources = [];
+        [Export] public Godot.Collections.Dictionary<AllEnums.CountyResourceType, CountyResourceData> yesterdaysCountyResources = [];
+        [Export] public Godot.Collections.Dictionary<AllEnums.CountyResourceType, CountyResourceData> amountUsedCountyResources = [];
 
         // These are used just to pass some data around.  Probably I should find a better way to do this.
         public Texture2D maskTexture;
@@ -92,8 +94,22 @@ namespace PlayerSpace
                 if (Globals.Instance.SelectedLeftClickCounty?.countyData == this)
                 {
                     CountyInfoControl.Instance.UpdateIdleWorkersLabel();
-                    GD.Print("Why didn't you update?! " + idleWorkers);
                 }
+            }
+        }
+
+        public void SubtractCountyResources()
+        {
+            // Do the math for amount used. Subtract yesterdays from todays and that is how much we have used.
+            foreach (KeyValuePair<AllEnums.CountyResourceType, CountyResourceData> keyValuePair in countyResources)
+            {
+                amountUsedCountyResources[keyValuePair.Key].amount = countyResources[keyValuePair.Key].amount -
+                    yesterdaysCountyResources[keyValuePair.Key].amount;
+            }
+            if (factionData.isPlayer)
+            {
+                GD.Print("After subtraction yesterdays vegetables is: " 
+                    + yesterdaysCountyResources[AllEnums.CountyResourceType.Vegetables].amount);
             }
         }
 
@@ -116,10 +132,10 @@ namespace PlayerSpace
 
                     if (skillData.Check(keyValuePair.Value) == true)
                     {
-                        GD.Print($"Needs Checks: Passed.");
+                        //GD.Print($"Needs Checks: Passed.");
                         if (CheckEnoughOfResource(keyValuePair.Key) == true)
                         {
-                            GD.Print("There are enough resources for the needs of a person.");
+                            //GD.Print("There are enough resources for the needs of a person.");
                             // Use resource.
                             RemoveResourceFromCounty(keyValuePair.Key, Globals.Instance.occationalResourceUsageAmount);
 
@@ -148,18 +164,18 @@ namespace PlayerSpace
         }
         public void RemoveResourceFromCounty(AllEnums.CountyResourceType countyResourceType, int amount)
         {
-            resources[countyResourceType].amount -= amount;
+            countyResources[countyResourceType].amount -= amount;
 
             // Update the top bar if the player has a county selected.
             if (Globals.Instance.SelectedLeftClickCounty == countyNode)
             {
-                TopBarControl.UpdateTopBarWithCountyResources();
+                TopBarControl.UpdateCountyResources();
             }
         }
         private bool CheckEnoughOfResource(AllEnums.CountyResourceType resourceType)
         {
             bool enoughResource;
-            if (resources[resourceType].amount >= Globals.Instance.occationalResourceUsageAmount)
+            if (countyResources[resourceType].amount >= Globals.Instance.occationalResourceUsageAmount)
             {
                 enoughResource = true;
             }
@@ -175,7 +191,7 @@ namespace PlayerSpace
         {
             List<CountyResourceData> perishableFoodList = [];
             List<CountyResourceData> nonperishableFoodList = [];
-            foreach (CountyResourceData resourceData in resources.Values)
+            foreach (CountyResourceData resourceData in countyResources.Values)
             {
                 // Is food, and there is some food.
                 if (resourceData.factionResourceType == AllEnums.FactionResourceType.Food
@@ -336,8 +352,26 @@ namespace PlayerSpace
 
         public void CopyCountyResourcesToYesterday()
         {
-            // This is a "deep" copy.
-            yesterdaysResources = resources.Duplicate(true);
+            // Creating a deep copy of the dictionary
+            yesterdaysCountyResources = [];
+            foreach (KeyValuePair<AllEnums.CountyResourceType, CountyResourceData> keyValuePair in countyResources)
+            {
+                yesterdaysCountyResources.Add(keyValuePair.Key, new CountyResourceData
+                {
+                    name = keyValuePair.Value.name,
+                    description = keyValuePair.Value.description,
+                    countyResourceType = keyValuePair.Value.countyResourceType,
+                    factionResourceType = keyValuePair.Value.factionResourceType,
+                    perishable = keyValuePair.Value.perishable,
+                    amount = keyValuePair.Value.amount,
+                    MaxAmount = keyValuePair.Value.MaxAmount,
+                });
+            }
+            if (factionData.isPlayer)
+            {
+                GD.Print("Yesterday's Vegetables: " + yesterdaysCountyResources[AllEnums.CountyResourceType.Vegetables].amount);
+                GD.Print("This Vegetables should be the same as yesterdays: " + countyResources[AllEnums.CountyResourceType.Vegetables].amount);
+            }
         }
     }
 }

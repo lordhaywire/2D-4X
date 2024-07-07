@@ -86,7 +86,7 @@ namespace PlayerSpace
         private void AssignResourcesToStorageHboxes()
         {
             foreach (KeyValuePair<AllEnums.CountyResourceType, CountyResourceData> keyValuePair
-                in countyData.resources)
+                in countyData.countyResources)
             {
                 resourceStorageHboxDictionary[keyValuePair.Key].resourceData = keyValuePair.Value;
             }
@@ -108,7 +108,7 @@ namespace PlayerSpace
         private int CountAvailableStorageAmounts(int maxStorage, bool perishable)
         {
             int storage = 0;
-            foreach (CountyResourceData resourceData in countyData.resources.Values)
+            foreach (CountyResourceData resourceData in countyData.countyResources.Values)
             {
                 if (resourceData.perishable == perishable)
                 {
@@ -187,7 +187,7 @@ namespace PlayerSpace
 
         private void UpdateStorageHboxLabels(KeyValuePair<AllEnums.CountyResourceType, StorageHbox> keyValuePair)
         {
-            resourceStorageHboxDictionary[keyValuePair.Key].resourceData = countyData.resources[keyValuePair.Key];
+            resourceStorageHboxDictionary[keyValuePair.Key].resourceData = countyData.countyResources[keyValuePair.Key];
             //GD.Print("Update Storage Hbox Labels Resource:" + countyData.resources[keyValuePair.Key].name);
             resourceStorageHboxDictionary[keyValuePair.Key].resourceNameLabel.Text = $"{resourceStorageHboxDictionary[keyValuePair.Key].resourceData.name}:";
             resourceStorageHboxDictionary[keyValuePair.Key].resourceAmountLabel.Text = resourceStorageHboxDictionary[keyValuePair.Key].resourceData.amount.ToString();

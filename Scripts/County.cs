@@ -39,27 +39,33 @@ namespace PlayerSpace
             CountyAI countyAI = new();
 
             GD.Print("County Hour One.");
-            // That way any time we Update the top bar we update the how much used yesterday numbers.
-            // Update the Top Bar with the resources used yesterday.
-            TopBarControl.Instance.UpdateResourcesUsedYesterday();
+            // Subtract county resources yesterday from today.
+            countyData.SubtractCountyResources();
 
-            // Make a copy of the resource list for yesterday.
+            // Copy the county resources to yesterday.
             countyData.CopyCountyResourcesToYesterday(); // We will use this data to update the numbers on the top bar all day.
 
+            // Do all the shit for the end of day.
             countyAI.DecideBuildingCountyImprovements(this);
             PopulationAI.WorkDayOverForPopulation(this);
-            // This should probably be a check for "Every day needs vs Occational needs."
             PopulationAI.IsThereEnoughFood(countyData); // This is a terrible name for this method.
+
             // This is a check for Occational needs.
             // Population uses other resources besides food.
             countyData.OccationalNeeds();
-            TopBarControl.UpdateTopBarWithCountyResources();
 
             // This is busted until we add people to the County Improvement List.
             CountyAI.CheckIfCountyImprovementsAreDone(countyData);
 
-            // Have population uses resources.
+            // Update the county resources
+            TopBarControl.UpdateCountyResources();
 
+            // Update the county labels.  We might be able to take out the UpdateResourceLabels in the faction
+            // level so this just runs after.  It is all happening pretty much at the same time.
+            if (Globals.Instance.SelectedLeftClickCounty != null)
+            {
+                TopBarControl.Instance.UpdateResourceLabels();
+            }
         }
 
         private void DayStart()

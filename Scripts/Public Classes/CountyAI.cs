@@ -52,6 +52,7 @@ namespace PlayerSpace
             {
                 // If the county improvement is done, make everyone working on it idle.
                 // Set their current work to null.
+                /*
                 if (countyImprovementData.CheckIfCountyInprovementDone())
                 {
                     foreach(CountyPopulation countyPopulation in countyImprovementData.countyPopulationAtImprovement)
@@ -66,6 +67,7 @@ namespace PlayerSpace
                     // Move the county improvement to the correct list and remove it from the old list.
                     countyData.MoveCountyImprovementToCompletedList(countyImprovementData);
                 }
+                */
             }
         }
 

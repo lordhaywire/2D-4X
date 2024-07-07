@@ -32,7 +32,7 @@ namespace PlayerSpace
             // Assign a copy of each resource to each county.
             foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
             {
-                CopyAndAssignResources(county, AllResources.Instance.allResources);
+                CopyAndAssignResources(county.countyData, AllResources.Instance.allResources);
                 UpdateScavengableResources(county);
             }
         }
@@ -43,19 +43,20 @@ namespace PlayerSpace
             county.countyData.scavengableScrap = maxScavengableScrap;
         }
 
-        private static void CopyAndAssignResources(County county, CountyResourceData[] resources)
+        private static void CopyAndAssignResources(CountyData countyData, CountyResourceData[] AllResources)
         {
-            foreach (CountyResourceData resource in resources)
+            foreach (CountyResourceData countyResourceData in AllResources)
             {
-                AllEnums.CountyResourceType key = resource.countyResourceType;
-                county.countyData.resources[key] = (CountyResourceData)resource.Duplicate();
-                // This is just for testing.
-                county.countyData.resources[key].amount = 1;
-            }
+                countyData.countyResources.Add(countyResourceData.countyResourceType, (CountyResourceData)countyResourceData.Duplicate());
+                countyData.yesterdaysCountyResources.Add(countyResourceData.countyResourceType, (CountyResourceData)countyResourceData.Duplicate());
+                countyData.amountUsedCountyResources.Add(countyResourceData.countyResourceType, (CountyResourceData)countyResourceData.Duplicate());
 
-            SetInitialMaxStorage(county.countyData.resources);
-            county.countyData.CopyCountyResourcesToYesterday();
+                // This is just for testing.
+                countyData.countyResources[countyResourceData.countyResourceType].amount = 1;
+            }
+            SetInitialMaxStorage(countyData.countyResources);
         }
+
         private static void SetInitialMaxStorage(Godot.Collections.Dictionary<AllEnums.CountyResourceType, CountyResourceData> resources)
         {
             foreach (KeyValuePair<AllEnums.CountyResourceType, CountyResourceData> keyValuePair in resources)

@@ -15,8 +15,6 @@ namespace PlayerSpace
         public int amount; // The amount of resource.
         private int maxAmount; // This is the max amount that can be stored.
 
-        // Write a getter setter for amount never to be above maxAmount - That getter setter looks wrong to me.
-        // Shouldn't the amount be zero?
         public int MaxAmount
         {
             get { return maxAmount; }
@@ -24,7 +22,7 @@ namespace PlayerSpace
             {
                 maxAmount = value;
                 amount = Math.Min(amount, maxAmount);
-                //GD.Print($"Getter Setter: {resourceName} {maxAmount}");
+                GD.Print($"Getter Setter: {name} {maxAmount}");
             }
         }
     }

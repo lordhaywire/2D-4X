@@ -1,7 +1,5 @@
 using Godot;
-using System;
 using System.Collections.Generic;
-using System.Resources;
 
 namespace PlayerSpace
 {
@@ -24,59 +22,61 @@ namespace PlayerSpace
         public override void _Ready()
         {
             Instance = this;
-            Globals.Instance.playerFactionData.InfluenceChanged += UpdateFactionExpendables;
-            Globals.Instance.playerFactionData.MoneyChanged += UpdateFactionExpendables;
-            Globals.Instance.playerFactionData.ScrapChanged += UpdateFactionExpendables;
-            Globals.Instance.playerFactionData.BuildingMaterialsChanged += UpdateFactionExpendables;
-            Globals.Instance.playerFactionData.FoodChanged += UpdateFactionExpendables;
-            UpdateFactionExpendables();
+            UpdateResourceLabels();
         }
 
-        public void UpdateResourcesUsedYesterday()
-        {
-            if(Globals.Instance.SelectedLeftClickCounty != null)
-            {
-                
-                CountyData countyData = Globals.Instance.SelectedLeftClickCounty.countyData;
-                // Subtract yesterday's resources from today's.
-                //int yesterdaysInfluence = countyData.resources[AllEnums.CountyResourceType.Influence].amount -
-            }
-        }
-
-        public static void UpdateTopBarWithCountyResources()
+        public static void UpdateCountyResources()
         {
             if (Globals.Instance.SelectedLeftClickCounty != null)
             {
                 County county = Globals.Instance.SelectedLeftClickCounty;
-                CountFactionResources(county.countyData.resources);
+                // This zeroes the resources so the count is correct when it goes through just 1 counties resources.
+                ZeroFactionResources(Globals.Instance.playerFactionData);
+                CountFactionResources(Globals.Instance.playerFactionData, county.countyData.countyResources);
             }
         }
 
-        private static void CountFactionResources(Godot.Collections.Dictionary<AllEnums.CountyResourceType, CountyResourceData> resources)
+        public static void UpdateFactionResources()
+        {
+            FactionData factionData = Globals.Instance.playerFactionData;
+            ZeroFactionResources(factionData);
+            foreach(CountyData countyData in factionData.countiesFactionOwns)
+            {
+                CountFactionResources(Globals.Instance.playerFactionData, countyData.countyResources);
+            }
+        }
+
+        private static void ZeroFactionResources(FactionData factionData)
+        {
+            factionData.factionResources[AllEnums.FactionResourceType.Food].amount = 0;
+            factionData.factionResources[AllEnums.FactionResourceType.Remnants].amount = 0;
+            factionData.factionResources[AllEnums.FactionResourceType.BuildingMaterial].amount = 0;
+        }
+        private static void CountFactionResources(FactionData factionData, Godot.Collections.Dictionary<AllEnums.CountyResourceType, CountyResourceData> resources)
         {
             foreach (KeyValuePair<AllEnums.CountyResourceType, CountyResourceData> keyValuePair in resources)
             {
                 CountyResourceData countyResource = keyValuePair.Value;
-                FactionData factionData = Globals.Instance.playerFactionData;
                 switch (countyResource.factionResourceType)
                 {
                     case AllEnums.FactionResourceType.Food:
-                        factionData.factionResources[AllEnums.FactionResourceType.Food].amount 
+                        factionData.factionResources[AllEnums.FactionResourceType.Food].amount
                             += countyResource.amount;
                         break;
                     case AllEnums.FactionResourceType.Remnants:
-                        factionData.factionResources[AllEnums.FactionResourceType.Remnants].amount 
+                        factionData.factionResources[AllEnums.FactionResourceType.Remnants].amount
                             += countyResource.amount;
                         break;
                     case AllEnums.FactionResourceType.BuildingMaterial:
-                        factionData.factionResources[AllEnums.FactionResourceType.BuildingMaterial].amount 
+                        factionData.factionResources[AllEnums.FactionResourceType.BuildingMaterial].amount
                             += countyResource.amount;
                         break;
                 }
             }
         }
 
-        public void UpdateFactionExpendables()
+        // We should probably make this static somehow so that it matches the other ones.
+        public void UpdateResourceLabels()
         {
             GD.Print("Expendables have been updated, motherfucker!");
             FactionData factionData = Globals.Instance.playerFactionData;
@@ -86,12 +86,11 @@ namespace PlayerSpace
             remnantsLabel.Text = factionData.factionResources[AllEnums.FactionResourceType.Remnants].amount.ToString();
             buildingMaterialsLabel.Text = factionData.factionResources[AllEnums.FactionResourceType.BuildingMaterial].amount.ToString();
 
-            // Do the math for the used resources from yesterday.
-            influenceAmountUsed.Text 
+            // Update the used resource amount.
+            influenceAmountUsed.Text
                 = $"({factionData.amountUsedFactionResources[AllEnums.FactionResourceType.Influence].amount})";
-            moneyAmountUsed.Text 
+            moneyAmountUsed.Text
                 = $"({factionData.amountUsedFactionResources[AllEnums.FactionResourceType.Money].amount})";
-            ;
         }
 
         public void ChangeSpeed(int speed)

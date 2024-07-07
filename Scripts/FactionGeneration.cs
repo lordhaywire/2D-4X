@@ -67,7 +67,6 @@ namespace PlayerSpace
         }
         private void CreateFactionResourceDictionary(FactionData factionData)
         {
-            // Creates both lists, we don't want it to have yesterday because it should get copied before anything happens.
             foreach (FactionResourceData factionResourceDatas in AllFactionResources.Instance.factionResourceDatas)
             {
                 GD.Print($"{factionResourceDatas.name} has been added to {factionData.factionName}");

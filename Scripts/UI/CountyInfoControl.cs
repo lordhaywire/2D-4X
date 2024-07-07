@@ -47,6 +47,16 @@ namespace PlayerSpace
             {
                 Banker banker = new();
                 banker.CountIdleWorkers(Globals.Instance.SelectedLeftClickCounty);
+                TopBarControl.UpdateCountyResources();
+                TopBarControl.Instance.UpdateResourceLabels();
+                // This update everything needs to be looked at.
+                //UpdateEverything();
+            }
+            else
+            {
+                // Update the faction resources, which is all the county resources.
+                TopBarControl.UpdateFactionResources();
+                TopBarControl.Instance.UpdateResourceLabels();
             }
         }
 
@@ -60,19 +70,20 @@ namespace PlayerSpace
             PlayerControls.Instance.stopClickThrough = false;
         }
 
+        // This update everything needs to be looked at.
         public void UpdateEverything()
         {
             countyData = Globals.Instance.SelectedLeftClickCounty.countyData;
             CheckForOwnership();
             UpdateNameLabels();
-            UpdateCountyResources();
+            UpdateCountyAvailableResources();
             UpdateCountyPopulationLabel();
             UpdateVisitorsPopulationLabel();
             UpdateIdleWorkersLabel();
             GenerateHeroesPanelList();
         }
 
-        private void UpdateCountyResources()
+        private void UpdateCountyAvailableResources()
         {
             countyFoodLabel.Text = $"Food: {countyData.scavengableFood}";
             countyScrapLabel.Text = $"Scrap: {countyData.scavengableScrap}";
@@ -261,7 +272,6 @@ namespace PlayerSpace
         private void OnXButtonPressed()
         {
             Hide();
-            TopBarControl.Instance.UpdateFactionExpendables();
         }
     }
 }

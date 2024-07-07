@@ -90,7 +90,7 @@ namespace PlayerSpace
                         break;
                     case AllEnums.Activities.Work:
                         // Produce resources based on the countyimprovement
-                        county.countyData.resources[countyPopulation.CurrentWork.resourceData.countyResourceType].amount +=
+                        county.countyData.countyResources[countyPopulation.CurrentWork.resourceData.countyResourceType].amount +=
                             Banker.GenerateWorkResourceWithSkillCheck(countyPopulation.CurrentWork
                             , countyPopulation.skills[countyPopulation.CurrentWork.workSkill].skillLevel);
                         /*
@@ -309,7 +309,7 @@ namespace PlayerSpace
         private void CheckForScavengingScrap()
         {
             //GD.Print($"{county.countyData.countyName} Amount of scrap: " + county.countyData.resources[AllEnums.CountyResourceType.Remnants].amount);
-            EnounghStored(county.countyData.resources[AllEnums.CountyResourceType.Remnants].amount, remnantsBeforeScavenge);
+            EnounghStored(county.countyData.countyResources[AllEnums.CountyResourceType.Remnants].amount, remnantsBeforeScavenge);
         }
 
         private void EnounghStored(int amountOfStored, int resourceBeforeScavenge)

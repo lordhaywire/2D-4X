@@ -93,17 +93,17 @@ namespace PlayerSpace
              //   $"{storyEventData.resourceAmount} {storyEventData.resource.name}");
             if (storyEventData.resource.perishable)
             {
-                storyEventData.eventCounty.countyData.resources[storyEventData.resource.countyResourceType].amount
+                storyEventData.eventCounty.countyData.countyResources[storyEventData.resource.countyResourceType].amount
                     += storyEventData.resourceAmount;
             }
-            TopBarControl.UpdateTopBarWithCountyResources();
+            TopBarControl.UpdateCountyResources();
         }
 
         // This is currently unused.  I am pretty sure we don't need this.
         public static int CountCountyResourceOfType(CountyData countyData, AllEnums.CountyResourceType resourceType)
         {
             int amount = 0;
-            foreach (CountyResourceData resourceData in countyData.resources.Values)
+            foreach (CountyResourceData resourceData in countyData.countyResources.Values)
             {
                 if (resourceData.countyResourceType == resourceType)
                 {
@@ -115,7 +115,7 @@ namespace PlayerSpace
         public static int CountFactionResourceOfType(CountyData countyData, AllEnums.FactionResourceType type)
         {
             int amount = 0;
-            foreach (CountyResourceData resourceData in countyData.resources.Values)
+            foreach (CountyResourceData resourceData in countyData.countyResources.Values)
             {
                 if (resourceData.factionResourceType == type)
                 {
@@ -181,12 +181,12 @@ namespace PlayerSpace
 
         public static void AddResourceToCounty(County county, AllEnums.CountyResourceType countyResourceType, int amount)
         {
-            county.countyData.resources[countyResourceType].amount += amount;
+            county.countyData.countyResources[countyResourceType].amount += amount;
 
             // Update the top bar if the player has a county selected.
             if (Globals.Instance.SelectedLeftClickCounty == county)
             {
-                TopBarControl.UpdateTopBarWithCountyResources();
+                TopBarControl.UpdateCountyResources();
             }
         }
 
