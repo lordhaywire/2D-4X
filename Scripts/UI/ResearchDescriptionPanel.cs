@@ -62,7 +62,7 @@ namespace PlayerSpace
                         != AllEnums.Activities.Move)
                     {
                         assignResearcherMenuButton.GetPopup().AddItem($"{countyPopulation.firstName} " +
-                            $"{countyPopulation.lastName}: {countyPopulation.nextActivity}");
+                            $"{countyPopulation.lastName}: {countyPopulation.GetActivityName()}");
                         assignableResearchers.Add(countyPopulation);
                     }
                 }

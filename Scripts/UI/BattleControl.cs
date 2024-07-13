@@ -231,5 +231,11 @@ namespace PlayerSpace
             GD.Print("Battle Log Control Clicked.");
             PlayerUICanvas.Instance.BattleLogControl.Show();
         }
+
+        private void OnTreeExit()
+        {
+            Clock.Instance.HourChanged -= HourlyBattleInCounty;
+            Clock.Instance.HourChanged -= HourlyBattleInCounty;
+        }
     }
 }

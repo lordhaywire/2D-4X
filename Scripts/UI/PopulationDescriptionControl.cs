@@ -107,21 +107,14 @@ namespace PlayerSpace
             UpdatePreferredWork();
             UpdateSkills();
 
-            if (countyPopulation.CurrentConstruction != null)
+            if (countyPopulation.CurrentCountyImprovment != null)
             {
-                currentActivityLabel.Text = $"{countyPopulation.activity} {countyPopulation.CurrentConstruction.improvementName}";
+                currentActivityLabel.Text = $"{countyPopulation.GetActivityName()} " +
+                    $"{countyPopulation.CurrentCountyImprovment.improvementName}";
             }
             else
             {
                 currentActivityLabel.Text = $"{countyPopulation.activity}";
-            }
-            if (countyPopulation.NextConstruction != null)
-            {
-                nextActivityLabel.Text = $"{countyPopulation.nextActivity} {countyPopulation.NextConstruction.improvementName}";
-            }
-            else
-            {
-                nextActivityLabel.Text = $"{countyPopulation.nextActivity}";
             }
 
             if (Globals.Instance.playerFactionData.factionResources[AllEnums.FactionResourceType.Influence].amount 

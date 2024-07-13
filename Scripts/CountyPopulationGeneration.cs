@@ -67,7 +67,7 @@ namespace PlayerSpace
                         , newAttributes // We could change this just to the variable since it is now up at the top.
                         , GenerateSkillsList()
                         , preferredSkill
-                        , AllEnums.Activities.Idle, AllEnums.Activities.Idle, null, null, null, null, null));
+                        , AllEnums.Activities.Idle, null, null));
                 }
                 else
                 {
@@ -79,7 +79,7 @@ namespace PlayerSpace
                         , newAttributes // We could change this just to the variable since is is now in the class declaration.
                         , GenerateSkillsList()
                         , preferredSkill
-                        , AllEnums.Activities.Idle, AllEnums.Activities.Idle, null, null, null, null, null));
+                        , AllEnums.Activities.Idle, null, null));
                 }
             }
         }

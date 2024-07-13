@@ -39,7 +39,9 @@ namespace PlayerSpace
                 = (County)Globals.Instance.countiesParent.GetChild(destinationCountyID);
 
             token.countyPopulation.destination = destinationCountyID;
-            token.UpdateCurrentActivity(AllEnums.Activities.Move); // Next activity isn't shown on the description panel.
+            token.RemoveFromResearch();
+
+            token.countyPopulation.UpdateActivity(AllEnums.Activities.Move);
 
             //GD.Print("Destination Global Position: " + destinationCounty.heroSpawn.GlobalPosition);
             target = destinationCounty.heroSpawn.GlobalPosition;
@@ -107,7 +109,6 @@ namespace PlayerSpace
 
         private void ReachedDestination()
         {
-            Activities activities = new();
             MoveToken = false;
             GD.Print("Top of Reached Destination County Population: " + token.countyPopulation.firstName);
             GD.Print("Token Destination: " + token.countyPopulation.destination);
@@ -118,16 +119,12 @@ namespace PlayerSpace
                 if (token.countyPopulation.IsArmyLeader == false)
                 {
                     HeroReachedCounty();
-                    // I think this needs a rewrite or to be added to Activites
-                    token.UpdateCurrentActivity(AllEnums.Activities.Idle);
-                    activities.UpdateNext(token.countyPopulation, AllEnums.Activities.Idle);
+                    token.countyPopulation.UpdateActivity(AllEnums.Activities.Idle);
                 }
                 else
                 {
                     ArmyReachedCounty();
-                    // I think this needs a rewrite or to be added to Activites
-                    token.UpdateCurrentActivity(AllEnums.Activities.Idle);
-                    activities.UpdateNext(token.countyPopulation, AllEnums.Activities.Idle);
+                    token.countyPopulation.UpdateActivity(AllEnums.Activities.Idle);
                 }
             }
             else
@@ -137,14 +134,12 @@ namespace PlayerSpace
                     HeroVisitingCounty();
                     // We will probably need to change this to what the token occupation does.
                     // For example, if the token is a diplomat, then the activity will be diplmating.
-                    token.UpdateCurrentActivity(AllEnums.Activities.Idle);
-                    activities.UpdateNext(token.countyPopulation, AllEnums.Activities.Idle);
+                    token.countyPopulation.UpdateActivity(AllEnums.Activities.Idle);
                 }
                 else
                 {
                     ArmyAttackingCounty();
-                    token.UpdateCurrentActivity(AllEnums.Activities.Combat);
-                    activities.UpdateNext(token.countyPopulation, AllEnums.Activities.Combat);
+                    token.countyPopulation.UpdateActivity(AllEnums.Activities.Combat);
                 }
 
             }

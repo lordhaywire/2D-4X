@@ -45,8 +45,7 @@ namespace PlayerSpace
             // Idle workers changes if we change who is building stuff etc.
             if (Visible)
             {
-                Banker banker = new();
-                banker.CountIdleWorkers(Globals.Instance.SelectedLeftClickCounty);
+                Globals.Instance.SelectedLeftClickCounty.countyData.CountIdleWorkers();
                 TopBarControl.UpdateCountyResources();
                 TopBarControl.Instance.UpdateResourceLabels();
                 // This update everything needs to be looked at.

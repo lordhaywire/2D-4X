@@ -134,32 +134,18 @@ namespace PlayerSpace
             }
         }
 
-        public void UpdateCurrentActivity(AllEnums.Activities activity)
-        {
-            Activities activities = new();
-            activities.UpdateCurrent(countyPopulation, activity);
-
-            switch (activity)
-            {
-                case AllEnums.Activities.Research:
-                    break;
-                case AllEnums.Activities.Move:
-                    activities.UpdateNext(countyPopulation, activity);
-                    RemoveFromResearch();
-                    break;
-                default:
-                    RemoveFromResearch();
-                    break;
-            }
-
-        }
-
-        private void RemoveFromResearch()
+        public void RemoveFromResearch()
         {
             countyPopulation.CurrentResearchItemData = null;
             ResearchControl.Instance.assignedResearchers.Remove(countyPopulation);
             //GD.Print("Removed from Research - Assigned Researchers Count: " + ResearchControl.Instance.assignedResearchers.Count);
             CountyInfoControl.Instance.GenerateHeroesPanelList();
+        }
+
+        private void OnTreeExit()
+        {
+            Clock.Instance.HourChanged -= IncreaseMorale;
+            Clock.Instance.HourChanged -= IncreaseMorale;
         }
     }
 }

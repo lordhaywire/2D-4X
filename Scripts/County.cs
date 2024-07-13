@@ -1,5 +1,7 @@
 using Godot;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
+using System.Reflection;
 
 namespace PlayerSpace
 {
@@ -24,7 +26,7 @@ namespace PlayerSpace
 
         public override void _Ready()
         {
-            countyData.countyNode = this; // Figure out why I did this.  I bet you this could be removed.
+            countyData.countyNode = this;
 
             // This is here so that it doesn't subscribe to the clock when the Map Editor is running.
             if (GetTree().CurrentScene.SceneFilePath == "res://Scenes/Main.tscn")
@@ -54,8 +56,7 @@ namespace PlayerSpace
             // Population uses other resources besides food.
             countyData.OccationalNeeds();
 
-            // This is busted until we add people to the County Improvement List.
-            CountyAI.CheckIfCountyImprovementsAreDone(countyData);
+            countyData.CheckIfCountyImprovementsAreDone();
 
             // Update the county resources
             TopBarControl.UpdateCountyResources();
@@ -70,10 +71,19 @@ namespace PlayerSpace
 
         private void DayStart()
         {
-            PopulationAI populationAI = new();
-            // This is the one with the dumb name.
-            populationAI.CheckForWork(this); // We need to add the population to the new peopleAtCountyImprovementList.
+            countyData.possibleWorkers.Clear(); // Clear the list at the start of each county.
+            countyData.workersToRemoveFromPossibleWorkers.Clear();
+
+            countyData.CheckForIdle();
+            countyData.CheckForPreferredWork();
+            countyData.CheckForAnyWork();
+            countyData.CheckForConstruction();
+            // Sets people to scavenge.
+            countyData.CheckForScavengingFood();
+            countyData.CheckForScavengingRemnants();
+            countyData.CountIdleWorkers();
         }
+        
         private void OnTreeExit()
         {
             Clock.Instance.SetDay -= EndOfDay;

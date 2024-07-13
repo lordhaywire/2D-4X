@@ -6,17 +6,6 @@ namespace PlayerSpace
 {
     public class PopulationAI
     {
-        private readonly int willWorkLoyalty = 20; // The loyalty a population needs to be willing to work.
-                                                   // 50 is too high for testing, but might work well for the real game.
-        private readonly int foodBeforeScavenge = 500; // Less then this amount will make people scavenge.
-        private readonly int remnantsBeforeScavenge = 500; // Less then this amount will make people scavenge.
-
-        private readonly List<CountyPopulation> possibleWorkers = [];
-        private readonly List<CountyPopulation> workersToRemove = []; // List to collect county populations to be removed from the possibleWorkers.
-
-        private County county;
-
-
         // This is a dumb name for this method.
         public static void IsThereEnoughFood(CountyData countyData)
         {
@@ -90,9 +79,9 @@ namespace PlayerSpace
                         break;
                     case AllEnums.Activities.Work:
                         // Produce resources based on the countyimprovement
-                        county.countyData.countyResources[countyPopulation.CurrentWork.resourceData.countyResourceType].amount +=
-                            Banker.GenerateWorkResourceWithSkillCheck(countyPopulation.CurrentWork
-                            , countyPopulation.skills[countyPopulation.CurrentWork.workSkill].skillLevel);
+                        county.countyData.countyResources[countyPopulation.CurrentCountyImprovment.resourceData.countyResourceType].amount +=
+                            Banker.GenerateWorkResourceWithSkillCheck(countyPopulation.CurrentCountyImprovment
+                            , countyPopulation.skills[countyPopulation.CurrentCountyImprovment.workSkill].skillLevel);
                         /*
                         GD.Print($"{countyPopulation.firstName} worked at {countyPopulation.CurrentWork.improvementName}" +
                             $" and now {county.countyData.countyName} has " +
@@ -123,12 +112,12 @@ namespace PlayerSpace
             SkillData skillData = new();
             if (skillData.Check(countyPopulation.skills[AllEnums.Skills.Construction].skillLevel))
             {
-                countyPopulation.CurrentConstruction.CurrentAmountOfConstruction
+                countyPopulation.CurrentCountyImprovment.CurrentAmountOfConstruction
                     += Globals.Instance.dailyConstructionAmount + Globals.Instance.dailyConstructionAmountBonus;
             }
             else
             {
-                countyPopulation.CurrentConstruction.CurrentAmountOfConstruction
+                countyPopulation.CurrentCountyImprovment.CurrentAmountOfConstruction
                     += Globals.Instance.dailyConstructionAmount;
             }
         }
@@ -183,27 +172,8 @@ namespace PlayerSpace
                 Banker.IncreaseResearchAmountBonus(countyPopulation, whatPopulationIsResearching, Globals.Instance.populationResearchBonus);
             }
         }
-        // This is now a dumb name for this method.
-        public void CheckForWork(County county)
-        {
-            this.county = county;
-            Banker banker = new();
-            possibleWorkers.Clear(); // Clear the list at the start of each county.
-            workersToRemove.Clear();
-            AdjustPopulationActivity();
-            // This needs to be at the start of the day - Produce other items based on countyimprovement such as extra storage.
 
-            CheckForIdle();
-
-            CheckForPreferredWork();
-            CheckForAnyWork();
-            CheckForConstruction();
-            // Sets people to scavenge.
-            CheckForScavengingFood();
-            CheckForScavengingScrap();
-            banker.CountIdleWorkers(county);
-        }
-
+        /*
         // Adjust all of the world population!
         private void AdjustPopulationActivity()
         {
@@ -226,115 +196,7 @@ namespace PlayerSpace
                 }
             }
         }
-
-        private void CheckForIdle()
-        {
-            // Go through each person in the county.
-            foreach (CountyPopulation countyPopulation in county.countyData.countyPopulationList)
-            {
-                // Go through everyone and if they are idle, helpful and loyal add them to the possibleWorkers list.
-                if (countyPopulation.activity == AllEnums.Activities.Idle
-                    && CheckLoyalty(countyPopulation) == true
-                    && countyPopulation.CheckForPerk(AllEnums.Perks.Unhelpful) == false)
-                {
-                    //GD.Print($"{county.countyData.countyName}: {countyPopulation.firstName} is idle, is loyal and is not unhelpful.");
-                    possibleWorkers.Add(countyPopulation);
-                }
-            }
-        }
-
-        private void CheckForPreferredWork()
-        {
-            //GD.Print($"{county.countyData.countyName}: Checking for Preferred Work!");
-            foreach (CountyImprovementData countyImprovementData in county.countyData.completedCountyImprovements)
-            {
-                foreach (CountyPopulation countyPopulation in possibleWorkers)
-                {
-                    if (countyPopulation.preferredSkill.skill == countyImprovementData.workSkill)
-                    {
-                        // If they have the preferred skill, they are added to the county improvement
-                        // and marked for removal from the possibleWorkers list.
-                        if (countyImprovementData.currentWorkers < countyImprovementData.maxWorkers)
-                        {
-                            countyImprovementData.currentWorkers++;
-                            countyPopulation.NextWork = countyImprovementData;
-                            workersToRemove.Add(countyPopulation);
-                        }
-                    }
-                }
-                RemoveWorkersFromPossibleWorkers();
-            }
-        }
-
-        private void CheckForAnyWork()
-        {
-            foreach (CountyImprovementData countyImprovementData in county.countyData.completedCountyImprovements)
-            {
-                foreach (CountyPopulation countyPopulation in possibleWorkers)
-                {
-                    if (countyImprovementData.currentWorkers < countyImprovementData.maxWorkers)
-                    {
-                        countyImprovementData.currentWorkers++;
-                        countyPopulation.NextWork = countyImprovementData;
-                        workersToRemove.Add(countyPopulation);
-                    }
-                }
-                RemoveWorkersFromPossibleWorkers();
-            }
-        }
-
-        private void CheckForConstruction()
-        {
-            foreach (CountyImprovementData countyImprovementData in county.countyData.underConstructionCountyImprovements)
-            {
-                foreach (CountyPopulation countyPopulation in possibleWorkers)
-                {
-                    if (countyImprovementData.currentBuilders < countyImprovementData.maxBuilders)
-                    {
-                        countyImprovementData.currentBuilders++;
-                        countyPopulation.NextConstruction = countyImprovementData;
-                        workersToRemove.Add(countyPopulation);
-                    }
-                }
-                RemoveWorkersFromPossibleWorkers();
-            }
-        }
-        private void CheckForScavengingFood()
-        {
-            int amountOfFood = Banker.CountFactionResourceOfType(county.countyData, AllEnums.FactionResourceType.Food);
-            //GD.Print($"{county.countyData.countyName} Amount of food: " + amountOfFood);
-            EnounghStored(amountOfFood, foodBeforeScavenge);
-        }
-
-        private void CheckForScavengingScrap()
-        {
-            //GD.Print($"{county.countyData.countyName} Amount of scrap: " + county.countyData.resources[AllEnums.CountyResourceType.Remnants].amount);
-            EnounghStored(county.countyData.countyResources[AllEnums.CountyResourceType.Remnants].amount, remnantsBeforeScavenge);
-        }
-
-        private void EnounghStored(int amountOfStored, int resourceBeforeScavenge)
-        {
-            Activities activities = new();
-            if (amountOfStored < resourceBeforeScavenge)
-            {
-                foreach (CountyPopulation countyPopulation in possibleWorkers)
-                {
-                    activities.UpdateNext(countyPopulation, AllEnums.Activities.Scavenge);
-                    workersToRemove.Add(countyPopulation);
-                }
-                RemoveWorkersFromPossibleWorkers();
-            }
-        }
-
-        private void RemoveWorkersFromPossibleWorkers()
-        {
-            // Remove the collected items from the possibleWorkers list
-            foreach (CountyPopulation worker in workersToRemove)
-            {
-                possibleWorkers.Remove(worker);
-            }
-            workersToRemove.Clear();
-        }
+        */
 
         // This should be moved to the Resource that Loyalty will be part of once we figure out
         // what catagory Loyalty is.  For example, it isn't a skill, or a perk.
@@ -347,16 +209,6 @@ namespace PlayerSpace
             }
             return false;
         }
-        private bool CheckLoyalty(CountyPopulation countyPopulation)
-        {
-            if (countyPopulation.LoyaltyAdjusted >= willWorkLoyalty)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+
     }
 }

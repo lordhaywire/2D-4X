@@ -35,7 +35,7 @@ namespace PlayerSpace
         [Export] public int dailyResourceGenerationBonus;
 
         [Export] public AllEnums.CountyImprovementStatus status;
-        public List<CountyPopulation> countyPopulationAtImprovement;
+        public List<CountyPopulation> countyPopulationAtImprovement = [];
 
         public bool CheckIfCountyInprovementDone()
         {

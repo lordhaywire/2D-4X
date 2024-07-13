@@ -75,18 +75,7 @@ namespace PlayerSpace
             }
         }
 
-        public void CountIdleWorkers(County county)
-        {
-            int idleWorkers = 0;
-            foreach (CountyPopulation person in county.countyData.countyPopulationList)
-            {
-                if (person.activity == AllEnums.Activities.Idle && person.nextActivity == AllEnums.Activities.Idle)
-                {
-                    idleWorkers++;
-                }
-            }
-            county.countyData.IdleWorkers = idleWorkers;
-        }
+
         public void AddStoryEventCountyResource(StoryEventData storyEventData)
         {
             //GD.Print($"Faction: {storyEventData.eventCounty.countyData.factionData.factionName} is adding " +

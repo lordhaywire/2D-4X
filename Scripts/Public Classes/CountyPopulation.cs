@@ -1,14 +1,10 @@
 using Godot;
 using System;
-using System.Collections.Generic;
-using System.Resources;
 
 namespace PlayerSpace
 {
     public class CountyPopulation
     {
-        readonly Activities activities = new();
-
         public FactionData factionData;
         public int location;
 
@@ -92,68 +88,19 @@ namespace PlayerSpace
 
         [ExportGroup("Work")]
         public AllEnums.Activities activity;
-        public AllEnums.Activities nextActivity;
-        private CountyImprovementData currentWork;
+        private CountyImprovementData currentCountyImprovement;
 
-        // I don't think this needs to be a getter setter because we never set the current construction.  The PopulationAI
-        // script does that.
-        public CountyImprovementData CurrentWork
+        // I don't think this needs to be a getter setter because we never set the current construction.
+        // The PopulationAI script does that.
+        public CountyImprovementData CurrentCountyImprovment
         {
-            get { return currentWork; }
+            get { return currentCountyImprovement; }
             set
             {
-                currentWork = value;
+                currentCountyImprovement = value;
             }
         }
-        private CountyImprovementData nextWork;
-        public CountyImprovementData NextWork
-        {
-            get { return nextWork; }
-            set
-            {
-                nextWork = value;
-                if (nextWork == null)
-                {
-                    activities.UpdateNext(this, AllEnums.Activities.Idle);
-                }
-                else
-                {
-                    activities.UpdateNext(this, AllEnums.Activities.Work);
-                }
-            }
-        }
-
-        private CountyImprovementData currentConstruction; // Building that day.
-
-        // I don't think this needs to be a getter setter because we never set the current construction.  The PopulationAI
-        // script does that.
-        public CountyImprovementData CurrentConstruction
-        {
-            get { return currentConstruction; }
-            set
-            {
-                currentConstruction = value;
-            }
-        }
-
-        private CountyImprovementData nextContruction;
-        public CountyImprovementData NextConstruction // Building the next day.
-        {
-            get { return nextContruction; }
-            set
-            {
-                nextContruction = value;
-                if (nextContruction == null)
-                {
-                    activities.UpdateNext(this, AllEnums.Activities.Idle);
-                }
-                else
-                {
-                    activities.UpdateNext(this, AllEnums.Activities.Build);
-                }
-            }
-        }
-
+        
         private ResearchItemData currentResearchItemData;
 
         public ResearchItemData CurrentResearchItemData
@@ -165,7 +112,7 @@ namespace PlayerSpace
 
                 if (currentResearchItemData == null)
                 {
-                    activities.UpdateNext(this, AllEnums.Activities.Idle);
+                    UpdateActivity(AllEnums.Activities.Idle);
                     if (CountyInfoControl.Instance?.Visible == true)
                     {
                         CountyInfoControl.Instance.GenerateHeroesPanelList();
@@ -173,7 +120,7 @@ namespace PlayerSpace
                 }
                 else
                 {
-                    activities.UpdateNext(this, AllEnums.Activities.Research);
+                    UpdateActivity(AllEnums.Activities.Research);
                 }
 
                 if (ResearchControl.Instance?.Visible == true)
@@ -209,9 +156,13 @@ namespace PlayerSpace
             this.activity = activity;
         }
 
-        public void UpdateCurrentWork(CountyImprovementData countyImprovementData)
+        public void UpdateDestination(int destination)
         {
-            currentWork = countyImprovementData;
+            this.destination = destination;
+        }
+        public void UpdateCurrentCountyImprovement(CountyImprovementData countyImprovementData)
+        {
+            currentCountyImprovement = countyImprovementData;
         }
 
         public void AddRandomHappiness(int maxHappiness)
@@ -221,11 +172,29 @@ namespace PlayerSpace
             //GD.Print($"Happiness gained: {firstName} {lastName} happiness is now {Happiness}");
         }
 
+        public string GetActivityName()
+        {
+            string name = TranslationServer.Translate(AllActivities.Instance.allActivityData[(int)activity].name);
+            return name;
+        }
+
         public void RemoveRandomHappiness(int maxHappiness)
         {
             Random random = new();
             Happiness -= random.Next(1, maxHappiness);
             //GD.Print($"Happiness lost: {firstName} {lastName} happiness is now {Happiness}");
+        }
+
+        public bool CheckLoyalty()
+        {
+            if (LoyaltyAdjusted >= Globals.Instance.willWorkLoyalty)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         public CountyPopulation(
             FactionData factionData, int location, int lastLocation, int destination, string firstName, string lastName
@@ -235,10 +204,8 @@ namespace PlayerSpace
             , Godot.Collections.Dictionary<AllEnums.CountyResourceType, int> needs
             , Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes
             , Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills
-            , SkillData preferredSkill, AllEnums.Activities activity, AllEnums.Activities nextActivity
-            , CountyImprovementData CurrentWork
-            , CountyImprovementData NextWork
-            , CountyImprovementData CurrentConstruction, CountyImprovementData NextConstruction
+            , SkillData preferredSkill, AllEnums.Activities activity
+            , CountyImprovementData CurrentCountyImprovment
             , ResearchItemData CurrentResearchItemData)
         {
             this.factionData = factionData;
@@ -271,11 +238,7 @@ namespace PlayerSpace
             this.preferredSkill = preferredSkill;
 
             this.activity = activity;
-            this.nextActivity = nextActivity;
-            this.CurrentWork = CurrentWork;
-            this.NextWork = NextWork;
-            this.CurrentConstruction = CurrentConstruction;
-            this.NextConstruction = NextConstruction;
+            this.CurrentCountyImprovment = CurrentCountyImprovment;
             this.CurrentResearchItemData = CurrentResearchItemData;
         }
     }

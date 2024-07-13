@@ -83,25 +83,13 @@ namespace PlayerSpace
         // This is where we would us a method to return the name.
         private static void UpdateActivities(PopulationRowButton populationRow, CountyPopulation countyPopulation)
         {
-            Activities activities = new();
-
             // This sets their current activity then checks to see if Building, Work, or Research is null and if it isn't
             // then it adds where to the end of the label.  If they are all null then it puts nothing.
-            populationRow.currentActivityLabel.Text = activities.GetActivityName(countyPopulation.activity);
-            string currentWhere = countyPopulation.CurrentConstruction?.improvementName
-                ?? countyPopulation.CurrentWork?.improvementName
+            populationRow.currentActivityLabel.Text = countyPopulation.GetActivityName();
+            string currentWhere = countyPopulation.CurrentCountyImprovment?.improvementName
                 ?? countyPopulation.CurrentResearchItemData?.researchName
                 ?? string.Empty;
             populationRow.currentActivityLabel.Text += $" {currentWhere}";
-
-            // This is all going to go away!
-            // This sets their current activity then checks to see if Building, Work, or Research is null and if it isn't
-            // then it adds where to the end of the label.  If they are all null then it puts nothing.
-            string nextWhere = countyPopulation.NextConstruction?.improvementName
-                ?? countyPopulation.NextWork?.improvementName
-                ?? countyPopulation.CurrentResearchItemData?.researchName
-                ?? string.Empty;
-            //populationRow.nextActivityLabel.Text += $" {nextWhere}";
         }
 
         // This will not be shown in to the player eventually.  It is just shown right now for testing.

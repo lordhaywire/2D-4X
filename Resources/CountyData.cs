@@ -2,6 +2,7 @@ using Godot;
 using Godot.Collections;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 
 namespace PlayerSpace
 {
@@ -33,6 +34,9 @@ namespace PlayerSpace
         public Globals.ListWithNotify<CountyPopulation> visitingHeroList = [];
         public Globals.ListWithNotify<CountyPopulation> visitingArmyList = [];
         public Globals.ListWithNotify<CountyPopulation> deadPeopleList = [];
+
+        public List<CountyPopulation> possibleWorkers = []; // List of all the idle, helpful and loyal workers for that day.
+        public List<CountyPopulation> workersToRemoveFromPossibleWorkers = []; // List to collect county populations to be removed from the possibleWorkers.
 
         public List<Button> spawnedTokenButtons = [];
 
@@ -98,6 +102,177 @@ namespace PlayerSpace
             }
         }
 
+        public void CheckIfCountyImprovementsAreDone()
+        {
+            List<CountyImprovementData> completedImprovments = [];
+            completedImprovments.Clear();
+            foreach (CountyImprovementData countyImprovementData in underConstructionCountyImprovements)
+            {
+                // If the county improvement is done, make everyone working on it idle.
+                // Set their current work to null.
+                if (countyImprovementData.CheckIfCountyInprovementDone())
+                {
+                    foreach (CountyPopulation countyPopulation in countyImprovementData.countyPopulationAtImprovement)
+                    {
+                        countyPopulation.UpdateActivity(AllEnums.Activities.Idle);
+                        countyPopulation.UpdateCurrentCountyImprovement(null);
+                    }
+                    // Set countyImprovement status to Complete
+                    countyImprovementData.SetCountyImprovementComplete();
+                    // Clear the people on the county improvement list.
+                    countyImprovementData.countyPopulationAtImprovement.Clear();
+                    completedImprovments.Add(countyImprovementData);
+                }
+            }
+            // Move the county improvement to the correct list and remove it from the old list.
+            MoveCountyImprovementToCompletedList(completedImprovments);
+        }
+        public void CheckForPreferredWork()
+        {
+            //GD.Print($"{county.countyData.countyName}: Checking for Preferred Work!");
+            foreach (CountyImprovementData countyImprovementData in completedCountyImprovements)
+            {
+                foreach (CountyPopulation countyPopulation in possibleWorkers)
+                {
+                    // If they have the preferred skill, they are added to the county improvement
+                    // and marked for removal from the possibleWorkers list.
+                    if (countyPopulation.preferredSkill.skill == countyImprovementData.workSkill)
+                    {
+                        if (countyImprovementData.countyPopulationAtImprovement.Count
+                            < countyImprovementData.maxWorkers)
+                        {
+                            countyPopulation.UpdateActivity(AllEnums.Activities.Work);
+                            UpdateWorkLocation(countyPopulation, countyImprovementData);
+                            GD.Print($"{countyPopulation.firstName} preferred work is " +
+                                $"{countyPopulation.preferredSkill.skillName} and they are " +
+                                $"{countyPopulation.GetActivityName()} at " +
+                                $"{countyPopulation.CurrentCountyImprovment.improvementName}");
+                        }
+                    }
+                }
+                RemoveWorkersFromPossibleWorkers();
+            }
+        }
+
+        public void CheckForAnyWork()
+        {
+            foreach (CountyImprovementData countyImprovementData in completedCountyImprovements)
+            {
+                foreach (CountyPopulation countyPopulation in possibleWorkers)
+                {
+                    if (countyImprovementData.countyPopulationAtImprovement.Count 
+                        < countyImprovementData.maxWorkers)
+                    {
+                        countyPopulation.UpdateActivity(AllEnums.Activities.Work);
+                        UpdateWorkLocation(countyPopulation, countyImprovementData);
+                    }
+                }
+                RemoveWorkersFromPossibleWorkers();
+            }
+        }
+
+        private void UpdateWorkLocation(CountyPopulation countyPopulation, CountyImprovementData countyImprovementData)
+        {
+            // This same thing is done multiple times.  We should make it its own method.
+            countyPopulation.UpdateCurrentCountyImprovement(countyImprovementData);
+            countyImprovementData.countyPopulationAtImprovement.Add(countyPopulation);
+            workersToRemoveFromPossibleWorkers.Add(countyPopulation);
+        }
+        public void CountIdleWorkers()
+        {
+            int idleWorkers = 0;
+            foreach (CountyPopulation person in countyPopulationList)
+            {
+                if (person.activity == AllEnums.Activities.Idle)
+                {
+                    idleWorkers++;
+                }
+            }
+            IdleWorkers = idleWorkers;
+        }
+
+        // If there isn't enough remnants then have the idle people start scavenging.
+        public void CheckForScavengingRemnants()
+        {
+            //GD.Print($"{county.countyData.countyName} Amount of remnants: " + county.countyData.resources[AllEnums.CountyResourceType.Remnants].amount);
+            if (EnounghStored(countyResources[AllEnums.CountyResourceType.Remnants].amount, Globals.Instance.remnantsBeforeScavenge) == false)
+            {
+                foreach (CountyPopulation countyPopulation in possibleWorkers)
+                {
+                    countyPopulation.UpdateActivity(AllEnums.Activities.Scavenge);
+                    workersToRemoveFromPossibleWorkers.Add(countyPopulation);
+                }
+                RemoveWorkersFromPossibleWorkers();
+            }
+        }
+
+        // If there isn't enough food then have the idle people start scavenging.
+        public void CheckForScavengingFood()
+        {
+            int amountOfFood = Banker.CountFactionResourceOfType(this, AllEnums.FactionResourceType.Food);
+            //GD.Print($"{county.countyData.countyName} Amount of food: " + amountOfFood);
+            if (EnounghStored(amountOfFood, Globals.Instance.foodBeforeScavenge) == false)
+            {
+                foreach (CountyPopulation countyPopulation in possibleWorkers)
+                {
+                    countyPopulation.UpdateActivity(AllEnums.Activities.Scavenge);
+                    workersToRemoveFromPossibleWorkers.Add(countyPopulation);
+                }
+                RemoveWorkersFromPossibleWorkers();
+            }
+        }
+
+        private bool EnounghStored(int amountOfStored, int resourceBeforeScavenge)
+        {
+            if (amountOfStored < resourceBeforeScavenge)
+            {
+                return true;
+            }
+            return false;
+        }
+        public void CheckForConstruction()
+        {
+            foreach (CountyImprovementData countyImprovementData in underConstructionCountyImprovements)
+            {
+                foreach (CountyPopulation countyPopulation in possibleWorkers)
+                {
+                    if (countyImprovementData.countyPopulationAtImprovement.Count 
+                        < countyImprovementData.maxBuilders)
+                    {
+                        countyPopulation.UpdateActivity(AllEnums.Activities.Build);
+                        UpdateWorkLocation(countyPopulation, countyImprovementData);
+                    }
+                }
+                RemoveWorkersFromPossibleWorkers();
+            }
+        }
+
+        private void RemoveWorkersFromPossibleWorkers()
+        {
+            // Remove the collected items from the possibleWorkers list
+            foreach (CountyPopulation countyPopulation in workersToRemoveFromPossibleWorkers)
+            {
+                possibleWorkers.Remove(countyPopulation);
+            }
+            workersToRemoveFromPossibleWorkers.Clear();
+        }
+        public void CheckForIdle()
+        {
+            // Go through each person in the county.
+            foreach (CountyPopulation countyPopulation in countyPopulationList)
+            {
+                // Go through everyone and if they are idle, helpful and loyal add them to the possibleWorkers list.
+                if (countyPopulation.activity == AllEnums.Activities.Idle
+                    && countyPopulation.CheckLoyalty() == true
+                    && countyPopulation.CheckForPerk(AllEnums.Perks.Unhelpful) == false)
+                {
+                    GD.Print($"{countyName}: {countyPopulation.firstName} is idle, is loyal and is not unhelpful.");
+                    possibleWorkers.Add(countyPopulation);
+                }
+            }
+        }
+
+        
         public void SubtractCountyResources()
         {
             // Do the math for amount used. Subtract yesterdays from todays and that is how much we have used.
@@ -108,7 +283,7 @@ namespace PlayerSpace
             }
             if (factionData.isPlayer)
             {
-                GD.Print("After subtraction yesterdays vegetables is: " 
+                GD.Print("After subtraction yesterdays vegetables is: "
                     + yesterdaysCountyResources[AllEnums.CountyResourceType.Vegetables].amount);
             }
         }
@@ -344,10 +519,13 @@ namespace PlayerSpace
             //GD.Print($"{countyPopulation.firstName} happiness: {countyPopulation.Happiness}");
         }
 
-        public void MoveCountyImprovementToCompletedList(CountyImprovementData countyImprovementData)
+        public void MoveCountyImprovementToCompletedList(List<CountyImprovementData> countyImprovementDataToRemove)
         {
-            completedCountyImprovements.Add(countyImprovementData);
-            underConstructionCountyImprovements.Remove(countyImprovementData);
+            foreach (CountyImprovementData countyImprovementData in countyImprovementDataToRemove)
+            {
+                completedCountyImprovements.Add(countyImprovementData);
+                underConstructionCountyImprovements.Remove(countyImprovementData);
+            }
         }
 
         public void CopyCountyResourcesToYesterday()

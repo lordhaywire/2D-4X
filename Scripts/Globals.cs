@@ -104,6 +104,8 @@ namespace PlayerSpace
         [Export] public Vector2 heroMoveTarget;
         [Export] public int costOfHero;
         [Export] public int loyaltyCheckNumber = 50;
+        [Export] public int willWorkLoyalty = 20; // The loyalty a population needs to be willing to work.
+                                                   // 50 is too high for testing, but might work well for the real game.
 
         [Export] public int startingHitPoints = 10;
         [Export] public int maxLearningNeeded = 10;
@@ -118,6 +120,8 @@ namespace PlayerSpace
         [Export] public int populationResearchIncrease = 1;
         [Export] public int populationResearchBonus = 1;
         [Export] public int daysUntilDamageFromStarvation = 15;
+        [Export] public int foodBeforeScavenge = 500; // Less then this amount will make people scavenge.
+        [Export] public int remnantsBeforeScavenge = 500; // Less then this amount will make people scavenge.
 
         public int researchClicked; // This is so the Research description panel knows which research was clicked.
 
