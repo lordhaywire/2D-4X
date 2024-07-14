@@ -1,8 +1,6 @@
 using Godot;
-using Godot.Collections;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
 
 namespace PlayerSpace
 {
@@ -206,10 +204,38 @@ namespace PlayerSpace
             }
         }
 
+        public int CountFactionResourceOfType(AllEnums.FactionResourceType resourceType)
+        {
+            int amount = 0;
+            foreach (CountyResourceData resourceData in countyResources.Values)
+            {
+                if (resourceData.factionResourceType == resourceType)
+                {
+                    amount += resourceData.amount;
+                    //GD.Print($"{countyData.countyName} is counting food: {resourceData.name} {resourceData.amount}");
+                }
+            }
+            return amount;
+        }
+
+        public int CountUsedFactionResourceOfType(AllEnums.FactionResourceType resourceType)
+        {
+            int amount = 0;
+            foreach (CountyResourceData resourceData in amountUsedCountyResources.Values)
+            {
+                if (resourceData.factionResourceType == resourceType)
+                {
+                    amount += resourceData.amount;
+                    //GD.Print($"{countyData.countyName} is counting food: {resourceData.name} {resourceData.amount}");
+                }
+            }
+            return amount;
+        }
+
         // If there isn't enough food then have the idle people start scavenging.
         public void CheckForScavengingFood()
         {
-            int amountOfFood = Banker.CountFactionResourceOfType(this, AllEnums.FactionResourceType.Food);
+            int amountOfFood = CountFactionResourceOfType(AllEnums.FactionResourceType.Food);
             //GD.Print($"{county.countyData.countyName} Amount of food: " + amountOfFood);
             if (EnounghStored(amountOfFood, Globals.Instance.foodBeforeScavenge) == false)
             {
@@ -226,9 +252,9 @@ namespace PlayerSpace
         {
             if (amountOfStored < resourceBeforeScavenge)
             {
-                return true;
+                return false;
             }
-            return false;
+            return true;
         }
         public void CheckForConstruction()
         {
@@ -246,6 +272,8 @@ namespace PlayerSpace
                 RemoveWorkersFromPossibleWorkers();
             }
         }
+
+
 
         private void RemoveWorkersFromPossibleWorkers()
         {
@@ -271,7 +299,6 @@ namespace PlayerSpace
                 }
             }
         }
-
         
         public void SubtractCountyResources()
         {
@@ -344,9 +371,21 @@ namespace PlayerSpace
             // Update the top bar if the player has a county selected.
             if (Globals.Instance.SelectedLeftClickCounty == countyNode)
             {
-                TopBarControl.UpdateCountyResources();
+                TopBarControl.Instance.UpdateResourceLabels();
             }
         }
+
+        // This counts and compares to a global variable if there is enough of that resource.
+        // We currently just have one number for a minimum of a resource, but we probably
+        // should figure out a way for each different type.
+        // We could actually put it in the resourceData, so each resource would know the minimum amount
+        // the county needs.
+        public bool CheckEnoughCountyFactionResource(AllEnums.FactionResourceType resourceType)
+        {
+            int amountOfResource = CountFactionResourceOfType(resourceType);
+            return amountOfResource >= Globals.Instance.minimumFood;
+        }
+
         private bool CheckEnoughOfResource(AllEnums.CountyResourceType resourceType)
         {
             bool enoughResource;
@@ -473,18 +512,19 @@ namespace PlayerSpace
                     {
                         // Starving!
                         //GD.PrintRich($"[rainbow]There is no food at all!");
-                        countyPopulation.daysStarving++;
-                        //GD.Print($"{countyPopulation.firstName} has starved for {countyPopulation.daysStarving} days.");
+                        GD.Print($"{countyPopulation.firstName} has starved for {countyPopulation.daysStarving} days.");
                         // This will give each population an additonal -1 to their happiness which works for now.
                         AdjustPopulationHappiness(amount, countyPopulation);
                         if (countyPopulation.daysStarving >= Globals.Instance.daysUntilDamageFromStarvation)
                         {
-                            countyPopulation.Hitpoints--;
-                            if (countyPopulation.Hitpoints < 1)
+                            countyPopulation.hitpoints--;
+                            // This should be its own method in countyPopulation that kills the population.
+                            if (countyPopulation.hitpoints < 1)
                             {
                                 peopleWhoNeedToDie.Add(countyPopulation);
                             }
                         }
+                        countyPopulation.daysStarving++;
                     }
                     AdjustPopulationHappiness(amount, countyPopulation);
                 }
@@ -500,7 +540,7 @@ namespace PlayerSpace
                 herosInCountyList.Remove(countyPopulation);
                 armiesInCountyList.Remove(countyPopulation);
                 deadPeopleList.Add(countyPopulation);
-                GD.PrintRich($"[rainbow]{countyPopulation.firstName} {countyPopulation.lastName} has croaked.");
+                GD.PrintRich($"[color=red]{countyPopulation.firstName} {countyPopulation.lastName} has croaked.[/color]");
             }
         }
 

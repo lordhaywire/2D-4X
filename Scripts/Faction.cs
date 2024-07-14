@@ -26,7 +26,6 @@ namespace PlayerSpace
             factionData.CopyFactionResourcesToYesterday();
             banker.AddLeaderInfluence(factionData);
             banker.AddHeroResearch(factionData);
-            TopBarControl.UpdateFactionResources(); // This method should under FactionData or the Banker.
             TopBarControl.Instance.UpdateResourceLabels();
         }
 

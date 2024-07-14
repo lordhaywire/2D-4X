@@ -106,7 +106,6 @@ namespace PlayerSpace
         [Export] public int loyaltyCheckNumber = 50;
         [Export] public int willWorkLoyalty = 20; // The loyalty a population needs to be willing to work.
                                                    // 50 is too high for testing, but might work well for the real game.
-
         [Export] public int startingHitPoints = 10;
         [Export] public int maxLearningNeeded = 10;
         [Export] public int combatSkillLearningNeeded = 100;

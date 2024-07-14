@@ -9,7 +9,7 @@ namespace PlayerSpace
         // This is a dumb name for this method.
         public static void IsThereEnoughFood(CountyData countyData)
         {
-            int amountOfFood = Banker.CountFactionResourceOfType(countyData, AllEnums.FactionResourceType.Food);
+            int amountOfFood = countyData.CountFactionResourceOfType(AllEnums.FactionResourceType.Food);
             int amountOfPeople = Banker.CountEveryoneInCounty(countyData);
             if (amountOfFood >= (Globals.Instance.foodToGainHappiness * amountOfPeople))
             {

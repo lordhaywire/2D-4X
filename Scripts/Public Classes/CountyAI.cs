@@ -14,7 +14,7 @@ namespace PlayerSpace
             Banker banker = new();
 
             // Check if the county has enough food. If not, build a food building.
-            if (!banker.CheckEnoughCountyFactionResource(county, AllEnums.FactionResourceType.Food))
+            if (!county.countyData.CheckEnoughCountyFactionResource(AllEnums.FactionResourceType.Food))
             {
                 CountyImprovementData foodBuilding = FindCountyImpovementOfType(county, AllEnums.FactionResourceType.Food);
 

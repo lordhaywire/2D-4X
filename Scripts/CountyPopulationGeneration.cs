@@ -68,6 +68,7 @@ namespace PlayerSpace
                         , GenerateSkillsList()
                         , preferredSkill
                         , AllEnums.Activities.Idle, null, null));
+
                 }
                 else
                 {
@@ -81,6 +82,11 @@ namespace PlayerSpace
                         , preferredSkill
                         , AllEnums.Activities.Idle, null, null));
                 }
+            }
+            foreach(CountyPopulation countyPopulation in countyData.countyPopulationList)
+            {
+                GD.Print($"Days starving: {countyPopulation.daysStarving} and " +
+                    $"hit points {countyPopulation.hitpoints}.");
             }
         }
 

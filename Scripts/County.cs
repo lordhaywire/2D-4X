@@ -58,8 +58,9 @@ namespace PlayerSpace
 
             countyData.CheckIfCountyImprovementsAreDone();
 
-            // Update the county resources
-            TopBarControl.UpdateCountyResources();
+            // Update all the resources
+            TopBarControl.Instance.UpdateResourceLabels();
+
 
             // Update the county labels.  We might be able to take out the UpdateResourceLabels in the faction
             // level so this just runs after.  It is all happening pretty much at the same time.

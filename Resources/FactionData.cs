@@ -27,6 +27,11 @@ namespace PlayerSpace
         public Godot.Collections.Dictionary<AllEnums.FactionResourceType, FactionResourceData> factionResources = [];
         public Godot.Collections.Dictionary<AllEnums.FactionResourceType, FactionResourceData> yesterdaysFactionResources = [];
         public Godot.Collections.Dictionary<AllEnums.FactionResourceType, FactionResourceData> amountUsedFactionResources = [];
+        /// <summary>
+        /// I am not sure we need this.
+        /// </summary>
+        
+        [Obsolete] public Godot.Collections.Dictionary<AllEnums.FactionResourceType, FactionResourceData> actualUsedFactionResources = [];
 
         [ExportGroup("Diplomatic Incidences")]
         public List<War> wars = [];
@@ -53,6 +58,50 @@ namespace PlayerSpace
                 GD.Print("Yesterday's Influence: " + yesterdaysFactionResources[AllEnums.FactionResourceType.Influence].amount);
                 GD.Print("This Influence should be the same as yesterdays: " + factionResources[AllEnums.FactionResourceType.Influence].amount);
             }
+        }
+
+        // Zero resources that are summed from each county.
+        public void ZeroFactionCountyResources()
+        {
+            factionResources[AllEnums.FactionResourceType.Food].amount = 0;
+            factionResources[AllEnums.FactionResourceType.Remnants].amount = 0;
+            factionResources[AllEnums.FactionResourceType.BuildingMaterial].amount = 0;
+        }
+
+        // This should be counting just the county resources of Faction Type, not the used.
+        public void CountAllCountyFactionResources()
+        {
+            ZeroFactionCountyResources();
+            foreach (CountyData countyData in countiesFactionOwns)
+            {
+                factionResources[AllEnums.FactionResourceType.Food].amount 
+                    += countyData.CountFactionResourceOfType(AllEnums.FactionResourceType.Food);
+                factionResources[AllEnums.FactionResourceType.BuildingMaterial].amount 
+                    += countyData.CountFactionResourceOfType(AllEnums.FactionResourceType.BuildingMaterial);
+                factionResources[AllEnums.FactionResourceType.Remnants].amount 
+                    += countyData.CountFactionResourceOfType(AllEnums.FactionResourceType.Remnants);
+            }
+        }
+
+        public void CountAllCountyFactionUsedResources()
+        { 
+            ZeroFactionCountyActualUsedResources();
+            foreach (CountyData countyData in countiesFactionOwns)
+            {
+                amountUsedFactionResources[AllEnums.FactionResourceType.Food].amount
+                    += countyData.CountUsedFactionResourceOfType(AllEnums.FactionResourceType.Food);
+                amountUsedFactionResources[AllEnums.FactionResourceType.BuildingMaterial].amount
+                    += countyData.CountUsedFactionResourceOfType(AllEnums.FactionResourceType.BuildingMaterial);
+                amountUsedFactionResources[AllEnums.FactionResourceType.Remnants].amount
+                    += countyData.CountUsedFactionResourceOfType(AllEnums.FactionResourceType.Remnants);
+            }
+        }
+
+        private void ZeroFactionCountyActualUsedResources()
+        {
+            amountUsedFactionResources[AllEnums.FactionResourceType.Food].amount = 0;
+            amountUsedFactionResources[AllEnums.FactionResourceType.Remnants].amount = 0;
+            amountUsedFactionResources[AllEnums.FactionResourceType.BuildingMaterial].amount = 0;
         }
 
         public void SubtractFactionResources()

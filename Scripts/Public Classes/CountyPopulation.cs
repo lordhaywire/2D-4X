@@ -40,15 +40,7 @@ namespace PlayerSpace
         public Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks;
 
         [ExportGroup("Expendables")]
-        private int hitpoints;
-        public int Hitpoints
-        {
-            get { return hitpoints; }
-            set
-            {
-                hitpoints = value;
-            }
-        }
+        public int hitpoints;
 
         public int moraleExpendable; // I think we are going to have to have this as leader morale or army morale or some shit.
         private readonly int loyaltyBase;
@@ -225,7 +217,7 @@ namespace PlayerSpace
 
             this.perks = perks;
 
-            this.Hitpoints = hitpoints;
+            this.hitpoints = hitpoints;
             this.moraleExpendable = moraleExpendable;
             this.loyaltyBase = loyaltyBase;
             this.LoyaltyAdjusted = LoyaltyAdjusted;

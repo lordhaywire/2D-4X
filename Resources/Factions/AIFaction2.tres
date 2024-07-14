@@ -9,7 +9,4 @@ isPlayer = false
 factionName = "AI Faction 2"
 factionColor = Color(0, 0, 0, 0)
 factionCapitalCounty = 1
-RemnantsFaction = 0
-BuildingMaterialsFaction = 0
-FoodFaction = 0
 factionWarDictionary = {}

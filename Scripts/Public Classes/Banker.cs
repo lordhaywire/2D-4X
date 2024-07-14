@@ -79,13 +79,13 @@ namespace PlayerSpace
         public void AddStoryEventCountyResource(StoryEventData storyEventData)
         {
             //GD.Print($"Faction: {storyEventData.eventCounty.countyData.factionData.factionName} is adding " +
-             //   $"{storyEventData.resourceAmount} {storyEventData.resource.name}");
+            //   $"{storyEventData.resourceAmount} {storyEventData.resource.name}");
             if (storyEventData.resource.perishable)
             {
                 storyEventData.eventCounty.countyData.countyResources[storyEventData.resource.countyResourceType].amount
                     += storyEventData.resourceAmount;
             }
-            TopBarControl.UpdateCountyResources();
+            TopBarControl.Instance.UpdateResourceLabels();
         }
 
         // This is currently unused.  I am pretty sure we don't need this.
@@ -101,23 +101,11 @@ namespace PlayerSpace
             }
             return amount;
         }
-        public static int CountFactionResourceOfType(CountyData countyData, AllEnums.FactionResourceType type)
-        {
-            int amount = 0;
-            foreach (CountyResourceData resourceData in countyData.countyResources.Values)
-            {
-                if (resourceData.factionResourceType == type)
-                {
-                    amount += resourceData.amount;
-                    //GD.Print($"{countyData.countyName} is counting food: {resourceData.name} {resourceData.amount}");
-                }
-            }
-            return amount;
-        }
+
 
         public void AddLeaderInfluence(FactionData factionData)
         {
-            factionData.factionResources[AllEnums.FactionResourceType.Influence].amount 
+            factionData.factionResources[AllEnums.FactionResourceType.Influence].amount
                 += Globals.Instance.dailyInfluenceGain + AddLeaderBonusInfluence(factionData);
         }
 
@@ -172,39 +160,30 @@ namespace PlayerSpace
         {
             county.countyData.countyResources[countyResourceType].amount += amount;
 
-            // Update the top bar if the player has a county selected.
-            if (Globals.Instance.SelectedLeftClickCounty == county)
-            {
-                TopBarControl.UpdateCountyResources();
-            }
+            TopBarControl.Instance.UpdateResourceLabels();
         }
 
         public void ChargeForHero(FactionData factionData)
         {
             //GD.Print("Player Influence: " + Globals.Instance.playerFactionData.Influence);
-            factionData.factionResources[AllEnums.FactionResourceType.Influence].amount 
+            factionData.factionResources[AllEnums.FactionResourceType.Influence].amount
                 -= Globals.Instance.costOfHero;
         }
 
         public bool CheckBuildingCost(FactionData factionData, CountyImprovementData countyImprovementData)
         {
-            return factionData.factionResources[AllEnums.FactionResourceType.Influence].amount 
+            return factionData.factionResources[AllEnums.FactionResourceType.Influence].amount
                 >= countyImprovementData.influenceCost;
         }
 
         // Charge for building and also assign it to the underConstructionList.
         public void ChargeForBuilding(FactionData factionData, CountyImprovementData countyImprovementData)
         {
-            factionData.factionResources[AllEnums.FactionResourceType.Influence].amount 
+            factionData.factionResources[AllEnums.FactionResourceType.Influence].amount
                 -= countyImprovementData.influenceCost;
         }
 
-        // This needs to be checking county level food.
-        public bool CheckEnoughCountyFactionResource(County county, AllEnums.FactionResourceType resource)
-        {
-            int amountOfFood = CountFactionResourceOfType(county.countyData, resource);
-            return amountOfFood >= Globals.Instance.minimumFood;
-        }
+
     }
 }
 

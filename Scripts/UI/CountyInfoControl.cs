@@ -46,15 +46,11 @@ namespace PlayerSpace
             if (Visible)
             {
                 Globals.Instance.SelectedLeftClickCounty.countyData.CountIdleWorkers();
-                TopBarControl.UpdateCountyResources();
                 TopBarControl.Instance.UpdateResourceLabels();
-                // This update everything needs to be looked at.
-                //UpdateEverything();
             }
             else
             {
                 // Update the faction resources, which is all the county resources.
-                TopBarControl.UpdateFactionResources();
                 TopBarControl.Instance.UpdateResourceLabels();
             }
         }
@@ -270,6 +266,7 @@ namespace PlayerSpace
 
         private void OnXButtonPressed()
         {
+            Globals.Instance.SelectedLeftClickCounty = null;
             Hide();
         }
     }
