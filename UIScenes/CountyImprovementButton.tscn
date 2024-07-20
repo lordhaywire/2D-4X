@@ -17,7 +17,7 @@ improvementDescriptionLabel = NodePath("County Improvement Button/HBoxContainer/
 improvementInfluenceCostLabel = NodePath("County Improvement Button/HBoxContainer/VBoxContainer/Influence Cost Label")
 improvementAmountOfConstructionLabel = NodePath("County Improvement Button/HBoxContainer/VBoxContainer/Amount of Construction Label")
 improvementMaxBuildersLabel = NodePath("County Improvement Button/HBoxContainer/VBoxContainer/Number of Builders Label")
-underContructionLabel = NodePath("Under Contruction Label")
+underContructionLabel = NodePath("County Improvement Button/HBoxContainer/VBoxContainer/Under Contruction Label")
 buildingButton = NodePath("County Improvement Button")
 
 [node name="County Improvement Button" type="Button" parent="."]
@@ -88,29 +88,20 @@ text = "Possible Building Number of Workers Button"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Under Contruction Label" type="Label" parent="County Improvement Button/HBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.988235, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Under contruction"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="TextureRect" type="TextureRect" parent="County Improvement Button/HBoxContainer"]
 custom_minimum_size = Vector2(0, 190)
 layout_mode = 2
 size_flags_horizontal = 8
 texture = ExtResource("2_jdvn2")
 expand_mode = 3
-
-[node name="Under Contruction Label" type="Label" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -184.0
-offset_top = -17.0
-offset_right = 264.0
-offset_bottom = 50.0
-grow_horizontal = 2
-rotation = 0.347321
-theme_override_colors/font_color = Color(0.988235, 0, 0, 1)
-theme_override_font_sizes/font_size = 32
-text = "Under contruction"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [connection signal="button_up" from="County Improvement Button" to="." method="BuildingButton"]

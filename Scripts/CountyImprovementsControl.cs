@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Linq;
 
 namespace PlayerSpace
@@ -24,6 +25,7 @@ namespace PlayerSpace
                 Clock.Instance.PauseTime();
                 GenerateCountyImprovementButtons();
                 PlayerControls.Instance.AdjustPlayerControls(false);
+                CountWorkersAndBuilders();
                 CountyInfoControl.Instance.populationDescriptionControl.Hide();
                 CountyInfoControl.Instance.populationListMarginContainer.Hide();
             }
@@ -31,6 +33,26 @@ namespace PlayerSpace
             {
                 Clock.Instance.UnpauseTime();
                 PlayerControls.Instance.AdjustPlayerControls(true);
+            }
+        }
+
+        private void CountWorkersAndBuilders()
+        {
+            if (currentImprovementsScrollContainerParent.GetChildren().Count < 2)
+            {
+                return;
+            }
+            else
+            {
+                foreach (CountryImprovementDescriptionButton countyImprovementButton in currentImprovementsScrollContainerParent.GetChildren().Skip(1).Cast<CountryImprovementDescriptionButton>())
+                {
+                    CountyImprovementData countyImprovementData = countyImprovementButton.countyImprovementData;
+                    if (countyImprovementData.countyPopulationAtImprovement.Count > 0)
+                    {
+                        countyImprovementData.currentBuilders = countyImprovementData.countyPopulationAtImprovement.Count;
+                        countyImprovementData.currentWorkers = countyImprovementData.countyPopulationAtImprovement.Count;
+                    }
+                }
             }
         }
 

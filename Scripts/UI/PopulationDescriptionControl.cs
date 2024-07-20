@@ -32,8 +32,6 @@ namespace PlayerSpace
 
         [Export] private Label preferredWorkLabel;
         [Export] private Label currentActivityLabel;
-        [Export] private Label nextActivityTitle; // Why is this here?
-        [Export] private Label nextActivityLabel;
 
         [Export] private Button aideRecruitButton;
         [Export] private Button armyLeaderRecruitButton;
@@ -77,12 +75,6 @@ namespace PlayerSpace
             populationName.Text = $"{countyPopulation.firstName} {countyPopulation.lastName}";
 
             DisableUIElements();
-
-            if (countyPopulation.token == null)
-            {
-                nextActivityTitle.Show();
-                nextActivityLabel.Show();
-            }
 
             // If the token is moving and doesn't belong to the player's faction disable the ability to turn
             // it into an Army.
@@ -209,8 +201,6 @@ namespace PlayerSpace
             aideTitleButton.Disabled = true;
             armyLeaderTitleButton.Disabled = true;
             armyLeaderRecruitButton.Disabled = true;
-            nextActivityTitle.Hide();
-            nextActivityLabel.Hide();
         }
         private void CloseButton()
         {

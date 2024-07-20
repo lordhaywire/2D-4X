@@ -31,7 +31,7 @@ namespace PlayerSpace
         /// I am not sure we need this.
         /// </summary>
         
-        [Obsolete] public Godot.Collections.Dictionary<AllEnums.FactionResourceType, FactionResourceData> actualUsedFactionResources = [];
+        [Obsolete("What the flying fuck is this?")] public Godot.Collections.Dictionary<AllEnums.FactionResourceType, FactionResourceData> actualUsedFactionResources = [];
 
         [ExportGroup("Diplomatic Incidences")]
         public List<War> wars = [];

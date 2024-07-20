@@ -47,9 +47,16 @@ namespace PlayerSpace
             // Copy the county resources to yesterday.
             countyData.CopyCountyResourcesToYesterday(); // We will use this data to update the numbers on the top bar all day.
 
-            // Do all the shit for the end of day.
+            // Check to see if any population needs healing from starvation or whatever.
+            countyData.CheckForHealing(countyData.countyPopulationList);
+            countyData.CheckForHealing(countyData.herosInCountyList);
+            countyData.CheckForHealing(countyData.armiesInCountyList);
+
             countyAI.DecideBuildingCountyImprovements(this);
-            PopulationAI.WorkDayOverForPopulation(this);
+
+            // Generates resources through work and scavenging.  It also adds improvement construction.
+            PopulationAI.WorkDayOverForPopulation(countyData);
+
             PopulationAI.IsThereEnoughFood(countyData); // This is a terrible name for this method.
 
             // This is a check for Occational needs.
@@ -58,15 +65,13 @@ namespace PlayerSpace
 
             countyData.CheckIfCountyImprovementsAreDone();
 
-            // Update all the resources
+            // Update all the top bar resources
             TopBarControl.Instance.UpdateResourceLabels();
 
-
-            // Update the county labels.  We might be able to take out the UpdateResourceLabels in the faction
-            // level so this just runs after.  It is all happening pretty much at the same time.
+            // Update the county info control with the counties available resources.
             if (Globals.Instance.SelectedLeftClickCounty != null)
             {
-                TopBarControl.Instance.UpdateResourceLabels();
+                CountyInfoControl.Instance.UpdateCountyAvailableResources();
             }
         }
 

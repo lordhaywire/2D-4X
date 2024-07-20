@@ -41,6 +41,7 @@ namespace PlayerSpace
 
         [ExportGroup("Expendables")]
         public int hitpoints;
+        public int maxHitpoints;
 
         public int moraleExpendable; // I think we are going to have to have this as leader morale or army morale or some shit.
         private readonly int loyaltyBase;
@@ -191,7 +192,8 @@ namespace PlayerSpace
         public CountyPopulation(
             FactionData factionData, int location, int lastLocation, int destination, string firstName, string lastName
             , bool isMale, int age, bool isHero, bool isFactionLeader, bool isAide, bool IsArmyLeader, bool isWorker
-            , Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks, int hitpoints, int moraleExpendable
+            , Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks, int hitpoints, int maxHitpoints
+            , int moraleExpendable
             , int loyaltyBase, int LoyaltyAdjusted, int Happiness, int daysStarving
             , Godot.Collections.Dictionary<AllEnums.CountyResourceType, int> needs
             , Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes
@@ -218,6 +220,7 @@ namespace PlayerSpace
             this.perks = perks;
 
             this.hitpoints = hitpoints;
+            this.maxHitpoints = maxHitpoints;
             this.moraleExpendable = moraleExpendable;
             this.loyaltyBase = loyaltyBase;
             this.LoyaltyAdjusted = LoyaltyAdjusted;

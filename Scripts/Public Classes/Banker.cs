@@ -19,18 +19,28 @@ namespace PlayerSpace
             return numberOfPeople;
         }
 
-        public static void GenerateScavengedResources(County county, CountyPopulation countyPopulation)
+        public static void GenerateScavengedResources(CountyData countyData, CountyPopulation countyPopulation)
         {
             int randomResourceNumber = Globals.Instance.random.Next(0, 2);
             if (randomResourceNumber == 0)
             {
-                AddResourceToCounty(county, AllEnums.CountyResourceType.CannedFood
-                    , GenerateScavengedResourceWithSkillCheck(countyPopulation.skills[AllEnums.Skills.Scavenge].skillLevel));
+                if (countyData.CheckEnoughCountyScavengables(AllEnums.CountyResourceType.CannedFood) == false)
+                {
+                    return;
+                }
+                int amount = GenerateScavengedResourceWithSkillCheck(countyPopulation.skills[AllEnums.Skills.Scavenge].skillLevel);
+                AddResourceToCounty(countyData, AllEnums.CountyResourceType.CannedFood, amount);
+                countyData.RemoveResourceFromAvailableCountyTotals(AllEnums.CountyResourceType.CannedFood, amount);
             }
             else
             {
-                AddResourceToCounty(county, AllEnums.CountyResourceType.Remnants
-                    , GenerateScavengedResourceWithSkillCheck(countyPopulation.skills[AllEnums.Skills.Scavenge].skillLevel));
+                if (countyData.CheckEnoughCountyScavengables(AllEnums.CountyResourceType.Remnants) == false)
+                {
+                    return;
+                }
+                int amount = GenerateScavengedResourceWithSkillCheck(countyPopulation.skills[AllEnums.Skills.Scavenge].skillLevel);
+                AddResourceToCounty(countyData, AllEnums.CountyResourceType.Remnants, amount);
+                countyData.RemoveResourceFromAvailableCountyTotals(AllEnums.CountyResourceType.Remnants, amount);
             }
         }
 
@@ -156,11 +166,11 @@ namespace PlayerSpace
             //GD.Print($"Amount of Research Done: {countyPopulation.CurrentResearchItemData.AmountOfResearchDone}");
         }
 
-        public static void AddResourceToCounty(County county, AllEnums.CountyResourceType countyResourceType, int amount)
+        public static void AddResourceToCounty(CountyData countyData, AllEnums.CountyResourceType countyResourceType, int amount)
         {
-            county.countyData.countyResources[countyResourceType].amount += amount;
+            countyData.countyResources[countyResourceType].amount += amount;
 
-            TopBarControl.Instance.UpdateResourceLabels();
+            //TopBarControl.Instance.UpdateResourceLabels(); 
         }
 
         public void ChargeForHero(FactionData factionData)

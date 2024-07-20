@@ -43,7 +43,10 @@ namespace PlayerSpace
                     selectedLeftClickCounty.maskSprite.SelfModulate = new Color(1, 1, 1, 1f);
                 }
                 selectedLeftClickCounty = value;
-                selectedLeftClickCounty.maskSprite.SelfModulate = new Color(0, 0, 0, 1f);
+                if (selectedLeftClickCounty != null)
+                {
+                    selectedLeftClickCounty.maskSprite.SelfModulate = new Color(0, 0, 0, 1f);
+                }
             }
         }
         [Export] public County selectedRightClickCounty;
@@ -105,7 +108,7 @@ namespace PlayerSpace
         [Export] public int costOfHero;
         [Export] public int loyaltyCheckNumber = 50;
         [Export] public int willWorkLoyalty = 20; // The loyalty a population needs to be willing to work.
-                                                   // 50 is too high for testing, but might work well for the real game.
+                                                  // 50 is too high for testing, but might work well for the real game.
         [Export] public int startingHitPoints = 10;
         [Export] public int maxLearningNeeded = 10;
         [Export] public int combatSkillLearningNeeded = 100;
@@ -201,7 +204,7 @@ namespace PlayerSpace
                 GD.Print("Directory doesn't exist! " + listDirectory);
             }
             */
-            
+
         }
 
         public class ListWithNotify<T> : IEnumerable<T> where T : class

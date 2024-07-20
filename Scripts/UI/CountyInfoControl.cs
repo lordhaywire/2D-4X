@@ -1,6 +1,4 @@
 using Godot;
-using System;
-using System.Reflection;
 
 
 namespace PlayerSpace
@@ -46,7 +44,7 @@ namespace PlayerSpace
             if (Visible)
             {
                 Globals.Instance.SelectedLeftClickCounty.countyData.CountIdleWorkers();
-                TopBarControl.Instance.UpdateResourceLabels();
+                //TopBarControl.Instance.UpdateResourceLabels();
             }
             else
             {
@@ -78,10 +76,10 @@ namespace PlayerSpace
             GenerateHeroesPanelList();
         }
 
-        private void UpdateCountyAvailableResources()
+        public void UpdateCountyAvailableResources()
         {
-            countyFoodLabel.Text = $"Food: {countyData.scavengableFood}";
-            countyScrapLabel.Text = $"Scrap: {countyData.scavengableScrap}";
+            countyFoodLabel.Text = $"Food: {countyData.scavengableCannedFood}";
+            countyScrapLabel.Text = $"Remnants: {countyData.scavengableRemnants}";
         }
 
         private void UpdateVisitorsPopulationLabel()

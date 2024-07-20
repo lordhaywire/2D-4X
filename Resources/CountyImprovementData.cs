@@ -41,6 +41,7 @@ namespace PlayerSpace
         {
             if (CurrentAmountOfConstruction == maxAmountOfConstruction)
             {
+                currentBuilders = 0;
                 return true;
             }
             return false;

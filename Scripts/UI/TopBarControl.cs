@@ -31,7 +31,7 @@ namespace PlayerSpace
 
         public void UpdateResourceLabels()
         {
-            GD.Print("Expendables have been updated, motherfucker!");
+            GD.Print("Top Bar expendables have been updated, motherfucker!");
             UpdateInfluenceMoneyLabels();
             UpdateUsedInfluenceMoneyLabels();
 
@@ -65,7 +65,7 @@ namespace PlayerSpace
 
             foodAmountUsed.Text = $"({countyData.CountUsedFactionResourceOfType(AllEnums.FactionResourceType.Food)})";
             remnantsAmountUsed.Text = $"({countyData.CountUsedFactionResourceOfType(AllEnums.FactionResourceType.Remnants)})";
-            buildingMaterialsAmountUsed.Text = $"(countyData.CountUsedFactionResourceOfType(AllEnums.FactionResourceType.BuildingMaterial)})";
+            buildingMaterialsAmountUsed.Text = $"({countyData.CountUsedFactionResourceOfType(AllEnums.FactionResourceType.BuildingMaterial)})";
         }
 
         private void UpdateInfluenceMoneyLabels()

@@ -7,8 +7,8 @@ namespace PlayerSpace
 {
     public partial class CountyGeneration : Node
     {
-        [Export] private int maxScavengableScrap = 10000;
-        [Export] private int maxScavengableFood = 10000;
+        [Export] private int maxScavengableScrap = 5;
+        [Export] private int maxScavengableFood = 5;
 
         // I think we might be able to get rid of these.
         private int perishable;
@@ -39,8 +39,8 @@ namespace PlayerSpace
 
         private void UpdateScavengableResources(County county)
         {
-            county.countyData.scavengableFood = maxScavengableFood;
-            county.countyData.scavengableScrap = maxScavengableScrap;
+            county.countyData.scavengableCannedFood = maxScavengableFood;
+            county.countyData.scavengableRemnants = maxScavengableScrap;
         }
 
         private static void CopyAndAssignResources(CountyData countyData, CountyResourceData[] AllResources)

@@ -23,8 +23,11 @@ namespace PlayerSpace
 
                 if (Globals.Instance.isVisitorList == false)
                 {
-                    populationListTitle.Text = $"{Globals.Instance.SelectedLeftClickCounty.countyData.countyName} " +
-                        $"{AllText.Titles.POPLIST}";
+                    string populationString = "WORD_POPULATION";
+                    populationListTitle.Text = $"{Globals.Instance.SelectedLeftClickCounty.countyData.countyName} {Tr(populationString)}";
+                        
+                    
+                    
                     GeneratePopulationRows(Globals.Instance.SelectedLeftClickCounty.countyData.herosInCountyList);
                     GeneratePopulationRows(Globals.Instance.SelectedLeftClickCounty.countyData.countyPopulationList);
                 }

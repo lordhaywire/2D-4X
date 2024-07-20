@@ -47,8 +47,8 @@ namespace PlayerSpace
         [Export] public int perishableStorage;
         [Export] public int nonperishableStorage;
 
-        [Export] public int scavengableScrap; // This the total a county has available to scavenge.
-        [Export] public int scavengableFood; // This the total a county has available to scavenge.
+        [Export] public int scavengableRemnants; // This the total a county has available to scavenge.
+        [Export] public int scavengableCannedFood; // This the total a county has available to scavenge.
 
         [Export] public Godot.Collections.Dictionary<AllEnums.CountyResourceType, CountyResourceData> countyResources = [];
         [Export] public Godot.Collections.Dictionary<AllEnums.CountyResourceType, CountyResourceData> yesterdaysCountyResources = [];
@@ -125,6 +125,22 @@ namespace PlayerSpace
             // Move the county improvement to the correct list and remove it from the old list.
             MoveCountyImprovementToCompletedList(completedImprovments);
         }
+
+        public void RemoveResourceFromAvailableCountyTotals(AllEnums.CountyResourceType resourceType, int amount)
+        {
+            if(resourceType == AllEnums.CountyResourceType.CannedFood)
+            {
+                scavengableCannedFood -= amount;
+            }
+            else if(resourceType == AllEnums.CountyResourceType.Remnants)
+            {
+                scavengableRemnants -= amount;
+            }
+            else
+            {
+                GD.Print("Your resource type is wrong!");
+            }
+        }
         public void CheckForPreferredWork()
         {
             //GD.Print($"{county.countyData.countyName}: Checking for Preferred Work!");
@@ -189,15 +205,68 @@ namespace PlayerSpace
             IdleWorkers = idleWorkers;
         }
 
+
+        // If there isn't enough food then have the idle people start scavenging.
+        public void CheckForScavengingFood()
+        {
+            if (CheckEnoughCountyScavengables(AllEnums.CountyResourceType.CannedFood) == false)
+            {
+                return;
+            }
+
+            int amountOfFood = CountFactionResourceOfType(AllEnums.FactionResourceType.Food);
+            //GD.Print($"{county.countyData.countyName} Amount of food: " + amountOfFood);
+            if (EnounghStored(amountOfFood, Globals.Instance.foodBeforeScavenge) == false)
+            {
+                foreach (CountyPopulation countyPopulation in possibleWorkers)
+                {
+                    countyPopulation.UpdateActivity(AllEnums.Activities.Scavenge);
+                    countyPopulation.UpdateCurrentCountyImprovement(null);
+                    workersToRemoveFromPossibleWorkers.Add(countyPopulation);
+                }
+                RemoveWorkersFromPossibleWorkers();
+            }
+        }
+
+        public bool CheckEnoughCountyScavengables(AllEnums.CountyResourceType resourceType)
+        {
+            if(resourceType == AllEnums.CountyResourceType.CannedFood)
+            {
+                if(scavengableCannedFood > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            else if(resourceType == AllEnums.CountyResourceType.Remnants)
+            {
+                if (scavengableRemnants > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            else
+            {
+                GD.Print("Something in Check Enough County Scavengables has gone horribly wrong.");
+                return false;
+            }
+        }
+
         // If there isn't enough remnants then have the idle people start scavenging.
         public void CheckForScavengingRemnants()
         {
+            if (CheckEnoughCountyScavengables(AllEnums.CountyResourceType.Remnants) == false)
+            {
+                return;
+            }
             //GD.Print($"{county.countyData.countyName} Amount of remnants: " + county.countyData.resources[AllEnums.CountyResourceType.Remnants].amount);
             if (EnounghStored(countyResources[AllEnums.CountyResourceType.Remnants].amount, Globals.Instance.remnantsBeforeScavenge) == false)
             {
                 foreach (CountyPopulation countyPopulation in possibleWorkers)
                 {
                     countyPopulation.UpdateActivity(AllEnums.Activities.Scavenge);
+                    countyPopulation.UpdateCurrentCountyImprovement(null);
                     workersToRemoveFromPossibleWorkers.Add(countyPopulation);
                 }
                 RemoveWorkersFromPossibleWorkers();
@@ -232,22 +301,6 @@ namespace PlayerSpace
             return amount;
         }
 
-        // If there isn't enough food then have the idle people start scavenging.
-        public void CheckForScavengingFood()
-        {
-            int amountOfFood = CountFactionResourceOfType(AllEnums.FactionResourceType.Food);
-            //GD.Print($"{county.countyData.countyName} Amount of food: " + amountOfFood);
-            if (EnounghStored(amountOfFood, Globals.Instance.foodBeforeScavenge) == false)
-            {
-                foreach (CountyPopulation countyPopulation in possibleWorkers)
-                {
-                    countyPopulation.UpdateActivity(AllEnums.Activities.Scavenge);
-                    workersToRemoveFromPossibleWorkers.Add(countyPopulation);
-                }
-                RemoveWorkersFromPossibleWorkers();
-            }
-        }
-
         private bool EnounghStored(int amountOfStored, int resourceBeforeScavenge)
         {
             if (amountOfStored < resourceBeforeScavenge)
@@ -272,8 +325,6 @@ namespace PlayerSpace
                 RemoveWorkersFromPossibleWorkers();
             }
         }
-
-
 
         private void RemoveWorkersFromPossibleWorkers()
         {
@@ -589,6 +640,17 @@ namespace PlayerSpace
             {
                 GD.Print("Yesterday's Vegetables: " + yesterdaysCountyResources[AllEnums.CountyResourceType.Vegetables].amount);
                 GD.Print("This Vegetables should be the same as yesterdays: " + countyResources[AllEnums.CountyResourceType.Vegetables].amount);
+            }
+        }
+
+        public void CheckForHealing(Globals.ListWithNotify<CountyPopulation> possibleHurtPopulationList)
+        {
+            foreach(CountyPopulation countyPopulation in possibleHurtPopulationList)
+            {
+                if (countyPopulation.hitpoints < countyPopulation.maxHitpoints && countyPopulation.daysStarving < 1)
+                {
+                    countyPopulation.hitpoints++;
+                }
             }
         }
     }

@@ -62,15 +62,15 @@ namespace PlayerSpace
             }
         }
 
-        public static void WorkDayOverForPopulation(County county)
+        public static void WorkDayOverForPopulation(CountyData countyData)
         {
-            foreach (CountyPopulation countyPopulation in county.countyData.countyPopulationList)
+            foreach (CountyPopulation countyPopulation in countyData.countyPopulationList)
             {
                 switch (countyPopulation.activity)
                 {
                     case AllEnums.Activities.Scavenge:
                         GD.Print($"{countyPopulation.firstName} is generating scavenged resources.");
-                        Banker.GenerateScavengedResources(county, countyPopulation);
+                        Banker.GenerateScavengedResources(countyData, countyPopulation);
                         countyPopulation.UpdateActivity(AllEnums.Activities.Idle);
                         break;
                     case AllEnums.Activities.Build:
@@ -79,14 +79,9 @@ namespace PlayerSpace
                         break;
                     case AllEnums.Activities.Work:
                         // Produce resources based on the countyimprovement
-                        county.countyData.countyResources[countyPopulation.CurrentCountyImprovment.resourceData.countyResourceType].amount +=
+                        countyData.countyResources[countyPopulation.CurrentCountyImprovment.resourceData.countyResourceType].amount +=
                             Banker.GenerateWorkResourceWithSkillCheck(countyPopulation.CurrentCountyImprovment
                             , countyPopulation.skills[countyPopulation.CurrentCountyImprovment.workSkill].skillLevel);
-                        /*
-                        GD.Print($"{countyPopulation.firstName} worked at {countyPopulation.CurrentWork.improvementName}" +
-                            $" and now {county.countyData.countyName} has " +
-                            $"{county.countyData.resources[countyPopulation.CurrentWork.resourceData.countyResourceType].amount}");
-                        */
                         // Check loyalty to see if they still want to work there and if they don't then they
                         // get set to idle.
                         KeepWorkingAtCountyImprovement(countyPopulation);
@@ -97,7 +92,7 @@ namespace PlayerSpace
                         break;
                 }
             }
-            GD.PrintRich($"[rainbow]{county.countyData.countyName}: Work Day Over For Population.");
+            GD.PrintRich($"[rainbow]{countyData.countyName}: Work Day Over For Population.");
         }
 
         private static void KeepWorkingAtCountyImprovement(CountyPopulation countyPopulation)
