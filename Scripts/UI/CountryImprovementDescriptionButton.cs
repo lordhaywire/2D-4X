@@ -60,12 +60,14 @@ namespace PlayerSpace
                 {
                     improvementInfluenceCostLabel.Hide();
                     improvementAmountOfConstructionLabel.Text = $"{countyImprovementData.CurrentAmountOfConstruction}/{countyImprovementData.maxAmountOfConstruction} Amount of Contruction";
-                    improvementMaxBuildersLabel.Text = $"{countyImprovementData.currentBuilders}/{countyImprovementData.maxBuilders} Builders";
+                    improvementMaxBuildersLabel.Text = $"{countyImprovementData.countyPopulationAtImprovement.Count}/{countyImprovementData.maxBuilders} Builders";
                 }
+
                 CheckForUnderConstructionLabel();
+
                 if (countyImprovementData.status == AllEnums.CountyImprovementStatus.Complete)
                 {
-                    improvementMaxBuildersLabel.Text = $"{countyImprovementData.currentWorkers}/{countyImprovementData.maxWorkers} Workers";
+                    improvementMaxBuildersLabel.Text = $"{countyImprovementData.countyPopulationAtImprovement.Count}/{countyImprovementData.maxWorkers} Workers";
                     improvementAmountOfConstructionLabel.Hide();
                     improvementInfluenceCostLabel.Hide();
                 }

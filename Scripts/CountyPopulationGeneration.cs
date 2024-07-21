@@ -86,11 +86,13 @@ namespace PlayerSpace
                         , AllEnums.Activities.Idle, null, null));
                 }
             }
+            /*
             foreach(CountyPopulation countyPopulation in countyData.countyPopulationList)
             {
                 GD.Print($"Days starving: {countyPopulation.daysStarving} and " +
                     $"hit points {countyPopulation.hitpoints}.");
             }
+            */
         }
 
         private static Godot.Collections.Dictionary<AllEnums.CountyResourceType, int> GenerateNeeds()
@@ -110,15 +112,25 @@ namespace PlayerSpace
             SkillData possiblePreferredSkill = sortedSkills.First().Value;
             preferredSkill = possiblePreferredSkill;
 
-            // Roll an Intellgence check and if it passes then the top skill is the preferred skill.
+            // Roll an Intelligence check and if it passes then the top skill is the preferred skill.
             // If the intelligence check fails, it is ok if the random roll randomly assigns the same preferred skill.
             if (rolls.Attribute(newAttributes[AllEnums.Attributes.Intelligence]) == false)
             {
-                int randomRoll = random.Next(0, skills.Count);
-                AllEnums.Skills randomSkill = (AllEnums.Skills)randomRoll;
-                preferredSkill = skills[randomSkill];
+                // Create a list of non-combat skills for random selection
+                List<AllEnums.Skills> nonCombatSkills = skills
+                    .Where(keyValue => !keyValue.Value.isCombatSkill)
+                    .Select(keyValue => keyValue.Key)
+                    .ToList();
+
+                if (nonCombatSkills.Count > 0)
+                {
+                    int randomIndex = random.Next(0, nonCombatSkills.Count);
+                    AllEnums.Skills randomSkill = nonCombatSkills[randomIndex];
+                    preferredSkill = skills[randomSkill];
+                }
             }
         }
+
         private Godot.Collections.Dictionary<AllEnums.Skills, SkillData> GenerateSkillsList()
         {
             Godot.Collections.Dictionary<AllEnums.Skills, SkillData> newSkills = [];

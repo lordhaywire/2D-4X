@@ -69,19 +69,23 @@ namespace PlayerSpace
                 switch (countyPopulation.activity)
                 {
                     case AllEnums.Activities.Scavenge:
-                        GD.Print($"{countyPopulation.firstName} is generating scavenged resources.");
+                        GD.Print($"{countyPopulation.firstName} {countyPopulation.lastName} is generating scavenged resources.");
                         Banker.GenerateScavengedResources(countyData, countyPopulation);
                         countyPopulation.UpdateActivity(AllEnums.Activities.Idle);
                         break;
                     case AllEnums.Activities.Build:
-                        CompleteConstruction(countyPopulation);
+                        CompleteConstructionWithSkillCheck(countyPopulation);
                         // If the building is done they will be set to idle somewhere else.
                         break;
                     case AllEnums.Activities.Work:
                         // Produce resources based on the countyimprovement
-                        countyData.countyResources[countyPopulation.CurrentCountyImprovment.resourceData.countyResourceType].amount +=
-                            Banker.GenerateWorkResourceWithSkillCheck(countyPopulation.CurrentCountyImprovment
-                            , countyPopulation.skills[countyPopulation.CurrentCountyImprovment.workSkill].skillLevel);
+                        if(countyData.factionData.isPlayer == true)
+                        {
+                            GD.PrintRich($"[color=green]{countyPopulation.firstName} is working at {countyPopulation.currentCountyImprovement.improvementName}[/color]");
+                        }
+                        countyData.countyResources[countyPopulation.currentCountyImprovement.resourceData.countyResourceType].amount +=
+                            Banker.GenerateWorkResourceWithSkillCheck(countyPopulation.currentCountyImprovement
+                            , countyPopulation.skills[countyPopulation.currentCountyImprovement.workSkill].skillLevel);
                         // Check loyalty to see if they still want to work there and if they don't then they
                         // get set to idle.
                         KeepWorkingAtCountyImprovement(countyPopulation);
@@ -97,22 +101,23 @@ namespace PlayerSpace
 
         private static void KeepWorkingAtCountyImprovement(CountyPopulation countyPopulation)
         {
-            if (CheckLoyaltyWithSkillCheck(countyPopulation) != true)
+            if (CheckLoyaltyWithSkillCheck(countyPopulation) == false)
             {
                 countyPopulation.UpdateActivity(AllEnums.Activities.Idle);
+                countyPopulation.currentCountyImprovement.countyPopulationAtImprovement.Remove(countyPopulation);
             }
         }
-        private static void CompleteConstruction(CountyPopulation countyPopulation)
+        private static void CompleteConstructionWithSkillCheck(CountyPopulation countyPopulation)
         {
             SkillData skillData = new();
             if (skillData.Check(countyPopulation.skills[AllEnums.Skills.Construction].skillLevel))
             {
-                countyPopulation.CurrentCountyImprovment.CurrentAmountOfConstruction
+                countyPopulation.currentCountyImprovement.CurrentAmountOfConstruction
                     += Globals.Instance.dailyConstructionAmount + Globals.Instance.dailyConstructionAmountBonus;
             }
             else
             {
-                countyPopulation.CurrentCountyImprovment.CurrentAmountOfConstruction
+                countyPopulation.currentCountyImprovement.CurrentAmountOfConstruction
                     += Globals.Instance.dailyConstructionAmount;
             }
         }

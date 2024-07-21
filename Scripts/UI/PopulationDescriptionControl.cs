@@ -99,10 +99,10 @@ namespace PlayerSpace
             UpdatePreferredWork();
             UpdateSkills();
 
-            if (countyPopulation.CurrentCountyImprovment != null)
+            if (countyPopulation.currentCountyImprovement != null)
             {
                 currentActivityLabel.Text = $"{countyPopulation.GetActivityName()} " +
-                    $"{countyPopulation.CurrentCountyImprovment.improvementName}";
+                    $"{countyPopulation.currentCountyImprovement.improvementName}";
             }
             else
             {

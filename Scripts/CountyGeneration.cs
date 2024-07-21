@@ -7,13 +7,12 @@ namespace PlayerSpace
 {
     public partial class CountyGeneration : Node
     {
-        [Export] private int maxScavengableScrap = 5;
-        [Export] private int maxScavengableFood = 5;
+        [Export] private int maxScavengableScrap = 10000;
+        [Export] private int maxScavengableFood = 10000;
 
         // I think we might be able to get rid of these.
         private int perishable;
         private int nonperishable;
-
 
         public override void _Ready()
         {
@@ -137,24 +136,24 @@ namespace PlayerSpace
                 //GD.Print($"Faction: {selectCounty.countyData.factionData.factionName} {selectCounty.countyData.countyName}");
             }
         }
-
         private static void GenerateBuildings()
         {
-            foreach (County selectCounty in Globals.Instance.countiesParent.GetChildren().Cast<County>())
+            foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
             {
                 //GD.Print("County Generation: " + selectCounty.Name);
                 //GD.Print("County Data: " + selectCounty.countyData.countyName);
                 //GD.Print("Faction Data: " + selectCounty.countyData.factionData.factionName);
 
-                foreach (ResearchItemData researchItemData in selectCounty.countyData.factionData.researchItems)
+                foreach (ResearchItemData researchItemData in county.countyData.factionData.researchItems)
                 {
                     if (researchItemData.isResearchDone == true && researchItemData.countyImprovementDatas.Length > 0)
                     {
                         foreach (CountyImprovementData countyImprovementData in researchItemData.countyImprovementDatas)
                         {
-                            selectCounty.countyData.allCountyImprovements
+                            countyImprovementData.location = county.countyData.countyId;
+                            county.countyData.allCountyImprovements
                                 .Add((CountyImprovementData)countyImprovementData.Duplicate());
-                            //GD.Print($"{selectCounty.countyData.countyName} improvement: {countyImprovementData.improvementName}");
+                            GD.Print($"{county.countyData.countyId} improvement: {countyImprovementData.improvementName}");
                         }
                     }
                 }

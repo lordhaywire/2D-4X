@@ -36,6 +36,7 @@ namespace PlayerSpace
             eventLogVBoxContainer.AddChild(textPanel);
 
             textPanel.logText.Text = newLog;
+            GD.Print(newLog);
 
             if (eventLogVBoxContainer.GetChildCount() > maxLines)
             {

@@ -163,6 +163,14 @@ namespace PlayerSpace
 
         public void ChangeSpeed(int speed)
         {
+            if (speed > 0) 
+            {
+                numberOfThingsPausing = 0;
+            }
+            else
+            {
+                numberOfThingsPausing = 1;
+            }
             oldTimeSpeed = ModifiedTimeScale;
             ModifiedTimeScale = speed;
         }

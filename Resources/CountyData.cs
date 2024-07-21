@@ -14,7 +14,7 @@ namespace PlayerSpace
         [Export] public Vector2I countyOverlayLocalPosition;
 
         [ExportGroup("County other somethings")]
-        [Export] public int countyId;
+        [Export] public int countyId; // This is used all over the place.
         [Export] public string countyName;
         [Export] public bool isPlayerCapital; // We need to differentiate between player choosen capitals and AI capitals for generation after player creation.
         [Export] public bool isAICapital;
@@ -102,8 +102,8 @@ namespace PlayerSpace
 
         public void CheckIfCountyImprovementsAreDone()
         {
-            List<CountyImprovementData> completedImprovments = [];
-            completedImprovments.Clear();
+            List<CountyImprovementData> completedImprovements = [];
+            completedImprovements.Clear();
             foreach (CountyImprovementData countyImprovementData in underConstructionCountyImprovements)
             {
                 // If the county improvement is done, make everyone working on it idle.
@@ -119,20 +119,26 @@ namespace PlayerSpace
                     countyImprovementData.SetCountyImprovementComplete();
                     // Clear the people on the county improvement list.
                     countyImprovementData.countyPopulationAtImprovement.Clear();
-                    completedImprovments.Add(countyImprovementData);
+                    completedImprovements.Add(countyImprovementData);
+
+                    // Check to only print the event logs of the players county improvements.
+                    if (factionData == Globals.Instance.playerFactionData)
+                    {
+                        EventLog.Instance.AddLog($"{countyImprovementData.improvementName} has been completed.");
+                    }
                 }
             }
             // Move the county improvement to the correct list and remove it from the old list.
-            MoveCountyImprovementToCompletedList(completedImprovments);
+            MoveCountyImprovementToCompletedList(completedImprovements);
         }
 
         public void RemoveResourceFromAvailableCountyTotals(AllEnums.CountyResourceType resourceType, int amount)
         {
-            if(resourceType == AllEnums.CountyResourceType.CannedFood)
+            if (resourceType == AllEnums.CountyResourceType.CannedFood)
             {
                 scavengableCannedFood -= amount;
             }
-            else if(resourceType == AllEnums.CountyResourceType.Remnants)
+            else if (resourceType == AllEnums.CountyResourceType.Remnants)
             {
                 scavengableRemnants -= amount;
             }
@@ -141,56 +147,13 @@ namespace PlayerSpace
                 GD.Print("Your resource type is wrong!");
             }
         }
-        public void CheckForPreferredWork()
-        {
-            //GD.Print($"{county.countyData.countyName}: Checking for Preferred Work!");
-            foreach (CountyImprovementData countyImprovementData in completedCountyImprovements)
-            {
-                foreach (CountyPopulation countyPopulation in possibleWorkers)
-                {
-                    // If they have the preferred skill, they are added to the county improvement
-                    // and marked for removal from the possibleWorkers list.
-                    if (countyPopulation.preferredSkill.skill == countyImprovementData.workSkill)
-                    {
-                        if (countyImprovementData.countyPopulationAtImprovement.Count
-                            < countyImprovementData.maxWorkers)
-                        {
-                            countyPopulation.UpdateActivity(AllEnums.Activities.Work);
-                            UpdateWorkLocation(countyPopulation, countyImprovementData);
-                            GD.Print($"{countyPopulation.firstName} preferred work is " +
-                                $"{countyPopulation.preferredSkill.skillName} and they are " +
-                                $"{countyPopulation.GetActivityName()} at " +
-                                $"{countyPopulation.CurrentCountyImprovment.improvementName}");
-                        }
-                    }
-                }
-                RemoveWorkersFromPossibleWorkers();
-            }
-        }
 
-        public void CheckForAnyWork()
-        {
-            foreach (CountyImprovementData countyImprovementData in completedCountyImprovements)
-            {
-                foreach (CountyPopulation countyPopulation in possibleWorkers)
-                {
-                    if (countyImprovementData.countyPopulationAtImprovement.Count 
-                        < countyImprovementData.maxWorkers)
-                    {
-                        countyPopulation.UpdateActivity(AllEnums.Activities.Work);
-                        UpdateWorkLocation(countyPopulation, countyImprovementData);
-                    }
-                }
-                RemoveWorkersFromPossibleWorkers();
-            }
-        }
 
         private void UpdateWorkLocation(CountyPopulation countyPopulation, CountyImprovementData countyImprovementData)
         {
             // This same thing is done multiple times.  We should make it its own method.
             countyPopulation.UpdateCurrentCountyImprovement(countyImprovementData);
             countyImprovementData.countyPopulationAtImprovement.Add(countyPopulation);
-            workersToRemoveFromPossibleWorkers.Add(countyPopulation);
         }
         public void CountIdleWorkers()
         {
@@ -205,8 +168,10 @@ namespace PlayerSpace
             IdleWorkers = idleWorkers;
         }
 
-
-        // If there isn't enough food then have the idle people start scavenging.
+        /// <summary>
+        /// If there isn't enough food then have the idle people start scavenging & if there is enough
+        /// scavengables in that county. It is set to zero because that is easy.  Don't worry about it.
+        /// </summary>
         public void CheckForScavengingFood()
         {
             if (CheckEnoughCountyScavengables(AllEnums.CountyResourceType.CannedFood) == false)
@@ -228,32 +193,10 @@ namespace PlayerSpace
             }
         }
 
-        public bool CheckEnoughCountyScavengables(AllEnums.CountyResourceType resourceType)
-        {
-            if(resourceType == AllEnums.CountyResourceType.CannedFood)
-            {
-                if(scavengableCannedFood > 0)
-                {
-                    return true;
-                }
-                return false;
-            }
-            else if(resourceType == AllEnums.CountyResourceType.Remnants)
-            {
-                if (scavengableRemnants > 0)
-                {
-                    return true;
-                }
-                return false;
-            }
-            else
-            {
-                GD.Print("Something in Check Enough County Scavengables has gone horribly wrong.");
-                return false;
-            }
-        }
-
-        // If there isn't enough remnants then have the idle people start scavenging.
+        /// <summary>
+        /// If there isn't enough food then have the idle people start scavenging & if there is enough
+        /// scavengables in that county. It is set to zero because that is easy.  Don't worry about it.
+        /// </summary>
         public void CheckForScavengingRemnants()
         {
             if (CheckEnoughCountyScavengables(AllEnums.CountyResourceType.Remnants) == false)
@@ -272,7 +215,30 @@ namespace PlayerSpace
                 RemoveWorkersFromPossibleWorkers();
             }
         }
-
+        public bool CheckEnoughCountyScavengables(AllEnums.CountyResourceType resourceType)
+        {
+            if (resourceType == AllEnums.CountyResourceType.CannedFood)
+            {
+                if (scavengableCannedFood > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            else if (resourceType == AllEnums.CountyResourceType.Remnants)
+            {
+                if (scavengableRemnants > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            else
+            {
+                GD.Print($"[color=red]Something in Check Enough County Scavengables has gone horribly wrong.[/color]");
+                return false;
+            }
+        }
         public int CountFactionResourceOfType(AllEnums.FactionResourceType resourceType)
         {
             int amount = 0;
@@ -315,11 +281,12 @@ namespace PlayerSpace
             {
                 foreach (CountyPopulation countyPopulation in possibleWorkers)
                 {
-                    if (countyImprovementData.countyPopulationAtImprovement.Count 
+                    if (countyImprovementData.countyPopulationAtImprovement.Count
                         < countyImprovementData.maxBuilders)
                     {
                         countyPopulation.UpdateActivity(AllEnums.Activities.Build);
                         UpdateWorkLocation(countyPopulation, countyImprovementData);
+                        workersToRemoveFromPossibleWorkers.Add(countyPopulation);
                     }
                 }
                 RemoveWorkersFromPossibleWorkers();
@@ -342,7 +309,7 @@ namespace PlayerSpace
             {
                 // Go through everyone and if they are idle, helpful and loyal add them to the possibleWorkers list.
                 if (countyPopulation.activity == AllEnums.Activities.Idle
-                    && countyPopulation.CheckLoyalty() == true
+                    && countyPopulation.CheckWillWorkLoyalty() == true
                     && countyPopulation.CheckForPerk(AllEnums.Perks.Unhelpful) == false)
                 {
                     GD.Print($"{countyName}: {countyPopulation.firstName} is idle, is loyal and is not unhelpful.");
@@ -350,7 +317,52 @@ namespace PlayerSpace
                 }
             }
         }
-        
+
+        public void CheckForPreferredWork()
+        {
+            //GD.Print($"{county.countyData.countyName}: Checking for Preferred Work!");
+            foreach (CountyImprovementData countyImprovementData in completedCountyImprovements)
+            {
+                foreach (CountyPopulation countyPopulation in possibleWorkers)
+                {
+                    // If they have the preferred skill, they are added to the county improvement
+                    // and marked for removal from the possibleWorkers list.
+                    if (countyPopulation.preferredSkill.skill == countyImprovementData.workSkill)
+                    {
+                        if (countyImprovementData.countyPopulationAtImprovement.Count
+                            < countyImprovementData.maxWorkers)
+                        {
+                            countyPopulation.UpdateActivity(AllEnums.Activities.Work);
+                            UpdateWorkLocation(countyPopulation, countyImprovementData);
+                            GD.Print($"{countyPopulation.firstName} {countyPopulation.lastName} preferred work is " +
+                                $"{countyPopulation.preferredSkill.skillName} and they are " +
+                                $"{countyPopulation.GetActivityName()} at " +
+                                $"{countyPopulation.currentCountyImprovement.improvementName}");
+                            workersToRemoveFromPossibleWorkers.Add(countyPopulation);
+                        }
+                    }
+                }
+                RemoveWorkersFromPossibleWorkers();
+            }
+        }
+
+        public void CheckForAnyWork()
+        {
+            foreach (CountyImprovementData countyImprovementData in completedCountyImprovements)
+            {
+                foreach (CountyPopulation countyPopulation in possibleWorkers)
+                {
+                    if (countyImprovementData.countyPopulationAtImprovement.Count
+                        < countyImprovementData.maxWorkers)
+                    {
+                        countyPopulation.UpdateActivity(AllEnums.Activities.Work);
+                        UpdateWorkLocation(countyPopulation, countyImprovementData);
+                        workersToRemoveFromPossibleWorkers.Add(countyPopulation);
+                    }
+                }
+                RemoveWorkersFromPossibleWorkers();
+            }
+        }
         public void SubtractCountyResources()
         {
             // Do the math for amount used. Subtract yesterdays from todays and that is how much we have used.
@@ -527,7 +539,7 @@ namespace PlayerSpace
                         }
                         else
                         {
-                            GD.Print($"Something is seriously fucked up.");
+                            GD.Print($"[color=red]People Eat Food - Perishable: Something is seriously fucked up.[/color]");
                         }
                     }
                     else if (foodLists.nonperishableFoodList.Count > 0)
@@ -556,7 +568,7 @@ namespace PlayerSpace
                         }
                         else
                         {
-                            GD.Print($"Something is seriously fucked up.");
+                            GD.Print($"[color=red]People Eat Food - Nonperishable: Something is seriously fucked up.[/color]");
                         }
                     }
                     else
@@ -645,7 +657,7 @@ namespace PlayerSpace
 
         public void CheckForHealing(Globals.ListWithNotify<CountyPopulation> possibleHurtPopulationList)
         {
-            foreach(CountyPopulation countyPopulation in possibleHurtPopulationList)
+            foreach (CountyPopulation countyPopulation in possibleHurtPopulationList)
             {
                 if (countyPopulation.hitpoints < countyPopulation.maxHitpoints && countyPopulation.daysStarving < 1)
                 {

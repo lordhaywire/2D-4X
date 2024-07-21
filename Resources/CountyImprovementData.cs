@@ -7,6 +7,7 @@ namespace PlayerSpace
     [GlobalClass]
     public partial class CountyImprovementData : Resource
     {
+        public int location;
         public CountryImprovementDescriptionButton countyImprovementDescriptionButton;
         [Export] public Texture2D improvementTexture;
         [Export] public string improvementName;
@@ -28,7 +29,7 @@ namespace PlayerSpace
         [Export] public int maxAmountOfConstruction;
         [Export] public int currentBuilders;
         [Export] public int maxBuilders;
-        [Export] public int currentWorkers;
+        //[Export] public int currentWorkers;
         [Export] public int maxWorkers;
         [Export] public CountyResourceData resourceData;
         [Export] public int dailyResourceGenerationAmount;

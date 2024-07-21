@@ -22,13 +22,15 @@ namespace PlayerSpace
         public static void GenerateScavengedResources(CountyData countyData, CountyPopulation countyPopulation)
         {
             int randomResourceNumber = Globals.Instance.random.Next(0, 2);
+            
             if (randomResourceNumber == 0)
             {
                 if (countyData.CheckEnoughCountyScavengables(AllEnums.CountyResourceType.CannedFood) == false)
                 {
                     return;
                 }
-                int amount = GenerateScavengedResourceWithSkillCheck(countyPopulation.skills[AllEnums.Skills.Scavenge].skillLevel);
+                int amountGenerated = GenerateScavengedResourceWithSkillCheck(countyPopulation.skills[AllEnums.Skills.Scavenge].skillLevel);
+                int amount = Mathf.Min(amountGenerated, countyData.scavengableCannedFood);
                 AddResourceToCounty(countyData, AllEnums.CountyResourceType.CannedFood, amount);
                 countyData.RemoveResourceFromAvailableCountyTotals(AllEnums.CountyResourceType.CannedFood, amount);
             }
@@ -38,10 +40,13 @@ namespace PlayerSpace
                 {
                     return;
                 }
-                int amount = GenerateScavengedResourceWithSkillCheck(countyPopulation.skills[AllEnums.Skills.Scavenge].skillLevel);
+                int amountGenerated = GenerateScavengedResourceWithSkillCheck(countyPopulation.skills[AllEnums.Skills.Scavenge].skillLevel);
+                int amount = Mathf.Min(amountGenerated, countyData.scavengableRemnants);
                 AddResourceToCounty(countyData, AllEnums.CountyResourceType.Remnants, amount);
                 countyData.RemoveResourceFromAvailableCountyTotals(AllEnums.CountyResourceType.Remnants, amount);
             }
+            // Learning skillcheck.
+            countyPopulation.skills[AllEnums.Skills.Scavenge].CheckLearning(countyPopulation, countyPopulation.skills[AllEnums.Skills.Scavenge]);
         }
 
         public static int GenerateWorkResourceWithSkillCheck(CountyImprovementData countyImprovementData, int skillLevel)
@@ -66,11 +71,13 @@ namespace PlayerSpace
             if (skillData.Check(skillLevel) == true)
             {
                 amount = Globals.Instance.dailyScavengedAmount + Globals.Instance.dailyScavengedAmountBonus;
+
             }
             else
             {
                 amount = Globals.Instance.dailyScavengedAmount;
             }
+
             return amount;
         }
 

@@ -25,7 +25,7 @@ namespace PlayerSpace
                 Clock.Instance.PauseTime();
                 GenerateCountyImprovementButtons();
                 PlayerControls.Instance.AdjustPlayerControls(false);
-                CountWorkersAndBuilders();
+                //CountWorkersAndBuilders();
                 CountyInfoControl.Instance.populationDescriptionControl.Hide();
                 CountyInfoControl.Instance.populationListMarginContainer.Hide();
             }
@@ -36,6 +36,7 @@ namespace PlayerSpace
             }
         }
 
+        /*
         private void CountWorkersAndBuilders()
         {
             if (currentImprovementsScrollContainerParent.GetChildren().Count < 2)
@@ -55,6 +56,7 @@ namespace PlayerSpace
                 }
             }
         }
+        */
 
         // This is still set up as if you can only generate one county improvement of each type.
         // We want people to be able to build more then 1 of each.

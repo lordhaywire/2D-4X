@@ -81,19 +81,7 @@ namespace PlayerSpace
 
         [ExportGroup("Work")]
         public AllEnums.Activities activity;
-        private CountyImprovementData currentCountyImprovement;
-
-        // I don't think this needs to be a getter setter because we never set the current construction.
-        // The PopulationAI script does that.
-        public CountyImprovementData CurrentCountyImprovment
-        {
-            get { return currentCountyImprovement; }
-            set
-            {
-                currentCountyImprovement = value;
-            }
-        }
-        
+        public CountyImprovementData currentCountyImprovement;
         private ResearchItemData currentResearchItemData;
 
         public ResearchItemData CurrentResearchItemData
@@ -178,7 +166,7 @@ namespace PlayerSpace
             //GD.Print($"Happiness lost: {firstName} {lastName} happiness is now {Happiness}");
         }
 
-        public bool CheckLoyalty()
+        public bool CheckWillWorkLoyalty()
         {
             if (LoyaltyAdjusted >= Globals.Instance.willWorkLoyalty)
             {
@@ -199,7 +187,7 @@ namespace PlayerSpace
             , Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes
             , Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills
             , SkillData preferredSkill, AllEnums.Activities activity
-            , CountyImprovementData CurrentCountyImprovment
+            , CountyImprovementData currentCountyImprovement
             , ResearchItemData CurrentResearchItemData)
         {
             this.factionData = factionData;
@@ -233,7 +221,7 @@ namespace PlayerSpace
             this.preferredSkill = preferredSkill;
 
             this.activity = activity;
-            this.CurrentCountyImprovment = CurrentCountyImprovment;
+            this.currentCountyImprovement = currentCountyImprovement;
             this.CurrentResearchItemData = CurrentResearchItemData;
         }
     }
