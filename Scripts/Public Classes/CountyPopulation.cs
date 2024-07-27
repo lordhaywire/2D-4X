@@ -63,7 +63,7 @@ namespace PlayerSpace
             set
             {
                 happiness = Math.Min(value, 100);
-                LoyaltyAdjusted = loyaltyBase + AttributeData.ApplyAttributeBonuses(value);
+                LoyaltyAdjusted = loyaltyBase + AttributeData.ApplyAttributeBonuses(value, false);
                 //GD.Print($"{firstName} {lastName} loyalty adjusted: {LoyaltyAdjusted}");
             }
         }

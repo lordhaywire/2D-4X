@@ -8,6 +8,6 @@ skill = 0
 skillName = "SKILL_CONSTRUCTION"
 skillDescription = ""
 skillLevel = 0
-amountLearned = 0
+amountUntilLearned = 0
 isCombatSkill = false
 skillType = 7

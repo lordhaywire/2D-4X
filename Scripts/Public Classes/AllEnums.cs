@@ -40,6 +40,13 @@ namespace PlayerSpace
             Wood,
         }
 
+        public enum LearningSpeed
+        {
+            slow,
+            medium,
+            fast,
+        }
+
         // Scrap and wood should be combined into building materials.
         public enum FactionResourceType
         {

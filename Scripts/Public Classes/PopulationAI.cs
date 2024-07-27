@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace PlayerSpace
 {
@@ -66,26 +67,37 @@ namespace PlayerSpace
         {
             foreach (CountyPopulation countyPopulation in countyData.countyPopulationList)
             {
+                if (countyData.factionData.isPlayer == true)
+                {
+                    GD.PrintRich($"[color=blue]{Clock.Instance.GetDateAndTime()} {countyPopulation.firstName} {countyPopulation.activity}[/color]");
+                }
                 switch (countyPopulation.activity)
                 {
                     case AllEnums.Activities.Scavenge:
                         GD.Print($"{countyPopulation.firstName} {countyPopulation.lastName} is generating scavenged resources.");
+                        // Skill learning is done in the GenerateScavengedResources.
                         Banker.GenerateScavengedResources(countyData, countyPopulation);
                         countyPopulation.UpdateActivity(AllEnums.Activities.Idle);
                         break;
                     case AllEnums.Activities.Build:
+                        // Skill learning is done in the CompleteConstructionWithSkilLCheck
                         CompleteConstructionWithSkillCheck(countyPopulation);
                         // If the building is done they will be set to idle somewhere else.
                         break;
                     case AllEnums.Activities.Work:
                         // Produce resources based on the countyimprovement
-                        if(countyData.factionData.isPlayer == true)
+                        if (countyData.factionData.isPlayer == true)
                         {
                             GD.PrintRich($"[color=green]{countyPopulation.firstName} is working at {countyPopulation.currentCountyImprovement.improvementName}[/color]");
                         }
                         countyData.countyResources[countyPopulation.currentCountyImprovement.resourceData.countyResourceType].amount +=
                             Banker.GenerateWorkResourceWithSkillCheck(countyPopulation.currentCountyImprovement
                             , countyPopulation.skills[countyPopulation.currentCountyImprovement.workSkill].skillLevel);
+                        // Check for Skill Learning.
+                        SkillData skillData = new();
+                        skillData.CheckLearning(countyPopulation
+                            , countyPopulation.skills[countyPopulation.currentCountyImprovement.workSkill]
+                            , AllEnums.LearningSpeed.slow);
                         // Check loyalty to see if they still want to work there and if they don't then they
                         // get set to idle.
                         KeepWorkingAtCountyImprovement(countyPopulation);
@@ -120,6 +132,8 @@ namespace PlayerSpace
                 countyPopulation.currentCountyImprovement.CurrentAmountOfConstruction
                     += Globals.Instance.dailyConstructionAmount;
             }
+            skillData.CheckLearning(countyPopulation, countyPopulation.skills[AllEnums.Skills.Construction]
+                , AllEnums.LearningSpeed.slow);
         }
 
         // Goes through all the population and adds a set number to research.

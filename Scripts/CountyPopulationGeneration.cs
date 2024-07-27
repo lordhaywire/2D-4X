@@ -53,7 +53,6 @@ namespace PlayerSpace
             for (int i = 0; i < totalPopulation; i++)
             {
                 GenerateNameAndSex();  // This could probably be broken into two methods.
-                GenerateAttribute();
                 int loyaltyBase = random.Next(31, 101); // This is a temporary number.
                 int happiness = random.Next(31, 101); // This is a temporary number.
                 int daysStarving = 0;
@@ -66,11 +65,10 @@ namespace PlayerSpace
                         , GeneratePopulationPerks(), Globals.Instance.startingHitPoints, maxHitpoints
                         , GenerateExpendables()
                         , loyaltyBase, loyaltyBase, happiness, daysStarving, GenerateNeeds()
-                        , newAttributes // We could change this just to the variable since it is now up at the top.
+                        , GenerateAttributes()
                         , GenerateSkillsList()
                         , preferredSkill
                         , AllEnums.Activities.Idle, null, null));
-
                 }
                 else
                 {
@@ -80,7 +78,7 @@ namespace PlayerSpace
                         , GenerateLeaderPerks(), Globals.Instance.startingHitPoints, maxHitpoints
                         , GenerateExpendables()
                         , loyaltyBase, loyaltyBase, happiness, daysStarving, GenerateNeeds()
-                        , newAttributes // We could change this just to the variable since is is now in the class declaration.
+                        , GenerateAttributes()
                         , GenerateSkillsList()
                         , preferredSkill
                         , AllEnums.Activities.Idle, null, null));
@@ -144,14 +142,15 @@ namespace PlayerSpace
             return newSkills;
         }
 
-        private Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> GenerateAttribute()
+        private Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> GenerateAttributes()
         {
-            newAttributes.Clear(); // Clear the list so that it can be regenerated.
+            newAttributes.Clear();
             foreach (AttributeData attributeData in AllAttributes.Instance.allAttributes)
             {
                 newAttributes.Add(attributeData.attribute, (AttributeData)attributeData.Duplicate());
                 newAttributes[attributeData.attribute].attributeLevel = random.Next(startingAttributeMin, startingAttributeMax);
             }
+            GD.PrintRich($"[rainbow]Intelligence: {newAttributes[AllEnums.Attributes.Intelligence].attributeLevel}");
             return newAttributes;
         }
 

@@ -106,12 +106,13 @@ namespace PlayerSpace
         [Export] public float heroStackingOffset = 3;
         [Export] public Vector2 heroMoveTarget;
         [Export] public int costOfHero;
-        [Export] public int loyaltyCheckNumber = 50;
+        [Export] public int loyaltyCheckNumber = 50; // Battle loyalty
         [Export] public int willWorkLoyalty = 20; // The loyalty a population needs to be willing to work.
                                                   // 50 is too high for testing, but might work well for the real game.
         [Export] public int startingHitPoints = 10;
-        [Export] public int maxLearningNeeded = 10;
-        [Export] public int combatSkillLearningNeeded = 100;
+        [Export] public int fastLearningNeeded = 10;
+        [Export] public int mediumLearningNeeded = 50;
+        [Export] public int slowLearningNeeded = 100;
         [Export] public int maxXPRoll = 5; // One above max.
         [Export] public int moraleDamageMin = 1;
         [Export] public int moraleDamageMax = 21; // One above max.

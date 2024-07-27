@@ -21,6 +21,7 @@ namespace PlayerSpace
 
         public static void GenerateScavengedResources(CountyData countyData, CountyPopulation countyPopulation)
         {
+            SkillData skillData = new();
             int randomResourceNumber = Globals.Instance.random.Next(0, 2);
             
             if (randomResourceNumber == 0)
@@ -46,7 +47,8 @@ namespace PlayerSpace
                 countyData.RemoveResourceFromAvailableCountyTotals(AllEnums.CountyResourceType.Remnants, amount);
             }
             // Learning skillcheck.
-            countyPopulation.skills[AllEnums.Skills.Scavenge].CheckLearning(countyPopulation, countyPopulation.skills[AllEnums.Skills.Scavenge]);
+            // Just for testing it is set to fast.
+            countyPopulation.skills[AllEnums.Skills.Scavenge].CheckLearning(countyPopulation, countyPopulation.skills[AllEnums.Skills.Scavenge], AllEnums.LearningSpeed.fast);
         }
 
         public static int GenerateWorkResourceWithSkillCheck(CountyImprovementData countyImprovementData, int skillLevel)
@@ -77,7 +79,6 @@ namespace PlayerSpace
             {
                 amount = Globals.Instance.dailyScavengedAmount;
             }
-
             return amount;
         }
 
@@ -91,7 +92,6 @@ namespace PlayerSpace
                 researchItemData.AmountOfResearchDone += amount;
             }
         }
-
 
         public void AddStoryEventCountyResource(StoryEventData storyEventData)
         {
@@ -118,7 +118,6 @@ namespace PlayerSpace
             }
             return amount;
         }
-
 
         public void AddLeaderInfluence(FactionData factionData)
         {
@@ -156,7 +155,8 @@ namespace PlayerSpace
 
                     // Only the researchers learn research skill.  Normal population who is just adding a tiny bit of research
                     // does not get a learning check.
-                    skillData.CheckLearning(countyPopulation, countyPopulation.skills[AllEnums.Skills.Research]);
+                    skillData.CheckLearning(countyPopulation, countyPopulation.skills[AllEnums.Skills.Research]
+                        , AllEnums.LearningSpeed.medium);
                 }
             }
         }
@@ -199,8 +199,6 @@ namespace PlayerSpace
             factionData.factionResources[AllEnums.FactionResourceType.Influence].amount
                 -= countyImprovementData.influenceCost;
         }
-
-
     }
 }
 

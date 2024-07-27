@@ -170,50 +170,54 @@ namespace PlayerSpace
 
         /// <summary>
         /// If there isn't enough food then have the idle people start scavenging & if there is enough
-        /// scavengables in that county. It is set to zero because that is easy.  Don't worry about it.
+        /// scavengables in this county. It is set to zero because that is easy.  Don't worry about it.
+        /// It also checks to see if there already is enough stored in the county.
         /// </summary>
         public void CheckForScavengingFood()
         {
-            if (CheckEnoughCountyScavengables(AllEnums.CountyResourceType.CannedFood) == false)
+            // Population won't scavenge if the storage is full, or if the county is out of scavengables.
+            if (!CheckEnoughCountyScavengables(AllEnums.CountyResourceType.CannedFood)
+                || CheckResourceStorageFull(countyResources[AllEnums.CountyResourceType.CannedFood]))
             {
                 return;
             }
 
             int amountOfFood = CountFactionResourceOfType(AllEnums.FactionResourceType.Food);
             //GD.Print($"{county.countyData.countyName} Amount of food: " + amountOfFood);
-            if (EnounghStored(amountOfFood, Globals.Instance.foodBeforeScavenge) == false)
+
+            foreach (CountyPopulation countyPopulation in possibleWorkers)
             {
-                foreach (CountyPopulation countyPopulation in possibleWorkers)
-                {
-                    countyPopulation.UpdateActivity(AllEnums.Activities.Scavenge);
-                    countyPopulation.UpdateCurrentCountyImprovement(null);
-                    workersToRemoveFromPossibleWorkers.Add(countyPopulation);
-                }
-                RemoveWorkersFromPossibleWorkers();
+                countyPopulation.UpdateActivity(AllEnums.Activities.Scavenge);
+                countyPopulation.UpdateCurrentCountyImprovement(null);
+                workersToRemoveFromPossibleWorkers.Add(countyPopulation);
             }
+            RemoveWorkersFromPossibleWorkers();
         }
 
         /// <summary>
-        /// If there isn't enough food then have the idle people start scavenging & if there is enough
-        /// scavengables in that county. It is set to zero because that is easy.  Don't worry about it.
+        /// If there isn't enough remnants then have the idle people start scavenging & if there is enough
+        /// scavengables in this county. It is set to zero because that is easy.  Don't worry about it.
+        /// It also checks to see if there already is enough stored in the county.
         /// </summary>
         public void CheckForScavengingRemnants()
         {
-            if (CheckEnoughCountyScavengables(AllEnums.CountyResourceType.Remnants) == false)
+            // Population won't scavenge if the storage is full, or if the county is out of scavengables.
+            if (!CheckEnoughCountyScavengables(AllEnums.CountyResourceType.Remnants)
+    || CheckResourceStorageFull(countyResources[AllEnums.CountyResourceType.Remnants]))
             {
                 return;
             }
+
             //GD.Print($"{county.countyData.countyName} Amount of remnants: " + county.countyData.resources[AllEnums.CountyResourceType.Remnants].amount);
-            if (EnounghStored(countyResources[AllEnums.CountyResourceType.Remnants].amount, Globals.Instance.remnantsBeforeScavenge) == false)
+
+            foreach (CountyPopulation countyPopulation in possibleWorkers)
             {
-                foreach (CountyPopulation countyPopulation in possibleWorkers)
-                {
-                    countyPopulation.UpdateActivity(AllEnums.Activities.Scavenge);
-                    countyPopulation.UpdateCurrentCountyImprovement(null);
-                    workersToRemoveFromPossibleWorkers.Add(countyPopulation);
-                }
-                RemoveWorkersFromPossibleWorkers();
+                countyPopulation.UpdateActivity(AllEnums.Activities.Scavenge);
+                countyPopulation.UpdateCurrentCountyImprovement(null);
+                workersToRemoveFromPossibleWorkers.Add(countyPopulation);
             }
+            RemoveWorkersFromPossibleWorkers();
+
         }
         public bool CheckEnoughCountyScavengables(AllEnums.CountyResourceType resourceType)
         {
@@ -267,7 +271,7 @@ namespace PlayerSpace
             return amount;
         }
 
-        private bool EnounghStored(int amountOfStored, int resourceBeforeScavenge)
+        private bool EnoughStored(int amountOfStored, int resourceBeforeScavenge)
         {
             if (amountOfStored < resourceBeforeScavenge)
             {
@@ -323,6 +327,10 @@ namespace PlayerSpace
             //GD.Print($"{county.countyData.countyName}: Checking for Preferred Work!");
             foreach (CountyImprovementData countyImprovementData in completedCountyImprovements)
             {
+                if (CheckResourceStorageFull(countyResources[countyImprovementData.resourceData.countyResourceType]) == true)
+                {
+                    return;
+                }
                 foreach (CountyPopulation countyPopulation in possibleWorkers)
                 {
                     // If they have the preferred skill, they are added to the county improvement
@@ -346,10 +354,24 @@ namespace PlayerSpace
             }
         }
 
+        private static bool CheckResourceStorageFull(CountyResourceData countyResourceData)
+        {
+            if (countyResourceData.amount >= countyResourceData.MaxAmount)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public void CheckForAnyWork()
         {
             foreach (CountyImprovementData countyImprovementData in completedCountyImprovements)
             {
+                if (CheckResourceStorageFull(countyResources[countyImprovementData.resourceData.countyResourceType]) == true)
+                {
+                    return;
+                }
+
                 foreach (CountyPopulation countyPopulation in possibleWorkers)
                 {
                     if (countyImprovementData.countyPopulationAtImprovement.Count
@@ -568,7 +590,7 @@ namespace PlayerSpace
                         }
                         else
                         {
-                            GD.Print($"[color=red]People Eat Food - Nonperishable: Something is seriously fucked up.[/color]");
+                            GD.PrintRich($"[color=red]People Eat Food - Nonperishable: Something is seriously fucked up.[/color]");
                         }
                     }
                     else

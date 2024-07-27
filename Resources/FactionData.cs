@@ -30,7 +30,6 @@ namespace PlayerSpace
         /// <summary>
         /// I am not sure we need this.
         /// </summary>
-        
         [Obsolete("What the flying fuck is this?")] public Godot.Collections.Dictionary<AllEnums.FactionResourceType, FactionResourceData> actualUsedFactionResources = [];
 
         [ExportGroup("Diplomatic Incidences")]

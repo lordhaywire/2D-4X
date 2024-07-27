@@ -1,7 +1,5 @@
 using Godot;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Reflection;
 
 namespace PlayerSpace
 {
@@ -80,9 +78,11 @@ namespace PlayerSpace
             countyData.possibleWorkers.Clear(); // Clear the list at the start of each county.
             countyData.workersToRemoveFromPossibleWorkers.Clear();
 
-            countyData.CheckForIdle();
+            countyData.CheckForIdle(); // Gets all the idle people and puts them in a list for the next methods.
             countyData.CheckForPreferredWork();
             countyData.CheckForAnyWork();
+            // We may want construction to come before work, so that people will build stuff vs always be working
+            // and never build anything.
             countyData.CheckForConstruction();
             // Sets people to scavenge.
             countyData.CheckForScavengingFood();

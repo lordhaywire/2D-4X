@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Resources/AttributeData.cs" id="1_dklns"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_dklns")
 attribute = 4
 attributeAbbreviation = "IN"

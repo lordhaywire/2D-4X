@@ -13,7 +13,7 @@ namespace PlayerSpace
         [Export] public string attributeDescription;
         [Export] public int attributeLevel;
 
-        public static int ApplyAttributeBonuses(int number)
+        public static int ApplyAttributeBonuses(int attribute, bool ones)
         {
             // List of all of the ranges for attribute bonuses.
             List<(int min, int max, int bonus)> attributeBonuses =
@@ -32,11 +32,15 @@ namespace PlayerSpace
             // If the number is between the min and the max it gets the bonus.
             foreach ((int min, int max, int bonusValue) in attributeBonuses)
             {
-                if (number >= min && number <= max)
+                if (attribute >= min && attribute <= max)
                 {
                     bonus = bonusValue;
                     break;
                 }
+            }
+            if(ones == true)
+            {
+                bonus /= 5;
             }
             return bonus;
         }

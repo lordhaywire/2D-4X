@@ -1,4 +1,5 @@
 using Godot;
+using Microsoft.VisualBasic;
 using System;
 
 namespace PlayerSpace
@@ -144,6 +145,12 @@ namespace PlayerSpace
             HourLabel.Text = string.Format("{0:00}:{1:00}", Hours, minutes);
         }
 
+        public string GetDateAndTime()
+        {
+            string dateAndTime = string.Empty;
+            dateAndTime = string.Format("{0} {0:00}:{1:00}", days, Hours, minutes);
+            return dateAndTime;
+        }
         public void PauseandUnpause()
         {
             GD.Print("Keyboard has been pressed!");
