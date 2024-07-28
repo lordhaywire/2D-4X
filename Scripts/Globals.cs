@@ -12,10 +12,6 @@ namespace PlayerSpace
 
         public Random random = new();
 
-        [ExportGroup("Game Variables")]
-        [Export] public int numberOfPerishableResources;
-        [Export] public int numberOfNonperishableResources;
-
         [ExportGroup("Player Faction BS")]
         [Export] public FactionData playerFactionData;
 
@@ -87,8 +83,14 @@ namespace PlayerSpace
         [Export] public int minimumFood;
 
         [ExportGroup("County Stuff")]
-        [Export] public int startingPerishableStorage = 5000;
-        [Export] public int startingNonperishableStorage = 5000;
+        // These two are populated from AllResources at Ready.
+        [Export] public int numberOfPerishableResources;
+        [Export] public int numberOfNonperishableResources;
+        [Export] public int maxScavengableScrap = 10000;
+        [Export] public int maxScavengableFood = 10000;
+        [Export] public int startingPerishableStorage = 500;
+        [Export] public int startingNonperishableStorage = 500;
+        [Export] public int startingAmountOfEachResource = 1;
         [Export] public int dailyScavengedAmount = 2;
         [Export] public int dailyScavengedAmountBonus = 1;
         [Export] public int dailyConstructionAmount = 5;

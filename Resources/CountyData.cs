@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PlayerSpace
 {
@@ -148,7 +149,6 @@ namespace PlayerSpace
             }
         }
 
-
         private void UpdateWorkLocation(CountyPopulation countyPopulation, CountyImprovementData countyImprovementData)
         {
             // This same thing is done multiple times.  We should make it its own method.
@@ -203,7 +203,7 @@ namespace PlayerSpace
         {
             // Population won't scavenge if the storage is full, or if the county is out of scavengables.
             if (!CheckEnoughCountyScavengables(AllEnums.CountyResourceType.Remnants)
-    || CheckResourceStorageFull(countyResources[AllEnums.CountyResourceType.Remnants]))
+                || CheckResourceStorageFull(countyResources[AllEnums.CountyResourceType.Remnants]))
             {
                 return;
             }
@@ -250,7 +250,7 @@ namespace PlayerSpace
             {
                 if (resourceData.factionResourceType == resourceType)
                 {
-                    amount += resourceData.amount;
+                    amount += resourceData.Amount;
                     //GD.Print($"{countyData.countyName} is counting food: {resourceData.name} {resourceData.amount}");
                 }
             }
@@ -264,7 +264,7 @@ namespace PlayerSpace
             {
                 if (resourceData.factionResourceType == resourceType)
                 {
-                    amount += resourceData.amount;
+                    amount += resourceData.Amount;
                     //GD.Print($"{countyData.countyName} is counting food: {resourceData.name} {resourceData.amount}");
                 }
             }
@@ -327,7 +327,7 @@ namespace PlayerSpace
             //GD.Print($"{county.countyData.countyName}: Checking for Preferred Work!");
             foreach (CountyImprovementData countyImprovementData in completedCountyImprovements)
             {
-                if (CheckResourceStorageFull(countyResources[countyImprovementData.resourceData.countyResourceType]) == true)
+                if (CheckResourceStorageFull(countyResources[countyImprovementData.countyResourceType]) == true)
                 {
                     return;
                 }
@@ -356,7 +356,7 @@ namespace PlayerSpace
 
         private static bool CheckResourceStorageFull(CountyResourceData countyResourceData)
         {
-            if (countyResourceData.amount >= countyResourceData.MaxAmount)
+            if (countyResourceData.Amount >= countyResourceData.MaxAmount)
             {
                 return true;
             }
@@ -367,7 +367,7 @@ namespace PlayerSpace
         {
             foreach (CountyImprovementData countyImprovementData in completedCountyImprovements)
             {
-                if (CheckResourceStorageFull(countyResources[countyImprovementData.resourceData.countyResourceType]) == true)
+                if (CheckResourceStorageFull(countyResources[countyImprovementData.countyResourceType]) == true)
                 {
                     return;
                 }
@@ -390,13 +390,13 @@ namespace PlayerSpace
             // Do the math for amount used. Subtract yesterdays from todays and that is how much we have used.
             foreach (KeyValuePair<AllEnums.CountyResourceType, CountyResourceData> keyValuePair in countyResources)
             {
-                amountUsedCountyResources[keyValuePair.Key].amount = countyResources[keyValuePair.Key].amount -
-                    yesterdaysCountyResources[keyValuePair.Key].amount;
+                amountUsedCountyResources[keyValuePair.Key].Amount = countyResources[keyValuePair.Key].Amount -
+                    yesterdaysCountyResources[keyValuePair.Key].Amount;
             }
             if (factionData.isPlayer)
             {
                 GD.Print("After subtraction yesterdays vegetables is: "
-                    + yesterdaysCountyResources[AllEnums.CountyResourceType.Vegetables].amount);
+                    + yesterdaysCountyResources[AllEnums.CountyResourceType.Vegetables].Amount);
             }
         }
 
@@ -417,7 +417,7 @@ namespace PlayerSpace
                     SkillData skillData = new();
                     // Check to see if they want the resource.
 
-                    if (skillData.Check(keyValuePair.Value) == true)
+                    if (skillData.Check(countyPopulation, keyValuePair.Value) == true)
                     {
                         //GD.Print($"Needs Checks: Passed.");
                         if (CheckEnoughOfResource(keyValuePair.Key) == true)
@@ -451,7 +451,7 @@ namespace PlayerSpace
         }
         public void RemoveResourceFromCounty(AllEnums.CountyResourceType countyResourceType, int amount)
         {
-            countyResources[countyResourceType].amount -= amount;
+            countyResources[countyResourceType].Amount -= amount;
 
             // Update the top bar if the player has a county selected.
             if (Globals.Instance.SelectedLeftClickCounty == countyNode)
@@ -474,7 +474,7 @@ namespace PlayerSpace
         private bool CheckEnoughOfResource(AllEnums.CountyResourceType resourceType)
         {
             bool enoughResource;
-            if (countyResources[resourceType].amount >= Globals.Instance.occationalResourceUsageAmount)
+            if (countyResources[resourceType].Amount >= Globals.Instance.occationalResourceUsageAmount)
             {
                 enoughResource = true;
             }
@@ -494,13 +494,13 @@ namespace PlayerSpace
             {
                 // Is food, and there is some food.
                 if (resourceData.factionResourceType == AllEnums.FactionResourceType.Food
-                    && resourceData.perishable == true && resourceData.amount > 0)
+                    && resourceData.perishable == true && resourceData.Amount > 0)
                 {
                     //GD.Print($"Adding to list: {resourceData.name}");
                     perishableFoodList.Add(resourceData);
                 }
                 else if (resourceData.factionResourceType == AllEnums.FactionResourceType.Food
-                    && resourceData.perishable == false && resourceData.amount > 0)
+                    && resourceData.perishable == false && resourceData.Amount > 0)
                 {
                     //GD.Print($"Adding to list: {resourceData.name}");
                     nonperishableFoodList.Add(resourceData);
@@ -537,27 +537,44 @@ namespace PlayerSpace
                 {
                     if (foodLists.perishableFoodList.Count > 0)
                     {
-                        int randomNumber = random.Next(0, foodLists.perishableFoodList.Count);
-                        // If the amount of food left is greater then zero they eat something.
-                        if (foodLists.perishableFoodList[randomNumber].amount > 2)
+                        List<CountyResourceData> sortedPerishableFoodList = foodLists.perishableFoodList.OrderByDescending(resource => resource.Amount).ToList();
+                        // Have the people eat the perishable food that has the most amount.
+                        if(sortedPerishableFoodList[0].Amount > amount)
                         {
-                            foodLists.perishableFoodList[randomNumber].amount -= amount;
-                            /*
-                            GD.Print($"{countyPopulation.firstName} {countyPopulation.lastName} ate {amount}" +
-                                $" now that county has {foodLists.perishableFoodList[randomNumber].name}" +
-                                $" {foodLists.perishableFoodList[randomNumber].amount}");
-                            */
+                            sortedPerishableFoodList[0].Amount -= amount;
                         }
-                        // Person eats first, then the food is removed from the list.
-                        else if (foodLists.perishableFoodList[randomNumber].amount == 1)
+                        else
                         {
-                            foodLists.perishableFoodList[randomNumber].amount -= amount;
+
+                        }
+                        switch (sortedPerishableFoodList[0].Amount)
+                        {
+                            case > 2:
+                                sortedPerishableFoodList[0].Amount -= amount;
+
+                                GD.Print($"{countyPopulation.firstName} {countyPopulation.lastName} ate {amount}" +
+                                    $" now that county has {sortedPerishableFoodList[0].name}" +
+                                    $" {sortedPerishableFoodList[0].Amount}");
+                                break;
+                            case 2:
+                                sortedPerishableFoodList[0].Amount -= amount;
+                                break;
+                            case 1:
+                                break;
+                            default:
+                                break;
+                        }
+
+                        // Person eats first, then the food is removed from the list.
+                        else if (foodLists.perishableFoodList[0].Amount == 1)
+                        {
+                            foodLists.perishableFoodList[0].Amount -= amount;
                             /*
                             GD.Print($"{countyPopulation.firstName} {countyPopulation.lastName} ate {amount}" +
                                 $" now that county has {foodLists.perishableFoodList[randomNumber].name}" +
                                 $" {foodLists.perishableFoodList[randomNumber].amount}");
                             */
-                            foodLists.perishableFoodList.Remove(foodLists.perishableFoodList[randomNumber]);
+                            foodLists.perishableFoodList.Remove(foodLists.perishableFoodList[0]);
                         }
                         else
                         {
@@ -568,9 +585,9 @@ namespace PlayerSpace
                     {
                         int randomNumber = random.Next(0, foodLists.nonperishableFoodList.Count);
                         // If the amount of food left is greater then zero they eat something.
-                        if (foodLists.nonperishableFoodList[randomNumber].amount > 2)
+                        if (foodLists.nonperishableFoodList[randomNumber].Amount > 2)
                         {
-                            foodLists.nonperishableFoodList[randomNumber].amount -= amount;
+                            foodLists.nonperishableFoodList[randomNumber].Amount -= amount;
                             /*
                             GD.Print($"{countyPopulation.firstName} {countyPopulation.lastName} ate {amount}" +
                                 $" now that county has {foodLists.nonperishableFoodList[randomNumber].name}" +
@@ -578,9 +595,9 @@ namespace PlayerSpace
                             */
                         }
                         // Person eats first, then the food is removed from the list.
-                        else if (foodLists.nonperishableFoodList[randomNumber].amount == 1)
+                        else if (foodLists.nonperishableFoodList[randomNumber].Amount == 1)
                         {
-                            foodLists.nonperishableFoodList[randomNumber].amount -= amount;
+                            foodLists.nonperishableFoodList[randomNumber].Amount -= amount;
                             /*
                             GD.Print($"{countyPopulation.firstName} {countyPopulation.lastName} ate {amount}" +
                                 $" now that county has {foodLists.nonperishableFoodList[randomNumber].name}" +
@@ -666,14 +683,14 @@ namespace PlayerSpace
                     countyResourceType = keyValuePair.Value.countyResourceType,
                     factionResourceType = keyValuePair.Value.factionResourceType,
                     perishable = keyValuePair.Value.perishable,
-                    amount = keyValuePair.Value.amount,
+                    Amount = keyValuePair.Value.Amount,
                     MaxAmount = keyValuePair.Value.MaxAmount,
                 });
             }
             if (factionData.isPlayer)
             {
-                GD.Print("Yesterday's Vegetables: " + yesterdaysCountyResources[AllEnums.CountyResourceType.Vegetables].amount);
-                GD.Print("This Vegetables should be the same as yesterdays: " + countyResources[AllEnums.CountyResourceType.Vegetables].amount);
+                GD.Print("Yesterday's Vegetables: " + yesterdaysCountyResources[AllEnums.CountyResourceType.Vegetables].Amount);
+                GD.Print("This Vegetables should be the same as yesterdays: " + countyResources[AllEnums.CountyResourceType.Vegetables].Amount);
             }
         }
 

@@ -57,7 +57,7 @@ namespace PlayerSpace
         {
             foreach (CountyImprovementData countyImprovementData in county.countyData.allCountyImprovements)
             {
-                if (countyImprovementData.resourceData.factionResourceType == factionResourceType
+                if (countyImprovementData.factionResourceType == factionResourceType
                     && countyImprovementData.status == AllEnums.CountyImprovementStatus.None)
                 {
                     //GD.Print($"{factionData.factionName} found {improvementData.improvementName} in {countyDataItem.countyName}.");

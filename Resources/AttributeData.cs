@@ -42,6 +42,7 @@ namespace PlayerSpace
             {
                 bonus /= 5;
             }
+            //GD.PrintRich($"[rainbow]Attribute Bonus: {bonus}");
             return bonus;
         }
 

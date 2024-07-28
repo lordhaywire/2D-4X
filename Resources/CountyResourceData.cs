@@ -12,7 +12,18 @@ namespace PlayerSpace
         [Export] public AllEnums.FactionResourceType factionResourceType;
         [Export] public bool perishable;
 
-        public int amount; // The amount of resource.
+        private int amount; // The amount of resource.
+        public int Amount
+        {
+            get { return amount; }
+            set
+            {
+                // Make the amount never got above MaxAmount.
+                amount = Math.Min(value, MaxAmount);
+                GD.Print($"Resource Amount: {name} has been set to {amount}");
+
+            }
+        }
         private int maxAmount; // This is the max amount that can be stored.
 
         public int MaxAmount
@@ -21,8 +32,8 @@ namespace PlayerSpace
             set
             {
                 maxAmount = value;
-                amount = Math.Min(amount, maxAmount);
-                //GD.Print($"Getter Setter: {name} {maxAmount}");
+                Amount = Math.Min(Amount, maxAmount);
+                GD.Print($"Resource Max Amount: {name} {maxAmount}");
             }
         }
     }

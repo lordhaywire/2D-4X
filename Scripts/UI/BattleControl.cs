@@ -193,11 +193,11 @@ namespace PlayerSpace
         private void Attack(CountyPopulation gettingShotAtCountyPopulation, CountyPopulation shootingCountyPopulation, bool isAttacker)
         {
             SkillData skillData = new();
-            if (skillData.Check(shootingCountyPopulation.skills[AllEnums.Skills.Rifle].skillLevel) == true)
+            if (skillData.Check(shootingCountyPopulation, shootingCountyPopulation.skills[AllEnums.Skills.Rifle].skillLevel) == true)
             {
                 BattleLogControl.Instance.AddLog
                     ($"{shootingCountyPopulation.firstName} {shootingCountyPopulation.lastName} has hit!", isAttacker);
-                if (skillData.Check(gettingShotAtCountyPopulation.skills[AllEnums.Skills.Cool].skillLevel) == false)
+                if (skillData.Check(gettingShotAtCountyPopulation, gettingShotAtCountyPopulation.skills[AllEnums.Skills.Cool].skillLevel) == false)
                 {
                     int moraleDamage = random.Next(Globals.Instance.moraleDamageMin, Globals.Instance.moraleDamageMax);
                     gettingShotAtCountyPopulation.moraleExpendable

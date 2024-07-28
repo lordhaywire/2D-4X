@@ -6,5 +6,5 @@
 script = ExtResource("1_m0mjc")
 name = "Influence"
 description = ""
-resourceType = 2
+resourceType = 3
 amount = 0

@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="ResourceData" load_steps=2 format=3 uid="uid://dpddpnnbjvql"]
+[gd_resource type="Resource" script_class="CountyResourceData" load_steps=2 format=3 uid="uid://dpddpnnbjvql"]
 
 [ext_resource type="Script" path="res://Resources/CountyResourceData.cs" id="1_tyovi"]
 
 [resource]
 script = ExtResource("1_tyovi")
 name = "Vegetables"
-countyResourceType = 3
-factionResourceType = 1
+description = ""
+countyResourceType = 4
+factionResourceType = 2
 perishable = true

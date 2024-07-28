@@ -36,7 +36,7 @@
 [ext_resource type="Resource" uid="uid://cwkooap4yvn10" path="res://Resources/ResearchItems/Basic Storage.tres" id="16_qtbxl"]
 [ext_resource type="Script" path="res://Scripts/CountyPopulationGeneration.cs" id="17_1215r"]
 [ext_resource type="Script" path="res://Scripts/RandomFactionColor.cs" id="18_3aru6"]
-[ext_resource type="Script" path="res://Scripts/AllResources.cs" id="18_wf5kh"]
+[ext_resource type="Script" path="res://Scripts/AllCountyResources.cs" id="18_wf5kh"]
 [ext_resource type="Resource" uid="uid://c55q8uucl7cqe" path="res://Resources/County Resources/Fish.tres" id="19_1e80i"]
 [ext_resource type="Script" path="res://Scripts/Clock.cs" id="19_dn5gi"]
 [ext_resource type="Script" path="res://Scripts/Map Editor/FindNeighbors.cs" id="20_0i5kb"]

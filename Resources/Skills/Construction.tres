@@ -10,4 +10,4 @@ skillDescription = ""
 skillLevel = 0
 amountUntilLearned = 0
 isCombatSkill = false
-skillType = 7
+attribute = 7

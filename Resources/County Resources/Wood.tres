@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="ResourceData" load_steps=2 format=3 uid="uid://bhb7ok6ynakog"]
+[gd_resource type="Resource" script_class="CountyResourceData" load_steps=2 format=3 uid="uid://bhb7ok6ynakog"]
 
 [ext_resource type="Script" path="res://Resources/CountyResourceData.cs" id="1_5vlxb"]
 
 [resource]
 script = ExtResource("1_5vlxb")
 name = "Wood"
-countyResourceType = 4
-factionResourceType = 0
+description = ""
+countyResourceType = 5
+factionResourceType = 1
 perishable = false

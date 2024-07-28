@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ResourceData" load_steps=2 format=3 uid="uid://rs4bgxx8ctc8"]
+[gd_resource type="Resource" script_class="CountyResourceData" load_steps=2 format=3 uid="uid://rs4bgxx8ctc8"]
 
 [ext_resource type="Script" path="res://Resources/CountyResourceData.cs" id="1_ag1o6"]
 
@@ -6,6 +6,6 @@
 script = ExtResource("1_ag1o6")
 name = "Canned Food"
 description = ""
-countyResourceType = 0
-factionResourceType = 1
+countyResourceType = 1
+factionResourceType = 2
 perishable = false

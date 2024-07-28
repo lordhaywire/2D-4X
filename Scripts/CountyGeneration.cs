@@ -2,13 +2,12 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Resources;
 
 namespace PlayerSpace
 {
     public partial class CountyGeneration : Node
     {
-        [Export] private int maxScavengableScrap = 10000;
-        [Export] private int maxScavengableFood = 10000;
 
         // I think we might be able to get rid of these.
         private int perishable;
@@ -24,22 +23,20 @@ namespace PlayerSpace
             UpdateInitialCountyStorage();
         }
 
-
-
         private void UpdateResources()
         {
             // Assign a copy of each resource to each county.
             foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
             {
-                CopyAndAssignResources(county.countyData, AllResources.Instance.allResources);
+                CopyAndAssignResources(county.countyData, AllCountyResources.Instance.allResources);
                 UpdateScavengableResources(county);
             }
         }
 
         private void UpdateScavengableResources(County county)
         {
-            county.countyData.scavengableCannedFood = maxScavengableFood;
-            county.countyData.scavengableRemnants = maxScavengableScrap;
+            county.countyData.scavengableCannedFood = Globals.Instance.maxScavengableFood;
+            county.countyData.scavengableRemnants = Globals.Instance.maxScavengableScrap;
         }
 
         private static void CopyAndAssignResources(CountyData countyData, CountyResourceData[] AllResources)
@@ -50,10 +47,15 @@ namespace PlayerSpace
                 countyData.yesterdaysCountyResources.Add(countyResourceData.countyResourceType, (CountyResourceData)countyResourceData.Duplicate());
                 countyData.amountUsedCountyResources.Add(countyResourceData.countyResourceType, (CountyResourceData)countyResourceData.Duplicate());
 
-                // This is just for testing.
-                countyData.countyResources[countyResourceData.countyResourceType].amount = 1;
+
             }
             SetInitialMaxStorage(countyData.countyResources);
+            // This is just for testing.  Sets all resources to a starting amount.
+            // This has to be after the initial storage is set.
+            foreach (KeyValuePair<AllEnums.CountyResourceType, CountyResourceData> keyValuePair in countyData.countyResources)
+            {
+                keyValuePair.Value.Amount = Globals.Instance.startingAmountOfEachResource;
+            }
         }
 
         private static void SetInitialMaxStorage(Godot.Collections.Dictionary<AllEnums.CountyResourceType, CountyResourceData> resources)
@@ -64,19 +66,19 @@ namespace PlayerSpace
 
                 if (resource.perishable)
                 {
-                    resource.MaxAmount = Globals.Instance.startingPerishableStorage 
-                        / Globals.Instance.numberOfPerishableResources
-                        + (Globals.Instance.startingPerishableStorage % Globals.Instance.numberOfPerishableResources);
+                    resource.MaxAmount = Globals.Instance.startingPerishableStorage
+                        / Globals.Instance.numberOfPerishableResources;
+                    //+ (Globals.Instance.startingPerishableStorage % Globals.Instance.numberOfPerishableResources);
 
                 }
                 else
                 {
-                    resource.MaxAmount = Globals.Instance.startingNonperishableStorage 
-                        / Globals.Instance.numberOfNonperishableResources
-                        + (Globals.Instance.startingNonperishableStorage % Globals.Instance.numberOfNonperishableResources);
+                    resource.MaxAmount = Globals.Instance.startingNonperishableStorage
+                        / Globals.Instance.numberOfNonperishableResources;
+                    //+ (Globals.Instance.startingNonperishableStorage % Globals.Instance.numberOfNonperishableResources);
                 }
                 //GD.Print($"{county.countyData.countyName} - {resource.name}: " +
-                 //       $"{resource.MaxAmount}");
+                //       $"{resource.MaxAmount}");
             }
         }
 

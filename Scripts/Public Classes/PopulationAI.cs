@@ -14,7 +14,7 @@ namespace PlayerSpace
             int amountOfPeople = Banker.CountEveryoneInCounty(countyData);
             if (amountOfFood >= (Globals.Instance.foodToGainHappiness * amountOfPeople))
             {
-                // Happiness is added when the people eat the food.
+                // Happiness is addedin the PopulationEatsFood method.
                 countyData.PopulationEatsFood(countyData.herosInCountyList,
                     Globals.Instance.foodToGainHappiness);
                 countyData.PopulationEatsFood(countyData.armiesInCountyList,
@@ -26,7 +26,7 @@ namespace PlayerSpace
             else if (amountOfFood >= (Globals.Instance.foodToGainNothing * amountOfPeople))
             {
                 //GD.Print("People get jack shit for happiness.");
-                // Happiness is added when the people eat the food.
+                // Happiness is added in the PopulationEatsFood method.
                 countyData.PopulationEatsFood(countyData.herosInCountyList,
                     Globals.Instance.foodToGainNothing);
                 countyData.PopulationEatsFood(countyData.armiesInCountyList,
@@ -38,7 +38,7 @@ namespace PlayerSpace
             }
             else if (amountOfFood >= amountOfPeople)
             {
-                // Happiness is removed when the people eat the food.
+                // Happiness is removed in method PopulationEatsFood.
                 countyData.PopulationEatsFood(countyData.herosInCountyList,
                     Globals.Instance.foodToLoseHappiness);
                 countyData.PopulationEatsFood(countyData.armiesInCountyList,
@@ -46,7 +46,6 @@ namespace PlayerSpace
                 countyData.PopulationEatsFood(countyData.countyPopulationList,
                     Globals.Instance.foodToLoseHappiness);
                 // Visiting heroes need to be able to eat food too.  It needs to improve faction relations.
-
             }
             else
             {
@@ -90,9 +89,8 @@ namespace PlayerSpace
                         {
                             GD.PrintRich($"[color=green]{countyPopulation.firstName} is working at {countyPopulation.currentCountyImprovement.improvementName}[/color]");
                         }
-                        countyData.countyResources[countyPopulation.currentCountyImprovement.resourceData.countyResourceType].amount +=
-                            Banker.GenerateWorkResourceWithSkillCheck(countyPopulation.currentCountyImprovement
-                            , countyPopulation.skills[countyPopulation.currentCountyImprovement.workSkill].skillLevel);
+                        countyData.countyResources[countyPopulation.currentCountyImprovement.countyResourceType].Amount +=
+                            Banker.GenerateWorkResourceWithSkillCheck(countyPopulation);
                         // Check for Skill Learning.
                         SkillData skillData = new();
                         skillData.CheckLearning(countyPopulation
@@ -122,7 +120,7 @@ namespace PlayerSpace
         private static void CompleteConstructionWithSkillCheck(CountyPopulation countyPopulation)
         {
             SkillData skillData = new();
-            if (skillData.Check(countyPopulation.skills[AllEnums.Skills.Construction].skillLevel))
+            if (skillData.Check(countyPopulation, countyPopulation.skills[AllEnums.Skills.Construction].skillLevel))
             {
                 countyPopulation.currentCountyImprovement.CurrentAmountOfConstruction
                     += Globals.Instance.dailyConstructionAmount + Globals.Instance.dailyConstructionAmountBonus;
@@ -166,7 +164,6 @@ namespace PlayerSpace
                         whatPopulationIsResearching = researchItemData;
                         GD.Print($"{countyPopulation.firstName} preferred skill is having them research {researchItemData.researchName}");
                     }
-                    
                 }
                 */
 
@@ -217,12 +214,11 @@ namespace PlayerSpace
         private static bool CheckLoyaltyWithSkillCheck(CountyPopulation countyPopulation)
         {
             SkillData skillData = new();
-            if (skillData.Check(countyPopulation.LoyaltyAdjusted))
+            if (skillData.Check(countyPopulation, countyPopulation.LoyaltyAdjusted))
             {
                 return true;
             }
             return false;
         }
-
     }
 }

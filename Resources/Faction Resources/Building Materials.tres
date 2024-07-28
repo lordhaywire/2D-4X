@@ -6,5 +6,5 @@
 script = ExtResource("1_5vfsl")
 name = "Building Materials"
 description = ""
-resourceType = 0
+resourceType = 1
 amount = 0

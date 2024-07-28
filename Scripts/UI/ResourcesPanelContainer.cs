@@ -34,7 +34,7 @@ namespace PlayerSpace
         // Creates the Storage Hboxes when the game starts.
         private void GenerateStorageHBoxes()
         {
-            foreach (CountyResourceData resourceData in AllResources.Instance.allResources)
+            foreach (CountyResourceData resourceData in AllCountyResources.Instance.allResources)
             {
                 StorageHbox storageHbox = (StorageHbox)storageHBoxPackedScene.Instantiate();
                 //GD.Print("Resource Name: " + resourceData.name);
@@ -190,10 +190,8 @@ namespace PlayerSpace
             resourceStorageHboxDictionary[keyValuePair.Key].resourceData = countyData.countyResources[keyValuePair.Key];
             //GD.Print("Update Storage Hbox Labels Resource:" + countyData.resources[keyValuePair.Key].name);
             resourceStorageHboxDictionary[keyValuePair.Key].resourceNameLabel.Text = $"{resourceStorageHboxDictionary[keyValuePair.Key].resourceData.name}:";
-            resourceStorageHboxDictionary[keyValuePair.Key].resourceAmountLabel.Text = resourceStorageHboxDictionary[keyValuePair.Key].resourceData.amount.ToString();
+            resourceStorageHboxDictionary[keyValuePair.Key].resourceAmountLabel.Text = resourceStorageHboxDictionary[keyValuePair.Key].resourceData.Amount.ToString();
         }
-
-
 
         private void CloseButtonPressed()
         {

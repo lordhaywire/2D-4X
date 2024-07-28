@@ -12,7 +12,6 @@ namespace PlayerSpace
             Scavenge,
             Work,
         }
-
         public enum Attributes
         {
             Agility,
@@ -33,6 +32,7 @@ namespace PlayerSpace
         }
         public enum CountyResourceType
         {
+            None,
             CannedFood,
             Fish,
             Remnants,
@@ -50,6 +50,7 @@ namespace PlayerSpace
         // Scrap and wood should be combined into building materials.
         public enum FactionResourceType
         {
+            None,
             BuildingMaterial,
             Food,
             Influence,

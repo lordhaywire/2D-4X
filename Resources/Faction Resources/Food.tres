@@ -6,5 +6,5 @@
 script = ExtResource("1_1oehe")
 name = "Food"
 description = ""
-resourceType = 1
+resourceType = 2
 amount = 0

@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="ResourceData" load_steps=2 format=3 uid="uid://bhmwj5yptebic"]
+[gd_resource type="Resource" script_class="CountyResourceData" load_steps=2 format=3 uid="uid://bhmwj5yptebic"]
 
 [ext_resource type="Script" path="res://Resources/CountyResourceData.cs" id="1_lhf4k"]
 
 [resource]
 script = ExtResource("1_lhf4k")
 name = "Remnants"
-countyResourceType = 2
-factionResourceType = 4
+description = ""
+countyResourceType = 3
+factionResourceType = 5
 perishable = false

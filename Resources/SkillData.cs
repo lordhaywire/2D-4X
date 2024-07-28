@@ -12,12 +12,14 @@ namespace PlayerSpace
         [Export] public int skillLevel;
         [Export] public int amountUntilLearned;
         [Export] public bool isCombatSkill;
-        [Export] public AllEnums.Attributes skillType;
+        [Export] public AllEnums.Attributes attribute;
 
-        public bool Check(int skillAmount)
+        public bool Check(CountyPopulation countyPopulation, int skillAmount)
         {
             int skillCheckRoll = Globals.Instance.random.Next(1, 101);
-            if (skillCheckRoll <= skillAmount)
+            int attributeBonus = AttributeData.ApplyAttributeBonuses(countyPopulation.attributes[attribute].attributeLevel, false);
+            //GD.PrintRich($"[color=yellow]Attribute Bonus: {attributeBonus}[/color]");
+            if (skillCheckRoll <= skillAmount + attributeBonus) 
             {
                 //GD.Print($"Skill Checks: rolled a {skillCheckRoll} which is less then or equal {skillAmount}");
                 return (true);

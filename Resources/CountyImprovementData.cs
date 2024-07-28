@@ -31,7 +31,8 @@ namespace PlayerSpace
         [Export] public int maxBuilders;
         //[Export] public int currentWorkers;
         [Export] public int maxWorkers;
-        [Export] public CountyResourceData resourceData;
+        [Export] public AllEnums.CountyResourceType countyResourceType;
+        [Export] public AllEnums.FactionResourceType factionResourceType;
         [Export] public int dailyResourceGenerationAmount;
         [Export] public int dailyResourceGenerationBonus;
 

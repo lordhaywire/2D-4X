@@ -2,9 +2,9 @@ using Godot;
 
 namespace PlayerSpace
 {
-    public partial class AllResources : Node
+    public partial class AllCountyResources : Node
     {
-        public static AllResources Instance { get; private set; }
+        public static AllCountyResources Instance { get; private set; }
 
         [Export] public CountyResourceData[] allResources;
 

@@ -6,5 +6,5 @@
 script = ExtResource("1_2uhyr")
 name = "Remnants"
 description = ""
-resourceType = 4
+resourceType = 5
 amount = 0

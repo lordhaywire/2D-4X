@@ -30,7 +30,7 @@ namespace PlayerSpace
                 {
                     return;
                 }
-                int amountGenerated = GenerateScavengedResourceWithSkillCheck(countyPopulation.skills[AllEnums.Skills.Scavenge].skillLevel);
+                int amountGenerated = GenerateScavengedResourceWithSkillCheck(countyPopulation);
                 int amount = Mathf.Min(amountGenerated, countyData.scavengableCannedFood);
                 AddResourceToCounty(countyData, AllEnums.CountyResourceType.CannedFood, amount);
                 countyData.RemoveResourceFromAvailableCountyTotals(AllEnums.CountyResourceType.CannedFood, amount);
@@ -41,7 +41,7 @@ namespace PlayerSpace
                 {
                     return;
                 }
-                int amountGenerated = GenerateScavengedResourceWithSkillCheck(countyPopulation.skills[AllEnums.Skills.Scavenge].skillLevel);
+                int amountGenerated = GenerateScavengedResourceWithSkillCheck(countyPopulation);
                 int amount = Mathf.Min(amountGenerated, countyData.scavengableRemnants);
                 AddResourceToCounty(countyData, AllEnums.CountyResourceType.Remnants, amount);
                 countyData.RemoveResourceFromAvailableCountyTotals(AllEnums.CountyResourceType.Remnants, amount);
@@ -51,11 +51,13 @@ namespace PlayerSpace
             countyPopulation.skills[AllEnums.Skills.Scavenge].CheckLearning(countyPopulation, countyPopulation.skills[AllEnums.Skills.Scavenge], AllEnums.LearningSpeed.fast);
         }
 
-        public static int GenerateWorkResourceWithSkillCheck(CountyImprovementData countyImprovementData, int skillLevel)
+        public static int GenerateWorkResourceWithSkillCheck(CountyPopulation countyPopulation)
         {
+            CountyImprovementData countyImprovementData = countyPopulation.currentCountyImprovement;
+            int skillLevel = countyPopulation.skills[countyPopulation.currentCountyImprovement.workSkill].skillLevel;
             SkillData skillData = new();
             int amount;
-            if (skillData.Check(skillLevel) == true)
+            if (skillData.Check(countyPopulation, skillLevel) == true)
             {
                 amount = countyImprovementData.dailyResourceGenerationAmount + countyImprovementData.dailyResourceGenerationBonus;
                 return amount;
@@ -66,11 +68,12 @@ namespace PlayerSpace
                 return amount;
             }
         }
-        public static int GenerateScavengedResourceWithSkillCheck(int skillLevel)
+        public static int GenerateScavengedResourceWithSkillCheck(CountyPopulation countyPopulation)
         {
+            int skillLevel = countyPopulation.skills[AllEnums.Skills.Scavenge].skillLevel;
             SkillData skillData = new();
             int amount;
-            if (skillData.Check(skillLevel) == true)
+            if (skillData.Check(countyPopulation, skillLevel) == true)
             {
                 amount = Globals.Instance.dailyScavengedAmount + Globals.Instance.dailyScavengedAmountBonus;
 
@@ -87,7 +90,7 @@ namespace PlayerSpace
             , ResearchItemData researchItemData, int amount)
         {
             SkillData skillData = new();
-            if (skillData.Check(countyPopulation.skills[researchItemData.skill].skillLevel) == true)
+            if (skillData.Check(countyPopulation, countyPopulation.skills[researchItemData.skill].skillLevel) == true)
             {
                 researchItemData.AmountOfResearchDone += amount;
             }
@@ -99,7 +102,7 @@ namespace PlayerSpace
             //   $"{storyEventData.resourceAmount} {storyEventData.resource.name}");
             if (storyEventData.resource.perishable)
             {
-                storyEventData.eventCounty.countyData.countyResources[storyEventData.resource.countyResourceType].amount
+                storyEventData.eventCounty.countyData.countyResources[storyEventData.resource.countyResourceType].Amount
                     += storyEventData.resourceAmount;
             }
             TopBarControl.Instance.UpdateResourceLabels();
@@ -113,7 +116,7 @@ namespace PlayerSpace
             {
                 if (resourceData.countyResourceType == resourceType)
                 {
-                    amount += resourceData.amount;
+                    amount += resourceData.Amount;
                 }
             }
             return amount;
@@ -147,7 +150,7 @@ namespace PlayerSpace
                 {
                     SkillData skillData = new();
 
-                    bool passedCheck = skillData.Check(countyPopulation.skills[AllEnums.Skills.Research].skillLevel);
+                    bool passedCheck = skillData.Check(countyPopulation, countyPopulation.skills[AllEnums.Skills.Research].skillLevel);
 
                     // This needs to be broken into two different things.  One increases the research
                     // the other checks for a bonus.
@@ -175,7 +178,7 @@ namespace PlayerSpace
 
         public static void AddResourceToCounty(CountyData countyData, AllEnums.CountyResourceType countyResourceType, int amount)
         {
-            countyData.countyResources[countyResourceType].amount += amount;
+            countyData.countyResources[countyResourceType].Amount += amount;
 
             //TopBarControl.Instance.UpdateResourceLabels(); 
         }
