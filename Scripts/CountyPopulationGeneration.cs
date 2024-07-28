@@ -144,11 +144,10 @@ namespace PlayerSpace
 
         private Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> GenerateAttributes()
         {
-            newAttributes.Clear();
-            foreach (AttributeData attributeData in AllAttributes.Instance.allAttributes)
+            newAttributes = new(AttributeData.NewCopy());
+            foreach (KeyValuePair<AllEnums.Attributes, AttributeData> keyValuePair in newAttributes)
             {
-                newAttributes.Add(attributeData.attribute, (AttributeData)attributeData.Duplicate());
-                newAttributes[attributeData.attribute].attributeLevel = random.Next(startingAttributeMin, startingAttributeMax);
+                newAttributes[keyValuePair.Key].attributeLevel = random.Next(startingAttributeMin, startingAttributeMax);
             }
             GD.PrintRich($"[rainbow]Intelligence: {newAttributes[AllEnums.Attributes.Intelligence].attributeLevel}");
             return newAttributes;

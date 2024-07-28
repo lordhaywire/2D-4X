@@ -32,6 +32,8 @@ namespace PlayerSpace
 
                 GenerateAssignedResearchers();
                 CheckForResearchers();
+                // For testing only
+                Globals.Instance.playerFactionData.factionLeader.attributes[AllEnums.Attributes.Intelligence].attributeLevel++;
             }
             else
             {

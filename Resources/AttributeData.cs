@@ -44,6 +44,51 @@ namespace PlayerSpace
             }
             return bonus;
         }
+
+        public static Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> NewCopy()
+        {
+            Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> newAttributes = [];
+            foreach (AttributeData attributeData in AllAttributes.Instance.allAttributes)
+            {
+                newAttributes.Add(attributeData.attribute, new AttributeData
+                {
+                    attribute = attributeData.attribute,
+                    attributeName = attributeData.attributeName,
+                    attributeAbbreviation = attributeData.attributeAbbreviation,
+                    attributeDescription = attributeData.attributeDescription,
+                    attributeLevel = attributeData.attributeLevel,
+                });
+                
+            }
+            return newAttributes;
+            /*
+            return new AttributeData()
+            {
+                attribute = this.attribute,
+                attributeAbbreviation = new string(this.attributeAbbreviation.ToCharArray()),
+                attributeName = new string(this.attributeName.ToCharArray()),
+                attributeDescription = new string(this.attributeDescription.ToCharArray()),
+                attributeLevel = this.attributeLevel
+            };
+            */
+        }
+        /*
+        public AttributeData NewDuplicate(AttributeData oldAttributeData)
+        {
+            AttributeData newAttributeData = (AttributeData)oldAttributeData.Duplicate(true);
+            /*
+            return new AttributeData()
+            {
+                attribute = this.attribute,
+                attributeAbbreviation = this.attributeAbbreviation,
+                attributeName = this.attributeName,
+                attributeDescription = this.attributeDescription,
+                attributeLevel = this.attributeLevel
+            };
+            
+            return newAttributeData;
+        }
+    */
     }
 }
 

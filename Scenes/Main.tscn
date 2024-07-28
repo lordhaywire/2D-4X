@@ -1,4 +1,4 @@
-[gd_scene load_steps=119 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=120 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scripts/HidderNode.cs" id="1_gbt3x"]
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_x1cy2"]
@@ -42,6 +42,7 @@
 [ext_resource type="Script" path="res://Scripts/Map Editor/FindNeighbors.cs" id="20_0i5kb"]
 [ext_resource type="Resource" uid="uid://bhmwj5yptebic" path="res://Resources/County Resources/Remnants.tres" id="20_k67vp"]
 [ext_resource type="Resource" uid="uid://dpddpnnbjvql" path="res://Resources/County Resources/Vegetables.tres" id="21_r83qp"]
+[ext_resource type="Script" path="res://Resources/AttributeData.cs" id="22_0b0as"]
 [ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/County Resources/Wood.tres" id="22_leslc"]
 [ext_resource type="Resource" uid="uid://bljrvhrjka1hs" path="res://Resources/ResearchItems/Basic Production.tres" id="22_ugyvd"]
 [ext_resource type="Script" path="res://Scripts/AllPerks.cs" id="23_8jwco"]
@@ -63,7 +64,6 @@
 [ext_resource type="Resource" uid="uid://bg3pq5mc2ukh6" path="res://Resources/Skills/Lumberjack.tres" id="28_1iuk7"]
 [ext_resource type="Script" path="res://Scripts/UI/PopAndIdleButtons.cs" id="28_celvx"]
 [ext_resource type="Script" path="res://Scripts/CountyDictator.cs" id="28_qe8u4"]
-[ext_resource type="Resource" uid="uid://dy4bltm86q63n" path="res://Resources/Attributes/Intelligence.tres" id="28_scnv0"]
 [ext_resource type="Resource" uid="uid://b25ofn4b1igjp" path="res://Resources/Skills/Research.tres" id="29_8u7ma"]
 [ext_resource type="Script" path="res://Scripts/UI/PopulationListUIElement.cs" id="29_ts64q"]
 [ext_resource type="Resource" uid="uid://bkqqewiydjtb2" path="res://Resources/Attributes/Looks.tres" id="29_xoqji"]
@@ -115,6 +115,14 @@
 [ext_resource type="PackedScene" uid="uid://iur3kq10dikl" path="res://Scenes/MapEditor.tscn" id="66_sq6pt"]
 [ext_resource type="PackedScene" uid="uid://bhgbnf6lykhb6" path="res://UIScenes/PerkLabel.tscn" id="68_6cv3c"]
 [ext_resource type="Texture2D" uid="uid://cs6gb8bpwt7xd" path="res://Graphics/yellow-crumpled-lined-paper-background-2022-12-16-00-47-47-utc-scaled.webp" id="76_xlxp7"]
+
+[sub_resource type="Resource" id="Resource_6tiru"]
+script = ExtResource("22_0b0as")
+attribute = 4
+attributeAbbreviation = "IN"
+attributeName = "Intelligence"
+attributeDescription = ""
+attributeLevel = 0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_co2vr"]
 
@@ -193,7 +201,7 @@ allActivityData = Array[Object]([ExtResource("10_6i1wp"), ExtResource("11_pouup"
 
 [node name="All Attributes" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("23_ucd0c")
-allAttributes = Array[Object]([ExtResource("24_kqay3"), ExtResource("25_arsfn"), ExtResource("26_eof2h"), ExtResource("27_fmdgm"), ExtResource("28_scnv0"), ExtResource("29_xoqji"), ExtResource("30_lqs38"), ExtResource("31_odxrg")])
+allAttributes = Array[Object]([ExtResource("24_kqay3"), ExtResource("25_arsfn"), ExtResource("26_eof2h"), ExtResource("27_fmdgm"), SubResource("Resource_6tiru"), ExtResource("29_xoqji"), ExtResource("30_lqs38"), ExtResource("31_odxrg")])
 
 [node name="All Perks" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("23_8jwco")
