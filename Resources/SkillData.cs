@@ -14,10 +14,19 @@ namespace PlayerSpace
         [Export] public bool isCombatSkill;
         [Export] public AllEnums.Attributes attribute;
 
-        public bool Check(CountyPopulation countyPopulation, int skillAmount)
+        /// <summary>
+        /// Since an attribute bonus is checked in this method, we are passing in an attribute, and if the bonus is a negative.
+        /// </summary>
+        /// <param name="countyPopulation"></param>
+        /// <param name="skillAmount"></param>
+        /// <param name="attribute"></param>
+        /// <param name="negativeBonus"></param>
+        /// <returns></returns>
+        public static bool Check(CountyPopulation countyPopulation, int skillAmount, AllEnums.Attributes attribute, bool negativeBonus)
         {
             int skillCheckRoll = Globals.Instance.random.Next(1, 101);
-            int attributeBonus = AttributeData.ApplyAttributeBonuses(countyPopulation.attributes[attribute].attributeLevel, false);
+            GD.PrintRich("[rainbow]Attribute: " + attribute);
+            int attributeBonus = AttributeData.ApplyAttributeBonuses(countyPopulation.attributes[attribute].attributeLevel, false, negativeBonus);
             //GD.PrintRich($"[color=yellow]Attribute Bonus: {attributeBonus}[/color]");
             if (skillCheckRoll <= skillAmount + attributeBonus) 
             {
@@ -32,7 +41,7 @@ namespace PlayerSpace
         }
 
         // ChatGPT refactored this...
-        public void CheckLearning(CountyPopulation countyPopulation, SkillData skillData, AllEnums.LearningSpeed learningSpeed)
+        public static void CheckLearning(CountyPopulation countyPopulation, SkillData skillData, AllEnums.LearningSpeed learningSpeed)
         {
             // Increment the amount learned.
             skillData.amountUntilLearned++;
@@ -59,7 +68,7 @@ namespace PlayerSpace
                 {
                     int experienceLearnedRandom = Globals.Instance.random.Next(1, Globals.Instance.maxXPRoll);
                     int experienceLearned = Mathf.Max(1, experienceLearnedRandom +
-                        AttributeData.ApplyAttributeBonuses(countyPopulation.attributes[AllEnums.Attributes.Intelligence].attributeLevel, true));
+                        AttributeData.ApplyAttributeBonuses(countyPopulation.attributes[AllEnums.Attributes.Intelligence].attributeLevel, true, false));
 
                     skillData.skillLevel += experienceLearned;
 

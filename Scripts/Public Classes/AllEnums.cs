@@ -1,3 +1,5 @@
+using System;
+
 namespace PlayerSpace
 {
     public class AllEnums
@@ -40,13 +42,6 @@ namespace PlayerSpace
             Wood,
         }
 
-        public enum LearningSpeed
-        {
-            slow,
-            medium,
-            fast,
-        }
-
         // Scrap and wood should be combined into building materials.
         public enum FactionResourceType
         {
@@ -55,9 +50,28 @@ namespace PlayerSpace
             Food,
             Influence,
             Money,
-            Remnants
+            Remnants,
+            Research,
         }
 
+        public enum LearningSpeed
+        {
+            slow,
+            medium,
+            fast,
+        }
+
+        public enum Interests
+        {
+            Botany,
+            Biology,
+            Engineering,
+            Humanities,
+            Information,
+            Politics,
+            Warfare,
+            // Maybe medicine?  Is biology too broad?
+        }
         public enum Perks
         {
             LeaderOfPeople,
@@ -99,6 +113,14 @@ namespace PlayerSpace
             Plain,
             River,
             Ruin,
+        }
+
+        public static T GetRandomEnumValue<T>() where T : Enum
+        {
+            Array values = Enum.GetValues(typeof(T));
+            Random random = new Random();
+            int randomIndex = random.Next(values.Length);
+            return (T)values.GetValue(randomIndex);
         }
     }
 }

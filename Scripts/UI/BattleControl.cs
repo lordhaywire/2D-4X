@@ -192,12 +192,13 @@ namespace PlayerSpace
         // This is confusing.  Needs a fucking rewrite.
         private void Attack(CountyPopulation gettingShotAtCountyPopulation, CountyPopulation shootingCountyPopulation, bool isAttacker)
         {
-            SkillData skillData = new();
-            if (skillData.Check(shootingCountyPopulation, shootingCountyPopulation.skills[AllEnums.Skills.Rifle].skillLevel) == true)
+            if (SkillData.Check(shootingCountyPopulation, shootingCountyPopulation.skills[AllEnums.Skills.Rifle].skillLevel
+                , shootingCountyPopulation.skills[AllEnums.Skills.Rifle].attribute, false) == true)
             {
                 BattleLogControl.Instance.AddLog
                     ($"{shootingCountyPopulation.firstName} {shootingCountyPopulation.lastName} has hit!", isAttacker);
-                if (skillData.Check(gettingShotAtCountyPopulation, gettingShotAtCountyPopulation.skills[AllEnums.Skills.Cool].skillLevel) == false)
+                if (SkillData.Check(gettingShotAtCountyPopulation, gettingShotAtCountyPopulation.skills[AllEnums.Skills.Cool].skillLevel
+                    , gettingShotAtCountyPopulation.skills[AllEnums.Skills.Cool].attribute, false) == false)
                 {
                     int moraleDamage = random.Next(Globals.Instance.moraleDamageMin, Globals.Instance.moraleDamageMax);
                     gettingShotAtCountyPopulation.moraleExpendable
@@ -221,10 +222,10 @@ namespace PlayerSpace
             }
 
             // Check if rifle experience is learned by the attacker.
-            skillData.CheckLearning(shootingCountyPopulation, shootingCountyPopulation.skills[AllEnums.Skills.Rifle], AllEnums.LearningSpeed.slow);
+            SkillData.CheckLearning(shootingCountyPopulation, shootingCountyPopulation.skills[AllEnums.Skills.Rifle], AllEnums.LearningSpeed.slow);
 
             // Check if the defenders cool skill learns anything.
-            skillData.CheckLearning(gettingShotAtCountyPopulation, gettingShotAtCountyPopulation.skills[AllEnums.Skills.Cool], AllEnums.LearningSpeed.slow);
+            SkillData.CheckLearning(gettingShotAtCountyPopulation, gettingShotAtCountyPopulation.skills[AllEnums.Skills.Cool], AllEnums.LearningSpeed.slow);
         }
         private static void ButtonUp()
         {

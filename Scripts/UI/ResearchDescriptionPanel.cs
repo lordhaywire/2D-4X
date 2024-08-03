@@ -58,12 +58,23 @@ namespace PlayerSpace
             {
                 foreach (CountyPopulation countyPopulation in countyData.herosInCountyList)
                 {
-                    if (countyPopulation.CurrentResearchItemData == null && countyPopulation.activity 
+                    if (countyPopulation.CurrentResearchItemData == null && countyPopulation.activity
                         != AllEnums.Activities.Move)
                     {
-                        assignResearcherMenuButton.GetPopup().AddItem($"{countyPopulation.firstName} " +
-                            $"{countyPopulation.lastName}: {countyPopulation.GetActivityName()}");
-                        assignableResearchers.Add(countyPopulation);
+                           AddResearcherToMenu(countyData, countyPopulation);
+                    }
+                }
+                // Go through every county data that is built and if it produces research then add it
+                // to the assignable researcher list.
+                foreach (CountyImprovementData countyImprovementData in countyData.completedCountyImprovements)
+                {
+                    if (countyImprovementData.factionResourceType == AllEnums.FactionResourceType.Research)
+                    {
+                        foreach (CountyPopulation countyPopulation in countyImprovementData.countyPopulationAtImprovement)
+                        {
+                            AddResearcherToMenu(countyData, countyPopulation);
+                        }
+
                     }
                 }
             }
@@ -77,6 +88,13 @@ namespace PlayerSpace
             }
         }
 
+        private void AddResearcherToMenu(CountyData countyData, CountyPopulation countyPopulation)
+        {
+            assignResearcherMenuButton.GetPopup().AddItem($"{countyPopulation.firstName} {countyPopulation.lastName}" +
+                $" - {countyData.countyName}");
+            assignableResearchers.Add(countyPopulation);
+        }
+
         private void OnVisibilityChanged()
         {
             if (Visible == true)
@@ -86,20 +104,25 @@ namespace PlayerSpace
                 RemoveCountyImprovements();
                 UpdateDescriptionLabels();
                 AssignResearcherMenuButton();
-                if (researchItemData.countyImprovementDatas.Length > 0)
-                {
-                    foreach (CountyImprovementData countyImprovementData in researchItemData.countyImprovementDatas)
-                    {
-                        CountryImprovementDescriptionButton countyImprovementInResearchControl
-                            = (CountryImprovementDescriptionButton)countyImprovementResearchPackedScene.Instantiate();
-                        countyImprovementInResearchControl.countyImprovementData = countyImprovementData;
-                        countyImprovementsInResearchParent.AddChild(countyImprovementInResearchControl);
-                    }
-                }
+                AssignCountyImprovements();
             }
             else
             {
                 assignResearcherMenuButton.GetPopup().IdPressed -= SelectResearcher;
+            }
+        }
+
+        private void AssignCountyImprovements()
+        {
+            if (researchItemData.countyImprovementDatas.Length > 0)
+            {
+                foreach (CountyImprovementData countyImprovementData in researchItemData.countyImprovementDatas)
+                {
+                    CountryImprovementDescriptionButton countyImprovementInResearchControl
+                        = (CountryImprovementDescriptionButton)countyImprovementResearchPackedScene.Instantiate();
+                    countyImprovementInResearchControl.countyImprovementData = countyImprovementData;
+                    countyImprovementsInResearchParent.AddChild(countyImprovementInResearchControl);
+                }
             }
         }
 

@@ -101,7 +101,7 @@ namespace PlayerSpace
             }
         }
 
-        List<CountyPopulation> peopleWhoNeedToDie = [];
+        readonly List<CountyPopulation> peopleWhoNeedToDie = [];
 
         public void CheckIfCountyImprovementsAreDone()
         {
@@ -184,7 +184,7 @@ namespace PlayerSpace
                 return;
             }
 
-            int amountOfFood = CountFactionResourceOfType(AllEnums.FactionResourceType.Food);
+            //int amountOfFood = CountFactionResourceOfType(AllEnums.FactionResourceType.Food);
             //GD.Print($"{county.countyData.countyName} Amount of food: " + amountOfFood);
 
             foreach (CountyPopulation countyPopulation in possibleWorkers)
@@ -329,7 +329,8 @@ namespace PlayerSpace
             //GD.Print($"{county.countyData.countyName}: Checking for Preferred Work!");
             foreach (CountyImprovementData countyImprovementData in completedCountyImprovements)
             {
-                if (CheckResourceStorageFull(countyResources[countyImprovementData.countyResourceType]) == true)
+                if (countyImprovementData.countyResourceType != AllEnums.CountyResourceType.None 
+                    && CheckResourceStorageFull(countyResources[countyImprovementData.countyResourceType]) == true)
                 {
                     return;
                 }
@@ -369,7 +370,8 @@ namespace PlayerSpace
         {
             foreach (CountyImprovementData countyImprovementData in completedCountyImprovements)
             {
-                if (CheckResourceStorageFull(countyResources[countyImprovementData.countyResourceType]) == true)
+                if (countyImprovementData.countyResourceType != AllEnums.CountyResourceType.None
+                    && CheckResourceStorageFull(countyResources[countyImprovementData.countyResourceType]) == true)
                 {
                     return;
                 }
@@ -413,13 +415,12 @@ namespace PlayerSpace
         {
             foreach (CountyPopulation countyPopulation in peopleUsingResourcesList)
             {
-                // Check to see if they want the resource, then check if there is enough.
+                // Go through all of their needs and skill check against it and if they pass, they use the resource
+                // that is needed.
                 foreach (KeyValuePair<AllEnums.CountyResourceType, int> keyValuePair in countyPopulation.needs)
                 {
-                    SkillData skillData = new();
                     // Check to see if they want the resource.
-
-                    if (skillData.Check(countyPopulation, keyValuePair.Value) == true)
+                    if (SkillData.Check(countyPopulation, keyValuePair.Value, AllEnums.Attributes.MentalStrength, true) == true)
                     {
                         //GD.Print($"Needs Checks: Passed.");
                         if (CheckEnoughOfResource(keyValuePair.Key) == true)

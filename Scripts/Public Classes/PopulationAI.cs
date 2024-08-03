@@ -1,7 +1,6 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 
 namespace PlayerSpace
 {
@@ -85,15 +84,10 @@ namespace PlayerSpace
                         break;
                     case AllEnums.Activities.Work:
                         // Produce resources based on the countyimprovement
-                        if (countyData.factionData.isPlayer == true)
-                        {
-                            GD.PrintRich($"[color=green]{countyPopulation.firstName} is working at {countyPopulation.currentCountyImprovement.improvementName}[/color]");
-                        }
-                        countyData.countyResources[countyPopulation.currentCountyImprovement.countyResourceType].Amount +=
-                            Banker.GenerateWorkResourceWithSkillCheck(countyPopulation);
+                        Banker.Work(countyData, countyPopulation);
+
                         // Check for Skill Learning.
-                        SkillData skillData = new();
-                        skillData.CheckLearning(countyPopulation
+                        SkillData.CheckLearning(countyPopulation
                             , countyPopulation.skills[countyPopulation.currentCountyImprovement.workSkill]
                             , AllEnums.LearningSpeed.slow);
                         // Check loyalty to see if they still want to work there and if they don't then they
@@ -109,6 +103,8 @@ namespace PlayerSpace
             GD.PrintRich($"[rainbow]{countyData.countyName}: Work Day Over For Population.");
         }
 
+
+
         private static void KeepWorkingAtCountyImprovement(CountyPopulation countyPopulation)
         {
             if (CheckLoyaltyWithSkillCheck(countyPopulation) == false)
@@ -119,8 +115,8 @@ namespace PlayerSpace
         }
         private static void CompleteConstructionWithSkillCheck(CountyPopulation countyPopulation)
         {
-            SkillData skillData = new();
-            if (skillData.Check(countyPopulation, countyPopulation.skills[AllEnums.Skills.Construction].skillLevel))
+            if (SkillData.Check(countyPopulation, countyPopulation.skills[AllEnums.Skills.Construction].skillLevel
+                , countyPopulation.skills[AllEnums.Skills.Construction].attribute, false))
             {
                 countyPopulation.currentCountyImprovement.CurrentAmountOfConstruction
                     += Globals.Instance.dailyConstructionAmount + Globals.Instance.dailyConstructionAmountBonus;
@@ -130,7 +126,7 @@ namespace PlayerSpace
                 countyPopulation.currentCountyImprovement.CurrentAmountOfConstruction
                     += Globals.Instance.dailyConstructionAmount;
             }
-            skillData.CheckLearning(countyPopulation, countyPopulation.skills[AllEnums.Skills.Construction]
+            SkillData.CheckLearning(countyPopulation, countyPopulation.skills[AllEnums.Skills.Construction]
                 , AllEnums.LearningSpeed.slow);
         }
 
@@ -184,37 +180,11 @@ namespace PlayerSpace
             }
         }
 
-        /*
-        // Adjust all of the world population!
-        private void AdjustPopulationActivity()
-        {
-            GD.Print($"{county.countyData.countyName} is adjusting their population activity.");
-            // Go through this counties population.
-            Activities activities = new();
-            foreach (CountyPopulation person in county.countyData.countyPopulationList)
-            {
-                activities.UpdateCurrent(person, person.nextActivity);
-                person.CurrentConstruction = person.NextConstruction;
-                person.CurrentWork = person.NextWork;
-            }
-
-            // Heroes can research.
-            foreach (CountyPopulation hero in county.countyData.herosInCountyList)
-            {
-                if (hero.token == null)
-                {
-                    activities.UpdateCurrent(hero, hero.nextActivity);
-                }
-            }
-        }
-        */
-
         // This should be moved to the Resource that Loyalty will be part of once we figure out
         // what catagory Loyalty is.  For example, it isn't a skill, or a perk.
         private static bool CheckLoyaltyWithSkillCheck(CountyPopulation countyPopulation)
         {
-            SkillData skillData = new();
-            if (skillData.Check(countyPopulation, countyPopulation.LoyaltyAdjusted))
+            if (SkillData.Check(countyPopulation, countyPopulation.LoyaltyAdjusted, AllEnums.Attributes.MentalStrength, false))
             {
                 return true;
             }

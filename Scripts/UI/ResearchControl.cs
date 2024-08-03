@@ -65,6 +65,12 @@ namespace PlayerSpace
                 researcherButton.assignedResearcherButton.Text
                     = $"{countyPopulation.firstName} {countyPopulation.lastName}: {countyPopulation.CurrentResearchItemData.researchName}";
                 researcherButton.countyPopulation = countyPopulation;
+                // If the county population is working at an research office, then their button is disabled, so they can't be
+                // removed from the research.
+                if(researcherButton.countyPopulation.isHero == false)
+                {
+                    researcherButton.assignedResearcherCheckbox.Disabled = true;
+                }
                 assignedResearchersParent.AddChild(researcherButton);
             }
         }

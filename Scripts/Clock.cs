@@ -147,8 +147,7 @@ namespace PlayerSpace
 
         public string GetDateAndTime()
         {
-            string dateAndTime = string.Empty;
-            dateAndTime = string.Format("{0} {0:00}:{1:00}", days, Hours, minutes);
+            string dateAndTime = $"{days} {Hours:00}:{minutes:00}";
             return dateAndTime;
         }
         public void PauseandUnpause()

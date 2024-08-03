@@ -9,6 +9,7 @@ namespace PlayerSpace
 
         public CountyPopulation countyPopulation;
 
+        
         private void RemoveResearcherCheckBoxToggled(bool toggled)
         {
             if(toggled == false)

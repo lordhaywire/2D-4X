@@ -68,6 +68,7 @@ namespace PlayerSpace
                         , GenerateAttributes()
                         , GenerateSkillsList()
                         , preferredSkill
+                        , GenerateInterest()
                         , AllEnums.Activities.Idle, null, null));
                 }
                 else
@@ -81,18 +82,18 @@ namespace PlayerSpace
                         , GenerateAttributes()
                         , GenerateSkillsList()
                         , preferredSkill
+                        , GenerateInterest()
                         , AllEnums.Activities.Idle, null, null));
                 }
             }
-            /*
-            foreach(CountyPopulation countyPopulation in countyData.countyPopulationList)
-            {
-                GD.Print($"Days starving: {countyPopulation.daysStarving} and " +
-                    $"hit points {countyPopulation.hitpoints}.");
-            }
-            */
         }
 
+        private AllEnums.Interests GenerateInterest()
+        {
+            AllEnums.Interests interest = AllEnums.GetRandomEnumValue<AllEnums.Interests>();
+            GD.Print("Interest: " + interest);
+            return interest;
+        }
         private static Godot.Collections.Dictionary<AllEnums.CountyResourceType, int> GenerateNeeds()
         {
             Godot.Collections.Dictionary<AllEnums.CountyResourceType, int> needs = [];

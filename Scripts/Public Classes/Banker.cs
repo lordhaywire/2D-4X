@@ -1,9 +1,32 @@
 using Godot;
+using System;
 
 namespace PlayerSpace
 {
     public class Banker
     {
+        public static void Work(CountyData countyData, CountyPopulation countyPopulation)
+        {
+            if (countyData.factionData.isPlayer == true)
+            {
+                GD.PrintRich($"[color=green]{countyPopulation.firstName} is working at {countyPopulation.currentCountyImprovement.improvementName}[/color]");
+            }
+            if (countyPopulation.currentCountyImprovement.countyResourceType != AllEnums.CountyResourceType.None
+                && countyPopulation.currentCountyImprovement.factionResourceType != AllEnums.FactionResourceType.None)
+            {
+                countyData.countyResources[countyPopulation.currentCountyImprovement.countyResourceType].Amount +=
+                    GenerateWorkResourceWithSkillCheck(countyPopulation);
+            }
+            else if(countyPopulation.currentCountyImprovement.factionResourceType 
+                == AllEnums.FactionResourceType.Research)
+            {
+                GD.Print($"{countyPopulation.firstName} is pointlessly working at a research office.");
+            }
+            else
+            {
+                GD.Print($"{countyPopulation.firstName} is working at some place that is producing nothing.");
+            }
+        }
         public static void AddResearchAmount(ResearchItemData researchItemData, int amount)
         {
             researchItemData.AmountOfResearchDone += amount;
@@ -21,7 +44,6 @@ namespace PlayerSpace
 
         public static void GenerateScavengedResources(CountyData countyData, CountyPopulation countyPopulation)
         {
-            SkillData skillData = new();
             int randomResourceNumber = Globals.Instance.random.Next(0, 2);
             
             if (randomResourceNumber == 0)
@@ -48,16 +70,15 @@ namespace PlayerSpace
             }
             // Learning skillcheck.
             // Just for testing it is set to fast.
-            countyPopulation.skills[AllEnums.Skills.Scavenge].CheckLearning(countyPopulation, countyPopulation.skills[AllEnums.Skills.Scavenge], AllEnums.LearningSpeed.fast);
+            SkillData.CheckLearning(countyPopulation, countyPopulation.skills[AllEnums.Skills.Scavenge], AllEnums.LearningSpeed.fast);
         }
 
         public static int GenerateWorkResourceWithSkillCheck(CountyPopulation countyPopulation)
         {
             CountyImprovementData countyImprovementData = countyPopulation.currentCountyImprovement;
             int skillLevel = countyPopulation.skills[countyPopulation.currentCountyImprovement.workSkill].skillLevel;
-            SkillData skillData = new();
             int amount;
-            if (skillData.Check(countyPopulation, skillLevel) == true)
+            if (SkillData.Check(countyPopulation, skillLevel, countyPopulation.skills[countyPopulation.currentCountyImprovement.workSkill].attribute, false) == true)
             {
                 amount = countyImprovementData.dailyResourceGenerationAmount + countyImprovementData.dailyResourceGenerationBonus;
                 return amount;
@@ -71,9 +92,8 @@ namespace PlayerSpace
         public static int GenerateScavengedResourceWithSkillCheck(CountyPopulation countyPopulation)
         {
             int skillLevel = countyPopulation.skills[AllEnums.Skills.Scavenge].skillLevel;
-            SkillData skillData = new();
             int amount;
-            if (skillData.Check(countyPopulation, skillLevel) == true)
+            if (SkillData.Check(countyPopulation, skillLevel, countyPopulation.skills[AllEnums.Skills.Scavenge].attribute, false) == true)
             {
                 amount = Globals.Instance.dailyScavengedAmount + Globals.Instance.dailyScavengedAmountBonus;
 
@@ -89,8 +109,8 @@ namespace PlayerSpace
         public static void IncreaseResearchAmountBonus(CountyPopulation countyPopulation
             , ResearchItemData researchItemData, int amount)
         {
-            SkillData skillData = new();
-            if (skillData.Check(countyPopulation, countyPopulation.skills[researchItemData.skill].skillLevel) == true)
+            if (SkillData.Check(countyPopulation, countyPopulation.skills[researchItemData.skill].skillLevel
+                , countyPopulation.skills[researchItemData.skill].attribute, false) == true)
             {
                 researchItemData.AmountOfResearchDone += amount;
             }
@@ -148,9 +168,8 @@ namespace PlayerSpace
             {
                 if (countyPopulation.activity == AllEnums.Activities.Research)
                 {
-                    SkillData skillData = new();
-
-                    bool passedCheck = skillData.Check(countyPopulation, countyPopulation.skills[AllEnums.Skills.Research].skillLevel);
+                    bool passedCheck = SkillData.Check(countyPopulation, countyPopulation.skills[AllEnums.Skills.Research].skillLevel
+                        , countyPopulation.skills[AllEnums.Skills.Research].attribute, false);
 
                     // This needs to be broken into two different things.  One increases the research
                     // the other checks for a bonus.
@@ -158,7 +177,7 @@ namespace PlayerSpace
 
                     // Only the researchers learn research skill.  Normal population who is just adding a tiny bit of research
                     // does not get a learning check.
-                    skillData.CheckLearning(countyPopulation, countyPopulation.skills[AllEnums.Skills.Research]
+                    SkillData.CheckLearning(countyPopulation, countyPopulation.skills[AllEnums.Skills.Research]
                         , AllEnums.LearningSpeed.medium);
                 }
             }

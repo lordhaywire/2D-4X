@@ -63,13 +63,14 @@ namespace PlayerSpace
             set
             {
                 happiness = Math.Min(value, 100);
-                LoyaltyAdjusted = loyaltyBase + AttributeData.ApplyAttributeBonuses(value, false);
+                LoyaltyAdjusted = loyaltyBase + AttributeData.ApplyAttributeBonuses(value, false, false);
                 //GD.Print($"{firstName} {lastName} loyalty adjusted: {LoyaltyAdjusted}");
             }
         }
 
         public int daysStarving;
-        // Resource needs.
+
+        // Resource needs, currently there is just 1 need, Remnants.
         public Godot.Collections.Dictionary<AllEnums.CountyResourceType, int> needs;
 
         [ExportGroup("Attributes")]
@@ -78,6 +79,7 @@ namespace PlayerSpace
         [ExportGroup("Skills")]
         public Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills = [];
         public SkillData preferredSkill;
+        public AllEnums.Interests interest;
 
         [ExportGroup("Work")]
         public AllEnums.Activities activity;
@@ -186,7 +188,7 @@ namespace PlayerSpace
             , Godot.Collections.Dictionary<AllEnums.CountyResourceType, int> needs
             , Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes
             , Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills
-            , SkillData preferredSkill, AllEnums.Activities activity
+            , SkillData preferredSkill, AllEnums.Interests interest, AllEnums.Activities activity
             , CountyImprovementData currentCountyImprovement
             , ResearchItemData CurrentResearchItemData)
         {
@@ -219,6 +221,7 @@ namespace PlayerSpace
 
             this.skills = skills;
             this.preferredSkill = preferredSkill;
+            this.interest = interest;
 
             this.activity = activity;
             this.currentCountyImprovement = currentCountyImprovement;

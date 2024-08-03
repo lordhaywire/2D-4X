@@ -13,7 +13,14 @@ namespace PlayerSpace
         [Export] public string attributeDescription;
         [Export] public int attributeLevel;
 
-        public static int ApplyAttributeBonuses(int attribute, bool ones)
+        /// <summary>
+        /// Return an int that is an attribute bonus.  It can return a negative, 10, or 1.
+        /// </summary>
+        /// <param name="attribute"></param>
+        /// <param name="ones"></param>
+        /// <param name="negative"></param>
+        /// <returns></returns>
+        public static int ApplyAttributeBonuses(int attribute, bool ones, bool negative)
         {
             // List of all of the ranges for attribute bonuses.
             List<(int min, int max, int bonus)> attributeBonuses =
@@ -41,6 +48,10 @@ namespace PlayerSpace
             if(ones == true)
             {
                 bonus /= 5;
+            }
+            if (negative == true)
+            {
+                bonus *= -1;
             }
             //GD.PrintRich($"[rainbow]Attribute Bonus: {bonus}");
             return bonus;
