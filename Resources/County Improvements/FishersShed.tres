@@ -10,6 +10,7 @@ improvementName = "Fisher's Shed"
 improvementDescription = "A makeshift shed for fisher's tools."
 numberBuilt = 0
 workSkill = 3
+interest = 1
 influenceCost = 500
 CurrentAmountOfConstruction = 0
 maxAmountOfConstruction = 5

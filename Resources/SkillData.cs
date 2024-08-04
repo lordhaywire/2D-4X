@@ -15,6 +15,7 @@ namespace PlayerSpace
         [Export] public AllEnums.Attributes attribute;
 
         /// <summary>
+        /// This does a skill check with an attribute bonus already added.
         /// Since an attribute bonus is checked in this method, we are passing in an attribute, and if the bonus is a negative.
         /// </summary>
         /// <param name="countyPopulation"></param>
@@ -25,7 +26,7 @@ namespace PlayerSpace
         public static bool Check(CountyPopulation countyPopulation, int skillAmount, AllEnums.Attributes attribute, bool negativeBonus)
         {
             int skillCheckRoll = Globals.Instance.random.Next(1, 101);
-            GD.PrintRich("[rainbow]Attribute: " + attribute);
+            //GD.PrintRich("[rainbow]Attribute: " + attribute);
             int attributeBonus = AttributeData.ApplyAttributeBonuses(countyPopulation.attributes[attribute].attributeLevel, false, negativeBonus);
             //GD.PrintRich($"[color=yellow]Attribute Bonus: {attributeBonus}[/color]");
             if (skillCheckRoll <= skillAmount + attributeBonus) 

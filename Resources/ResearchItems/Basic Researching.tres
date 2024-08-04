@@ -8,11 +8,12 @@
 script = ExtResource("3_ov610")
 tier = 0
 skill = 6
+interest = 4
 researchedAtStart = true
 researchName = "Basic Researching"
 researchDescription = "Isn't it time to have a place for someone to rediscover things?"
 researchTexture = ExtResource("2_868j7")
 amountOfResearchDone = 0
-costOfResearch = 500
+costOfResearch = 20
 countyImprovementDatas = Array[Object]([ExtResource("1_7j52q")])
 isResearchDone = false

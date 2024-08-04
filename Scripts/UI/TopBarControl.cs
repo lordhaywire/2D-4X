@@ -31,7 +31,7 @@ namespace PlayerSpace
 
         public void UpdateResourceLabels()
         {
-            GD.Print("Top Bar expendables have been updated, motherfucker!");
+            //GD.Print("Top Bar expendables have been updated, motherfucker!");
             UpdateInfluenceMoneyLabels();
             UpdateUsedInfluenceMoneyLabels();
 

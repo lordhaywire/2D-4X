@@ -45,8 +45,6 @@ namespace PlayerSpace
             }
         }
 
-        
-
         public void BuildImprovement(CountyData countyData, CountyImprovementData countyImprovementData)
         {
             countyImprovementData.status = AllEnums.CountyImprovementStatus.UnderConstruction;

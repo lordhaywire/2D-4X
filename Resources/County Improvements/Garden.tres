@@ -10,6 +10,7 @@ improvementName = "Garden"
 improvementDescription = "A place to grow food."
 numberBuilt = 0
 workSkill = 2
+interest = 2
 influenceCost = 50000
 CurrentAmountOfConstruction = 0
 maxAmountOfConstruction = 5

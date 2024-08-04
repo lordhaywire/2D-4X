@@ -28,12 +28,12 @@ namespace PlayerSpace
 
         private void SelectResearcher(long id)
         {
-            GD.Print("Assigned Researcher ID: " + id);
-            GD.Print($"Ass Researcher: {assignableResearchers[(int)id].firstName} {assignableResearchers[(int)id].lastName}");
+            //GD.Print("Assigned Researcher ID: " + id);
+            //GD.Print($"Ass Researcher: {assignableResearchers[(int)id].firstName} {assignableResearchers[(int)id].lastName}");
             ResearchControl.Instance.assignedResearchers.Add(assignableResearchers[(int)id]);
             assignableResearchers[(int)id].CurrentResearchItemData = researchItemData;
             //assignableResearchers[(int)id].nextActivity = AllText.Activities.RESEARCHING;
-            GD.Print("Assigned Researcher in Select Reseacher Count: " + ResearchControl.Instance.assignedResearchers.Count);
+            //GD.Print("Assigned Researcher in Select Reseacher Count: " + ResearchControl.Instance.assignedResearchers.Count);
             ResearchControl.Instance.GenerateAssignedResearchers();
             if (CountyInfoControl.Instance.Visible == true)
             {

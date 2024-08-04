@@ -8,11 +8,12 @@
 script = ExtResource("1_hvkf1")
 tier = 0
 skill = 4
+interest = 2
 researchedAtStart = false
 researchName = "Basic Storage"
 researchDescription = "Instead of having everything laying around, why don't we have a centralized place for our junk?"
 researchTexture = ExtResource("1_ardle")
 amountOfResearchDone = 0
-costOfResearch = 10
+costOfResearch = 20
 countyImprovementDatas = Array[Object]([ExtResource("1_jsy6f")])
 isResearchDone = false

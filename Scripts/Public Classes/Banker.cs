@@ -7,17 +7,19 @@ namespace PlayerSpace
     {
         public static void Work(CountyData countyData, CountyPopulation countyPopulation)
         {
+            /*
             if (countyData.factionData.isPlayer == true)
             {
                 GD.PrintRich($"[color=green]{countyPopulation.firstName} is working at {countyPopulation.currentCountyImprovement.improvementName}[/color]");
             }
+            */
             if (countyPopulation.currentCountyImprovement.countyResourceType != AllEnums.CountyResourceType.None
                 && countyPopulation.currentCountyImprovement.factionResourceType != AllEnums.FactionResourceType.None)
             {
                 countyData.countyResources[countyPopulation.currentCountyImprovement.countyResourceType].Amount +=
                     GenerateWorkResourceWithSkillCheck(countyPopulation);
             }
-            else if(countyPopulation.currentCountyImprovement.factionResourceType 
+            else if (countyPopulation.currentCountyImprovement.factionResourceType
                 == AllEnums.FactionResourceType.Research)
             {
                 GD.Print($"{countyPopulation.firstName} is pointlessly working at a research office.");
@@ -27,10 +29,7 @@ namespace PlayerSpace
                 GD.Print($"{countyPopulation.firstName} is working at some place that is producing nothing.");
             }
         }
-        public static void AddResearchAmount(ResearchItemData researchItemData, int amount)
-        {
-            researchItemData.AmountOfResearchDone += amount;
-        }
+
 
         // This includes the armies in the county, but it only works while the army is one person.
         public static int CountEveryoneInCounty(CountyData countyData)
@@ -45,7 +44,7 @@ namespace PlayerSpace
         public static void GenerateScavengedResources(CountyData countyData, CountyPopulation countyPopulation)
         {
             int randomResourceNumber = Globals.Instance.random.Next(0, 2);
-            
+
             if (randomResourceNumber == 0)
             {
                 if (countyData.CheckEnoughCountyScavengables(AllEnums.CountyResourceType.CannedFood) == false)
@@ -96,7 +95,6 @@ namespace PlayerSpace
             if (SkillData.Check(countyPopulation, skillLevel, countyPopulation.skills[AllEnums.Skills.Scavenge].attribute, false) == true)
             {
                 amount = Globals.Instance.dailyScavengedAmount + Globals.Instance.dailyScavengedAmountBonus;
-
             }
             else
             {
@@ -105,14 +103,18 @@ namespace PlayerSpace
             return amount;
         }
 
-        // This is weird.  We aren't rolling for a bonus amount?  Also why are we passing in the amount?
         public static void IncreaseResearchAmountBonus(CountyPopulation countyPopulation
-            , ResearchItemData researchItemData, int amount)
+            , ResearchItemData researchItemData)
         {
             if (SkillData.Check(countyPopulation, countyPopulation.skills[researchItemData.skill].skillLevel
                 , countyPopulation.skills[researchItemData.skill].attribute, false) == true)
             {
-                researchItemData.AmountOfResearchDone += amount;
+                researchItemData.AmountOfResearchDone 
+                    += Globals.Instance.populationResearchIncrease + Globals.Instance.populationResearchBonus;
+            }
+            else
+            {
+                researchItemData.AmountOfResearchDone += Globals.Instance.populationResearchIncrease;
             }
         }
 
@@ -166,22 +168,47 @@ namespace PlayerSpace
             // We have it go through all the heroes because heroes could be researching in other faction territories.
             foreach (CountyPopulation countyPopulation in factionData.allHeroesList)
             {
-                if (countyPopulation.activity == AllEnums.Activities.Research)
+                // Skip to the next hero if there is no current research.
+                if (countyPopulation.CurrentResearchItemData == null)
                 {
-                    bool passedCheck = SkillData.Check(countyPopulation, countyPopulation.skills[AllEnums.Skills.Research].skillLevel
-                        , countyPopulation.skills[AllEnums.Skills.Research].attribute, false);
+                    continue;
+                }
 
-                    // This needs to be broken into two different things.  One increases the research
-                    // the other checks for a bonus.
-                    IncreaseResearcherResearch(countyPopulation, passedCheck);
+                // Stop researching if the current research is done and skip to the next hero.
+                if (countyPopulation.CurrentResearchItemData.isResearchDone)
+                {
+                    StopResearcherFromResearching(countyPopulation);
+                    continue;
+                }
 
-                    // Only the researchers learn research skill.  Normal population who is just adding a tiny bit of research
-                    // does not get a learning check.
-                    SkillData.CheckLearning(countyPopulation, countyPopulation.skills[AllEnums.Skills.Research]
-                        , AllEnums.LearningSpeed.medium);
+                // Perform the research skill check.
+                bool passedCheck = SkillData.Check(countyPopulation, countyPopulation.skills[AllEnums.Skills.Research].skillLevel,
+                    countyPopulation.skills[AllEnums.Skills.Research].attribute, false);
+
+                // Increase research progress and check learning.
+                IncreaseResearcherResearch(countyPopulation, passedCheck);
+
+                // Only researchers learn the research skill. Normal population does not.
+                SkillData.CheckLearning(countyPopulation, countyPopulation.skills[AllEnums.Skills.Research], AllEnums.LearningSpeed.medium);
+
+                // Re-check if the research is done after progress update and stop researching if it is.
+                if (countyPopulation.CurrentResearchItemData.isResearchDone)
+                {
+                    StopResearcherFromResearching(countyPopulation);
                 }
             }
         }
+
+        private void StopResearcherFromResearching(CountyPopulation countyPopulation)
+        {
+            countyPopulation.CurrentResearchItemData = null;
+            countyPopulation.UpdateActivity(AllEnums.Activities.Idle);
+            if (countyPopulation.factionData.isPlayer)
+            {
+                ResearchControl.Instance.assignedResearchers.Remove(countyPopulation);
+            }
+        }
+
         private static void IncreaseResearcherResearch(CountyPopulation countyPopulation, bool passedCheck)
         {
             int bonusResearchIncrease = 0;

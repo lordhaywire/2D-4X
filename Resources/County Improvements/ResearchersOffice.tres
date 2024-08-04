@@ -10,6 +10,7 @@ improvementName = "Researcher's Office"
 improvementDescription = "A place for books and reading."
 numberBuilt = 0
 workSkill = 6
+interest = 4
 influenceCost = 500
 CurrentAmountOfConstruction = 0
 maxAmountOfConstruction = 10

@@ -25,7 +25,12 @@ namespace PlayerSpace
             factionData.SubtractFactionResources();
             factionData.CopyFactionResourcesToYesterday();
             banker.AddLeaderInfluence(factionData);
+
+            // Goes through each hero and checks to see if they are researching and if they are then
+            // it does a skill check and skill learning roll.
+            // If the research is done it also makes them idle.
             banker.AddHeroResearch(factionData);
+
             TopBarControl.Instance.UpdateResourceLabels();
         }
 
@@ -33,6 +38,7 @@ namespace PlayerSpace
         {
             FactionAI factionAI = new();
             factionAI.AssignResearch(factionData);
+
             /* This is just for testing.
             foreach (ResearchItemData researchItemData in factionData.researchItems)
             {

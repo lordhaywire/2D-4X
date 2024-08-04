@@ -16,6 +16,8 @@ namespace PlayerSpace
         [Export] public int factionCapitalCounty;
 
         public List<ResearchItemData> researchItems = [];
+        readonly List<ResearchItemData> researchableResearch = [];
+
         public List<CountyData> countiesFactionOwns = [];
         public List<CountyPopulation> allHeroesList = [];
         public CountyPopulation factionLeader;
@@ -37,6 +39,83 @@ namespace PlayerSpace
 
         [ExportGroup("Diplomatic Matrix")]
         [Export] public Godot.Collections.Dictionary<string, bool> factionWarDictionary = [];
+
+        // Goes through all the population and adds a set number to research.
+        // It should check what they are doing and try to add that research then if they aren't doing anything
+        // it should add to a random research that isn't done yet.
+        // Don't forget about idle heroes researching other things.
+        public void PopulationResearch(CountyData countyData)
+        {
+            // Get a list of all the research that isn't done.
+            CreateResearchableResearchList();
+            
+            // Have the population research by their interests.
+            CheckEachPeopleForResearch(countyData);
+        }
+
+        private void CreateResearchableResearchList()
+        {
+            researchableResearch.Clear();
+            foreach (ResearchItemData researchItemData in researchItems)
+            {
+                if (researchItemData.isResearchDone == false)
+                {
+                    researchableResearch.Add(researchItemData);
+                }
+            }
+        }
+
+        private void CheckEachPeopleForResearch(CountyData countyData)
+        {
+            foreach (CountyPopulation countyPopulation in countyData.countyPopulationList)
+            {
+                ResearchByInterest(countyPopulation);
+                ResearchByJob(countyPopulation);
+            }
+        }
+
+        private void ResearchByJob(CountyPopulation countyPopulation)
+        {
+            ResearchItemData whatPopulationIsResearching = null;
+
+            foreach (ResearchItemData researchItemData in researchableResearch)
+            {
+                // If the county improvement isn't null then see if the interest matches.
+                if (countyPopulation.currentCountyImprovement?.interest == researchItemData.interest)
+                {
+                    whatPopulationIsResearching = researchItemData;
+                    //GD.Print($"{countyPopulation.firstName} {countyPopulation.interest} is having them research {researchItemData.researchName}");
+                    break;
+                }
+            }
+
+            if (whatPopulationIsResearching != null)
+            {
+                // After a skill check, have the banker add the research to the research with a possible bonus.
+                Banker.IncreaseResearchAmountBonus(countyPopulation, whatPopulationIsResearching);
+            }
+        }
+
+        private void ResearchByInterest(CountyPopulation countyPopulation)
+        {
+            ResearchItemData whatPopulationIsResearching = null;
+
+            foreach (ResearchItemData researchItemData in researchableResearch)
+            {
+                if (countyPopulation.interest == researchItemData.interest)
+                {
+                    whatPopulationIsResearching = researchItemData;
+                    GD.Print($"{countyPopulation.firstName} {countyPopulation.interest} is having them research {researchItemData.researchName}");
+                    break;
+                }
+            }
+
+            if (whatPopulationIsResearching != null)
+            {
+                // After a skill check, have the banker add the research to the research with a possible bonus.
+                Banker.IncreaseResearchAmountBonus(countyPopulation, whatPopulationIsResearching);
+            }
+        }
 
         public void CopyFactionResourcesToYesterday()
         {

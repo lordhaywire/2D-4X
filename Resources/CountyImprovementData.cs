@@ -15,6 +15,7 @@ namespace PlayerSpace
         [Export] public int numberBuilt;
 
         [Export] public AllEnums.Skills workSkill;
+        [Export] public AllEnums.Interests interest;
         // We will eventually be adding resource costs as well.
         [Export] public int influenceCost;
         private int currentAmountOfCounstruction;

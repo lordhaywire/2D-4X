@@ -118,7 +118,7 @@ namespace PlayerSpace
         public static T GetRandomEnumValue<T>() where T : Enum
         {
             Array values = Enum.GetValues(typeof(T));
-            Random random = new Random();
+            Random random = new();
             int randomIndex = random.Next(values.Length);
             return (T)values.GetValue(randomIndex);
         }

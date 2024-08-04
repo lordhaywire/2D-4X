@@ -63,6 +63,12 @@ namespace PlayerSpace
 
             countyData.CheckIfCountyImprovementsAreDone();
 
+            // People research by interest and their jobs.
+            countyData.factionData.PopulationResearch(countyData);
+
+            // Check for research buildings and if they exist see if their assigned research is done.
+            // This still needs to be written.
+
             // Update all the top bar resources
             TopBarControl.Instance.UpdateResourceLabels();
 

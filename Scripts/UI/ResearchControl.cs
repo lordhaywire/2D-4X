@@ -22,6 +22,11 @@ namespace PlayerSpace
 
         public List<CountyPopulation> assignedResearchers = [];
 
+        public override void _Ready()
+        {
+            Instance = this;
+            AddPlayerResearchToUI();
+        }
         private void OnVisibilityChange()
         {
             if (Visible)
@@ -33,7 +38,9 @@ namespace PlayerSpace
                 GenerateAssignedResearchers();
                 CheckForResearchers();
                 // For testing only
+                /*
                 Globals.Instance.playerFactionData.factionLeader.attributes[AllEnums.Attributes.Intelligence].attributeLevel++;
+                */
             }
             else
             {
@@ -57,10 +64,11 @@ namespace PlayerSpace
 
         public void GenerateAssignedResearchers()
         {
-            ClearResearchers();
+            ClearResearcherHBoxContainers();
             foreach (CountyPopulation countyPopulation in assignedResearchers)
             {
-                GD.Print("Generate Assigned Researchers: " + countyPopulation.firstName);
+                //GD.Print("Generate Assigned Researchers: " + countyPopulation.firstName);
+                GD.Print($"{countyPopulation.CurrentResearchItemData.researchName}");
                 AssignedResearcherHboxContainer researcherButton = (AssignedResearcherHboxContainer)assignedResearchersButton.Instantiate();
                 researcherButton.assignedResearcherButton.Text
                     = $"{countyPopulation.firstName} {countyPopulation.lastName}: {countyPopulation.CurrentResearchItemData.researchName}";
@@ -75,12 +83,12 @@ namespace PlayerSpace
             }
         }
 
-        private void ClearResearchers()
+        private void ClearResearcherHBoxContainers()
         {
-            foreach (AssignedResearcherHboxContainer researcher in
+            foreach (AssignedResearcherHboxContainer assignedResearcherHboxContainer in
                 assignedResearchersParent.GetChildren().Cast<AssignedResearcherHboxContainer>())
             {
-                researcher.QueueFree();
+                assignedResearcherHboxContainer.QueueFree();
             }
         }
 
@@ -103,11 +111,7 @@ namespace PlayerSpace
                 PlayerControls.Instance.AdjustPlayerControls(true);
             }
         }
-        public override void _Ready()
-        {
-            Instance = this;
-            AddPlayerResearchToUI();
-        }
+
 
         private void AddPlayerResearchToUI()
         {

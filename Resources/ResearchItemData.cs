@@ -7,6 +7,7 @@ namespace PlayerSpace
     {
         [Export] public AllEnums.ResearchTiers tier; // We might not need this now that the research is manually added to the research panel.
         [Export] public AllEnums.Skills skill;
+        [Export] public AllEnums.Interests interest;
         [Export] public bool researchedAtStart;
         [Export] public string researchName;
         [Export] public string researchDescription;
@@ -19,9 +20,10 @@ namespace PlayerSpace
             set
             {
                 amountOfResearchDone = value;
-                if (amountOfResearchDone == costOfResearch)
+                if (amountOfResearchDone >= costOfResearch)
                 {
                     isResearchDone = true;
+                    amountOfResearchDone = costOfResearch;
                 }
                 else
                 {

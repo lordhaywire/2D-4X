@@ -20,6 +20,5 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~M:PlayerSpace.CountyDictator.CaptureCounty(System.Int32,PlayerSpace.FactionData)")]
 [assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~M:PlayerSpace.CountyAI.DecideBuildingCountyImprovements(PlayerSpace.County)")]
 [assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~M:PlayerSpace.Banker.AddLeaderInfluence(PlayerSpace.FactionData)")]
-[assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~M:PlayerSpace.Banker.AddHeroResearch(PlayerSpace.FactionData)")]
 [assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~M:PlayerSpace.FactionAI.AssignResearch(PlayerSpace.FactionData)")]
 [assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~M:PlayerSpace.CountyAI.BuildImprovement(PlayerSpace.CountyData,PlayerSpace.CountyImprovementData)")]

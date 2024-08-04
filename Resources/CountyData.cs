@@ -318,7 +318,7 @@ namespace PlayerSpace
                     && countyPopulation.CheckWillWorkLoyalty() == true
                     && countyPopulation.CheckForPerk(AllEnums.Perks.Unhelpful) == false)
                 {
-                    GD.Print($"{countyName}: {countyPopulation.firstName} is idle, is loyal and is not unhelpful.");
+                    //GD.Print($"{countyName}: {countyPopulation.firstName} is idle, is loyal and is not unhelpful.");
                     possibleWorkers.Add(countyPopulation);
                 }
             }
@@ -345,10 +345,12 @@ namespace PlayerSpace
                         {
                             countyPopulation.UpdateActivity(AllEnums.Activities.Work);
                             UpdateWorkLocation(countyPopulation, countyImprovementData);
+                            /*
                             GD.Print($"{countyPopulation.firstName} {countyPopulation.lastName} preferred work is " +
                                 $"{countyPopulation.preferredSkill.skillName} and they are " +
                                 $"{countyPopulation.GetActivityName()} at " +
                                 $"{countyPopulation.currentCountyImprovement.improvementName}");
+                            */
                             workersToRemoveFromPossibleWorkers.Add(countyPopulation);
                         }
                     }
@@ -397,11 +399,13 @@ namespace PlayerSpace
                 amountUsedCountyResources[keyValuePair.Key].Amount = countyResources[keyValuePair.Key].Amount -
                     yesterdaysCountyResources[keyValuePair.Key].Amount;
             }
+            /*
             if (factionData.isPlayer)
             {
                 GD.Print("After subtraction yesterdays vegetables is: "
                     + yesterdaysCountyResources[AllEnums.CountyResourceType.Vegetables].Amount);
             }
+            */
         }
 
         public void OccationalNeeds()
@@ -447,7 +451,7 @@ namespace PlayerSpace
                         Random random = new();
                         int needIncrease = random.Next(1, Globals.Instance.occationalNeedIncreaseAmount);
                         countyPopulation.needs[keyValuePair.Key] += needIncrease;
-                        GD.Print($"Needs Checks: Failed: " + countyPopulation.needs[keyValuePair.Key]);
+                        //GD.Print($"Needs Checks: Failed: " + countyPopulation.needs[keyValuePair.Key]);
                     }
                 }
             }
@@ -527,10 +531,10 @@ namespace PlayerSpace
         {
             Random random = new();
             FoodLists foodLists = GetListsOfFood();
-            GD.Print("Population List count: " + countyPopulationList.Count());
+            //GD.Print("Population List count: " + countyPopulationList.Count());
             if (countyPopulationList.Count() < 1)
             {
-                GD.PrintRich($"[pulse freq=5.0 color=green]Population Eats Food: A county population list is empty.[/pulse]");
+                //GD.PrintRich($"[pulse freq=5.0 color=green]Population Eats Food: A county population list is empty.[/pulse]");
                 return;
             }
             else
@@ -617,23 +621,6 @@ namespace PlayerSpace
             }
         }
 
-        /*
-         * // Person eats first, then the food is removed from the list.
-                        else if (foodLists.perishableFoodList[0].Amount == 1)
-                        {
-                            foodLists.perishableFoodList[0].Amount -= amount;
-                            /*
-                            GD.Print($"{countyPopulation.firstName} {countyPopulation.lastName} ate {amount}" +
-                                $" now that county has {foodLists.perishableFoodList[randomNumber].name}" +
-                                $" {foodLists.perishableFoodList[randomNumber].amount}");
-                            
-        foodLists.perishableFoodList.Remove(foodLists.perishableFoodList[0]);
-                        }
-                        else
-                        {
-                            GD.Print($"[color=red]People Eat Food - Perishable: Something is seriously fucked up.[/color]");
-                        }
-*/
         private void Starvation(CountyPopulation countyPopulation, int amount)
         {
             //GD.PrintRich($"[rainbow]There is no food at all!");
@@ -651,25 +638,7 @@ namespace PlayerSpace
             }
             countyPopulation.daysStarving++;
         }
-        /*                        
-         switch (sortedPerishableFoodList[0].Amount)
-                        {
-                            case > 2:
-                                sortedPerishableFoodList[0].Amount -= amount;
-
-                                GD.Print($"{countyPopulation.firstName} {countyPopulation.lastName} ate {amount}" +
-                                    $" now that county has {sortedPerishableFoodList[0].name}" +
-                                    $" {sortedPerishableFoodList[0].Amount}");
-                                break;
-                            case 2:
-                                sortedPerishableFoodList[0].Amount -= amount;
-                                break;
-                            case 1:
-                                break;
-                            default:
-                                break;
-                        }
-        */
+        
         private void KillPeopleWhoNeedToDie(List<CountyPopulation> peopleWhoNeedToDie)
         {
             foreach (CountyPopulation countyPopulation in peopleWhoNeedToDie)
@@ -723,11 +692,13 @@ namespace PlayerSpace
                     MaxAmount = keyValuePair.Value.MaxAmount,
                 });
             }
+            /*
             if (factionData.isPlayer)
             {
                 GD.Print("Yesterday's Vegetables: " + yesterdaysCountyResources[AllEnums.CountyResourceType.Vegetables].Amount);
                 GD.Print("This Vegetables should be the same as yesterdays: " + countyResources[AllEnums.CountyResourceType.Vegetables].Amount);
             }
+            */
         }
 
         public void CheckForHealing(Globals.ListWithNotify<CountyPopulation> possibleHurtPopulationList)
