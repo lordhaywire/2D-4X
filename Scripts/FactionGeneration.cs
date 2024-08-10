@@ -77,8 +77,8 @@ namespace PlayerSpace
             }
             // This is for testing.  We are going to have to have a different, more random way of
             // generating starting resources for each faction.
-            factionData.factionResources[AllEnums.FactionResourceType.Influence].amount = 500;
-            factionData.factionResources[AllEnums.FactionResourceType.Money].amount = 500;
+            factionData.factionResources[AllEnums.FactionResourceType.Influence].amount = 1500;
+            factionData.factionResources[AllEnums.FactionResourceType.Money].amount = 1500;
         }
 
         private static void AddFactionsToDiplomacyWar(FactionData factionData)

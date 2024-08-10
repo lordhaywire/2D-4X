@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=3 format=3 uid="uid://bads4woc5toep"]
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=4 format=3 uid="uid://bads4woc5toep"]
 
 [ext_resource type="Texture2D" uid="uid://d38i5xsjnfnfq" path="res://Graphics/County Improvements/fishing-pole.svg" id="1_3xigu"]
+[ext_resource type="Resource" uid="uid://bojgmxcwswihv" path="res://Resources/Interests/Biology.tres" id="2_h1ekr"]
 [ext_resource type="Script" path="res://Resources/CountyImprovementData.cs" id="2_iptt2"]
 
 [resource]
@@ -10,7 +11,7 @@ improvementName = "Fisher's Shed"
 improvementDescription = "A makeshift shed for fisher's tools."
 numberBuilt = 0
 workSkill = 3
-interest = 1
+interest = ExtResource("2_h1ekr")
 influenceCost = 500
 CurrentAmountOfConstruction = 0
 maxAmountOfConstruction = 5

@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=3 format=3 uid="uid://bkakbc8lqeex4"]
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=4 format=3 uid="uid://bkakbc8lqeex4"]
 
 [ext_resource type="Texture2D" uid="uid://bpj5td645dmvi" path="res://Graphics/County Improvements/spade.svg" id="1_b2i5i"]
 [ext_resource type="Script" path="res://Resources/CountyImprovementData.cs" id="2_n4a1t"]
+[ext_resource type="Resource" uid="uid://ftsx8rr0uriv" path="res://Resources/Interests/Botany.tres" id="2_nsp6t"]
 
 [resource]
 script = ExtResource("2_n4a1t")
@@ -10,7 +11,7 @@ improvementName = "Garden"
 improvementDescription = "A place to grow food."
 numberBuilt = 0
 workSkill = 2
-interest = 2
+interest = ExtResource("2_nsp6t")
 influenceCost = 50000
 CurrentAmountOfConstruction = 0
 maxAmountOfConstruction = 5

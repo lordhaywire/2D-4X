@@ -94,6 +94,13 @@ namespace PlayerSpace
                         // get set to idle.
                         KeepWorkingAtCountyImprovement(countyPopulation);
                         break;
+                    case AllEnums.Activities.Research:
+                        // Person working at research office generates research.
+                        // Check learning is done in Banker.AddResearchForOfficeResearch
+                        Banker.AddResearchForOfficeResearch(countyPopulation);
+
+                        KeepResearching(countyPopulation);
+                        break;
                     case AllEnums.Activities.Idle:
                         // Give idle people their bonus happiness.
                         countyPopulation.AddRandomHappiness(5);
@@ -103,6 +110,28 @@ namespace PlayerSpace
             GD.PrintRich($"[rainbow]{countyData.countyName}: Work Day Over For Population.");
         }
 
+        /// <summary>
+        /// Checks loyalty and if the research is done.
+        /// </summary>
+        /// <param name="countyPopulation"></param>
+        private static void KeepResearching(CountyPopulation countyPopulation)
+        {
+            ResearchItemData researchItemData = countyPopulation.CurrentResearchItemData;
+            // Check for loyalty
+            if (CheckLoyaltyWithSkillCheck(countyPopulation) == false)
+            {
+                countyPopulation.CurrentResearchItemData = null;
+                GD.Print($"{countyPopulation.firstName} is failed the loyalty check.");
+                return;
+            }
+
+            // Check if the research is finished.
+            if (researchItemData?.isResearchDone == true)
+            {
+                countyPopulation.CurrentResearchItemData = null;
+                GD.Print($"{countyPopulation.firstName} has finished the research.");
+            }
+        }
         private static void KeepWorkingAtCountyImprovement(CountyPopulation countyPopulation)
         {
             if (CheckLoyaltyWithSkillCheck(countyPopulation) == false)
@@ -128,7 +157,7 @@ namespace PlayerSpace
                 , AllEnums.LearningSpeed.slow);
         }
 
-        
+
         // This should be moved to the Resource that Loyalty will be part of once we figure out
         // what catagory Loyalty is.  For example, it isn't a skill, or a perk.
         private static bool CheckLoyaltyWithSkillCheck(CountyPopulation countyPopulation)

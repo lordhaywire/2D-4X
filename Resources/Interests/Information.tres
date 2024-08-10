@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="InterestData" load_steps=2 format=3 uid="uid://bgy1phaeqjaiv"]
+
+[ext_resource type="Script" path="res://Resources/InterestData.cs" id="1_8qoex"]
+
+[resource]
+script = ExtResource("1_8qoex")
+interest = 4
+name = "INTEREST_INFORMATION"
+description = ""

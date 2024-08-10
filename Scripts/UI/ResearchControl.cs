@@ -68,7 +68,6 @@ namespace PlayerSpace
             foreach (CountyPopulation countyPopulation in assignedResearchers)
             {
                 //GD.Print("Generate Assigned Researchers: " + countyPopulation.firstName);
-                GD.Print($"{countyPopulation.CurrentResearchItemData.researchName}");
                 AssignedResearcherHboxContainer researcherButton = (AssignedResearcherHboxContainer)assignedResearchersButton.Instantiate();
                 researcherButton.assignedResearcherButton.Text
                     = $"{countyPopulation.firstName} {countyPopulation.lastName}: {countyPopulation.CurrentResearchItemData.researchName}";

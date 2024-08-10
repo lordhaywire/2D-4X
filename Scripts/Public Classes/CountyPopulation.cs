@@ -79,13 +79,17 @@ namespace PlayerSpace
         [ExportGroup("Skills")]
         public Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills = [];
         public SkillData preferredSkill;
-        public AllEnums.Interests interest;
+        public InterestData interest;
 
         [ExportGroup("Work")]
         public AllEnums.Activities activity;
         public CountyImprovementData currentCountyImprovement;
         private ResearchItemData currentResearchItemData;
 
+        /// <summary>
+        /// This automatically will change the person's activity to idle if it is null
+        /// and set it to research if something is assigned to it.
+        /// </summary>
         public ResearchItemData CurrentResearchItemData
         {
             get { return currentResearchItemData; }
@@ -188,7 +192,7 @@ namespace PlayerSpace
             , Godot.Collections.Dictionary<AllEnums.CountyResourceType, int> needs
             , Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes
             , Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills
-            , SkillData preferredSkill, AllEnums.Interests interest, AllEnums.Activities activity
+            , SkillData preferredSkill, InterestData interest, AllEnums.Activities activity
             , CountyImprovementData currentCountyImprovement
             , ResearchItemData CurrentResearchItemData)
         {

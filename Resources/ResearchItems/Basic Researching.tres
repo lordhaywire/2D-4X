@@ -1,14 +1,15 @@
-[gd_resource type="Resource" script_class="ResearchItemData" load_steps=4 format=3 uid="uid://ceq8jssovq84m"]
+[gd_resource type="Resource" script_class="ResearchItemData" load_steps=5 format=3 uid="uid://ceq8jssovq84m"]
 
 [ext_resource type="Resource" uid="uid://lxjruufeuqa1" path="res://Resources/County Improvements/ResearchersOffice.tres" id="1_7j52q"]
 [ext_resource type="Texture2D" uid="uid://dn7aobwo3atm7" path="res://Graphics/Research/Researchers Office archive-research.svg" id="2_868j7"]
+[ext_resource type="Resource" uid="uid://bgy1phaeqjaiv" path="res://Resources/Interests/Information.tres" id="2_jpav7"]
 [ext_resource type="Script" path="res://Resources/ResearchItemData.cs" id="3_ov610"]
 
 [resource]
 script = ExtResource("3_ov610")
 tier = 0
 skill = 6
-interest = 4
+interest = ExtResource("2_jpav7")
 researchedAtStart = true
 researchName = "Basic Researching"
 researchDescription = "Isn't it time to have a place for someone to rediscover things?"

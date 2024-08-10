@@ -102,7 +102,7 @@ namespace PlayerSpace
 
             foreach (ResearchItemData researchItemData in researchableResearch)
             {
-                if (countyPopulation.interest == researchItemData.interest)
+                if (countyPopulation.interest.interestType == researchItemData.interest.interestType)
                 {
                     whatPopulationIsResearching = researchItemData;
                     GD.Print($"{countyPopulation.firstName} {countyPopulation.interest} is having them research {researchItemData.researchName}");

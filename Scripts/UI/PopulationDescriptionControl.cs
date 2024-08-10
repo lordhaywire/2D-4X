@@ -30,6 +30,7 @@ namespace PlayerSpace
         [Export] private Label sexLabel;
         [Export] private Label[] skillLabels;
 
+        [Export] private Label interestLabel;
         [Export] private Label preferredWorkLabel;
         [Export] private Label currentActivityLabel;
 
@@ -96,6 +97,7 @@ namespace PlayerSpace
             }
 
             UpdatePerks();
+            UpdateInterest();
             UpdatePreferredWork();
             UpdateSkills();
 
@@ -118,6 +120,11 @@ namespace PlayerSpace
             {
                 aideRecruitButton.Disabled = false;
             }
+        }
+
+        private void UpdateInterest()
+        {
+            interestLabel.Text = countyPopulation.interest.name;
         }
 
         private void UpdatePreferredWork()

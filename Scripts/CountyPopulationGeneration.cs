@@ -88,10 +88,10 @@ namespace PlayerSpace
             }
         }
 
-        private AllEnums.Interests GenerateInterest()
+        private static InterestData GenerateInterest()
         {
-            AllEnums.Interests interest = AllEnums.GetRandomEnumValue<AllEnums.Interests>();
-            //GD.Print("Interest: " + interest);
+            InterestData interest = AllInterests.Instance.GetRandomInterest();
+            GD.Print("Interest: " + interest.name);
             return interest;
         }
         private static Godot.Collections.Dictionary<AllEnums.CountyResourceType, int> GenerateNeeds()

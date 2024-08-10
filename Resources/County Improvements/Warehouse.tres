@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=3 format=3 uid="uid://cxh2tykxlu76b"]
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=4 format=3 uid="uid://cxh2tykxlu76b"]
 
 [ext_resource type="Texture2D" uid="uid://duyyhx30r6vow" path="res://Graphics/County Improvements/Warehouse wooden-crate.svg" id="1_5lsd6"]
 [ext_resource type="Script" path="res://Resources/CountyImprovementData.cs" id="1_13wsx"]
+[ext_resource type="Resource" uid="uid://dqjlx4jv1pgfi" path="res://Resources/Interests/Engineering.tres" id="2_40by5"]
 
 [resource]
 script = ExtResource("1_13wsx")
@@ -10,7 +11,7 @@ improvementName = "Converted Warehouse"
 improvementDescription = "How about we store our stuff in an abandoned building"
 numberBuilt = 0
 workSkill = 4
-interest = 2
+interest = ExtResource("2_40by5")
 influenceCost = 500
 CurrentAmountOfConstruction = 0
 maxAmountOfConstruction = 500

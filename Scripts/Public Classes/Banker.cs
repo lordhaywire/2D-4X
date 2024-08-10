@@ -163,9 +163,27 @@ namespace PlayerSpace
             return bonus;
         }
 
-        public void AddHeroResearch(FactionData factionData)
+        /// <summary>
+        /// Do a skill check of the person working at the research office, and increase the research.
+        /// Includes skill learning.
+        /// </summary>
+        /// <param name="countyPopulation"></param>
+        public static void AddResearchForOfficeResearch(CountyPopulation countyPopulation)
         {
-            // We have it go through all the heroes because heroes could be researching in other faction territories.
+            // Perform the research skill check.
+            bool passedCheck = SkillData.Check(countyPopulation, countyPopulation.skills[AllEnums.Skills.Research].skillLevel,
+                countyPopulation.skills[AllEnums.Skills.Research].attribute, false);
+
+            // Increase research progress and check learning.
+            IncreaseResearcherResearch(countyPopulation, passedCheck);
+        }
+
+        /// <summary>
+        /// We have it go through all the heroes because heroes could be researching in other faction territories.
+        /// </summary>
+        /// <param name="factionData"></param>
+        public void CheckForHeroResearch(FactionData factionData)
+        {
             foreach (CountyPopulation countyPopulation in factionData.allHeroesList)
             {
                 // Skip to the next hero if there is no current research.
@@ -216,9 +234,11 @@ namespace PlayerSpace
             {
                 bonusResearchIncrease = Globals.Instance.random.Next(1, Globals.Instance.researchIncreaseBonus);
             }
+            int researchAmount = Globals.Instance.researcherResearchIncrease + bonusResearchIncrease;
+            EventLog.Instance.AddLog($"Amount of research {countyPopulation.firstName} did: {researchAmount}");
+            GD.Print($"Amount of research {countyPopulation.firstName} did: {researchAmount}");
             countyPopulation.CurrentResearchItemData.AmountOfResearchDone
-                += Globals.Instance.researcherResearchIncrease + bonusResearchIncrease;
-
+                += researchAmount;
             //GD.Print($"Amount of Research Done: {countyPopulation.CurrentResearchItemData.AmountOfResearchDone}");
         }
 

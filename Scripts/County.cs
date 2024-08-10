@@ -52,7 +52,7 @@ namespace PlayerSpace
 
             countyAI.DecideBuildingCountyImprovements(this);
 
-            // Generates resources through work and scavenging.  It also adds improvement construction.
+            // Generates resources through work, scavenging, building, and research.
             PopulationAI.WorkDayOverForPopulation(countyData);
 
             PopulationAI.IsThereEnoughFood(countyData); // This is a terrible name for this method.
@@ -65,6 +65,7 @@ namespace PlayerSpace
 
             // People research by interest and their jobs.
             countyData.factionData.PopulationResearch(countyData);
+
 
             // Check for research buildings and if they exist see if their assigned research is done.
             // This still needs to be written.
@@ -90,9 +91,13 @@ namespace PlayerSpace
             // We may want construction to come before work, so that people will build stuff vs always be working
             // and never build anything.
             countyData.CheckForConstruction();
+
             // Sets people to scavenge.
             countyData.CheckForScavengingFood();
             countyData.CheckForScavengingRemnants();
+
+
+            // Counts the idle works and sets the idleWorkers variable in the County Data.
             countyData.CountIdleWorkers();
         }
         

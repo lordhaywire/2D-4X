@@ -121,7 +121,7 @@ namespace PlayerSpace
         [Export] public int moraleRecoveryMin = 1;
         [Export] public int moraleRecoveryMax = 11; // One above max.
         [Export] public int researcherResearchIncrease = 10;
-        [Export] public int researchIncreaseBonus = 4; // One above max.
+        [Export] public int researchIncreaseBonus = 5; // One above max.
         [Export] public int populationResearchIncrease = 1;
         [Export] public int populationResearchBonus = 1;
         [Export] public int daysUntilDamageFromStarvation = 15;

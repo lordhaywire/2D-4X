@@ -1,4 +1,4 @@
-[gd_scene load_steps=120 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=128 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scripts/HidderNode.cs" id="1_gbt3x"]
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_x1cy2"]
@@ -101,9 +101,17 @@
 [ext_resource type="Script" path="res://Scripts/UI/EventLog.cs" id="43_w0p1n"]
 [ext_resource type="PackedScene" uid="uid://bjgv6c8xhn4lo" path="res://UIScenes/Event Log Text Panel.tscn" id="44_du832"]
 [ext_resource type="PackedScene" uid="uid://x41vmtlrl1cx" path="res://UIScenes/CombatLogTextPanel.tscn" id="44_qsgen"]
+[ext_resource type="Script" path="res://Scripts/AllInterests.cs" id="45_vjt1m"]
+[ext_resource type="Resource" uid="uid://bojgmxcwswihv" path="res://Resources/Interests/Biology.tres" id="46_m2cvk"]
+[ext_resource type="Resource" uid="uid://ftsx8rr0uriv" path="res://Resources/Interests/Botany.tres" id="47_sru0x"]
+[ext_resource type="Resource" uid="uid://dqjlx4jv1pgfi" path="res://Resources/Interests/Engineering.tres" id="48_kokrl"]
+[ext_resource type="Resource" uid="uid://bpr5n6xga0460" path="res://Resources/Interests/Humanities.tres" id="49_6seni"]
 [ext_resource type="Theme" uid="uid://b7f66fp0haa2c" path="res://Themes/FullScreenPanelTheme.tres" id="50_5cg3n"]
 [ext_resource type="Texture2D" uid="uid://bmawb7v8d3eev" path="res://Graphics/Old Yellow Lined Paper.png" id="50_6hqe0"]
+[ext_resource type="Resource" uid="uid://bgy1phaeqjaiv" path="res://Resources/Interests/Information.tres" id="50_ljibg"]
+[ext_resource type="Resource" uid="uid://cm8m7c4m1xp8k" path="res://Resources/Interests/Politics.tres" id="51_6355g"]
 [ext_resource type="Texture2D" uid="uid://buiql8w31bmgq" path="res://Graphics/Icons/Top Bar/Building Materials concrete-bag.svg" id="52_5fb6h"]
+[ext_resource type="Resource" uid="uid://deym3plaxo5wl" path="res://Resources/Interests/Warfare.tres" id="52_ie7mt"]
 [ext_resource type="PackedScene" uid="uid://bif5f4i17oc2p" path="res://UIScenes/StorageHbox.tscn" id="53_xnh1n"]
 [ext_resource type="Script" path="res://Scripts/UI/ResourcesPanelContainer.cs" id="54_ia1o5"]
 [ext_resource type="PackedScene" uid="uid://4t2ve1w4uvww" path="res://UIScenes/AssignedResearcherHBoxContainer.tscn" id="62_dhpbg"]
@@ -218,6 +226,10 @@ allResources = Array[Object]([ExtResource("34_hf6gg"), ExtResource("19_1e80i"), 
 [node name="All Faction Resources" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("33_g7g2f")
 factionResourceDatas = Array[Object]([ExtResource("34_yfxup"), ExtResource("35_jg3b1"), ExtResource("36_drkal"), ExtResource("37_xlwo5"), ExtResource("38_1nki6")])
+
+[node name="All Interests" type="Node" parent="Game Controller Node/Arrays"]
+script = ExtResource("45_vjt1m")
+interests = Array[Object]([ExtResource("46_m2cvk"), ExtResource("47_sru0x"), ExtResource("48_kokrl"), ExtResource("49_6seni"), ExtResource("50_ljibg"), ExtResource("51_6355g"), ExtResource("52_ie7mt")])
 
 [node name="All Skills" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("23_jme5x")
@@ -1217,7 +1229,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "Close"
 
-[node name="Population Description Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("perksParent", "populationName", "leaderTitleButton", "aideTitleButton", "armyLeaderTitleButton", "physicalStrengthLabel", "agilityLabel", "enduranceLabel", "intelligenceLabel", "mentalStrengthLabel", "awarenessLabel", "charismaLabel", "looksLabel", "loyaltyAttributeLabel", "ageLabel", "sexLabel", "skillLabels", "preferredWorkLabel", "currentActivityLabel", "aideRecruitButton", "armyLeaderRecruitButton", "heroRecruitmentConfirmPanel")]
+[node name="Population Description Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("perksParent", "populationName", "leaderTitleButton", "aideTitleButton", "armyLeaderTitleButton", "physicalStrengthLabel", "agilityLabel", "enduranceLabel", "intelligenceLabel", "mentalStrengthLabel", "awarenessLabel", "charismaLabel", "looksLabel", "loyaltyAttributeLabel", "ageLabel", "sexLabel", "skillLabels", "interestLabel", "preferredWorkLabel", "currentActivityLabel", "aideRecruitButton", "armyLeaderRecruitButton", "heroRecruitmentConfirmPanel")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -1245,6 +1257,7 @@ loyaltyAttributeLabel = NodePath("MarginContainer/PanelContainer/MarginContainer
 ageLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Age Label")
 sexLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Sex Label")
 skillLabels = [NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Construction Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Cool Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Farm Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Fish Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Labor Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Lumberjack Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Research Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Rifle Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Scavenge Skill Label")]
+interestLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Interest Label")
 preferredWorkLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Preferred Work Label")
 currentActivityLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Activity Label")
 aideRecruitButton = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Recruit Aide Button")
@@ -1634,6 +1647,22 @@ text = "Scavenge 100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Interest Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "TITLE_INTEREST"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Interest Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "Whatevs Interest"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Preferred Work Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1646,7 +1675,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 16
-text = "Whatevs"
+text = "Whatevs Preferred Work"
 horizontal_alignment = 1
 vertical_alignment = 1
 

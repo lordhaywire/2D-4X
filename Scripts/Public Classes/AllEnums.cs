@@ -63,8 +63,8 @@ namespace PlayerSpace
 
         public enum Interests
         {
-            Botany,
             Biology,
+            Botany,
             Engineering,
             Humanities,
             Information,
