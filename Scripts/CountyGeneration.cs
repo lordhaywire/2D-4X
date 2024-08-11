@@ -1,8 +1,6 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Resources;
 
 namespace PlayerSpace
 {
@@ -46,8 +44,6 @@ namespace PlayerSpace
                 countyData.countyResources.Add(countyResourceData.countyResourceType, (CountyResourceData)countyResourceData.Duplicate());
                 countyData.yesterdaysCountyResources.Add(countyResourceData.countyResourceType, (CountyResourceData)countyResourceData.Duplicate());
                 countyData.amountUsedCountyResources.Add(countyResourceData.countyResourceType, (CountyResourceData)countyResourceData.Duplicate());
-
-
             }
             SetInitialMaxStorage(countyData.countyResources);
             // This is just for testing.  Sets all resources to a starting amount.

@@ -22,7 +22,7 @@ namespace PlayerSpace
                 PopulationDescriptionControl.Instance.UpdateDescriptionInfo();
             }
             CountyInfoControl.Instance.populationListMarginContainer.Hide();
-            //spawnHeroButton.Disabled = true;
+            PopulationDescriptionControl.Instance.heroButtonClicked = true;
         }
 
         private void SpawnHeroCheckBox(bool toggleOn)

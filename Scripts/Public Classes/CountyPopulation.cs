@@ -84,39 +84,9 @@ namespace PlayerSpace
         [ExportGroup("Work")]
         public AllEnums.Activities activity;
         public CountyImprovementData currentCountyImprovement;
-        private ResearchItemData currentResearchItemData;
 
-        /// <summary>
-        /// This automatically will change the person's activity to idle if it is null
-        /// and set it to research if something is assigned to it.
-        /// </summary>
-        public ResearchItemData CurrentResearchItemData
-        {
-            get { return currentResearchItemData; }
-            set
-            {
-                currentResearchItemData = value;
-
-                if (currentResearchItemData == null)
-                {
-                    UpdateActivity(AllEnums.Activities.Idle);
-                    if (CountyInfoControl.Instance?.Visible == true)
-                    {
-                        CountyInfoControl.Instance.GenerateHeroesPanelList();
-                    }
-                }
-                else
-                {
-                    UpdateActivity(AllEnums.Activities.Research);
-                }
-
-                if (ResearchControl.Instance?.Visible == true)
-                {
-                    ResearchControl.Instance.CheckForResearchers();
-                }
-            }
-        }
-
+        public ResearchItemData currentResearchItemData;
+        
         [ExportGroup("Token")]
         public SelectToken token;
 
@@ -183,6 +153,30 @@ namespace PlayerSpace
                 return false;
             }
         }
+
+        public void RemoveFromCountyImprovement()
+        {
+            UpdateActivity(AllEnums.Activities.Idle);
+            currentCountyImprovement.countyPopulationAtImprovement.Remove(this);
+        }
+
+        public void UpdateCurrentResearch(ResearchItemData researchItemData)
+        {
+            UpdateActivity(AllEnums.Activities.Research);
+            currentResearchItemData = researchItemData;
+        }
+
+        /// <summary>
+        /// Removes the populations research Item Data and sets their activity to Work.
+        /// </summary>
+        public void RemoveFromResearch()
+        {
+            currentResearchItemData = null;
+            UpdateActivity(AllEnums.Activities.Work);
+            // When the AI removes people from research it is going to try and do this.  I am not sure we care.
+            ResearchControl.Instance.assignedResearchers.Remove(this);
+        }
+
         public CountyPopulation(
             FactionData factionData, int location, int lastLocation, int destination, string firstName, string lastName
             , bool isMale, int age, bool isHero, bool isFactionLeader, bool isAide, bool IsArmyLeader, bool isWorker
@@ -194,7 +188,7 @@ namespace PlayerSpace
             , Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills
             , SkillData preferredSkill, InterestData interest, AllEnums.Activities activity
             , CountyImprovementData currentCountyImprovement
-            , ResearchItemData CurrentResearchItemData)
+            , ResearchItemData currentResearchItemData)
         {
             this.factionData = factionData;
             this.location = location;
@@ -229,7 +223,7 @@ namespace PlayerSpace
 
             this.activity = activity;
             this.currentCountyImprovement = currentCountyImprovement;
-            this.CurrentResearchItemData = CurrentResearchItemData;
+            this.currentResearchItemData = currentResearchItemData;
         }
     }
 }

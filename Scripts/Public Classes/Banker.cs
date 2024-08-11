@@ -187,15 +187,15 @@ namespace PlayerSpace
             foreach (CountyPopulation countyPopulation in factionData.allHeroesList)
             {
                 // Skip to the next hero if there is no current research.
-                if (countyPopulation.CurrentResearchItemData == null)
+                if (countyPopulation.currentResearchItemData == null)
                 {
                     continue;
                 }
 
                 // Stop researching if the current research is done and skip to the next hero.
-                if (countyPopulation.CurrentResearchItemData.isResearchDone)
+                if (countyPopulation.currentResearchItemData.isResearchDone)
                 {
-                    StopResearcherFromResearching(countyPopulation);
+                    StopHeroResearcherFromResearching(countyPopulation);
                     continue;
                 }
 
@@ -210,16 +210,20 @@ namespace PlayerSpace
                 SkillData.CheckLearning(countyPopulation, countyPopulation.skills[AllEnums.Skills.Research], AllEnums.LearningSpeed.medium);
 
                 // Re-check if the research is done after progress update and stop researching if it is.
-                if (countyPopulation.CurrentResearchItemData.isResearchDone)
+                if (countyPopulation.currentResearchItemData.isResearchDone)
                 {
-                    StopResearcherFromResearching(countyPopulation);
+                    countyPopulation.currentResearchItemData.CompleteResearch(countyPopulation.factionData);
+                    EventLog.Instance.AddLog($"{countyPopulation.currentResearchItemData.researchName} has been completed.");
+                    StopHeroResearcherFromResearching(countyPopulation);
                 }
             }
         }
 
-        private void StopResearcherFromResearching(CountyPopulation countyPopulation)
+        
+        private void StopHeroResearcherFromResearching(CountyPopulation countyPopulation)
         {
-            countyPopulation.CurrentResearchItemData = null;
+            countyPopulation.RemoveFromResearch();
+            // This needs to be below RemoveFromResearch because that sets the population's activity to work.
             countyPopulation.UpdateActivity(AllEnums.Activities.Idle);
             if (countyPopulation.factionData.isPlayer)
             {
@@ -237,7 +241,7 @@ namespace PlayerSpace
             int researchAmount = Globals.Instance.researcherResearchIncrease + bonusResearchIncrease;
             EventLog.Instance.AddLog($"Amount of research {countyPopulation.firstName} did: {researchAmount}");
             GD.Print($"Amount of research {countyPopulation.firstName} did: {researchAmount}");
-            countyPopulation.CurrentResearchItemData.AmountOfResearchDone
+            countyPopulation.currentResearchItemData.AmountOfResearchDone
                 += researchAmount;
             //GD.Print($"Amount of Research Done: {countyPopulation.CurrentResearchItemData.AmountOfResearchDone}");
         }

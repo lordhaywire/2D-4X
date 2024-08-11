@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("1_xj2cu")
-interest = 6
+interestType = 6
 name = "INTEREST_WARFARE"
 description = ""

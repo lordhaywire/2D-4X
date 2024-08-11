@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("1_28spw")
-interest = 0
+interestType = 1
 name = "INTEREST_BIOLOGY"
 description = ""

@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Resources;
 
 namespace PlayerSpace
@@ -84,7 +85,7 @@ namespace PlayerSpace
                 if (countyPopulation.currentCountyImprovement?.interest == researchItemData.interest)
                 {
                     whatPopulationIsResearching = researchItemData;
-                    //GD.Print($"{countyPopulation.firstName} {countyPopulation.interest} is having them research {researchItemData.researchName}");
+                    GD.Print($"{countyPopulation.firstName} {countyPopulation.interest.name} is having them research {researchItemData.researchName}");
                     break;
                 }
             }
@@ -105,7 +106,7 @@ namespace PlayerSpace
                 if (countyPopulation.interest.interestType == researchItemData.interest.interestType)
                 {
                     whatPopulationIsResearching = researchItemData;
-                    GD.Print($"{countyPopulation.firstName} {countyPopulation.interest} is having them research {researchItemData.researchName}");
+                    GD.Print($"{countyPopulation.firstName} {countyPopulation.interest.name} is having them research {researchItemData.researchName}");
                     break;
                 }
             }
@@ -137,7 +138,16 @@ namespace PlayerSpace
                 GD.Print("This Influence should be the same as yesterdays: " + factionResources[AllEnums.FactionResourceType.Influence].amount);
             }
         }
-
+        public void AddCountyImprovementToAllCountyImprovements(CountyImprovementData countyImprovementData)
+        {
+            foreach(CountyData countyData in countiesFactionOwns)
+            {
+                countyData.allCountyImprovements.Add(countyImprovementData);
+                // Alphabetize the list by improvementName
+                countyData.allCountyImprovements 
+                    = [.. countyData.allCountyImprovements.OrderBy(improvement => improvement.improvementName)];
+            }
+        }
         // Zero resources that are summed from each county.
         public void ZeroFactionCountyResources()
         {

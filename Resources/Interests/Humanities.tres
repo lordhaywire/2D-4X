@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("1_aqien")
-interest = 3
+interestType = 3
 name = "INTEREST_HUMANITIES"
 description = ""

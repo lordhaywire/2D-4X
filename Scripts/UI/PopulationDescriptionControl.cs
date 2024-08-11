@@ -38,8 +38,9 @@ namespace PlayerSpace
         [Export] private Button armyLeaderRecruitButton;
         [Export] private PanelContainer heroRecruitmentConfirmPanel;
 
-
         public CountyPopulation countyPopulation;
+
+        public bool heroButtonClicked; // If the player has clicked a hero from the list below the countyinfo panel.
 
         public override void _Ready()
         {
@@ -57,10 +58,23 @@ namespace PlayerSpace
             }
             else
             {
-                CountyInfoControl.Instance.DisableSpawnHeroCheckButton(false);
-                heroRecruitmentConfirmPanel.Hide();
-                PlayerControls.Instance.AdjustPlayerControls(true);
-                Clock.Instance.UnpauseTime();
+                if (heroButtonClicked)
+                {
+                    CountyInfoControl.Instance.DisableSpawnHeroCheckButton(false);
+                    heroRecruitmentConfirmPanel.Hide();
+                    //PlayerUICanvas.Instance.populationListUIElement.Show();
+                    PlayerControls.Instance.AdjustPlayerControls(true);
+                    Clock.Instance.UnpauseTime();
+                }
+                else
+                {
+                    CountyInfoControl.Instance.DisableSpawnHeroCheckButton(false);
+                    heroRecruitmentConfirmPanel.Hide();
+                    PlayerUICanvas.Instance.populationListUIElement.Show();
+                    //PlayerControls.Instance.AdjustPlayerControls(true);
+                    Clock.Instance.UnpauseTime();
+                }
+                heroButtonClicked = false;
             }
         }
 
@@ -209,10 +223,6 @@ namespace PlayerSpace
             armyLeaderTitleButton.Disabled = true;
             armyLeaderRecruitButton.Disabled = true;
         }
-        private void CloseButton()
-        {
-            Hide();
-        }
 
         private void UpdateSkills()
         {
@@ -221,6 +231,11 @@ namespace PlayerSpace
                 AllEnums.Skills skillNumber = (AllEnums.Skills)i;
                 skillLabels[i].Text = $"{Tr(countyPopulation.skills[skillNumber].skillName)} {countyPopulation.skills[skillNumber].skillLevel}";
             }
+        }
+
+        private void CloseButton()
+        {
+            Hide();
         }
     }
 }

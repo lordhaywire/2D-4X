@@ -22,8 +22,14 @@ namespace PlayerSpace
                 amountOfResearchDone = value;
                 if (amountOfResearchDone >= costOfResearch)
                 {
-                    isResearchDone = true;
                     amountOfResearchDone = costOfResearch;
+                    isResearchDone = true;
+                    /*
+                    if(Clock.Instance.days > 0 || Clock.Instance.Hours > 1)
+                    {
+                        GD.Print("I think this will happen too soon.");
+                    }
+                    */
                 }
                 else
                 {
@@ -32,9 +38,20 @@ namespace PlayerSpace
             }
         }
         [Export] public int costOfResearch;
-        [Export] public CountyImprovementData[] countyImprovementDatas;
+        // This is the list of countyImprovementDatas that is research controls.
+        [Export] public CountyImprovementData[] countyImprovementDatas; 
+
+        // Are we doing something with this?
         public CountyPopulation[] researchers;
 
         [Export] public bool isResearchDone; // We might not need this because we could just compare the cost vs the amount done.
+    
+        public void CompleteResearch(FactionData factionData)
+        {
+            foreach (CountyImprovementData countyImprovementData in countyImprovementDatas)
+            {
+                factionData.AddCountyImprovementToAllCountyImprovements(countyImprovementData);
+            }
+        }
     }
 }

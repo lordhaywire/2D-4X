@@ -14,7 +14,7 @@ namespace PlayerSpace
                 {
                     if (countyPopulation.factionData != Globals.Instance.playerFactionData)
                     {
-                        countyPopulation.CurrentResearchItemData = factionData.researchItems[2];
+                        countyPopulation.currentResearchItemData = factionData.researchItems[2];
                         //GD.Print($"{countyPopulation.firstName} is researching {countyPopulation.CurrentResearchItemData.researchName}");
                     }
                 }

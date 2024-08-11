@@ -90,7 +90,7 @@ namespace PlayerSpace
             // then it adds where to the end of the label.  If they are all null then it puts nothing.
             populationRow.currentActivityLabel.Text = countyPopulation.GetActivityName();
             string currentWhere = countyPopulation.currentCountyImprovement?.improvementName
-                ?? countyPopulation.CurrentResearchItemData?.researchName
+                ?? countyPopulation.currentResearchItemData?.researchName
                 ?? string.Empty;
             populationRow.currentActivityLabel.Text += $" {currentWhere}";
         }

@@ -70,69 +70,10 @@ namespace PlayerSpace
                     attributeDescription = attributeData.attributeDescription,
                     attributeLevel = attributeData.attributeLevel,
                 });
-                
             }
             return newAttributes;
-            /*
-            return new AttributeData()
-            {
-                attribute = this.attribute,
-                attributeAbbreviation = new string(this.attributeAbbreviation.ToCharArray()),
-                attributeName = new string(this.attributeName.ToCharArray()),
-                attributeDescription = new string(this.attributeDescription.ToCharArray()),
-                attributeLevel = this.attributeLevel
-            };
-            */
         }
-        /*
-        public AttributeData NewDuplicate(AttributeData oldAttributeData)
-        {
-            AttributeData newAttributeData = (AttributeData)oldAttributeData.Duplicate(true);
-            /*
-            return new AttributeData()
-            {
-                attribute = this.attribute,
-                attributeAbbreviation = this.attributeAbbreviation,
-                attributeName = this.attributeName,
-                attributeDescription = this.attributeDescription,
-                attributeLevel = this.attributeLevel
-            };
-            
-            return newAttributeData;
-        }
-    */
     }
 }
 
-/*
-switch (number)
-{
-    case int n when n > 90:
-        // Do something for numbers above 90
-        break;
-    case int n when n > 80:
-        // Do something for numbers above 80
-        break;
-    case int n when n > 70:
-        // Do something for numbers above 70
-        break;
-    case int n when n > 60:
-        // Do something for numbers above 60
-        break;
-    case int n when n > 40:
-        // Do nothing, number is between 41 and 59.
-        break;
-    case int n when n > 30:
-        // Do something for numbers above 30
-        break;
-    case int n when n > 20:
-        // Do something for numbers above 20
-        break;
-    case int n when n > 10:
-        // Do something for numbers above 10
-        break;
-    default:
-        // Number is suck.
-        break;
-}
-*/
+

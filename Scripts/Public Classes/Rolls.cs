@@ -3,6 +3,7 @@ using System;
 
 namespace PlayerSpace
 {
+    // This needs to be moved to AttributeData.
     public class Rolls
     {
         private readonly Random random = new();

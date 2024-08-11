@@ -3,13 +3,13 @@
 [ext_resource type="Texture2D" uid="uid://4qh2lfjkxnyy" path="res://Graphics/Research/Basic Storage cardboard-box-closed.svg" id="1_ardle"]
 [ext_resource type="Script" path="res://Resources/ResearchItemData.cs" id="1_hvkf1"]
 [ext_resource type="Resource" uid="uid://cxh2tykxlu76b" path="res://Resources/County Improvements/Warehouse.tres" id="1_jsy6f"]
-[ext_resource type="Resource" uid="uid://bgy1phaeqjaiv" path="res://Resources/Interests/Information.tres" id="2_ekvqt"]
+[ext_resource type="Resource" uid="uid://dqjlx4jv1pgfi" path="res://Resources/Interests/Engineering.tres" id="2_4et8k"]
 
 [resource]
 script = ExtResource("1_hvkf1")
 tier = 0
 skill = 4
-interest = ExtResource("2_ekvqt")
+interest = ExtResource("2_4et8k")
 researchedAtStart = false
 researchName = "Basic Storage"
 researchDescription = "Instead of having everything laying around, why don't we have a centralized place for our junk?"

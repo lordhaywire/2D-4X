@@ -70,14 +70,16 @@ namespace PlayerSpace
                 //GD.Print("Generate Assigned Researchers: " + countyPopulation.firstName);
                 AssignedResearcherHboxContainer researcherButton = (AssignedResearcherHboxContainer)assignedResearchersButton.Instantiate();
                 researcherButton.assignedResearcherButton.Text
-                    = $"{countyPopulation.firstName} {countyPopulation.lastName}: {countyPopulation.CurrentResearchItemData.researchName}";
+                    = $"{countyPopulation.firstName} {countyPopulation.lastName}: {countyPopulation.currentResearchItemData.researchName}";
                 researcherButton.countyPopulation = countyPopulation;
                 // If the county population is working at an research office, then their button is disabled, so they can't be
                 // removed from the research.
+                /*
                 if(researcherButton.countyPopulation.isHero == false)
                 {
                     researcherButton.assignedResearcherCheckbox.Disabled = true;
                 }
+                */
                 assignedResearchersParent.AddChild(researcherButton);
             }
         }

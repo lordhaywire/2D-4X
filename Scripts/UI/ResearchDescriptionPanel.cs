@@ -31,7 +31,7 @@ namespace PlayerSpace
             //GD.Print("Assigned Researcher ID: " + id);
             //GD.Print($"Ass Researcher: {assignableResearchers[(int)id].firstName} {assignableResearchers[(int)id].lastName}");
             ResearchControl.Instance.assignedResearchers.Add(assignableResearchers[(int)id]);
-            assignableResearchers[(int)id].CurrentResearchItemData = researchItemData;
+            assignableResearchers[(int)id].UpdateCurrentResearch(researchItemData);
             //GD.Print("Assigned Researcher in Select Reseacher Count: " + ResearchControl.Instance.assignedResearchers.Count);
             ResearchControl.Instance.GenerateAssignedResearchers();
             if (CountyInfoControl.Instance.Visible == true)
@@ -57,10 +57,10 @@ namespace PlayerSpace
             {
                 foreach (CountyPopulation countyPopulation in countyData.herosInCountyList)
                 {
-                    if (countyPopulation.CurrentResearchItemData == null && countyPopulation.activity
+                    if (countyPopulation.currentResearchItemData == null && countyPopulation.activity
                         != AllEnums.Activities.Move)
                     {
-                           AddResearcherToMenu(countyData, countyPopulation);
+                        AddResearcherToMenu(countyData, countyPopulation);
                     }
                 }
                 // Go through every county data that is built and if it produces research then add it
@@ -71,7 +71,10 @@ namespace PlayerSpace
                     {
                         foreach (CountyPopulation countyPopulation in countyImprovementData.countyPopulationAtImprovement)
                         {
-                            AddResearcherToMenu(countyData, countyPopulation);
+                            if (countyPopulation.activity != AllEnums.Activities.Research)
+                            {
+                                AddResearcherToMenu(countyData, countyPopulation);
+                            }
                         }
 
                     }

@@ -136,7 +136,7 @@ namespace PlayerSpace
 
         public void RemoveFromResearch()
         {
-            countyPopulation.CurrentResearchItemData = null;
+            countyPopulation.currentResearchItemData = null;
             ResearchControl.Instance.assignedResearchers.Remove(countyPopulation);
             //GD.Print("Removed from Research - Assigned Researchers Count: " + ResearchControl.Instance.assignedResearchers.Count);
             CountyInfoControl.Instance.GenerateHeroesPanelList();

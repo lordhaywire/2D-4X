@@ -289,10 +289,11 @@ ticks = 100
 [node name="County Dictator" type="Node" parent="Game Controller Node"]
 script = ExtResource("28_qe8u4")
 
-[node name="Player UI Canvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("BattleLogControl", "selectedHeroPanelContainer", "resourcesPanelContainer")]
+[node name="Player UI Canvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("BattleLogControl", "populationListUIElement", "selectedHeroPanelContainer", "resourcesPanelContainer")]
 process_mode = 3
 script = ExtResource("24_s3wh2")
 BattleLogControl = NodePath("Battle Log Control")
+populationListUIElement = NodePath("Population List MarginContainer")
 selectedHeroPanelContainer = NodePath("County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Select Hero PanelContainer")
 resourcesPanelContainer = NodePath("Resources PanelContainer")
 

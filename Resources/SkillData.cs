@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 
 namespace PlayerSpace
@@ -29,7 +30,10 @@ namespace PlayerSpace
             //GD.PrintRich("[rainbow]Attribute: " + attribute);
             int attributeBonus = AttributeData.ApplyAttributeBonuses(countyPopulation.attributes[attribute].attributeLevel, false, negativeBonus);
             //GD.PrintRich($"[color=yellow]Attribute Bonus: {attributeBonus}[/color]");
-            if (skillCheckRoll <= skillAmount + attributeBonus) 
+            // Make sure the skill level with the attribute bonus is not below 1.
+            int finalSkillAmount = Math.Max(skillAmount + attributeBonus, 1);
+            // Rolling a 1 is always a success.
+            if (skillCheckRoll <= finalSkillAmount) 
             {
                 //GD.Print($"Skill Checks: rolled a {skillCheckRoll} which is less then or equal {skillAmount}");
                 return (true);

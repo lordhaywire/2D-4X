@@ -180,7 +180,7 @@ namespace PlayerSpace
                 heroPrefab.researchCheckbox.ButtonPressed = false;
             }
             //GD.Print("Researching?" + countyPopulation.currentResearchItemData.researchName);
-            if (countyPopulation.CurrentResearchItemData != null)
+            if (countyPopulation.currentResearchItemData != null)
             {
                 //GD.Print("Research CheckBox!?");
                 heroPrefab.researchCheckbox.ButtonPressed = true;

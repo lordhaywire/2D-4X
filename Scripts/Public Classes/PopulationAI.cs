@@ -116,11 +116,14 @@ namespace PlayerSpace
         /// <param name="countyPopulation"></param>
         private static void KeepResearching(CountyPopulation countyPopulation)
         {
-            ResearchItemData researchItemData = countyPopulation.CurrentResearchItemData;
+            ResearchItemData researchItemData = countyPopulation.currentResearchItemData;
             // Check for loyalty
             if (CheckLoyaltyWithSkillCheck(countyPopulation) == false)
             {
-                countyPopulation.CurrentResearchItemData = null;
+                // Remove From Research needs to be above Remove From County Improvement, so that the remove
+                // from county improvement sets them to idle.
+                countyPopulation.RemoveFromResearch();
+                countyPopulation.RemoveFromCountyImprovement();
                 GD.Print($"{countyPopulation.firstName} is failed the loyalty check.");
                 return;
             }
@@ -128,16 +131,16 @@ namespace PlayerSpace
             // Check if the research is finished.
             if (researchItemData?.isResearchDone == true)
             {
-                countyPopulation.CurrentResearchItemData = null;
+                EventLog.Instance.AddLog($"{researchItemData.researchName} has been completed.");
                 GD.Print($"{countyPopulation.firstName} has finished the research.");
+                countyPopulation.RemoveFromResearch();
             }
         }
         private static void KeepWorkingAtCountyImprovement(CountyPopulation countyPopulation)
         {
             if (CheckLoyaltyWithSkillCheck(countyPopulation) == false)
             {
-                countyPopulation.UpdateActivity(AllEnums.Activities.Idle);
-                countyPopulation.currentCountyImprovement.countyPopulationAtImprovement.Remove(countyPopulation);
+                countyPopulation.RemoveFromCountyImprovement();
             }
         }
         private static void CompleteConstructionWithSkillCheck(CountyPopulation countyPopulation)

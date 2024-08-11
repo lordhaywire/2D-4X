@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("1_kiwgt")
-interest = 2
+interestType = 2
 name = "INTEREST_ENGINEERING"
 description = ""

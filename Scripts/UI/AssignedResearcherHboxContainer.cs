@@ -23,7 +23,7 @@ namespace PlayerSpace
 
         private void AssignedResearcherButton()
         {
-            ResearchDescriptionPanel.Instance.researchItemData = countyPopulation.CurrentResearchItemData;
+            ResearchDescriptionPanel.Instance.researchItemData = countyPopulation.currentResearchItemData;
             ResearchDescriptionPanel.Instance.Show();
         }
     }
