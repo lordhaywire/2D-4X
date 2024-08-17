@@ -29,7 +29,7 @@ namespace PlayerSpace
             // Goes through each hero and checks to see if they are researching and if they are then
             // it does a skill check and skill learning roll.
             // If the research is done it also makes them idle.
-            banker.CheckForHeroResearch(factionData);
+            Banker.CheckForHeroResearch(factionData);
 
             TopBarControl.Instance.UpdateResourceLabels();
         }

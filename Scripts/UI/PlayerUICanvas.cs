@@ -18,13 +18,13 @@ namespace PlayerSpace
             Instance = this;
         }
 
-        private void OnMouseEnterUI()
+        private static void OnMouseEnterUI()
         {
             //GD.Print("Mouse entered a UI Element.");
             PlayerControls.Instance.stopClickThrough = true;
         }
 
-        private void OnMouseExitUI()
+        private static void OnMouseExitUI()
         {
             //GD.Print("Mouse exited a UI Element.");
             PlayerControls.Instance.stopClickThrough = false;

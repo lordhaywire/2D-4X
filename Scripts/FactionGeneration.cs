@@ -40,6 +40,8 @@ namespace PlayerSpace
                     {
                         Globals.Instance.playerFactionData = newFactionData;
                     }
+                    GD.Print($"{newFactionData.factionName} has been loaded from disk.");
+
                     AddStartingResearch(newFactionData);
                     CreateFactionNode(newFactionData);
                     CreateFactionResourceDictionary(newFactionData);
@@ -56,16 +58,23 @@ namespace PlayerSpace
         {
             foreach (ResearchItemData researchItemData in AllResearch.Instance.allTierOneResearchData)
             {
+                researchItemData.factionData = factionData;
+                GD.PrintRich($"[rainbow]{factionData.factionName}: {researchItemData.researchName}");
                 if (researchItemData.researchedAtStart == true)
                 {
                     // We need to add some randomness to the starting factions starting research, except
                     // for the player factions.
                     researchItemData.AmountOfResearchDone = researchItemData.costOfResearch;
                 }
-                factionData.researchItems.Add((ResearchItemData)researchItemData.Duplicate());
+
+                factionData.researchItems.Add((ResearchItemData)researchItemData.Duplicate(true));
+                if (factionData.researchItems.Count > 0)
+                {
+                    GD.Print($"Test of research item faction data: {factionData.researchItems[0].factionData.factionName}");
+                }
             }
         }
-        private void CreateFactionResourceDictionary(FactionData factionData)
+        private static void CreateFactionResourceDictionary(FactionData factionData)
         {
             foreach (FactionResourceData factionResourceDatas in AllFactionResources.Instance.factionResourceDatas)
             {

@@ -46,9 +46,9 @@ namespace PlayerSpace
             countyData.CopyCountyResourcesToYesterday(); // We will use this data to update the numbers on the top bar all day.
 
             // Check to see if any population needs healing from starvation or whatever.
-            countyData.CheckForHealing(countyData.countyPopulationList);
-            countyData.CheckForHealing(countyData.herosInCountyList);
-            countyData.CheckForHealing(countyData.armiesInCountyList);
+            CountyData.CheckForHealing(countyData.countyPopulationList);
+            CountyData.CheckForHealing(countyData.herosInCountyList);
+            CountyData.CheckForHealing(countyData.armiesInCountyList);
 
             countyAI.DecideBuildingCountyImprovements(this);
 

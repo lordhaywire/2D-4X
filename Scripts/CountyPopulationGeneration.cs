@@ -91,7 +91,7 @@ namespace PlayerSpace
         private static InterestData GenerateInterest()
         {
             InterestData interest = AllInterests.Instance.GetRandomInterest();
-            GD.Print("Interest: " + interest.name);
+            //GD.Print("Interest: " + interest.name);
             return interest;
         }
         private static Godot.Collections.Dictionary<AllEnums.CountyResourceType, int> GenerateNeeds()

@@ -151,7 +151,7 @@ namespace PlayerSpace
             }
         }
 
-        private void UpdateWorkLocation(CountyPopulation countyPopulation, CountyImprovementData countyImprovementData)
+        private static void UpdateWorkLocation(CountyPopulation countyPopulation, CountyImprovementData countyImprovementData)
         {
             // This same thing is done multiple times.  We should make it its own method.
             countyPopulation.UpdateCurrentCountyImprovement(countyImprovementData);
@@ -273,7 +273,7 @@ namespace PlayerSpace
             return amount;
         }
 
-        private bool EnoughStored(int amountOfStored, int resourceBeforeScavenge)
+        private static bool EnoughStored(int amountOfStored, int resourceBeforeScavenge)
         {
             if (amountOfStored < resourceBeforeScavenge)
             {
@@ -701,7 +701,7 @@ namespace PlayerSpace
             */
         }
 
-        public void CheckForHealing(Globals.ListWithNotify<CountyPopulation> possibleHurtPopulationList)
+        public static void CheckForHealing(Globals.ListWithNotify<CountyPopulation> possibleHurtPopulationList)
         {
             foreach (CountyPopulation countyPopulation in possibleHurtPopulationList)
             {

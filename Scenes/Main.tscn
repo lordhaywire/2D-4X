@@ -1,4 +1,4 @@
-[gd_scene load_steps=128 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=129 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scripts/HidderNode.cs" id="1_gbt3x"]
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_x1cy2"]
@@ -123,6 +123,7 @@
 [ext_resource type="PackedScene" uid="uid://iur3kq10dikl" path="res://Scenes/MapEditor.tscn" id="66_sq6pt"]
 [ext_resource type="PackedScene" uid="uid://bhgbnf6lykhb6" path="res://UIScenes/PerkLabel.tscn" id="68_6cv3c"]
 [ext_resource type="Texture2D" uid="uid://cs6gb8bpwt7xd" path="res://Graphics/yellow-crumpled-lined-paper-background-2022-12-16-00-47-47-utc-scaled.webp" id="76_xlxp7"]
+[ext_resource type="Script" path="res://Scripts/GameStart.cs" id="84_lusaj"]
 
 [sub_resource type="Resource" id="Resource_6tiru"]
 script = ExtResource("22_0b0as")
@@ -288,6 +289,9 @@ ticks = 100
 
 [node name="County Dictator" type="Node" parent="Game Controller Node"]
 script = ExtResource("28_qe8u4")
+
+[node name="Game Start" type="Node" parent="Game Controller Node"]
+script = ExtResource("84_lusaj")
 
 [node name="Player UI Canvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("BattleLogControl", "populationListUIElement", "selectedHeroPanelContainer", "resourcesPanelContainer")]
 process_mode = 3

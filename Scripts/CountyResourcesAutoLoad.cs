@@ -5,6 +5,7 @@ namespace GlobalSpace
 {
     public partial class CountyResourcesAutoLoad : Node
     {
+        // This is for the map editor, I believe.
         public static CountyResourcesAutoLoad Instance { get; private set; }
 
         private string pathToCountyDatas = "res://Resources/Counties/";
@@ -14,7 +15,7 @@ namespace GlobalSpace
         {
             Instance = this;
 
-            GD.Print("This is the autoload thing.");
+            GD.Print("CountyResourcesAutoLoad.cs has loaded.");
             LoadCountyResources();
         }
 

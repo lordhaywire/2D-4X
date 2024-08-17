@@ -33,7 +33,7 @@ namespace PlayerSpace
         /// <summary>
         /// I am not sure we need this.
         /// </summary>
-        [Obsolete("What the flying fuck is this?")] public Godot.Collections.Dictionary<AllEnums.FactionResourceType, FactionResourceData> actualUsedFactionResources = [];
+        //[Obsolete("What the flying fuck is this?")] public Godot.Collections.Dictionary<AllEnums.FactionResourceType, FactionResourceData> actualUsedFactionResources = [];
 
         [ExportGroup("Diplomatic Incidences")]
         public List<War> wars = [];
@@ -142,7 +142,8 @@ namespace PlayerSpace
         {
             foreach(CountyData countyData in countiesFactionOwns)
             {
-                countyData.allCountyImprovements.Add(countyImprovementData);
+                countyData.allCountyImprovements.Add((CountyImprovementData)countyImprovementData.Duplicate());
+                GD.PrintRich($"[rainbow]{countyData.countyName} {countyImprovementData.improvementName} has been added.");
                 // Alphabetize the list by improvementName
                 countyData.allCountyImprovements 
                     = [.. countyData.allCountyImprovements.OrderBy(improvement => improvement.improvementName)];

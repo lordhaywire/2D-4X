@@ -25,7 +25,6 @@ namespace PlayerSpace
                 Clock.Instance.PauseTime();
                 GenerateCountyImprovementButtons();
                 PlayerControls.Instance.AdjustPlayerControls(false);
-                //CountWorkersAndBuilders();
                 CountyInfoControl.Instance.populationDescriptionControl.Hide();
                 CountyInfoControl.Instance.populationListMarginContainer.Hide();
             }
@@ -35,28 +34,6 @@ namespace PlayerSpace
                 PlayerControls.Instance.AdjustPlayerControls(true);
             }
         }
-
-        /*
-        private void CountWorkersAndBuilders()
-        {
-            if (currentImprovementsScrollContainerParent.GetChildren().Count < 2)
-            {
-                return;
-            }
-            else
-            {
-                foreach (CountryImprovementDescriptionButton countyImprovementButton in currentImprovementsScrollContainerParent.GetChildren().Skip(1).Cast<CountryImprovementDescriptionButton>())
-                {
-                    CountyImprovementData countyImprovementData = countyImprovementButton.countyImprovementData;
-                    if (countyImprovementData.countyPopulationAtImprovement.Count > 0)
-                    {
-                        countyImprovementData.currentBuilders = countyImprovementData.countyPopulationAtImprovement.Count;
-                        countyImprovementData.currentWorkers = countyImprovementData.countyPopulationAtImprovement.Count;
-                    }
-                }
-            }
-        }
-        */
 
         // This is still set up as if you can only generate one county improvement of each type.
         // We want people to be able to build more then 1 of each.

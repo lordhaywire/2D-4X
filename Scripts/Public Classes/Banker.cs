@@ -182,7 +182,7 @@ namespace PlayerSpace
         /// We have it go through all the heroes because heroes could be researching in other faction territories.
         /// </summary>
         /// <param name="factionData"></param>
-        public void CheckForHeroResearch(FactionData factionData)
+        public static void CheckForHeroResearch(FactionData factionData)
         {
             foreach (CountyPopulation countyPopulation in factionData.allHeroesList)
             {
@@ -212,7 +212,7 @@ namespace PlayerSpace
                 // Re-check if the research is done after progress update and stop researching if it is.
                 if (countyPopulation.currentResearchItemData.isResearchDone)
                 {
-                    countyPopulation.currentResearchItemData.CompleteResearch(countyPopulation.factionData);
+                    countyPopulation.currentResearchItemData.CompleteResearch();
                     EventLog.Instance.AddLog($"{countyPopulation.currentResearchItemData.researchName} has been completed.");
                     StopHeroResearcherFromResearching(countyPopulation);
                 }
@@ -220,7 +220,7 @@ namespace PlayerSpace
         }
 
         
-        private void StopHeroResearcherFromResearching(CountyPopulation countyPopulation)
+        private static void StopHeroResearcherFromResearching(CountyPopulation countyPopulation)
         {
             countyPopulation.RemoveFromResearch();
             // This needs to be below RemoveFromResearch because that sets the population's activity to work.
@@ -253,7 +253,7 @@ namespace PlayerSpace
             //TopBarControl.Instance.UpdateResourceLabels(); 
         }
 
-        public void ChargeForHero(FactionData factionData)
+        public static void ChargeForHero(FactionData factionData)
         {
             //GD.Print("Player Influence: " + Globals.Instance.playerFactionData.Influence);
             factionData.factionResources[AllEnums.FactionResourceType.Influence].amount
