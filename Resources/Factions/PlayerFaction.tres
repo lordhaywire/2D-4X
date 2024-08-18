@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_k44ld")
-factionID = 0
+factionID = 3
 isPlayer = true
 factionName = "The Shitbirds"
 factionColor = Color(0, 0, 0, 0)

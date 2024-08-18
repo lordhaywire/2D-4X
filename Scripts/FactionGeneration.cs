@@ -9,7 +9,6 @@ namespace PlayerSpace
         private string factionDataPath = "res://Resources/Factions/";
         [Export] private PackedScene factionNodePackedScene;
         [Export] private CountyImprovementData[] countyImprovementData;
-        [Export] private Node factions;
 
         public override void _Ready()
         {
@@ -42,10 +41,17 @@ namespace PlayerSpace
                     }
                     GD.Print($"{newFactionData.factionName} has been loaded from disk.");
 
+                    CreateFactionNode(newFactionData); // This has to be at the top of this list of methods.
                     AddStartingResearch(newFactionData);
-                    CreateFactionNode(newFactionData);
                     CreateFactionResourceDictionary(newFactionData);
                     AddFactionsToDiplomacyWar(newFactionData);
+                }
+                foreach (Faction faction in Globals.Instance.factionsParent.GetChildren())
+                {
+                    foreach (ResearchItemData researchItem in faction.factionData.researchItems)
+                    {
+                        GD.Print("Research Item Data Faction ID: " + researchItem.factionID);
+                    }
                 }
             }
             else
@@ -58,19 +64,24 @@ namespace PlayerSpace
         {
             foreach (ResearchItemData researchItemData in AllResearch.Instance.allTierOneResearchData)
             {
-                researchItemData.factionData = factionData;
-                GD.PrintRich($"[rainbow]{factionData.factionName}: {researchItemData.researchName}");
-                if (researchItemData.researchedAtStart == true)
+                GD.Print("Faction ID that is getting assigned: " + factionData.factionID);
+                researchItemData.factionID = factionData.factionID;
+                GD.PrintRich($"[rainbow]{FactionData.GetFactionDataFromID(researchItemData.factionID).factionName}: {researchItemData.researchName}");
+
+                ResearchItemData researchItemDataCopy = ResearchItemData.NewCopy(researchItemData); //(ResearchItemData)researchItemData.Duplicate(true); //
+                if (researchItemDataCopy.researchedAtStart == true)
                 {
                     // We need to add some randomness to the starting factions starting research, except
                     // for the player factions.
-                    researchItemData.AmountOfResearchDone = researchItemData.costOfResearch;
+                    researchItemDataCopy.AmountOfResearchDone = researchItemDataCopy.costOfResearch;
                 }
-
-                factionData.researchItems.Add((ResearchItemData)researchItemData.Duplicate(true));
+                factionData.researchItems.Add(researchItemDataCopy);
+                
                 if (factionData.researchItems.Count > 0)
                 {
-                    GD.Print($"Test of research item faction data: {factionData.researchItems[0].factionData.factionName}");
+                    GD.Print($"Faction Data Research Items Count: {factionData.researchItems.Count}");
+
+                    GD.Print($"Test of research item faction ID: {factionData.researchItems[0].factionID}");
                 }
             }
         }
@@ -105,7 +116,7 @@ namespace PlayerSpace
             Faction faction = (Faction)factionNodePackedScene.Instantiate();
             faction.factionData = newFactionData;
             faction.Name = faction.factionData.factionName;
-            factions.AddChild(faction);
+            Globals.Instance.factionsParent.AddChild(faction);
         }
     }
 }

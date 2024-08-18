@@ -1,76 +1,75 @@
 using Godot;
-using System;
 using System.Linq;
 
-namespace PlayerSpace
+namespace PlayerSpace;
+
+public partial class CountyImprovementsControl : Control
 {
-    public partial class CountyImprovementsControl : Control
+    public static CountyImprovementsControl Instance { get; private set; }
+
+    [Export] private Node possibleImprovementsScrollContainerParent;
+    [Export] public Node currentImprovementsScrollContainerParent;
+    [Export] public ConfirmationDialog buildConfirmationDialog;
+
+    [Export] private PackedScene countyImprovementButtonPackedScene;
+
+    public override void _Ready()
     {
-        public static CountyImprovementsControl Instance { get; private set; }
-
-        [Export] private Node possibleImprovementsScrollContainerParent;
-        [Export] public Node currentImprovementsScrollContainerParent;
-        [Export] public ConfirmationDialog buildConfirmationDialog;
-
-        [Export] private PackedScene countyImprovementButtonPackedScene;
-
-        public override void _Ready()
+        Instance = this;
+    }
+    private void OnVisibilityChanged()
+    {
+        if (Visible == true)
         {
-            Instance = this;
+            Clock.Instance.PauseTime();
+            GenerateCountyImprovementButtons();
+            PlayerControls.Instance.AdjustPlayerControls(false);
+            CountyInfoControl.Instance.populationDescriptionControl.Hide();
+            CountyInfoControl.Instance.populationListMarginContainer.Hide();
         }
-        private void OnVisibilityChanged()
+        else
         {
-            if (Visible == true)
+            Clock.Instance.UnpauseTime();
+            PlayerControls.Instance.AdjustPlayerControls(true);
+        }
+    }
+
+    // This is still set up as if you can only generate one county improvement of each type.
+    // We want people to be able to build more then 1 of each.
+    public void GenerateCountyImprovementButtons()
+    {
+        ClearImprovements();
+        GD.PrintRich($"[rainbow]Count of county improvements: " + Globals.Instance.SelectedLeftClickCounty.countyData.allCountyImprovements.Count);
+        foreach (CountyImprovementData countyImprovementData in Globals.Instance.SelectedLeftClickCounty.countyData.allCountyImprovements)
+        {
+            if (countyImprovementData.status == AllEnums.CountyImprovementStatus.None)
             {
-                Clock.Instance.PauseTime();
-                GenerateCountyImprovementButtons();
-                PlayerControls.Instance.AdjustPlayerControls(false);
-                CountyInfoControl.Instance.populationDescriptionControl.Hide();
-                CountyInfoControl.Instance.populationListMarginContainer.Hide();
+                CountryImprovementDescriptionButton countyImprovementButton = (CountryImprovementDescriptionButton)countyImprovementButtonPackedScene.Instantiate();
+                possibleImprovementsScrollContainerParent.AddChild(countyImprovementButton);
+                countyImprovementButton.countyImprovementData = countyImprovementData;
             }
             else
             {
-                Clock.Instance.UnpauseTime();
-                PlayerControls.Instance.AdjustPlayerControls(true);
+                CountryImprovementDescriptionButton countyImprovementButton = (CountryImprovementDescriptionButton)countyImprovementButtonPackedScene.Instantiate();
+                currentImprovementsScrollContainerParent.AddChild(countyImprovementButton);
+                countyImprovementButton.countyImprovementData = countyImprovementData;
             }
         }
+    }
 
-        // This is still set up as if you can only generate one county improvement of each type.
-        // We want people to be able to build more then 1 of each.
-        public void GenerateCountyImprovementButtons()
+    private void ClearImprovements()
+    {
+        foreach (Node node in possibleImprovementsScrollContainerParent.GetChildren().Skip(1))
         {
-            ClearImprovements();
-            foreach (CountyImprovementData countyImprovementData in Globals.Instance.SelectedLeftClickCounty.countyData.allCountyImprovements)
-            {
-                if (countyImprovementData.status == AllEnums.CountyImprovementStatus.None)
-                {
-                    CountryImprovementDescriptionButton countyImprovementButton = (CountryImprovementDescriptionButton)countyImprovementButtonPackedScene.Instantiate();
-                    possibleImprovementsScrollContainerParent.AddChild(countyImprovementButton);
-                    countyImprovementButton.countyImprovementData = countyImprovementData;
-                }
-                else
-                {
-                    CountryImprovementDescriptionButton countyImprovementButton = (CountryImprovementDescriptionButton)countyImprovementButtonPackedScene.Instantiate();
-                    currentImprovementsScrollContainerParent.AddChild(countyImprovementButton);
-                    countyImprovementButton.countyImprovementData = countyImprovementData;
-                }
-            }
+            node.QueueFree();
         }
-
-        private void ClearImprovements()
+        foreach (Node node in currentImprovementsScrollContainerParent.GetChildren().Skip(1))
         {
-            foreach (Node node in possibleImprovementsScrollContainerParent.GetChildren().Skip(1))
-            {
-                node.QueueFree();
-            }
-            foreach (Node node in currentImprovementsScrollContainerParent.GetChildren().Skip(1))
-            {
-                node.QueueFree();
-            }
+            node.QueueFree();
         }
-        private void CloseButton()
-        {
-            Hide();
-        }
+    }
+    private void CloseButton()
+    {
+        Hide();
     }
 }

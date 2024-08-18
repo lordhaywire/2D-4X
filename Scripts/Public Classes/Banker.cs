@@ -212,8 +212,6 @@ namespace PlayerSpace
                 // Re-check if the research is done after progress update and stop researching if it is.
                 if (countyPopulation.currentResearchItemData.isResearchDone)
                 {
-                    countyPopulation.currentResearchItemData.CompleteResearch();
-                    EventLog.Instance.AddLog($"{countyPopulation.currentResearchItemData.researchName} has been completed.");
                     StopHeroResearcherFromResearching(countyPopulation);
                 }
             }
@@ -241,6 +239,8 @@ namespace PlayerSpace
             int researchAmount = Globals.Instance.researcherResearchIncrease + bonusResearchIncrease;
             EventLog.Instance.AddLog($"Amount of research {countyPopulation.firstName} did: {researchAmount}");
             GD.Print($"Amount of research {countyPopulation.firstName} did: {researchAmount}");
+            // This will trigger the getter setting and mark the research as complete if the Amount is
+            // higher or equal to the cost.
             countyPopulation.currentResearchItemData.AmountOfResearchDone
                 += researchAmount;
             //GD.Print($"Amount of Research Done: {countyPopulation.CurrentResearchItemData.AmountOfResearchDone}");

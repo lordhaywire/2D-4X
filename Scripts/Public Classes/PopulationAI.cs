@@ -130,7 +130,6 @@ public class PopulationAI
         // Check if the research is finished.
         if (researchItemData?.isResearchDone == true)
         {
-            EventLog.Instance.AddLog($"{researchItemData.researchName} has been completed.");
             GD.Print($"{countyPopulation.firstName} has finished the research.");
             countyPopulation.RemoveFromResearch();
         }

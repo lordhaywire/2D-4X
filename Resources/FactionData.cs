@@ -54,6 +54,12 @@ namespace PlayerSpace
             CheckEachPeopleForResearch(countyData);
         }
 
+        public static FactionData GetFactionDataFromID(int id)
+        {
+            GD.Print("Faction ID that is trying to be used: " + id);
+            Faction faction = (Faction)Globals.Instance.factionsParent.GetChild(id);
+            return faction.factionData;
+        }
         private void CreateResearchableResearchList()
         {
             researchableResearch.Clear();
@@ -140,8 +146,10 @@ namespace PlayerSpace
         }
         public void AddCountyImprovementToAllCountyImprovements(CountyImprovementData countyImprovementData)
         {
+            GD.Print("Counties faction owns count: " + countiesFactionOwns.Count);
             foreach(CountyData countyData in countiesFactionOwns)
             {
+                // This dupilicate may not be working.  Use a contructor to test.
                 countyData.allCountyImprovements.Add((CountyImprovementData)countyImprovementData.Duplicate());
                 GD.PrintRich($"[rainbow]{countyData.countyName} {countyImprovementData.improvementName} has been added.");
                 // Alphabetize the list by improvementName

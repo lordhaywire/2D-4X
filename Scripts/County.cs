@@ -92,7 +92,6 @@ namespace PlayerSpace
             countyData.CheckForScavengingFood();
             countyData.CheckForScavengingRemnants();
 
-
             // Counts the idle works and sets the idleWorkers variable in the County Data.
             countyData.CountIdleWorkers();
         }

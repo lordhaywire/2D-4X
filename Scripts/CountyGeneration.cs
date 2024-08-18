@@ -13,7 +13,7 @@ public partial class CountyGeneration : Node
     public override void _Ready()
     {
         AssignFactionDataToCountyData();
-        //GenerateBuildings();
+        GenerateBuildings();
         AssignCountyDataToFaction();
         SubscribeToCountyHeroLists();
         UpdateResources();
@@ -130,17 +130,20 @@ public partial class CountyGeneration : Node
         foreach (County selectCounty in Globals.Instance.countiesParent.GetChildren().Cast<County>())
         {
             selectCounty.countyData.factionData.countiesFactionOwns.Add(selectCounty.countyData);
-            //GD.Print($"Faction: {selectCounty.countyData.factionData.factionName} {selectCounty.countyData.countyName}");
+            GD.Print($"Faction: {selectCounty.countyData.factionData.factionName} {selectCounty.countyData.countyName}");
         }
     }
-    /*
+    /// <summary>
+    /// This has to exist because when the research is marked complete in FactionGeneration, the counties don't
+    /// exists.
+    /// </summary>
     private static void GenerateBuildings()
     {
         foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
         {
-            //GD.Print("County Generation: " + selectCounty.Name);
-            //GD.Print("County Data: " + selectCounty.countyData.countyName);
-            //GD.Print("Faction Data: " + selectCounty.countyData.factionData.factionName);
+            GD.Print("County Generation: " + county.Name);
+            GD.Print("County Data: " + county.countyData.countyName);
+            GD.Print("Faction Data: " + county.countyData.factionData.factionName);
 
             foreach (ResearchItemData researchItemData in county.countyData.factionData.researchItems)
             {
@@ -158,5 +161,5 @@ public partial class CountyGeneration : Node
             }
         }
     }
-    */
+    
 }

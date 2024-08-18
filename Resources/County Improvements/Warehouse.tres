@@ -8,7 +8,7 @@
 script = ExtResource("1_13wsx")
 improvementTexture = ExtResource("1_5lsd6")
 improvementName = "Converted Warehouse"
-improvementDescription = "How about we store our stuff in an abandoned building"
+improvementDescription = "How about we store our stuff in an abandoned building."
 numberBuilt = 0
 workSkill = 4
 interest = ExtResource("2_40by5")

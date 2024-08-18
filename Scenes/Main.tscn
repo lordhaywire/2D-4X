@@ -183,7 +183,7 @@ centered = false
 
 [node name="Game Controller Node" type="Node" parent="."]
 
-[node name="Globals" type="Node" parent="Game Controller Node" node_paths=PackedStringArray("countiesParent")]
+[node name="Globals" type="Node" parent="Game Controller Node" node_paths=PackedStringArray("countiesParent", "factionsParent")]
 script = ExtResource("2_yf7pt")
 dailyInfluenceGain = 5
 leaderOfPeopleInfluenceBonus = 5
@@ -193,6 +193,7 @@ mapColorCoded = ExtResource("2_h1vmt")
 countiesParent = NodePath("../../Counties")
 minimumCountyPop = 5
 maximumCountyPop = 10
+factionsParent = NodePath("../../Factions")
 minimumFood = 100
 heroToken = ExtResource("5_w6a76")
 spawnedTokenButton = ExtResource("8_ne3u6")
@@ -264,11 +265,10 @@ process_mode = 3
 script = ExtResource("12_vfu86")
 collisionRectangleShape = SubResource("RectangleShape2D_co2vr")
 
-[node name="Faction Generation" type="Node" parent="Game Controller Node" node_paths=PackedStringArray("factions")]
+[node name="Faction Generation" type="Node" parent="Game Controller Node"]
 script = ExtResource("11_ivpku")
 factionNodePackedScene = ExtResource("12_r0ltm")
 countyImprovementData = []
-factions = NodePath("../../Factions")
 
 [node name="County Generation" type="Node" parent="Game Controller Node"]
 script = ExtResource("16_pxxn4")

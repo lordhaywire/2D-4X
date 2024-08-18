@@ -15,6 +15,6 @@ researchName = "Basic Storage"
 researchDescription = "Instead of having everything laying around, why don't we have a centralized place for our junk?"
 researchTexture = ExtResource("1_ardle")
 amountOfResearchDone = 0
-costOfResearch = 100
+costOfResearch = 20
 countyImprovementDatas = Array[Object]([ExtResource("1_jsy6f")])
 isResearchDone = false
