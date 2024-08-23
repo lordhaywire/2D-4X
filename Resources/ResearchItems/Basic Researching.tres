@@ -16,5 +16,5 @@ researchDescription = "Isn't it time to have a place for someone to rediscover t
 researchTexture = ExtResource("2_868j7")
 amountOfResearchDone = 0
 costOfResearch = 20
-countyImprovementDatas = Array[Object]([ExtResource("1_7j52q")])
+countyImprovementDatas = [ExtResource("1_7j52q")]
 isResearchDone = false

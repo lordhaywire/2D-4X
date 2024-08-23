@@ -15,6 +15,7 @@ namespace PlayerSpace
 
         [Export] private Camera2D camera; // Reference to your Camera2D node
         public bool cameraControlsEnabled = true;
+        public bool zoomEnabled = true;
 
         public override void _Ready()
         {
@@ -43,9 +44,11 @@ namespace PlayerSpace
 
         }
 
+        
         public override void _Input(InputEvent @event)
         {
-            if (PlayerControls.Instance.playerControlsEnabled == true && cameraControlsEnabled == true)
+            if (PlayerControls.Instance.playerControlsEnabled == true && cameraControlsEnabled == true
+                && zoomEnabled == true)
             {
                 if (@event.IsActionPressed("mouse_wheel_up"))
                 {
@@ -58,6 +61,11 @@ namespace PlayerSpace
             }
         }
 
+        public void AdjustZoomEnabled()
+        {
+            zoomEnabled = !zoomEnabled;
+            GD.Print("Zoom Enabled: " + zoomEnabled);
+        }
         private void ZoomIn()
         {
             Vector2 newZoom = camera.Zoom + zoomSpeed;

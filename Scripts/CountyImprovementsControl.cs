@@ -42,17 +42,15 @@ public partial class CountyImprovementsControl : Control
         GD.PrintRich($"[rainbow]Count of county improvements: " + Globals.Instance.SelectedLeftClickCounty.countyData.allCountyImprovements.Count);
         foreach (CountyImprovementData countyImprovementData in Globals.Instance.SelectedLeftClickCounty.countyData.allCountyImprovements)
         {
-            if (countyImprovementData.status == AllEnums.CountyImprovementStatus.None)
+            CountryImprovementDescriptionButton countyImprovementButton = (CountryImprovementDescriptionButton)countyImprovementButtonPackedScene.Instantiate();
+            possibleImprovementsScrollContainerParent.AddChild(countyImprovementButton);
+            countyImprovementButton.countyImprovementData = (CountyImprovementData)countyImprovementData.Duplicate();
+            if (countyImprovementData.status != AllEnums.CountyImprovementStatus.None)
             {
-                CountryImprovementDescriptionButton countyImprovementButton = (CountryImprovementDescriptionButton)countyImprovementButtonPackedScene.Instantiate();
-                possibleImprovementsScrollContainerParent.AddChild(countyImprovementButton);
-                countyImprovementButton.countyImprovementData = countyImprovementData;
-            }
-            else
-            {
-                CountryImprovementDescriptionButton countyImprovementButton = (CountryImprovementDescriptionButton)countyImprovementButtonPackedScene.Instantiate();
-                currentImprovementsScrollContainerParent.AddChild(countyImprovementButton);
-                countyImprovementButton.countyImprovementData = countyImprovementData;
+                // Because it is on the left side of that thing, it is called leftCountyImprovementButton.
+                CountryImprovementDescriptionButton leftCountyImprovementButton = (CountryImprovementDescriptionButton)countyImprovementButtonPackedScene.Instantiate();
+                currentImprovementsScrollContainerParent.AddChild(leftCountyImprovementButton);
+                countyImprovementButton.countyImprovementData = (CountyImprovementData)countyImprovementData.Duplicate();
             }
         }
     }

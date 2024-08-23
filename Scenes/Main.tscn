@@ -301,38 +301,27 @@ populationListUIElement = NodePath("Population List MarginContainer")
 selectedHeroPanelContainer = NodePath("County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Select Hero PanelContainer")
 resourcesPanelContainer = NodePath("Resources PanelContainer")
 
-[node name="Event Log Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("eventLogVBoxContainer")]
+[node name="Event Log ScrollContainer" type="ScrollContainer" parent="Player UI Canvas" node_paths=PackedStringArray("eventLogScrollContainer", "eventLogVBoxContainer")]
 custom_minimum_size = Vector2(300, 75)
-layout_direction = 2
-layout_mode = 3
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -300.0
-offset_top = -75.0
-grow_horizontal = 0
+offset_left = 1620.0
+offset_top = -1080.0
+offset_right = 1920.0
 grow_vertical = 0
-size_flags_horizontal = 4
-size_flags_vertical = 2
 mouse_filter = 2
+vertical_scroll_mode = 2
 script = ExtResource("43_w0p1n")
+eventLogScrollContainer = NodePath(".")
 eventLogVBoxContainer = NodePath("VBoxContainer")
 eventLogPanel = ExtResource("44_du832")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Event Log Control"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -150.0
-offset_top = -75.0
-offset_right = 150.0
-grow_horizontal = 2
-grow_vertical = 0
+[node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Event Log ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 10
+mouse_filter = 0
 theme_override_constants/separation = 1
 
 [node name="Top Bar Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("clock", "influenceLabel", "influenceAmountUsed", "moneyLabel", "moneyAmountUsed", "remnantsLabel", "remnantsAmountUsed", "buildingMaterialsLabel", "buildingMaterialsAmountUsed", "foodLabel", "foodAmountUsed")]
@@ -340,7 +329,7 @@ custom_minimum_size = Vector2(0, 31)
 layout_mode = 3
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 25.0
+offset_bottom = 31.0
 grow_horizontal = 2
 mouse_filter = 2
 theme = ExtResource("34_e2d2b")
@@ -2335,6 +2324,7 @@ mouse_filter = 1
 text = "Decline Button"
 
 [node name="Map Editor Control" type="Control" parent="Player UI Canvas"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -2360,6 +2350,8 @@ text = "Map Editor"
 [node name="Counties" type="Node2D" parent="."]
 process_mode = 3
 
+[connection signal="mouse_entered" from="Player UI Canvas/Event Log ScrollContainer/VBoxContainer" to="Player UI Canvas/Event Log ScrollContainer" method="OnMouseEntered"]
+[connection signal="mouse_exited" from="Player UI Canvas/Event Log ScrollContainer/VBoxContainer" to="Player UI Canvas/Event Log ScrollContainer" method="OnMouseExited"]
 [connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
 [connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]

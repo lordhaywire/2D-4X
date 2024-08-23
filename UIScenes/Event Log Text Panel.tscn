@@ -7,7 +7,6 @@ custom_minimum_size = Vector2(300, 75)
 offset_right = 300.0
 offset_bottom = 75.0
 size_flags_horizontal = 3
-size_flags_vertical = 3
 script = ExtResource("1_xuygu")
 logText = NodePath("Log Text Label")
 
@@ -25,3 +24,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 clip_text = true
+
+[connection signal="mouse_entered" from="." to="." method="OnMouseEntered"]
+[connection signal="mouse_exited" from="." to="." method="OnMouseExited"]

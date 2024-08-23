@@ -1,4 +1,5 @@
 using Godot;
+using System.Linq;
 
 namespace PlayerSpace
 {
@@ -46,7 +47,7 @@ namespace PlayerSpace
                     CreateFactionResourceDictionary(newFactionData);
                     AddFactionsToDiplomacyWar(newFactionData);
                 }
-                foreach (Faction faction in Globals.Instance.factionsParent.GetChildren())
+                foreach (Faction faction in Globals.Instance.factionsParent.GetChildren().Cast<Faction>())
                 {
                     foreach (ResearchItemData researchItem in faction.factionData.researchItems)
                     {

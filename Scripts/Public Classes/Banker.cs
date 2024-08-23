@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 namespace PlayerSpace
 {
@@ -103,8 +104,8 @@ namespace PlayerSpace
             return amount;
         }
 
-        public static void IncreaseResearchAmountBonus(CountyPopulation countyPopulation
-            , ResearchItemData researchItemData)
+        public static void IncreaseResearchAmountWithBonus(CountyPopulation countyPopulation
+            , ResearchItemData researchItemData, List<ResearchItemData> researchableResearch)
         {
             if (SkillData.Check(countyPopulation, countyPopulation.skills[researchItemData.skill].skillLevel
                 , countyPopulation.skills[researchItemData.skill].attribute, false) == true)
@@ -115,6 +116,10 @@ namespace PlayerSpace
             else
             {
                 researchItemData.AmountOfResearchDone += Globals.Instance.populationResearchIncrease;
+            }
+            if (researchItemData.CheckIfResearchDone())
+            {
+                researchableResearch.Remove(researchItemData);
             }
         }
 
@@ -193,7 +198,7 @@ namespace PlayerSpace
                 }
 
                 // Stop researching if the current research is done and skip to the next hero.
-                if (countyPopulation.currentResearchItemData.isResearchDone)
+                if (countyPopulation.currentResearchItemData.CheckIfResearchDone())
                 {
                     StopHeroResearcherFromResearching(countyPopulation);
                     continue;
@@ -210,7 +215,7 @@ namespace PlayerSpace
                 SkillData.CheckLearning(countyPopulation, countyPopulation.skills[AllEnums.Skills.Research], AllEnums.LearningSpeed.medium);
 
                 // Re-check if the research is done after progress update and stop researching if it is.
-                if (countyPopulation.currentResearchItemData.isResearchDone)
+                if (countyPopulation.currentResearchItemData.CheckIfResearchDone())
                 {
                     StopHeroResearcherFromResearching(countyPopulation);
                 }

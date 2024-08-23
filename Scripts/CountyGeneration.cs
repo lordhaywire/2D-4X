@@ -147,7 +147,7 @@ public partial class CountyGeneration : Node
 
             foreach (ResearchItemData researchItemData in county.countyData.factionData.researchItems)
             {
-                if (researchItemData.isResearchDone == true && researchItemData.countyImprovementDatas.Length > 0)
+                if (researchItemData.CheckIfResearchDone() == true && researchItemData.countyImprovementDatas.Length > 0)
                 {
                     foreach (CountyImprovementData countyImprovementData in researchItemData.countyImprovementDatas)
                     {

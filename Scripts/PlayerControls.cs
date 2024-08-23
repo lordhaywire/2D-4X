@@ -189,5 +189,10 @@ namespace PlayerSpace
         {
             playerControlsEnabled = controls;
         }
+
+        public void AdjustClickThrough()
+        {
+            stopClickThrough = !stopClickThrough;
+        }
     }
 }

@@ -18,5 +18,5 @@ researchDescription = "We should probably have buildings for tool storage and a 
 researchTexture = ExtResource("4_rnkye")
 amountOfResearchDone = 0
 costOfResearch = 20
-countyImprovementDatas = Array[Object]([ExtResource("1_xk2ne"), ExtResource("3_oyq4t"), ExtResource("2_dydjr")])
+countyImprovementDatas = [ExtResource("1_xk2ne"), ExtResource("3_oyq4t"), ExtResource("2_dydjr")]
 isResearchDone = false

@@ -128,7 +128,7 @@ public class PopulationAI
         }
 
         // Check if the research is finished.
-        if (researchItemData?.isResearchDone == true)
+        if (researchItemData?.CheckIfResearchDone() == true)
         {
             GD.Print($"{countyPopulation.firstName} has finished the research.");
             countyPopulation.RemoveFromResearch();

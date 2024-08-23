@@ -14,7 +14,7 @@ namespace PlayerSpace
         public void CaptureCounty(int capturedCountyID, FactionData winnersFactionData)
         {
             County selectCounty = (County)Globals.Instance.countiesParent.GetChild(capturedCountyID);
-            GD.Print("Got to Capture County!" + selectCounty.countyData.countyName);
+            GD.Print("County captured! " + selectCounty.countyData.countyName);
 
             // Remove county from the counties faction data county list.
             selectCounty.countyData.factionData.countiesFactionOwns.Remove(selectCounty.countyData);
@@ -34,6 +34,8 @@ namespace PlayerSpace
             {
                 countyPopulation.factionData = winnersFactionData;
             }
+
+            // Assign the faction's
         }
 
         private static void DestroyFaction(County selectCounty)

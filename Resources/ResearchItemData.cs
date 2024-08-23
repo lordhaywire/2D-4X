@@ -42,15 +42,16 @@ public partial class ResearchItemData : Resource
     // This is the list of countyImprovementDatas that is research controls.
     [Export] public CountyImprovementData[] countyImprovementDatas = [];
 
-    // Are we doing something with this?
-    //public CountyPopulation[] researchers;
-
-    [Export] public bool isResearchDone; // We might not need this because we could just compare the cost vs the amount done.
+    [Export] private bool isResearchDone;
 
     public void CompleteResearch()
     {
         GD.PrintRich($"[rainbow]Complete Research!");
-        EventLog.Instance?.AddLog($"{researchName} has been completed research.");
+        Faction faction = (Faction)Globals.Instance.factionsParent.GetChild(factionID);
+        if (faction.factionData == Globals.Instance.playerFactionData)
+        {
+            EventLog.Instance?.AddLog($"{researchName} has been completed research.");
+        }
         GD.Print("County Improvement Array Count: " + countyImprovementDatas.Length);
         if (countyImprovementDatas.Length > 0)
         {
@@ -63,6 +64,11 @@ public partial class ResearchItemData : Resource
         }
     }
     
+    public bool CheckIfResearchDone()
+    {
+        return isResearchDone;
+    }
+
     public static ResearchItemData NewCopy(ResearchItemData researchItemData)
     {
         ResearchItemData newResearchItemData = new()
@@ -77,7 +83,6 @@ public partial class ResearchItemData : Resource
             AmountOfResearchDone = researchItemData.AmountOfResearchDone,
             costOfResearch = researchItemData.costOfResearch,
             countyImprovementDatas = researchItemData.countyImprovementDatas,
-            //researchers = researchItemData.researchers,
             isResearchDone = researchItemData.isResearchDone
         };
         return newResearchItemData;

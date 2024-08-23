@@ -45,7 +45,7 @@ namespace PlayerSpace
 
         private void AssignResearcherMenuButton()
         {
-            if (researchItemData.isResearchDone == true)
+            if (researchItemData.CheckIfResearchDone() == true)
             {
                 assignResearcherMenuButton.Hide();
                 return;

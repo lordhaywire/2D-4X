@@ -50,7 +50,7 @@ namespace PlayerSpace
             // Get a list of all the research that isn't done.
             CreateResearchableResearchList();
             
-            // Have the population research by their interests.
+            // Have the population research by their interests or job.
             CheckEachPeopleForResearch(countyData);
         }
 
@@ -60,12 +60,16 @@ namespace PlayerSpace
             Faction faction = (Faction)Globals.Instance.factionsParent.GetChild(id);
             return faction.factionData;
         }
+
+        /// <summary>
+        /// Have the population research by their interests or job.
+        /// </summary>
         private void CreateResearchableResearchList()
         {
             researchableResearch.Clear();
             foreach (ResearchItemData researchItemData in researchItems)
             {
-                if (researchItemData.isResearchDone == false)
+                if (researchItemData.CheckIfResearchDone() == false)
                 {
                     researchableResearch.Add(researchItemData);
                 }
@@ -99,7 +103,7 @@ namespace PlayerSpace
             if (whatPopulationIsResearching != null)
             {
                 // After a skill check, have the banker add the research to the research with a possible bonus.
-                Banker.IncreaseResearchAmountBonus(countyPopulation, whatPopulationIsResearching);
+                Banker.IncreaseResearchAmountWithBonus(countyPopulation, whatPopulationIsResearching, researchableResearch);
             }
         }
 
@@ -120,7 +124,7 @@ namespace PlayerSpace
             if (whatPopulationIsResearching != null)
             {
                 // After a skill check, have the banker add the research to the research with a possible bonus.
-                Banker.IncreaseResearchAmountBonus(countyPopulation, whatPopulationIsResearching);
+                Banker.IncreaseResearchAmountWithBonus(countyPopulation, whatPopulationIsResearching, researchableResearch);
             }
         }
 
