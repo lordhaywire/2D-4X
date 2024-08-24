@@ -26,6 +26,8 @@ namespace PlayerSpace
         public Diplomacy diplomacy = new();
         public TokenSpawner tokenSpawner = new();
 
+        public List<CountyImprovementData> allCountyImprovements = []; // This includes all county improvements, even possible ones.
+
         // Resources.
         public Godot.Collections.Dictionary<AllEnums.FactionResourceType, FactionResourceData> factionResources = [];
         public Godot.Collections.Dictionary<AllEnums.FactionResourceType, FactionResourceData> yesterdaysFactionResources = [];
@@ -127,7 +129,6 @@ namespace PlayerSpace
                 Banker.IncreaseResearchAmountWithBonus(countyPopulation, whatPopulationIsResearching, researchableResearch);
             }
         }
-
         public void CopyFactionResourcesToYesterday()
         {
             // Creating a deep copy of the dictionary
@@ -153,12 +154,11 @@ namespace PlayerSpace
             GD.Print("Counties faction owns count: " + countiesFactionOwns.Count);
             foreach(CountyData countyData in countiesFactionOwns)
             {
-                // This dupilicate may not be working.  Use a contructor to test.
-                countyData.allCountyImprovements.Add((CountyImprovementData)countyImprovementData.Duplicate());
+                allCountyImprovements.Add((CountyImprovementData)countyImprovementData.Duplicate());
                 GD.PrintRich($"[rainbow]{countyData.countyName} {countyImprovementData.improvementName} has been added.");
                 // Alphabetize the list by improvementName
-                countyData.allCountyImprovements 
-                    = [.. countyData.allCountyImprovements.OrderBy(improvement => improvement.improvementName)];
+                allCountyImprovements 
+                    = [.. allCountyImprovements.OrderBy(improvement => improvement.improvementName)];
             }
         }
         // Zero resources that are summed from each county.

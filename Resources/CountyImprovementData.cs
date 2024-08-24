@@ -28,7 +28,7 @@ namespace PlayerSpace
             }
         }
         [Export] public int maxAmountOfConstruction;
-        [Export] public int currentBuilders;
+        //[Export] public int currentBuilders;
         [Export] public int maxBuilders;
         //[Export] public int currentWorkers;
         [Export] public int maxWorkers;
@@ -44,10 +44,15 @@ namespace PlayerSpace
         {
             if (CurrentAmountOfConstruction == maxAmountOfConstruction)
             {
-                currentBuilders = 0;
                 return true;
             }
             return false;
+        }
+        public void AddPopulationToCountyImprovementList(CountyPopulation countyPopulation)
+        {
+
+            GD.Print($"{countyPopulation.firstName} was added to {improvementName}'s list {countyPopulationAtImprovement.Count}.");
+            countyPopulationAtImprovement.Add(countyPopulation);
         }
 
         public void RemovePopulationFromCountyImprovementList(CountyPopulation countyPopulation)
@@ -58,6 +63,34 @@ namespace PlayerSpace
         public void SetCountyImprovementComplete()
         {
             status = AllEnums.CountyImprovementStatus.Complete;
+        }
+
+        public static CountyImprovementData NewCopy(CountyImprovementData countyImprovementData)
+        {
+            CountyImprovementData newCountyImprovementData = new()
+            {
+                location = countyImprovementData.location,
+                countyImprovementDescriptionButton = countyImprovementData.countyImprovementDescriptionButton,
+                improvementTexture = countyImprovementData.improvementTexture,
+                improvementName = countyImprovementData.improvementName,
+                improvementDescription = countyImprovementData.improvementDescription,
+                numberBuilt = countyImprovementData.numberBuilt,
+                workSkill = countyImprovementData.workSkill,
+                interest = countyImprovementData.interest,
+                influenceCost = countyImprovementData.influenceCost,
+                currentAmountOfCounstruction = countyImprovementData.currentAmountOfCounstruction,
+                CurrentAmountOfConstruction = countyImprovementData.CurrentAmountOfConstruction,
+                maxAmountOfConstruction = countyImprovementData.maxAmountOfConstruction,
+                maxBuilders = countyImprovementData.maxBuilders,
+                maxWorkers = countyImprovementData.maxWorkers,
+                countyResourceType = countyImprovementData.countyResourceType,
+                factionResourceType = countyImprovementData.factionResourceType,
+                dailyResourceGenerationAmount = countyImprovementData.dailyResourceGenerationAmount,
+                dailyResourceGenerationBonus = countyImprovementData.dailyResourceGenerationBonus,
+                status = countyImprovementData.status,
+                countyPopulationAtImprovement = new List<CountyPopulation>(countyImprovementData.countyPopulationAtImprovement),
+            };
+            return newCountyImprovementData;
         }
     }
 }

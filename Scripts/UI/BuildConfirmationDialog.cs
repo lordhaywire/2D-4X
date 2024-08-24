@@ -6,10 +6,13 @@ namespace PlayerSpace
     {
         private void OnVisibilityChanged()
         {
-            CallDeferred("UpdateConfirmatioDialog");
+            if (Visible)
+            {
+                CallDeferred(nameof(UpdateConfirmationDialog));
+            }
         }
 
-        private void UpdateConfirmatioDialog()
+        private void UpdateConfirmationDialog()
         {
             DialogText = AllText.DialogTitles.BUILDINGBUILDINGS 
                 + Globals.Instance.selectedPossibleBuildingControl.countyImprovementData.improvementName;       
@@ -25,12 +28,10 @@ namespace PlayerSpace
             countyAI.BuildImprovement(Globals.Instance.SelectedLeftClickCounty.countyData, countyImprovementData);
             banker.ChargeForBuilding(Globals.Instance.playerFactionData
                 , Globals.Instance.selectedPossibleBuildingControl.countyImprovementData);
-
-            Globals.Instance.selectedPossibleBuildingControl.UpdatePossibleBuildingLabels();
-            CountyImprovementsControl.Instance.GenerateCountyImprovementButtons();
+            
+            TopBarControl.Instance.UpdateResourceLabels();
+            CountyImprovementsControl.Instance.CreateAllCountyImprovementButtons();
             Hide();
         }
-
-        
     }
 }

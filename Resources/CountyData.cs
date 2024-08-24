@@ -39,7 +39,6 @@ namespace PlayerSpace
 
         public List<Button> spawnedTokenButtons = [];
 
-        public List<CountyImprovementData> allCountyImprovements = []; // This includes all county improvements, even possible ones.
         public List<CountyImprovementData> underConstructionCountyImprovements = [];
         public List<CountyImprovementData> completedCountyImprovements = [];
         public List<Battle> battles = [];
@@ -153,9 +152,10 @@ namespace PlayerSpace
 
         private static void UpdateWorkLocation(CountyPopulation countyPopulation, CountyImprovementData countyImprovementData)
         {
+            GD.Print($"{countyPopulation.firstName} is working at {countyImprovementData.improvementName}");
             // This same thing is done multiple times.  We should make it its own method.
             countyPopulation.UpdateCurrentCountyImprovement(countyImprovementData);
-            countyImprovementData.countyPopulationAtImprovement.Add(countyPopulation);
+            countyImprovementData.AddPopulationToCountyImprovementList(countyPopulation);
         }
         public void CountIdleWorkers()
         {
@@ -345,12 +345,12 @@ namespace PlayerSpace
                         {
                             countyPopulation.UpdateActivity(AllEnums.Activities.Work);
                             UpdateWorkLocation(countyPopulation, countyImprovementData);
-                            /*
+                            
                             GD.Print($"{countyPopulation.firstName} {countyPopulation.lastName} preferred work is " +
                                 $"{countyPopulation.preferredSkill.skillName} and they are " +
                                 $"{countyPopulation.GetActivityName()} at " +
                                 $"{countyPopulation.currentCountyImprovement.improvementName}");
-                            */
+                            
                             workersToRemoveFromPossibleWorkers.Add(countyPopulation);
                         }
                     }

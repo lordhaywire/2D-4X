@@ -274,8 +274,11 @@ namespace PlayerSpace
         // Charge for building and also assign it to the underConstructionList.
         public void ChargeForBuilding(FactionData factionData, CountyImprovementData countyImprovementData)
         {
+            
             factionData.factionResources[AllEnums.FactionResourceType.Influence].amount
                 -= countyImprovementData.influenceCost;
+            GD.Print($"{countyImprovementData.improvementName} costs {countyImprovementData.influenceCost} and" +
+                $" was charged to {factionData.factionName} and their influence is: {factionData.factionResources[AllEnums.FactionResourceType.Influence].amount}");
         }
     }
 }

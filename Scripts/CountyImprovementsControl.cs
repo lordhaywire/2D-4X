@@ -1,4 +1,7 @@
 using Godot;
+using PlayerSpace;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace PlayerSpace;
@@ -7,8 +10,8 @@ public partial class CountyImprovementsControl : Control
 {
     public static CountyImprovementsControl Instance { get; private set; }
 
-    [Export] private Node possibleImprovementsScrollContainerParent;
-    [Export] public Node currentImprovementsScrollContainerParent;
+    [Export] private VBoxContainer possibleImprovementsScrollContainerParent;
+    [Export] public VBoxContainer currentImprovementsScrollContainerParent;
     [Export] public ConfirmationDialog buildConfirmationDialog;
 
     [Export] private PackedScene countyImprovementButtonPackedScene;
@@ -22,7 +25,7 @@ public partial class CountyImprovementsControl : Control
         if (Visible == true)
         {
             Clock.Instance.PauseTime();
-            GenerateCountyImprovementButtons();
+            CreateAllCountyImprovementButtons();
             PlayerControls.Instance.AdjustPlayerControls(false);
             CountyInfoControl.Instance.populationDescriptionControl.Hide();
             CountyInfoControl.Instance.populationListMarginContainer.Hide();
@@ -34,24 +37,30 @@ public partial class CountyImprovementsControl : Control
         }
     }
 
-    // This is still set up as if you can only generate one county improvement of each type.
-    // We want people to be able to build more then 1 of each.
-    public void GenerateCountyImprovementButtons()
+    /// <summary>
+    /// This goes through all of the county improvement lists and generates them for the player UI.
+    /// </summary>
+    public void CreateAllCountyImprovementButtons()
     {
         ClearImprovements();
-        GD.PrintRich($"[rainbow]Count of county improvements: " + Globals.Instance.SelectedLeftClickCounty.countyData.allCountyImprovements.Count);
-        foreach (CountyImprovementData countyImprovementData in Globals.Instance.SelectedLeftClickCounty.countyData.allCountyImprovements)
+        GD.PrintRich($"[rainbow]Count of county improvements: " + Globals.Instance.playerFactionData.allCountyImprovements.Count);
+
+        CreateCountyImprovementButtons(Globals.Instance.playerFactionData.allCountyImprovements
+            , possibleImprovementsScrollContainerParent);
+        CreateCountyImprovementButtons(Globals.Instance.SelectedLeftClickCounty.countyData.underConstructionCountyImprovements
+            , currentImprovementsScrollContainerParent);
+        CreateCountyImprovementButtons(Globals.Instance.SelectedLeftClickCounty.countyData.completedCountyImprovements
+            , currentImprovementsScrollContainerParent);
+    }
+
+    private void CreateCountyImprovementButtons(List<CountyImprovementData> listOfCountyImprovements, VBoxContainer parent)
+    {
+        foreach (CountyImprovementData countyImprovementData in listOfCountyImprovements)
         {
             CountryImprovementDescriptionButton countyImprovementButton = (CountryImprovementDescriptionButton)countyImprovementButtonPackedScene.Instantiate();
-            possibleImprovementsScrollContainerParent.AddChild(countyImprovementButton);
-            countyImprovementButton.countyImprovementData = (CountyImprovementData)countyImprovementData.Duplicate();
-            if (countyImprovementData.status != AllEnums.CountyImprovementStatus.None)
-            {
-                // Because it is on the left side of that thing, it is called leftCountyImprovementButton.
-                CountryImprovementDescriptionButton leftCountyImprovementButton = (CountryImprovementDescriptionButton)countyImprovementButtonPackedScene.Instantiate();
-                currentImprovementsScrollContainerParent.AddChild(leftCountyImprovementButton);
-                countyImprovementButton.countyImprovementData = (CountyImprovementData)countyImprovementData.Duplicate();
-            }
+            // This needs to be above AddChild.
+            countyImprovementButton.countyImprovementData = CountyImprovementData.NewCopy(countyImprovementData);
+            parent.AddChild(countyImprovementButton);
         }
     }
 

@@ -41,12 +41,14 @@ namespace PlayerSpace
                         Globals.Instance.playerFactionData = newFactionData;
                     }
                     GD.Print($"{newFactionData.factionName} has been loaded from disk.");
-
-                    CreateFactionNode(newFactionData); // This has to be at the top of this list of methods.
+                    // The order is important.
+                    CreateFactionNode(newFactionData); 
                     AddStartingResearch(newFactionData);
+                    AddCountyImprovements(newFactionData);
                     CreateFactionResourceDictionary(newFactionData);
                     AddFactionsToDiplomacyWar(newFactionData);
                 }
+                /*
                 foreach (Faction faction in Globals.Instance.factionsParent.GetChildren().Cast<Faction>())
                 {
                     foreach (ResearchItemData researchItem in faction.factionData.researchItems)
@@ -54,6 +56,7 @@ namespace PlayerSpace
                         GD.Print("Research Item Data Faction ID: " + researchItem.factionID);
                     }
                 }
+                */
             }
             else
             {
@@ -77,7 +80,7 @@ namespace PlayerSpace
                     researchItemDataCopy.AmountOfResearchDone = researchItemDataCopy.costOfResearch;
                 }
                 factionData.researchItems.Add(researchItemDataCopy);
-                
+
                 if (factionData.researchItems.Count > 0)
                 {
                     GD.Print($"Faction Data Research Items Count: {factionData.researchItems.Count}");
@@ -86,6 +89,7 @@ namespace PlayerSpace
                 }
             }
         }
+
         private static void CreateFactionResourceDictionary(FactionData factionData)
         {
             foreach (FactionResourceData factionResourceDatas in AllFactionResources.Instance.factionResourceDatas)
@@ -109,6 +113,26 @@ namespace PlayerSpace
             {
                 // Add warFactionData to factionWarDictionary with a default value of false
                 factionData.factionWarDictionary[warFactionData.factionName] = false;
+            }
+        }
+
+        /// <summary>
+        /// This has to exist because when the research is marked complete in FactionGeneration, the counties don't
+        /// exists.
+        /// </summary>
+        private static void AddCountyImprovements(FactionData factionData)
+        {
+            foreach (ResearchItemData researchItemData in factionData.researchItems)
+            {
+                if (researchItemData.CheckIfResearchDone() == true && researchItemData.countyImprovementDatas.Length > 0)
+                {
+                    foreach (CountyImprovementData countyImprovementData in researchItemData.countyImprovementDatas)
+                    {
+                        factionData.allCountyImprovements
+                            .Add((CountyImprovementData)countyImprovementData.Duplicate());
+                        GD.Print($"{factionData.factionName} improvement: {countyImprovementData.improvementName}");
+                    }
+                }
             }
         }
 
