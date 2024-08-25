@@ -8,14 +8,14 @@ public partial class EventLogTextPanel : Panel
 
     public static void OnMouseEntered()
     {
-        GD.PrintRich("[tornado][wave][shake]Mouse Entered: Event Log.");
+        //GD.PrintRich("[tornado][wave][shake]Mouse Entered: Event Log.");
         PlayerControls.Instance.AdjustClickThrough();
         CameraControls.Instance.AdjustZoomEnabled();
     }
 
     public static void OnMouseExited()
     {
-        GD.PrintRich("[tornado][wave][shake]Mouse Exited: Event Log.");
+        //GD.PrintRich("[tornado][wave][shake]Mouse Exited: Event Log.");
         PlayerControls.Instance.AdjustClickThrough();
         CameraControls.Instance.AdjustZoomEnabled();
     }

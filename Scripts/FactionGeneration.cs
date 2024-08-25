@@ -44,7 +44,6 @@ namespace PlayerSpace
                     // The order is important.
                     CreateFactionNode(newFactionData); 
                     AddStartingResearch(newFactionData);
-                    AddCountyImprovements(newFactionData);
                     CreateFactionResourceDictionary(newFactionData);
                     AddFactionsToDiplomacyWar(newFactionData);
                 }
@@ -72,7 +71,7 @@ namespace PlayerSpace
                 researchItemData.factionID = factionData.factionID;
                 GD.PrintRich($"[rainbow]{FactionData.GetFactionDataFromID(researchItemData.factionID).factionName}: {researchItemData.researchName}");
 
-                ResearchItemData researchItemDataCopy = ResearchItemData.NewCopy(researchItemData); //(ResearchItemData)researchItemData.Duplicate(true); //
+                ResearchItemData researchItemDataCopy = researchItemData.NewCopy(researchItemData); //(ResearchItemData)researchItemData.Duplicate(true); //
                 if (researchItemDataCopy.researchedAtStart == true)
                 {
                     // We need to add some randomness to the starting factions starting research, except
@@ -113,26 +112,6 @@ namespace PlayerSpace
             {
                 // Add warFactionData to factionWarDictionary with a default value of false
                 factionData.factionWarDictionary[warFactionData.factionName] = false;
-            }
-        }
-
-        /// <summary>
-        /// This has to exist because when the research is marked complete in FactionGeneration, the counties don't
-        /// exists.
-        /// </summary>
-        private static void AddCountyImprovements(FactionData factionData)
-        {
-            foreach (ResearchItemData researchItemData in factionData.researchItems)
-            {
-                if (researchItemData.CheckIfResearchDone() == true && researchItemData.countyImprovementDatas.Length > 0)
-                {
-                    foreach (CountyImprovementData countyImprovementData in researchItemData.countyImprovementDatas)
-                    {
-                        factionData.allCountyImprovements
-                            .Add((CountyImprovementData)countyImprovementData.Duplicate());
-                        GD.Print($"{factionData.factionName} improvement: {countyImprovementData.improvementName}");
-                    }
-                }
             }
         }
 

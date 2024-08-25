@@ -51,7 +51,7 @@ namespace PlayerSpace
         {
             // Get a list of all the research that isn't done.
             CreateResearchableResearchList();
-            
+
             // Have the population research by their interests or job.
             CheckEachPeopleForResearch(countyData);
         }
@@ -151,15 +151,12 @@ namespace PlayerSpace
         }
         public void AddCountyImprovementToAllCountyImprovements(CountyImprovementData countyImprovementData)
         {
-            GD.Print("Counties faction owns count: " + countiesFactionOwns.Count);
-            foreach(CountyData countyData in countiesFactionOwns)
-            {
-                allCountyImprovements.Add((CountyImprovementData)countyImprovementData.Duplicate());
-                GD.PrintRich($"[rainbow]{countyData.countyName} {countyImprovementData.improvementName} has been added.");
-                // Alphabetize the list by improvementName
-                allCountyImprovements 
-                    = [.. allCountyImprovements.OrderBy(improvement => improvement.improvementName)];
-            }
+            allCountyImprovements.Add(CountyImprovementData.NewCopy(countyImprovementData)); //((CountyImprovementData)countyImprovementData.Duplicate());
+            GD.PrintRich($"[rainbow][tornado]{factionName} {countyImprovementData.improvementName} has been added.");
+            // Alphabetize the list by improvementName
+            allCountyImprovements
+                = [.. allCountyImprovements.OrderBy(improvement => improvement.improvementName)];
+
         }
         // Zero resources that are summed from each county.
         public void ZeroFactionCountyResources()
@@ -175,17 +172,17 @@ namespace PlayerSpace
             ZeroFactionCountyResources();
             foreach (CountyData countyData in countiesFactionOwns)
             {
-                factionResources[AllEnums.FactionResourceType.Food].amount 
+                factionResources[AllEnums.FactionResourceType.Food].amount
                     += countyData.CountFactionResourceOfType(AllEnums.FactionResourceType.Food);
-                factionResources[AllEnums.FactionResourceType.BuildingMaterial].amount 
+                factionResources[AllEnums.FactionResourceType.BuildingMaterial].amount
                     += countyData.CountFactionResourceOfType(AllEnums.FactionResourceType.BuildingMaterial);
-                factionResources[AllEnums.FactionResourceType.Remnants].amount 
+                factionResources[AllEnums.FactionResourceType.Remnants].amount
                     += countyData.CountFactionResourceOfType(AllEnums.FactionResourceType.Remnants);
             }
         }
 
         public void CountAllCountyFactionUsedResources()
-        { 
+        {
             ZeroFactionCountyActualUsedResources();
             foreach (CountyData countyData in countiesFactionOwns)
             {

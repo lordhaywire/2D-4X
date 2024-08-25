@@ -310,7 +310,6 @@ offset_left = 1620.0
 offset_top = -1080.0
 offset_right = 1920.0
 grow_vertical = 0
-mouse_filter = 2
 vertical_scroll_mode = 2
 script = ExtResource("43_w0p1n")
 eventLogScrollContainer = NodePath(".")

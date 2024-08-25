@@ -82,7 +82,7 @@ namespace PlayerSpace
             Attack(countyAttackerSelectToken.countyPopulation, countyDefendersSelectToken.countyPopulation, false);
 
             // County attacker attacks county defender.
-            //countyAttackerSelectToken.countyPopulation.moraleExpendable = 100; // This is just for testing.
+            countyAttackerSelectToken.countyPopulation.moraleExpendable = 100; // This is just for testing.
             Attack(countyDefendersSelectToken.countyPopulation, countyAttackerSelectToken.countyPopulation, true);
 
             ContinueBattleCheck();

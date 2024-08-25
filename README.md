@@ -7,6 +7,15 @@ and [Youtube](https://www.youtube.com/@killedbydev) channels.
 
 The old Unity version is here: [2D-4X Unity](https://github.com/lordhaywire/2D-4X-Unity)
 
+### How to Export from Godot
+
+In Godot Project>Exportmake sure Embed PCK is checked and the Export path goes somewhere that is not in the project
+folder.
+
+Copy over the map folder from the project to the folder you are Exporting the game to.
+
+Click Export Project.
+
 ### Thanks to the following people:
 
 [Wind of Flatus](https://flatus.itch.io/) also has a [Grand Strategy Map System](https://github.com/HooniusDev/gs-map-system).

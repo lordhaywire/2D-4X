@@ -5,7 +5,7 @@ namespace PlayerSpace
 {
     public partial class CameraControls : CharacterBody2D
     {
-        public static CameraControls Instance {  get; private set; }
+        public static CameraControls Instance { get; private set; }
         [Export] public int Speed { get; set; } = 2500;
 
         // Zoom parameters
@@ -30,7 +30,7 @@ namespace PlayerSpace
         }
         public void GetInput()
         {
-            if(cameraControlsEnabled == true)
+            if (cameraControlsEnabled == true)
             {
                 Vector2 inputDirection = Input.GetVector("left", "right", "up", "down");
                 Velocity = inputDirection * Speed / Math.Max((int)Engine.TimeScale, 1);
@@ -44,19 +44,24 @@ namespace PlayerSpace
 
         }
 
-        
+
         public override void _Input(InputEvent @event)
         {
-            if (PlayerControls.Instance.playerControlsEnabled == true && cameraControlsEnabled == true
-                && zoomEnabled == true)
+            if (PlayerControls.Instance.playerControlsEnabled == true && cameraControlsEnabled == true)
             {
                 if (@event.IsActionPressed("mouse_wheel_up"))
                 {
-                    ZoomIn();
+                    if (zoomEnabled == true)
+                    {
+                        ZoomIn();
+                    }
                 }
                 else if (@event.IsActionPressed("mouse_wheel_down"))
                 {
-                    ZoomOut();
+                    if (zoomEnabled == true)
+                    {
+                        ZoomOut();
+                    }
                 }
             }
         }
@@ -64,7 +69,7 @@ namespace PlayerSpace
         public void AdjustZoomEnabled()
         {
             zoomEnabled = !zoomEnabled;
-            GD.Print("Zoom Enabled: " + zoomEnabled);
+            //GD.Print("Zoom Enabled: " + zoomEnabled);
         }
         private void ZoomIn()
         {

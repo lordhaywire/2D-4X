@@ -1,21 +1,29 @@
 using Godot;
 
-namespace PlayerSpace
+namespace PlayerSpace;
+
+public class FactionAI
 {
-    public class FactionAI
+    // This is very primative logic.  It just goes down the list of idle heroes and assigns the first
+    // research that isn't done to them.
+    public void AssignResearch(FactionData factionData)
     {
-        // This is very primative logic.  Pretty useless.
-        public void AssignResearch(FactionData factionData)
+        foreach (CountyPopulation countyPopulation in factionData.allHeroesList)
         {
-            foreach (CountyPopulation countyPopulation in factionData.allHeroesList)
+            if (countyPopulation.activity != AllEnums.Activities.Idle)
             {
-                // Temporarily assign all heroes to research Researching.
-                if(countyPopulation.activity == AllEnums.Activities.Idle)
+                return;
+            }
+            else
+            {
+                foreach (ResearchItemData researchItemData in factionData.researchItems)
                 {
-                    if (countyPopulation.factionData != Globals.Instance.playerFactionData)
+                    if (researchItemData.CheckIfResearchDone() == false)
                     {
-                        countyPopulation.currentResearchItemData = factionData.researchItems[2];
-                        //GD.Print($"{countyPopulation.firstName} is researching {countyPopulation.CurrentResearchItemData.researchName}");
+                        countyPopulation.currentResearchItemData = researchItemData;
+                        GD.Print($"{factionData.factionName}'s hero, {countyPopulation.firstName}, has been assigned" +
+                            $" {researchItemData.researchName}.");
+                        return;
                     }
                 }
             }

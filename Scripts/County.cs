@@ -81,12 +81,13 @@ namespace PlayerSpace
             countyData.possibleWorkers.Clear(); // Clear the list at the start of each county.
             countyData.workersToRemoveFromPossibleWorkers.Clear();
 
-            countyData.CheckForIdle(); // Gets all the idle people and puts them in a list for the next methods.
-            countyData.CheckForPreferredWork();
-            countyData.CheckForAnyWork();
+            // Gets all the idle people and puts them in a list for the next methods.
+            countyData.CheckForIdle();
             // We may want construction to come before work, so that people will build stuff vs always be working
             // and never build anything.
             countyData.CheckForConstruction();
+            countyData.CheckForPreferredWork();
+            countyData.CheckForAnyWork();
 
             // Sets people to scavenge.
             countyData.CheckForScavengingFood();
@@ -95,7 +96,7 @@ namespace PlayerSpace
             // Counts the idle works and sets the idleWorkers variable in the County Data.
             countyData.CountIdleWorkers();
         }
-        
+
         private void OnTreeExit()
         {
             Clock.Instance.SetDay -= EndOfDay;

@@ -15,7 +15,6 @@ interest = ExtResource("2_nsp6t")
 influenceCost = 50000
 CurrentAmountOfConstruction = 0
 maxAmountOfConstruction = 5
-currentBuilders = 0
 maxBuilders = 5
 maxWorkers = 10
 countyResourceType = 4

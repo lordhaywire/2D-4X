@@ -10,7 +10,7 @@ namespace PlayerSpace
         [Export] private VBoxContainer eventLogVBoxContainer; // Holds all the panels.
         [Export] private PackedScene eventLogPanel; // For odd lines
 
-        [Export] private int maxLines = 13;
+        [Export] private int maxLines = 20;
         private bool isNextLogOdd = true; // Start with odd line
 
         public override void _Ready()
@@ -43,7 +43,8 @@ namespace PlayerSpace
             if (eventLogVBoxContainer.GetChildren().Count > maxLines)
             {
                 // Destroy the corresponding Node in the UI
-                eventLogVBoxContainer.GetChild(0).QueueFree();
+                // This has to be Free, not QueueFree because multiple events are sometimes created in a frame.
+                eventLogVBoxContainer.GetChild(0).Free();
             }
 
             // Toggle the odd/even flag for the next log entry

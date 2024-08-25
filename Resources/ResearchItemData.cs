@@ -46,7 +46,7 @@ public partial class ResearchItemData : Resource
 
     public void CompleteResearch()
     {
-        GD.PrintRich($"[rainbow]Complete Research!");
+        GD.PrintRich($"[rainbow]Complete Research! " + researchName);
         Faction faction = (Faction)Globals.Instance.factionsParent.GetChild(factionID);
         if (faction.factionData == Globals.Instance.playerFactionData)
         {
@@ -69,7 +69,7 @@ public partial class ResearchItemData : Resource
         return isResearchDone;
     }
 
-    public static ResearchItemData NewCopy(ResearchItemData researchItemData)
+    public ResearchItemData NewCopy(ResearchItemData researchItemData)
     {
         ResearchItemData newResearchItemData = new()
         {
@@ -85,6 +85,17 @@ public partial class ResearchItemData : Resource
             countyImprovementDatas = researchItemData.countyImprovementDatas,
             isResearchDone = researchItemData.isResearchDone
         };
+        // This was an attempt at deep copying the array.
+        //countyImprovementDatas = new CountyImprovementData[researchItemData.countyImprovementDatas.Length],
+
+        /*
+        for (int i = 0; i < researchItemData.countyImprovementDatas.Length; i++)
+        {
+            countyImprovementDatas[i] = CountyImprovementData.NewCopy(researchItemData.countyImprovementDatas[i]);
+            GD.Print($"County Improvement: {countyImprovementDatas[i].improvementName}.");
+        }
+        */
+
         return newResearchItemData;
     }
     

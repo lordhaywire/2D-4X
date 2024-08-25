@@ -55,6 +55,7 @@ public partial class CountyImprovementsControl : Control
 
     private void CreateCountyImprovementButtons(List<CountyImprovementData> listOfCountyImprovements, VBoxContainer parent)
     {
+        GD.Print("List of County Improvements Count: " + listOfCountyImprovements.Count);
         foreach (CountyImprovementData countyImprovementData in listOfCountyImprovements)
         {
             CountryImprovementDescriptionButton countyImprovementButton = (CountryImprovementDescriptionButton)countyImprovementButtonPackedScene.Instantiate();
