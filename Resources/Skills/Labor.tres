@@ -6,7 +6,7 @@
 script = ExtResource("1_vcjw6")
 skill = 4
 skillName = "SKILL_LABOR"
-skillDescription = ""
+skillDescription = "SKILL_DESCRIPTION_LABOR"
 skillLevel = 0
 amountUntilLearned = 0
 isCombatSkill = false

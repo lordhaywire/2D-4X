@@ -7,15 +7,14 @@
 [resource]
 script = ExtResource("2_26moa")
 improvementTexture = ExtResource("1_fohtd")
-improvementName = "Lumberjack Station"
-improvementDescription = "A place for lumber jacks tools and organization."
+improvementName = "IMPROVEMENT_LUMBERJACK_STATION"
+improvementDescription = "IMPROVEMENT_DESCRIPTION_LUMBERJACK_STATION"
 numberBuilt = 0
 workSkill = 5
 interest = ExtResource("2_cnf1p")
 influenceCost = 250
 CurrentAmountOfConstruction = 0
 maxAmountOfConstruction = 15
-currentBuilders = 0
 maxBuilders = 2
 maxWorkers = 3
 countyResourceType = 5

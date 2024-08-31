@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CountyResourceData" load_steps=2 format=3 uid="uid://cium8f0spbwdp"]
+
+[ext_resource type="Script" path="res://Resources/CountyResourceData.cs" id="1_8577a"]
+
+[resource]
+script = ExtResource("1_8577a")
+name = "COUNTY_RESOURCE_PRIMITIVE_SCOUTING_EQUIPMENT"
+description = "COUNTY_RESOURCE_DESCRIPTION_PRIMITIVE_SCOUTING_EQUIPMENT"
+countyResourceType = 3
+factionResourceType = 2
+perishable = false

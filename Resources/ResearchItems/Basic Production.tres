@@ -10,13 +10,14 @@
 [resource]
 script = ExtResource("1_xvogw")
 tier = 0
-skill = 0
+skill = 6
 interest = ExtResource("4_6l3xh")
-researchedAtStart = false
-researchName = "Basic Production"
-researchDescription = "We should probably have buildings for tool storage and a place to work for fishing, gardening and lumberjacking."
+researchedAtStart = true
+researchName = "RESEARCH_BASIC_PRODUCTION"
+researchDescription = "RESEARCH_DESCRIPTION_BASIC_PRODUCTION"
 researchTexture = ExtResource("4_rnkye")
 amountOfResearchDone = 0
 costOfResearch = 20
 countyImprovementDatas = [ExtResource("1_xk2ne"), ExtResource("3_oyq4t"), ExtResource("2_dydjr")]
+researchPrerequisites = null
 isResearchDone = false

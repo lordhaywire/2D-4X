@@ -41,7 +41,7 @@ public partial class ResearchItemData : Resource
     [Export] public int costOfResearch;
     // This is the list of countyImprovementDatas that is research controls.
     [Export] public CountyImprovementData[] countyImprovementDatas = [];
-
+    [Export] public Godot.Collections.Array<ResearchItemData> researchPrerequisites;
     [Export] private bool isResearchDone;
 
     public void CompleteResearch()

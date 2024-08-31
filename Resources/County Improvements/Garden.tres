@@ -7,8 +7,8 @@
 [resource]
 script = ExtResource("2_n4a1t")
 improvementTexture = ExtResource("1_b2i5i")
-improvementName = "Garden"
-improvementDescription = "A place to grow food."
+improvementName = "IMPROVEMENT_GARDEN"
+improvementDescription = "IMPROVEMENT_DESCRIPTION_GARDEN"
 numberBuilt = 0
 workSkill = 2
 interest = ExtResource("2_nsp6t")

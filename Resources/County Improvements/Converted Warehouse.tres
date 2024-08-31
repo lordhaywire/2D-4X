@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=4 format=3 uid="uid://cxh2tykxlu76b"]
+
+[ext_resource type="Texture2D" uid="uid://duyyhx30r6vow" path="res://Graphics/County Improvements/Warehouse wooden-crate.svg" id="1_wn83v"]
+[ext_resource type="Resource" uid="uid://dqjlx4jv1pgfi" path="res://Resources/Interests/Engineering.tres" id="2_cl8dw"]
+[ext_resource type="Script" path="res://Resources/CountyImprovementData.cs" id="3_nbppr"]
+
+[resource]
+script = ExtResource("3_nbppr")
+improvementTexture = ExtResource("1_wn83v")
+improvementName = "IMPROVEMENT_CONVERTED_WAREHOUSE"
+improvementDescription = "IMPROVEMENT_DESCRIPTION__CONVERTED_WAREHOUSE"
+numberBuilt = 0
+workSkill = 4
+interest = ExtResource("2_cl8dw")
+influenceCost = 500
+CurrentAmountOfConstruction = 0
+maxAmountOfConstruction = 500
+maxBuilders = 5
+maxWorkers = 0
+countyResourceType = 0
+factionResourceType = 0
+dailyResourceGenerationAmount = 0
+dailyResourceGenerationBonus = 0
+status = 0

@@ -38,7 +38,7 @@ namespace PlayerSpace
 
         private void ResearchCheckBoxToggled(bool toggled)
         {
-            GD.Print("Research Checkbox Toggled: " + toggled);
+            //GD.Print("Research Checkbox Toggled: " + toggled);
             if (toggled == false)
             {
                 Research research = new();

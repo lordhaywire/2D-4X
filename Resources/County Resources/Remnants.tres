@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource("1_lhf4k")
-name = "Remnants"
-description = ""
-countyResourceType = 3
-factionResourceType = 5
+name = "COUNTY_RESOURCE_REMNANTS"
+description = "COUNTY_RESOURCE_DESCRIPTION_REMNANTS"
+countyResourceType = 4
+factionResourceType = 6
 perishable = false

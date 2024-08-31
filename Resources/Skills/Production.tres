@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3 uid="uid://caa1jed0r8nly"]
+
+[ext_resource type="Script" path="res://Resources/SkillData.cs" id="1_c0odi"]
+
+[resource]
+script = ExtResource("1_c0odi")
+skill = 6
+skillName = "SKILL_PRODUCTION"
+skillDescription = "SKILL_DESCRIPTION_PRODUCTION"
+skillLevel = 0
+amountUntilLearned = 0
+isCombatSkill = false
+attribute = 0

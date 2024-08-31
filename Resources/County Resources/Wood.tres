@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource("1_5vlxb")
-name = "Wood"
-description = ""
-countyResourceType = 5
+name = "COUNTY_RESOURCE_WOOD"
+description = "COUNTY_RESOURCE_DESCRIPTION_VEGETABLES"
+countyResourceType = 6
 factionResourceType = 1
 perishable = false

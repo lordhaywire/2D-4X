@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource("1_tyovi")
-name = "Vegetables"
-description = ""
-countyResourceType = 4
-factionResourceType = 2
+name = "COUNTY_RESOURCE_VEGETABLES"
+description = "COUNTY_RESOURCE_DESCRIPTION_VEGETABLES"
+countyResourceType = 5
+factionResourceType = 3
 perishable = true

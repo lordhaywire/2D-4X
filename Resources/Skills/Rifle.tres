@@ -4,10 +4,10 @@
 
 [resource]
 script = ExtResource("1_5fovt")
-skill = 7
+skill = 8
 skillName = "SKILL_RIFLE"
-skillDescription = ""
+skillDescription = "SKILL_DESCRIPTION_RIFLE"
 skillLevel = 0
-amountLearned = 0
+amountUntilLearned = 0
 isCombatSkill = true
-skillType = 0
+attribute = 0

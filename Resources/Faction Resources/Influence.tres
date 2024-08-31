@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_m0mjc")
-name = "Influence"
-description = ""
-resourceType = 3
+name = "FACTION_RESOURCE_DESCRIPTION_INFLUENCE"
+description = "FACTION_RESOURCE_DESCRIPTION_INFLUENCE"
+resourceType = 4
 amount = 0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=129 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=133 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scripts/HidderNode.cs" id="1_gbt3x"]
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_x1cy2"]
@@ -76,6 +76,7 @@
 [ext_resource type="Texture2D" uid="uid://jyr4u6ph1nu6" path="res://Graphics/Icons/Population/portrait.svg" id="32_s1dhj"]
 [ext_resource type="Script" path="res://Scripts/UI/RecruitButton.cs" id="33_ec2f1"]
 [ext_resource type="Script" path="res://Scripts/AllFactionResources.cs" id="33_g7g2f"]
+[ext_resource type="Resource" uid="uid://7ylqwh5wl2xi" path="res://Resources/ResearchItems/Primitive Scouting Equipment.tres" id="33_uirqi"]
 [ext_resource type="Script" path="res://Scripts/UI/HeroPanelContainer.cs" id="34_8wj68"]
 [ext_resource type="Theme" uid="uid://bcc8wsoqypsuc" path="res://Themes/TopBarTheme.tres" id="34_e2d2b"]
 [ext_resource type="Resource" uid="uid://rs4bgxx8ctc8" path="res://Resources/County Resources/Canned Food.tres" id="34_hf6gg"]
@@ -89,6 +90,7 @@
 [ext_resource type="Texture2D" uid="uid://tqexbc3d8yy8" path="res://Graphics/Icons/Top Bar/Money.png" id="37_16y4w"]
 [ext_resource type="Resource" uid="uid://48te5c2ywvyh" path="res://Resources/Skills/Labor.tres" id="37_c2oha"]
 [ext_resource type="Script" path="res://Scripts/CountyImprovementsControl.cs" id="37_rkirm"]
+[ext_resource type="Resource" uid="uid://cium8f0spbwdp" path="res://Resources/County Resources/PrimitiveScoutingEquipment.tres" id="37_w4428"]
 [ext_resource type="Resource" uid="uid://djdtci0bq2vvm" path="res://Resources/Faction Resources/Money.tres" id="37_xlwo5"]
 [ext_resource type="Texture2D" uid="uid://u6mmuhhiejnw" path="res://Graphics/Icons/Top Bar/Food.png" id="38_0q3s5"]
 [ext_resource type="Resource" uid="uid://c75yh0abtmowb" path="res://Resources/Faction Resources/Remnants.tres" id="38_1nki6"]
@@ -98,6 +100,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/ResearchControl.cs" id="40_t5amt"]
 [ext_resource type="Script" path="res://Scripts/UI/ResearchDescriptionPanel.cs" id="41_77kvj"]
 [ext_resource type="Script" path="res://Scripts/UI/DeclareWarControl.cs" id="42_g5xi4"]
+[ext_resource type="Resource" uid="uid://dttjepcbd8jkc" path="res://Resources/Faction Resources/Equipment.tres" id="43_m5xia"]
 [ext_resource type="Script" path="res://Scripts/UI/EventLog.cs" id="43_w0p1n"]
 [ext_resource type="PackedScene" uid="uid://bjgv6c8xhn4lo" path="res://UIScenes/Event Log Text Panel.tscn" id="44_du832"]
 [ext_resource type="PackedScene" uid="uid://x41vmtlrl1cx" path="res://UIScenes/CombatLogTextPanel.tscn" id="44_qsgen"]
@@ -118,6 +121,7 @@
 [ext_resource type="PackedScene" uid="uid://dbh44f2eysibn" path="res://UIScenes/UIResearchItemButton.tscn" id="62_nohy5"]
 [ext_resource type="Script" path="res://Scripts/UI/StoryEventControl.cs" id="62_onxgq"]
 [ext_resource type="Resource" uid="uid://ceq8jssovq84m" path="res://Resources/ResearchItems/Basic Researching.tres" id="62_ujbl5"]
+[ext_resource type="Resource" uid="uid://caa1jed0r8nly" path="res://Resources/Skills/Production.tres" id="63_514fr"]
 [ext_resource type="Texture2D" uid="uid://dmeg24s68kkig" path="res://Graphics/Research/uncertainty.svg" id="65_b6pum"]
 [ext_resource type="Script" path="res://Scripts/MapEditorControl.cs" id="65_uqmnr"]
 [ext_resource type="PackedScene" uid="uid://iur3kq10dikl" path="res://Scenes/MapEditor.tscn" id="66_sq6pt"]
@@ -219,15 +223,15 @@ allPerks = Array[Object]([ExtResource("24_edv5e"), ExtResource("25_626s1")])
 
 [node name="All Research" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("12_hmucs")
-allTierOneResearchData = Array[Object]([ExtResource("22_ugyvd"), ExtResource("16_qtbxl"), ExtResource("62_ujbl5")])
+allTierOneResearchData = Array[Object]([ExtResource("22_ugyvd"), ExtResource("16_qtbxl"), ExtResource("62_ujbl5"), ExtResource("33_uirqi")])
 
 [node name="All County Resources" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("18_wf5kh")
-allResources = Array[Object]([ExtResource("34_hf6gg"), ExtResource("19_1e80i"), ExtResource("20_k67vp"), ExtResource("21_r83qp"), ExtResource("22_leslc")])
+allResources = Array[Object]([ExtResource("34_hf6gg"), ExtResource("19_1e80i"), ExtResource("37_w4428"), ExtResource("20_k67vp"), ExtResource("21_r83qp"), ExtResource("22_leslc")])
 
 [node name="All Faction Resources" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("33_g7g2f")
-factionResourceDatas = Array[Object]([ExtResource("34_yfxup"), ExtResource("35_jg3b1"), ExtResource("36_drkal"), ExtResource("37_xlwo5"), ExtResource("38_1nki6")])
+factionResourceDatas = Array[Object]([ExtResource("34_yfxup"), ExtResource("43_m5xia"), ExtResource("35_jg3b1"), ExtResource("36_drkal"), ExtResource("37_xlwo5"), ExtResource("38_1nki6")])
 
 [node name="All Interests" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("45_vjt1m")
@@ -235,7 +239,7 @@ interests = Array[Object]([ExtResource("46_m2cvk"), ExtResource("47_sru0x"), Ext
 
 [node name="All Skills" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("23_jme5x")
-allSkills = Array[Object]([ExtResource("24_8xnmt"), ExtResource("25_xv245"), ExtResource("26_dr7ub"), ExtResource("27_gvn1c"), ExtResource("37_c2oha"), ExtResource("28_1iuk7"), ExtResource("29_8u7ma"), ExtResource("30_d528s"), ExtResource("31_0vaa8")])
+allSkills = Array[Object]([ExtResource("24_8xnmt"), ExtResource("25_xv245"), ExtResource("26_dr7ub"), ExtResource("27_gvn1c"), ExtResource("37_c2oha"), ExtResource("28_1iuk7"), ExtResource("63_514fr"), ExtResource("29_8u7ma"), ExtResource("30_d528s"), ExtResource("31_0vaa8")])
 
 [node name="All Token Textures" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("7_7iyml")
@@ -2027,11 +2031,11 @@ alignment = 1
 layout_mode = 2
 researchItemData = ExtResource("22_ugyvd")
 
-[node name="Basic Storage Item" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer" instance=ExtResource("62_nohy5")]
+[node name="Basic Storage Research Item" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer" instance=ExtResource("62_nohy5")]
 layout_mode = 2
 researchItemData = ExtResource("16_qtbxl")
 
-[node name="Research Item" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer" instance=ExtResource("62_nohy5")]
+[node name="Researchers Office Research Item" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer" instance=ExtResource("62_nohy5")]
 layout_mode = 2
 researchItemData = ExtResource("62_ujbl5")
 
@@ -2040,6 +2044,10 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 alignment = 1
+
+[node name="Primitive Scouting Workshop Research Item" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 2 Research Items VBoxContainer" instance=ExtResource("62_nohy5")]
+layout_mode = 2
+researchItemData = ExtResource("33_uirqi")
 
 [node name="Close Button" type="Button" parent="Player UI Canvas/Research Control"]
 layout_mode = 1

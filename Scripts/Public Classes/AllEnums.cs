@@ -37,6 +37,7 @@ public class AllEnums
         None,
         CannedFood,
         Fish,
+        PrimativeScoutingEquipment,
         Remnants,
         Vegetables,
         Wood,
@@ -47,6 +48,7 @@ public class AllEnums
     {
         None,
         BuildingMaterial,
+        Equipment,
         Food,
         Influence,
         Money,
@@ -99,6 +101,7 @@ public class AllEnums
         Fish,
         Labor, // Possibly make two skills, one of them hauling.
         Lumberjack,
+        Production,
         Research,
         Rifle,
         Scavenge,
