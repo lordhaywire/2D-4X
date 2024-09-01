@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_125qb")
-perkName = "Unhelpful"
-perkDescription = "This person is just generally an ass."
+perkName = "PERK_NAME_UNHELPFUL"
+perkDescription = "PERK_DESCRIPTION_UHELPFUL"

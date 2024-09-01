@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_yfm2o")
 attribute = 0
-attributeAbbreviation = "AG"
-attributeName = "Agility"
-attributeDescription = ""
+attributeAbbreviation = "ATTRIBUTE_ABBREVIATION_AG"
+attributeName = "ATTRIBUTE_NAME_AGILITY"
+attributeDescription = "ATTRIBUTE_DESCRIPTION_PHYSICAL_STRENGTH"
 attributeLevel = 0

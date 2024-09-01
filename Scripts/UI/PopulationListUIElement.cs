@@ -23,11 +23,8 @@ namespace PlayerSpace
 
                 if (Globals.Instance.isVisitorList == false)
                 {
-                    string populationString = "WORD_POPULATION";
-                    populationListTitle.Text = $"{Globals.Instance.SelectedLeftClickCounty.countyData.countyName} {Tr(populationString)}";
+                    populationListTitle.Text = $"{Globals.Instance.SelectedLeftClickCounty.countyData.countyName} {Tr("WORD_POPULATION")}";
                         
-                    
-                    
                     GeneratePopulationRows(Globals.Instance.SelectedLeftClickCounty.countyData.herosInCountyList);
                     GeneratePopulationRows(Globals.Instance.SelectedLeftClickCounty.countyData.countyPopulationList);
                 }
@@ -64,11 +61,11 @@ namespace PlayerSpace
                 populationRow.ageLabel.Text = person.age.ToString();
                 if (person.isMale == true)
                 {
-                    populationRow.sexLabel.Text = "Male";
+                    populationRow.sexLabel.Text = "WORD_MALE";
                 }
                 else
                 {
-                    populationRow.sexLabel.Text = "Female";
+                    populationRow.sexLabel.Text = "WORD_FEMALE";
                 }
                 UpdateUnHelpfulPerk(populationRow, person);
                 UpdateAttributes(populationRow, person);
@@ -98,16 +95,16 @@ namespace PlayerSpace
         // This will not be shown in to the player eventually.  It is just shown right now for testing.
         // We might need a second testing bar to show these things later.
         // This should be not equal to null.
-        private static void UpdateUnHelpfulPerk(PopulationRowButton populationRow, CountyPopulation countyPopulation)
+        private void UpdateUnHelpfulPerk(PopulationRowButton populationRow, CountyPopulation countyPopulation)
         {
             if (countyPopulation.CheckForPerk(AllEnums.Perks.Unhelpful) == true)
             {
-                populationRow.UnhelpfulLabel.Text = $"{countyPopulation.perks[AllEnums.Perks.Unhelpful].perkName}";
+                populationRow.UnhelpfulLabel.Text = $"{Tr(countyPopulation.perks[AllEnums.Perks.Unhelpful].perkName)}";
 
             }
             else
             {
-                populationRow.UnhelpfulLabel.Text = "Helpful";
+                populationRow.UnhelpfulLabel.Text = $"{Tr("WORD_HELPFUL")}";
             }
         }
 

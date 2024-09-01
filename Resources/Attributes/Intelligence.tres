@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_dklns")
 attribute = 4
-attributeAbbreviation = "IN"
-attributeName = "Intelligence"
-attributeDescription = ""
+attributeAbbreviation = "ATTRIBUTE_ABBREVIATION_IN"
+attributeName = "ATTRIBUTE_NAME_INTELLIGENCE"
+attributeDescription = "ATTRIBUTE_DESCRIPTION_INTELLIGENCE"
 attributeLevel = 0

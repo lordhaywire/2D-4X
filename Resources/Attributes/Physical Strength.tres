@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_1ndgo")
 attribute = 7
-attributeAbbreviation = "PS"
-attributeName = "Physical Strength"
-attributeDescription = ""
+attributeAbbreviation = "ATTRIBUTE_ABBREVIATION_PS"
+attributeName = "ATTRIBUTE_NAME_PHYSICAL_STRENGTH"
+attributeDescription = "ATTRIBUTE_DESCRIPTION_PHYSICAL_STRENGTH"
 attributeLevel = 0

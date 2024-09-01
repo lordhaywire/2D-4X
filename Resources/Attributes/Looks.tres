@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_ktq1y")
 attribute = 5
-attributeAbbreviation = "LO"
-attributeName = "Looks"
-attributeDescription = ""
+attributeAbbreviation = "ATTRIBUTE_ABBREVIATION_LO"
+attributeName = "ATTRIBUTE_NAME_LOOKS"
+attributeDescription = "ATTRIBUTE_DESCRIPTION_LOOKS"
 attributeLevel = 0

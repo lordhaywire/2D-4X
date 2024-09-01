@@ -17,4 +17,5 @@ researchTexture = ExtResource("1_ardle")
 amountOfResearchDone = 0
 costOfResearch = 20
 countyImprovementDatas = [ExtResource("1_jsy6f")]
+researchPrerequisites = null
 isResearchDone = false

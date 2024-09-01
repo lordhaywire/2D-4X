@@ -2,9 +2,9 @@
 ACTIVITY_BUILD_DESCRIPTION,This is the description for build.,Esta es la descripción de la compilación.
 ACTIVITY_BUILD_NAME,Build,Construir
 ACTIVITY_BUILD_TOOLTIP,This is the tooltip for build.,Esta es la información sobre herramientas para la compilación.
-ACTIVITY_COMBAT_TOOLTIP,This is the tooltip for combat.,Esta es la descripción del combate.
 ACTIVITY_COMBAT_DESCRIPTION,This is the description for combat.,Esta es la descripción para el combate.
 ACTIVITY_COMBAT_NAME,Combat,Combate
+ACTIVITY_COMBAT_TOOLTIP,This is the tooltip for combat.,Esta es la descripción del combate.
 ACTIVITY_IDLE_DESCRIPTION,This is the description for idle.,Esta es la descripción de inactivo.
 ACTIVITY_IDLE_NAME,Idle,Ocioso
 ACTIVITY_IDLE_TOOLTIP,This is the tooltip for idle.,Esta es la información sobre herramientas para inactivo.
@@ -20,26 +20,84 @@ ACTIVITY_SCAVENGE_TOOLTIP,This is the tooltip for scavenge.,Esta es la descripci
 ACTIVITY_WORK_DESCRIPTION,This is the description for work.,Esta es la descripción del trabajo.
 ACTIVITY_WORK_NAME,Work,Trabajo
 ACTIVITY_WORK_TOOLTIP,This is the tooltip for work.,Esta es la información sobre herramientas para el trabajo.
-SKILL_CONSTRUCTION,Construction,Construcción
-SKILL_COOL,Cool,Fresco
-SKILL_FARM,Farm,Granja
-SKILL_FISH,Fish,Pescado
-SKILL_LABOR,Labor,Trabajo
-SKILL_LUMBERJACK,Lumberjack,Leñador
-SKILL_RESEARCH,Research,Investigación
-SKILL_RIFLE,Rifle,Fusil
-SKILL_SCAVENGE,Scavenge,Recoger la basura
-TITLE_PREFERRED_WORK,Preferred Work,Trabajo preferido
-WORD_POPULATION,Population,Población
-TITLE_INTEREST,Interest,Interés
-INTEREST_BOTANY,Botany,Botánica
+ATTRIBUTE_ABBREVIATION_AG,AG,AG
+ATTRIBUTE_ABBREVIATION_AW,AW,CO
+ATTRIBUTE_ABBREVIATION_CH,CH,CA
+ATTRIBUTE_ABBREVIATION_EN,EN,RE
+ATTRIBUTE_ABBREVIATION_IN,IN,IN
+ATTRIBUTE_ABBREVIATION_LO,LO,AP
+ATTRIBUTE_ABBREVIATION_MS,MS,FM
+ATTRIBUTE_ABBREVIATION_PS,PS,FF
+ATTRIBUTE_DESCRIPTION_AGILITY,Not written.,No está escrito.
+ATTRIBUTE_DESCRIPTION_AWARENESS,Not written.,No está escrito.
+ATTRIBUTE_DESCRIPTION_CHARISMA,Not written.,No está escrito.
+ATTRIBUTE_DESCRIPTION_ENDURANCE,Not written.,No está escrito.
+ATTRIBUTE_DESCRIPTION_INTELLIGENCE,Not written.,No está escrito.
+ATTRIBUTE_DESCRIPTION_LOOKS,Not written.,No está escrito.
+ATTRIBUTE_DESCRIPTION_MENTAL_STRENGTH,Not written.,No está escrito.
+ATTRIBUTE_DESCRIPTION_PHYSICAL_STRENGTH,Not written.,No está escrito.
+ATTRIBUTE_NAME_AGILITY,Agility,Agilidad
+ATTRIBUTE_NAME_AWARENESS,Awareness,Conciencia
+ATTRIBUTE_NAME_CHARISMA,Charisma,Carisma
+ATTRIBUTE_NAME_ENDURANCE,Endurance,Resistencia
+ATTRIBUTE_NAME_INTELLIGENCE,Intelligence,Inteligencia
+ATTRIBUTE_NAME_LOOKS,Looks,Apariencia
+ATTRIBUTE_NAME_MENTAL_STRENGTH,Mental Strength,Fuerza Mental
+ATTRIBUTE_NAME_PHYSICAL_STRENGTH,Physical Strength,Fuerza Física
+COUNTY_RESOURCE_CANNED_FOOD,Canned Food,Alimentos enlatados
+COUNTY_RESOURCE_DESCRIPTION_CANNED_FOOD,Not written.,No está escrito.
+COUNTY_RESOURCE_DESCRIPTION_FISH,Not written.,No está escrito.
+COUNTY_RESOURCE_DESCRIPTION_PRIMITIVE_SCOUTING_EQUIPMENT,Not written.,No está escrito.
+COUNTY_RESOURCE_DESCRIPTION_REMNANTS,Not written.,No está escrito.
+COUNTY_RESOURCE_DESCRIPTION_VEGETABLES,Not written.,No está escrito.
+COUNTY_RESOURCE_DESCRIPTION_WOOD,Not written.,No está escrito.
+COUNTY_RESOURCE_FISH,Fish,Pescado
+COUNTY_RESOURCE_PRIMITIVE_SCOUTING_EQUIPMENT,Primitive Scouting Equipment,Equipo de exploración primitivo
+COUNTY_RESOURCE_REMNANTS,Remnants,Remanente
+COUNTY_RESOURCE_VEGETABLES,Vegetables,Verduras
+COUNTY_RESOURCE_WOOD,Wood,Madera
+FACTION_RESOURCE_BUILDING_MATERIALS,Building Materials,Materiales de construcción
+FACTION_RESOURCE_DESCRIPTION_BUILDING_MATERIALS,Not written.,No está escrito.
+FACTION_RESOURCE_DESCRIPTION_EQUIPMENT,Not written.,No está escrito.
+FACTION_RESOURCE_DESCRIPTION_FOOD,Not written.,No está escrito.
+FACTION_RESOURCE_DESCRIPTION_INFLUENCE,Not written.,No está escrito.
+FACTION_RESOURCE_DESCRIPTION_MONEY,Not written.,No está escrito.
+FACTION_RESOURCE_DESCRIPTION_REMNANTS,Not written.,No está escrito.
+FACTION_RESOURCE_EQUIPMENT,Equipment,Equipo
+FACTION_RESOURCE_FOOD,Food,Víveres
+FACTION_RESOURCE_INFLUENCE,Influence,Influencia
+FACTION_RESOURCE_MONEY,Money,Dinero
+FACTION_RESOURCE_REMNANTS,Remnants,Remanente
+IMPROVEMENT_CONVERTED_WAREHOUSE,Converted warehouse,Almacén reconvertido
+IMPROVEMENT_DESCRIPTION__CONVERTED_WAREHOUSE,How about we store our stuff in an abandoned building.,¿Qué tal si guardamos nuestras cosas en un edificio abandonado?
+IMPROVEMENT_DESCRIPTION_FISHERS_SHED,"A makeshift shed for fishing equipment, such as rods, fishing line, and hooks.","Un cobertizo improvisado para equipos de pesca, como cañas, hilo de pescar y anzuelos."
+IMPROVEMENT_DESCRIPTION_GARDEN,A place to grow food.,Un lugar para cultivar alimentos.
+IMPROVEMENT_DESCRIPTION_LUMBERJACK_STATION,A place for lumber jacks tools and organization.,"Un lugar para leñadores, herramientas y organización."
+IMPROVEMENT_DESCRIPTION_RESEARCHERS_OFFICE,A place for books and reading.,Un lugar para los libros y la lectura.
+IMPROVEMENT_DESCRIPTION_SCOUTING_EQUIPMENT_WORKSHOP,A primative workshop dedicated to the creation of scouting equipment.,Un taller primitivo dedicado a la creación de equipos de exploración.
+IMPROVEMENT_FISHERS_SHED,Fisher's Shed,Cobertizo del pescador
+IMPROVEMENT_GARDEN,Garden,Jardín
+IMPROVEMENT_LUMBERJACK_STATION,Lumberjack Station,Estación de leñadores
+IMPROVEMENT_RESEARCHERS_OFFICE,Researcher's Office,Oficina del Investigador
+IMPROVEMENT_SCOUTING_EQUIPMENT_WORKSHOP,Scouting Equipment Workshop,Taller de Equipo de Exploración
 INTEREST_BIOLOGY,Biology,Biología
+INTEREST_BOTANY,Botany,Botánica
 INTEREST_ENGINEERING,Engineering,Ingeniería
 INTEREST_HUMANITIES,Humanities,Humanidades
 INTEREST_INFORMATION,Information,Información
 INTEREST_POLITICS,Politics,Política
 INTEREST_WARFARE,Warfare,Guerra
-SKILL_PRODUCTION,Production,Producción
+PHRASE_PREFERRED_WORK,Preferred Work,Trabajo preferido
+PHRASE_RECRUITE_AS_AIDE,Recruite as Aide,Recluta como ayudante
+PHRASE_RECRUITE_AS_ARMY_LEADER,Recruite as Army Leader,Recluta como líder del ejército
+RESEARCH_BASIC_PRODUCTION,Basic Production,Producción básica
+RESEARCH_BASIC_RESEARCHING,Basic Researching,Investigación Básica
+RESEARCH_BASIC_STORAGE,Basic Storage,Almacenamiento básico
+RESEARCH_DESCRIPTION_BASIC_PRODUCTION,"We should probably have buildings for tool storage and a place to work for fishing, gardening and lumberjacking.","Probablemente deberíamos tener edificios para el almacenamiento de herramientas y un lugar para trabajar para la pesca, la jardinería y la leñador."
+RESEARCH_DESCRIPTION_BASIC_RESEARCHING,Isn't it time to have a place for someone to rediscover things?,¿No es hora de tener un lugar para que alguien redescubra las cosas?
+RESEARCH_DESCRIPTION_BASIC_STORAGE,"Instead of having everything laying around, why don't we have a centralized place for our junk?","En lugar de tener todo por ahí, ¿por qué no tenemos un lugar centralizado para nuestra basura?"
+RESEARCH_DESCRIPTION_PRIMITIVE_SCOUTING_EQUIPMENT,"Equipment such as maps, binoculars and other equipment.","Equipos como mapas, binoculares y otros equipos."
+RESEARCH_PRIMITIVE_SCOUTING_EQUIPMENT,Primitive Scouting Equipment,Equipo de exploración primitivo
 SKILL_DESCRIPTION_CONSTRUCTION,Not written.,No está escrito.
 SKILL_DESCRIPTION_COOL,Not written.,No está escrito.
 SKILL_DESCRIPTION_FARM,Not written.,No está escrito.
@@ -50,47 +108,37 @@ SKILL_DESCRIPTION_PRODUCTION,Not written.,No está escrito.
 SKILL_DESCRIPTION_RESEARCH,Not written.,No está escrito.
 SKILL_DESCRIPTION_RIFLE,Not written.,No está escrito.
 SKILL_DESCRIPTION_SCAVENGE,Not written.,No está escrito.
-RESEARCH_BASIC_PRODUCTION,Basic Production,Producción básica
-RESEARCH_BASIC_RESEARCHING,Basic Researching,Investigación Básica
-RESEARCH_BASIC_STORAGE,Basic Storage,Almacenamiento básico
-RESEARCH_PRIMITIVE_SCOUTING_EQUIPMENT,Primitive Scouting Equipment,Equipo de exploración primitivo
-RESEARCH_DESCRIPTION_BASIC_PRODUCTION,"We should probably have buildings for tool storage and a place to work for fishing, gardening and lumberjacking.","Probablemente deberíamos tener edificios para el almacenamiento de herramientas y un lugar para trabajar para la pesca, la jardinería y la leñador."
-RESEARCH_DESCRIPTION_BASIC_RESEARCHING,Isn't it time to have a place for someone to rediscover things?,¿No es hora de tener un lugar para que alguien redescubra las cosas?
-RESEARCH_DESCRIPTION_BASIC_STORAGE,"Instead of having everything laying around, why don't we have a centralized place for our junk?","En lugar de tener todo por ahí, ¿por qué no tenemos un lugar centralizado para nuestra basura?"
-RESEARCH_DESCRIPTION_PRIMITIVE_SCOUTING_EQUIPMENT,"Equipment such as maps, binoculars and other equipment.","Equipos como mapas, binoculares y otros equipos."
-IMPROVEMENT_FISHERS_SHED,Fisher's Shed,Cobertizo del pescador
-IMPROVEMENT_GARDEN,Garden,Jardín
-IMPROVEMENT_LUMBERJACK_STATION,Lumberjack Station,Estación de leñadores
-IMPROVEMENT_RESEARCHERS_OFFICE,Researcher's Office,Oficina del Investigador
-IMPROVEMENT_SCOUTING_EQUIPMENT_WORKSHOP,Scouting Equipment Workshop,Taller de Equipo de Exploración
-IMPROVEMENT_CONVERTED_WAREHOUSE,Converted warehouse,Almacén reconvertido
-IMPROVEMENT_DESCRIPTION_FISHERS_SHED,"A makeshift shed for fishing equipment, such as rods, fishing line, and hooks.","Un cobertizo improvisado para equipos de pesca, como cañas, hilo de pescar y anzuelos."
-IMPROVEMENT_DESCRIPTION_GARDEN,A place to grow food.,Un lugar para cultivar alimentos.
-IMPROVEMENT_DESCRIPTION_LUMBERJACK_STATION,A place for lumber jacks tools and organization.,"Un lugar para leñadores, herramientas y organización."
-IMPROVEMENT_DESCRIPTION_RESEARCHERS_OFFICE,A place for books and reading.,Un lugar para los libros y la lectura.
-IMPROVEMENT_DESCRIPTION_SCOUTING_EQUIPMENT_WORKSHOP,A primative workshop dedicated to the creation of scouting equipment.,Un taller primitivo dedicado a la creación de equipos de exploración.
-IMPROVEMENT_DESCRIPTION__CONVERTED_WAREHOUSE,How about we store our stuff in an abandoned building.,¿Qué tal si guardamos nuestras cosas en un edificio abandonado?
-COUNTY_RESOURCE_CANNED_FOOD,Canned Food,Alimentos enlatados
-COUNTY_RESOURCE_FISH,Fish,Pescado
-COUNTY_RESOURCE_REMNANTS,Remnants,Remanente
-COUNTY_RESOURCE_VEGETABLES,Vegetables,Verduras
-COUNTY_RESOURCE_WOOD,Wood,Madera
-COUNTY_RESOURCE_PRIMITIVE_SCOUTING_EQUIPMENT,Primitive Scouting Equipment,Equipo de exploración primitivo
-COUNTY_RESOURCE_DESCRIPTION_CANNED_FOOD,Not written.,No está escrito.
-COUNTY_RESOURCE_DESCRIPTION_FISH,Not written.,No está escrito.
-COUNTY_RESOURCE_DESCRIPTION_REMNANTS,Not written.,No está escrito.
-COUNTY_RESOURCE_DESCRIPTION_VEGETABLES,Not written.,No está escrito.
-COUNTY_RESOURCE_DESCRIPTION_WOOD,Not written.,No está escrito.
-COUNTY_RESOURCE_DESCRIPTION_PRIMITIVE_SCOUTING_EQUIPMENT,Not written.,No está escrito.
-FACTION_RESOURCE_BUILDING_MATERIALS,Building Materials,Materiales de construcción
-FACTION_RESOURCE_EQUIPMENT,Equipment,Equipo
-FACTION_RESOURCE_FOOD,Food,Víveres
-FACTION_RESOURCE_INFLUENCE,Influence,Influencia
-FACTION_RESOURCE_MONEY,Money,Dinero
-FACTION_RESOURCE_REMNANTS,Remnants,Remanente
-FACTION_RESOURCE_DESCRIPTION_BUILDING_MATERIALS,Not written.,No está escrito.
-FACTION_RESOURCE_DESCRIPTION_EQUIPMENT,Not written.,No está escrito.
-FACTION_RESOURCE_DESCRIPTION_FOOD,Not written.,No está escrito.
-FACTION_RESOURCE_DESCRIPTION_INFLUENCE,Not written.,No está escrito.
-FACTION_RESOURCE_DESCRIPTION_MONEY,Not written.,No está escrito.
-FACTION_RESOURCE_DESCRIPTION_REMNANTS,Not written.,No está escrito.
+SKILL_NAME_CONSTRUCTION,Construction,Construcción
+SKILL_NAME_COOL,Cool,Fresco
+SKILL_NAME_FARM,Farm,Granja
+SKILL_NAME_FISH,Fish,Pescado
+SKILL_NAME_LABOR,Labor,Trabajo
+SKILL_NAME_LUMBERJACK,Lumberjack,Leñador
+SKILL_NAME_PRODUCTION,Production,Producción
+SKILL_NAME_RESEARCH,Research,Investigación
+SKILL_NAME_RIFLE,Rifle,Fusil
+SKILL_NAME_SCAVENGE,Scavenge,Recoger la basura
+WORD_ACTIVITY,Activity,Actividad
+WORD_AGE,Age,Edad
+WORD_ATTRIBUTES,Attributes,Atributos
+WORD_CLOSE,Close,Cerrar
+WORD_HELPFUL,Helpful,Útil
+WORD_INTEREST,Interest,Interés
+WORD_LOYALTY,Loyalty,Lealtad
+WORD_NAME,Name,Nombre
+WORD_PERKS,Perks,Ventajas
+WORD_POPULATION,Population,Población
+WORD_SEX,Sex,Sexo
+WORD_SKILLS,Skills,Habilidades
+WORD_TITLES,Titles,Títulos
+PERK_NAME_UNHELPFUL,Unhelpful,Inútil
+PERK_DESCRIPTION_UHELPFUL,This person is just generally an ass.,Esta persona es generalmente un idiota.
+PERK_NAME_LEADEROFPEOPLE,Leader of People,Líder de Personas
+PERK_DESCRIPTION_LEADEROFPEOPLE,This person is skilled at leading people.,Esta persona es hábil para liderar personas.
+WORD_MALE,Male,Masculino
+WORD_FEMALE,Female,Hembra
+WORD_NONE,None,Ninguno
+WORD_IDLE,Idle,Ocioso
+TITLE_FACTION_LEADER,Faction Leader,Líder de facción
+TITLE_AIDE,Aide,Ayudante
+TITLE_ARMY_LEADER,Army Leader,Líder del Ejército

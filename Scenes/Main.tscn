@@ -1104,114 +1104,137 @@ alignment = 1
 custom_minimum_size = Vector2(170, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Name"
+text = "WORD_NAME"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Age Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Age"
+text = "WORD_AGE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Sex Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Sex
-"
+text = "WORD_SEX"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Unhelpful Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 23)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Helpful?"
+text = "PERK_NAME_UNHELPFUL"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="Loyalty Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 23)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Loyalty"
+text = "WORD_LOYALTY"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="Construction Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 23)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Construct
-"
+text = "SKILL_NAME_CONSTRUCTION"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="Cool Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 23)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Cool
-"
+text = "SKILL_NAME_COOL"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="Farm Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 23)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Farm
-"
+text = "SKILL_NAME_FARM"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="Fish Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 23)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Fish
-"
+text = "SKILL_NAME_FISH"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="Labor Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 23)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Labor
-"
+text = "SKILL_NAME_LABOR"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="Lumberjack Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 23)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Lumberjack
-"
+text = "SKILL_NAME_LUMBERJACK"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Production Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 23)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SKILL_NAME_PRODUCTION"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="Research Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 23)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Research"
+text = "SKILL_NAME_RESEARCH"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="Rifle Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 23)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Rifle"
+text = "SKILL_NAME_RIFLE"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="Scavenge Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 23)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Scavenge"
+text = "SKILL_NAME_SCAVENGE"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="Current Activity Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Activity
-"
+text = "WORD_ACTIVITY"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1224,7 +1247,7 @@ custom_minimum_size = Vector2(75, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
-text = "Close"
+text = "WORD_CLOSE"
 
 [node name="Population Description Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("perksParent", "populationName", "leaderTitleButton", "aideTitleButton", "armyLeaderTitleButton", "physicalStrengthLabel", "agilityLabel", "enduranceLabel", "intelligenceLabel", "mentalStrengthLabel", "awarenessLabel", "charismaLabel", "looksLabel", "loyaltyAttributeLabel", "ageLabel", "sexLabel", "skillLabels", "interestLabel", "preferredWorkLabel", "currentActivityLabel", "aideRecruitButton", "armyLeaderRecruitButton", "heroRecruitmentConfirmPanel")]
 visible = false
@@ -1239,9 +1262,9 @@ script = ExtResource("31_hwyyh")
 perksParent = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Perks HBoxContainer")
 perkLabel = ExtResource("68_6cv3c")
 populationName = NodePath("MarginContainer/PanelContainer/Population Name Label")
-leaderTitleButton = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/HBoxContainer2/Faction Leader Title Button")
-aideTitleButton = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/HBoxContainer2/Aide Title Button")
-armyLeaderTitleButton = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/HBoxContainer2/Army Leader Button")
+leaderTitleButton = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Titles HBoxContainer/Faction Leader Title Button")
+aideTitleButton = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Titles HBoxContainer/Aide Title Button")
+armyLeaderTitleButton = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Titles HBoxContainer/Army Leader Button")
 physicalStrengthLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Attributes Values Hbox/Physical Strength Label")
 agilityLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Attributes Values Hbox/Agility Label")
 enduranceLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Attributes Values Hbox/Endurance Label")
@@ -1253,7 +1276,7 @@ looksLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContai
 loyaltyAttributeLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Loyalty Label")
 ageLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Age Label")
 sexLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Sex Label")
-skillLabels = [NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Construction Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Cool Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Farm Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Fish Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Labor Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Lumberjack Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Research Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Rifle Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Scavenge Skill Label")]
+skillLabels = [NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Construction Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Cool Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Farm Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Fish Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Labor Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Lumberjack Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Production Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Research Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Rifle Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Scavenge Skill Label")]
 interestLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Interest Label")
 preferredWorkLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Preferred Work Label")
 currentActivityLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Activity Label")
@@ -1277,7 +1300,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 24
-text = "Population Name"
+text = "Population Name Title"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1312,39 +1335,41 @@ stretch_mode = 4
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20
-text = "Titles"
+text = "WORD_TITLES"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer"]
+[node name="Titles HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 theme_override_constants/separation = 150
 
-[node name="Faction Leader Title Button" type="Button" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/HBoxContainer2"]
+[node name="Faction Leader Title Button" type="Button" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Titles HBoxContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 disabled = true
-text = "Faction Leader"
+text = "TITLE_FACTION_LEADER"
 icon = ExtResource("7_g78s2")
 
-[node name="Aide Title Button" type="Button" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/HBoxContainer2"]
+[node name="Aide Title Button" type="Button" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Titles HBoxContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 disabled = true
-text = "Aide"
+text = "TITLE_AIDE"
 icon = ExtResource("8_rm8kv")
 
-[node name="Army Leader Button" type="Button" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/HBoxContainer2"]
+[node name="Army Leader Button" type="Button" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Titles HBoxContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
+size_flags_horizontal = 8
 disabled = true
-text = "Army Leader"
+text = "TITLE_ARMY_LEADER"
 icon = ExtResource("9_ft7d6")
 
 [node name="Attributes Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
-text = "Attributes"
+text = "WORD_ATTRIBUTES"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1355,7 +1380,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(107, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Physical Strength"
+text = "ATTRIBUTE_NAME_PHYSICAL_STRENGTH"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
@@ -1364,7 +1389,7 @@ autowrap_mode = 2
 custom_minimum_size = Vector2(107, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Agility"
+text = "ATTRIBUTE_NAME_AGILITY"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
@@ -1373,7 +1398,7 @@ autowrap_mode = 2
 custom_minimum_size = Vector2(107, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Endurance"
+text = "ATTRIBUTE_NAME_ENDURANCE"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
@@ -1382,7 +1407,7 @@ autowrap_mode = 2
 custom_minimum_size = Vector2(107, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Intelligence"
+text = "ATTRIBUTE_NAME_INTELLIGENCE"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
@@ -1391,7 +1416,7 @@ autowrap_mode = 2
 custom_minimum_size = Vector2(107, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Mental Strength"
+text = "ATTRIBUTE_NAME_MENTAL_STRENGTH"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
@@ -1400,7 +1425,7 @@ autowrap_mode = 2
 custom_minimum_size = Vector2(107, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Awareness"
+text = "ATTRIBUTE_NAME_AWARENESS"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
@@ -1409,7 +1434,7 @@ autowrap_mode = 2
 custom_minimum_size = Vector2(107, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Charisma"
+text = "ATTRIBUTE_NAME_CHARISMA"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
@@ -1418,7 +1443,7 @@ autowrap_mode = 2
 custom_minimum_size = Vector2(107, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Looks"
+text = "ATTRIBUTE_NAME_LOOKS"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
@@ -1494,7 +1519,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20
-text = "Loyalty"
+text = "WORD_LOYALTY"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1509,7 +1534,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20
-text = "Age"
+text = "WORD_AGE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1524,8 +1549,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20
-text = "Sex
-"
+text = "WORD_SEX"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1543,8 +1567,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 focus_mode = 0
-text = "Recruit as Army Leader
-"
+text = "PHRASE_RECRUITE_AS_ARMY_LEADER"
 script = ExtResource("33_ec2f1")
 confirmationPanelContainer = NodePath("../../../../../../../Recuit Hero Confirmation PanelContainer")
 
@@ -1560,7 +1583,7 @@ theme_override_constants/separation = 25
 [node name="Perks Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
-text = "Perks"
+text = "WORD_PERKS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1569,11 +1592,12 @@ layout_mode = 2
 
 [node name="Perk Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Perks HBoxContainer" instance=ExtResource("68_6cv3c")]
 layout_mode = 2
+text = "WORD_NONE"
 
 [node name="Skills Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
-text = "Skills"
+text = "WORD_SKILLS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1623,6 +1647,13 @@ text = "Lumberjack 100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Production Skill Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Production: 79"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Research Skill Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1648,7 +1679,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 16
-text = "TITLE_INTEREST"
+text = "WORD_INTEREST"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1664,7 +1695,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 16
-text = "TITLE_PREFERRED_WORK"
+text = "PHRASE_PREFERRED_WORK"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1680,7 +1711,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 16
-text = "Activity"
+text = "WORD_ACTIVITY"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1696,8 +1727,7 @@ custom_minimum_size = Vector2(75, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
-text = "Recruit as Aide
-"
+text = "PHRASE_RECRUITE_AS_AIDE"
 script = ExtResource("33_ec2f1")
 confirmationPanelContainer = NodePath("../../../../../../../Recuit Hero Confirmation PanelContainer")
 
@@ -1706,7 +1736,7 @@ custom_minimum_size = Vector2(75, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
-text = "Close"
+text = "WORD_CLOSE"
 
 [node name="Battle Log Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("battleLogControlTitle", "defenderVboxContainer", "attackerVboxContainer")]
 visible = false

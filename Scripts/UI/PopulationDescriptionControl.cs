@@ -103,11 +103,11 @@ namespace PlayerSpace
 
             if (countyPopulation.isMale)
             {
-                sexLabel.Text = "Male";
+                sexLabel.Text = "WORD_MALE";
             }
             else
             {
-                sexLabel.Text = "Female";
+                sexLabel.Text = "WORD_FEMALE";
             }
 
             UpdatePerks();
@@ -117,12 +117,12 @@ namespace PlayerSpace
 
             if (countyPopulation.currentCountyImprovement != null)
             {
-                currentActivityLabel.Text = $"{countyPopulation.GetActivityName()} " +
+                currentActivityLabel.Text = $"{Tr(countyPopulation.GetActivityName())} " +
                     $"{countyPopulation.currentCountyImprovement.improvementName}";
             }
             else
             {
-                currentActivityLabel.Text = $"{countyPopulation.activity}";
+                currentActivityLabel.Text = $"{Tr(countyPopulation.GetActivityName())}";
             }
 
             if (Globals.Instance.playerFactionData.factionResources[AllEnums.FactionResourceType.Influence].amount 

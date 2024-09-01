@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_mfqwl")
-perkName = "Leader of People"
-perkDescription = "This person is skilled at leading people."
+perkName = "PERK_NAME_LEADEROFPEOPLE"
+perkDescription = "This person is skillPERK_DESCRIPTION_LEADEROFPEOPLEed at leading people."

@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_ry7eb")
 attribute = 3
-attributeAbbreviation = "EN"
-attributeName = "Endurance"
-attributeDescription = ""
+attributeAbbreviation = "ATTRIBUTE_ABBREVIATION_EN"
+attributeName = "ATTRIBUTE_NAME_ENDURANCE"
+attributeDescription = "ATTRIBUTE_DESCRIPTION_ENDURANCE"
 attributeLevel = 0

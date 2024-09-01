@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_5fovt")
 skill = 8
-skillName = "SKILL_RIFLE"
+skillName = "SKILL_NAME_RIFLE"
 skillDescription = "SKILL_DESCRIPTION_RIFLE"
 skillLevel = 0
 amountUntilLearned = 0

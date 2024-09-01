@@ -14,7 +14,7 @@ ageLabel = NodePath("Population Row HBoxContainer/Age Label")
 sexLabel = NodePath("Population Row HBoxContainer/Sex Label")
 UnhelpfulLabel = NodePath("Population Row HBoxContainer/Unhelpful Label")
 loyaltyAttributeLabel = NodePath("Population Row HBoxContainer/Loyalty Attribute Label")
-skillLabels = [NodePath("Population Row HBoxContainer/Construction Skill Label"), NodePath("Population Row HBoxContainer/Cool Skill Label"), NodePath("Population Row HBoxContainer/Farm Skill Label"), NodePath("Population Row HBoxContainer/Fish Skill Label"), NodePath("Population Row HBoxContainer/Labor Skill Label"), NodePath("Population Row HBoxContainer/Lumberjack Skill Label"), NodePath("Population Row HBoxContainer/Research Skill Label"), NodePath("Population Row HBoxContainer/Rifle Skill Label"), NodePath("Population Row HBoxContainer/Scavenge Skill Label")]
+skillLabels = [NodePath("Population Row HBoxContainer/Construction Skill Label"), NodePath("Population Row HBoxContainer/Cool Skill Label"), NodePath("Population Row HBoxContainer/Farm Skill Label"), NodePath("Population Row HBoxContainer/Fish Skill Label"), NodePath("Population Row HBoxContainer/Labor Skill Label"), NodePath("Population Row HBoxContainer/Lumberjack Skill Label"), NodePath("Population Row HBoxContainer/Production Skill Label"), NodePath("Population Row HBoxContainer/Research Skill Label"), NodePath("Population Row HBoxContainer/Rifle Skill Label"), NodePath("Population Row HBoxContainer/Scavenge Skill Label")]
 currentActivityLabel = NodePath("Population Row HBoxContainer/Current Activity Label")
 
 [node name="Population Row HBoxContainer" type="HBoxContainer" parent="."]
@@ -52,7 +52,7 @@ vertical_alignment = 1
 [node name="Unhelpful Label" type="Label" parent="Population Row HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Helpful"
+text = "HelpWhatevs"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -102,6 +102,13 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Lumberjack"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Production Skill Label" type="Label" parent="Population Row HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "ProductionTest"
 horizontal_alignment = 1
 vertical_alignment = 1
 

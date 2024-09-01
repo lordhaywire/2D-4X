@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_5oxne")
 attribute = 1
-attributeAbbreviation = "AW"
-attributeName = "Awareness"
-attributeDescription = ""
+attributeAbbreviation = "ATTRIBUTE_ABBREVIATION_AW"
+attributeName = "ATTRIBUTE_NAME_AWARENESS"
+attributeDescription = "ATTRIBUTE_DESCRIPTION_AGILITY"
 attributeLevel = 0

@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_w420n")
 attribute = 2
-attributeAbbreviation = "CH"
-attributeName = "Charisma"
-attributeDescription = ""
+attributeAbbreviation = "ATTRIBUTE_ABBREVIATION_CH"
+attributeName = "ATTRIBUTE_NAME_CHARISMA"
+attributeDescription = "ATTRIBUTE_DESCRIPTION_CHARISMA"
 attributeLevel = 0

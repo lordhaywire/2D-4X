@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_gnh0m")
 attribute = 6
-attributeAbbreviation = "MS"
-attributeName = "Mental Strength"
-attributeDescription = ""
+attributeAbbreviation = "ATTRIBUTE_ABBREVIATION_MS"
+attributeName = "ATTRIBUTE_NAME_MENTAL_STRENGTH"
+attributeDescription = "ATTRIBUTE_DESCRIPTION_MENTAL_STRENGTH"
 attributeLevel = 0
