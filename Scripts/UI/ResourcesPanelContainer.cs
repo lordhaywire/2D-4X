@@ -170,7 +170,7 @@ namespace PlayerSpace
                 currentNonperishableAvailableLabel.Text = totalAvailableNonperishableStorage.ToString();
             }
         }
-        // This has to be the problem!!
+
         private void UpdateEachHboxWithResource()
         {
             foreach (KeyValuePair<AllEnums.CountyResourceType, StorageHbox> keyValuePair in resourceStorageHboxDictionary)
@@ -189,7 +189,7 @@ namespace PlayerSpace
         {
             resourceStorageHboxDictionary[keyValuePair.Key].resourceData = countyData.countyResources[keyValuePair.Key];
             //GD.Print("Update Storage Hbox Labels Resource:" + countyData.resources[keyValuePair.Key].name);
-            resourceStorageHboxDictionary[keyValuePair.Key].resourceNameLabel.Text = $"{resourceStorageHboxDictionary[keyValuePair.Key].resourceData.name}:";
+            resourceStorageHboxDictionary[keyValuePair.Key].resourceNameLabel.Text = $"{Tr(resourceStorageHboxDictionary[keyValuePair.Key].resourceData.name)}:";
             resourceStorageHboxDictionary[keyValuePair.Key].resourceAmountLabel.Text = resourceStorageHboxDictionary[keyValuePair.Key].resourceData.Amount.ToString();
         }
 

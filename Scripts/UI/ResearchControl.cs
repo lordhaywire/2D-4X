@@ -9,10 +9,12 @@ namespace PlayerSpace
     {
         public static ResearchControl Instance { get; private set; }
 
-        [Export] PackedScene uIResearchItemButton;
+        [Export] PackedScene researchItemButton;
 
         [Export] public Label assignedResearchersTitleLabel;
-        [Export] public VBoxContainer researchItemParent;
+        [Export] public VBoxContainer tierOneResearchItemParent;
+        [Export] public VBoxContainer tierTwoResearchItemParent;
+        [Export] public VBoxContainer tierThreeResearchItemParent;
         [Export] private PackedScene assignedResearchersButton;
         [Export] private GridContainer assignedResearchersParent;
 
@@ -37,10 +39,6 @@ namespace PlayerSpace
 
                 GenerateAssignedResearchers();
                 CheckForResearchers();
-                // For testing only
-                /*
-                Globals.Instance.playerFactionData.factionLeader.attributes[AllEnums.Attributes.Intelligence].attributeLevel++;
-                */
             }
             else
             {
@@ -113,13 +111,32 @@ namespace PlayerSpace
             }
         }
 
-
+        /// <summary>
+        /// This overwrites the dragged and dropped researchItemDatas in the UI.
+        /// </summary>
         private void AddPlayerResearchToUI()
         {
-            for (int i = 0; i < researchItemParent.GetChildCount(); i++)
+            foreach(ResearchItemData researchItemData in Globals.Instance.playerFactionData.researchItems)
             {
-                ResearchItemButton researchItemButton = (ResearchItemButton)researchItemParent.GetChild(i);
-                researchItemButton.researchItemData = Globals.Instance.playerFactionData.researchItems[i];
+                //GD.Print($"Research Item Data Tier: " + researchItemData.tier);
+                switch (researchItemData.tier)
+                {
+                    case AllEnums.ResearchTiers.One:
+                        ResearchItemButton tierOneResearchItemButton = (ResearchItemButton)researchItemButton.Instantiate();
+                        tierOneResearchItemButton.researchItemData = researchItemData;
+                        tierOneResearchItemParent.AddChild(tierOneResearchItemButton);
+                        break;
+                    case AllEnums.ResearchTiers.Two:
+                        ResearchItemButton tierTwoResearchItemButton = (ResearchItemButton)researchItemButton.Instantiate();
+                        tierTwoResearchItemButton.researchItemData = researchItemData;
+                        tierTwoResearchItemParent.AddChild(tierTwoResearchItemButton);
+                        break;
+                    case AllEnums.ResearchTiers.Three:
+                        ResearchItemButton tierThreeResearchItemButton = (ResearchItemButton)researchItemButton.Instantiate();
+                        tierThreeResearchItemButton.researchItemData = researchItemData;
+                        tierThreeResearchItemParent.AddChild(tierThreeResearchItemButton);
+                        break;
+                }
             }
         }
     }

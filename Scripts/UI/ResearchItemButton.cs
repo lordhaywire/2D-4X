@@ -1,18 +1,23 @@
 using Godot;
+using System;
 
 namespace PlayerSpace;
 
 public partial class ResearchItemButton : PanelContainer
 {
     [Export] public ResearchItemData researchItemData = new();
+    [Export] private Label researchNameLabel;
+    [Export] private Label researchPrerequisitesTitleLabel;
+    [Export] private TextureRect researchIconTextureRect;
+    [Export] private VBoxContainer prerequisitesParent;
+    [Export] private PackedScene researchPrerequisiteLabelPackedScene;
     [Export] private Button researchButton;
     [Export] private ProgressBar researchProgressBar;
-    [Export] private CheckBox researchCheckBox;
 
     public override void _Ready()
     {
         CallDeferred(nameof(SubscribeToResearchEvent));
-        InitialResearchInfoUpdate();
+        UpdateResearchButtonInfo();
     }
 
     private void SubscribeToResearchEvent()
@@ -20,10 +25,29 @@ public partial class ResearchItemButton : PanelContainer
         ResearchControl.Instance.ResearchVisible += CheckIfResearchIsDone;
     }
 
-    private void InitialResearchInfoUpdate()
+    private void UpdateResearchButtonInfo()
     {
-        researchButton.Text = researchItemData.researchName;
-        researchButton.Icon = researchItemData.researchTexture;
+        researchNameLabel.Text = researchItemData.researchName;
+        researchIconTextureRect.Texture = researchItemData.researchTexture;
+        if (researchItemData.researchPrerequisites.Count > 0)
+        {
+            GD.Print($"{researchItemData.researchName} is not null");
+            UpdatePrerequisites();
+        }
+        else
+        {
+            researchPrerequisitesTitleLabel.Hide();
+        }
+    }
+
+    private void UpdatePrerequisites()
+    {
+        foreach(ResearchItemData researchItemData in researchItemData.researchPrerequisites)
+        {
+            Label researchPrerequisiteLabel = (Label)researchPrerequisiteLabelPackedScene.Instantiate();
+            researchPrerequisiteLabel.Text = researchItemData.researchName;
+            prerequisitesParent.AddChild(researchPrerequisiteLabel);
+        }
     }
 
     private void CheckIfResearchIsDone()
@@ -35,6 +59,5 @@ public partial class ResearchItemButton : PanelContainer
     {
         ResearchDescriptionPanel.Instance.researchItemData = researchItemData;
         ResearchDescriptionPanel.Instance.Show();
-        //ResearchControl.Instance.researchItemParent.Hide();
     }
 }

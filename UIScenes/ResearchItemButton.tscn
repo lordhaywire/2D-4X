@@ -1,0 +1,65 @@
+[gd_scene load_steps=4 format=3 uid="uid://dbh44f2eysibn"]
+
+[ext_resource type="Script" path="res://Scripts/UI/ResearchItemButton.cs" id="1_6bpef"]
+[ext_resource type="PackedScene" uid="uid://ctmeblm8t3ynu" path="res://UIScenes/ResearchPrerequisiteLabel.tscn" id="2_12rja"]
+[ext_resource type="Texture2D" uid="uid://dmeg24s68kkig" path="res://Graphics/Research/uncertainty.svg" id="2_uk2ix"]
+
+[node name="Research Item Button" type="PanelContainer" node_paths=PackedStringArray("researchNameLabel", "researchPrerequisitesTitleLabel", "researchIconTextureRect", "prerequisitesParent", "researchButton", "researchProgressBar")]
+custom_minimum_size = Vector2(400, 200)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+script = ExtResource("1_6bpef")
+researchNameLabel = NodePath("VBoxContainer/HBoxContainer/Research Info VBoxContainer/Research Name Label")
+researchPrerequisitesTitleLabel = NodePath("VBoxContainer/HBoxContainer/Research Info VBoxContainer/Research Prerequisites Title Label")
+researchIconTextureRect = NodePath("VBoxContainer/HBoxContainer/Research Icon Text Rect")
+prerequisitesParent = NodePath("VBoxContainer/HBoxContainer/Research Info VBoxContainer")
+researchPrerequisiteLabelPackedScene = ExtResource("2_12rja")
+researchButton = NodePath("Button")
+researchProgressBar = NodePath("VBoxContainer/ProgressBar")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+icon_alignment = 2
+expand_icon = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="Research Info VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Research Name Label" type="Label" parent="VBoxContainer/HBoxContainer/Research Info VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Test Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Research Prerequisites Title Label" type="Label" parent="VBoxContainer/HBoxContainer/Research Info VBoxContainer"]
+layout_mode = 2
+text = "WORD_PREREQUISITES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Research Icon Text Rect" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+mouse_filter = 2
+texture = ExtResource("2_uk2ix")
+expand_mode = 3
+
+[connection signal="pressed" from="Button" to="." method="OnButtonPressed"]

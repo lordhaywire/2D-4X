@@ -1,4 +1,4 @@
-[gd_scene load_steps=133 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=134 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scripts/HidderNode.cs" id="1_gbt3x"]
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_x1cy2"]
@@ -118,7 +118,7 @@
 [ext_resource type="PackedScene" uid="uid://bif5f4i17oc2p" path="res://UIScenes/StorageHbox.tscn" id="53_xnh1n"]
 [ext_resource type="Script" path="res://Scripts/UI/ResourcesPanelContainer.cs" id="54_ia1o5"]
 [ext_resource type="PackedScene" uid="uid://4t2ve1w4uvww" path="res://UIScenes/AssignedResearcherHBoxContainer.tscn" id="62_dhpbg"]
-[ext_resource type="PackedScene" uid="uid://dbh44f2eysibn" path="res://UIScenes/UIResearchItemButton.tscn" id="62_nohy5"]
+[ext_resource type="PackedScene" uid="uid://dbh44f2eysibn" path="res://UIScenes/ResearchItemButton.tscn" id="62_nohy5"]
 [ext_resource type="Script" path="res://Scripts/UI/StoryEventControl.cs" id="62_onxgq"]
 [ext_resource type="Resource" uid="uid://ceq8jssovq84m" path="res://Resources/ResearchItems/Basic Researching.tres" id="62_ujbl5"]
 [ext_resource type="Resource" uid="uid://caa1jed0r8nly" path="res://Resources/Skills/Production.tres" id="63_514fr"]
@@ -128,6 +128,7 @@
 [ext_resource type="PackedScene" uid="uid://bhgbnf6lykhb6" path="res://UIScenes/PerkLabel.tscn" id="68_6cv3c"]
 [ext_resource type="Texture2D" uid="uid://cs6gb8bpwt7xd" path="res://Graphics/yellow-crumpled-lined-paper-background-2022-12-16-00-47-47-utc-scaled.webp" id="76_xlxp7"]
 [ext_resource type="Script" path="res://Scripts/GameStart.cs" id="84_lusaj"]
+[ext_resource type="PackedScene" uid="uid://ctmeblm8t3ynu" path="res://UIScenes/ResearchPrerequisiteLabel.tscn" id="124_veo43"]
 
 [sub_resource type="Resource" id="Resource_6tiru"]
 script = ExtResource("22_0b0as")
@@ -223,7 +224,7 @@ allPerks = Array[Object]([ExtResource("24_edv5e"), ExtResource("25_626s1")])
 
 [node name="All Research" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("12_hmucs")
-allTierOneResearchData = Array[Object]([ExtResource("22_ugyvd"), ExtResource("16_qtbxl"), ExtResource("62_ujbl5"), ExtResource("33_uirqi")])
+allResearchItemDatas = Array[Object]([ExtResource("22_ugyvd"), ExtResource("62_ujbl5"), ExtResource("16_qtbxl"), ExtResource("33_uirqi")])
 
 [node name="All County Resources" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("18_wf5kh")
@@ -985,7 +986,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 16
-text = "Max Perishable Storage Available: "
+text = "PHRASE_MAX_PERISHABLE_STORAGE_AVAILABLE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1009,7 +1010,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 16
-text = "Max Nonperishable Storage Available: "
+text = "PHRASE_MAX_NONPERISHABLE_STORAGE_AVAILABLE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1038,7 +1039,7 @@ layout_mode = 2
 
 [node name="Perishable Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/MarginContainer/All Resources VBoxContainer/Perishable VBoxContainer"]
 layout_mode = 2
-text = "Perishable"
+text = "WORD_PERISHABLE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1047,7 +1048,7 @@ layout_mode = 2
 
 [node name="Nonperishable Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/MarginContainer/All Resources VBoxContainer/Nonperishable VBoxContainer"]
 layout_mode = 2
-text = "Nonperishable"
+text = "WORD_NONPERISHABLE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1056,7 +1057,7 @@ custom_minimum_size = Vector2(75, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
-text = "Close"
+text = "WORD_CLOSE"
 
 [node name="Population List MarginContainer" type="MarginContainer" parent="Player UI Canvas" node_paths=PackedStringArray("populationListParent", "populationListTitle")]
 visible = false
@@ -1592,7 +1593,6 @@ layout_mode = 2
 
 [node name="Perk Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Perks HBoxContainer" instance=ExtResource("68_6cv3c")]
 layout_mode = 2
-text = "WORD_NONE"
 
 [node name="Skills Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer"]
 layout_mode = 2
@@ -1989,7 +1989,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "Close"
 
-[node name="Research Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("assignedResearchersTitleLabel", "researchItemParent", "assignedResearchersParent")]
+[node name="Research Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("assignedResearchersTitleLabel", "tierOneResearchItemParent", "tierTwoResearchItemParent", "tierThreeResearchItemParent", "assignedResearchersParent")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -2000,8 +2000,11 @@ grow_vertical = 2
 mouse_filter = 1
 theme = ExtResource("50_5cg3n")
 script = ExtResource("40_t5amt")
+researchItemButton = ExtResource("62_nohy5")
 assignedResearchersTitleLabel = NodePath("Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/Assigned Researchers Title Label")
-researchItemParent = NodePath("Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer")
+tierOneResearchItemParent = NodePath("Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer")
+tierTwoResearchItemParent = NodePath("Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 2 Research Items VBoxContainer")
+tierThreeResearchItemParent = NodePath("Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 3 Research Items VBoxContainer")
 assignedResearchersButton = ExtResource("62_dhpbg")
 assignedResearchersParent = NodePath("Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/Assigned Researcher GridContainer")
 
@@ -2021,7 +2024,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 36
-text = "Research"
+text = "WORD_RESEARCH"
 
 [node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer"]
 layout_mode = 2
@@ -2036,7 +2039,7 @@ layout_mode = 2
 [node name="Assigned Researchers Title Label" type="Label" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Assigned Researchers"
+text = "PHRASE_ASSIGNED_RESEARCHERS"
 
 [node name="Assigned Researcher GridContainer" type="GridContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -2057,27 +2060,17 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 alignment = 1
 
-[node name="Basic Production Research Item" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer" instance=ExtResource("62_nohy5")]
-layout_mode = 2
-researchItemData = ExtResource("22_ugyvd")
-
-[node name="Basic Storage Research Item" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer" instance=ExtResource("62_nohy5")]
-layout_mode = 2
-researchItemData = ExtResource("16_qtbxl")
-
-[node name="Researchers Office Research Item" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer" instance=ExtResource("62_nohy5")]
-layout_mode = 2
-researchItemData = ExtResource("62_ujbl5")
-
 [node name="Tier 2 Research Items VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 alignment = 1
 
-[node name="Primitive Scouting Workshop Research Item" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 2 Research Items VBoxContainer" instance=ExtResource("62_nohy5")]
+[node name="Tier 3 Research Items VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Research Control/Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer"]
 layout_mode = 2
-researchItemData = ExtResource("33_uirqi")
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
 
 [node name="Close Button" type="Button" parent="Player UI Canvas/Research Control"]
 layout_mode = 1
@@ -2093,9 +2086,9 @@ grow_horizontal = 2
 grow_vertical = 0
 scale = Vector2(1, 1.03698)
 size_flags_vertical = 8
-text = "Close"
+text = "WORD_CLOSE"
 
-[node name="Research Description PanelContainer" type="PanelContainer" parent="Player UI Canvas" node_paths=PackedStringArray("researchName", "researchTextureRect", "researchDescription", "researchProgressBar", "costOfResearchLabel", "countyImprovementsInResearchParent", "assignResearcherMenuButton")]
+[node name="Research Description PanelContainer" type="PanelContainer" parent="Player UI Canvas" node_paths=PackedStringArray("researchName", "researchTextureRect", "researchDescription", "researchProgressBar", "researchPrerequisitesTitleLabel", "prerequisitesParent", "costOfResearchLabel", "countyImprovementsInResearchParent", "assignResearcherMenuButton")]
 visible = false
 self_modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
@@ -2109,6 +2102,9 @@ researchName = NodePath("MarginContainer/Research Panel/VBoxContainer/Research N
 researchTextureRect = NodePath("MarginContainer/Research Panel/VBoxContainer/Research TextureRect")
 researchDescription = NodePath("MarginContainer/Research Panel/VBoxContainer/Research Description Label")
 researchProgressBar = NodePath("MarginContainer/Research Panel/VBoxContainer/Research ProgressBar")
+researchPrerequisitesTitleLabel = NodePath("MarginContainer/Research Panel/VBoxContainer/Research Prerequisites Title Label")
+researchPrerequisiteLabelPackedScene = ExtResource("124_veo43")
+prerequisitesParent = NodePath("MarginContainer/Research Panel/VBoxContainer/Prerequisites VBoxContainer")
 costOfResearchLabel = NodePath("MarginContainer/Research Panel/VBoxContainer/Total Cost of Research Label")
 countyImprovementsInResearchParent = NodePath("MarginContainer/Research Panel/VBoxContainer/County Improvement In Research Parent HBoxContainer")
 countyImprovementResearchPackedScene = ExtResource("38_cyd52")
@@ -2147,10 +2143,18 @@ text = "This is the description"
 horizontal_alignment = 1
 autowrap_mode = 3
 
+[node name="Research Prerequisites Title Label" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
+layout_mode = 2
+text = "WORD_PREREQUISITES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Prerequisites VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
+layout_mode = 2
+
 [node name="Cost Title Label" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
 layout_mode = 2
-text = "Research Cost
-"
+text = "PHRASE_RESEARCH_COST"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -2168,7 +2172,7 @@ value = 50.0
 
 [node name="County Improvement Title Label" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
 layout_mode = 2
-text = "County Improvement"
+text = "PHRASE_COUNTY_IMPROVEMENT"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -2180,14 +2184,14 @@ size_flags_horizontal = 4
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/normal = SubResource("StyleBoxFlat_fieoi")
-text = "Assign Researcher"
+text = "PHRASE_ASSIGN_RESEARCHER"
 flat = false
 
 [node name="Close Button" type="Button" parent="Player UI Canvas/Research Description PanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
-text = "Close"
+text = "WORD_CLOSE"
 
 [node name="Recuit Hero Confirmation PanelContainer" type="PanelContainer" parent="Player UI Canvas" node_paths=PackedStringArray("titleLabel")]
 visible = false

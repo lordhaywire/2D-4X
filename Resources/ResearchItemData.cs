@@ -74,6 +74,7 @@ public partial class ResearchItemData : Resource
         ResearchItemData newResearchItemData = new()
         {
             factionID = researchItemData.factionID,
+            tier = researchItemData.tier,
             skill = researchItemData.skill,
             interest = researchItemData.interest,
             researchedAtStart = researchItemData.researchedAtStart,
@@ -83,6 +84,7 @@ public partial class ResearchItemData : Resource
             AmountOfResearchDone = researchItemData.AmountOfResearchDone,
             costOfResearch = researchItemData.costOfResearch,
             countyImprovementDatas = researchItemData.countyImprovementDatas,
+            researchPrerequisites = researchItemData.researchPrerequisites,
             isResearchDone = researchItemData.isResearchDone
         };
         // This was an attempt at deep copying the array.

@@ -13,6 +13,9 @@ namespace PlayerSpace
         [Export] private TextureRect researchTextureRect;
         [Export] private Label researchDescription;
         [Export] private ProgressBar researchProgressBar;
+        [Export] private Label researchPrerequisitesTitleLabel;
+        [Export] private PackedScene researchPrerequisiteLabelPackedScene;
+        [Export] private VBoxContainer prerequisitesParent;
         [Export] private Label costOfResearchLabel;
 
         [Export] private HBoxContainer countyImprovementsInResearchParent;
@@ -25,7 +28,22 @@ namespace PlayerSpace
         {
             Instance = this;
         }
-
+        private void OnVisibilityChanged()
+        {
+            if (Visible == true)
+            {
+                //GD.Print("Research Description Panel!");
+                assignResearcherMenuButton.GetPopup().IdPressed += SelectResearcher;
+                RemoveCountyImprovements();
+                UpdateDescriptionLabels();
+                AssignResearcherMenuButton();
+                AssignCountyImprovements();
+            }
+            else
+            {
+                assignResearcherMenuButton.GetPopup().IdPressed -= SelectResearcher;
+            }
+        }
         private void SelectResearcher(long id)
         {
             //GD.Print("Assigned Researcher ID: " + id);
@@ -97,22 +115,7 @@ namespace PlayerSpace
             assignableResearchers.Add(countyPopulation);
         }
 
-        private void OnVisibilityChanged()
-        {
-            if (Visible == true)
-            {
-                //GD.Print("Research Description Panel!");
-                assignResearcherMenuButton.GetPopup().IdPressed += SelectResearcher;
-                RemoveCountyImprovements();
-                UpdateDescriptionLabels();
-                AssignResearcherMenuButton();
-                AssignCountyImprovements();
-            }
-            else
-            {
-                assignResearcherMenuButton.GetPopup().IdPressed -= SelectResearcher;
-            }
-        }
+
 
         private void AssignCountyImprovements()
         {
@@ -136,6 +139,36 @@ namespace PlayerSpace
             costOfResearchLabel.Text = $"{researchItemData.AmountOfResearchDone} / {researchItemData.costOfResearch}";
             researchProgressBar.MaxValue = researchItemData.costOfResearch;
             researchProgressBar.Value = researchItemData.AmountOfResearchDone;
+            researchPrerequisitesTitleLabel.Show();
+            // This whole thing is almost a duplicate of the code in ResearchItemButton.
+            ClearPrerequisites();
+            if (researchItemData.researchPrerequisites.Count > 0)
+            {
+                GD.Print($"{researchItemData.researchName} is not null");
+                UpdatePrerequisites();
+            }
+            else
+            {
+                researchPrerequisitesTitleLabel.Hide();
+            }
+        }
+
+        private void ClearPrerequisites()
+        {
+            foreach(Label label in prerequisitesParent.GetChildren().Cast<Label>())
+            {
+                label.QueueFree();
+            }
+        }
+
+        private void UpdatePrerequisites()
+        {
+            foreach (ResearchItemData researchItemData in researchItemData.researchPrerequisites)
+            {
+                Label researchPrerequisiteLabel = (Label)researchPrerequisiteLabelPackedScene.Instantiate();
+                researchPrerequisiteLabel.Text = researchItemData.researchName;
+                prerequisitesParent.AddChild(researchPrerequisiteLabel);
+            }
         }
 
         private void RemoveCountyImprovements()

@@ -65,11 +65,11 @@ namespace PlayerSpace
 
         private static void AddStartingResearch(FactionData factionData)
         {
-            foreach (ResearchItemData researchItemData in AllResearch.Instance.allTierOneResearchData)
+            foreach (ResearchItemData researchItemData in AllResearch.Instance.allResearchItemDatas)
             {
-                GD.Print("Faction ID that is getting assigned: " + factionData.factionID);
+                //GD.Print("Faction ID that is getting assigned: " + factionData.factionID);
                 researchItemData.factionID = factionData.factionID;
-                GD.PrintRich($"[rainbow]{FactionData.GetFactionDataFromID(researchItemData.factionID).factionName}: {researchItemData.researchName}");
+                //GD.PrintRich($"[rainbow]{FactionData.GetFactionDataFromID(researchItemData.factionID).factionName}: {researchItemData.researchName}");
 
                 ResearchItemData researchItemDataCopy = researchItemData.NewCopy(researchItemData); //(ResearchItemData)researchItemData.Duplicate(true); //
                 if (researchItemDataCopy.researchedAtStart == true)
@@ -80,12 +80,14 @@ namespace PlayerSpace
                 }
                 factionData.researchItems.Add(researchItemDataCopy);
 
+                /*
                 if (factionData.researchItems.Count > 0)
                 {
                     GD.Print($"Faction Data Research Items Count: {factionData.researchItems.Count}");
 
                     GD.Print($"Test of research item faction ID: {factionData.researchItems[0].factionID}");
                 }
+                */
             }
         }
 

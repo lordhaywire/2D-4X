@@ -6,7 +6,7 @@ namespace PlayerSpace
     {
         public static AllResearch Instance { get; private set; }
 
-        [Export] public ResearchItemData[] allTierOneResearchData;
+        [Export] public ResearchItemData[] allResearchItemDatas;
 
         public override void _Ready()
         {

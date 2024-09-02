@@ -87,6 +87,12 @@ INTEREST_HUMANITIES,Humanities,Humanidades
 INTEREST_INFORMATION,Information,Información
 INTEREST_POLITICS,Politics,Política
 INTEREST_WARFARE,Warfare,Guerra
+PERK_DESCRIPTION_LEADEROFPEOPLE,This person is skilled at leading people.,Esta persona es hábil para liderar personas.
+PERK_DESCRIPTION_UHELPFUL,This person is just generally an ass.,Esta persona es generalmente un idiota.
+PERK_NAME_LEADEROFPEOPLE,Leader of People,Líder de Personas
+PERK_NAME_UNHELPFUL,Unhelpful,Inútil
+PHRASE_MAX_NONPERISHABLE_STORAGE_AVAILABLE,Max Nonperishable Storage Available:,Almacenamiento máximo no perecedero disponible:
+PHRASE_MAX_PERISHABLE_STORAGE_AVAILABLE,Max Perishable Storage Available:,Almacenamiento máximo de productos perecederos disponible:
 PHRASE_PREFERRED_WORK,Preferred Work,Trabajo preferido
 PHRASE_RECRUITE_AS_AIDE,Recruite as Aide,Recluta como ayudante
 PHRASE_RECRUITE_AS_ARMY_LEADER,Recruite as Army Leader,Recluta como líder del ejército
@@ -118,27 +124,31 @@ SKILL_NAME_PRODUCTION,Production,Producción
 SKILL_NAME_RESEARCH,Research,Investigación
 SKILL_NAME_RIFLE,Rifle,Fusil
 SKILL_NAME_SCAVENGE,Scavenge,Recoger la basura
+TITLE_AIDE,Aide,Ayudante
+TITLE_ARMY_LEADER,Army Leader,Líder del Ejército
+TITLE_FACTION_LEADER,Faction Leader,Líder de facción
 WORD_ACTIVITY,Activity,Actividad
 WORD_AGE,Age,Edad
 WORD_ATTRIBUTES,Attributes,Atributos
 WORD_CLOSE,Close,Cerrar
+WORD_FEMALE,Female,Hembra
 WORD_HELPFUL,Helpful,Útil
+WORD_IDLE,Idle,Ocioso
 WORD_INTEREST,Interest,Interés
 WORD_LOYALTY,Loyalty,Lealtad
+WORD_MALE,Male,Masculino
 WORD_NAME,Name,Nombre
+WORD_NONE,None,Ninguno
+WORD_NONPERISHABLE,Nonperishable,No perecedero
+WORD_PERISHABLE,Perishable,Perecedero
 WORD_PERKS,Perks,Ventajas
 WORD_POPULATION,Population,Población
 WORD_SEX,Sex,Sexo
 WORD_SKILLS,Skills,Habilidades
 WORD_TITLES,Titles,Títulos
-PERK_NAME_UNHELPFUL,Unhelpful,Inútil
-PERK_DESCRIPTION_UHELPFUL,This person is just generally an ass.,Esta persona es generalmente un idiota.
-PERK_NAME_LEADEROFPEOPLE,Leader of People,Líder de Personas
-PERK_DESCRIPTION_LEADEROFPEOPLE,This person is skilled at leading people.,Esta persona es hábil para liderar personas.
-WORD_MALE,Male,Masculino
-WORD_FEMALE,Female,Hembra
-WORD_NONE,None,Ninguno
-WORD_IDLE,Idle,Ocioso
-TITLE_FACTION_LEADER,Faction Leader,Líder de facción
-TITLE_AIDE,Aide,Ayudante
-TITLE_ARMY_LEADER,Army Leader,Líder del Ejército
+WORD_RESEARCH,Research,Investigación
+PHRASE_RESEARCH_COST,Research Cost,Coste de investigación
+PHRASE_COUNTY_IMPROVEMENT,County Improvement,Mejoramiento del Condado
+PHRASE_ASSIGN_RESEARCHER,Assign Researcher,Asignar investigador
+PHRASE_ASSIGNED_RESEARCHERS,Assigned Researchers,Investigadores asignados
+WORD_PREREQUISITES,Prerequisites,Prerrequisitos

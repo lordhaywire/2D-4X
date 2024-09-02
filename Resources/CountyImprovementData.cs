@@ -28,12 +28,13 @@ namespace PlayerSpace
             }
         }
         [Export] public int maxAmountOfConstruction;
-        //[Export] public int currentBuilders;
         [Export] public int maxBuilders;
-        //[Export] public int currentWorkers;
         [Export] public int maxWorkers;
         [Export] public AllEnums.CountyResourceType countyResourceType;
         [Export] public AllEnums.FactionResourceType factionResourceType;
+        // If it needs two or more resources for input
+        // We need to know the type and amount of each resource
+        [Export] public Godot.Collections.Array<AllEnums.CountyResourceType> inputResources;
         [Export] public int dailyResourceGenerationAmount;
         [Export] public int dailyResourceGenerationBonus;
 
