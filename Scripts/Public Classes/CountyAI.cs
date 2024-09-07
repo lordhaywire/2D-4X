@@ -1,4 +1,5 @@
 using Godot;
+using System.Linq;
 
 namespace PlayerSpace;
 
@@ -49,7 +50,16 @@ public class CountyAI
     {
         countyImprovementData.status = AllEnums.CountyImprovementStatus.UnderConstruction;
         countyData.underConstructionCountyImprovements.Add(countyImprovementData);
-        GD.Print($"{countyData.factionData.factionName} is building {countyImprovementData.improvementName}.");
+        countyData.underConstructionCountyImprovements.Sort((x,y) => string.Compare(x.improvementName, y.improvementName));
+
+        /*
+    = [.. countyData.underConstructionCountyImprovements.OrderBy(improvement 
+    => TranslationServer.Translate(improvement.improvementName))];
+        GD.Print($"{countyData.factionData.factionName} is building {TranslationServer.Translate(countyImprovementData.improvementName)}.");
+        /*
+        allCountyImprovements
+         = [.. allCountyImprovements.OrderBy(improvement => Tr(improvement.improvementName))];
+        */
     }
     public static CountyImprovementData FindCountyImpovementOfType(County county, AllEnums.FactionResourceType factionResourceType)
     {

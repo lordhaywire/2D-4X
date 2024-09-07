@@ -71,11 +71,18 @@ namespace PlayerSpace
             researchableResearch.Clear();
             foreach (ResearchItemData researchItemData in researchItems)
             {
-                if (researchItemData.CheckIfResearchDone() == false)
+                if (researchItemData.CheckIfResearchDone() == false
+                    && researchItemData.CheckIfPrerequisitesAreDone() == true)
                 {
                     researchableResearch.Add(researchItemData);
                 }
             }
+            /*
+            foreach(ResearchItemData researchItemData1 in researchableResearch)
+            {
+                GD.Print("Researchable Research: " + researchItemData1.researchName);
+            }
+            */
         }
 
         private void CheckEachPeopleForResearch(CountyData countyData)
@@ -155,15 +162,17 @@ namespace PlayerSpace
             GD.PrintRich($"[rainbow][tornado]{factionName} {countyImprovementData.improvementName} has been added.");
             // Alphabetize the list by improvementName
             allCountyImprovements
-                = [.. allCountyImprovements.OrderBy(improvement => improvement.improvementName)];
+                = [.. allCountyImprovements.OrderBy(improvement => Tr(improvement.improvementName))];
 
         }
         // Zero resources that are summed from each county.
+        // Why not foreach this and skip the first two?
         public void ZeroFactionCountyResources()
         {
             factionResources[AllEnums.FactionResourceType.Food].amount = 0;
             factionResources[AllEnums.FactionResourceType.Remnants].amount = 0;
             factionResources[AllEnums.FactionResourceType.BuildingMaterial].amount = 0;
+            factionResources[AllEnums.FactionResourceType.Equipment].amount = 0;
         }
 
         // This should be counting just the county resources of Faction Type, not the used.
@@ -174,10 +183,12 @@ namespace PlayerSpace
             {
                 factionResources[AllEnums.FactionResourceType.Food].amount
                     += countyData.CountFactionResourceOfType(AllEnums.FactionResourceType.Food);
-                factionResources[AllEnums.FactionResourceType.BuildingMaterial].amount
-                    += countyData.CountFactionResourceOfType(AllEnums.FactionResourceType.BuildingMaterial);
                 factionResources[AllEnums.FactionResourceType.Remnants].amount
                     += countyData.CountFactionResourceOfType(AllEnums.FactionResourceType.Remnants);
+                factionResources[AllEnums.FactionResourceType.BuildingMaterial].amount
+                    += countyData.CountFactionResourceOfType(AllEnums.FactionResourceType.BuildingMaterial);
+                factionResources[AllEnums.FactionResourceType.Equipment].amount
+                    += countyData.CountFactionResourceOfType(AllEnums.FactionResourceType.Equipment);
             }
         }
 
@@ -188,18 +199,21 @@ namespace PlayerSpace
             {
                 amountUsedFactionResources[AllEnums.FactionResourceType.Food].amount
                     += countyData.CountUsedFactionResourceOfType(AllEnums.FactionResourceType.Food);
-                amountUsedFactionResources[AllEnums.FactionResourceType.BuildingMaterial].amount
-                    += countyData.CountUsedFactionResourceOfType(AllEnums.FactionResourceType.BuildingMaterial);
                 amountUsedFactionResources[AllEnums.FactionResourceType.Remnants].amount
                     += countyData.CountUsedFactionResourceOfType(AllEnums.FactionResourceType.Remnants);
+                amountUsedFactionResources[AllEnums.FactionResourceType.BuildingMaterial].amount
+                    += countyData.CountUsedFactionResourceOfType(AllEnums.FactionResourceType.BuildingMaterial);
             }
         }
 
+        // This is almost identical to the other zeroing out thing.
+        // Why not a foreach loop and skip the first two?
         private void ZeroFactionCountyActualUsedResources()
         {
             amountUsedFactionResources[AllEnums.FactionResourceType.Food].amount = 0;
             amountUsedFactionResources[AllEnums.FactionResourceType.Remnants].amount = 0;
             amountUsedFactionResources[AllEnums.FactionResourceType.BuildingMaterial].amount = 0;
+            amountUsedFactionResources[AllEnums.FactionResourceType.Equipment].amount = 0;
         }
 
         public void SubtractFactionResources()

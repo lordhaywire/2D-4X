@@ -41,7 +41,7 @@ public partial class ResearchItemData : Resource
     [Export] public int costOfResearch;
     // This is the list of countyImprovementDatas that is research controls.
     [Export] public CountyImprovementData[] countyImprovementDatas = [];
-    [Export] public Godot.Collections.Array<ResearchItemData> researchPrerequisites;
+    [Export] public Godot.Collections.Array<EnumsResearch.All> researchPrerequisites;
     [Export] private bool isResearchDone;
 
     public void CompleteResearch()
@@ -69,6 +69,20 @@ public partial class ResearchItemData : Resource
         return isResearchDone;
     }
 
+    public bool CheckIfPrerequisitesAreDone()
+    {
+        foreach (EnumsResearch.All enumResearch in researchPrerequisites)
+        {
+            GD.Print($"{Globals.Instance.playerFactionData.researchItems[(int)enumResearch].researchName} " +
+                $"{Globals.Instance.playerFactionData.researchItems[(int)enumResearch].CheckIfResearchDone()}");
+            if (Globals.Instance.playerFactionData.researchItems[(int)enumResearch].CheckIfResearchDone()
+                == false)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
     public ResearchItemData NewCopy(ResearchItemData researchItemData)
     {
         ResearchItemData newResearchItemData = new()

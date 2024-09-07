@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Linq;
 
 namespace PlayerSpace
@@ -80,7 +81,7 @@ namespace PlayerSpace
                 }
                 factionData.researchItems.Add(researchItemDataCopy);
 
-                /*
+                /* This is for testing.
                 if (factionData.researchItems.Count > 0)
                 {
                     GD.Print($"Faction Data Research Items Count: {factionData.researchItems.Count}");

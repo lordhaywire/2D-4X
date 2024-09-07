@@ -63,7 +63,7 @@ namespace PlayerSpace
 
         private void AssignResearcherMenuButton()
         {
-            if (researchItemData.CheckIfResearchDone() == true)
+            if (researchItemData.CheckIfResearchDone() == true || researchItemData.CheckIfPrerequisitesAreDone() == false)
             {
                 assignResearcherMenuButton.Hide();
                 return;
@@ -108,6 +108,8 @@ namespace PlayerSpace
             }
         }
 
+        
+
         private void AddResearcherToMenu(CountyData countyData, CountyPopulation countyPopulation)
         {
             assignResearcherMenuButton.GetPopup().AddItem($"{countyPopulation.firstName} {countyPopulation.lastName}" +
@@ -144,7 +146,7 @@ namespace PlayerSpace
             ClearPrerequisites();
             if (researchItemData.researchPrerequisites.Count > 0)
             {
-                GD.Print($"{researchItemData.researchName} is not null");
+                //GD.Print($"{researchItemData.researchName} is not null");
                 UpdatePrerequisites();
             }
             else
@@ -163,10 +165,11 @@ namespace PlayerSpace
 
         private void UpdatePrerequisites()
         {
-            foreach (ResearchItemData researchItemData in researchItemData.researchPrerequisites)
+            foreach (EnumsResearch.All enumResearch in researchItemData.researchPrerequisites)
             {
                 Label researchPrerequisiteLabel = (Label)researchPrerequisiteLabelPackedScene.Instantiate();
-                researchPrerequisiteLabel.Text = researchItemData.researchName;
+                researchPrerequisiteLabel.Text 
+                    = Globals.Instance.playerFactionData.researchItems[(int)enumResearch].researchName;
                 prerequisitesParent.AddChild(researchPrerequisiteLabel);
             }
         }

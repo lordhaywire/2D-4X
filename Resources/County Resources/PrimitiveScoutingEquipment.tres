@@ -9,3 +9,4 @@ description = "COUNTY_RESOURCE_DESCRIPTION_PRIMITIVE_SCOUTING_EQUIPMENT"
 countyResourceType = 3
 factionResourceType = 2
 perishable = false
+failureRate = 10

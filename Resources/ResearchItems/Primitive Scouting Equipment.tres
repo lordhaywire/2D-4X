@@ -1,9 +1,8 @@
-[gd_resource type="Resource" script_class="ResearchItemData" load_steps=6 format=3 uid="uid://7ylqwh5wl2xi"]
+[gd_resource type="Resource" script_class="ResearchItemData" load_steps=5 format=3 uid="uid://7ylqwh5wl2xi"]
 
 [ext_resource type="Resource" uid="uid://chufschxvhcsh" path="res://Resources/County Improvements/ScoutingEquipmentWorkshop.tres" id="1_mf2vf"]
 [ext_resource type="Resource" uid="uid://dqjlx4jv1pgfi" path="res://Resources/Interests/Engineering.tres" id="1_qk700"]
 [ext_resource type="Script" path="res://Resources/ResearchItemData.cs" id="1_tdoe1"]
-[ext_resource type="Resource" uid="uid://bljrvhrjka1hs" path="res://Resources/ResearchItems/Basic Production.tres" id="2_0vpvp"]
 [ext_resource type="Texture2D" uid="uid://wsj5grvlt5uj" path="res://Graphics/Research/Primative Scouting binoculars.svg" id="2_7giv7"]
 
 [resource]
@@ -18,5 +17,5 @@ researchTexture = ExtResource("2_7giv7")
 amountOfResearchDone = 0
 costOfResearch = 50
 countyImprovementDatas = [ExtResource("1_mf2vf")]
-researchPrerequisites = Array[Object]([ExtResource("2_0vpvp")])
+researchPrerequisites = Array[int]([0])
 isResearchDone = false

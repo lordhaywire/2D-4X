@@ -1,4 +1,4 @@
-[gd_scene load_steps=134 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=135 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scripts/HidderNode.cs" id="1_gbt3x"]
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_x1cy2"]
@@ -128,6 +128,7 @@
 [ext_resource type="PackedScene" uid="uid://bhgbnf6lykhb6" path="res://UIScenes/PerkLabel.tscn" id="68_6cv3c"]
 [ext_resource type="Texture2D" uid="uid://cs6gb8bpwt7xd" path="res://Graphics/yellow-crumpled-lined-paper-background-2022-12-16-00-47-47-utc-scaled.webp" id="76_xlxp7"]
 [ext_resource type="Script" path="res://Scripts/GameStart.cs" id="84_lusaj"]
+[ext_resource type="Texture2D" uid="uid://cyphf3703b4qa" path="res://Graphics/Icons/Top Bar/bolter-gun.svg" id="98_qs8v3"]
 [ext_resource type="PackedScene" uid="uid://ctmeblm8t3ynu" path="res://UIScenes/ResearchPrerequisiteLabel.tscn" id="124_veo43"]
 
 [sub_resource type="Resource" id="Resource_6tiru"]
@@ -289,7 +290,7 @@ script = ExtResource("19_dn5gi")
 dayLabel = NodePath("../../Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Day Panel/Hbox/Day Numbers Label")
 HourLabel = NodePath("../../Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Time Panel/Hbox/Hours Numbers Label")
 currentSpeedLabel = NodePath("../../Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/Speed Panel/Speed Number Label")
-pausedLabel = NodePath("../../Player UI Canvas/Top Bar Control/PanelContainer/Pause Control/Pause Label")
+pausedLabel = NodePath("../../Player UI Canvas/Pause Control/Pause Label")
 ticks = 100
 
 [node name="County Dictator" type="Node" parent="Game Controller Node"]
@@ -328,7 +329,7 @@ size_flags_vertical = 10
 mouse_filter = 0
 theme_override_constants/separation = 1
 
-[node name="Top Bar Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("clock", "influenceLabel", "influenceAmountUsed", "moneyLabel", "moneyAmountUsed", "remnantsLabel", "remnantsAmountUsed", "buildingMaterialsLabel", "buildingMaterialsAmountUsed", "foodLabel", "foodAmountUsed")]
+[node name="Top Bar Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("clock", "influenceLabel", "influenceAmountUsed", "moneyLabel", "moneyAmountUsed", "remnantsLabel", "remnantsAmountUsed", "buildingMaterialsLabel", "buildingMaterialsAmountUsed", "equipmentLabel", "equipmentAmountUsed", "foodLabel", "foodAmountUsed")]
 custom_minimum_size = Vector2(0, 31)
 layout_mode = 3
 anchors_preset = 10
@@ -347,6 +348,8 @@ remnantsLabel = NodePath("PanelContainer/Top Bar HBox/Remnants Panel Container/R
 remnantsAmountUsed = NodePath("PanelContainer/Top Bar HBox/Remnants Amount Used Panel Container/Remnants Amount Used Label")
 buildingMaterialsLabel = NodePath("PanelContainer/Top Bar HBox/Building Materials Panel Container/Building Materials Number")
 buildingMaterialsAmountUsed = NodePath("PanelContainer/Top Bar HBox/Building Materials Amount Used Panel Container/Building Materials Amount Used Label")
+equipmentLabel = NodePath("PanelContainer/Top Bar HBox/Equipment Panel Container/Equipment Number")
+equipmentAmountUsed = NodePath("PanelContainer/Top Bar HBox/Equipment Amount Used Panel Container/Equipment Amount Used Label")
 foodLabel = NodePath("PanelContainer/Top Bar HBox/Food Panel Container/Food Number")
 foodAmountUsed = NodePath("PanelContainer/Top Bar HBox/Food Amount Used Panel Container/Food Amount Used Label")
 
@@ -379,7 +382,7 @@ grow_vertical = 2
 [node name="Day Label" type="Label" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Day Panel/Hbox"]
 layout_mode = 2
 size_flags_vertical = 1
-text = "Day:"
+text = "WORD_DAY"
 vertical_alignment = 1
 
 [node name="Day Numbers Label" type="Label" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Day Panel/Hbox"]
@@ -403,7 +406,7 @@ grow_vertical = 2
 
 [node name="Hour Label" type="Label" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Time Panel/Hbox"]
 layout_mode = 2
-text = "Time:"
+text = "WORD_TIME"
 vertical_alignment = 1
 
 [node name="Hours Numbers Label" type="Label" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Time Panel/Hbox"]
@@ -531,6 +534,36 @@ text = "(0)"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Equipment TextureRect" type="TextureRect" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox"]
+layout_mode = 2
+mouse_filter = 0
+texture = ExtResource("98_qs8v3")
+expand_mode = 3
+
+[node name="Equipment Panel Container" type="PanelContainer" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
+[node name="Equipment Number" type="Label" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Equipment Panel Container"]
+layout_mode = 2
+text = "100000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Equipment Amount Used Panel Container" type="PanelContainer" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Equipment Amount Used Label" type="Label" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Equipment Amount Used Panel Container"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "(0)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Food TextureRect" type="TextureRect" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox"]
 layout_mode = 2
 mouse_filter = 0
@@ -571,8 +604,7 @@ layout_mode = 2
 focus_mode = 0
 mouse_filter = 1
 theme_override_styles/normal = SubResource("StyleBoxFlat_1crxt")
-text = "Research
-"
+text = "WORD_RESEARCH"
 
 [node name="Speed Panel" type="PanelContainer" parent="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox"]
 custom_minimum_size = Vector2(75, 0)
@@ -580,8 +612,9 @@ layout_mode = 2
 size_flags_horizontal = 8
 
 [node name="Speed Title Label" type="Label" parent="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/Speed Panel"]
+custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
-text = "Speed:"
+text = "WORD_SPEED"
 
 [node name="Speed Number Label" type="Label" parent="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/Speed Panel"]
 custom_minimum_size = Vector2(15, 0)
@@ -624,12 +657,16 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_1crxt")
 text = "x8
 "
 
-[node name="Pause Control" type="Control" parent="Player UI Canvas/Top Bar Control/PanelContainer"]
+[node name="Pause Control" type="Control" parent="Player UI Canvas"]
 custom_minimum_size = Vector2(0, 31)
-layout_mode = 2
+layout_mode = 3
+anchors_preset = 0
+offset_top = 31.0
+offset_right = 1920.0
+offset_bottom = 62.0
 mouse_filter = 2
 
-[node name="Pause Label" type="Label" parent="Player UI Canvas/Top Bar Control/PanelContainer/Pause Control"]
+[node name="Pause Label" type="Label" parent="Player UI Canvas/Pause Control"]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -643,7 +680,7 @@ offset_right = 42.5
 offset_bottom = 13.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Paused"
+text = "WORD_PAUSED"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -2425,6 +2462,12 @@ process_mode = 3
 [connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Building Materials Panel Container" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
 [connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Building Materials Amount Used Panel Container" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Building Materials Amount Used Panel Container" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
+[connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Equipment TextureRect" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Equipment TextureRect" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
+[connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Equipment Panel Container" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Equipment Panel Container" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
+[connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Equipment Amount Used Panel Container" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Equipment Amount Used Panel Container" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
 [connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Food TextureRect" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Food TextureRect" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
 [connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Food Panel Container" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
@@ -2451,8 +2494,8 @@ process_mode = 3
 [connection signal="button_up" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x8 Button" to="Player UI Canvas/Top Bar Control" method="ChangeSpeed" binds= [8]]
 [connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x8 Button" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x8 Button" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
-[connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Pause Control" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
-[connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Pause Control" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
+[connection signal="mouse_entered" from="Player UI Canvas/Pause Control" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="Player UI Canvas/Pause Control" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
 [connection signal="visibility_changed" from="Player UI Canvas/County Info Control" to="Player UI Canvas/County Info Control" method="OnVisibilityChanged"]
 [connection signal="mouse_entered" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer" to="Player UI Canvas/County Info Control" method="OnMouseEntered"]
 [connection signal="mouse_exited" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer" to="Player UI Canvas/County Info Control" method="OnMouseExited"]

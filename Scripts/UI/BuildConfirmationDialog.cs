@@ -14,8 +14,9 @@ namespace PlayerSpace
 
         private void UpdateConfirmationDialog()
         {
-            DialogText = AllText.DialogTitles.BUILDINGBUILDINGS 
-                + Globals.Instance.selectedPossibleBuildingControl.countyImprovementData.improvementName;       
+            string confirmString = "PHRASE_BUILD_IMPROVEMENT_CONFIRM";
+            DialogText = Tr(confirmString) + " "
+                + Tr(Globals.Instance.selectedPossibleBuildingControl.countyImprovementData.improvementName) + "?";
         }
 
         private void YesButton()
@@ -29,6 +30,7 @@ namespace PlayerSpace
             banker.ChargeForBuilding(Globals.Instance.playerFactionData
                 , Globals.Instance.selectedPossibleBuildingControl.countyImprovementData);
             
+            // Removes the cost of the building.
             TopBarControl.Instance.UpdateResourceLabels();
             CountyImprovementsControl.Instance.CreateAllCountyImprovementButtons();
             Hide();

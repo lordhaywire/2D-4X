@@ -42,10 +42,11 @@ public partial class ResearchItemButton : PanelContainer
 
     private void UpdatePrerequisites()
     {
-        foreach(ResearchItemData researchItemData in researchItemData.researchPrerequisites)
+        foreach(EnumsResearch.All enumResearch in researchItemData.researchPrerequisites)
         {
             Label researchPrerequisiteLabel = (Label)researchPrerequisiteLabelPackedScene.Instantiate();
-            researchPrerequisiteLabel.Text = researchItemData.researchName;
+            researchPrerequisiteLabel.Text 
+                = Globals.Instance.playerFactionData.researchItems[(int)enumResearch].researchName;
             prerequisitesParent.AddChild(researchPrerequisiteLabel);
         }
     }

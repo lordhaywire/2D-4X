@@ -17,6 +17,8 @@ namespace PlayerSpace
         [Export] private Label remnantsAmountUsed;
         [Export] private Label buildingMaterialsLabel;
         [Export] private Label buildingMaterialsAmountUsed;
+        [Export] private Label equipmentLabel;
+        [Export] private Label equipmentAmountUsed;
         [Export] private Label foodLabel;
         [Export] private Label foodAmountUsed;
 
@@ -58,6 +60,7 @@ namespace PlayerSpace
             foodLabel.Text = $"{countyData.CountFactionResourceOfType(AllEnums.FactionResourceType.Food)}";
             remnantsLabel.Text = $"{countyData.CountFactionResourceOfType(AllEnums.FactionResourceType.Remnants)}";
             buildingMaterialsLabel.Text = $"{countyData.CountFactionResourceOfType(AllEnums.FactionResourceType.BuildingMaterial)}";
+            equipmentLabel.Text = $"{countyData.CountFactionResourceOfType(AllEnums.FactionResourceType.Equipment)}";
         }
         private void UpdateLabelWithCountyUsedAmount()
         {
@@ -66,6 +69,7 @@ namespace PlayerSpace
             foodAmountUsed.Text = $"({countyData.CountUsedFactionResourceOfType(AllEnums.FactionResourceType.Food)})";
             remnantsAmountUsed.Text = $"({countyData.CountUsedFactionResourceOfType(AllEnums.FactionResourceType.Remnants)})";
             buildingMaterialsAmountUsed.Text = $"({countyData.CountUsedFactionResourceOfType(AllEnums.FactionResourceType.BuildingMaterial)})";
+            equipmentAmountUsed.Text = $"({countyData.CountUsedFactionResourceOfType(AllEnums.FactionResourceType.Equipment)})";
         }
 
         private void UpdateInfluenceMoneyLabels()
@@ -99,6 +103,7 @@ namespace PlayerSpace
             foodAmountUsed.Text = $"({factionData.amountUsedFactionResources[AllEnums.FactionResourceType.Food].amount})";
             remnantsAmountUsed.Text = $"({factionData.amountUsedFactionResources[AllEnums.FactionResourceType.Remnants].amount})";
             buildingMaterialsAmountUsed.Text = $"({factionData.amountUsedFactionResources[AllEnums.FactionResourceType.BuildingMaterial].amount})";
+            equipmentAmountUsed.Text = $"({factionData.amountUsedFactionResources[AllEnums.FactionResourceType.Equipment].amount})";
         }
 
         private void UpdateLabelsWithFactionAmounts()
@@ -106,6 +111,7 @@ namespace PlayerSpace
             foodLabel.Text = factionData.factionResources[AllEnums.FactionResourceType.Food].amount.ToString();
             remnantsLabel.Text = factionData.factionResources[AllEnums.FactionResourceType.Remnants].amount.ToString();
             buildingMaterialsLabel.Text = factionData.factionResources[AllEnums.FactionResourceType.BuildingMaterial].amount.ToString();
+            equipmentLabel.Text = factionData.factionResources[AllEnums.FactionResourceType.Equipment].amount.ToString();
         }
 
         public void ChangeSpeed(int speed)

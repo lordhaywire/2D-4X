@@ -7,5 +7,6 @@ script = ExtResource("1_ag1o6")
 name = "COUNTY_RESOURCE_CANNED_FOOD"
 description = "COUNTY_RESOURCE_DESCRIPTION_CANNED_FOOD"
 countyResourceType = 1
-factionResourceType = 2
+factionResourceType = 3
 perishable = false
+failureRate = 0

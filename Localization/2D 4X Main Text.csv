@@ -152,3 +152,8 @@ PHRASE_COUNTY_IMPROVEMENT,County Improvement,Mejoramiento del Condado
 PHRASE_ASSIGN_RESEARCHER,Assign Researcher,Asignar investigador
 PHRASE_ASSIGNED_RESEARCHERS,Assigned Researchers,Investigadores asignados
 WORD_PREREQUISITES,Prerequisites,Prerrequisitos
+WORD_DAY,Day:,Día
+WORD_TIME,Time:,Hora
+WORD_PAUSED,Paused,Pausa
+WORD_SPEED,Speed:,Velocidad
+PHRASE_BUILD_IMPROVEMENT_CONFIRM,Are you sure you want to build a,¿Estás seguro de que quieres construir un

@@ -19,6 +19,7 @@ maxBuilders = 5
 maxWorkers = 0
 countyResourceType = 0
 factionResourceType = 0
+inputResources = null
 dailyResourceGenerationAmount = 0
 dailyResourceGenerationBonus = 0
 status = 0
