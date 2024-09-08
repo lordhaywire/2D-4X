@@ -46,19 +46,19 @@ public partial class ResearchItemData : Resource
 
     public void CompleteResearch()
     {
-        GD.PrintRich($"[rainbow]Complete Research! " + researchName);
+        //GD.PrintRich($"[rainbow]Complete Research! " + researchName);
         Faction faction = (Faction)Globals.Instance.factionsParent.GetChild(factionID);
         if (faction.factionData == Globals.Instance.playerFactionData)
         {
-            EventLog.Instance?.AddLog($"{researchName} has been completed research.");
+            EventLog.Instance?.AddLog($"{Tr(researchName)} {Tr("PHRASE_HAS_BEEN_COMPLETED")}.");
         }
-        GD.Print("County Improvement Array Count: " + countyImprovementDatas.Length);
+        //GD.Print("County Improvement Array Count: " + countyImprovementDatas.Length);
         if (countyImprovementDatas.Length > 0)
         {
             foreach (CountyImprovementData countyImprovementData in countyImprovementDatas)
             {
                 FactionData factionData = FactionData.GetFactionDataFromID(factionID);
-                GD.Print($"This is where it breaks: {factionData.factionName} {countyImprovementData.improvementName}");
+                //GD.Print($"This is where it breaks: {factionData.factionName} {countyImprovementData.improvementName}");
                 factionData.AddCountyImprovementToAllCountyImprovements(countyImprovementData);
             }
         }

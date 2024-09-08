@@ -97,7 +97,7 @@ namespace PlayerSpace
                 ArmyFlees(countyAttackerSelectToken.countyPopulation);
                 EventLog.Instance.AddLog($"{countyAttackerSelectToken.countyPopulation.firstName} " +
                     $"{countyAttackerSelectToken.countyPopulation.lastName} " +
-                    $"{AllText.Battle.LOSTBATTLE}");
+                    $"{Tr("PHRASE_LOST_BATTLE")}");
             }
             // Attacker has zero morale.
             if (countyAttackerSelectToken.countyPopulation.moraleExpendable == 0)
@@ -105,7 +105,7 @@ namespace PlayerSpace
                 ArmyFlees(countyAttackerSelectToken.countyPopulation);
                 EventLog.Instance.AddLog($"{countyAttackerSelectToken.countyPopulation.firstName} " +
                     $"{countyAttackerSelectToken.countyPopulation.lastName} " +
-                    $"{AllText.Battle.LOSTBATTLE}");
+                    $"{Tr("PHRASE_LOST_BATTLE")}");
             }
             // Defender has zero morale.
             if (countyDefendersSelectToken.countyPopulation.moraleExpendable == 0)
@@ -113,7 +113,7 @@ namespace PlayerSpace
                 ArmyFlees(countyDefendersSelectToken.countyPopulation);
                 EventLog.Instance.AddLog($"{countyDefendersSelectToken.countyPopulation.firstName} " +
                     $"{countyDefendersSelectToken.countyPopulation.lastName} " +
-                    $"{AllText.Battle.LOSTBATTLE}");
+                    $"{Tr("PHRASE_LOST_BATTLE")}");
             }
         }
 
@@ -196,7 +196,7 @@ namespace PlayerSpace
                 , shootingCountyPopulation.skills[AllEnums.Skills.Rifle].attribute, false) == true)
             {
                 BattleLogControl.Instance.AddLog
-                    ($"{shootingCountyPopulation.firstName} {shootingCountyPopulation.lastName} has hit!", isAttacker);
+                    ($"{shootingCountyPopulation.firstName} {shootingCountyPopulation.lastName} {Tr("PHRASE_HAS_HIT")}.", isAttacker);
                 if (SkillData.Check(gettingShotAtCountyPopulation, gettingShotAtCountyPopulation.skills[AllEnums.Skills.Cool].skillLevel
                     , gettingShotAtCountyPopulation.skills[AllEnums.Skills.Cool].attribute, false) == false)
                 {
@@ -204,13 +204,13 @@ namespace PlayerSpace
                     gettingShotAtCountyPopulation.moraleExpendable
                         = Math.Max(gettingShotAtCountyPopulation.moraleExpendable - moraleDamage, 0);
                     BattleLogControl.Instance.AddLog($"{gettingShotAtCountyPopulation.firstName} " +
-                        $"{gettingShotAtCountyPopulation.lastName} has failed their cool roll!  " +
-                        $"They have lost {moraleDamage} morale.", !isAttacker);
+                        $"{gettingShotAtCountyPopulation.lastName} {Tr("PHRASE_FAILED_COOL_ROLL")}.  " +
+                        $"{Tr("PHRASE_MORALE_LOST")} {moraleDamage}.", !isAttacker);
                 }
                 else
                 {
                     BattleLogControl.Instance.AddLog($"{gettingShotAtCountyPopulation.firstName} " +
-                        $"{gettingShotAtCountyPopulation.lastName} isn't scared!", !isAttacker);
+                        $"{gettingShotAtCountyPopulation.lastName} {Tr("PHRASE_ISNT_SCARED")}.", !isAttacker);
                 }
                 attackerMoraleLabel.Text = countyAttackerSelectToken.countyPopulation.moraleExpendable.ToString();
                 defenderMoraleLabel.Text = countyDefendersSelectToken.countyPopulation.moraleExpendable.ToString();
@@ -218,7 +218,7 @@ namespace PlayerSpace
             else
             {
                 BattleLogControl.Instance.AddLog($"{shootingCountyPopulation.firstName} " +
-                    $"{shootingCountyPopulation.lastName} has missed!", isAttacker);
+                    $"{shootingCountyPopulation.lastName} {Tr("WORD_MISSED")}.", isAttacker);
             }
 
             // Check if rifle experience is learned by the attacker.

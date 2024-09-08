@@ -10,7 +10,7 @@ namespace PlayerSpace
         {
             if (Visible == true)
             {
-                titleLabel.Text = $"{AllText.Titles.RECRUITHEROCONFIRM} " +
+                titleLabel.Text = $"{Tr("PHRASE_RECRUIT_HERO_CONFIRMATION")} " +
                     $"{PopulationDescriptionControl.Instance.countyPopulation.firstName} " +
                     $"{PopulationDescriptionControl.Instance.countyPopulation.lastName}";
             }

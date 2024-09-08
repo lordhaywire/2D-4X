@@ -31,7 +31,7 @@ namespace PlayerSpace
                 else
                 {
                     populationListTitle.Text = $"{Globals.Instance.SelectedLeftClickCounty.countyData.countyName} " +
-                        AllText.Titles.VISITORLIST;
+                        $"{Tr("WORD_VISITORS")}";
                     GeneratePopulationRows(Globals.Instance.SelectedLeftClickCounty.countyData.visitingHeroList);
                 }
             }
@@ -85,9 +85,9 @@ namespace PlayerSpace
         {
             // This sets their current activity then checks to see if Building, Work, or Research is null and if it isn't
             // then it adds where to the end of the label.  If they are all null then it puts nothing.
-            populationRow.currentActivityLabel.Text = countyPopulation.GetActivityName();
-            string currentWhere = countyPopulation.currentCountyImprovement?.improvementName
-                ?? countyPopulation.currentResearchItemData?.researchName
+            populationRow.currentActivityLabel.Text = TranslationServer.Translate(countyPopulation.GetActivityName());
+            string currentWhere = TranslationServer.Translate(countyPopulation.currentCountyImprovement?.improvementName)
+                ?? TranslationServer.Translate(countyPopulation.currentResearchItemData?.researchName)
                 ?? string.Empty;
             populationRow.currentActivityLabel.Text += $" {currentWhere}";
         }

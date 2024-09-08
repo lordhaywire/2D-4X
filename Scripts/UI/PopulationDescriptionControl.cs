@@ -118,7 +118,7 @@ namespace PlayerSpace
             if (countyPopulation.currentCountyImprovement != null)
             {
                 currentActivityLabel.Text = $"{Tr(countyPopulation.GetActivityName())} " +
-                    $"{countyPopulation.currentCountyImprovement.improvementName}";
+                    $"{Tr(countyPopulation.currentCountyImprovement.improvementName)}";
             }
             else
             {
@@ -138,12 +138,12 @@ namespace PlayerSpace
 
         private void UpdateInterest()
         {
-            interestLabel.Text = countyPopulation.interest.name;
+            interestLabel.Text = Tr(countyPopulation.interest.name);
         }
 
         private void UpdatePreferredWork()
         {
-            preferredWorkLabel.Text = countyPopulation.preferredSkill.skillName;
+            preferredWorkLabel.Text = Tr(countyPopulation.preferredSkill.skillName);
         }
 
         // All perks are known for now, but eventually we want the player not to know all of their population's perks.
@@ -160,7 +160,7 @@ namespace PlayerSpace
                 foreach (KeyValuePair<AllEnums.Perks, PerkData> keyValuePair in countyPopulation.perks)
                 {
                     Label perksLabel = (Label)perkLabel.Instantiate();
-                    perksLabel.Text = keyValuePair.Value.perkName;
+                    perksLabel.Text = Tr(keyValuePair.Value.perkName);
                     perksParent.AddChild(perksLabel);
                 }
             }

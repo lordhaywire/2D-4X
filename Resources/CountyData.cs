@@ -126,7 +126,7 @@ namespace PlayerSpace
                     // Check to only print the event logs of the players county improvements.
                     if (factionData == Globals.Instance.playerFactionData)
                     {
-                        EventLog.Instance.AddLog($"{countyImprovementData.improvementName} has been completed.");
+                        EventLog.Instance.AddLog($"{Tr(countyImprovementData.improvementName)} {Tr("PHRASE_HAS_BEEN_COMPLETED")}.");
                     }
                 }
             }

@@ -21,6 +21,7 @@ namespace PlayerSpace
 
         public void AddLog(string newLog)
         {
+            //GD.Print($"Event Log String: {newLog}");
             EventLogTextPanel textPanel;
 
             textPanel = (EventLogTextPanel)eventLogPanel.Instantiate();
@@ -38,7 +39,6 @@ namespace PlayerSpace
             eventLogVBoxContainer.AddChild(textPanel);
 
             textPanel.logText.Text = newLog;
-            GD.Print(newLog);
 
             if (eventLogVBoxContainer.GetChildren().Count > maxLines)
             {

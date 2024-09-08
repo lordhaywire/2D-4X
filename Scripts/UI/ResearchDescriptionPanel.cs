@@ -57,7 +57,9 @@ namespace PlayerSpace
                 CountyInfoControl.Instance.GenerateHeroesPanelList();
             }
             EventLog.Instance.AddLog($"{assignableResearchers[(int)id].firstName} {assignableResearchers[(int)id].lastName}" +
-                $" is now researching {researchItemData.researchName}");
+                $" {Tr("PHRASE_IS_NOW_RESEARCHING")} {Tr(researchItemData.researchName)}");
+            //populationListTitle.Text = $"{Globals.Instance.SelectedLeftClickCounty.countyData.countyName} {Tr("WORD_POPULATION")}";
+
             AssignResearcherMenuButton(); // This clears the list.
         }
 

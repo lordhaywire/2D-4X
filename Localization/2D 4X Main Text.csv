@@ -69,7 +69,7 @@ FACTION_RESOURCE_INFLUENCE,Influence,Influencia
 FACTION_RESOURCE_MONEY,Money,Dinero
 FACTION_RESOURCE_REMNANTS,Remnants,Remanente
 IMPROVEMENT_CONVERTED_WAREHOUSE,Converted warehouse,Almacén reconvertido
-IMPROVEMENT_DESCRIPTION__CONVERTED_WAREHOUSE,How about we store our stuff in an abandoned building.,¿Qué tal si guardamos nuestras cosas en un edificio abandonado?
+IMPROVEMENT_DESCRIPTION_CONVERTED_WAREHOUSE,How about we store our stuff in an abandoned building.,¿Qué tal si guardamos nuestras cosas en un edificio abandonado?
 IMPROVEMENT_DESCRIPTION_FISHERS_SHED,"A makeshift shed for fishing equipment, such as rods, fishing line, and hooks.","Un cobertizo improvisado para equipos de pesca, como cañas, hilo de pescar y anzuelos."
 IMPROVEMENT_DESCRIPTION_GARDEN,A place to grow food.,Un lugar para cultivar alimentos.
 IMPROVEMENT_DESCRIPTION_LUMBERJACK_STATION,A place for lumber jacks tools and organization.,"Un lugar para leñadores, herramientas y organización."
@@ -91,11 +91,20 @@ PERK_DESCRIPTION_LEADEROFPEOPLE,This person is skilled at leading people.,Esta p
 PERK_DESCRIPTION_UHELPFUL,This person is just generally an ass.,Esta persona es generalmente un idiota.
 PERK_NAME_LEADEROFPEOPLE,Leader of People,Líder de Personas
 PERK_NAME_UNHELPFUL,Unhelpful,Inútil
+PHRASE_ASSIGN_RESEARCHER,Assign Researcher,Asignar investigador
+PHRASE_ASSIGNED_RESEARCHERS,Assigned Researchers,Investigadores asignados
+PHRASE_BUILD_IMPROVEMENT_CONFIRM,Are you sure you want to build a,¿Estás seguro de que quieres construir un
+PHRASE_COUNTY_IMPROVEMENT,County Improvement,Mejoramiento del Condado
+PHRASE_FAILED_COOL_ROLL,has failed their cool roll,ha fracasado en su racha de calma
+PHRASE_HAS_BEEN_COMPLETED,has been completed,se ha completado
+PHRASE_IS_NOW_RESEARCHING,is now researching,ahora está investigando
+PHRASE_ISNT_SCARED,isn't scared,no tiene miedo
 PHRASE_MAX_NONPERISHABLE_STORAGE_AVAILABLE,Max Nonperishable Storage Available:,Almacenamiento máximo no perecedero disponible:
 PHRASE_MAX_PERISHABLE_STORAGE_AVAILABLE,Max Perishable Storage Available:,Almacenamiento máximo de productos perecederos disponible:
 PHRASE_PREFERRED_WORK,Preferred Work,Trabajo preferido
 PHRASE_RECRUITE_AS_AIDE,Recruite as Aide,Recluta como ayudante
 PHRASE_RECRUITE_AS_ARMY_LEADER,Recruite as Army Leader,Recluta como líder del ejército
+PHRASE_RESEARCH_COST,Research Cost,Coste de investigación
 RESEARCH_BASIC_PRODUCTION,Basic Production,Producción básica
 RESEARCH_BASIC_RESEARCHING,Basic Researching,Investigación Básica
 RESEARCH_BASIC_STORAGE,Basic Storage,Almacenamiento básico
@@ -131,29 +140,34 @@ WORD_ACTIVITY,Activity,Actividad
 WORD_AGE,Age,Edad
 WORD_ATTRIBUTES,Attributes,Atributos
 WORD_CLOSE,Close,Cerrar
+WORD_DAY,Day:,Día
 WORD_FEMALE,Female,Hembra
 WORD_HELPFUL,Helpful,Útil
 WORD_IDLE,Idle,Ocioso
 WORD_INTEREST,Interest,Interés
 WORD_LOYALTY,Loyalty,Lealtad
 WORD_MALE,Male,Masculino
+WORD_MISSED,missed,Perdido
 WORD_NAME,Name,Nombre
 WORD_NONE,None,Ninguno
 WORD_NONPERISHABLE,Nonperishable,No perecedero
+WORD_PAUSED,Paused,Pausa
 WORD_PERISHABLE,Perishable,Perecedero
 WORD_PERKS,Perks,Ventajas
 WORD_POPULATION,Population,Población
+WORD_PREREQUISITES,Prerequisites,Prerrequisitos
+WORD_RESEARCH,Research,Investigación
 WORD_SEX,Sex,Sexo
 WORD_SKILLS,Skills,Habilidades
-WORD_TITLES,Titles,Títulos
-WORD_RESEARCH,Research,Investigación
-PHRASE_RESEARCH_COST,Research Cost,Coste de investigación
-PHRASE_COUNTY_IMPROVEMENT,County Improvement,Mejoramiento del Condado
-PHRASE_ASSIGN_RESEARCHER,Assign Researcher,Asignar investigador
-PHRASE_ASSIGNED_RESEARCHERS,Assigned Researchers,Investigadores asignados
-WORD_PREREQUISITES,Prerequisites,Prerrequisitos
-WORD_DAY,Day:,Día
-WORD_TIME,Time:,Hora
-WORD_PAUSED,Paused,Pausa
 WORD_SPEED,Speed:,Velocidad
-PHRASE_BUILD_IMPROVEMENT_CONFIRM,Are you sure you want to build a,¿Estás seguro de que quieres construir un
+WORD_TIME,Time:,Hora
+WORD_TITLES,Titles,Títulos
+PHRASE_MORALE_LOST,Morale lost,Pérdida de moral
+PHRASE_LOST_BATTLE,has lost the battle,ha perdido la batalla
+WORD_VISITORS,Visitors,Visitantes
+PHRASE_HAS_DECLARED_WAR,has declared war on,ha declarado la guerra a
+PHRASE_DECLARE_WAR_CONFIRMATION,Do you want to declare war on,¿Quieres declararle la guerra?
+PHRASE_RECRUIT_HERO_CONFIRMATION,Are you sure you want to recruit,¿Estás seguro de que quieres reclutar?
+PHRASE_HAS_HIT,has hit,ha golpeado
+PHRASE_IS_RETREATING,is retreating,se está retirando
+WORD_LEARNED,learned,docto

@@ -94,7 +94,7 @@
 [ext_resource type="Resource" uid="uid://djdtci0bq2vvm" path="res://Resources/Faction Resources/Money.tres" id="37_xlwo5"]
 [ext_resource type="Texture2D" uid="uid://u6mmuhhiejnw" path="res://Graphics/Icons/Top Bar/Food.png" id="38_0q3s5"]
 [ext_resource type="Resource" uid="uid://c75yh0abtmowb" path="res://Resources/Faction Resources/Remnants.tres" id="38_1nki6"]
-[ext_resource type="PackedScene" uid="uid://bogeajbtl771s" path="res://UIScenes/CountyImprovementButton.tscn" id="38_cyd52"]
+[ext_resource type="PackedScene" uid="uid://bogeajbtl771s" path="res://UIScenes/Old Old CountyImprovementButton.tscn" id="38_cyd52"]
 [ext_resource type="Script" path="res://Scripts/UI/BuildConfirmationDialog.cs" id="39_atdu5"]
 [ext_resource type="Texture2D" uid="uid://dmbho3pkucn34" path="res://Graphics/Icons/Top Bar/Scrap.png" id="39_mrqgp"]
 [ext_resource type="Script" path="res://Scripts/UI/ResearchControl.cs" id="40_t5amt"]

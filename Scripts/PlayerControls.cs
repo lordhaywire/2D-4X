@@ -1,6 +1,4 @@
-using GlobalSpace;
 using Godot;
-using System;
 using System.Linq;
 
 namespace PlayerSpace
@@ -166,7 +164,8 @@ namespace PlayerSpace
                 else
                 {
                     EventLog.Instance.AddLog($"{selectToken.countyPopulation.firstName} " +
-                        $"{selectToken.countyPopulation.lastName} is retreating!");
+                        $"{selectToken.countyPopulation.lastName} " +
+                        $"{TranslationServer.Translate("PHRASE_IS_RETREATING")}.");
                 }
             }
 

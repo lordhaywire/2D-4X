@@ -10,7 +10,7 @@ namespace PlayerSpace
         public void DeclareWar(War war)
         {
             GD.Print($"{war.aggressorFactionData.factionName} has declared war on {war.defenderFactionData.factionName}.");
-            EventLog.Instance.AddLog($"{war.aggressorFactionData.factionName} has declared war on {war.defenderFactionData.factionName}.");
+            EventLog.Instance.AddLog($"{war.aggressorFactionData.factionName} {TranslationServer.Translate("PHRASE_HAS_DECLARED_WAR")} {war.defenderFactionData.factionName}.");
             Globals.Instance.selectedRightClickCounty.countyData
                 .factionData.diplomacy.RespondToDeclarationOfWar(war);
         }
@@ -20,7 +20,7 @@ namespace PlayerSpace
             DeclareWarControl.Instance.Show();
             
             DeclareWarControl.Instance.declareWarTitleLabel.Text
-                = AllText.Diplomacies.DECLAREWARE + countyData.factionData.factionName;
+                = $"{TranslationServer.Translate("PHRASE_DECLARE_WAR_CONFIRMATION")} {countyData.factionData.factionName}";
             
         }
 

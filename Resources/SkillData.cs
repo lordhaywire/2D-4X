@@ -79,9 +79,11 @@ namespace PlayerSpace
 
                     if (countyPopulation.factionData.isPlayer)
                     {
-                        EventLog.Instance.AddLog($"{countyPopulation.firstName} learned {experienceLearned} in {TranslationServer.Translate(skillData.skillName)}");
+                        EventLog.Instance.AddLog($"{countyPopulation.firstName} - {TranslationServer.Translate(skillData.skillName)}" +
+                            $" {TranslationServer.Translate("WORD_LEARNED")} {experienceLearned}");
                     }
                 }
+                /* We don't really need to put in the event log that someone didn't learn something.
                 else
                 {
                     if (countyPopulation.factionData.isPlayer)
@@ -89,6 +91,7 @@ namespace PlayerSpace
                         EventLog.Instance.AddLog($"{countyPopulation.firstName} learned nothing in {TranslationServer.Translate(skillData.skillName)}");
                     }
                 }
+                */
 
                 skillData.amountUntilLearned = 0;
             }

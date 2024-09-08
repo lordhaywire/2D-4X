@@ -242,8 +242,9 @@ namespace PlayerSpace
                 bonusResearchIncrease = Globals.Instance.random.Next(1, Globals.Instance.researchIncreaseBonus);
             }
             int researchAmount = Globals.Instance.researcherResearchIncrease + bonusResearchIncrease;
-            EventLog.Instance.AddLog($"Amount of research {countyPopulation.firstName} did: {researchAmount}");
-            GD.Print($"Amount of research {countyPopulation.firstName} did: {researchAmount}");
+            EventLog.Instance.AddLog($"{countyPopulation.firstName} - " +
+                $"{TranslationServer.Translate(countyPopulation.currentResearchItemData.researchName)}: {researchAmount}");
+            //GD.Print($"Amount of research {countyPopulation.firstName} did: {researchAmount}");
             // This will trigger the getter setting and mark the research as complete if the Amount is
             // higher or equal to the cost.
             countyPopulation.currentResearchItemData.AmountOfResearchDone
