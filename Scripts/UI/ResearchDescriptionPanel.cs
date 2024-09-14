@@ -127,8 +127,8 @@ namespace PlayerSpace
             {
                 foreach (CountyImprovementData countyImprovementData in researchItemData.countyImprovementDatas)
                 {
-                    CountryImprovementDescriptionButton countyImprovementInResearchControl
-                        = (CountryImprovementDescriptionButton)countyImprovementResearchPackedScene.Instantiate();
+                    CountryImprovementPanelContainer countyImprovementInResearchControl
+                        = (CountryImprovementPanelContainer)countyImprovementResearchPackedScene.Instantiate();
                     countyImprovementInResearchControl.countyImprovementData = countyImprovementData;
                     countyImprovementsInResearchParent.AddChild(countyImprovementInResearchControl);
                 }

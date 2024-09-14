@@ -14,7 +14,7 @@ public partial class CountyImprovementsControl : Control
     [Export] public VBoxContainer currentImprovementsScrollContainerParent;
     [Export] public ConfirmationDialog buildConfirmationDialog;
 
-    [Export] private PackedScene countyImprovementButtonPackedScene;
+    [Export] private PackedScene countyImprovementPanelContainerPackedScene;
 
     public override void _Ready()
     {
@@ -58,10 +58,10 @@ public partial class CountyImprovementsControl : Control
         GD.Print("List of County Improvements Count: " + listOfCountyImprovements.Count);
         foreach (CountyImprovementData countyImprovementData in listOfCountyImprovements)
         {
-            CountryImprovementDescriptionButton countyImprovementButton = (CountryImprovementDescriptionButton)countyImprovementButtonPackedScene.Instantiate();
+            CountryImprovementPanelContainer countyImprovementPanelContainer = (CountryImprovementPanelContainer)countyImprovementPanelContainerPackedScene.Instantiate();
             // This needs to be above AddChild.
-            countyImprovementButton.countyImprovementData = CountyImprovementData.NewCopy(countyImprovementData);
-            parent.AddChild(countyImprovementButton);
+            countyImprovementPanelContainer.countyImprovementData = CountyImprovementData.NewCopy(countyImprovementData);
+            parent.AddChild(countyImprovementPanelContainer);
         }
     }
 

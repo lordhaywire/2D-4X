@@ -8,7 +8,7 @@ namespace PlayerSpace
     public partial class CountyImprovementData : Resource
     {
         public int location;
-        public CountryImprovementDescriptionButton countyImprovementDescriptionButton;
+        public CountryImprovementPanelContainer countyImprovementDescriptionButton;
         [Export] public Texture2D improvementTexture;
         [Export] public string improvementName;
         [Export] public string improvementDescription;

@@ -65,7 +65,7 @@ public partial class Globals : Node
         }
     }
 
-    public CountryImprovementDescriptionButton selectedPossibleBuildingControl;
+    public CountryImprovementPanelContainer selectedPossibleBuildingControl;
     public bool isVisitorList;
 
     [ExportGroup("Map")]

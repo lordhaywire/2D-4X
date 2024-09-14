@@ -94,7 +94,6 @@
 [ext_resource type="Resource" uid="uid://djdtci0bq2vvm" path="res://Resources/Faction Resources/Money.tres" id="37_xlwo5"]
 [ext_resource type="Texture2D" uid="uid://u6mmuhhiejnw" path="res://Graphics/Icons/Top Bar/Food.png" id="38_0q3s5"]
 [ext_resource type="Resource" uid="uid://c75yh0abtmowb" path="res://Resources/Faction Resources/Remnants.tres" id="38_1nki6"]
-[ext_resource type="PackedScene" uid="uid://bogeajbtl771s" path="res://UIScenes/Old Old CountyImprovementButton.tscn" id="38_cyd52"]
 [ext_resource type="Script" path="res://Scripts/UI/BuildConfirmationDialog.cs" id="39_atdu5"]
 [ext_resource type="Texture2D" uid="uid://dmbho3pkucn34" path="res://Graphics/Icons/Top Bar/Scrap.png" id="39_mrqgp"]
 [ext_resource type="Script" path="res://Scripts/UI/ResearchControl.cs" id="40_t5amt"]
@@ -118,7 +117,7 @@
 [ext_resource type="PackedScene" uid="uid://bif5f4i17oc2p" path="res://UIScenes/StorageHbox.tscn" id="53_xnh1n"]
 [ext_resource type="Script" path="res://Scripts/UI/ResourcesPanelContainer.cs" id="54_ia1o5"]
 [ext_resource type="PackedScene" uid="uid://4t2ve1w4uvww" path="res://UIScenes/AssignedResearcherHBoxContainer.tscn" id="62_dhpbg"]
-[ext_resource type="PackedScene" uid="uid://dbh44f2eysibn" path="res://UIScenes/ResearchItemButton.tscn" id="62_nohy5"]
+[ext_resource type="PackedScene" uid="uid://dbh44f2eysibn" path="res://ResearchItemButton.tscn" id="62_nohy5"]
 [ext_resource type="Script" path="res://Scripts/UI/StoryEventControl.cs" id="62_onxgq"]
 [ext_resource type="Resource" uid="uid://ceq8jssovq84m" path="res://Resources/ResearchItems/Basic Researching.tres" id="62_ujbl5"]
 [ext_resource type="Resource" uid="uid://caa1jed0r8nly" path="res://Resources/Skills/Production.tres" id="63_514fr"]
@@ -129,6 +128,7 @@
 [ext_resource type="Texture2D" uid="uid://cs6gb8bpwt7xd" path="res://Graphics/yellow-crumpled-lined-paper-background-2022-12-16-00-47-47-utc-scaled.webp" id="76_xlxp7"]
 [ext_resource type="Script" path="res://Scripts/GameStart.cs" id="84_lusaj"]
 [ext_resource type="Texture2D" uid="uid://cyphf3703b4qa" path="res://Graphics/Icons/Top Bar/bolter-gun.svg" id="98_qs8v3"]
+[ext_resource type="PackedScene" uid="uid://x448dpajwnx" path="res://UIScenes/CountyImprovementPanelContainer.tscn" id="119_kkhw7"]
 [ext_resource type="PackedScene" uid="uid://ctmeblm8t3ynu" path="res://UIScenes/ResearchPrerequisiteLabel.tscn" id="124_veo43"]
 
 [sub_resource type="Resource" id="Resource_6tiru"]
@@ -1949,7 +1949,7 @@ script = ExtResource("37_rkirm")
 possibleImprovementsScrollContainerParent = NodePath("Buildings MarginContainer/Buildings PanelContainer/MarginContainer/HBoxContainer/Possible Building ScrollContainer/Possible Buildings VBoxContainer3")
 currentImprovementsScrollContainerParent = NodePath("Buildings MarginContainer/Buildings PanelContainer/MarginContainer/HBoxContainer/Current Building ScrollContainer/Current Buildings VBoxContainer")
 buildConfirmationDialog = NodePath("Buildings MarginContainer/Buildings PanelContainer/MarginContainer/Build ConfirmationDialog")
-countyImprovementButtonPackedScene = ExtResource("38_cyd52")
+countyImprovementPanelContainerPackedScene = ExtResource("119_kkhw7")
 
 [node name="Buildings MarginContainer" type="MarginContainer" parent="Player UI Canvas/County Improvements Control"]
 custom_minimum_size = Vector2(1719, 1080)
@@ -2144,7 +2144,7 @@ researchPrerequisiteLabelPackedScene = ExtResource("124_veo43")
 prerequisitesParent = NodePath("MarginContainer/Research Panel/VBoxContainer/Prerequisites VBoxContainer")
 costOfResearchLabel = NodePath("MarginContainer/Research Panel/VBoxContainer/Total Cost of Research Label")
 countyImprovementsInResearchParent = NodePath("MarginContainer/Research Panel/VBoxContainer/County Improvement In Research Parent HBoxContainer")
-countyImprovementResearchPackedScene = ExtResource("38_cyd52")
+countyImprovementResearchPackedScene = ExtResource("119_kkhw7")
 assignResearcherMenuButton = NodePath("MarginContainer/Research Panel/VBoxContainer/Assign Research MenuButton")
 
 [node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Research Description PanelContainer"]

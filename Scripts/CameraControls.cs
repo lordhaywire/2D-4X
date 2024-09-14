@@ -41,7 +41,6 @@ namespace PlayerSpace
         {
             GetInput();
             MoveAndSlide();
-
         }
 
 
