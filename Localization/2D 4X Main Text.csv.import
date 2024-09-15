@@ -3,11 +3,13 @@
 importer="csv_translation"
 type="Translation"
 uid="uid://bhqx16enc37x7"
-valid=false
 
 [deps]
 
+files=["res://Localization/2D 4X Main Text.en.translation", "res://Localization/2D 4X Main Text.es.translation"]
+
 source_file="res://Localization/2D 4X Main Text.csv"
+dest_files=["res://Localization/2D 4X Main Text.en.translation", "res://Localization/2D 4X Main Text.es.translation"]
 
 [params]
 

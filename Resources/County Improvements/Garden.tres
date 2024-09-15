@@ -14,6 +14,7 @@ workSkill = 2
 interest = ExtResource("2_nsp6t")
 factionResourceConstructionCost = null
 countyResourceConstructionCost = null
+testResourceConstructionCost = null
 CurrentAmountOfConstruction = 0
 maxAmountOfConstruction = 5
 maxBuilders = 5

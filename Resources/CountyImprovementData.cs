@@ -21,6 +21,7 @@ namespace PlayerSpace
         // they are in a dictionary.
         [Export] public Godot.Collections.Dictionary<FactionResourceData, int> factionResourceConstructionCost;
         [Export] public Godot.Collections.Dictionary<CountyResourceData, int> countyResourceConstructionCost;
+        [Export] public Godot.Collections.Dictionary<AllEnums.FactionResourceType, int> testResourceConstructionCost;
 
         private int currentAmountOfCounstruction;
         [Export] public int CurrentAmountOfConstruction
