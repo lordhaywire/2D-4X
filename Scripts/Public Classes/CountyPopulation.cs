@@ -157,7 +157,7 @@ namespace PlayerSpace
         public void RemoveFromCountyImprovement()
         {
             UpdateActivity(AllEnums.Activities.Idle);
-            currentCountyImprovement.countyPopulationAtImprovement.Remove(this);
+            currentCountyImprovement.populationAtImprovement.Remove(this);
         }
 
         public void UpdateCurrentResearch(ResearchItemData researchItemData)

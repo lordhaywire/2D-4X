@@ -32,6 +32,7 @@ public class AllEnums
         Complete,
         UnderConstruction,
     }
+
     public enum CountyResourceType
     {
         None,

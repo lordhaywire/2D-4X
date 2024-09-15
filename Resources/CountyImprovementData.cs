@@ -16,8 +16,12 @@ namespace PlayerSpace
 
         [Export] public AllEnums.Skills workSkill;
         [Export] public InterestData interest;
-        // We will eventually be adding resource costs as well.
-        [Export] public int influenceCost;
+
+        // We had to use the Resource Datas for this because enums don't show in the inspector when
+        // they are in a dictionary.
+        [Export] public Godot.Collections.Dictionary<FactionResourceData, int> factionResourceConstructionCost;
+        [Export] public Godot.Collections.Dictionary<CountyResourceData, int> countyResourceConstructionCost;
+
         private int currentAmountOfCounstruction;
         [Export] public int CurrentAmountOfConstruction
         {
@@ -39,7 +43,7 @@ namespace PlayerSpace
         [Export] public int dailyResourceGenerationBonus;
 
         [Export] public AllEnums.CountyImprovementStatus status;
-        public List<CountyPopulation> countyPopulationAtImprovement = [];
+        public List<CountyPopulation> populationAtImprovement = [];
 
         public bool CheckIfCountyInprovementDone()
         {
@@ -52,13 +56,13 @@ namespace PlayerSpace
         public void AddPopulationToCountyImprovementList(CountyPopulation countyPopulation)
         {
 
-            GD.Print($"{countyPopulation.firstName} was added to {improvementName}'s list {countyPopulationAtImprovement.Count}.");
-            countyPopulationAtImprovement.Add(countyPopulation);
+            GD.Print($"{countyPopulation.firstName} was added to {improvementName}'s list {populationAtImprovement.Count}.");
+            populationAtImprovement.Add(countyPopulation);
         }
 
         public void RemovePopulationFromCountyImprovementList(CountyPopulation countyPopulation)
         {
-            countyPopulationAtImprovement.Remove(countyPopulation);
+            populationAtImprovement.Remove(countyPopulation);
         }
 
         public void SetCountyImprovementComplete()
@@ -78,7 +82,8 @@ namespace PlayerSpace
                 numberBuilt = countyImprovementData.numberBuilt,
                 workSkill = countyImprovementData.workSkill,
                 interest = countyImprovementData.interest,
-                influenceCost = countyImprovementData.influenceCost,
+                factionResourceConstructionCost = countyImprovementData.factionResourceConstructionCost,
+                countyResourceConstructionCost = countyImprovementData.countyResourceConstructionCost,
                 currentAmountOfCounstruction = countyImprovementData.currentAmountOfCounstruction,
                 CurrentAmountOfConstruction = countyImprovementData.CurrentAmountOfConstruction,
                 maxAmountOfConstruction = countyImprovementData.maxAmountOfConstruction,
@@ -89,7 +94,7 @@ namespace PlayerSpace
                 dailyResourceGenerationAmount = countyImprovementData.dailyResourceGenerationAmount,
                 dailyResourceGenerationBonus = countyImprovementData.dailyResourceGenerationBonus,
                 status = countyImprovementData.status,
-                countyPopulationAtImprovement = new List<CountyPopulation>(countyImprovementData.countyPopulationAtImprovement),
+                populationAtImprovement = new List<CountyPopulation>(countyImprovementData.populationAtImprovement),
             };
             return newCountyImprovementData;
         }

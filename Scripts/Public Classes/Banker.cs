@@ -268,18 +268,60 @@ namespace PlayerSpace
 
         public bool CheckBuildingCost(FactionData factionData, CountyImprovementData countyImprovementData)
         {
-            return factionData.factionResources[AllEnums.FactionResourceType.Influence].amount
-                >= countyImprovementData.influenceCost;
+            if (countyImprovementData.factionResourceConstructionCost != null)
+            {
+                foreach (KeyValuePair<FactionResourceData, int> keyValuePair in countyImprovementData.factionResourceConstructionCost)
+                {
+                    AllEnums.FactionResourceType resourceType = keyValuePair.Key.resourceType;
+                    if (factionData.factionResources[resourceType].amount < keyValuePair.Value)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            if (countyImprovementData.countyResourceConstructionCost != null)
+            {
+                foreach (KeyValuePair<CountyResourceData, int> keyValuePair in countyImprovementData.countyResourceConstructionCost)
+                {
+                    AllEnums.CountyResourceType resourceType = keyValuePair.Key.countyResourceType;
+                    County county = (County)Globals.Instance.countiesParent.GetChild(countyImprovementData.location);
+                    if (county.countyData.countyResources[resourceType].Amount < keyValuePair.Value)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
 
         // Charge for building and also assign it to the underConstructionList.
         public void ChargeForBuilding(FactionData factionData, CountyImprovementData countyImprovementData)
         {
-            
-            factionData.factionResources[AllEnums.FactionResourceType.Influence].amount
-                -= countyImprovementData.influenceCost;
-            GD.Print($"{countyImprovementData.improvementName} costs {countyImprovementData.influenceCost} and" +
-                $" was charged to {factionData.factionName} and their influence is: {factionData.factionResources[AllEnums.FactionResourceType.Influence].amount}");
+            if (countyImprovementData.factionResourceConstructionCost != null)
+            {
+                foreach (KeyValuePair<FactionResourceData, int> keyValuePair in countyImprovementData.factionResourceConstructionCost)
+                {
+                    AllEnums.FactionResourceType resourceType = keyValuePair.Key.resourceType;
+                    factionData.factionResources[resourceType].amount -= keyValuePair.Value;
+                    GD.Print($"{countyImprovementData.improvementName} costs " +
+                        $"{countyImprovementData.factionResourceConstructionCost[keyValuePair.Key]} and" +
+                    $" was charged to {factionData.factionName} those cost was : {factionData.factionResources[resourceType].name} {keyValuePair.Value}");
+                }
+            }
+
+            if (countyImprovementData.countyResourceConstructionCost != null)
+            {
+                foreach (KeyValuePair<CountyResourceData, int> keyValuePair in countyImprovementData.countyResourceConstructionCost)
+                {
+                    AllEnums.CountyResourceType resourceType = keyValuePair.Key.countyResourceType;
+                    County county = (County)Globals.Instance.countiesParent.GetChild(countyImprovementData.location);
+                    county.countyData.countyResources[resourceType].Amount -= keyValuePair.Value;
+                    GD.Print($"{countyImprovementData.improvementName} costs " +
+                        $"{countyImprovementData.countyResourceConstructionCost[keyValuePair.Key]} and" +
+                    $" was charged to {county.countyData.countyName} those cost was : {county.countyData.countyResources[resourceType].name} {keyValuePair.Value}");
+                }
+            }
         }
     }
 }

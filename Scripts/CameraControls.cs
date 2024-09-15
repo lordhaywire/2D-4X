@@ -30,7 +30,7 @@ namespace PlayerSpace
         }
         public void GetInput()
         {
-            if (cameraControlsEnabled == true)
+            if (cameraControlsEnabled && PlayerControls.Instance.playerControlsEnabled)
             {
                 Vector2 inputDirection = Input.GetVector("left", "right", "up", "down");
                 Velocity = inputDirection * Speed / Math.Max((int)Engine.TimeScale, 1);

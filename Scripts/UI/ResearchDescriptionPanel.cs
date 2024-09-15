@@ -89,7 +89,7 @@ namespace PlayerSpace
                 {
                     if (countyImprovementData.factionResourceType == AllEnums.FactionResourceType.Research)
                     {
-                        foreach (CountyPopulation countyPopulation in countyImprovementData.countyPopulationAtImprovement)
+                        foreach (CountyPopulation countyPopulation in countyImprovementData.populationAtImprovement)
                         {
                             if (countyPopulation.activity != AllEnums.Activities.Research)
                             {

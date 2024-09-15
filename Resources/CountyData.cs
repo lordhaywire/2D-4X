@@ -112,7 +112,7 @@ namespace PlayerSpace
                 // Set their current work to null.
                 if (countyImprovementData.CheckIfCountyInprovementDone())
                 {
-                    foreach (CountyPopulation countyPopulation in countyImprovementData.countyPopulationAtImprovement)
+                    foreach (CountyPopulation countyPopulation in countyImprovementData.populationAtImprovement)
                     {
                         countyPopulation.UpdateActivity(AllEnums.Activities.Idle);
                         countyPopulation.UpdateCurrentCountyImprovement(null);
@@ -120,7 +120,7 @@ namespace PlayerSpace
                     // Set countyImprovement status to Complete
                     countyImprovementData.SetCountyImprovementComplete();
                     // Clear the people on the county improvement list.
-                    countyImprovementData.countyPopulationAtImprovement.Clear();
+                    countyImprovementData.populationAtImprovement.Clear();
                     completedImprovements.Add(countyImprovementData);
 
                     // Check to only print the event logs of the players county improvements.
@@ -287,7 +287,7 @@ namespace PlayerSpace
             {
                 foreach (CountyPopulation countyPopulation in possibleWorkers)
                 {
-                    if (countyImprovementData.countyPopulationAtImprovement.Count
+                    if (countyImprovementData.populationAtImprovement.Count
                         < countyImprovementData.maxBuilders)
                     {
                         countyPopulation.UpdateActivity(AllEnums.Activities.Build);
@@ -340,7 +340,7 @@ namespace PlayerSpace
                     // and marked for removal from the possibleWorkers list.
                     if (countyPopulation.preferredSkill.skill == countyImprovementData.workSkill)
                     {
-                        if (countyImprovementData.countyPopulationAtImprovement.Count
+                        if (countyImprovementData.populationAtImprovement.Count
                             < countyImprovementData.maxWorkers)
                         {
                             countyPopulation.UpdateActivity(AllEnums.Activities.Work);
@@ -380,7 +380,7 @@ namespace PlayerSpace
 
                 foreach (CountyPopulation countyPopulation in possibleWorkers)
                 {
-                    if (countyImprovementData.countyPopulationAtImprovement.Count
+                    if (countyImprovementData.populationAtImprovement.Count
                         < countyImprovementData.maxWorkers)
                     {
                         countyPopulation.UpdateActivity(AllEnums.Activities.Work);
