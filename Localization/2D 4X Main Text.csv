@@ -95,13 +95,20 @@ PHRASE_ASSIGN_RESEARCHER,Assign Researcher,Asignar investigador
 PHRASE_ASSIGNED_RESEARCHERS,Assigned Researchers,Investigadores asignados
 PHRASE_BUILD_IMPROVEMENT_CONFIRM,Are you sure you want to build a,¿Estás seguro de que quieres construir un
 PHRASE_COUNTY_IMPROVEMENT,County Improvement,Mejoramiento del Condado
+PHRASE_DECLARE_WAR_CONFIRMATION,Do you want to declare war on,¿Quieres declararle la guerra?
 PHRASE_FAILED_COOL_ROLL,has failed their cool roll,ha fracasado en su racha de calma
 PHRASE_HAS_BEEN_COMPLETED,has been completed,se ha completado
+PHRASE_HAS_DECLARED_WAR,has declared war on,ha declarado la guerra a
+PHRASE_HAS_HIT,has hit,ha golpeado
 PHRASE_IS_NOW_RESEARCHING,is now researching,ahora está investigando
+PHRASE_IS_RETREATING,is retreating,se está retirando
 PHRASE_ISNT_SCARED,isn't scared,no tiene miedo
+PHRASE_LOST_BATTLE,has lost the battle,ha perdido la batalla
 PHRASE_MAX_NONPERISHABLE_STORAGE_AVAILABLE,Max Nonperishable Storage Available:,Almacenamiento máximo no perecedero disponible:
 PHRASE_MAX_PERISHABLE_STORAGE_AVAILABLE,Max Perishable Storage Available:,Almacenamiento máximo de productos perecederos disponible:
+PHRASE_MORALE_LOST,Morale lost,Pérdida de moral
 PHRASE_PREFERRED_WORK,Preferred Work,Trabajo preferido
+PHRASE_RECRUIT_HERO_CONFIRMATION,Are you sure you want to recruit,¿Estás seguro de que quieres reclutar?
 PHRASE_RECRUITE_AS_AIDE,Recruite as Aide,Recluta como ayudante
 PHRASE_RECRUITE_AS_ARMY_LEADER,Recruite as Army Leader,Recluta como líder del ejército
 PHRASE_RESEARCH_COST,Research Cost,Coste de investigación
@@ -135,7 +142,10 @@ SKILL_NAME_RIFLE,Rifle,Fusil
 SKILL_NAME_SCAVENGE,Scavenge,Recoger la basura
 TITLE_AIDE,Aide,Ayudante
 TITLE_ARMY_LEADER,Army Leader,Líder del Ejército
+PHRASE_CONSTRUCTION_PROGRESS,Construction Progress,Avance de la construcción
 TITLE_FACTION_LEADER,Faction Leader,Líder de facción
+PHRASE_POSSIBLE_IMPROVEMENTS,Possible Improvements,Posibles mejoras
+WORD_PRIORITIZE,Prioritize,Priorizar
 WORD_ACTIVITY,Activity,Actividad
 WORD_AGE,Age,Edad
 WORD_ATTRIBUTES,Attributes,Atributos
@@ -145,6 +155,7 @@ WORD_FEMALE,Female,Hembra
 WORD_HELPFUL,Helpful,Útil
 WORD_IDLE,Idle,Ocioso
 WORD_INTEREST,Interest,Interés
+WORD_LEARNED,learned,docto
 WORD_LOYALTY,Loyalty,Lealtad
 WORD_MALE,Male,Masculino
 WORD_MISSED,missed,Perdido
@@ -162,15 +173,15 @@ WORD_SKILLS,Skills,Habilidades
 WORD_SPEED,Speed:,Velocidad
 WORD_TIME,Time:,Hora
 WORD_TITLES,Titles,Títulos
-PHRASE_MORALE_LOST,Morale lost,Pérdida de moral
-PHRASE_LOST_BATTLE,has lost the battle,ha perdido la batalla
 WORD_VISITORS,Visitors,Visitantes
-PHRASE_HAS_DECLARED_WAR,has declared war on,ha declarado la guerra a
-PHRASE_DECLARE_WAR_CONFIRMATION,Do you want to declare war on,¿Quieres declararle la guerra?
-PHRASE_RECRUIT_HERO_CONFIRMATION,Are you sure you want to recruit,¿Estás seguro de que quieres reclutar?
-PHRASE_HAS_HIT,has hit,ha golpeado
-PHRASE_IS_RETREATING,is retreating,se está retirando
-WORD_LEARNED,learned,docto
-TITLE_CONSTRUCTION_PROGRESS,Construction Progress,Avance de la construcción
-TITLE_PRIORITIZE,Prioritize,Priorizar
-TITLE_POSSIBLE_IMPROVEMENTS,Possible Improvements,Posibles mejoras
+PHRASE_PRODUCE_AS_NEEDED,Produce as needed,Producir según sea necesario
+PHRASE_GOODS_PRODUCED,Goods Produced,Bienes producidos
+PHRASE_CURRENT_IMPROVEMENTS,Current Improvements,Mejoras actuales
+PHRASE_CURRENT_ADJUSTED_MAX_BUILDERS,Current/Adjusted (Max) Builders,Constructores Actuales/Ajustados (Máx.)
+PHRASE_CURRENT_ADJUSTED_MAX_WORKERS,Current/Adjusted (Max) Workers,Trabajadores actuales/ajustados (máx.)
+PHRASE_INPUT_RESOURCES_AND_GOODS,Input Resources and Goods,"Insumos, recursos y bienes"
+PHRASE_CONSTRUCTION_COST,Construction Cost,Costo de construcción
+PHRASE_USE_REMNANTS_FOR_CONSTRUCTION,Use Remnants for construction,Usar remanentes para la construcción
+WORD_CONSTRUCTION,Construction,Construcción
+PHRASE_UNDER_CONSTRUCTION,Under Construction,En obra
+PHRASE_REMOVE_IMPROVEMENT,Remove Improvements,Eliminar mejoras

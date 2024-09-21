@@ -19,8 +19,10 @@ namespace PlayerSpace
 
         // We had to use the Resource Datas for this because enums don't show in the inspector when
         // they are in a dictionary.
-        [Export] public Godot.Collections.Dictionary<FactionResourceData, int> factionResourceConstructionCost;
+        [Export] public Godot.Collections.Dictionary<AllEnums.FactionResourceType, int> factionResourceConstructionCost;
         [Export] public Godot.Collections.Dictionary<CountyResourceData, int> countyResourceConstructionCost;
+        
+        // This is just for testing typed resources.
         [Export] public Godot.Collections.Dictionary<AllEnums.FactionResourceType, int> testResourceConstructionCost;
 
         private int currentAmountOfCounstruction;
@@ -34,7 +36,9 @@ namespace PlayerSpace
         }
         [Export] public int maxAmountOfConstruction;
         [Export] public int maxBuilders;
+        public int adjustedMaxBuilders;
         [Export] public int maxWorkers;
+        public int adjustedMaxWorkers;
         [Export] public AllEnums.CountyResourceType countyResourceType;
         [Export] public AllEnums.FactionResourceType factionResourceType;
         // If it needs two or more resources for input
@@ -89,7 +93,9 @@ namespace PlayerSpace
                 CurrentAmountOfConstruction = countyImprovementData.CurrentAmountOfConstruction,
                 maxAmountOfConstruction = countyImprovementData.maxAmountOfConstruction,
                 maxBuilders = countyImprovementData.maxBuilders,
+                adjustedMaxBuilders = countyImprovementData.adjustedMaxBuilders,
                 maxWorkers = countyImprovementData.maxWorkers,
+                adjustedMaxWorkers = countyImprovementData.adjustedMaxWorkers,
                 countyResourceType = countyImprovementData.countyResourceType,
                 factionResourceType = countyImprovementData.factionResourceType,
                 dailyResourceGenerationAmount = countyImprovementData.dailyResourceGenerationAmount,

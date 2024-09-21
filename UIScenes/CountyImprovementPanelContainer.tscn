@@ -20,23 +20,23 @@ prioritizeCheckBox = NodePath("Everything VBoxContainer/Prioritize HBoxContainer
 improvementNameLabel = NodePath("Everything VBoxContainer/Name and Description HBoxContainer2/VBoxContainer/Improvement Name Label")
 improvementDescriptionLabel = NodePath("Everything VBoxContainer/Name and Description HBoxContainer2/VBoxContainer/Improvement Description Label")
 improvementTextureRect = NodePath("Everything VBoxContainer/Name and Description HBoxContainer2/Improvement TextureRect")
-workersPanelContainer = NodePath("Everything VBoxContainer/HBoxContainer/VBoxContainer/Workers PanelContainer")
-produceAsNeededCheckBox = NodePath("Everything VBoxContainer/HBoxContainer/VBoxContainer/Workers PanelContainer/HBoxContainer/Produce as needed CheckBox")
-currentWorkersNumberLabel = NodePath("Everything VBoxContainer/HBoxContainer/VBoxContainer/Workers PanelContainer/HBoxContainer/Current Workers Number Label")
-maxWorkersNumberLabel = NodePath("Everything VBoxContainer/HBoxContainer/VBoxContainer/Workers PanelContainer/HBoxContainer/Max Workers Number Label")
-minusWorkerButton = NodePath("Everything VBoxContainer/HBoxContainer/VBoxContainer/Workers PanelContainer/HBoxContainer/Minus Worker Button")
-plusWorkerButton = NodePath("Everything VBoxContainer/HBoxContainer/VBoxContainer/Workers PanelContainer/HBoxContainer/Plus Worker Button")
+workersPanelContainer = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer")
+produceAsNeededCheckBox = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Produce as needed CheckBox")
+currentWorkersNumberLabel = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer/Current Workers Number Label")
+maxWorkersNumberLabel = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer/Max Workers Number Label")
+minusWorkerButton = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer/Minus Worker Button")
+plusWorkerButton = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer/Plus Worker Button")
 outputPanelContainerPackedScene = ExtResource("2_tewhe")
 inputPanelContainerPackedScene = ExtResource("3_acpvp")
-constructionPanelContainer = NodePath("Everything VBoxContainer/HBoxContainer/VBoxContainer/Contruction PanelContainer")
+constructionPanelContainer = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer")
 constructionMaterialCostLabelPackedScene = ExtResource("2_dtqry")
-remnantsForContructionCheckBox = NodePath("Everything VBoxContainer/HBoxContainer/VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Contruction HBoxContainer/Remnants for Contrusction CheckBox")
-currentBuildersNumberLabel = NodePath("Everything VBoxContainer/HBoxContainer/VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Contruction HBoxContainer/Current Builders Number Label")
-maxBuildersNumberLabel = NodePath("Everything VBoxContainer/HBoxContainer/VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Contruction HBoxContainer/Max Builder Number Label")
-minusBuilderButton = NodePath("Everything VBoxContainer/HBoxContainer/VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Contruction HBoxContainer/Minus Builders Button")
-plusBuilderButton = NodePath("Everything VBoxContainer/HBoxContainer/VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Contruction HBoxContainer/Plus Builders Button")
-constructButton = NodePath("Everything VBoxContainer/HBoxContainer/VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Construct Button")
-underContructionLabel = NodePath("Everything VBoxContainer/HBoxContainer/VBoxContainer/Under Construction Label")
+remnantsForContructionCheckBox = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Remnants for Contrusction CheckBox")
+currentBuildersNumberLabel = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Adjustable Builders HBoxContainer/Current Builders Number Label")
+maxBuildersNumberLabel = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Adjustable Builders HBoxContainer/Max Builders Number Label")
+minusBuilderButton = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Adjustable Builders HBoxContainer/Minus Builders Button")
+plusBuilderButton = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Adjustable Builders HBoxContainer/Plus Builders Button")
+constructButton = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Construct Button")
+underContructionLabel = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Under Construction Label")
 removeImprovementButton = NodePath("Everything VBoxContainer/Remove Improvement Button")
 
 [node name="Everything VBoxContainer" type="VBoxContainer" parent="."]
@@ -44,7 +44,7 @@ layout_mode = 2
 
 [node name="Contruction Progress Label" type="Label" parent="Everything VBoxContainer"]
 layout_mode = 2
-text = "Contruction Progress"
+text = "PHRASE_CONSTRUCTION_PROGRESS"
 horizontal_alignment = 1
 
 [node name="ProgressBar" type="ProgressBar" parent="Everything VBoxContainer"]
@@ -61,7 +61,7 @@ size_flags_vertical = 4
 
 [node name="Prioritize Title Label" type="Label" parent="Everything VBoxContainer/Prioritize HBoxContainer"]
 layout_mode = 2
-text = "Prioritize"
+text = "WORD_PRIORITIZE"
 
 [node name="Name and Description HBoxContainer2" type="HBoxContainer" parent="Everything VBoxContainer"]
 layout_mode = 2
@@ -96,225 +96,229 @@ texture = ExtResource("2_jdvn2")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Everything VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Everything VBoxContainer/HBoxContainer"]
+[node name="Production and Building VBoxContainer" type="VBoxContainer" parent="Everything VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Workers PanelContainer" type="PanelContainer" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Workers PanelContainer" type="PanelContainer" parent="Everything VBoxContainer/Production and Building VBoxContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Workers PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer"]
 layout_mode = 2
 
-[node name="Produce as needed CheckBox" type="CheckBox" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Workers PanelContainer/HBoxContainer"]
+[node name="Produce as needed CheckBox" type="CheckBox" parent="Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Produce as needed"
+size_flags_horizontal = 6
+text = "PHRASE_PRODUCE_AS_NEEDED"
 
-[node name="Current Workers Number Label" type="Label" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Workers PanelContainer/HBoxContainer"]
+[node name="Adjustable Workers HBoxContainer" type="HBoxContainer" parent="Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Current Workers Number Label" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer"]
 layout_mode = 2
 text = "9"
 
-[node name="Slash Label" type="Label" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Workers PanelContainer/HBoxContainer"]
+[node name="Slash Label" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer"]
 layout_mode = 2
 text = "/"
 
-[node name="Max Workers Number Label" type="Label" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Workers PanelContainer/HBoxContainer"]
+[node name="Adjusted Max Workers Number Label" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer"]
 layout_mode = 2
 text = "75"
 
-[node name="Current Workers Max Workers Label" type="Label" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Workers PanelContainer/HBoxContainer"]
+[node name="Max Workers Number Label" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer"]
 layout_mode = 2
-text = "Current Workers/Max Workers"
+text = "(75)"
 
-[node name="Minus Worker Button" type="Button" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Workers PanelContainer/HBoxContainer"]
+[node name="Current Adjusted Max Workers Label" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer"]
+layout_mode = 2
+text = "PHRASE_CURRENT_ADJUSTED_MAX_WORKERS"
+
+[node name="Minus Worker Button" type="Button" parent="Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer"]
 custom_minimum_size = Vector2(31, 31)
 layout_mode = 2
 focus_mode = 0
 text = "-"
 
-[node name="Plus Worker Button" type="Button" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Workers PanelContainer/HBoxContainer"]
+[node name="Plus Worker Button" type="Button" parent="Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer"]
 custom_minimum_size = Vector2(31, 31)
 layout_mode = 2
 focus_mode = 0
 text = "+"
 
-[node name="Outputs Title Label" type="Label" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Goods Produced Title Label" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer"]
 layout_mode = 2
-text = "Output Produces Title"
+text = "PHRASE_GOODS_PRODUCED"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Outputs GridContainer" type="GridContainer" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Outputs GridContainer" type="GridContainer" parent="Everything VBoxContainer/Production and Building VBoxContainer"]
 layout_mode = 2
 columns = 2
 
-[node name="Output PanelContainer2" type="PanelContainer" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Outputs GridContainer"]
+[node name="Output PanelContainer2" type="PanelContainer" parent="Everything VBoxContainer/Production and Building VBoxContainer/Outputs GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Outputs GridContainer/Output PanelContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Everything VBoxContainer/Production and Building VBoxContainer/Outputs GridContainer/Output PanelContainer2"]
 layout_mode = 2
 
-[node name="Resource Amount Label" type="Label" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Outputs GridContainer/Output PanelContainer2/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Steel: Amount"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Use Remnants For Inputs CheckBox2" type="CheckBox" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Outputs GridContainer/Output PanelContainer2/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Only produce"
-
-[node name="Output PanelContainer3" type="PanelContainer" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Outputs GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Outputs GridContainer/Output PanelContainer3"]
-layout_mode = 2
-
-[node name="Resource Amount Label" type="Label" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Outputs GridContainer/Output PanelContainer3/HBoxContainer"]
+[node name="Resource Amount Label" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer/Outputs GridContainer/Output PanelContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Steel: Amount"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Use Remnants For Inputs CheckBox2" type="CheckBox" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Outputs GridContainer/Output PanelContainer3/HBoxContainer"]
+[node name="Use Remnants For Inputs CheckBox2" type="CheckBox" parent="Everything VBoxContainer/Production and Building VBoxContainer/Outputs GridContainer/Output PanelContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Only produce"
 
-[node name="Output PanelContainer4" type="PanelContainer" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Outputs GridContainer"]
+[node name="Output PanelContainer3" type="PanelContainer" parent="Everything VBoxContainer/Production and Building VBoxContainer/Outputs GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Outputs GridContainer/Output PanelContainer4"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Everything VBoxContainer/Production and Building VBoxContainer/Outputs GridContainer/Output PanelContainer3"]
 layout_mode = 2
 
-[node name="Resource Amount Label" type="Label" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Outputs GridContainer/Output PanelContainer4/HBoxContainer"]
+[node name="Resource Amount Label" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer/Outputs GridContainer/Output PanelContainer3/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Steel: Amount"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Use Remnants For Inputs CheckBox2" type="CheckBox" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Outputs GridContainer/Output PanelContainer4/HBoxContainer"]
+[node name="Use Remnants For Inputs CheckBox2" type="CheckBox" parent="Everything VBoxContainer/Production and Building VBoxContainer/Outputs GridContainer/Output PanelContainer3/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Only produce"
 
-[node name="Inputs Title Label" type="Label" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Output PanelContainer4" type="PanelContainer" parent="Everything VBoxContainer/Production and Building VBoxContainer/Outputs GridContainer"]
 layout_mode = 2
-text = "Input Materials Title"
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Everything VBoxContainer/Production and Building VBoxContainer/Outputs GridContainer/Output PanelContainer4"]
+layout_mode = 2
+
+[node name="Resource Amount Label" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer/Outputs GridContainer/Output PanelContainer4/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Steel: Amount"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Inputs GridContainer" type="GridContainer" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Use Remnants For Inputs CheckBox2" type="CheckBox" parent="Everything VBoxContainer/Production and Building VBoxContainer/Outputs GridContainer/Output PanelContainer4/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Only produce"
+
+[node name="Inputs Title Label" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer"]
+layout_mode = 2
+text = "PHRASE_INPUT_RESOURCES_AND_GOODS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Inputs GridContainer" type="GridContainer" parent="Everything VBoxContainer/Production and Building VBoxContainer"]
 layout_mode = 2
 columns = 2
 
-[node name="Input PanelContainer2" type="PanelContainer" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Inputs GridContainer"]
+[node name="Input PanelContainer2" type="PanelContainer" parent="Everything VBoxContainer/Production and Building VBoxContainer/Inputs GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Inputs GridContainer/Input PanelContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Everything VBoxContainer/Production and Building VBoxContainer/Inputs GridContainer/Input PanelContainer2"]
 layout_mode = 2
 
-[node name="Resource Amount Label" type="Label" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Inputs GridContainer/Input PanelContainer2/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Wood: Amount"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Use Remnants For Inputs CheckBox2" type="CheckBox" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Inputs GridContainer/Input PanelContainer2/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Use Remnants"
-
-[node name="Input PanelContainer3" type="PanelContainer" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Inputs GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Inputs GridContainer/Input PanelContainer3"]
-layout_mode = 2
-
-[node name="Resource Amount Label" type="Label" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Inputs GridContainer/Input PanelContainer3/HBoxContainer"]
+[node name="Resource Amount Label" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer/Inputs GridContainer/Input PanelContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Wood: Amount"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Use Remnants For Inputs CheckBox2" type="CheckBox" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Inputs GridContainer/Input PanelContainer3/HBoxContainer"]
+[node name="Use Remnants For Inputs CheckBox2" type="CheckBox" parent="Everything VBoxContainer/Production and Building VBoxContainer/Inputs GridContainer/Input PanelContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Use Remnants"
 
-[node name="Input PanelContainer4" type="PanelContainer" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Inputs GridContainer"]
+[node name="Input PanelContainer3" type="PanelContainer" parent="Everything VBoxContainer/Production and Building VBoxContainer/Inputs GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Inputs GridContainer/Input PanelContainer4"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Everything VBoxContainer/Production and Building VBoxContainer/Inputs GridContainer/Input PanelContainer3"]
 layout_mode = 2
 
-[node name="Resource Amount Label" type="Label" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Inputs GridContainer/Input PanelContainer4/HBoxContainer"]
+[node name="Resource Amount Label" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer/Inputs GridContainer/Input PanelContainer3/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Wood: Amount"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Use Remnants For Inputs CheckBox2" type="CheckBox" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Inputs GridContainer/Input PanelContainer4/HBoxContainer"]
+[node name="Use Remnants For Inputs CheckBox2" type="CheckBox" parent="Everything VBoxContainer/Production and Building VBoxContainer/Inputs GridContainer/Input PanelContainer3/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Use Remnants"
 
-[node name="Input PanelContainer5" type="PanelContainer" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Inputs GridContainer"]
+[node name="Input PanelContainer4" type="PanelContainer" parent="Everything VBoxContainer/Production and Building VBoxContainer/Inputs GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Inputs GridContainer/Input PanelContainer5"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Everything VBoxContainer/Production and Building VBoxContainer/Inputs GridContainer/Input PanelContainer4"]
 layout_mode = 2
 
-[node name="Resource Amount Label" type="Label" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Inputs GridContainer/Input PanelContainer5/HBoxContainer"]
+[node name="Resource Amount Label" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer/Inputs GridContainer/Input PanelContainer4/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Wood: Amount"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Use Remnants For Inputs CheckBox2" type="CheckBox" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Inputs GridContainer/Input PanelContainer5/HBoxContainer"]
+[node name="Use Remnants For Inputs CheckBox2" type="CheckBox" parent="Everything VBoxContainer/Production and Building VBoxContainer/Inputs GridContainer/Input PanelContainer4/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Use Remnants"
 
-[node name="Contruction PanelContainer" type="PanelContainer" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Input PanelContainer5" type="PanelContainer" parent="Everything VBoxContainer/Production and Building VBoxContainer/Inputs GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Everything VBoxContainer/Production and Building VBoxContainer/Inputs GridContainer/Input PanelContainer5"]
 layout_mode = 2
 
-[node name="Construction Cost VBoxContainer" type="VBoxContainer" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Contruction PanelContainer"]
+[node name="Resource Amount Label" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer/Inputs GridContainer/Input PanelContainer5/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wood: Amount"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Use Remnants For Inputs CheckBox2" type="CheckBox" parent="Everything VBoxContainer/Production and Building VBoxContainer/Inputs GridContainer/Input PanelContainer5/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Use Remnants"
+
+[node name="Contruction PanelContainer" type="PanelContainer" parent="Everything VBoxContainer/Production and Building VBoxContainer"]
 layout_mode = 2
 
-[node name="Construction Cost Label" type="Label" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer"]
+[node name="Construction Cost VBoxContainer" type="VBoxContainer" parent="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer"]
+layout_mode = 2
+
+[node name="Construction Cost Label" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_vertical = 6
-text = "Contruction Cost"
+text = "PHRASE_CONSTRUCTION_COST"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Material Cost GridContainer" type="GridContainer" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer"]
+[node name="Material Cost GridContainer" type="GridContainer" parent="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer"]
 layout_mode = 2
 columns = 2
 
-[node name="Money Cost Label2" type="Label" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Material Cost GridContainer"]
+[node name="Money Cost Label2" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Material Cost GridContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -323,7 +327,7 @@ text = "Money Cost"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Material Cost Label3" type="Label" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Material Cost GridContainer"]
+[node name="Material Cost Label3" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Material Cost GridContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -332,7 +336,7 @@ text = "Material Cost"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Material Cost Label4" type="Label" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Material Cost GridContainer"]
+[node name="Material Cost Label4" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Material Cost GridContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -341,7 +345,7 @@ text = "Material2 Cost"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Material Cost Label5" type="Label" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Material Cost GridContainer"]
+[node name="Material Cost Label5" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Material Cost GridContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -350,7 +354,7 @@ text = "Material3 Cost"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Material Cost Label6" type="Label" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Material Cost GridContainer"]
+[node name="Material Cost Label6" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Material Cost GridContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -359,57 +363,62 @@ text = "Material4 Cost"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Contruction HBoxContainer" type="HBoxContainer" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer"]
+[node name="Remnants for Contrusction CheckBox" type="CheckBox" parent="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 6
+text = "PHRASE_USE_REMNANTS_FOR_CONSTRUCTION"
 
-[node name="Remnants for Contrusction CheckBox" type="CheckBox" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Contruction HBoxContainer"]
+[node name="Adjustable Builders HBoxContainer" type="HBoxContainer" parent="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Use Remnants for Contruction"
+size_flags_horizontal = 4
 
-[node name="Current Builders Number Label" type="Label" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Contruction HBoxContainer"]
+[node name="Current Builders Number Label" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Adjustable Builders HBoxContainer"]
 layout_mode = 2
-text = "50"
+text = "9"
 
-[node name="Slash Label" type="Label" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Contruction HBoxContainer"]
+[node name="Slash Label" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Adjustable Builders HBoxContainer"]
 layout_mode = 2
 text = "/"
 
-[node name="Max Builder Number Label" type="Label" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Contruction HBoxContainer"]
+[node name="Adjusted Max Builders Number Label" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Adjustable Builders HBoxContainer"]
 layout_mode = 2
-text = "56"
+text = "75"
 
-[node name="Construction Workers Needed Label" type="Label" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Contruction HBoxContainer"]
+[node name="Max Builders Number Label" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Adjustable Builders HBoxContainer"]
 layout_mode = 2
-text = "Current/Max Builders"
+text = "(75)"
 
-[node name="Minus Builders Button" type="Button" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Contruction HBoxContainer"]
+[node name="Current Adjusted Max Builders Label" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Adjustable Builders HBoxContainer"]
+layout_mode = 2
+text = "PHRASE_CURRENT_ADJUSTED_MAX_BUILDERS"
+
+[node name="Minus Builders Button" type="Button" parent="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Adjustable Builders HBoxContainer"]
 custom_minimum_size = Vector2(31, 31)
 layout_mode = 2
 focus_mode = 0
 text = "-"
 
-[node name="Plus Builders Button" type="Button" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Contruction HBoxContainer"]
+[node name="Plus Builders Button" type="Button" parent="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Adjustable Builders HBoxContainer"]
 custom_minimum_size = Vector2(31, 31)
 layout_mode = 2
 focus_mode = 0
 text = "+"
 
-[node name="Construct Button" type="Button" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer"]
+[node name="Construct Button" type="Button" parent="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
-text = "Construct"
+text = "WORD_CONSTRUCTION"
 
-[node name="Under Construction Label" type="Label" parent="Everything VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Under Construction Label" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer"]
 self_modulate = Color(0.885973, 0.0986631, 0, 1)
 layout_mode = 2
-text = "Under Construction"
+text = "PHRASE_UNDER_CONSTRUCTION"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Remove Improvement Button" type="Button" parent="Everything VBoxContainer"]
 layout_mode = 2
-text = "Remove Improvement"
+text = "PHRASE_REMOVE_IMPROVEMENT"
 
-[connection signal="pressed" from="Everything VBoxContainer/HBoxContainer/VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Construct Button" to="." method="ConstructButtonPressed"]
+[connection signal="pressed" from="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Construct Button" to="." method="ConstructButtonPressed"]

@@ -6,10 +6,6 @@ namespace PlayerSpace;
 
 public partial class CountyGeneration : Node
 {
-    // I think we might be able to get rid of these.
-    //private int perishable;
-    //private int nonperishable;
-
     public override void _Ready()
     {
         AssignFactionDataToCountyData();

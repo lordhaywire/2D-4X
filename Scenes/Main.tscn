@@ -2014,7 +2014,7 @@ size_flags_horizontal = 3
 [node name="Title Possible Improvement Label" type="Label" parent="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer/MarginContainer/HBoxContainer/Possible Building ScrollContainer/Possible Buildings VBoxContainer3"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
-text = "Possible Improvement"
+text = "PHRASE_POSSIBLE_IMPROVEMENTS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -2140,38 +2140,46 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("50_5cg3n")
 script = ExtResource("41_77kvj")
-researchName = NodePath("MarginContainer/Research Panel/VBoxContainer/Research Name")
-researchTextureRect = NodePath("MarginContainer/Research Panel/VBoxContainer/Research TextureRect")
-researchDescription = NodePath("MarginContainer/Research Panel/VBoxContainer/Research Description Label")
-researchProgressBar = NodePath("MarginContainer/Research Panel/VBoxContainer/Research ProgressBar")
-researchPrerequisitesTitleLabel = NodePath("MarginContainer/Research Panel/VBoxContainer/Research Prerequisites Title Label")
+researchName = NodePath("MarginContainer/HBoxContainer/Research Panel/VBoxContainer/Research Name")
+researchTextureRect = NodePath("MarginContainer/HBoxContainer/Research Panel/VBoxContainer/Research TextureRect")
+researchDescription = NodePath("MarginContainer/HBoxContainer/Research Panel/VBoxContainer/Research Description Label")
+researchProgressBar = NodePath("MarginContainer/HBoxContainer/Research Panel/VBoxContainer/Research ProgressBar")
+researchPrerequisitesTitleLabel = NodePath("MarginContainer/HBoxContainer/Research Panel/VBoxContainer/Research Prerequisites Title Label")
 researchPrerequisiteLabelPackedScene = ExtResource("124_veo43")
-prerequisitesParent = NodePath("MarginContainer/Research Panel/VBoxContainer/Prerequisites VBoxContainer")
-costOfResearchLabel = NodePath("MarginContainer/Research Panel/VBoxContainer/Total Cost of Research Label")
-countyImprovementsInResearchParent = NodePath("MarginContainer/Research Panel/VBoxContainer/County Improvement In Research Parent HBoxContainer")
+prerequisitesParent = NodePath("MarginContainer/HBoxContainer/Research Panel/VBoxContainer/Prerequisites VBoxContainer")
+costOfResearchLabel = NodePath("MarginContainer/HBoxContainer/Research Panel/VBoxContainer/Total Cost of Research Label")
+countyImprovementsInResearchParent = NodePath("MarginContainer/HBoxContainer/County Improvement VBoxContainer/ScrollContainer/County Improvement In Research Parent VBoxContainer")
 countyImprovementResearchPackedScene = ExtResource("119_kkhw7")
-assignResearcherMenuButton = NodePath("MarginContainer/Research Panel/VBoxContainer/Assign Research MenuButton")
+assignResearcherMenuButton = NodePath("MarginContainer/HBoxContainer/Research Panel/VBoxContainer/Assign Research MenuButton")
 
 [node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Research Description PanelContainer"]
 layout_mode = 2
+theme_override_constants/margin_top = 31
 
-[node name="Research Panel" type="PanelContainer" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel"]
+[node name="Research Panel" type="PanelContainer" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColorRect" type="ColorRect" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/HBoxContainer/Research Panel"]
+layout_mode = 2
+color = Color(0.458824, 0.458824, 0.458824, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/HBoxContainer/Research Panel"]
 layout_mode = 2
 theme_override_constants/separation = 15
 
-[node name="Research Name" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
+[node name="Research Name" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/HBoxContainer/Research Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 24
 text = "TESTESDFjhsdfkjgdf"
 
-[node name="Research TextureRect" type="TextureRect" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
+[node name="Research TextureRect" type="TextureRect" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/HBoxContainer/Research Panel/VBoxContainer"]
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -2179,7 +2187,7 @@ size_flags_vertical = 4
 texture = ExtResource("65_b6pum")
 expand_mode = 1
 
-[node name="Research Description Label" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
+[node name="Research Description Label" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/HBoxContainer/Research Panel/VBoxContainer"]
 custom_minimum_size = Vector2(800, 150)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -2187,49 +2195,63 @@ text = "This is the description"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="Research Prerequisites Title Label" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
+[node name="Research Prerequisites Title Label" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/HBoxContainer/Research Panel/VBoxContainer"]
 layout_mode = 2
 text = "WORD_PREREQUISITES"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Prerequisites VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
+[node name="Prerequisites VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/HBoxContainer/Research Panel/VBoxContainer"]
 layout_mode = 2
 
-[node name="Cost Title Label" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
+[node name="Cost Title Label" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/HBoxContainer/Research Panel/VBoxContainer"]
 layout_mode = 2
 text = "PHRASE_RESEARCH_COST"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Total Cost of Research Label" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
+[node name="Total Cost of Research Label" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/HBoxContainer/Research Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "999"
 horizontal_alignment = 1
 
-[node name="Research ProgressBar" type="ProgressBar" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
+[node name="Research ProgressBar" type="ProgressBar" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/HBoxContainer/Research Panel/VBoxContainer"]
 custom_minimum_size = Vector2(400, 27)
 layout_mode = 2
 size_flags_horizontal = 4
 value = 50.0
 
-[node name="County Improvement Title Label" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
-layout_mode = 2
-text = "PHRASE_COUNTY_IMPROVEMENT"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="County Improvement In Research Parent HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="Assign Research MenuButton" type="MenuButton" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/Research Panel/VBoxContainer"]
+[node name="Assign Research MenuButton" type="MenuButton" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/HBoxContainer/Research Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/normal = SubResource("StyleBoxFlat_fieoi")
 text = "PHRASE_ASSIGN_RESEARCHER"
 flat = false
+
+[node name="County Improvement VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="County Improvement Title Label" type="Label" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/HBoxContainer/County Improvement VBoxContainer"]
+layout_mode = 2
+text = "PHRASE_COUNTY_IMPROVEMENT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/HBoxContainer/County Improvement VBoxContainer"]
+custom_minimum_size = Vector2(640, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="County Improvement In Research Parent VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/HBoxContainer/County Improvement VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="ColorRect2" type="ColorRect" parent="Player UI Canvas/Research Description PanelContainer/MarginContainer/HBoxContainer/County Improvement VBoxContainer"]
+visible = false
+layout_mode = 2
+color = Color(0.458824, 0.458824, 0.458824, 1)
 
 [node name="Close Button" type="Button" parent="Player UI Canvas/Research Description PanelContainer"]
 layout_mode = 2

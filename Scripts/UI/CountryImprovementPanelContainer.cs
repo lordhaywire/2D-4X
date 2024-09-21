@@ -39,9 +39,12 @@ namespace PlayerSpace
         }
         private void UpdateConstructionStatus()
         {
+            GD.Print($"County Improvement Data: " + countyImprovementData);
             switch (countyImprovementData.status)
             {
                 case AllEnums.CountyImprovementStatus.Complete:
+                    progressTitle.Hide();
+                    progressBar.Hide();
                     constructButton.Hide();
                     underContructionLabel.Hide();
                     prioritizeHBox.Show();
@@ -50,6 +53,8 @@ namespace PlayerSpace
                     removeImprovementButton.Show();
                     break;
                 case AllEnums.CountyImprovementStatus.UnderConstruction:
+                    progressTitle.Show();
+                    progressBar.Show();
                     constructButton.Hide();
                     prioritizeHBox.Hide();
                     workersPanelContainer.Hide();

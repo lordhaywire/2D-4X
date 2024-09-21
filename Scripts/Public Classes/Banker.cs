@@ -270,9 +270,9 @@ namespace PlayerSpace
         {
             if (countyImprovementData.factionResourceConstructionCost != null)
             {
-                foreach (KeyValuePair<FactionResourceData, int> keyValuePair in countyImprovementData.factionResourceConstructionCost)
+                foreach (KeyValuePair<AllEnums.FactionResourceType, int> keyValuePair in countyImprovementData.factionResourceConstructionCost)
                 {
-                    AllEnums.FactionResourceType resourceType = keyValuePair.Key.resourceType;
+                    AllEnums.FactionResourceType resourceType = keyValuePair.Key;
                     if (factionData.factionResources[resourceType].amount < keyValuePair.Value)
                     {
                         return false;
@@ -300,9 +300,9 @@ namespace PlayerSpace
         {
             if (countyImprovementData.factionResourceConstructionCost != null)
             {
-                foreach (KeyValuePair<FactionResourceData, int> keyValuePair in countyImprovementData.factionResourceConstructionCost)
+                foreach (KeyValuePair<AllEnums.FactionResourceType, int> keyValuePair in countyImprovementData.factionResourceConstructionCost)
                 {
-                    AllEnums.FactionResourceType resourceType = keyValuePair.Key.resourceType;
+                    AllEnums.FactionResourceType resourceType = keyValuePair.Key;
                     factionData.factionResources[resourceType].amount -= keyValuePair.Value;
                     GD.Print($"{countyImprovementData.improvementName} costs " +
                         $"{countyImprovementData.factionResourceConstructionCost[keyValuePair.Key]} and" +

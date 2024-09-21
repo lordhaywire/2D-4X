@@ -18,7 +18,7 @@ namespace PlayerSpace
         [Export] private VBoxContainer prerequisitesParent;
         [Export] private Label costOfResearchLabel;
 
-        [Export] private HBoxContainer countyImprovementsInResearchParent;
+        [Export] private VBoxContainer countyImprovementsInResearchParent;
         [Export] private PackedScene countyImprovementResearchPackedScene;
         [Export] private MenuButton assignResearcherMenuButton;
 
