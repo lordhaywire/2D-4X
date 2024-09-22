@@ -14,9 +14,10 @@ namespace PlayerSpace
         [Export] public Label improvementNameLabel;
         [Export] Label improvementDescriptionLabel;
         [Export] TextureRect improvementTextureRect;
-        [Export] PanelContainer workersPanelContainer;
+        [Export] PanelContainer workersPanelContainer; // This had the worker amounts and minus/plus buttons inside it.
         [Export] public CheckBox produceAsNeededCheckBox;
         [Export] public Label currentWorkersNumberLabel;
+        [Export] public Label adjustedWorkersNumberLabel;
         [Export] public Label maxWorkersNumberLabel;
         [Export] public Button minusWorkerButton;
         [Export] public Button plusWorkerButton;
@@ -25,7 +26,9 @@ namespace PlayerSpace
         [Export] PanelContainer constructionPanelContainer;
         [Export] public PackedScene constructionMaterialCostLabelPackedScene;
         [Export] public CheckBox remnantsForContructionCheckBox;
+        [Export] public HBoxContainer adjustMaxBuildersHbox;
         [Export] public Label currentBuildersNumberLabel;
+        [Export] public Label adjustedBuildersNumberLabel;
         [Export] public Label maxBuildersNumberLabel;
         [Export] public Button minusBuilderButton;
         [Export] public Button plusBuilderButton;
@@ -56,9 +59,11 @@ namespace PlayerSpace
                     progressTitle.Show();
                     progressBar.Show();
                     constructButton.Hide();
-                    prioritizeHBox.Hide();
+                    prioritizeHBox.Show();
                     workersPanelContainer.Hide();
                     constructionPanelContainer.Show();
+                    remnantsForContructionCheckBox.Show();
+                    adjustMaxBuildersHbox.Show();
                     underContructionLabel.Show();
                     removeImprovementButton.Hide();
                     break;
@@ -68,14 +73,14 @@ namespace PlayerSpace
                     prioritizeHBox.Hide();
                     workersPanelContainer.Hide();
                     constructionPanelContainer.Show();
+                    remnantsForContructionCheckBox.Hide();
+                    adjustMaxBuildersHbox.Hide();
                     underContructionLabel.Hide();
                     removeImprovementButton.Hide();
                     CheckForConstructionResources();
                     break;
-                
             }
         }
-
 
         private void CheckForConstructionResources()
         {
@@ -93,75 +98,65 @@ namespace PlayerSpace
         public void UpdateImprovementLabels()
         {
             UpdateConstructionStatus();
-            
+
             GD.Print("Number of people working at county improvement: " + countyImprovementData.populationAtImprovement.Count);
             improvementTextureRect.Texture = countyImprovementData.improvementTexture;
             improvementNameLabel.Text = countyImprovementData.improvementName;
             improvementDescriptionLabel.Text = countyImprovementData.improvementDescription;
 
-            //improvementInfluenceCostLabel.Text = $"Influence Cost: {countyImprovementData.influenceCost}";
-            /*
-            if (ResearchDescriptionPanel.Instance.Visible == true)
-            {
-                buildingButton.Disabled = true;
-                improvementMaxBuildersLabel.Text = $"{countyImprovementData.maxBuilders} Builders";
-                improvementAmountOfConstructionLabel.Text = $"{countyImprovementData.maxAmountOfConstruction} Amount of Contruction";
-                return;
-            }
-            else if (CountyImprovementsControl.Instance.Visible == true)
-            {
-                // Something is going to get fucked up here.
-                if (banker.CheckBuildingCost(Globals.Instance.SelectedLeftClickCounty.countyData.factionData, countyImprovementData) == false)
-                {
-                    buildingButton.Disabled = true;
-                    // We could probably return out of here at this point.
-                }
-
-                if (countyImprovementData.status == AllEnums.CountyImprovementStatus.UnderConstruction
-                    || countyImprovementData.status == AllEnums.CountyImprovementStatus.Complete)
-                {
-                    buildingButton.Disabled = true;
-                
-                }
-
-                if (countyImprovementData.status == AllEnums.CountyImprovementStatus.None)
-                {
-                    improvementAmountOfConstructionLabel.Text = $"Amount of construction: {countyImprovementData.maxAmountOfConstruction}";
-                    improvementMaxBuildersLabel.Text = $"Max builders: {countyImprovementData.maxBuilders}";
-                }
-                else
-                {
-                    improvementInfluenceCostLabel.Hide();
-                    improvementAmountOfConstructionLabel.Text = $"{countyImprovementData.CurrentAmountOfConstruction}/{countyImprovementData.maxAmountOfConstruction} Amount of Contruction";
-                    improvementMaxBuildersLabel.Text = $"{countyImprovementData.countyPopulationAtImprovement.Count}/{countyImprovementData.maxBuilders} Builders";
-                }
-
-                CheckForUnderConstructionLabel();
-
-                if (countyImprovementData.status == AllEnums.CountyImprovementStatus.Complete)
-                {
-                    improvementMaxBuildersLabel.Text = $"{countyImprovementData.countyPopulationAtImprovement.Count}/{countyImprovementData.maxWorkers} Workers";
-                    improvementAmountOfConstructionLabel.Hide();
-                    improvementInfluenceCostLabel.Hide();
-                }
-            }
-            */
+            UpdateBuilderNumberLabels();
+            UpdateWorkerNumberLabels();
         }
 
-
-        /*
-        private void CheckForUnderConstructionLabel()
+        private void UpdateBuilderNumberLabels()
         {
-            if (countyImprovementData.status == AllEnums.CountyImprovementStatus.UnderConstruction)
-            {
-                underContructionLabel.Show();
-            }
-            else
-            {
-                underContructionLabel.Hide();
-            }
+            currentBuildersNumberLabel.Text = countyImprovementData.populationAtImprovement.Count.ToString();
+            adjustedBuildersNumberLabel.Text = countyImprovementData.adjustedMaxBuilders.ToString();
+            maxBuildersNumberLabel.Text = $"({countyImprovementData.maxBuilders})";
         }
-        */
+
+        private void UpdateWorkerNumberLabels()
+        {
+            currentWorkersNumberLabel.Text = countyImprovementData.populationAtImprovement.Count.ToString();
+            adjustedWorkersNumberLabel.Text = countyImprovementData.adjustedMaxWorkers.ToString();
+            maxWorkersNumberLabel.Text = $"({countyImprovementData.maxWorkers})";
+        }
+
+        private void MinusMaxBuildersButtonPressed()
+        {
+            countyImprovementData.AdjustNumberOfBuilders(-1);
+            UpdateAdjustedNumberLabels();
+        }
+
+        private void PlusMaxBuildersButtonPressed()
+        {
+            countyImprovementData.AdjustNumberOfBuilders(1);
+            UpdateAdjustedNumberLabels();
+        }
+
+        private void MinusMaxWorkersButtonPressed()
+        {
+            countyImprovementData.AdjustNumberOfWorkers(-1);
+            UpdateAdjustedNumberLabels();
+        }
+
+        private void PlusMaxWorkersButtonPressed()
+        {
+            countyImprovementData.AdjustNumberOfWorkers(1);
+            UpdateAdjustedNumberLabels();
+        }
+
+        /// <summary>
+        /// Updates both just because why not, instead of having it more complicated.
+        /// </summary>
+        private void UpdateAdjustedNumberLabels()
+        {
+            currentBuildersNumberLabel.Text = countyImprovementData.populationAtImprovement.Count.ToString();
+            adjustedBuildersNumberLabel.Text = countyImprovementData.adjustedMaxBuilders.ToString();
+            currentWorkersNumberLabel.Text = countyImprovementData.populationAtImprovement.Count.ToString();
+            adjustedWorkersNumberLabel.Text = countyImprovementData.adjustedMaxWorkers.ToString();
+        }
+
         private void ConstructButtonPressed()
         {
             GD.Print("You have pressed the county improvement button.");

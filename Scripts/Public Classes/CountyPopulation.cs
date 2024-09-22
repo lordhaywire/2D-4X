@@ -154,10 +154,14 @@ namespace PlayerSpace
             }
         }
 
+        /// <summary>
+        /// Makes activity idle and removes the population from the populationAtImprovement list.
+        /// </summary>
         public void RemoveFromCountyImprovement()
         {
             UpdateActivity(AllEnums.Activities.Idle);
             currentCountyImprovement.populationAtImprovement.Remove(this);
+            currentCountyImprovement = null;
         }
 
         public void UpdateCurrentResearch(ResearchItemData researchItemData)

@@ -110,7 +110,7 @@ namespace PlayerSpace
             {
                 // If the county improvement is done, make everyone working on it idle.
                 // Set their current work to null.
-                if (countyImprovementData.CheckIfCountyInprovementDone())
+                if (countyImprovementData.CheckIfCountyImprovementDone())
                 {
                     foreach (CountyPopulation countyPopulation in countyImprovementData.populationAtImprovement)
                     {
@@ -288,7 +288,7 @@ namespace PlayerSpace
                 foreach (CountyPopulation countyPopulation in possibleWorkers)
                 {
                     if (countyImprovementData.populationAtImprovement.Count
-                        < countyImprovementData.maxBuilders)
+                        < countyImprovementData.adjustedMaxBuilders)
                     {
                         countyPopulation.UpdateActivity(AllEnums.Activities.Build);
                         UpdateWorkLocation(countyPopulation, countyImprovementData);
@@ -341,7 +341,7 @@ namespace PlayerSpace
                     if (countyPopulation.preferredSkill.skill == countyImprovementData.workSkill)
                     {
                         if (countyImprovementData.populationAtImprovement.Count
-                            < countyImprovementData.maxWorkers)
+                            < countyImprovementData.adjustedMaxWorkers)
                         {
                             countyPopulation.UpdateActivity(AllEnums.Activities.Work);
                             UpdateWorkLocation(countyPopulation, countyImprovementData);
@@ -381,7 +381,7 @@ namespace PlayerSpace
                 foreach (CountyPopulation countyPopulation in possibleWorkers)
                 {
                     if (countyImprovementData.populationAtImprovement.Count
-                        < countyImprovementData.maxWorkers)
+                        < countyImprovementData.adjustedMaxWorkers)
                     {
                         countyPopulation.UpdateActivity(AllEnums.Activities.Work);
                         UpdateWorkLocation(countyPopulation, countyImprovementData);

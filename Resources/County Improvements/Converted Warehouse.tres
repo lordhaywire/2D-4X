@@ -8,7 +8,7 @@
 script = ExtResource("3_nbppr")
 improvementTexture = ExtResource("1_wn83v")
 improvementName = "IMPROVEMENT_CONVERTED_WAREHOUSE"
-improvementDescription = "IMPROVEMENT_DESCRIPTION__CONVERTED_WAREHOUSE"
+improvementDescription = "IMPROVEMENT_DESCRIPTION_CONVERTED_WAREHOUSE"
 numberBuilt = 0
 workSkill = 4
 interest = ExtResource("2_cl8dw")

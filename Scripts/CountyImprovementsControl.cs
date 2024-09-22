@@ -46,21 +46,34 @@ public partial class CountyImprovementsControl : Control
         GD.PrintRich($"[rainbow]Count of county improvements: " + Globals.Instance.playerFactionData.allCountyImprovements.Count);
 
         CreateCountyImprovementButtons(Globals.Instance.playerFactionData.allCountyImprovements
-            , possibleImprovementsScrollContainerParent);
+            , possibleImprovementsScrollContainerParent, true);
         CreateCountyImprovementButtons(Globals.Instance.SelectedLeftClickCounty.countyData.underConstructionCountyImprovements
-            , currentImprovementsScrollContainerParent);
+            , currentImprovementsScrollContainerParent, false);
         CreateCountyImprovementButtons(Globals.Instance.SelectedLeftClickCounty.countyData.completedCountyImprovements
-            , currentImprovementsScrollContainerParent);
+            , currentImprovementsScrollContainerParent, false);
     }
 
-    private void CreateCountyImprovementButtons(List<CountyImprovementData> listOfCountyImprovements, VBoxContainer parent)
+    /// <summary>
+    /// createAllCountyImprovement Buttons calls this three times to create them all.
+    /// </summary>
+    /// <param name="listOfCountyImprovements"></param>
+    /// <param name="parent"></param>
+    private void CreateCountyImprovementButtons(List<CountyImprovementData> listOfCountyImprovements
+        , VBoxContainer parent, bool allCountyImprovements)
     {
         GD.Print("List of County Improvements Count: " + listOfCountyImprovements.Count);
         foreach (CountyImprovementData countyImprovementData in listOfCountyImprovements)
         {
             CountryImprovementPanelContainer countyImprovementPanelContainer = (CountryImprovementPanelContainer)countyImprovementPanelContainerPackedScene.Instantiate();
             // This needs to be above AddChild.
-            countyImprovementPanelContainer.countyImprovementData = CountyImprovementData.NewCopy(countyImprovementData);
+            if (allCountyImprovements)
+            {
+                countyImprovementPanelContainer.countyImprovementData = CountyImprovementData.NewCopy(countyImprovementData);
+            }
+            else
+            {
+                countyImprovementPanelContainer.countyImprovementData = countyImprovementData;
+            }
             parent.AddChild(countyImprovementPanelContainer);
         }
     }

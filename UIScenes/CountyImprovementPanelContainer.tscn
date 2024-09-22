@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cyw6a5acdr708" path="res://UIScenes/OutputPanelContainer.tscn" id="2_tewhe"]
 [ext_resource type="PackedScene" uid="uid://dc05lry0djfwy" path="res://UIScenes/InputContainerPanel.tscn" id="3_acpvp"]
 
-[node name="County Improvement PanelContainer" type="PanelContainer" node_paths=PackedStringArray("progressTitle", "progressBar", "prioritizeHBox", "prioritizeCheckBox", "improvementNameLabel", "improvementDescriptionLabel", "improvementTextureRect", "workersPanelContainer", "produceAsNeededCheckBox", "currentWorkersNumberLabel", "maxWorkersNumberLabel", "minusWorkerButton", "plusWorkerButton", "constructionPanelContainer", "remnantsForContructionCheckBox", "currentBuildersNumberLabel", "maxBuildersNumberLabel", "minusBuilderButton", "plusBuilderButton", "constructButton", "underContructionLabel", "removeImprovementButton")]
+[node name="County Improvement PanelContainer" type="PanelContainer" node_paths=PackedStringArray("progressTitle", "progressBar", "prioritizeHBox", "prioritizeCheckBox", "improvementNameLabel", "improvementDescriptionLabel", "improvementTextureRect", "workersPanelContainer", "produceAsNeededCheckBox", "currentWorkersNumberLabel", "adjustedWorkersNumberLabel", "maxWorkersNumberLabel", "minusWorkerButton", "plusWorkerButton", "constructionPanelContainer", "remnantsForContructionCheckBox", "adjustMaxBuildersHbox", "currentBuildersNumberLabel", "adjustedBuildersNumberLabel", "maxBuildersNumberLabel", "minusBuilderButton", "plusBuilderButton", "constructButton", "underContructionLabel", "removeImprovementButton")]
 self_modulate = Color(0.302495, 0.302495, 0.302495, 1)
 offset_right = 40.0
 offset_bottom = 40.0
@@ -23,18 +23,21 @@ improvementTextureRect = NodePath("Everything VBoxContainer/Name and Description
 workersPanelContainer = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer")
 produceAsNeededCheckBox = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Produce as needed CheckBox")
 currentWorkersNumberLabel = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer/Current Workers Number Label")
+adjustedWorkersNumberLabel = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer/Adjusted Max Workers Number Label")
 maxWorkersNumberLabel = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer/Max Workers Number Label")
-minusWorkerButton = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer/Minus Worker Button")
-plusWorkerButton = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer/Plus Worker Button")
+minusWorkerButton = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer/Minus Max Worker Button")
+plusWorkerButton = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer/Plus Max Worker Button")
 outputPanelContainerPackedScene = ExtResource("2_tewhe")
 inputPanelContainerPackedScene = ExtResource("3_acpvp")
 constructionPanelContainer = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer")
 constructionMaterialCostLabelPackedScene = ExtResource("2_dtqry")
 remnantsForContructionCheckBox = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Remnants for Contrusction CheckBox")
+adjustMaxBuildersHbox = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Adjustable Builders HBoxContainer")
 currentBuildersNumberLabel = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Adjustable Builders HBoxContainer/Current Builders Number Label")
+adjustedBuildersNumberLabel = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Adjustable Builders HBoxContainer/Adjusted Max Builders Number Label")
 maxBuildersNumberLabel = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Adjustable Builders HBoxContainer/Max Builders Number Label")
-minusBuilderButton = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Adjustable Builders HBoxContainer/Minus Builders Button")
-plusBuilderButton = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Adjustable Builders HBoxContainer/Plus Builders Button")
+minusBuilderButton = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Adjustable Builders HBoxContainer/Minus Max Builders Button")
+plusBuilderButton = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Adjustable Builders HBoxContainer/Plus Max Builders Button")
 constructButton = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Construct Button")
 underContructionLabel = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Under Construction Label")
 removeImprovementButton = NodePath("Everything VBoxContainer/Remove Improvement Button")
@@ -135,13 +138,13 @@ text = "(75)"
 layout_mode = 2
 text = "PHRASE_CURRENT_ADJUSTED_MAX_WORKERS"
 
-[node name="Minus Worker Button" type="Button" parent="Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer"]
+[node name="Minus Max Worker Button" type="Button" parent="Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer"]
 custom_minimum_size = Vector2(31, 31)
 layout_mode = 2
 focus_mode = 0
 text = "-"
 
-[node name="Plus Worker Button" type="Button" parent="Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer"]
+[node name="Plus Max Worker Button" type="Button" parent="Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer"]
 custom_minimum_size = Vector2(31, 31)
 layout_mode = 2
 focus_mode = 0
@@ -392,13 +395,13 @@ text = "(75)"
 layout_mode = 2
 text = "PHRASE_CURRENT_ADJUSTED_MAX_BUILDERS"
 
-[node name="Minus Builders Button" type="Button" parent="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Adjustable Builders HBoxContainer"]
+[node name="Minus Max Builders Button" type="Button" parent="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Adjustable Builders HBoxContainer"]
 custom_minimum_size = Vector2(31, 31)
 layout_mode = 2
 focus_mode = 0
 text = "-"
 
-[node name="Plus Builders Button" type="Button" parent="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Adjustable Builders HBoxContainer"]
+[node name="Plus Max Builders Button" type="Button" parent="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Adjustable Builders HBoxContainer"]
 custom_minimum_size = Vector2(31, 31)
 layout_mode = 2
 focus_mode = 0
@@ -421,4 +424,8 @@ vertical_alignment = 1
 layout_mode = 2
 text = "PHRASE_REMOVE_IMPROVEMENT"
 
+[connection signal="pressed" from="Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer/Minus Max Worker Button" to="." method="MinusMaxWorkersButtonPressed"]
+[connection signal="pressed" from="Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer/Plus Max Worker Button" to="." method="PlusMaxWorkersButtonPressed"]
+[connection signal="pressed" from="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Adjustable Builders HBoxContainer/Minus Max Builders Button" to="." method="MinusMaxBuildersButtonPressed"]
+[connection signal="pressed" from="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Adjustable Builders HBoxContainer/Plus Max Builders Button" to="." method="PlusMaxBuildersButtonPressed"]
 [connection signal="pressed" from="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Construct Button" to="." method="ConstructButtonPressed"]

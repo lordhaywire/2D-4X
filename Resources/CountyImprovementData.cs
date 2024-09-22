@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PlayerSpace
 {
@@ -21,12 +22,13 @@ namespace PlayerSpace
         // they are in a dictionary.
         [Export] public Godot.Collections.Dictionary<AllEnums.FactionResourceType, int> factionResourceConstructionCost;
         [Export] public Godot.Collections.Dictionary<CountyResourceData, int> countyResourceConstructionCost;
-        
+
         // This is just for testing typed resources.
         [Export] public Godot.Collections.Dictionary<AllEnums.FactionResourceType, int> testResourceConstructionCost;
 
         private int currentAmountOfCounstruction;
-        [Export] public int CurrentAmountOfConstruction
+        [Export]
+        public int CurrentAmountOfConstruction
         {
             get { return currentAmountOfCounstruction; }
             set
@@ -50,7 +52,49 @@ namespace PlayerSpace
         [Export] public AllEnums.CountyImprovementStatus status;
         public List<CountyPopulation> populationAtImprovement = [];
 
-        public bool CheckIfCountyInprovementDone()
+        public void AdjustNumberOfBuilders(int adjustment)
+        {
+            adjustedMaxBuilders += adjustment;
+            adjustedMaxBuilders = Math.Clamp(adjustedMaxBuilders, 0, maxBuilders);
+            if (adjustedMaxBuilders < populationAtImprovement.Count)
+            {
+                // Remove lowest skilled worker.
+                CountyPopulation lowestSkilledPopulation = GetLowestSkilledPopulation(true);
+                lowestSkilledPopulation.RemoveFromCountyImprovement();
+            }
+        }
+
+        private CountyPopulation GetLowestSkilledPopulation(bool constructing)
+        {
+            AllEnums.Skills skill;
+            if (constructing)
+            {
+
+                skill = AllEnums.Skills.Construction;
+            }
+            else
+            {
+                skill = workSkill;
+            }
+            // Remove the lowest skilled worker.
+            List<CountyPopulation> sortedLowestSkillLevelPopulation 
+                = [.. populationAtImprovement.OrderBy(pop => pop.skills[skill].skillLevel)];
+            CountyPopulation lowestSkilledPopulation = sortedLowestSkillLevelPopulation.FirstOrDefault();
+            return lowestSkilledPopulation;
+        }
+        public void AdjustNumberOfWorkers(int adjustment)
+        {
+            adjustedMaxWorkers += adjustment;
+            adjustedMaxWorkers = Math.Clamp(adjustedMaxWorkers, 0, maxWorkers);
+            if (adjustedMaxWorkers < populationAtImprovement.Count)
+            {
+                // Remove lowest skilled worker.
+                CountyPopulation lowestSkilledPopulation = GetLowestSkilledPopulation(false);
+                lowestSkilledPopulation.RemoveFromCountyImprovement();
+            }
+        }
+
+        public bool CheckIfCountyImprovementDone()
         {
             if (CurrentAmountOfConstruction == maxAmountOfConstruction)
             {
@@ -60,7 +104,6 @@ namespace PlayerSpace
         }
         public void AddPopulationToCountyImprovementList(CountyPopulation countyPopulation)
         {
-
             GD.Print($"{countyPopulation.firstName} was added to {improvementName}'s list {populationAtImprovement.Count}.");
             populationAtImprovement.Add(countyPopulation);
         }
