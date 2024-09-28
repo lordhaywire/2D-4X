@@ -21,6 +21,8 @@ namespace PlayerSpace
         [Export] public Label maxWorkersNumberLabel;
         [Export] public Button minusWorkerButton;
         [Export] public Button plusWorkerButton;
+        [Export] public GridContainer outputsGridContainer;
+        [Export] public Label nontangibleProductionLabel;
         [Export] public PackedScene outputPanelContainerPackedScene;
         [Export] public PackedScene inputPanelContainerPackedScene;
         [Export] PanelContainer constructionPanelContainer;
@@ -33,6 +35,8 @@ namespace PlayerSpace
         [Export] public Button minusBuilderButton;
         [Export] public Button plusBuilderButton;
         [Export] private Button constructButton;
+        [Export] private Label hiringLabel;
+        [Export] private Label assignResearcherInPanelLabel;
         [Export] public Label underContructionLabel;
         [Export] Button removeImprovementButton;
 
@@ -45,7 +49,7 @@ namespace PlayerSpace
             GD.Print($"County Improvement Data: " + countyImprovementData);
             switch (countyImprovementData.status)
             {
-                case AllEnums.CountyImprovementStatus.Complete:
+                case AllEnums.CountyImprovementStatus.Hiring:
                     progressTitle.Hide();
                     progressBar.Hide();
                     constructButton.Hide();
@@ -55,16 +59,49 @@ namespace PlayerSpace
                     constructionPanelContainer.Hide();
                     removeImprovementButton.Show();
                     break;
+                case AllEnums.CountyImprovementStatus.Producing:
+                    break;
+                case AllEnums.CountyImprovementStatus.ProducingWithoutWorkers:
+                    progressTitle.Show(); // This needs to be changed to production progress.
+                    progressBar.Show();
+                    prioritizeHBox.Show();
+                    workersPanelContainer.Hide();
+                    UpdateOutputGoodsProducing();
+                    constructionPanelContainer.Hide();
+                    remnantsForContructionCheckBox.Hide();
+                    adjustMaxBuildersHbox.Hide();
+                    underContructionLabel.Hide();
+                    hiringLabel.Hide();
+                    assignResearcherInPanelLabel.Hide();
+                    removeImprovementButton.Show();
+                    break;
+                case AllEnums.CountyImprovementStatus.Researching:
+                    break;
+                case AllEnums.CountyImprovementStatus.AwaitingPlayerAssignment:
+                    progressTitle.Hide();
+                    progressBar.Hide();
+                    constructButton.Hide();
+                    underContructionLabel.Hide();
+                    prioritizeHBox.Show();
+                    workersPanelContainer.Show();
+                    constructionPanelContainer.Hide();
+                    removeImprovementButton.Show();
+                    assignResearcherInPanelLabel.Show();
+                    underContructionLabel.Hide();
+                    break;
                 case AllEnums.CountyImprovementStatus.UnderConstruction:
                     progressTitle.Show();
                     progressBar.Show();
-                    constructButton.Hide();
                     prioritizeHBox.Show();
                     workersPanelContainer.Hide();
+                    UpdateOutputGoodsNotProducing();
                     constructionPanelContainer.Show();
                     remnantsForContructionCheckBox.Show();
                     adjustMaxBuildersHbox.Show();
+                    hiringLabel.Hide();
+                    assignResearcherInPanelLabel.Hide();
                     underContructionLabel.Show();
+                    constructButton.Hide();
                     removeImprovementButton.Hide();
                     break;
                 default:
@@ -72,11 +109,14 @@ namespace PlayerSpace
                     progressBar.Hide();
                     prioritizeHBox.Hide();
                     workersPanelContainer.Hide();
+                    UpdateOutputGoodsNotProducing();
                     constructionPanelContainer.Show();
                     remnantsForContructionCheckBox.Hide();
                     adjustMaxBuildersHbox.Hide();
                     underContructionLabel.Hide();
                     removeImprovementButton.Hide();
+                    hiringLabel.Hide();
+                    assignResearcherInPanelLabel.Hide();
                     CheckForConstructionResources();
                     break;
             }
@@ -98,14 +138,48 @@ namespace PlayerSpace
         public void UpdateImprovementLabels()
         {
             UpdateConstructionStatus();
+            UpdateInformationLabels();
+            UpdateBuilderNumberLabels();
+            UpdateWorkerNumberLabels();
+        }
 
+        private void UpdateOutputGoodsProducing()
+        {
+            GD.Print("County Improvement Nontangible: " + countyImprovementData.nonTangibleGoodProduced);
+            if (string.IsNullOrEmpty(countyImprovementData.nonTangibleGoodProduced))
+            {
+                outputsGridContainer.Show();
+                nontangibleProductionLabel.Hide();
+            }
+            else
+            {
+                outputsGridContainer.Hide();
+                nontangibleProductionLabel.Text = countyImprovementData.nonTangibleGoodProduced;
+                nontangibleProductionLabel.Show();
+            }
+        }
+        private void UpdateOutputGoodsNotProducing()
+        {
+            GD.Print("County Improvement Nontangible: " + countyImprovementData.nonTangibleGoodProduced);
+            if(string.IsNullOrEmpty(countyImprovementData.nonTangibleGoodProduced))
+            {
+                outputsGridContainer.Show();
+                nontangibleProductionLabel.Hide();
+            }
+            else
+            {
+                outputsGridContainer.Hide();
+                nontangibleProductionLabel.Text = countyImprovementData.nonTangibleGoodNotBeingProduced;
+                nontangibleProductionLabel.Show();
+            }
+        }
+
+        private void UpdateInformationLabels()
+        {
             GD.Print("Number of people working at county improvement: " + countyImprovementData.populationAtImprovement.Count);
             improvementTextureRect.Texture = countyImprovementData.improvementTexture;
             improvementNameLabel.Text = countyImprovementData.improvementName;
             improvementDescriptionLabel.Text = countyImprovementData.improvementDescription;
-
-            UpdateBuilderNumberLabels();
-            UpdateWorkerNumberLabels();
         }
 
         private void UpdateBuilderNumberLabels()

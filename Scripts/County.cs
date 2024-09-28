@@ -50,6 +50,9 @@ namespace PlayerSpace
             CountyData.CheckForHealing(countyData.herosInCountyList);
             CountyData.CheckForHealing(countyData.armiesInCountyList);
 
+            // Buildings that don't require workers should be here, such as the warehouse.
+
+            // Shouldn't this be at the beginning of the day??
             countyAI.DecideBuildingCountyImprovements(this);
 
             // Generates resources through work, scavenging, building, and research.

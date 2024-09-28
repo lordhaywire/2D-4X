@@ -185,3 +185,9 @@ PHRASE_USE_REMNANTS_FOR_CONSTRUCTION,Use Remnants for construction,Usar remanent
 WORD_CONSTRUCTION,Construction,Construcción
 PHRASE_UNDER_CONSTRUCTION,Under Construction,En obra
 PHRASE_REMOVE_IMPROVEMENT,Remove Improvements,Eliminar mejoras
+IMPROVEMENT_NONTANGIBLE_PRODUCED_WAREHOUSE,Is generating extra storage some number.,Está generando almacenamiento adicional algún número.
+IMPROVEMENT_NONTANGIBLE_PRODUCED_RESEARCH_OFFICE,First Name Last Name Research Name,Nombre Apellido Nombre de la investigación
+IMPROVEMENT_NONTANGIBLE_NOT_PRODUCED_WAREHOUSE,Will generate extra storage some number.,Generará almacenamiento adicional algún número.
+IMPROVEMENT_NONTANGIBLE_NOT_PRODUCED_RESEARCH_OFFICE,Generates research.,Genera investigación.
+PHRASE_ASSIGN_RESEARCHER_IN_RESEARCH_PANEL,Assign researcher in research panel.,Asignar investigador en el panel de investigación.
+WORD_HIRING,Hiring,Contratación

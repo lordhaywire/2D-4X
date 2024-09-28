@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cyw6a5acdr708" path="res://UIScenes/OutputPanelContainer.tscn" id="2_tewhe"]
 [ext_resource type="PackedScene" uid="uid://dc05lry0djfwy" path="res://UIScenes/InputContainerPanel.tscn" id="3_acpvp"]
 
-[node name="County Improvement PanelContainer" type="PanelContainer" node_paths=PackedStringArray("progressTitle", "progressBar", "prioritizeHBox", "prioritizeCheckBox", "improvementNameLabel", "improvementDescriptionLabel", "improvementTextureRect", "workersPanelContainer", "produceAsNeededCheckBox", "currentWorkersNumberLabel", "adjustedWorkersNumberLabel", "maxWorkersNumberLabel", "minusWorkerButton", "plusWorkerButton", "constructionPanelContainer", "remnantsForContructionCheckBox", "adjustMaxBuildersHbox", "currentBuildersNumberLabel", "adjustedBuildersNumberLabel", "maxBuildersNumberLabel", "minusBuilderButton", "plusBuilderButton", "constructButton", "underContructionLabel", "removeImprovementButton")]
+[node name="County Improvement PanelContainer" type="PanelContainer" node_paths=PackedStringArray("progressTitle", "progressBar", "prioritizeHBox", "prioritizeCheckBox", "improvementNameLabel", "improvementDescriptionLabel", "improvementTextureRect", "workersPanelContainer", "produceAsNeededCheckBox", "currentWorkersNumberLabel", "adjustedWorkersNumberLabel", "maxWorkersNumberLabel", "minusWorkerButton", "plusWorkerButton", "outputsGridContainer", "nontangibleProductionLabel", "constructionPanelContainer", "remnantsForContructionCheckBox", "adjustMaxBuildersHbox", "currentBuildersNumberLabel", "adjustedBuildersNumberLabel", "maxBuildersNumberLabel", "minusBuilderButton", "plusBuilderButton", "constructButton", "hiringLabel", "assignResearcherInPanelLabel", "underContructionLabel", "removeImprovementButton")]
 self_modulate = Color(0.302495, 0.302495, 0.302495, 1)
 offset_right = 40.0
 offset_bottom = 40.0
@@ -27,6 +27,8 @@ adjustedWorkersNumberLabel = NodePath("Everything VBoxContainer/Production and B
 maxWorkersNumberLabel = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer/Max Workers Number Label")
 minusWorkerButton = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer/Minus Max Worker Button")
 plusWorkerButton = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer/Plus Max Worker Button")
+outputsGridContainer = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Outputs GridContainer")
+nontangibleProductionLabel = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Nontangible Goods Produced Title Label")
 outputPanelContainerPackedScene = ExtResource("2_tewhe")
 inputPanelContainerPackedScene = ExtResource("3_acpvp")
 constructionPanelContainer = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer")
@@ -39,6 +41,8 @@ maxBuildersNumberLabel = NodePath("Everything VBoxContainer/Production and Build
 minusBuilderButton = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Adjustable Builders HBoxContainer/Minus Max Builders Button")
 plusBuilderButton = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Adjustable Builders HBoxContainer/Plus Max Builders Button")
 constructButton = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Construct Button")
+hiringLabel = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Hiring Label")
+assignResearcherInPanelLabel = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Assign Researcher In Research Panel Label")
 underContructionLabel = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Under Construction Label")
 removeImprovementButton = NodePath("Everything VBoxContainer/Remove Improvement Button")
 
@@ -216,6 +220,13 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Only produce"
+
+[node name="Nontangible Goods Produced Title Label" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "This is a test.  If you see this, then something is wrong."
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Inputs Title Label" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer"]
 layout_mode = 2
@@ -412,6 +423,20 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "WORD_CONSTRUCTION"
+
+[node name="Assign Researcher In Research Panel Label" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer"]
+self_modulate = Color(0.885973, 0.0986631, 0, 1)
+layout_mode = 2
+text = "PHRASE_ASSIGN_RESEARCHER_IN_RESEARCH_PANEL"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Hiring Label" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer"]
+self_modulate = Color(0.885973, 0.0986631, 0, 1)
+layout_mode = 2
+text = "WORD_HIRING"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Under Construction Label" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer"]
 self_modulate = Color(0.885973, 0.0986631, 0, 1)

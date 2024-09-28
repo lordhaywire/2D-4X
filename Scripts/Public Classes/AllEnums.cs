@@ -29,7 +29,11 @@ public class AllEnums
     public enum CountyImprovementStatus
     {
         None,
-        Complete,
+        AwaitingPlayerAssignment,
+        Hiring,
+        Producing,
+        ProducingWithoutWorkers,
+        Researching,
         UnderConstruction,
     }
 

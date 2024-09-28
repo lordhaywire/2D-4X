@@ -43,8 +43,16 @@ namespace PlayerSpace
         public int adjustedMaxWorkers;
         [Export] public AllEnums.CountyResourceType countyResourceType;
         [Export] public AllEnums.FactionResourceType factionResourceType;
+        /// <summary>
+        /// If the improvement doesn't produce a good, but instead produces something like research, or
+        /// warehouse space.  This string says what that is.  If it null then the normal production
+        /// GridContainer is shown.
+        /// </summary>
+        [Export] public string nonTangibleGoodProduced;
+        [Export] public string nonTangibleGoodNotBeingProduced;
         // If it needs two or more resources for input
         // We need to know the type and amount of each resource
+        // This array will become a dictionary.
         [Export] public Godot.Collections.Array<AllEnums.CountyResourceType> inputResources;
         [Export] public int dailyResourceGenerationAmount;
         [Export] public int dailyResourceGenerationBonus;
@@ -93,7 +101,7 @@ namespace PlayerSpace
                 lowestSkilledPopulation.RemoveFromCountyImprovement();
             }
         }
-
+        
         public bool CheckIfCountyImprovementDone()
         {
             if (CurrentAmountOfConstruction == maxAmountOfConstruction)
@@ -115,7 +123,14 @@ namespace PlayerSpace
 
         public void SetCountyImprovementComplete()
         {
-            status = AllEnums.CountyImprovementStatus.Complete;
+            if (maxWorkers > 0)
+            {
+                status = AllEnums.CountyImprovementStatus.Hiring;
+            }
+            else
+            {
+                status = AllEnums.CountyImprovementStatus.ProducingWithoutWorkers;
+            }
         }
 
         public static CountyImprovementData NewCopy(CountyImprovementData countyImprovementData)
@@ -141,6 +156,8 @@ namespace PlayerSpace
                 adjustedMaxWorkers = countyImprovementData.adjustedMaxWorkers,
                 countyResourceType = countyImprovementData.countyResourceType,
                 factionResourceType = countyImprovementData.factionResourceType,
+                nonTangibleGoodProduced = countyImprovementData.nonTangibleGoodProduced,
+                nonTangibleGoodNotBeingProduced = countyImprovementData.nonTangibleGoodNotBeingProduced,
                 dailyResourceGenerationAmount = countyImprovementData.dailyResourceGenerationAmount,
                 dailyResourceGenerationBonus = countyImprovementData.dailyResourceGenerationBonus,
                 status = countyImprovementData.status,
