@@ -81,11 +81,10 @@ namespace PlayerSpace
 
         private void DayStart()
         {
-            countyData.possibleWorkers.Clear(); // Clear the list at the start of each county.
-            countyData.workersToRemoveFromPossibleWorkers.Clear();
-
+            // Assign people to the prioritized county improvements.
+            countyData.AssignPeopleToPrioritizedImprovements();
             // Gets all the idle people and puts them in a list for the next methods.
-            countyData.CheckForIdle();
+            countyData.FindIdlePopulation();
             // We may want construction to come before work, so that people will build stuff vs always be working
             // and never build anything.
             countyData.CheckForConstruction();

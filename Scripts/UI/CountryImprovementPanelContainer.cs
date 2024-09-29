@@ -135,12 +135,23 @@ namespace PlayerSpace
             }
         }
 
+        private void PrioritizeCheckbox()
+        {
+            countyImprovementData.prioritize = !countyImprovementData.prioritize;
+            GD.Print("Prioritized? " + countyImprovementData.prioritize);
+        }
         public void UpdateImprovementLabels()
         {
+            UpdatePrioritizeCheckbox();
             UpdateConstructionStatus();
             UpdateInformationLabels();
             UpdateBuilderNumberLabels();
             UpdateWorkerNumberLabels();
+        }
+
+        private void UpdatePrioritizeCheckbox()
+        {
+            prioritizeCheckBox.ButtonPressed = countyImprovementData.prioritize;
         }
 
         private void UpdateOutputGoodsProducing()

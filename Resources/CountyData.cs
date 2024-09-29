@@ -34,8 +34,8 @@ namespace PlayerSpace
         public Globals.ListWithNotify<CountyPopulation> visitingArmyList = [];
         public Globals.ListWithNotify<CountyPopulation> deadPeopleList = [];
 
-        public List<CountyPopulation> possibleWorkers = []; // List of all the idle, helpful and loyal workers for that day.
-        public List<CountyPopulation> workersToRemoveFromPossibleWorkers = []; // List to collect county populations to be removed from the possibleWorkers.
+        List<CountyPopulation> possibleWorkers = []; // List of all the idle, helpful and loyal workers for that day.
+        List<CountyPopulation> workersToRemoveFromPossibleWorkers = []; // List to collect county populations to be removed from the possibleWorkers.
 
         public List<Button> spawnedTokenButtons = [];
 
@@ -285,17 +285,7 @@ namespace PlayerSpace
         {
             foreach (CountyImprovementData countyImprovementData in underConstructionCountyImprovements)
             {
-                foreach (CountyPopulation countyPopulation in possibleWorkers)
-                {
-                    if (countyImprovementData.populationAtImprovement.Count
-                        < countyImprovementData.adjustedMaxBuilders)
-                    {
-                        countyPopulation.UpdateActivity(AllEnums.Activities.Build);
-                        UpdateWorkLocation(countyPopulation, countyImprovementData);
-                        workersToRemoveFromPossibleWorkers.Add(countyPopulation);
-                    }
-                }
-                RemoveWorkersFromPossibleWorkers();
+                AssignWorkersToCountyImprovement(countyImprovementData);
             }
         }
 
@@ -308,8 +298,11 @@ namespace PlayerSpace
             }
             workersToRemoveFromPossibleWorkers.Clear();
         }
-        public void CheckForIdle()
+
+        public void FindIdlePopulation()
         {
+            possibleWorkers.Clear(); // Clear the list at the start of each county.
+            workersToRemoveFromPossibleWorkers.Clear();
             // Go through each person in the county.
             foreach (CountyPopulation countyPopulation in countyPopulationList)
             {
@@ -329,7 +322,7 @@ namespace PlayerSpace
             //GD.Print($"{county.countyData.countyName}: Checking for Preferred Work!");
             foreach (CountyImprovementData countyImprovementData in completedCountyImprovements)
             {
-                if (countyImprovementData.countyResourceType != AllEnums.CountyResourceType.None 
+                if (countyImprovementData.countyResourceType != AllEnums.CountyResourceType.None
                     && CheckResourceStorageFull(countyResources[countyImprovementData.countyResourceType]) == true)
                 {
                     return;
@@ -345,12 +338,12 @@ namespace PlayerSpace
                         {
                             countyPopulation.UpdateActivity(AllEnums.Activities.Work);
                             UpdateWorkLocation(countyPopulation, countyImprovementData);
-                            
+
                             GD.Print($"{countyPopulation.firstName} {countyPopulation.lastName} preferred work is " +
                                 $"{countyPopulation.preferredSkill.skillName} and they are " +
                                 $"{countyPopulation.GetActivityName()} at " +
                                 $"{countyPopulation.currentCountyImprovement.improvementName}");
-                            
+
                             workersToRemoveFromPossibleWorkers.Add(countyPopulation);
                         }
                     }
@@ -638,7 +631,7 @@ namespace PlayerSpace
             }
             countyPopulation.daysStarving++;
         }
-        
+
         private void KillPeopleWhoNeedToDie(List<CountyPopulation> peopleWhoNeedToDie)
         {
             foreach (CountyPopulation countyPopulation in peopleWhoNeedToDie)
@@ -711,6 +704,106 @@ namespace PlayerSpace
                 }
             }
         }
+
+        public void AssignPeopleToPrioritizedImprovements()
+        {
+            GetPrioritizedWorkersList();
+            // Check under construction improvements
+            CheckForPrioritizedImprovements(underConstructionCountyImprovements);
+            // Check finished improvements
+            CheckForPrioritizedImprovements(completedCountyImprovements);
+        }
+
+        private void CheckForPrioritizedImprovements(List<CountyImprovementData> countyImprovements)
+        {
+            foreach (CountyImprovementData countyImprovementData in countyImprovements)
+            {
+                int maxWorkers = countyImprovementData.status == AllEnums.CountyImprovementStatus.UnderConstruction
+                    ? countyImprovementData.adjustedMaxBuilders
+                    : countyImprovementData.adjustedMaxWorkers;
+                if (countyImprovementData.prioritize == true
+                    && countyImprovementData.populationAtImprovement.Count < maxWorkers)
+                {
+                    AssignWorkersToCountyImprovement(countyImprovementData);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Assign possible workers to building a county improvement, and remove them from the
+        /// possible workers list.
+        /// </summary>
+        /// <param name="countyImprovementData"></param>
+        private void AssignWorkersToCountyImprovement(CountyImprovementData countyImprovementData)
+        {
+            // Determine activity and max workers based on status
+            AllEnums.Activities activity = countyImprovementData.status == AllEnums.CountyImprovementStatus.UnderConstruction
+                ? AllEnums.Activities.Build
+                : AllEnums.Activities.Work;
+
+            int maxWorkers = countyImprovementData.status == AllEnums.CountyImprovementStatus.UnderConstruction
+                ? countyImprovementData.adjustedMaxBuilders
+                : countyImprovementData.adjustedMaxWorkers;
+
+            // Sort possibleWorkers by relevant skill
+            possibleWorkers = countyImprovementData.status == AllEnums.CountyImprovementStatus.UnderConstruction
+                ? possibleWorkers.OrderByDescending(cp => cp.skills[AllEnums.Skills.Construction].skillLevel).ToList()
+                : possibleWorkers.OrderByDescending(cp => cp.skills[countyImprovementData.workSkill].skillLevel).ToList();
+
+            int remainingWorkerSlots = maxWorkers - countyImprovementData.populationAtImprovement.Count;
+            GD.Print($"{countyImprovementData.improvementName} Population At Improvement: "
+                + countyImprovementData.populationAtImprovement.Count);
+
+            // Assign sorted workers if there is room
+            foreach (CountyPopulation countyPopulation in possibleWorkers.Take(remainingWorkerSlots))
+            {
+                countyPopulation.RemoveFromCountyImprovement();
+                countyPopulation.UpdateActivity(activity);
+                UpdateWorkLocation(countyPopulation, countyImprovementData);
+                workersToRemoveFromPossibleWorkers.Add(countyPopulation);
+            }
+            RemoveWorkersFromPossibleWorkers();
+        }
+
+        /*
+        private void AssignWorkersToCountyImprovement(CountyImprovementData countyImprovementData)
+        {
+            AllEnums.Activities activity = AllEnums.Activities.Work;
+            int maxWorkers = countyImprovementData.adjustedMaxWorkers;
+            if (countyImprovementData.status == AllEnums.CountyImprovementStatus.UnderConstruction)
+            {
+                activity = AllEnums.Activities.Build;
+                maxWorkers = countyImprovementData.adjustedMaxBuilders;
+            }
+            foreach (CountyPopulation countyPopulation in possibleWorkers)
+            {
+                if (countyImprovementData.populationAtImprovement.Count
+                    < maxWorkers)
+                {
+                    countyPopulation.UpdateActivity(activity);
+                    UpdateWorkLocation(countyPopulation, countyImprovementData);
+                    workersToRemoveFromPossibleWorkers.Add(countyPopulation);
+                }
+            }
+            RemoveWorkersFromPossibleWorkers();
+        }
+        */
+        /// <summary>
+        /// Get all the people who are helpful and loyal for prioritized construction and work.
+        /// </summary>
+        private void GetPrioritizedWorkersList()
+        {
+            // Go through each person in the county.
+            foreach (CountyPopulation countyPopulation in countyPopulationList)
+            {
+                // Go through everyone and if they are helpful and loyal add them to the possibleWorkers list.
+                if (countyPopulation.CheckWillWorkLoyalty() == true
+                    && countyPopulation.CheckForPerk(AllEnums.Perks.Unhelpful) == false)
+                {
+                    GD.Print($"{countyName}: {countyPopulation.firstName} is loyal and is helpful.");
+                    possibleWorkers.Add(countyPopulation);
+                }
+            }
+        }
     }
 }
-

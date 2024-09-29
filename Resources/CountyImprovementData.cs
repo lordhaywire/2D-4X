@@ -9,6 +9,7 @@ namespace PlayerSpace
     public partial class CountyImprovementData : Resource
     {
         public int location;
+        public bool prioritize;
         public CountryImprovementPanelContainer countyImprovementDescriptionButton;
         [Export] public Texture2D improvementTexture;
         [Export] public string improvementName;
@@ -138,6 +139,7 @@ namespace PlayerSpace
             CountyImprovementData newCountyImprovementData = new()
             {
                 location = countyImprovementData.location,
+                prioritize = countyImprovementData.prioritize,
                 countyImprovementDescriptionButton = countyImprovementData.countyImprovementDescriptionButton,
                 improvementTexture = countyImprovementData.improvementTexture,
                 improvementName = countyImprovementData.improvementName,

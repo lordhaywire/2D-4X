@@ -49,17 +49,10 @@ public class CountyAI
     public void BuildImprovement(CountyData countyData, CountyImprovementData countyImprovementData)
     {
         countyImprovementData.status = AllEnums.CountyImprovementStatus.UnderConstruction;
+        countyImprovementData.improvementName = $"{TranslationServer.Translate(countyImprovementData.improvementName)} " 
+            + (countyData.underConstructionCountyImprovements.Count + 1).ToString();
         countyData.underConstructionCountyImprovements.Add(countyImprovementData);
         countyData.underConstructionCountyImprovements.Sort((x,y) => string.Compare(x.improvementName, y.improvementName));
-
-        /*
-    = [.. countyData.underConstructionCountyImprovements.OrderBy(improvement 
-    => TranslationServer.Translate(improvement.improvementName))];
-        GD.Print($"{countyData.factionData.factionName} is building {TranslationServer.Translate(countyImprovementData.improvementName)}.");
-        /*
-        allCountyImprovements
-         = [.. allCountyImprovements.OrderBy(improvement => Tr(improvement.improvementName))];
-        */
     }
     public static CountyImprovementData FindCountyImpovementOfType(County county, AllEnums.FactionResourceType factionResourceType)
     {

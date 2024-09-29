@@ -65,6 +65,7 @@ size_flags_horizontal = 4
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+focus_mode = 0
 
 [node name="Prioritize Title Label" type="Label" parent="Everything VBoxContainer/Prioritize HBoxContainer"]
 layout_mode = 2
@@ -449,6 +450,7 @@ vertical_alignment = 1
 layout_mode = 2
 text = "PHRASE_REMOVE_IMPROVEMENT"
 
+[connection signal="pressed" from="Everything VBoxContainer/Prioritize HBoxContainer/Prioritize CheckBox" to="." method="PrioritizeCheckbox"]
 [connection signal="pressed" from="Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer/Minus Max Worker Button" to="." method="MinusMaxWorkersButtonPressed"]
 [connection signal="pressed" from="Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer/Plus Max Worker Button" to="." method="PlusMaxWorkersButtonPressed"]
 [connection signal="pressed" from="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Cost VBoxContainer/Adjustable Builders HBoxContainer/Minus Max Builders Button" to="." method="MinusMaxBuildersButtonPressed"]
