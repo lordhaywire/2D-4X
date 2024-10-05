@@ -1,4 +1,4 @@
-[gd_scene load_steps=135 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=136 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" path="res://Scripts/HidderNode.cs" id="1_gbt3x"]
 [ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_x1cy2"]
@@ -101,6 +101,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/DeclareWarControl.cs" id="42_g5xi4"]
 [ext_resource type="Resource" uid="uid://dttjepcbd8jkc" path="res://Resources/Faction Resources/Equipment.tres" id="43_m5xia"]
 [ext_resource type="Script" path="res://Scripts/UI/EventLog.cs" id="43_w0p1n"]
+[ext_resource type="Resource" uid="uid://okgoiywumb4s" path="res://Resources/Faction Resources/Research.tres" id="43_yw8f0"]
 [ext_resource type="PackedScene" uid="uid://bjgv6c8xhn4lo" path="res://UIScenes/Event Log Text Panel.tscn" id="44_du832"]
 [ext_resource type="PackedScene" uid="uid://x41vmtlrl1cx" path="res://UIScenes/CombatLogTextPanel.tscn" id="44_qsgen"]
 [ext_resource type="Script" path="res://Scripts/AllInterests.cs" id="45_vjt1m"]
@@ -223,17 +224,17 @@ allAttributes = Array[Object]([ExtResource("24_kqay3"), ExtResource("25_arsfn"),
 script = ExtResource("23_8jwco")
 allPerks = Array[Object]([ExtResource("24_edv5e"), ExtResource("25_626s1")])
 
-[node name="All Research" type="Node" parent="Game Controller Node/Arrays"]
-script = ExtResource("12_hmucs")
-allResearchItemDatas = Array[Object]([ExtResource("22_ugyvd"), ExtResource("62_ujbl5"), ExtResource("16_qtbxl"), ExtResource("33_uirqi")])
-
 [node name="All County Resources" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("18_wf5kh")
 allResources = Array[Object]([ExtResource("34_hf6gg"), ExtResource("19_1e80i"), ExtResource("37_w4428"), ExtResource("20_k67vp"), ExtResource("21_r83qp"), ExtResource("22_leslc")])
 
 [node name="All Faction Resources" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("33_g7g2f")
-factionResourceDatas = Array[Object]([ExtResource("34_yfxup"), ExtResource("43_m5xia"), ExtResource("35_jg3b1"), ExtResource("36_drkal"), ExtResource("37_xlwo5"), ExtResource("38_1nki6")])
+factionResourceDatas = Array[Object]([ExtResource("34_yfxup"), ExtResource("43_m5xia"), ExtResource("35_jg3b1"), ExtResource("36_drkal"), ExtResource("37_xlwo5"), ExtResource("38_1nki6"), ExtResource("43_yw8f0")])
+
+[node name="All Research" type="Node" parent="Game Controller Node/Arrays"]
+script = ExtResource("12_hmucs")
+allResearchItemDatas = Array[Object]([ExtResource("22_ugyvd"), ExtResource("62_ujbl5"), ExtResource("16_qtbxl"), ExtResource("33_uirqi")])
 
 [node name="All Interests" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("45_vjt1m")
@@ -2555,7 +2556,7 @@ process_mode = 3
 [connection signal="visibility_changed" from="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer" to="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer" method="OnVisibilityChange"]
 [connection signal="button_up" from="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer/HBoxContainer/No Button" to="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer" method="NoButton"]
 [connection signal="button_up" from="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer/HBoxContainer/Yes Button" to="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer" method="YesButton"]
-[connection signal="visibility_changed" from="Player UI Canvas/County Improvements Control" to="Player UI Canvas/County Improvements Control" method="OnVisibilityChanged"]
+[connection signal="visibility_changed" from="Player UI Canvas/County Improvements Control" to="Player UI Canvas/County Improvements Control" method="OnCountyImprovementControlVisibilityChanged"]
 [connection signal="visibility_changed" from="Player UI Canvas/County Improvements Control/Buildings MarginContainer" to="Player UI Canvas/County Improvements Control/Buildings MarginContainer" method="OnVisibilityChange"]
 [connection signal="confirmed" from="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer/MarginContainer/Build ConfirmationDialog" to="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer/MarginContainer/Build ConfirmationDialog" method="YesButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer/MarginContainer/Build ConfirmationDialog" to="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer/MarginContainer/Build ConfirmationDialog" method="OnVisibilityChanged"]

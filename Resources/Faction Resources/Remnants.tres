@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_2uhyr")
-name = "FACTION_RESOURCE_DESCRIPTION_REMNANTS"
+name = "FACTION_RESOURCE_REMNANTS"
 description = "FACTION_RESOURCE_DESCRIPTION_REMNANTS"
 resourceType = 6
 amount = 0

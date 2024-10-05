@@ -1,4 +1,6 @@
 using Godot;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace PlayerSpace
@@ -27,6 +29,33 @@ namespace PlayerSpace
 
             mapWidth = mapImage.GetWidth();
             mapHeight = mapImage.GetHeight();
+
+            TestResearchCountyCountyImprovementCost();
+            TestResearchFactionCountyImprovementCost();
+        }
+
+        private void TestResearchCountyCountyImprovementCost()
+        {
+            Godot.Collections.Dictionary<CountyResourceData, int> constructionCosts 
+                = AllResearch.Instance.allResearchItemDatas[0].countyImprovementDatas[0].countyResourceConstructionCost;
+            CountyImprovementData countyImprovementData = AllResearch.Instance.allResearchItemDatas[0].countyImprovementDatas[0];
+            foreach (KeyValuePair<CountyResourceData, int> keyValuePair in constructionCosts)
+            {
+                GD.PrintRich($"[rainbow]{countyImprovementData.improvementName} costs {keyValuePair.Key.name}" +
+                    $" {keyValuePair.Value}");
+            }
+        }
+
+        private void TestResearchFactionCountyImprovementCost()
+        {
+            Godot.Collections.Dictionary<FactionResourceData, int> constructionCosts
+                = AllResearch.Instance.allResearchItemDatas[0].countyImprovementDatas[0].factionResourceConstructionCost;
+            CountyImprovementData countyImprovementData = AllResearch.Instance.allResearchItemDatas[0].countyImprovementDatas[0];
+            foreach (KeyValuePair<FactionResourceData, int> keyValuePair in constructionCosts)
+            {
+                GD.PrintRich($"[rainbow]{countyImprovementData.improvementName} costs {keyValuePair.Key.name}" +
+                    $" {keyValuePair.Value}");
+            }
         }
 
         // I think I need to change this to unhandled input.

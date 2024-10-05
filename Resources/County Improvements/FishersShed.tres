@@ -1,8 +1,11 @@
-[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=4 format=3 uid="uid://bads4woc5toep"]
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=7 format=3 uid="uid://bads4woc5toep"]
 
+[ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/County Resources/Wood.tres" id="1_1yts0"]
 [ext_resource type="Texture2D" uid="uid://d38i5xsjnfnfq" path="res://Graphics/County Improvements/fishing-pole.svg" id="1_3xigu"]
+[ext_resource type="Resource" uid="uid://cxxk8e3iy0fmq" path="res://Resources/Faction Resources/Influence.tres" id="1_t3pyc"]
 [ext_resource type="Resource" uid="uid://bojgmxcwswihv" path="res://Resources/Interests/Biology.tres" id="2_h1ekr"]
 [ext_resource type="Script" path="res://Resources/CountyImprovementData.cs" id="2_iptt2"]
+[ext_resource type="Resource" uid="uid://bhmwj5yptebic" path="res://Resources/County Resources/Remnants.tres" id="2_weoty"]
 
 [resource]
 script = ExtResource("2_iptt2")
@@ -12,8 +15,13 @@ improvementDescription = "IMPROVEMENT_DESCRIPTION_FISHERS_SHED"
 numberBuilt = 0
 workSkill = 3
 interest = ExtResource("2_h1ekr")
-factionResourceConstructionCost = null
-countyResourceConstructionCost = null
+factionResourceConstructionCost = Dictionary[Object, int]({
+ExtResource("1_t3pyc"): 78
+})
+countyResourceConstructionCost = Dictionary[Object, int]({
+ExtResource("1_1yts0"): 5000,
+ExtResource("2_weoty"): 1
+})
 testResourceConstructionCost = null
 CurrentAmountOfConstruction = 0
 maxAmountOfConstruction = 500

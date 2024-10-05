@@ -21,7 +21,7 @@ namespace PlayerSpace
 
         // We had to use the Resource Datas for this because enums don't show in the inspector when
         // they are in a dictionary.
-        [Export] public Godot.Collections.Dictionary<AllEnums.FactionResourceType, int> factionResourceConstructionCost;
+        [Export] public Godot.Collections.Dictionary<FactionResourceData, int> factionResourceConstructionCost;
         [Export] public Godot.Collections.Dictionary<CountyResourceData, int> countyResourceConstructionCost;
 
         // This is just for testing typed resources.

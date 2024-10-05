@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_1oehe")
-name = "FACTION_RESOURCE_DESCRIPTION_FOOD"
+name = "FACTION_RESOURCE_FOOD"
 description = "FACTION_RESOURCE_DESCRIPTION_FOOD"
 resourceType = 3
 amount = 0

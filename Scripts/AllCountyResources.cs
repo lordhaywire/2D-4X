@@ -14,6 +14,18 @@ namespace PlayerSpace
             CountResources();
         }
 
+        /// <summary>
+        /// Since there is an enum of None (which is zero when parsed to an int), we need to subtract
+        /// 1 from the CountyResourceType when getting the resource with the AllEnums from the allResources
+        /// array.
+        /// </summary>
+        /// <param name="resourceType"></param>
+        /// <returns></returns>
+        public CountyResourceData GetCountyResourceData(AllEnums.CountyResourceType resourceType)
+        {
+            CountyResourceData countyResourceData = allResources[(int)resourceType - 1];
+            return countyResourceData;
+        }
         private void CountResources()
         {
             int perishable = 0;

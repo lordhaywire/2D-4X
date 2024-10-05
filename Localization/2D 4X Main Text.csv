@@ -78,6 +78,10 @@ IMPROVEMENT_DESCRIPTION_SCOUTING_EQUIPMENT_WORKSHOP,A primative workshop dedicat
 IMPROVEMENT_FISHERS_SHED,Fisher's Shed,Cobertizo del pescador
 IMPROVEMENT_GARDEN,Garden,Jardín
 IMPROVEMENT_LUMBERJACK_STATION,Lumberjack Station,Estación de leñadores
+IMPROVEMENT_NONTANGIBLE_NOT_PRODUCED_RESEARCH_OFFICE,Generates research.,Genera investigación.
+IMPROVEMENT_NONTANGIBLE_NOT_PRODUCED_WAREHOUSE,Will generate extra storage some number.,Generará almacenamiento adicional algún número.
+IMPROVEMENT_NONTANGIBLE_PRODUCED_RESEARCH_OFFICE,First Name Last Name Research Name,Nombre Apellido Nombre de la investigación
+IMPROVEMENT_NONTANGIBLE_PRODUCED_WAREHOUSE,Is generating extra storage some number.,Está generando almacenamiento adicional algún número.
 IMPROVEMENT_RESEARCHERS_OFFICE,Researcher's Office,Oficina del Investigador
 IMPROVEMENT_SCOUTING_EQUIPMENT_WORKSHOP,Scouting Equipment Workshop,Taller de Equipo de Exploración
 INTEREST_BIOLOGY,Biology,Biología
@@ -92,14 +96,22 @@ PERK_DESCRIPTION_UHELPFUL,This person is just generally an ass.,Esta persona es 
 PERK_NAME_LEADEROFPEOPLE,Leader of People,Líder de Personas
 PERK_NAME_UNHELPFUL,Unhelpful,Inútil
 PHRASE_ASSIGN_RESEARCHER,Assign Researcher,Asignar investigador
+PHRASE_ASSIGN_RESEARCHER_IN_RESEARCH_PANEL,Assign researcher in research panel.,Asignar investigador en el panel de investigación.
 PHRASE_ASSIGNED_RESEARCHERS,Assigned Researchers,Investigadores asignados
 PHRASE_BUILD_IMPROVEMENT_CONFIRM,Are you sure you want to build a,¿Estás seguro de que quieres construir un
+PHRASE_CONSTRUCTION_COST,Construction Cost,Costo de construcción
+PHRASE_CONSTRUCTION_PROGRESS,Construction Progress,Avance de la construcción
 PHRASE_COUNTY_IMPROVEMENT,County Improvement,Mejoramiento del Condado
+PHRASE_CURRENT_ADJUSTED_MAX_BUILDERS,Current/Adjusted (Max) Builders,Constructores Actuales/Ajustados (Máx.)
+PHRASE_CURRENT_ADJUSTED_MAX_WORKERS,Current/Adjusted (Max) Workers,Trabajadores actuales/ajustados (máx.)
+PHRASE_CURRENT_IMPROVEMENTS,Current Improvements,Mejoras actuales
 PHRASE_DECLARE_WAR_CONFIRMATION,Do you want to declare war on,¿Quieres declararle la guerra?
 PHRASE_FAILED_COOL_ROLL,has failed their cool roll,ha fracasado en su racha de calma
+PHRASE_GOODS_PRODUCED,Goods Produced,Bienes producidos
 PHRASE_HAS_BEEN_COMPLETED,has been completed,se ha completado
 PHRASE_HAS_DECLARED_WAR,has declared war on,ha declarado la guerra a
 PHRASE_HAS_HIT,has hit,ha golpeado
+PHRASE_INPUT_RESOURCES_AND_GOODS,Input Resources and Goods,"Insumos, recursos y bienes"
 PHRASE_IS_NOW_RESEARCHING,is now researching,ahora está investigando
 PHRASE_IS_RETREATING,is retreating,se está retirando
 PHRASE_ISNT_SCARED,isn't scared,no tiene miedo
@@ -107,11 +119,16 @@ PHRASE_LOST_BATTLE,has lost the battle,ha perdido la batalla
 PHRASE_MAX_NONPERISHABLE_STORAGE_AVAILABLE,Max Nonperishable Storage Available:,Almacenamiento máximo no perecedero disponible:
 PHRASE_MAX_PERISHABLE_STORAGE_AVAILABLE,Max Perishable Storage Available:,Almacenamiento máximo de productos perecederos disponible:
 PHRASE_MORALE_LOST,Morale lost,Pérdida de moral
+PHRASE_POSSIBLE_IMPROVEMENTS,Possible Improvements,Posibles mejoras
 PHRASE_PREFERRED_WORK,Preferred Work,Trabajo preferido
+PHRASE_PRODUCE_AS_NEEDED,Produce as needed,Producir según sea necesario
 PHRASE_RECRUIT_HERO_CONFIRMATION,Are you sure you want to recruit,¿Estás seguro de que quieres reclutar?
 PHRASE_RECRUITE_AS_AIDE,Recruite as Aide,Recluta como ayudante
 PHRASE_RECRUITE_AS_ARMY_LEADER,Recruite as Army Leader,Recluta como líder del ejército
+PHRASE_REMOVE_IMPROVEMENT,Remove Improvements,Eliminar mejoras
 PHRASE_RESEARCH_COST,Research Cost,Coste de investigación
+PHRASE_UNDER_CONSTRUCTION,Under Construction,En obra
+PHRASE_USE_REMNANTS_FOR_CONSTRUCTION,Use Remnants for construction,Usar remanentes para la construcción
 RESEARCH_BASIC_PRODUCTION,Basic Production,Producción básica
 RESEARCH_BASIC_RESEARCHING,Basic Researching,Investigación Básica
 RESEARCH_BASIC_STORAGE,Basic Storage,Almacenamiento básico
@@ -142,17 +159,16 @@ SKILL_NAME_RIFLE,Rifle,Fusil
 SKILL_NAME_SCAVENGE,Scavenge,Recoger la basura
 TITLE_AIDE,Aide,Ayudante
 TITLE_ARMY_LEADER,Army Leader,Líder del Ejército
-PHRASE_CONSTRUCTION_PROGRESS,Construction Progress,Avance de la construcción
 TITLE_FACTION_LEADER,Faction Leader,Líder de facción
-PHRASE_POSSIBLE_IMPROVEMENTS,Possible Improvements,Posibles mejoras
-WORD_PRIORITIZE,Prioritize,Priorizar
 WORD_ACTIVITY,Activity,Actividad
 WORD_AGE,Age,Edad
 WORD_ATTRIBUTES,Attributes,Atributos
 WORD_CLOSE,Close,Cerrar
+WORD_CONSTRUCTION,Construction,Construcción
 WORD_DAY,Day:,Día
 WORD_FEMALE,Female,Hembra
 WORD_HELPFUL,Helpful,Útil
+WORD_HIRING,Hiring,Contratación
 WORD_IDLE,Idle,Ocioso
 WORD_INTEREST,Interest,Interés
 WORD_LEARNED,learned,docto
@@ -167,6 +183,7 @@ WORD_PERISHABLE,Perishable,Perecedero
 WORD_PERKS,Perks,Ventajas
 WORD_POPULATION,Population,Población
 WORD_PREREQUISITES,Prerequisites,Prerrequisitos
+WORD_PRIORITIZE,Prioritize,Priorizar
 WORD_RESEARCH,Research,Investigación
 WORD_SEX,Sex,Sexo
 WORD_SKILLS,Skills,Habilidades
@@ -174,20 +191,5 @@ WORD_SPEED,Speed:,Velocidad
 WORD_TIME,Time:,Hora
 WORD_TITLES,Titles,Títulos
 WORD_VISITORS,Visitors,Visitantes
-PHRASE_PRODUCE_AS_NEEDED,Produce as needed,Producir según sea necesario
-PHRASE_GOODS_PRODUCED,Goods Produced,Bienes producidos
-PHRASE_CURRENT_IMPROVEMENTS,Current Improvements,Mejoras actuales
-PHRASE_CURRENT_ADJUSTED_MAX_BUILDERS,Current/Adjusted (Max) Builders,Constructores Actuales/Ajustados (Máx.)
-PHRASE_CURRENT_ADJUSTED_MAX_WORKERS,Current/Adjusted (Max) Workers,Trabajadores actuales/ajustados (máx.)
-PHRASE_INPUT_RESOURCES_AND_GOODS,Input Resources and Goods,"Insumos, recursos y bienes"
-PHRASE_CONSTRUCTION_COST,Construction Cost,Costo de construcción
-PHRASE_USE_REMNANTS_FOR_CONSTRUCTION,Use Remnants for construction,Usar remanentes para la construcción
-WORD_CONSTRUCTION,Construction,Construcción
-PHRASE_UNDER_CONSTRUCTION,Under Construction,En obra
-PHRASE_REMOVE_IMPROVEMENT,Remove Improvements,Eliminar mejoras
-IMPROVEMENT_NONTANGIBLE_PRODUCED_WAREHOUSE,Is generating extra storage some number.,Está generando almacenamiento adicional algún número.
-IMPROVEMENT_NONTANGIBLE_PRODUCED_RESEARCH_OFFICE,First Name Last Name Research Name,Nombre Apellido Nombre de la investigación
-IMPROVEMENT_NONTANGIBLE_NOT_PRODUCED_WAREHOUSE,Will generate extra storage some number.,Generará almacenamiento adicional algún número.
-IMPROVEMENT_NONTANGIBLE_NOT_PRODUCED_RESEARCH_OFFICE,Generates research.,Genera investigación.
-PHRASE_ASSIGN_RESEARCHER_IN_RESEARCH_PANEL,Assign researcher in research panel.,Asignar investigador en el panel de investigación.
-WORD_HIRING,Hiring,Contratación
+FACTION_RESOURCE_RESEARCH,Research,Investigación
+FACTION_RESOURCE_DESCRIPTION_RESEARCH,Research is a non-tangible resource that is generated by researchers.,La investigación es un recurso intangible que es generado por los investigadores.

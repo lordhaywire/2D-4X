@@ -269,10 +269,10 @@ namespace PlayerSpace
         {
             if (countyImprovementData.factionResourceConstructionCost != null)
             {
-                foreach (KeyValuePair<AllEnums.FactionResourceType, int> keyValuePair in countyImprovementData.factionResourceConstructionCost)
+                foreach (KeyValuePair<FactionResourceData, int> keyValuePair in countyImprovementData.factionResourceConstructionCost)
                 {
-                    AllEnums.FactionResourceType resourceType = keyValuePair.Key;
-                    if (factionData.factionResources[resourceType].amount < keyValuePair.Value)
+                    FactionResourceData factionResourceData = keyValuePair.Key;
+                    if (factionData.factionResources[factionResourceData.resourceType].amount < keyValuePair.Value)
                     {
                         return false;
                     }
@@ -299,13 +299,13 @@ namespace PlayerSpace
         {
             if (countyImprovementData.factionResourceConstructionCost != null)
             {
-                foreach (KeyValuePair<AllEnums.FactionResourceType, int> keyValuePair in countyImprovementData.factionResourceConstructionCost)
+                foreach (KeyValuePair<FactionResourceData, int> keyValuePair in countyImprovementData.factionResourceConstructionCost)
                 {
-                    AllEnums.FactionResourceType resourceType = keyValuePair.Key;
-                    factionData.factionResources[resourceType].amount -= keyValuePair.Value;
+                    FactionResourceData factionResourceData = keyValuePair.Key;
+                    factionData.factionResources[factionResourceData.resourceType].amount -= keyValuePair.Value;
                     GD.Print($"{countyImprovementData.improvementName} costs " +
                         $"{countyImprovementData.factionResourceConstructionCost[keyValuePair.Key]} and" +
-                    $" was charged to {factionData.factionName} those cost was : {factionData.factionResources[resourceType].name} {keyValuePair.Value}");
+                    $" was charged to {factionData.factionName} those cost was : {factionData.factionResources[factionResourceData.resourceType].name} {keyValuePair.Value}");
                 }
             }
 

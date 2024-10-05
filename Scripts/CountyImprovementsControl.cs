@@ -1,6 +1,4 @@
 using Godot;
-using PlayerSpace;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,7 +18,8 @@ public partial class CountyImprovementsControl : Control
     {
         Instance = this;
     }
-    private void OnVisibilityChanged()
+    
+    private void OnCountyImprovementControlVisibilityChanged()
     {
         if (Visible == true)
         {
