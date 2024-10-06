@@ -30,7 +30,6 @@ public class AllEnums
     {
         None,
         AwaitingPlayerAssignment,
-        Hiring,
         Producing,
         ProducingWithoutWorkers,
         Researching,

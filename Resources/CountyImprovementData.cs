@@ -19,13 +19,9 @@ namespace PlayerSpace
         [Export] public AllEnums.Skills workSkill;
         [Export] public InterestData interest;
 
-        // We had to use the Resource Datas for this because enums don't show in the inspector when
-        // they are in a dictionary.
+
         [Export] public Godot.Collections.Dictionary<FactionResourceData, int> factionResourceConstructionCost;
         [Export] public Godot.Collections.Dictionary<CountyResourceData, int> countyResourceConstructionCost;
-
-        // This is just for testing typed resources.
-        [Export] public Godot.Collections.Dictionary<AllEnums.FactionResourceType, int> testResourceConstructionCost;
 
         private int currentAmountOfCounstruction;
         [Export]
@@ -51,10 +47,12 @@ namespace PlayerSpace
         /// </summary>
         [Export] public string nonTangibleGoodProduced;
         [Export] public string nonTangibleGoodNotBeingProduced;
-        // If it needs two or more resources for input
-        // We need to know the type and amount of each resource
-        // This array will become a dictionary.
-        [Export] public Godot.Collections.Array<AllEnums.CountyResourceType> inputResources;
+        [Export] public Godot.Collections.Dictionary<FactionResourceData, int> factionOutputGoods = [];
+        [Export] public Godot.Collections.Dictionary<CountyResourceData, int> countyOutputGoods = [];
+
+        // All input goods that are need to create the finished good.
+        // For some reason this one needs to be initialized, but the faction and county construction costs don't.
+        [Export] public Godot.Collections.Dictionary<CountyResourceData, int> inputGoods = [];
         [Export] public int dailyResourceGenerationAmount;
         [Export] public int dailyResourceGenerationBonus;
 
@@ -72,7 +70,6 @@ namespace PlayerSpace
                 lowestSkilledPopulation.RemoveFromCountyImprovement();
             }
         }
-
         private CountyPopulation GetLowestSkilledPopulation(bool constructing)
         {
             AllEnums.Skills skill;
@@ -126,7 +123,7 @@ namespace PlayerSpace
         {
             if (maxWorkers > 0)
             {
-                status = AllEnums.CountyImprovementStatus.Hiring;
+                status = AllEnums.CountyImprovementStatus.Producing;
             }
             else
             {
@@ -147,6 +144,8 @@ namespace PlayerSpace
                 numberBuilt = countyImprovementData.numberBuilt,
                 workSkill = countyImprovementData.workSkill,
                 interest = countyImprovementData.interest,
+                factionOutputGoods = countyImprovementData.factionOutputGoods,
+                countyOutputGoods = countyImprovementData.countyOutputGoods,
                 factionResourceConstructionCost = countyImprovementData.factionResourceConstructionCost,
                 countyResourceConstructionCost = countyImprovementData.countyResourceConstructionCost,
                 currentAmountOfCounstruction = countyImprovementData.currentAmountOfCounstruction,
@@ -160,6 +159,7 @@ namespace PlayerSpace
                 factionResourceType = countyImprovementData.factionResourceType,
                 nonTangibleGoodProduced = countyImprovementData.nonTangibleGoodProduced,
                 nonTangibleGoodNotBeingProduced = countyImprovementData.nonTangibleGoodNotBeingProduced,
+                inputGoods = countyImprovementData.inputGoods,
                 dailyResourceGenerationAmount = countyImprovementData.dailyResourceGenerationAmount,
                 dailyResourceGenerationBonus = countyImprovementData.dailyResourceGenerationBonus,
                 status = countyImprovementData.status,

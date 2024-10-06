@@ -1,13 +1,14 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 
 namespace PlayerSpace;
 
 public partial class CountryImprovementPanelContainer : PanelContainer
 {
-    public CountyImprovementData countyImprovementData;
+    [Export] public CountyImprovementData countyImprovementData;
 
-    [Export] PackedScene costPanelContainer;
+    [Export] PackedScene goodPanelContainerPackedScene;
     [Export] public Label progressTitle;
     [Export] public ProgressBar progressBar;
     [Export] HBoxContainer prioritizeHBox;
@@ -22,11 +23,11 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     [Export] public Label maxWorkersNumberLabel;
     [Export] public Button minusWorkerButton;
     [Export] public Button plusWorkerButton;
-    [Export] public GridContainer outputsGridContainer;
+    [Export] GridContainer outputsGridContainer;
+    [Export] GridContainer inputsGridContainer;
     [Export] public Label nontangibleProductionLabel;
-    [Export] public PackedScene outputPanelContainerPackedScene;
-    [Export] public PackedScene inputPanelContainerPackedScene;
     [Export] PanelContainer constructionPanelContainer;
+    [Export] Label constructionTitleLabel;
     [Export] GridContainer constructionMaterialCostGridContainer;
     [Export] public CheckBox remnantsForContructionCheckBox;
     [Export] public HBoxContainer adjustMaxBuildersHbox;
@@ -50,17 +51,18 @@ public partial class CountryImprovementPanelContainer : PanelContainer
         GD.Print($"County Improvement Data: " + countyImprovementData);
         switch (countyImprovementData.status)
         {
-            case AllEnums.CountyImprovementStatus.Hiring:
+            case AllEnums.CountyImprovementStatus.Producing:
                 progressTitle.Hide();
                 progressBar.Hide();
                 constructButton.Hide();
-                underContructionLabel.Hide();
+                GenerateOutputGoods();
+                GenerateInputGoods();
                 prioritizeHBox.Show();
                 workersPanelContainer.Show();
                 constructionPanelContainer.Hide();
+                underContructionLabel.Hide();
+                assignResearcherInPanelLabel.Hide();
                 removeImprovementButton.Show();
-                break;
-            case AllEnums.CountyImprovementStatus.Producing:
                 break;
             case AllEnums.CountyImprovementStatus.ProducingWithoutWorkers:
                 progressTitle.Show(); // This needs to be changed to production progress.
@@ -95,11 +97,14 @@ public partial class CountryImprovementPanelContainer : PanelContainer
                 progressBar.Show();
                 prioritizeHBox.Show();
                 workersPanelContainer.Hide();
-                UpdateOutputGoodsNotProducing();
+                UpdateOutputGoodsNotProducing(); // What is this?
+                GenerateOutputGoods();
+                GenerateInputGoods();
                 constructionPanelContainer.Show();
+                GenerateConstructionCosts();
                 remnantsForContructionCheckBox.Show();
                 adjustMaxBuildersHbox.Show();
-                hiringLabel.Hide();
+                hiringLabel.Hide(); // I think we are going to get rid of this.
                 assignResearcherInPanelLabel.Hide();
                 underContructionLabel.Show();
                 constructButton.Hide();
@@ -110,27 +115,113 @@ public partial class CountryImprovementPanelContainer : PanelContainer
                 progressBar.Hide();
                 prioritizeHBox.Hide();
                 workersPanelContainer.Hide();
-                UpdateOutputGoodsNotProducing();
+                UpdateOutputGoodsNotProducing(); // We need to change.
+                GenerateOutputGoods();
+                GenerateInputGoods();
                 constructionPanelContainer.Show();
+                GenerateConstructionCosts();
+                CheckForConstructionResources();
                 remnantsForContructionCheckBox.Hide();
                 adjustMaxBuildersHbox.Hide();
                 underContructionLabel.Hide();
                 removeImprovementButton.Hide();
-                hiringLabel.Hide();
                 assignResearcherInPanelLabel.Hide();
-                GenerateConstructionCosts();
-                CheckForConstructionResources();
                 break;
+        }
+    }
+
+    private void GenerateOutputGoods()
+    {
+        foreach (KeyValuePair<FactionResourceData, int> keyValuePair in countyImprovementData.factionOutputGoods)
+        {
+            GoodPanelContainer goodPanelContainer = (GoodPanelContainer)goodPanelContainerPackedScene.Instantiate();
+            outputsGridContainer.AddChild(goodPanelContainer);
+            goodPanelContainer.goodLabel.Text = $"{Tr(keyValuePair.Key.name)} : {keyValuePair.Value}";
+            goodPanelContainer.useRemnantsCheckBox.Hide();
+            if (countyImprovementData.status == AllEnums.CountyImprovementStatus.Producing)
+            {
+                goodPanelContainer.onlyProduceCheckBox.Show();
+            }
+            else
+            {
+                goodPanelContainer.onlyProduceCheckBox.Hide();
+            }
+        }
+        foreach (KeyValuePair<CountyResourceData, int> keyValuePair in countyImprovementData.countyOutputGoods)
+        {
+            GoodPanelContainer goodPanelContainer = (GoodPanelContainer)goodPanelContainerPackedScene.Instantiate();
+            outputsGridContainer.AddChild(goodPanelContainer);
+            goodPanelContainer.goodLabel.Text = $"{Tr(keyValuePair.Key.name)} : {keyValuePair.Value}";
+            goodPanelContainer.useRemnantsCheckBox.Hide();
+            if (countyImprovementData.status == AllEnums.CountyImprovementStatus.Producing)
+            {
+                goodPanelContainer.onlyProduceCheckBox.Show();
+            }
+            else
+            {
+                goodPanelContainer.onlyProduceCheckBox.Hide();
+            }
+        }
+    }
+    private void GenerateInputGoods()
+    {
+        foreach (KeyValuePair<CountyResourceData, int> keyValuePair in countyImprovementData.inputGoods)
+        {
+            GoodPanelContainer goodPanelContainer = (GoodPanelContainer)goodPanelContainerPackedScene.Instantiate();
+            inputsGridContainer.AddChild(goodPanelContainer);
+            goodPanelContainer.goodLabel.Text = $"{Tr(keyValuePair.Key.name)} : {keyValuePair.Value}";
+            if (countyImprovementData.status == AllEnums.CountyImprovementStatus.Producing)
+            {
+                goodPanelContainer.useRemnantsCheckBox.Show();
+            }
+            else
+            {
+                goodPanelContainer.useRemnantsCheckBox.Hide();
+            }
         }
     }
 
     private void GenerateConstructionCosts()
     {
-        foreach (KeyValuePair<FactionResourceData, int> keyValuePair in countyImprovementData.factionResourceConstructionCost)
+        int totalGoods = countyImprovementData.factionResourceConstructionCost.Count
+            + countyImprovementData.countyResourceConstructionCost.Count;
+        if(totalGoods == 1)
         {
-            PanelContainer constructionMateralLabel = (PanelContainer)costPanelContainer.Instantiate();
-            constructionMaterialCostGridContainer.AddChild(constructionMateralLabel);
-            //constructionMateralLabel.Text = $"{Tr(keyValuePair.Key.name)} : {keyValuePair.Value}";
+            constructionMaterialCostGridContainer.Columns = 1;
+        }
+        if (totalGoods == 0)
+        {
+            GoodPanelContainer goodPanelContainer = (GoodPanelContainer)goodPanelContainerPackedScene.Instantiate();
+            constructionMaterialCostGridContainer.AddChild(goodPanelContainer);
+            constructionMaterialCostGridContainer.Columns = 1;
+            goodPanelContainer.goodLabel.Text = $"{Tr("WORD_NONE")}";
+            return;
+        }
+        else 
+        { 
+
+            foreach (KeyValuePair<FactionResourceData, int> keyValuePair in countyImprovementData.factionResourceConstructionCost)
+            {
+                GoodPanelContainer goodPanelContainer = (GoodPanelContainer)goodPanelContainerPackedScene.Instantiate();
+                constructionMaterialCostGridContainer.AddChild(goodPanelContainer);
+                goodPanelContainer.goodLabel.Text = $"{Tr(keyValuePair.Key.name)} : {keyValuePair.Value}";
+                // We can probably get rid of this, as long as the goodPanelContainerPackedScene has the use Remnants box hidden.
+                if (countyImprovementData.status == AllEnums.CountyImprovementStatus.None)
+                {
+                    goodPanelContainer.useRemnantsCheckBox.Hide();
+                }
+            }
+
+            foreach (KeyValuePair<CountyResourceData, int> keyValuePair in countyImprovementData.countyResourceConstructionCost)
+            {
+                GoodPanelContainer goodPanelContainer = (GoodPanelContainer)goodPanelContainerPackedScene.Instantiate();
+                constructionMaterialCostGridContainer.AddChild(goodPanelContainer);
+                goodPanelContainer.goodLabel.Text = $"{Tr(keyValuePair.Key.name)} : {keyValuePair.Value}";
+                if (countyImprovementData.status == AllEnums.CountyImprovementStatus.None)
+                {
+                    goodPanelContainer.useRemnantsCheckBox.Hide();
+                }
+            }
         }
     }
 

@@ -12,7 +12,7 @@ namespace PlayerSpace
         [Export] public AllEnums.FactionResourceType factionResourceType;
         [Export] public bool perishable;
         [Export] public int failureRate; // Daily chance of the item to fail.
-        
+        [Export] public bool remnantSubstitutable;
         private int amount; // The amount of resource.
         public int Amount
         {

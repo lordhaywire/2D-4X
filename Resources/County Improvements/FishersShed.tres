@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=7 format=3 uid="uid://bads4woc5toep"]
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=9 format=3 uid="uid://bads4woc5toep"]
 
 [ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/County Resources/Wood.tres" id="1_1yts0"]
 [ext_resource type="Texture2D" uid="uid://d38i5xsjnfnfq" path="res://Graphics/County Improvements/fishing-pole.svg" id="1_3xigu"]
+[ext_resource type="Resource" uid="uid://c55q8uucl7cqe" path="res://Resources/County Resources/Fish.tres" id="1_132qd"]
 [ext_resource type="Resource" uid="uid://cxxk8e3iy0fmq" path="res://Resources/Faction Resources/Influence.tres" id="1_t3pyc"]
 [ext_resource type="Resource" uid="uid://bojgmxcwswihv" path="res://Resources/Interests/Biology.tres" id="2_h1ekr"]
 [ext_resource type="Script" path="res://Resources/CountyImprovementData.cs" id="2_iptt2"]
 [ext_resource type="Resource" uid="uid://bhmwj5yptebic" path="res://Resources/County Resources/Remnants.tres" id="2_weoty"]
+[ext_resource type="Resource" uid="uid://djdtci0bq2vvm" path="res://Resources/Faction Resources/Money.tres" id="4_8wsk1"]
 
 [resource]
 script = ExtResource("2_iptt2")
@@ -19,19 +21,26 @@ factionResourceConstructionCost = Dictionary[Object, int]({
 ExtResource("1_t3pyc"): 78
 })
 countyResourceConstructionCost = Dictionary[Object, int]({
-ExtResource("1_1yts0"): 5000,
+ExtResource("1_1yts0"): 1,
 ExtResource("2_weoty"): 1
 })
-testResourceConstructionCost = null
 CurrentAmountOfConstruction = 0
-maxAmountOfConstruction = 500
+maxAmountOfConstruction = 10
 maxBuilders = 5
 maxWorkers = 5
 countyResourceType = 2
 factionResourceType = 3
 nonTangibleGoodProduced = ""
 nonTangibleGoodNotBeingProduced = ""
-inputResources = Array[int]([])
+factionOutputGoods = {
+ExtResource("4_8wsk1"): 5
+}
+countyOutputGoods = {
+ExtResource("1_132qd"): 6
+}
+inputGoods = Dictionary[Object, int]({
+ExtResource("1_1yts0"): 10
+})
 dailyResourceGenerationAmount = 10
 dailyResourceGenerationBonus = 5
 status = 0
