@@ -47,7 +47,7 @@ namespace PlayerSpace
             Instance = this;
         }
 
-        private void OnVisibilityChanged()
+        private void OnPopulationDescriptionControlVisibilityChanged()
         {
             if (Visible)
             {

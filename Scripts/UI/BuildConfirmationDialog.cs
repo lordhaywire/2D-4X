@@ -4,7 +4,7 @@ namespace PlayerSpace
 {
     public partial class BuildConfirmationDialog : ConfirmationDialog
     {
-        private void OnVisibilityChanged()
+        private void OnBuildingConfirmationDialogVisibilityChanged()
         {
             if (Visible)
             {
@@ -28,6 +28,7 @@ namespace PlayerSpace
             
             countyAI.BuildImprovement(Globals.Instance.SelectedLeftClickCounty.countyData, countyImprovementData);
             banker.ChargeForBuilding(Globals.Instance.playerFactionData
+                , Globals.Instance.SelectedLeftClickCounty.countyData
                 , Globals.Instance.selectedPossibleBuildingControl.countyImprovementData);
             
             // Removes the cost of the building.

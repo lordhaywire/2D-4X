@@ -6,24 +6,29 @@
 
 [resource]
 script = ExtResource("3_nbppr")
+countyImprovementType = 0
+location = 0
+prioritize = false
 improvementTexture = ExtResource("1_wn83v")
 improvementName = "IMPROVEMENT_CONVERTED_WAREHOUSE"
 improvementDescription = "IMPROVEMENT_DESCRIPTION_CONVERTED_WAREHOUSE"
-numberBuilt = 0
 workSkill = 4
 interest = ExtResource("2_cl8dw")
 factionResourceConstructionCost = null
 countyResourceConstructionCost = null
-testResourceConstructionCost = null
 CurrentAmountOfConstruction = 0
 maxAmountOfConstruction = 50
 maxBuilders = 5
+adjustedMaxBuilders = 0
 maxWorkers = 0
+adjustedMaxWorkers = 0
 countyResourceType = 0
 factionResourceType = 0
 nonTangibleGoodProduced = "IMPROVEMENT_NONTANGIBLE_PRODUCED_WAREHOUSE"
 nonTangibleGoodNotBeingProduced = "IMPROVEMENT_NONTANGIBLE_NOT_PRODUCED_WAREHOUSE"
-inputResources = null
+factionOutputGoods = {}
+countyOutputGoods = {}
 dailyResourceGenerationAmount = 0
 dailyResourceGenerationBonus = 0
+inputGoods = {}
 status = 0

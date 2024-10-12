@@ -36,6 +36,12 @@ public class AllEnums
         UnderConstruction,
     }
 
+    public enum CountyImprovementType
+    {
+        Standard,
+        Research,
+    }
+
     public enum CountyResourceType
     {
         None,

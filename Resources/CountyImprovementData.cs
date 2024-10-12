@@ -8,18 +8,22 @@ namespace PlayerSpace
     [GlobalClass]
     public partial class CountyImprovementData : Resource
     {
-        public int location;
-        public bool prioritize;
-        public CountryImprovementPanelContainer countyImprovementDescriptionButton;
+        [ExportGroup("Improvement Info")]
+        [Export] public AllEnums.CountyImprovementType countyImprovementType;
+        //[Export] public int location;
+        [Export] public bool prioritize;
+        // This can't be exported so we need to change how it works. It doesn't even look like I am using this.
+        //public CountryImprovementPanelContainer countyImprovementPanelContainer;
         [Export] public Texture2D improvementTexture;
         [Export] public string improvementName;
         [Export] public string improvementDescription;
-        [Export] public int numberBuilt;
+        //[Export] public int numberBuilt;
 
+        [ExportGroup("Skill and Interest")]
         [Export] public AllEnums.Skills workSkill;
         [Export] public InterestData interest;
 
-
+        [ExportGroup("Construction Costs")]
         [Export] public Godot.Collections.Dictionary<FactionResourceData, int> factionResourceConstructionCost;
         [Export] public Godot.Collections.Dictionary<CountyResourceData, int> countyResourceConstructionCost;
 
@@ -35,9 +39,11 @@ namespace PlayerSpace
         }
         [Export] public int maxAmountOfConstruction;
         [Export] public int maxBuilders;
-        public int adjustedMaxBuilders;
+        [Export] public int adjustedMaxBuilders;
         [Export] public int maxWorkers;
-        public int adjustedMaxWorkers;
+        [Export] public int adjustedMaxWorkers;
+        
+        [ExportGroup("Resource Types")]
         [Export] public AllEnums.CountyResourceType countyResourceType;
         [Export] public AllEnums.FactionResourceType factionResourceType;
         /// <summary>
@@ -47,14 +53,17 @@ namespace PlayerSpace
         /// </summary>
         [Export] public string nonTangibleGoodProduced;
         [Export] public string nonTangibleGoodNotBeingProduced;
+        [ExportGroup("Outputs")]
         [Export] public Godot.Collections.Dictionary<FactionResourceData, int> factionOutputGoods = [];
         [Export] public Godot.Collections.Dictionary<CountyResourceData, int> countyOutputGoods = [];
+        [Export] public int dailyResourceGenerationAmount;
+        [Export] public int dailyResourceGenerationBonus;
 
         // All input goods that are need to create the finished good.
         // For some reason this one needs to be initialized, but the faction and county construction costs don't.
-        [Export] public Godot.Collections.Dictionary<CountyResourceData, int> inputGoods = [];
-        [Export] public int dailyResourceGenerationAmount;
-        [Export] public int dailyResourceGenerationBonus;
+        [ExportGroup("Inputs")]
+        [Export] public Godot.Collections.Dictionary<FactionResourceData, int> factionInputGoods = [];
+        [Export] public Godot.Collections.Dictionary<CountyResourceData, int> countyInputGoods = [];
 
         [Export] public AllEnums.CountyImprovementStatus status;
         public List<CountyPopulation> populationAtImprovement = [];
@@ -135,13 +144,14 @@ namespace PlayerSpace
         {
             CountyImprovementData newCountyImprovementData = new()
             {
-                location = countyImprovementData.location,
+                countyImprovementType = countyImprovementData.countyImprovementType,
+                //location = countyImprovementData.location,
                 prioritize = countyImprovementData.prioritize,
-                countyImprovementDescriptionButton = countyImprovementData.countyImprovementDescriptionButton,
+                //countyImprovementPanelContainer = countyImprovementData.countyImprovementPanelContainer,
                 improvementTexture = countyImprovementData.improvementTexture,
                 improvementName = countyImprovementData.improvementName,
                 improvementDescription = countyImprovementData.improvementDescription,
-                numberBuilt = countyImprovementData.numberBuilt,
+                //numberBuilt = countyImprovementData.numberBuilt,
                 workSkill = countyImprovementData.workSkill,
                 interest = countyImprovementData.interest,
                 factionOutputGoods = countyImprovementData.factionOutputGoods,
@@ -159,7 +169,8 @@ namespace PlayerSpace
                 factionResourceType = countyImprovementData.factionResourceType,
                 nonTangibleGoodProduced = countyImprovementData.nonTangibleGoodProduced,
                 nonTangibleGoodNotBeingProduced = countyImprovementData.nonTangibleGoodNotBeingProduced,
-                inputGoods = countyImprovementData.inputGoods,
+                factionInputGoods = countyImprovementData.factionInputGoods,
+                countyInputGoods = countyImprovementData.countyInputGoods,
                 dailyResourceGenerationAmount = countyImprovementData.dailyResourceGenerationAmount,
                 dailyResourceGenerationBonus = countyImprovementData.dailyResourceGenerationBonus,
                 status = countyImprovementData.status,

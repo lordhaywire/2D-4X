@@ -8,10 +8,12 @@
 
 [resource]
 script = ExtResource("1_ga7gf")
+countyImprovementType = 1
+location = 0
+prioritize = false
 improvementTexture = ExtResource("1_a1jyh")
 improvementName = "IMPROVEMENT_RESEARCHERS_OFFICE"
 improvementDescription = "IMPROVEMENT_DESCRIPTION_RESEARCHERS_OFFICE"
-numberBuilt = 0
 workSkill = 6
 interest = ExtResource("2_1erl4")
 factionResourceConstructionCost = Dictionary[Object, int]({
@@ -21,7 +23,9 @@ countyResourceConstructionCost = null
 CurrentAmountOfConstruction = 0
 maxAmountOfConstruction = 10
 maxBuilders = 5
+adjustedMaxBuilders = 0
 maxWorkers = 1
+adjustedMaxWorkers = 0
 countyResourceType = 0
 factionResourceType = 0
 nonTangibleGoodProduced = "IMPROVEMENT_NONTANGIBLE_PRODUCED_RESEARCH_OFFICE"
@@ -30,7 +34,7 @@ factionOutputGoods = {
 ExtResource("1_j5ps1"): 0
 }
 countyOutputGoods = {}
-inputGoods = {}
 dailyResourceGenerationAmount = 5
 dailyResourceGenerationBonus = 2
+inputGoods = {}
 status = 0

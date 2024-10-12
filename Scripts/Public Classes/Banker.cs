@@ -265,7 +265,8 @@ namespace PlayerSpace
                 -= Globals.Instance.costOfHero;
         }
 
-        public bool CheckBuildingCost(FactionData factionData, CountyImprovementData countyImprovementData)
+        public bool CheckBuildingCost(FactionData factionData, CountyData countyData
+            , CountyImprovementData countyImprovementData)
         {
             if (countyImprovementData.factionResourceConstructionCost != null)
             {
@@ -284,8 +285,7 @@ namespace PlayerSpace
                 foreach (KeyValuePair<CountyResourceData, int> keyValuePair in countyImprovementData.countyResourceConstructionCost)
                 {
                     AllEnums.CountyResourceType resourceType = keyValuePair.Key.countyResourceType;
-                    County county = (County)Globals.Instance.countiesParent.GetChild(countyImprovementData.location);
-                    if (county.countyData.countyResources[resourceType].Amount < keyValuePair.Value)
+                    if (countyData.countyResources[resourceType].Amount < keyValuePair.Value)
                     {
                         return false;
                     }
@@ -295,7 +295,8 @@ namespace PlayerSpace
         }
 
         // Charge for building and also assign it to the underConstructionList.
-        public void ChargeForBuilding(FactionData factionData, CountyImprovementData countyImprovementData)
+        public void ChargeForBuilding(FactionData factionData, CountyData countyData
+            , CountyImprovementData countyImprovementData)
         {
             if (countyImprovementData.factionResourceConstructionCost != null)
             {
@@ -311,14 +312,14 @@ namespace PlayerSpace
 
             if (countyImprovementData.countyResourceConstructionCost != null)
             {
-                foreach (KeyValuePair<CountyResourceData, int> keyValuePair in countyImprovementData.countyResourceConstructionCost)
+                foreach (KeyValuePair<CountyResourceData, int> keyValuePair 
+                    in countyImprovementData.countyResourceConstructionCost)
                 {
                     AllEnums.CountyResourceType resourceType = keyValuePair.Key.countyResourceType;
-                    County county = (County)Globals.Instance.countiesParent.GetChild(countyImprovementData.location);
-                    county.countyData.countyResources[resourceType].Amount -= keyValuePair.Value;
+                    countyData.countyResources[resourceType].Amount -= keyValuePair.Value;
                     GD.Print($"{countyImprovementData.improvementName} costs " +
                         $"{countyImprovementData.countyResourceConstructionCost[keyValuePair.Key]} and" +
-                    $" was charged to {county.countyData.countyName} those cost was : {county.countyData.countyResources[resourceType].name} {keyValuePair.Value}");
+                    $" was charged to {countyData.countyName} those cost was : {countyData.countyResources[resourceType].name} {keyValuePair.Value}");
                 }
             }
         }

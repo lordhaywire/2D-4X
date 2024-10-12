@@ -6,24 +6,30 @@
 
 [resource]
 script = ExtResource("2_n4a1t")
+countyImprovementType = 0
+location = 0
+prioritize = false
 improvementTexture = ExtResource("1_b2i5i")
 improvementName = "IMPROVEMENT_GARDEN"
 improvementDescription = "IMPROVEMENT_DESCRIPTION_GARDEN"
-numberBuilt = 0
 workSkill = 2
 interest = ExtResource("2_nsp6t")
 factionResourceConstructionCost = null
 countyResourceConstructionCost = null
-testResourceConstructionCost = null
 CurrentAmountOfConstruction = 0
 maxAmountOfConstruction = 5
 maxBuilders = 5
+adjustedMaxBuilders = 0
 maxWorkers = 10
+adjustedMaxWorkers = 0
 countyResourceType = 5
 factionResourceType = 3
 nonTangibleGoodProduced = ""
 nonTangibleGoodNotBeingProduced = ""
-inputResources = null
+factionOutputGoods = {}
+countyOutputGoods = {}
 dailyResourceGenerationAmount = 5
 dailyResourceGenerationBonus = 2
+factionInputGoods = {}
+countyInputGoods = {}
 status = 0

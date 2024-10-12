@@ -1,7 +1,5 @@
 using Godot;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
 
 namespace PlayerSpace
 {
@@ -53,7 +51,7 @@ namespace PlayerSpace
             }
         }
 
-        private void OnVisibilityChanged()
+        private void OnResourcesPanelContainerVisibilityChanged()
         {
             if (Visible)
             {

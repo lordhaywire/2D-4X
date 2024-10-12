@@ -158,7 +158,7 @@ namespace PlayerSpace
         }
         public void AddCountyImprovementToAllCountyImprovements(CountyImprovementData countyImprovementData)
         {
-            allCountyImprovements.Add(CountyImprovementData.NewCopy(countyImprovementData)); //((CountyImprovementData)countyImprovementData.Duplicate());
+            allCountyImprovements.Add(CountyImprovementData.NewCopy(countyImprovementData));
             GD.PrintRich($"[rainbow][tornado]{factionName} {countyImprovementData.improvementName} has been added.");
             // Alphabetize the list by improvementName
             allCountyImprovements

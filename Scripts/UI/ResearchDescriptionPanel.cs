@@ -28,7 +28,7 @@ namespace PlayerSpace
         {
             Instance = this;
         }
-        private void OnVisibilityChanged()
+        private void OnResearchDescriptionPanelVisibilityChanged()
         {
             if (Visible == true)
             {
