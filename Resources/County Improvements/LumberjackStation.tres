@@ -7,7 +7,6 @@
 [resource]
 script = ExtResource("2_26moa")
 countyImprovementType = 0
-location = 0
 prioritize = false
 improvementTexture = ExtResource("1_fohtd")
 improvementName = "IMPROVEMENT_LUMBERJACK_STATION"

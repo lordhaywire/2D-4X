@@ -9,10 +9,18 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     [Export] public CountyImprovementData countyImprovementData;
 
     [Export] PackedScene goodPanelContainerPackedScene;
+
+    [Export] Label researchAssignedLabel;
+    [ExportGroup("Progress")]
+    [Export] public PanelContainer progressPanelContainer;
     [Export] public Label progressTitle;
     [Export] public ProgressBar progressBar;
+
+    [ExportGroup("Prioritize")]
     [Export] HBoxContainer prioritizeHBox;
     [Export] public CheckBox prioritizeCheckBox;
+
+    [ExportGroup("Improvement Info")]
     [Export] public Label improvementNameLabel;
     [Export] Label improvementDescriptionLabel;
     [Export] TextureRect improvementTextureRect;
@@ -42,6 +50,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     [Export] public Button plusBuilderButton;
     [Export] Button constructButton;
     //[Export] private Label hiringLabel;
+    [ExportGroup("Research")]
     [Export] Label assignResearcherInPanelLabel;
     [Export] public Label underContructionLabel;
     [Export] Button removeImprovementButton;
@@ -50,79 +59,114 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     {
         CallDeferred(nameof(UpdateImprovementLabels));
     }
+
     private void UpdateConstructionStatus()
     {
         GD.Print($"County Improvement Data: " + countyImprovementData);
+        HideEverything();
         switch (countyImprovementData.status)
         {
+            // This is currently working in the research description panel.
+            case AllEnums.CountyImprovementStatus.InResearchPanel:
+                GenerateOutputGoods();
+                GenerateInputGoods();
+                constructionPanelContainer.Show();
+                GenerateConstructionCosts();
+                break;
+            // This one seems to be working for normal improvements and storage as well.
             case AllEnums.CountyImprovementStatus.Producing:
-                progressTitle.Hide();
-                progressBar.Hide();
-                constructButton.Hide();
+                progressPanelContainer.Show();
+                GenerateOutputGoods();
+                GenerateInputGoods();
+                prioritizeHBox.Show();
+                CheckForMaxWorkers();
+                removeImprovementButton.Show();
+                break;
+            case AllEnums.CountyImprovementStatus.Researching:
                 GenerateOutputGoods();
                 GenerateInputGoods();
                 prioritizeHBox.Show();
                 workersPanelContainer.Show();
-                constructionPanelContainer.Hide();
-                underContructionLabel.Hide();
-                assignResearcherInPanelLabel.Hide();
+                CheckIfResearchIsAssigned(); // Progress PanelContainer is controlled in here.
                 removeImprovementButton.Show();
-                break;
-            case AllEnums.CountyImprovementStatus.ProducingWithoutWorkers:
-                progressTitle.Show(); // This needs to be changed to production progress.
-                progressBar.Show();
-                prioritizeHBox.Show();
-                workersPanelContainer.Hide();
-                constructionPanelContainer.Hide();
-                adjustMaxBuildersHbox.Hide();
-                underContructionLabel.Hide();
-                assignResearcherInPanelLabel.Hide();
-                removeImprovementButton.Show();
-                break;
-            // We can turn this into 3 lines of code, I think.
-            case AllEnums.CountyImprovementStatus.AwaitingPlayerAssignment:
-                progressTitle.Hide();
-                progressBar.Hide();
-                constructButton.Hide();
-                underContructionLabel.Hide();
-                prioritizeHBox.Show();
-                workersPanelContainer.Show();
-                constructionPanelContainer.Hide();
-                removeImprovementButton.Show();
-                assignResearcherInPanelLabel.Show();
-                underContructionLabel.Hide();
                 break;
             case AllEnums.CountyImprovementStatus.UnderConstruction:
-                progressTitle.Show();
-                progressBar.Show();
+                progressPanelContainer.Show();
                 prioritizeHBox.Show();
-                workersPanelContainer.Hide();
                 GenerateOutputGoods();
                 GenerateInputGoods();
                 constructionPanelContainer.Show();
                 GenerateConstructionCosts();
                 adjustMaxBuildersHbox.Show();
-                assignResearcherInPanelLabel.Hide();
                 underContructionLabel.Show();
-                constructButton.Hide();
-                removeImprovementButton.Hide();
+                UpdateConstructionProgress();
+                removeImprovementButton.Show();
                 break;
+            // Default is status none, so when it is in the possible list.
             default:
-                progressTitle.Hide();
-                progressBar.Hide();
-                prioritizeHBox.Hide();
-                workersPanelContainer.Hide();
                 GenerateOutputGoods();
                 GenerateInputGoods();
                 constructionPanelContainer.Show();
                 GenerateConstructionCosts();
                 CheckForConstructionResources();
-                adjustMaxBuildersHbox.Hide();
-                underContructionLabel.Hide();
-                removeImprovementButton.Hide();
-                assignResearcherInPanelLabel.Hide();
                 break;
         }
+    }
+
+    private void UpdateConstructionProgress()
+    {
+        progressBar.MaxValue = countyImprovementData.maxAmountOfConstruction;
+        progressBar.Value = countyImprovementData.CurrentAmountOfConstruction;
+    }
+
+    private void HideEverything()
+    {
+        progressPanelContainer.Hide();
+        prioritizeHBox.Hide();
+        workersPanelContainer.Hide();
+        constructButton.Hide();
+        constructionPanelContainer.Hide();
+        adjustMaxBuildersHbox.Hide();
+        underContructionLabel.Hide();
+        removeImprovementButton.Hide();
+        assignResearcherInPanelLabel.Hide();
+        researchAssignedLabel.Hide();
+    }
+
+    private void CheckForMaxWorkers()
+    {
+        if (countyImprovementData.maxWorkers > 0)
+        {
+            prioritizeHBox.Show();
+            workersPanelContainer.Show();
+        }
+        else
+        {
+            prioritizeHBox.Hide();
+            workersPanelContainer.Hide();
+        }
+
+    }
+
+    /// <summary>
+    /// There can only be one researcher assigned per Research Office, or Lab.
+    /// </summary>
+    private void CheckIfResearchIsAssigned()
+    {
+        CountyPopulation countyPopulation = countyImprovementData.populationAtImprovement[0];
+        if (countyPopulation.currentResearchItemData == null)
+        {
+            assignResearcherInPanelLabel.Show();
+            return;
+        }
+        researchAssignedLabel.Text = $"{countyPopulation.firstName} {countyPopulation.lastName}" +
+            $" {Tr("PHRASE_IS_RESEARCHING")} {Tr(countyPopulation.currentResearchItemData.researchName)}";
+        researchAssignedLabel.Show();
+        progressPanelContainer.Show();
+        progressTitle.Text = "PHRASE_RESEARCH_PROGRESS";
+        progressBar.MaxValue = countyPopulation.currentResearchItemData.costOfResearch;
+        progressBar.Value = countyPopulation.currentResearchItemData.AmountOfResearchDone;
+        assignResearcherInPanelLabel.Hide();
     }
 
     private void GenerateOutputGoods()
@@ -140,7 +184,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
             // We aren't using this right now, but it is quite possible we will use it in the future.
             goodPanelContainer.onlyProduceCheckBox.Hide();
 
-            if(keyValuePair.Key.resourceType == AllEnums.FactionResourceType.Research)
+            if (keyValuePair.Key.resourceType == AllEnums.FactionResourceType.Research)
             {
                 produceAsNeededCheckBox.Hide();
             }
@@ -151,7 +195,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
             GoodPanelContainer goodPanelContainer = AddGoodsPanel(keyValuePair, keyValuePair.Key.name, outputsGridContainer);
 
             goodPanelContainer.useRemnantsCheckBox.Hide();
-            
+
             // We aren't using this right now, but it is quite possible we will use it in the future.
             goodPanelContainer.onlyProduceCheckBox.Hide();
         }
@@ -174,9 +218,15 @@ public partial class CountryImprovementPanelContainer : PanelContainer
         {
             GoodPanelContainer goodPanelContainer = AddGoodsPanel(keyValuePair, keyValuePair.Key.name, inputsGridContainer);
 
-            CheckForHideUseRemnants(keyValuePair, goodPanelContainer);
+            if (countyImprovementData.status == AllEnums.CountyImprovementStatus.UnderConstruction)
+            {
+                goodPanelContainer.useRemnantsCheckBox.Hide();
+            }
+            else
+            {
+                CheckForHideUseRemnants(keyValuePair, goodPanelContainer);
+            }
         }
-
     }
 
     GoodPanelContainer AddGoodsPanel<T>(KeyValuePair<T, int> keyValuePair, string name, GridContainer goodsParentGridContainer)
@@ -214,7 +264,8 @@ public partial class CountryImprovementPanelContainer : PanelContainer
         , GoodPanelContainer goodPanelContainer)
     {
         bool shouldHideCheckBox =
-            countyImprovementData.status == AllEnums.CountyImprovementStatus.None 
+            countyImprovementData.status == AllEnums.CountyImprovementStatus.None
+            || countyImprovementData.status == AllEnums.CountyImprovementStatus.InResearchPanel
             || keyValuePair.Key.countyResourceType == AllEnums.CountyResourceType.Remnants
             || keyValuePair.Key.factionResourceType == AllEnums.FactionResourceType.Food;
 

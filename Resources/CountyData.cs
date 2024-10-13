@@ -35,7 +35,7 @@ namespace PlayerSpace
         public Globals.ListWithNotify<CountyPopulation> deadPeopleList = [];
 
         List<CountyPopulation> possibleWorkers = []; // List of all the idle, helpful and loyal workers for that day.
-        List<CountyPopulation> workersToRemoveFromPossibleWorkers = []; // List to collect county populations to be removed from the possibleWorkers.
+        readonly List<CountyPopulation> workersToRemoveFromPossibleWorkers = []; // List to collect county populations to be removed from the possibleWorkers.
 
         public List<Button> spawnedTokenButtons = [];
 
@@ -117,7 +117,7 @@ namespace PlayerSpace
                         countyPopulation.UpdateActivity(AllEnums.Activities.Idle);
                         countyPopulation.UpdateCurrentCountyImprovement(null);
                     }
-                    // Set countyImprovement status to Complete
+                    // Set countyImprovement status to producing.  I think this is going to fuck everything up.
                     countyImprovementData.SetCountyImprovementComplete();
                     // Clear the people on the county improvement list.
                     countyImprovementData.populationAtImprovement.Clear();

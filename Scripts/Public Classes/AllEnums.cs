@@ -31,15 +31,17 @@ public class AllEnums
         None,
         AwaitingPlayerAssignment,
         Producing,
-        ProducingWithoutWorkers,
+        //ProducingWithoutWorkers,
         Researching,
         UnderConstruction,
+        InResearchPanel,
     }
 
     public enum CountyImprovementType
     {
         Standard,
         Research,
+        Storage, // I don't think this is doing anything.
     }
 
     public enum CountyResourceType
@@ -49,6 +51,7 @@ public class AllEnums
         Fish,
         PrimativeScoutingEquipment,
         Remnants,
+        Storage,
         Vegetables,
         Wood,
     }

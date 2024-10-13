@@ -268,6 +268,11 @@ namespace PlayerSpace
         public bool CheckBuildingCost(FactionData factionData, CountyData countyData
             , CountyImprovementData countyImprovementData)
         {
+            if(countyData == null)
+            {
+                GD.Print("County Data is null so Check Building Cost is skipped.");
+                return false;
+            }
             if (countyImprovementData.factionResourceConstructionCost != null)
             {
                 foreach (KeyValuePair<FactionResourceData, int> keyValuePair in countyImprovementData.factionResourceConstructionCost)

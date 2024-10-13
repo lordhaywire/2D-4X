@@ -42,7 +42,7 @@ namespace PlayerSpace
         [Export] public int adjustedMaxBuilders;
         [Export] public int maxWorkers;
         [Export] public int adjustedMaxWorkers;
-        
+
         [ExportGroup("Resource Types")]
         [Export] public AllEnums.CountyResourceType countyResourceType;
         [Export] public AllEnums.FactionResourceType factionResourceType;
@@ -92,7 +92,7 @@ namespace PlayerSpace
                 skill = workSkill;
             }
             // Remove the lowest skilled worker.
-            List<CountyPopulation> sortedLowestSkillLevelPopulation 
+            List<CountyPopulation> sortedLowestSkillLevelPopulation
                 = [.. populationAtImprovement.OrderBy(pop => pop.skills[skill].skillLevel)];
             CountyPopulation lowestSkilledPopulation = sortedLowestSkillLevelPopulation.FirstOrDefault();
             return lowestSkilledPopulation;
@@ -108,7 +108,7 @@ namespace PlayerSpace
                 lowestSkilledPopulation.RemoveFromCountyImprovement();
             }
         }
-        
+
         public bool CheckIfCountyImprovementDone()
         {
             if (CurrentAmountOfConstruction == maxAmountOfConstruction)
@@ -128,16 +128,29 @@ namespace PlayerSpace
             populationAtImprovement.Remove(countyPopulation);
         }
 
+        /// <summary>
+        /// This could have been an if else but I think we will add more types.
+        /// </summary>
         public void SetCountyImprovementComplete()
         {
-            if (maxWorkers > 0)
+            switch (countyImprovementType)
             {
-                status = AllEnums.CountyImprovementStatus.Producing;
+                case AllEnums.CountyImprovementType.Research:
+                    status = AllEnums.CountyImprovementStatus.Researching;
+                    break;
+                // Currently this isn't really used, so it just sets the status to producing.
+                case AllEnums.CountyImprovementType.Storage:
+                    status = AllEnums.CountyImprovementStatus.Producing;
+                    break;
+                case AllEnums.CountyImprovementType.Standard:
+                    status = AllEnums.CountyImprovementStatus.Producing;
+                    break;
             }
-            else
-            {
-                status = AllEnums.CountyImprovementStatus.ProducingWithoutWorkers;
-            }
+        }
+
+        public void SetCountyImprovementStatus(AllEnums.CountyImprovementStatus newStatus)
+        {
+            status = newStatus;
         }
 
         public static CountyImprovementData NewCopy(CountyImprovementData countyImprovementData)

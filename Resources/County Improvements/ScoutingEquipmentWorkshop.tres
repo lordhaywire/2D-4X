@@ -6,10 +6,12 @@
 
 [resource]
 script = ExtResource("1_wleyv")
+countyImprovementType = 0
+location = 0
+prioritize = false
 improvementTexture = ExtResource("1_231ft")
 improvementName = "IMPROVEMENT_SCOUTING_EQUIPMENT_WORKSHOP"
 improvementDescription = "IMPROVEMENT_DESCRIPTION_SCOUTING_EQUIPMENT_WORKSHOP"
-numberBuilt = 0
 workSkill = 0
 interest = ExtResource("2_tf3mf")
 factionResourceConstructionCost = null
@@ -17,14 +19,17 @@ countyResourceConstructionCost = null
 CurrentAmountOfConstruction = 0
 maxAmountOfConstruction = 100
 maxBuilders = 5
+adjustedMaxBuilders = 0
 maxWorkers = 5
+adjustedMaxWorkers = 0
 countyResourceType = 3
 factionResourceType = 2
 nonTangibleGoodProduced = ""
 nonTangibleGoodNotBeingProduced = ""
 factionOutputGoods = {}
 countyOutputGoods = {}
-inputGoods = {}
 dailyResourceGenerationAmount = 1
 dailyResourceGenerationBonus = 1
+factionInputGoods = {}
+countyInputGoods = {}
 status = 0

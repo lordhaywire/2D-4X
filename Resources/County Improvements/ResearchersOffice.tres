@@ -9,7 +9,6 @@
 [resource]
 script = ExtResource("1_ga7gf")
 countyImprovementType = 1
-location = 0
 prioritize = false
 improvementTexture = ExtResource("1_a1jyh")
 improvementName = "IMPROVEMENT_RESEARCHERS_OFFICE"
@@ -27,7 +26,7 @@ adjustedMaxBuilders = 0
 maxWorkers = 1
 adjustedMaxWorkers = 0
 countyResourceType = 0
-factionResourceType = 0
+factionResourceType = 7
 nonTangibleGoodProduced = "IMPROVEMENT_NONTANGIBLE_PRODUCED_RESEARCH_OFFICE"
 nonTangibleGoodNotBeingProduced = "IMPROVEMENT_NONTANGIBLE_NOT_PRODUCED_RESEARCH_OFFICE"
 factionOutputGoods = {
@@ -36,5 +35,6 @@ ExtResource("1_j5ps1"): 0
 countyOutputGoods = {}
 dailyResourceGenerationAmount = 5
 dailyResourceGenerationBonus = 2
-inputGoods = {}
+factionInputGoods = {}
+countyInputGoods = {}
 status = 0

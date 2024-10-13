@@ -130,6 +130,8 @@ namespace PlayerSpace
                     CountryImprovementPanelContainer countyImprovementInResearchControl
                         = (CountryImprovementPanelContainer)countyImprovementResearchPackedScene.Instantiate();
                     countyImprovementInResearchControl.countyImprovementData = countyImprovementData;
+                    countyImprovementInResearchControl.countyImprovementData
+                        .SetCountyImprovementStatus(AllEnums.CountyImprovementStatus.InResearchPanel);
                     countyImprovementsInResearchParent.AddChild(countyImprovementInResearchControl);
                 }
             }

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CountyResourceData" load_steps=2 format=3 uid="uid://cvcmicp5gw3w4"]
+
+[ext_resource type="Script" path="res://Resources/CountyResourceData.cs" id="1_ugpva"]
+
+[resource]
+script = ExtResource("1_ugpva")
+name = "COUNTY_RESOURCE_STORAGE"
+description = "COUNTY_RESOURCE_DESCRIPTION_STORAGE"
+countyResourceType = 5
+factionResourceType = 0
+perishable = false
+failureRate = 0
+remnantSubstitutable = false

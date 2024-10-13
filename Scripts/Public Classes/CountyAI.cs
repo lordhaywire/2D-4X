@@ -54,6 +54,7 @@ public class CountyAI
         countyData.underConstructionCountyImprovements.Add(countyImprovementData);
         countyData.underConstructionCountyImprovements.Sort((x,y) => string.Compare(x.improvementName, y.improvementName));
     }
+
     public static CountyImprovementData FindCountyImpovementOfType(County county, AllEnums.FactionResourceType factionResourceType)
     {
         foreach (CountyImprovementData countyImprovementData in county.countyData.factionData.allCountyImprovements)
