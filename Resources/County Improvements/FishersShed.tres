@@ -13,7 +13,6 @@
 [resource]
 script = ExtResource("2_iptt2")
 countyImprovementType = 0
-location = 0
 prioritize = false
 improvementTexture = ExtResource("1_3xigu")
 improvementName = "IMPROVEMENT_FISHERS_SHED"

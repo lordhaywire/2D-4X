@@ -8,6 +8,10 @@ namespace PlayerSpace
     [GlobalClass]
     public partial class CountyImprovementData : Resource
     {
+        [ExportGroup("Not For Inspector")]
+        [Export]
+        private int currentAmountOfCounstruction;
+
         [ExportGroup("Improvement Info")]
         [Export] public AllEnums.CountyImprovementType countyImprovementType;
         //[Export] public int location;
@@ -17,7 +21,7 @@ namespace PlayerSpace
         [Export] public Texture2D improvementTexture;
         [Export] public string improvementName;
         [Export] public string improvementDescription;
-        //[Export] public int numberBuilt;
+        [Export] public int numberBuilt;
 
         [ExportGroup("Skill and Interest")]
         [Export] public AllEnums.Skills workSkill;
@@ -27,7 +31,7 @@ namespace PlayerSpace
         [Export] public Godot.Collections.Dictionary<FactionResourceData, int> factionResourceConstructionCost;
         [Export] public Godot.Collections.Dictionary<CountyResourceData, int> countyResourceConstructionCost;
 
-        private int currentAmountOfCounstruction;
+
         [Export]
         public int CurrentAmountOfConstruction
         {
@@ -96,6 +100,7 @@ namespace PlayerSpace
                 = [.. populationAtImprovement.OrderBy(pop => pop.skills[skill].skillLevel)];
             CountyPopulation lowestSkilledPopulation = sortedLowestSkillLevelPopulation.FirstOrDefault();
             return lowestSkilledPopulation;
+
         }
         public void AdjustNumberOfWorkers(int adjustment)
         {
@@ -164,7 +169,7 @@ namespace PlayerSpace
                 improvementTexture = countyImprovementData.improvementTexture,
                 improvementName = countyImprovementData.improvementName,
                 improvementDescription = countyImprovementData.improvementDescription,
-                //numberBuilt = countyImprovementData.numberBuilt,
+                numberBuilt = countyImprovementData.numberBuilt,
                 workSkill = countyImprovementData.workSkill,
                 interest = countyImprovementData.interest,
                 factionOutputGoods = countyImprovementData.factionOutputGoods,

@@ -42,7 +42,7 @@ public partial class CountyImprovementsControl : Control
     public void CreateAllCountyImprovementButtons()
     {
         ClearImprovements();
-        GD.PrintRich($"[rainbow]Count of county improvements: " + Globals.Instance.playerFactionData.allCountyImprovements.Count);
+        //GD.PrintRich($"[rainbow]Count of county improvements: " + Globals.Instance.playerFactionData.allCountyImprovements.Count);
 
         CreateCountyImprovementButtons(Globals.Instance.playerFactionData.allCountyImprovements
             , possibleImprovementsScrollContainerParent, true);
@@ -61,6 +61,8 @@ public partial class CountyImprovementsControl : Control
         , VBoxContainer parent, bool allCountyImprovements)
     {
         GD.Print("List of County Improvements Count: " + listOfCountyImprovements.Count);
+        listOfCountyImprovements.Sort((x, y) => string.Compare(x.improvementName, y.improvementName));
+
         foreach (CountyImprovementData countyImprovementData in listOfCountyImprovements)
         {
             CountryImprovementPanelContainer countyImprovementPanelContainer = (CountryImprovementPanelContainer)countyImprovementPanelContainerPackedScene.Instantiate();

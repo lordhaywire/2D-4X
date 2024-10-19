@@ -15,6 +15,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     [Export] public PanelContainer progressPanelContainer;
     [Export] public Label progressTitle;
     [Export] public ProgressBar progressBar;
+    [Export] public Label constructionCost;
 
     [ExportGroup("Prioritize")]
     [Export] HBoxContainer prioritizeHBox;
@@ -117,12 +118,14 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     {
         progressBar.MaxValue = countyImprovementData.maxAmountOfConstruction;
         progressBar.Value = countyImprovementData.CurrentAmountOfConstruction;
+        constructionCost.Text = $"{Tr("PHRASE_CONSTRUCTION_COST")} : " +
+            $"{countyImprovementData.CurrentAmountOfConstruction} / {countyImprovementData.maxAmountOfConstruction}";
     }
 
     private void HideEverything()
     {
-        progressPanelContainer.Hide();
         prioritizeHBox.Hide();
+        progressPanelContainer.Hide();
         workersPanelContainer.Hide();
         constructButton.Hide();
         constructionPanelContainer.Hide();
@@ -145,7 +148,6 @@ public partial class CountryImprovementPanelContainer : PanelContainer
             prioritizeHBox.Hide();
             workersPanelContainer.Hide();
         }
-
     }
 
     /// <summary>
@@ -153,6 +155,10 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     /// </summary>
     private void CheckIfResearchIsAssigned()
     {
+        if(countyImprovementData.populationAtImprovement.Count == 0)
+        {
+            return;
+        }
         CountyPopulation countyPopulation = countyImprovementData.populationAtImprovement[0];
         if (countyPopulation.currentResearchItemData == null)
         {
@@ -299,6 +305,10 @@ public partial class CountryImprovementPanelContainer : PanelContainer
         }
     }
 
+    /// <summary>
+    /// Currently passing in the player faction data, if the AI needs to use this then we need to have
+    /// it pass in a different factionData.
+    /// </summary>
     private void CheckForConstructionResources()
     {
         Banker banker = new();
@@ -367,7 +377,15 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     {
         GD.Print("Number of people working at county improvement: " + countyImprovementData.populationAtImprovement.Count);
         improvementTextureRect.Texture = countyImprovementData.improvementTexture;
-        improvementNameLabel.Text = countyImprovementData.improvementName;
+        if (countyImprovementData.numberBuilt == 0)
+        {
+            improvementNameLabel.Text = $"{Tr(countyImprovementData.improvementName)}";
+        }
+        else
+        {
+            improvementNameLabel.Text = $"{Tr(countyImprovementData.improvementName)} " +
+                $"{countyImprovementData.numberBuilt}";
+        }
         improvementDescriptionLabel.Text = countyImprovementData.improvementDescription;
     }
 

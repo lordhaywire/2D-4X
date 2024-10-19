@@ -6,12 +6,13 @@
 
 [resource]
 script = ExtResource("1_wleyv")
+currentAmountOfCounstruction = 0
 countyImprovementType = 0
-location = 0
 prioritize = false
 improvementTexture = ExtResource("1_231ft")
 improvementName = "IMPROVEMENT_SCOUTING_EQUIPMENT_WORKSHOP"
 improvementDescription = "IMPROVEMENT_DESCRIPTION_SCOUTING_EQUIPMENT_WORKSHOP"
+numberBuilt = 0
 workSkill = 0
 interest = ExtResource("2_tf3mf")
 factionResourceConstructionCost = null

@@ -1,21 +1,25 @@
-[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=4 format=3 uid="uid://bkakbc8lqeex4"]
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=5 format=3 uid="uid://bkakbc8lqeex4"]
 
 [ext_resource type="Texture2D" uid="uid://bpj5td645dmvi" path="res://Graphics/County Improvements/spade.svg" id="1_b2i5i"]
+[ext_resource type="Resource" uid="uid://djdtci0bq2vvm" path="res://Resources/Faction Resources/Money.tres" id="2_bcfay"]
 [ext_resource type="Script" path="res://Resources/CountyImprovementData.cs" id="2_n4a1t"]
 [ext_resource type="Resource" uid="uid://ftsx8rr0uriv" path="res://Resources/Interests/Botany.tres" id="2_nsp6t"]
 
 [resource]
 script = ExtResource("2_n4a1t")
+currentAmountOfCounstruction = 0
 countyImprovementType = 0
-location = 0
 prioritize = false
 improvementTexture = ExtResource("1_b2i5i")
 improvementName = "IMPROVEMENT_GARDEN"
 improvementDescription = "IMPROVEMENT_DESCRIPTION_GARDEN"
+numberBuilt = 0
 workSkill = 2
 interest = ExtResource("2_nsp6t")
-factionResourceConstructionCost = null
-countyResourceConstructionCost = null
+factionResourceConstructionCost = Dictionary[Object, int]({
+ExtResource("2_bcfay"): 500000
+})
+countyResourceConstructionCost = Dictionary[Object, int]({})
 CurrentAmountOfConstruction = 0
 maxAmountOfConstruction = 5
 maxBuilders = 5

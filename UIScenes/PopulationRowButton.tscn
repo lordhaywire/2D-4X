@@ -144,5 +144,6 @@ text = "Current ActivityTest
 "
 horizontal_alignment = 1
 vertical_alignment = 1
+text_overrun_behavior = 4
 
 [connection signal="button_up" from="." to="." method="OnButtonClick"]

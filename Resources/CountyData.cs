@@ -765,29 +765,6 @@ namespace PlayerSpace
             RemoveWorkersFromPossibleWorkers();
         }
 
-        /*
-        private void AssignWorkersToCountyImprovement(CountyImprovementData countyImprovementData)
-        {
-            AllEnums.Activities activity = AllEnums.Activities.Work;
-            int maxWorkers = countyImprovementData.adjustedMaxWorkers;
-            if (countyImprovementData.status == AllEnums.CountyImprovementStatus.UnderConstruction)
-            {
-                activity = AllEnums.Activities.Build;
-                maxWorkers = countyImprovementData.adjustedMaxBuilders;
-            }
-            foreach (CountyPopulation countyPopulation in possibleWorkers)
-            {
-                if (countyImprovementData.populationAtImprovement.Count
-                    < maxWorkers)
-                {
-                    countyPopulation.UpdateActivity(activity);
-                    UpdateWorkLocation(countyPopulation, countyImprovementData);
-                    workersToRemoveFromPossibleWorkers.Add(countyPopulation);
-                }
-            }
-            RemoveWorkersFromPossibleWorkers();
-        }
-        */
         /// <summary>
         /// Get all the people who are helpful and loyal for prioritized construction and work.
         /// </summary>

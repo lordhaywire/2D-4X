@@ -7,11 +7,13 @@
 
 [resource]
 script = ExtResource("3_nbppr")
+currentAmountOfCounstruction = 0
 countyImprovementType = 2
 prioritize = false
 improvementTexture = ExtResource("1_wn83v")
 improvementName = "IMPROVEMENT_CONVERTED_WAREHOUSE"
 improvementDescription = "IMPROVEMENT_DESCRIPTION_CONVERTED_WAREHOUSE"
+numberBuilt = 0
 workSkill = 4
 interest = ExtResource("2_cl8dw")
 factionResourceConstructionCost = null

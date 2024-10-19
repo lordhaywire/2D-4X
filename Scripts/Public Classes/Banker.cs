@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace PlayerSpace
 {
@@ -268,6 +269,8 @@ namespace PlayerSpace
         public bool CheckBuildingCost(FactionData factionData, CountyData countyData
             , CountyImprovementData countyImprovementData)
         {
+            GD.Print("Checking Building Cost...");
+            // This is here so the county improvement can be shown in the Research pannel.
             if(countyData == null)
             {
                 GD.Print("County Data is null so Check Building Cost is skipped.");

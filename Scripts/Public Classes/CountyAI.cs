@@ -1,4 +1,6 @@
 using Godot;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace PlayerSpace;
@@ -49,12 +51,34 @@ public class CountyAI
     public void BuildImprovement(CountyData countyData, CountyImprovementData countyImprovementData)
     {
         countyImprovementData.status = AllEnums.CountyImprovementStatus.UnderConstruction;
-        countyImprovementData.improvementName = $"{TranslationServer.Translate(countyImprovementData.improvementName)} " 
-            + (countyData.underConstructionCountyImprovements.Count + 1).ToString();
+        NumberBuiltImprovement(countyData, countyImprovementData);
+
         countyData.underConstructionCountyImprovements.Add(countyImprovementData);
-        countyData.underConstructionCountyImprovements.Sort((x,y) => string.Compare(x.improvementName, y.improvementName));
+    }
+    
+    private void NumberBuiltImprovement(CountyData countyData, CountyImprovementData countyImprovementData)
+    {
+        int underConstructionImprovements =  CountDuplicateImprovement(countyImprovementData, countyData.underConstructionCountyImprovements);
+        int completedImprovements = CountDuplicateImprovement(countyImprovementData,countyData.completedCountyImprovements);
+        int numberOfDuplicateImprovements = underConstructionImprovements + completedImprovements;
+        countyImprovementData.numberBuilt = ++numberOfDuplicateImprovements;
+        //GD.Print($"Under Construction Improvements: {underConstructionImprovements}");
+        //GD.Print($"Completed Construction Improvements: {completedImprovements}");
+        //GD.Print($"County Improvement Number Built: {countyImprovementData.numberBuilt}");
     }
 
+    int CountDuplicateImprovement(CountyImprovementData originalCountyImprovementData, List<CountyImprovementData> countyImprovementDatas)
+    {
+        int number = 0;
+        foreach (CountyImprovementData countyImprovementData in countyImprovementDatas)
+        {
+            if(originalCountyImprovementData.improvementName == countyImprovementData.improvementName)
+            {
+                number++;
+            }
+        }
+        return number;
+    }
     public static CountyImprovementData FindCountyImpovementOfType(County county, AllEnums.FactionResourceType factionResourceType)
     {
         foreach (CountyImprovementData countyImprovementData in county.countyData.factionData.allCountyImprovements)
