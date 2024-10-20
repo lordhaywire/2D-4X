@@ -6,6 +6,8 @@
 script = ExtResource("1_5vlxb")
 name = "COUNTY_RESOURCE_WOOD"
 description = "COUNTY_RESOURCE_DESCRIPTION_VEGETABLES"
-countyResourceType = 6
+countyResourceType = 8
 factionResourceType = 1
 perishable = false
+failureRate = 0
+remnantSubstitutable = false

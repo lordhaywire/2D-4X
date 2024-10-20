@@ -55,8 +55,8 @@ namespace PlayerSpace
         /// warehouse space.  This string says what that is.  If it null then the normal production
         /// GridContainer is shown.
         /// </summary>
-        [Export] public string nonTangibleGoodProduced;
-        [Export] public string nonTangibleGoodNotBeingProduced;
+        //[Export] public string nonTangibleGoodProduced;
+        //[Export] public string nonTangibleGoodNotBeingProduced;
         [ExportGroup("Outputs")]
         [Export] public Godot.Collections.Dictionary<FactionResourceData, int> factionOutputGoods = [];
         [Export] public Godot.Collections.Dictionary<CountyResourceData, int> countyOutputGoods = [];
@@ -68,6 +68,7 @@ namespace PlayerSpace
         [ExportGroup("Inputs")]
         [Export] public Godot.Collections.Dictionary<FactionResourceData, int> factionInputGoods = [];
         [Export] public Godot.Collections.Dictionary<CountyResourceData, int> countyInputGoods = [];
+        //[Export] public Godot.Collections.Dictionary<AllEnums.CountyResourceType, int> testEnumDictionary;
 
         [Export] public AllEnums.CountyImprovementStatus status;
         public List<CountyPopulation> populationAtImprovement = [];
@@ -82,6 +83,20 @@ namespace PlayerSpace
                 CountyPopulation lowestSkilledPopulation = GetLowestSkilledPopulation(true);
                 lowestSkilledPopulation.RemoveFromCountyImprovement();
             }
+        }
+
+        public string GetCountyImprovementName()
+        {
+            string name;
+            if (numberBuilt == 0)
+            {
+                name = $"{Tr(improvementName)}";
+            }
+            else
+            {
+                name = $"{Tr(improvementName)} {numberBuilt}";
+            }
+            return name;
         }
         private CountyPopulation GetLowestSkilledPopulation(bool constructing)
         {
@@ -101,6 +116,16 @@ namespace PlayerSpace
             CountyPopulation lowestSkilledPopulation = sortedLowestSkillLevelPopulation.FirstOrDefault();
             return lowestSkilledPopulation;
 
+        }
+
+        public bool CheckIfStorageImprovement()
+        {
+            if(countyResourceType == AllEnums.CountyResourceType.StorageNonperishable
+                || countyResourceType == AllEnums.CountyResourceType.StoragePerishable)
+            {
+                return true;
+            }
+            return false;
         }
         public void AdjustNumberOfWorkers(int adjustment)
         {
@@ -136,7 +161,7 @@ namespace PlayerSpace
         /// <summary>
         /// This could have been an if else but I think we will add more types.
         /// </summary>
-        public void SetCountyImprovementComplete()
+        public void SetCountyImprovementComplete(CountyData countyData)
         {
             switch (countyImprovementType)
             {
@@ -145,6 +170,8 @@ namespace PlayerSpace
                     break;
                 // Currently this isn't really used, so it just sets the status to producing.
                 case AllEnums.CountyImprovementType.Storage:
+                    Banker banker = new();
+                    banker.AddStorageToCounty(countyData, this);
                     status = AllEnums.CountyImprovementStatus.Producing;
                     break;
                 case AllEnums.CountyImprovementType.Standard:
@@ -185,8 +212,8 @@ namespace PlayerSpace
                 adjustedMaxWorkers = countyImprovementData.adjustedMaxWorkers,
                 countyResourceType = countyImprovementData.countyResourceType,
                 factionResourceType = countyImprovementData.factionResourceType,
-                nonTangibleGoodProduced = countyImprovementData.nonTangibleGoodProduced,
-                nonTangibleGoodNotBeingProduced = countyImprovementData.nonTangibleGoodNotBeingProduced,
+                //nonTangibleGoodProduced = countyImprovementData.nonTangibleGoodProduced,
+                //nonTangibleGoodNotBeingProduced = countyImprovementData.nonTangibleGoodNotBeingProduced,
                 factionInputGoods = countyImprovementData.factionInputGoods,
                 countyInputGoods = countyImprovementData.countyInputGoods,
                 dailyResourceGenerationAmount = countyImprovementData.dailyResourceGenerationAmount,

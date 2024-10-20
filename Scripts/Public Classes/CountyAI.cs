@@ -51,6 +51,7 @@ public class CountyAI
     public void BuildImprovement(CountyData countyData, CountyImprovementData countyImprovementData)
     {
         countyImprovementData.status = AllEnums.CountyImprovementStatus.UnderConstruction;
+        // Numbers improvement if there is more then 1.
         NumberBuiltImprovement(countyData, countyImprovementData);
 
         countyData.underConstructionCountyImprovements.Add(countyImprovementData);

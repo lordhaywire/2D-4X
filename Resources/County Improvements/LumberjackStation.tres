@@ -6,11 +6,13 @@
 
 [resource]
 script = ExtResource("2_26moa")
+currentAmountOfCounstruction = 0
 countyImprovementType = 0
 prioritize = false
 improvementTexture = ExtResource("1_fohtd")
 improvementName = "IMPROVEMENT_LUMBERJACK_STATION"
 improvementDescription = "IMPROVEMENT_DESCRIPTION_LUMBERJACK_STATION"
+numberBuilt = 0
 workSkill = 5
 interest = ExtResource("2_cnf1p")
 factionResourceConstructionCost = null
@@ -21,7 +23,7 @@ maxBuilders = 2
 adjustedMaxBuilders = 0
 maxWorkers = 3
 adjustedMaxWorkers = 0
-countyResourceType = 6
+countyResourceType = 8
 factionResourceType = 1
 nonTangibleGoodProduced = ""
 nonTangibleGoodNotBeingProduced = ""

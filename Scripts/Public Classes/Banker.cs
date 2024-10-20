@@ -135,7 +135,28 @@ namespace PlayerSpace
             TopBarControl.Instance.UpdateResourceLabels();
         }
 
+        public void AddStorageToCounty(CountyData countyData, CountyImprovementData countyImprovementData)
+        {
+            if (countyImprovementData.CheckIfStorageImprovement())
+            {
+                foreach(KeyValuePair<CountyResourceData, int> keyValuePair in countyImprovementData.countyOutputGoods)
+                {
+                    if(keyValuePair.Key.countyResourceType == AllEnums.CountyResourceType.StorageNonperishable)
+                    {
+                        countyData.nonperishableStorage += keyValuePair.Value;
+                        GD.Print($"{countyData.countyName} now has {countyData.nonperishableStorage} nonperishable storage.");
+                    }
+                    else
+                    {
+                        countyData.perishableStorage += keyValuePair.Value;
+                        GD.Print($"{countyData.countyName} now has {countyData.perishableStorage} perishable storage.");
+                    }
+                }
+            }
+        }
+
         // This is currently unused.  I am pretty sure we don't need this.
+        /*
         public static int CountCountyResourceOfType(CountyData countyData, AllEnums.CountyResourceType resourceType)
         {
             int amount = 0;
@@ -148,7 +169,7 @@ namespace PlayerSpace
             }
             return amount;
         }
-
+        */
         public void AddLeaderInfluence(FactionData factionData)
         {
             factionData.factionResources[AllEnums.FactionResourceType.Influence].amount

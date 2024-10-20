@@ -92,15 +92,14 @@ public partial class CountryImprovementPanelContainer : PanelContainer
                 removeImprovementButton.Show();
                 break;
             case AllEnums.CountyImprovementStatus.UnderConstruction:
-                progressPanelContainer.Show();
                 prioritizeHBox.Show();
+                UpdateConstructionProgress();
                 GenerateOutputGoods();
                 GenerateInputGoods();
                 constructionPanelContainer.Show();
                 GenerateConstructionCosts();
                 adjustMaxBuildersHbox.Show();
                 underContructionLabel.Show();
-                UpdateConstructionProgress();
                 removeImprovementButton.Show();
                 break;
             // Default is status none, so when it is in the possible list.
@@ -116,6 +115,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
 
     private void UpdateConstructionProgress()
     {
+        progressPanelContainer.Show();
         progressBar.MaxValue = countyImprovementData.maxAmountOfConstruction;
         progressBar.Value = countyImprovementData.CurrentAmountOfConstruction;
         constructionCost.Text = $"{Tr("PHRASE_CONSTRUCTION_COST")} : " +
@@ -342,6 +342,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
         prioritizeCheckBox.ButtonPressed = countyImprovementData.prioritize;
     }
 
+    /*
     private void UpdateOutputGoodsProducing()
     {
         GD.Print("County Improvement Nontangible: " + countyImprovementData.nonTangibleGoodProduced);
@@ -357,6 +358,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
             nontangibleProductionLabel.Show();
         }
     }
+    
     private void UpdateOutputGoodsNotProducing()
     {
         GD.Print("County Improvement Nontangible: " + countyImprovementData.nonTangibleGoodProduced);
@@ -372,20 +374,12 @@ public partial class CountryImprovementPanelContainer : PanelContainer
             nontangibleProductionLabel.Show();
         }
     }
-
+    */
     private void UpdateInformationLabels()
     {
         GD.Print("Number of people working at county improvement: " + countyImprovementData.populationAtImprovement.Count);
         improvementTextureRect.Texture = countyImprovementData.improvementTexture;
-        if (countyImprovementData.numberBuilt == 0)
-        {
-            improvementNameLabel.Text = $"{Tr(countyImprovementData.improvementName)}";
-        }
-        else
-        {
-            improvementNameLabel.Text = $"{Tr(countyImprovementData.improvementName)} " +
-                $"{countyImprovementData.numberBuilt}";
-        }
+        improvementNameLabel.Text = countyImprovementData.GetCountyImprovementName();
         improvementDescriptionLabel.Text = countyImprovementData.improvementDescription;
     }
 

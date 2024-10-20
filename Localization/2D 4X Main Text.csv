@@ -49,13 +49,15 @@ COUNTY_RESOURCE_DESCRIPTION_CANNED_FOOD,Not written.,No está escrito.
 COUNTY_RESOURCE_DESCRIPTION_FISH,Not written.,No está escrito.
 COUNTY_RESOURCE_DESCRIPTION_PRIMITIVE_SCOUTING_EQUIPMENT,Not written.,No está escrito.
 COUNTY_RESOURCE_DESCRIPTION_REMNANTS,Not written.,No está escrito.
-COUNTY_RESOURCE_DESCRIPTION_STORAGE,More places to store things.,Más lugares para guardar cosas.
+COUNTY_RESOURCE_DESCRIPTION_STORAGE_NONPERISHABLE,More places to store nonperishable things.,Más lugares para almacenar cosas no perecederas.
+COUNTY_RESOURCE_DESCRIPTION_STORAGE_PERISHABLE,A place to store perishable things.,Un lugar para almacenar cosas perecederas.
 COUNTY_RESOURCE_DESCRIPTION_VEGETABLES,Not written.,No está escrito.
 COUNTY_RESOURCE_DESCRIPTION_WOOD,Not written.,No está escrito.
 COUNTY_RESOURCE_FISH,Fish,Pescado
 COUNTY_RESOURCE_PRIMITIVE_SCOUTING_EQUIPMENT,Primitive Scouting Equipment,Equipo de exploración primitivo
 COUNTY_RESOURCE_REMNANTS,Remnants,Remanente
-COUNTY_RESOURCE_STORAGE,Storage,Almacenamiento
+COUNTY_RESOURCE_STORAGE_NONPERISHABLE,Nonperishable Storage,Almacenamiento no perecedero
+COUNTY_RESOURCE_STORAGE_PERISHABLE,Perishable Storage,Almacenamiento de productos perecederos
 COUNTY_RESOURCE_VEGETABLES,Vegetables,Verduras
 COUNTY_RESOURCE_WOOD,Wood,Madera
 FACTION_RESOURCE_BUILDING_MATERIALS,Building Materials,Materiales de construcción
@@ -104,8 +106,8 @@ PHRASE_ASSIGN_RESEARCHER_IN_RESEARCH_PANEL,Assign researcher in research panel.,
 PHRASE_ASSIGNED_RESEARCHERS,Assigned Researchers,Investigadores asignados
 PHRASE_BUILD_IMPROVEMENT_CONFIRM,Are you sure you want to build a,¿Estás seguro de que quieres construir un
 PHRASE_CONSTRUCTION_COST,Construction Cost,Costo de construcción
-PHRASE_CONSTRUCTION_PROGRESS,Construction Progress,Avance de la construcción
 PHRASE_CONSTRUCTION_GOODS,Construction Goods,Bienes de construcción
+PHRASE_CONSTRUCTION_PROGRESS,Construction Progress,Avance de la construcción
 PHRASE_COUNTY_IMPROVEMENT,County Improvement,Mejoramiento del Condado
 PHRASE_CURRENT_ADJUSTED_MAX_BUILDERS,Current/Adjusted (Max) Builders,Constructores Actuales/Ajustados (Máx.)
 PHRASE_CURRENT_ADJUSTED_MAX_WORKERS,Current/Adjusted (Max) Workers,Trabajadores actuales/ajustados (máx.)

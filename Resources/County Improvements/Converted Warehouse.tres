@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CountyImprovementData" load_steps=5 format=3 uid="uid://cxh2tykxlu76b"]
 
-[ext_resource type="Resource" uid="uid://cvcmicp5gw3w4" path="res://Resources/County Resources/Storage.tres" id="1_dcd0n"]
+[ext_resource type="Resource" uid="uid://cvcmicp5gw3w4" path="res://Resources/County Resources/Storage Nonperishable.tres" id="1_hyknw"]
 [ext_resource type="Texture2D" uid="uid://duyyhx30r6vow" path="res://Graphics/County Improvements/Warehouse wooden-crate.svg" id="1_wn83v"]
 [ext_resource type="Resource" uid="uid://dqjlx4jv1pgfi" path="res://Resources/Interests/Engineering.tres" id="2_cl8dw"]
 [ext_resource type="Script" path="res://Resources/CountyImprovementData.cs" id="3_nbppr"]
@@ -30,10 +30,11 @@ nonTangibleGoodProduced = "IMPROVEMENT_NONTANGIBLE_PRODUCED_WAREHOUSE"
 nonTangibleGoodNotBeingProduced = "IMPROVEMENT_NONTANGIBLE_NOT_PRODUCED_WAREHOUSE"
 factionOutputGoods = {}
 countyOutputGoods = {
-ExtResource("1_dcd0n"): 500
+ExtResource("1_hyknw"): 500
 }
 dailyResourceGenerationAmount = 0
 dailyResourceGenerationBonus = 0
 factionInputGoods = {}
 countyInputGoods = {}
+testEnumDictionary = Dictionary[int, int]({})
 status = 0

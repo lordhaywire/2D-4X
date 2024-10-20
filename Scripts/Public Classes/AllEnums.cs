@@ -41,7 +41,7 @@ public class AllEnums
     {
         Standard,
         Research,
-        Storage, // I don't think this is doing anything.
+        Storage, // I am not sure this will end up being used.  It is getting used, but not in a good way.
     }
 
     public enum CountyResourceType
@@ -51,7 +51,8 @@ public class AllEnums
         Fish,
         PrimativeScoutingEquipment,
         Remnants,
-        Storage,
+        StorageNonperishable,
+        StoragePerishable,
         Vegetables,
         Wood,
     }

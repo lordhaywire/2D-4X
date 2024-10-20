@@ -118,7 +118,7 @@ namespace PlayerSpace
                         countyPopulation.UpdateCurrentCountyImprovement(null);
                     }
                     // Set countyImprovement status to producing.  I think this is going to fuck everything up.
-                    countyImprovementData.SetCountyImprovementComplete();
+                    countyImprovementData.SetCountyImprovementComplete(this);
                     // Clear the people on the county improvement list.
                     countyImprovementData.populationAtImprovement.Clear();
                     completedImprovements.Add(countyImprovementData);
@@ -320,9 +320,12 @@ namespace PlayerSpace
         public void CheckForPreferredWork()
         {
             //GD.Print($"{county.countyData.countyName}: Checking for Preferred Work!");
+            //GD.Print($"Completed County Improvements: {completedCountyImprovements.Count}");
             foreach (CountyImprovementData countyImprovementData in completedCountyImprovements)
             {
+                //GD.Print($"Preferred Work: {countyImprovementData.improvementName}");
                 if (countyImprovementData.countyResourceType != AllEnums.CountyResourceType.None
+                    || countyImprovementData.CheckIfStorageImprovement() == true
                     && CheckResourceStorageFull(countyResources[countyImprovementData.countyResourceType]) == true)
                 {
                     return;
@@ -366,6 +369,7 @@ namespace PlayerSpace
             foreach (CountyImprovementData countyImprovementData in completedCountyImprovements)
             {
                 if (countyImprovementData.countyResourceType != AllEnums.CountyResourceType.None
+                    || countyImprovementData.CheckIfStorageImprovement() == true
                     && CheckResourceStorageFull(countyResources[countyImprovementData.countyResourceType]) == true)
                 {
                     return;

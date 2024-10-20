@@ -8,11 +8,13 @@
 
 [resource]
 script = ExtResource("1_ga7gf")
+currentAmountOfCounstruction = 0
 countyImprovementType = 1
 prioritize = false
 improvementTexture = ExtResource("1_a1jyh")
 improvementName = "IMPROVEMENT_RESEARCHERS_OFFICE"
 improvementDescription = "IMPROVEMENT_DESCRIPTION_RESEARCHERS_OFFICE"
+numberBuilt = 0
 workSkill = 6
 interest = ExtResource("2_1erl4")
 factionResourceConstructionCost = Dictionary[Object, int]({

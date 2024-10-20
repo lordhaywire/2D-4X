@@ -9,7 +9,7 @@ namespace PlayerSpace
         [Export] private PackedScene populationRowButtonPackedScene;
         [Export] private Label populationListTitle;
 
-        private void OnVisibilityChanged()
+        private void OnPopulationListUIElementVisibilityChanged()
         {
             DestroyPopulationRows(); // Clears out the population, so it doesn't duplicate.
             if (Visible)
@@ -85,8 +85,8 @@ namespace PlayerSpace
         {
             // This sets their current activity then checks to see if Building, Work, or Research is null and if it isn't
             // then it adds where to the end of the label.  If they are all null then it puts nothing.
-            populationRow.currentActivityLabel.Text = TranslationServer.Translate(countyPopulation.GetActivityName());
-            string currentWhere = TranslationServer.Translate(countyPopulation.currentCountyImprovement?.improvementName)
+            populationRow.currentActivityLabel.Text = countyPopulation.GetActivityName();
+            string currentWhere = countyPopulation.currentCountyImprovement?.GetCountyImprovementName()
                 ?? TranslationServer.Translate(countyPopulation.currentResearchItemData?.researchName)
                 ?? string.Empty;
             populationRow.currentActivityLabel.Text += $" {currentWhere}";
