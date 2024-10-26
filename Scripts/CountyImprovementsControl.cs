@@ -81,11 +81,11 @@ public partial class CountyImprovementsControl : Control
 
     private void ClearImprovements()
     {
-        foreach (Node node in possibleImprovementsScrollContainerParent.GetChildren().Skip(1))
+        foreach (Node node in possibleImprovementsScrollContainerParent.GetChildren())
         {
             node.QueueFree();
         }
-        foreach (Node node in currentImprovementsScrollContainerParent.GetChildren().Skip(1))
+        foreach (Node node in currentImprovementsScrollContainerParent.GetChildren())
         {
             node.QueueFree();
         }

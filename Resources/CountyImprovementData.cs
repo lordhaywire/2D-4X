@@ -9,8 +9,7 @@ namespace PlayerSpace
     public partial class CountyImprovementData : Resource
     {
         [ExportGroup("Not For Inspector")]
-        [Export]
-        private int currentAmountOfCounstruction;
+        [Export] private int currentAmountOfCounstruction;
 
         [ExportGroup("Improvement Info")]
         [Export] public AllEnums.CountyImprovementType countyImprovementType;
@@ -21,7 +20,7 @@ namespace PlayerSpace
         [Export] public Texture2D improvementTexture;
         [Export] public string improvementName;
         [Export] public string improvementDescription;
-        [Export] public int numberBuilt;
+        [Export] public int numberBuilt; // This is used to number the improvement name in the County Improvement Panel.
 
         [ExportGroup("Skill and Interest")]
         [Export] public AllEnums.Skills workSkill;
@@ -60,15 +59,23 @@ namespace PlayerSpace
         [ExportGroup("Outputs")]
         [Export] public Godot.Collections.Dictionary<FactionResourceData, int> factionOutputGoods = [];
         [Export] public Godot.Collections.Dictionary<CountyResourceData, int> countyOutputGoods = [];
-        [Export] public int dailyResourceGenerationAmount;
-        [Export] public int dailyResourceGenerationBonus;
+        [Export] public Godot.Collections.Array<CountyResourceData> testCountyResourceList;
+        [Export] public int dailyWorkAmountCompleted;
+
+
+
+
+        [Export] public int dailyResourceGenerationAmount; // I am pretty sure these are done.
+        [Export] public int dailyResourceGenerationBonus; // I am pretty sure these are done.
+        [Export] public int workAmount;
+        [Export] public int workAmountForEachResource;
+        [Export] public int numberOfGoodsGenerated;
 
         // All input goods that are need to create the finished good.
         // For some reason this one needs to be initialized, but the faction and county construction costs don't.
         [ExportGroup("Inputs")]
         [Export] public Godot.Collections.Dictionary<FactionResourceData, int> factionInputGoods = [];
         [Export] public Godot.Collections.Dictionary<CountyResourceData, int> countyInputGoods = [];
-        //[Export] public Godot.Collections.Dictionary<AllEnums.CountyResourceType, int> testEnumDictionary;
 
         [Export] public AllEnums.CountyImprovementStatus status;
         public List<CountyPopulation> populationAtImprovement = [];

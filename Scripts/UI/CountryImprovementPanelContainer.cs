@@ -15,7 +15,8 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     [Export] public PanelContainer progressPanelContainer;
     [Export] public Label progressTitle;
     [Export] public ProgressBar progressBar;
-    [Export] public Label constructionCost;
+    [Export] public Label constructionCostLabel;
+    [Export] public Label maxWorkersLabel;
 
     [ExportGroup("Prioritize")]
     [Export] HBoxContainer prioritizeHBox;
@@ -69,10 +70,12 @@ public partial class CountryImprovementPanelContainer : PanelContainer
         {
             // This is currently working in the research description panel.
             case AllEnums.CountyImprovementStatus.InResearchPanel:
+                UpdateConstructionCost();
+                UpdateMaxWorkers();
                 GenerateOutputGoods();
                 GenerateInputGoods();
                 constructionPanelContainer.Show();
-                GenerateConstructionCosts();
+                GenerateConstructionGoodsCosts();
                 break;
             // This one seems to be working for normal improvements and storage as well.
             case AllEnums.CountyImprovementStatus.Producing:
@@ -94,37 +97,57 @@ public partial class CountryImprovementPanelContainer : PanelContainer
             case AllEnums.CountyImprovementStatus.UnderConstruction:
                 prioritizeHBox.Show();
                 UpdateConstructionProgress();
+                UpdateMaxWorkers();
                 GenerateOutputGoods();
                 GenerateInputGoods();
                 constructionPanelContainer.Show();
-                GenerateConstructionCosts();
+                GenerateConstructionGoodsCosts();
                 adjustMaxBuildersHbox.Show();
                 underContructionLabel.Show();
                 removeImprovementButton.Show();
                 break;
             // Default is status none, so when it is in the possible list.
             default:
+                UpdateConstructionCost();
+                UpdateMaxWorkers();
                 GenerateOutputGoods();
                 GenerateInputGoods();
                 constructionPanelContainer.Show();
-                GenerateConstructionCosts();
+                GenerateConstructionGoodsCosts();
                 CheckForConstructionResources();
                 break;
         }
     }
 
+    void UpdateConstructionCost()
+    {
+        progressPanelContainer.Show();
+        progressBar.Hide();
+        progressTitle.Hide();
+        constructionCostLabel.Text = $"{Tr("PHRASE_CONSTRUCTION_COST")} : " +
+            $"{countyImprovementData.maxAmountOfConstruction}";
+
+    }
+
+    void UpdateMaxWorkers()
+    {
+        maxWorkersLabel.Show();
+        maxWorkersLabel.Text = $"{Tr("PHRASE_MAX_WORKERS")} : " +
+            $"{countyImprovementData.maxWorkers}";
+    }
     private void UpdateConstructionProgress()
     {
         progressPanelContainer.Show();
         progressBar.MaxValue = countyImprovementData.maxAmountOfConstruction;
         progressBar.Value = countyImprovementData.CurrentAmountOfConstruction;
-        constructionCost.Text = $"{Tr("PHRASE_CONSTRUCTION_COST")} : " +
+        constructionCostLabel.Text = $"{Tr("PHRASE_CONSTRUCTION_COST")} : " +
             $"{countyImprovementData.CurrentAmountOfConstruction} / {countyImprovementData.maxAmountOfConstruction}";
     }
 
     private void HideEverything()
     {
         prioritizeHBox.Hide();
+        maxWorkersLabel.Hide();
         progressPanelContainer.Hide();
         workersPanelContainer.Hide();
         constructButton.Hide();
@@ -155,7 +178,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     /// </summary>
     private void CheckIfResearchIsAssigned()
     {
-        if(countyImprovementData.populationAtImprovement.Count == 0)
+        if (countyImprovementData.populationAtImprovement.Count == 0)
         {
             return;
         }
@@ -244,7 +267,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
         return goodPanelContainer;
     }
 
-    void GenerateConstructionCosts()
+    void GenerateConstructionGoodsCosts()
     {
         CheckForGoodsForColumns(constructionMaterialCostGridContainer
             , countyImprovementData.factionResourceConstructionCost

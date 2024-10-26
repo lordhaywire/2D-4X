@@ -29,8 +29,6 @@ maxWorkers = 1
 adjustedMaxWorkers = 0
 countyResourceType = 0
 factionResourceType = 7
-nonTangibleGoodProduced = "IMPROVEMENT_NONTANGIBLE_PRODUCED_RESEARCH_OFFICE"
-nonTangibleGoodNotBeingProduced = "IMPROVEMENT_NONTANGIBLE_NOT_PRODUCED_RESEARCH_OFFICE"
 factionOutputGoods = {
 ExtResource("1_j5ps1"): 0
 }

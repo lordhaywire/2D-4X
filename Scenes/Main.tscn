@@ -1946,9 +1946,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("37_rkirm")
-possibleImprovementsScrollContainerParent = NodePath("Buildings MarginContainer/Buildings PanelContainer/MarginContainer/HBoxContainer/Possible Building ScrollContainer/Possible Buildings VBoxContainer3")
-currentImprovementsScrollContainerParent = NodePath("Buildings MarginContainer/Buildings PanelContainer/MarginContainer/HBoxContainer/Current Building ScrollContainer/Current Buildings VBoxContainer")
-buildConfirmationDialog = NodePath("Buildings MarginContainer/Buildings PanelContainer/MarginContainer/Build ConfirmationDialog")
+possibleImprovementsScrollContainerParent = NodePath("County Improvements MarginContainer/County Improvements PanelContainer/MarginContainer/HBoxContainer/Possible Improvement Title VBoxContainer/Possible Building ScrollContainer/Possible Buildings VBoxContainer")
+currentImprovementsScrollContainerParent = NodePath("County Improvements MarginContainer/County Improvements PanelContainer/MarginContainer/HBoxContainer/Current Improvement Title VBoxContainer/Current Building ScrollContainer/Current Buildings VBoxContainer")
+buildConfirmationDialog = NodePath("County Improvements MarginContainer/County Improvements PanelContainer/MarginContainer/Build ConfirmationDialog")
 countyImprovementPanelContainerPackedScene = ExtResource("119_kkhw7")
 
 [node name="Background ColorRect" type="ColorRect" parent="Player UI Canvas/County Improvements Control"]
@@ -1959,7 +1959,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Buildings MarginContainer" type="MarginContainer" parent="Player UI Canvas/County Improvements Control"]
+[node name="County Improvements MarginContainer" type="MarginContainer" parent="Player UI Canvas/County Improvements Control"]
 custom_minimum_size = Vector2(1719, 1080)
 layout_mode = 1
 anchors_preset = 15
@@ -1968,58 +1968,68 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Buildings PanelContainer" type="PanelContainer" parent="Player UI Canvas/County Improvements Control/Buildings MarginContainer"]
+[node name="County Improvements PanelContainer" type="PanelContainer" parent="Player UI Canvas/County Improvements Control/County Improvements MarginContainer"]
 layout_mode = 2
 
-[node name="Title Label" type="Label" parent="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer"]
+[node name="County Improvement Title Label" type="Label" parent="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/County Improvements PanelContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 24
-text = "Buildings"
+text = "PHRASE_COUNTY_IMPROVEMENTS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/County Improvements PanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 35
 theme_override_constants/margin_bottom = 51
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/County Improvements PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Current Building ScrollContainer" type="ScrollContainer" parent="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer/MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Current Buildings VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer/MarginContainer/HBoxContainer/Current Building ScrollContainer"]
+[node name="Current Improvement Title VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/County Improvements PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Title Current Improvement Label" type="Label" parent="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer/MarginContainer/HBoxContainer/Current Building ScrollContainer/Current Buildings VBoxContainer"]
+[node name="Title Current Improvement Label" type="Label" parent="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/County Improvements PanelContainer/MarginContainer/HBoxContainer/Current Improvement Title VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
-text = "Current Improvement"
+text = "PHRASE_COUNTY_IMPROVEMENT"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Possible Building ScrollContainer" type="ScrollContainer" parent="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer/MarginContainer/HBoxContainer"]
+[node name="Current Building ScrollContainer" type="ScrollContainer" parent="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/County Improvements PanelContainer/MarginContainer/HBoxContainer/Current Improvement Title VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Current Buildings VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/County Improvements PanelContainer/MarginContainer/HBoxContainer/Current Improvement Title VBoxContainer/Current Building ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Possible Buildings VBoxContainer3" type="VBoxContainer" parent="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer/MarginContainer/HBoxContainer/Possible Building ScrollContainer"]
+[node name="Possible Improvement Title VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/County Improvements PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Title Possible Improvement Label" type="Label" parent="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer/MarginContainer/HBoxContainer/Possible Building ScrollContainer/Possible Buildings VBoxContainer3"]
+[node name="Title Possible Improvement Label" type="Label" parent="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/County Improvements PanelContainer/MarginContainer/HBoxContainer/Possible Improvement Title VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "PHRASE_POSSIBLE_IMPROVEMENTS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Build ConfirmationDialog" type="ConfirmationDialog" parent="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer/MarginContainer"]
+[node name="Possible Building ScrollContainer" type="ScrollContainer" parent="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/County Improvements PanelContainer/MarginContainer/HBoxContainer/Possible Improvement Title VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Possible Buildings VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/County Improvements PanelContainer/MarginContainer/HBoxContainer/Possible Improvement Title VBoxContainer/Possible Building ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Build ConfirmationDialog" type="ConfirmationDialog" parent="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/County Improvements PanelContainer/MarginContainer"]
 initial_position = 2
 size = Vector2i(400, 100)
 ok_button_text = "Yes"
@@ -2027,12 +2037,12 @@ dialog_text = "gfhfdfhgfdhgfgh"
 cancel_button_text = "No"
 script = ExtResource("39_atdu5")
 
-[node name="Close Button" type="Button" parent="Player UI Canvas/County Improvements Control/Buildings MarginContainer"]
+[node name="Close Button" type="Button" parent="Player UI Canvas/County Improvements Control/County Improvements MarginContainer"]
 custom_minimum_size = Vector2(75, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
-text = "Close"
+text = "WORD_CLOSE"
 
 [node name="Research Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("assignedResearchersTitleLabel", "tierOneResearchItemParent", "tierTwoResearchItemParent", "tierThreeResearchItemParent", "assignedResearchersParent")]
 visible = false
@@ -2557,10 +2567,10 @@ process_mode = 3
 [connection signal="button_up" from="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer/HBoxContainer/No Button" to="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer" method="NoButton"]
 [connection signal="button_up" from="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer/HBoxContainer/Yes Button" to="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer" method="YesButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/County Improvements Control" to="Player UI Canvas/County Improvements Control" method="OnCountyImprovementControlVisibilityChanged"]
-[connection signal="visibility_changed" from="Player UI Canvas/County Improvements Control/Buildings MarginContainer" to="Player UI Canvas/County Improvements Control/Buildings MarginContainer" method="OnVisibilityChange"]
-[connection signal="confirmed" from="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer/MarginContainer/Build ConfirmationDialog" to="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer/MarginContainer/Build ConfirmationDialog" method="YesButton"]
-[connection signal="visibility_changed" from="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer/MarginContainer/Build ConfirmationDialog" to="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Buildings PanelContainer/MarginContainer/Build ConfirmationDialog" method="OnBuildingConfirmationDialogVisibilityChanged"]
-[connection signal="button_up" from="Player UI Canvas/County Improvements Control/Buildings MarginContainer/Close Button" to="Player UI Canvas/County Improvements Control" method="CloseButton"]
+[connection signal="visibility_changed" from="Player UI Canvas/County Improvements Control/County Improvements MarginContainer" to="Player UI Canvas/County Improvements Control/County Improvements MarginContainer" method="OnVisibilityChange"]
+[connection signal="confirmed" from="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/County Improvements PanelContainer/MarginContainer/Build ConfirmationDialog" to="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/County Improvements PanelContainer/MarginContainer/Build ConfirmationDialog" method="YesButton"]
+[connection signal="visibility_changed" from="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/County Improvements PanelContainer/MarginContainer/Build ConfirmationDialog" to="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/County Improvements PanelContainer/MarginContainer/Build ConfirmationDialog" method="OnBuildingConfirmationDialogVisibilityChanged"]
+[connection signal="button_up" from="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/Close Button" to="Player UI Canvas/County Improvements Control" method="CloseButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Research Control" to="Player UI Canvas/Research Control" method="OnVisibilityChange"]
 [connection signal="button_up" from="Player UI Canvas/Research Control/Close Button" to="Player UI Canvas/Research Control" method="CloseButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Research Description PanelContainer" to="Player UI Canvas/Research Description PanelContainer" method="OnResearchDescriptionPanelVisibilityChanged"]

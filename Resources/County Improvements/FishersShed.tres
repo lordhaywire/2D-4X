@@ -36,8 +36,6 @@ maxWorkers = 5
 adjustedMaxWorkers = 0
 countyResourceType = 2
 factionResourceType = 3
-nonTangibleGoodProduced = ""
-nonTangibleGoodNotBeingProduced = ""
 factionOutputGoods = {
 ExtResource("4_8wsk1"): 5
 }
@@ -45,6 +43,7 @@ countyOutputGoods = {
 ExtResource("1_132qd"): 6,
 ExtResource("1_1yts0"): 5
 }
+testCountyResourceList = Array[Object]([ExtResource("1_cehl8")])
 dailyResourceGenerationAmount = 10
 dailyResourceGenerationBonus = 5
 factionInputGoods = {

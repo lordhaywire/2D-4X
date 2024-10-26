@@ -83,7 +83,7 @@ public class PopulationAI
                     break;
                 case AllEnums.Activities.Work:
                     // Produce resources based on the countyimprovement
-                    Banker.Work(countyData, countyPopulation);
+                    Banker.WorkPerPerson(countyData, countyPopulation);
 
                     // Check for Skill Learning.
                     SkillData.CheckLearning(countyPopulation

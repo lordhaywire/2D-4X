@@ -10,4 +10,5 @@ countyResourceType = 7
 factionResourceType = 3
 perishable = true
 failureRate = 0
+workCost = 2
 remnantSubstitutable = false

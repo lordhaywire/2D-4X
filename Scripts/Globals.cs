@@ -96,6 +96,8 @@ public partial class Globals : Node
     [Export] public int dailyScavengedAmountBonus = 1;
     [Export] public int dailyConstructionAmount = 5;
     [Export] public int dailyConstructionAmountBonus = 2;
+    [Export] public int dailyWorkAmount = 10;
+    [Export] public int dailyWorkAmountBonus = 5;
     [Export] public int foodToGainHappiness = 3;
     [Export] public int foodToGainNothing = 2;
     [Export] public int foodToLoseHappiness = 1;

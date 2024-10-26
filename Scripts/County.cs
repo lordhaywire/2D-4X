@@ -57,6 +57,8 @@ public partial class County : Node2D
 
         // Generates resources through work, scavenging, building, and research.
         PopulationAI.WorkDayOverForPopulation(countyData);
+        Banker.CalculateWorkToGoods(countyData);
+
 
         PopulationAI.IsThereEnoughFood(countyData); // This is a terrible name for this method.
 
