@@ -125,7 +125,7 @@ public partial class CountyGeneration : Node
         foreach (County selectCounty in Globals.Instance.countiesParent.GetChildren().Cast<County>())
         {
             selectCounty.countyData.factionData.countiesFactionOwns.Add(selectCounty.countyData);
-            GD.Print($"Faction: {selectCounty.countyData.factionData.factionName} {selectCounty.countyData.countyName}");
+            //GD.Print($"Faction: {selectCounty.countyData.factionData.factionName} {selectCounty.countyData.countyName}");
         }
     }
 

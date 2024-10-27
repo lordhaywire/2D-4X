@@ -43,9 +43,11 @@ countyOutputGoods = {
 ExtResource("1_132qd"): 6,
 ExtResource("1_1yts0"): 5
 }
-testCountyResourceList = Array[Object]([ExtResource("1_cehl8")])
+testCountyResourceList = Array[Object]([])
+dailyWorkAmountCompleted = 0
 dailyResourceGenerationAmount = 10
 dailyResourceGenerationBonus = 5
+workAmountForEachResource = 0
 factionInputGoods = {
 ExtResource("1_t3pyc"): 2
 }

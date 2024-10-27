@@ -44,7 +44,7 @@ namespace MapEditorSpace
             }
             else
             {
-                GD.Print($"{MapEditorGlobals.Instance.pathToCounties} directory is missing.");
+                //GD.Print($"{MapEditorGlobals.Instance.pathToCounties} directory is missing.");
                 LogControl.Instance.UpdateLabel($"{MapEditorGlobals.Instance.pathToCounties} directory is missing.");
             }
         }

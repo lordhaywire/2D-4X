@@ -21,8 +21,8 @@ public class FactionAI
                     if (researchItemData.CheckIfResearchDone() == false)
                     {
                         countyPopulation.currentResearchItemData = researchItemData;
-                        GD.Print($"{factionData.factionName}'s hero, {countyPopulation.firstName}, has been assigned" +
-                            $" {researchItemData.researchName}.");
+                        //GD.Print($"{factionData.factionName}'s hero, {countyPopulation.firstName}, has been assigned" +
+                        //    $" {researchItemData.researchName}.");
                         return;
                     }
                 }

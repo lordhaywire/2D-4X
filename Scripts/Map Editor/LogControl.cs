@@ -15,7 +15,7 @@ namespace MapEditorSpace
 		public void UpdateLabel(string text)
 		{
 			centerLogLabel.Text = text;
-            GD.Print(text);
+            //GD.Print(text);
         }
     }
 }

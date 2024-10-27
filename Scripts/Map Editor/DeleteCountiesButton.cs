@@ -33,7 +33,7 @@ namespace MapEditorSpace
                 string[] directoryArray = countiesDirectory.GetFiles();
                 foreach(string file in directoryArray)
                 {
-                    GD.Print("Before Deleted Files: " + file);
+                    //GD.Print("Before Deleted Files: " + file);
                 }
                 if (directoryArray.Length > 0)
                 {
@@ -48,7 +48,7 @@ namespace MapEditorSpace
                     directoryArray = countiesDirectory.GetFiles();
                     foreach (string file in directoryArray)
                     {
-                        GD.Print("After Deleted Files: " + file);
+                        //GD.Print("After Deleted Files: " + file);
                     }
                 }
                 else

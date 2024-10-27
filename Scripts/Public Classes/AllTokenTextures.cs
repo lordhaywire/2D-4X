@@ -21,7 +21,7 @@ namespace PlayerSpace
 
         public void AssignTokenTextures(SelectToken token)
         {
-            GD.Print("Assign Token Textures: " + token.countyPopulation.firstName + token.countyPopulation.IsArmyLeader);
+            //GD.Print("Assign Token Textures: " + token.countyPopulation.firstName + token.countyPopulation.IsArmyLeader);
             if (token.countyPopulation.IsArmyLeader == false)
             {
                 token.selectedTexture = selectedHeroTexture;

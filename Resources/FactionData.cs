@@ -58,7 +58,7 @@ namespace PlayerSpace
 
         public static FactionData GetFactionDataFromID(int id)
         {
-            GD.Print("Faction ID that is trying to be used: " + id);
+            //GD.Print("Faction ID that is trying to be used: " + id);
             Faction faction = (Faction)Globals.Instance.factionsParent.GetChild(id);
             return faction.factionData;
         }
@@ -104,7 +104,7 @@ namespace PlayerSpace
                 if (countyPopulation.currentCountyImprovement?.interest == researchItemData.interest)
                 {
                     whatPopulationIsResearching = researchItemData;
-                    GD.Print($"{countyPopulation.firstName} {countyPopulation.interest.name} is having them research {researchItemData.researchName}");
+                    //GD.Print($"{countyPopulation.firstName} {countyPopulation.interest.name} is having them research {researchItemData.researchName}");
                     break;
                 }
             }
@@ -125,7 +125,7 @@ namespace PlayerSpace
                 if (countyPopulation.interest.interestType == researchItemData.interest.interestType)
                 {
                     whatPopulationIsResearching = researchItemData;
-                    GD.Print($"{countyPopulation.firstName} {countyPopulation.interest.name} is having them research {researchItemData.researchName}");
+                    //GD.Print($"{countyPopulation.firstName} {countyPopulation.interest.name} is having them research {researchItemData.researchName}");
                     break;
                 }
             }
@@ -152,14 +152,14 @@ namespace PlayerSpace
             }
             if (isPlayer)
             {
-                GD.Print("Yesterday's Influence: " + yesterdaysFactionResources[AllEnums.FactionResourceType.Influence].amount);
-                GD.Print("This Influence should be the same as yesterdays: " + factionResources[AllEnums.FactionResourceType.Influence].amount);
+                //GD.Print("Yesterday's Influence: " + yesterdaysFactionResources[AllEnums.FactionResourceType.Influence].amount);
+                //GD.Print("This Influence should be the same as yesterdays: " + factionResources[AllEnums.FactionResourceType.Influence].amount);
             }
         }
         public void AddCountyImprovementToAllCountyImprovements(CountyImprovementData countyImprovementData)
         {
             allCountyImprovements.Add(CountyImprovementData.NewCopy(countyImprovementData));
-            GD.PrintRich($"[rainbow][tornado]{factionName} {countyImprovementData.improvementName} has been added.");
+            //GD.PrintRich($"[rainbow][tornado]{factionName} {countyImprovementData.improvementName} has been added.");
             // Alphabetize the list by improvementName
             allCountyImprovements
                 = [.. allCountyImprovements.OrderBy(improvement => Tr(improvement.improvementName))];
@@ -226,7 +226,7 @@ namespace PlayerSpace
             }
             if (isPlayer)
             {
-                GD.Print("After subtraction yesterdays influence is: " + yesterdaysFactionResources[AllEnums.FactionResourceType.Influence].amount);
+                //GD.Print("After subtraction yesterdays influence is: " + yesterdaysFactionResources[AllEnums.FactionResourceType.Influence].amount);
             }
         }
     }

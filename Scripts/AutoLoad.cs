@@ -11,6 +11,6 @@ public partial class AutoLoad : Node
     public override void _Ready()
     {
         Instance = this;
-        GD.Print("AutoLoad.cs has auto loaded.");
+        //GD.Print("AutoLoad.cs has auto loaded.");
     }
 }

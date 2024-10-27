@@ -43,8 +43,8 @@ namespace MapEditorSpace
                 countyData.countyId = countyID;
                 countyID++;
 
-                GD.Print(countyMapImage.GetFormat());
-                GD.Print("Mask format: " + countyMaskImage.GetFormat());
+                //GD.Print(countyMapImage.GetFormat());
+                //GD.Print("Mask format: " + countyMaskImage.GetFormat());
                 startCountyWidth = mapSize.X;
                 startCountyHeight = mapSize.Y;
 
@@ -106,7 +106,7 @@ namespace MapEditorSpace
 
                 // Crop the top map image after it has been created.                
                 Image croppedCountyMapImage = Image.CreateEmpty(rect2I.Size.X, rect2I.Size.Y, false, Image.Format.Rgba8);
-                GD.Print("Cropped County Map Top Image Size: " + croppedCountyMapImage.GetSize());
+                //GD.Print("Cropped County Map Top Image Size: " + croppedCountyMapImage.GetSize());
 
                 croppedCountyMapImage.BlitRect(countyMapImage, rect2I, Vector2I.Zero);
                 countyData.mapTexture = ImageTexture.CreateFromImage(croppedCountyMapImage);

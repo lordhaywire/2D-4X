@@ -30,7 +30,7 @@ public partial class ResearchItemButton : PanelContainer
         researchIconTextureRect.Texture = researchItemData.researchTexture;
         if (researchItemData.researchPrerequisites.Count > 0)
         {
-            GD.Print($"{researchItemData.researchName} is not null");
+            //GD.Print($"{researchItemData.researchName} is not null");
             UpdatePrerequisites();
         }
         else

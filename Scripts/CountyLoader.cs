@@ -35,8 +35,8 @@ namespace PlayerSpace
                 }
                 else
                 {
-                    GD.PrintRich($"[color=red]No files in {Globals.Instance.pathToCounties}[/color]");
-                    GD.PrintRich($"[color=red]You need to generate the counties in the map editor![/color]");
+                    //GD.PrintRich($"[color=red]No files in {Globals.Instance.pathToCounties}[/color]");
+                    //GD.PrintRich($"[color=red]You need to generate the counties in the map editor![/color]");
                     GetTree().Quit();
                     return;
 
@@ -44,7 +44,7 @@ namespace PlayerSpace
             }
             else
             {
-                GD.Print($"{Globals.Instance.pathToCounties} directory is missing.");
+                //GD.Print($"{Globals.Instance.pathToCounties} directory is missing.");
             }
         }
     }

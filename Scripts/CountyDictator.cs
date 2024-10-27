@@ -14,16 +14,16 @@ namespace PlayerSpace
         public void CaptureCounty(int capturedCountyID, FactionData winnersFactionData)
         {
             County selectCounty = (County)Globals.Instance.countiesParent.GetChild(capturedCountyID);
-            GD.Print("County captured! " + selectCounty.countyData.countyName);
+            //GD.Print("County captured! " + selectCounty.countyData.countyName);
 
             // Remove county from the counties faction data county list.
             selectCounty.countyData.factionData.countiesFactionOwns.Remove(selectCounty.countyData);
 
             // If the faction now has 0 counties it needs to be destroyed.
-            GD.Print($"Faction County Count:" + selectCounty.countyData.factionData.countiesFactionOwns.Count);
+            //GD.Print($"Faction County Count:" + selectCounty.countyData.factionData.countiesFactionOwns.Count);
             if (selectCounty.countyData.factionData.countiesFactionOwns.Count == 0)
             {
-                GD.Print("Capture County before Destroy Faction!");
+                //GD.Print("Capture County before Destroy Faction!");
                 DestroyFaction(selectCounty);
             }
 
@@ -40,7 +40,7 @@ namespace PlayerSpace
 
         private static void DestroyFaction(County selectCounty)
         {
-            GD.Print("All Heroes List Count: " + selectCounty.countyData.factionData.allHeroesList.Count);
+            //GD.Print("All Heroes List Count: " + selectCounty.countyData.factionData.allHeroesList.Count);
             // Remove all of this factions heroes from game.
             FactionCountyPopulationDestroyer(selectCounty.countyData.factionData.allHeroesList);
 
@@ -61,7 +61,7 @@ namespace PlayerSpace
                 countyPopulation.token.spawnedTokenButton.QueueFree();
                 countyPopulation.token.QueueFree();
 
-                GD.PrintRich($"[rainbow]{countyPopulation.firstName}");
+                //GD.PrintRich($"[rainbow]{countyPopulation.firstName}");
                 CountyInfoControl.Instance.GenerateHeroesPanelList();
             }
             allHeroesList.Clear();

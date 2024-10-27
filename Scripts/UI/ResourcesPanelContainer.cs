@@ -174,7 +174,7 @@ namespace PlayerSpace
             foreach (KeyValuePair<AllEnums.CountyResourceType, StorageHbox> keyValuePair in resourceStorageHboxDictionary)
             {
                 UpdateStorageHboxLabels(keyValuePair);
-                GD.Print(resourceStorageHboxDictionary[keyValuePair.Key].resourceData.MaxAmount);
+                //GD.Print(resourceStorageHboxDictionary[keyValuePair.Key].resourceData.MaxAmount);
                 resourceStorageHboxDictionary[keyValuePair.Key].maxAmountSpinBox.MaxValue
                     = resourceStorageHboxDictionary[keyValuePair.Key].resourceData.MaxAmount;
                 resourceStorageHboxDictionary[keyValuePair.Key].maxAmountSpinBox.Value

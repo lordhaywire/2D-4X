@@ -55,7 +55,7 @@ namespace MapEditorSpace
             }
 
             ulong endTime = Time.GetTicksUsec();
-            GD.Print("Total time to generate: " + (endTime - startTime));
+            //GD.Print("Total time to generate: " + (endTime - startTime));
         }
     }
 }

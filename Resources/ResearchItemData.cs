@@ -78,8 +78,8 @@ public partial class ResearchItemData : Resource
     {
         foreach (EnumsResearch.All enumResearch in researchPrerequisites)
         {
-            GD.Print($"{Globals.Instance.playerFactionData.researchItems[(int)enumResearch].researchName} " +
-                $"{Globals.Instance.playerFactionData.researchItems[(int)enumResearch].CheckIfResearchDone()}");
+            //GD.Print($"{Globals.Instance.playerFactionData.researchItems[(int)enumResearch].researchName} " +
+            //    $"{Globals.Instance.playerFactionData.researchItems[(int)enumResearch].CheckIfResearchDone()}");
             if (Globals.Instance.playerFactionData.researchItems[(int)enumResearch].CheckIfResearchDone()
                 == false)
             {

@@ -17,7 +17,7 @@ namespace PlayerSpace
         {
             if (Arrays.colors.Length < Globals.Instance.factionDatas.Count)
             {
-                GD.Print("Not enough color options for all Sprite Renderers!");
+                //GD.Print("Not enough color options for all Sprite Renderers!");
                 return;
             }
 
@@ -29,7 +29,7 @@ namespace PlayerSpace
             {
                 int randomIndex = random.Next(0, availableColors.Count);
                 factionData.factionColor = availableColors[randomIndex];
-                GD.Print("Faction Data attempting to get color: " + factionData.factionName + factionData.factionColor);
+                //GD.Print("Faction Data attempting to get color: " + factionData.factionName + factionData.factionColor);
                 availableColors.RemoveAt(randomIndex);
             }
         }

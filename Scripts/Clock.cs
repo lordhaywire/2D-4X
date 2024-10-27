@@ -32,13 +32,13 @@ public partial class Clock : Node
         set
         {
             numberOfThingsPausing = value;
-            GD.Print("Number of things paused: " + numberOfThingsPausing);
+            //GD.Print("Number of things paused: " + numberOfThingsPausing);
         }
     }
 
     public void PauseTime()
     {
-        GD.Print("Pause Time!");
+        //GD.Print("Pause Time!");
 
         if (ModifiedTimeScale > 0)
         {
@@ -50,7 +50,7 @@ public partial class Clock : Node
 
     public void UnpauseTime()
     {
-        GD.Print("Unpause Time!");
+        //GD.Print("Unpause Time!");
         NumberOfThingsPausing--;
         if (NumberOfThingsPausing == 0)
         {
@@ -151,7 +151,7 @@ public partial class Clock : Node
     }
     public void PauseandUnpause()
     {
-        GD.Print("Keyboard has been pressed!");
+        //GD.Print("Keyboard has been pressed!");
         if (ModifiedTimeScale > 0)
         {
             NumberOfThingsPausing++;
@@ -163,7 +163,7 @@ public partial class Clock : Node
             (ModifiedTimeScale, oldTimeSpeed) = (oldTimeSpeed, ModifiedTimeScale);
             NumberOfThingsPausing--;
         }
-        GD.Print($"Modified Time: {ModifiedTimeScale} and Old Time Speed: {oldTimeSpeed}.");
+        //GD.Print($"Modified Time: {ModifiedTimeScale} and Old Time Speed: {oldTimeSpeed}.");
     }
 
     public void ChangeSpeed(int speed)

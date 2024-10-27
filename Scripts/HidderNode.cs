@@ -9,7 +9,7 @@ namespace PlayerSpace
         [Export] Control[] nodesToHide;
         public override void _Ready()
         {
-            GD.Print("Hidder Node!");
+            //GD.Print("Hidder Node!");
             foreach(Control control in nodesToHide)
             {
                 control.Hide();

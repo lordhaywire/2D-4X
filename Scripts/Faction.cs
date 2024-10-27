@@ -45,8 +45,8 @@ namespace PlayerSpace
             // This is just for testing.
             foreach (ResearchItemData researchItemData in factionData.researchItems)
             {
-                GD.Print($"{factionData.factionName} research in " +
-                    $"{researchItemData.researchName}: {researchItemData.AmountOfResearchDone}");
+                //GD.Print($"{factionData.factionName} research in " +
+                //    $"{researchItemData.researchName}: {researchItemData.AmountOfResearchDone}");
             }
         }
 

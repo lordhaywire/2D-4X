@@ -39,7 +39,7 @@ public class CountyAI
             }
             else
             {
-                GD.Print("No suitable food building found.");
+                //GD.Print("No suitable food building found.");
             }
         }
         else

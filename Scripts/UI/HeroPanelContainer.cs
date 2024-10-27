@@ -32,7 +32,7 @@ namespace PlayerSpace
                 // Assign to Currently Selected Hero so it is ready to be moved.
                 Globals.Instance.SelectedCountyPopulation
                 = Globals.Instance.playerFactionData.tokenSpawner.Spawn(Globals.Instance.SelectedLeftClickCounty, countyPopulation);
-                GD.Print("Spawn Hero Check Box " + Globals.Instance.SelectedCountyPopulation.firstName);
+                //GD.Print("Spawn Hero Check Box " + Globals.Instance.SelectedCountyPopulation.firstName);
             }
         }
 

@@ -30,8 +30,11 @@ factionOutputGoods = {}
 countyOutputGoods = {
 ExtResource("1_hyknw"): 500
 }
+testCountyResourceList = null
+dailyWorkAmountCompleted = 0
 dailyResourceGenerationAmount = 0
 dailyResourceGenerationBonus = 0
+workAmountForEachResource = 0
 factionInputGoods = {}
 countyInputGoods = {}
 status = 0

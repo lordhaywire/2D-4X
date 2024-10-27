@@ -64,7 +64,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
 
     private void UpdateConstructionStatus()
     {
-        GD.Print($"County Improvement Data: " + countyImprovementData);
+        //GD.Print($"County Improvement Data: " + countyImprovementData);
         HideEverything();
         switch (countyImprovementData.status)
         {
@@ -349,7 +349,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     private void PrioritizeCheckbox()
     {
         countyImprovementData.prioritize = !countyImprovementData.prioritize;
-        GD.Print("Prioritized? " + countyImprovementData.prioritize);
+        //GD.Print("Prioritized? " + countyImprovementData.prioritize);
     }
     public void UpdateImprovementLabels()
     {
@@ -400,7 +400,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     */
     private void UpdateInformationLabels()
     {
-        GD.Print("Number of people working at county improvement: " + countyImprovementData.populationAtImprovement.Count);
+        //GD.Print("Number of people working at county improvement: " + countyImprovementData.populationAtImprovement.Count);
         improvementTextureRect.Texture = countyImprovementData.improvementTexture;
         improvementNameLabel.Text = countyImprovementData.GetCountyImprovementName();
         improvementDescriptionLabel.Text = countyImprovementData.improvementDescription;
@@ -457,7 +457,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
 
     private void ConstructButtonPressed()
     {
-        GD.Print("You have pressed the county improvement button.");
+        //GD.Print("You have pressed the county improvement button.");
         CountyImprovementsControl.Instance.buildConfirmationDialog.Visible = true;
         Globals.Instance.selectedPossibleBuildingControl = this;
     }

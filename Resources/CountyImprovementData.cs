@@ -58,18 +58,16 @@ namespace PlayerSpace
         //[Export] public string nonTangibleGoodNotBeingProduced;
         [ExportGroup("Outputs")]
         [Export] public Godot.Collections.Dictionary<FactionResourceData, int> factionOutputGoods = [];
+        // Resource and work amount cost.
         [Export] public Godot.Collections.Dictionary<CountyResourceData, int> countyOutputGoods = [];
         [Export] public Godot.Collections.Array<CountyResourceData> testCountyResourceList;
         [Export] public int dailyWorkAmountCompleted;
 
-
-
-
         [Export] public int dailyResourceGenerationAmount; // I am pretty sure these are done.
         [Export] public int dailyResourceGenerationBonus; // I am pretty sure these are done.
-        [Export] public int workAmount;
+        //[Export] public int workAmount;
         [Export] public int workAmountForEachResource;
-        [Export] public int numberOfGoodsGenerated;
+        //[Export] public int numberOfGoodsGenerated;
 
         // All input goods that are need to create the finished good.
         // For some reason this one needs to be initialized, but the faction and county construction costs don't.
@@ -110,7 +108,6 @@ namespace PlayerSpace
             AllEnums.Skills skill;
             if (constructing)
             {
-
                 skill = AllEnums.Skills.Construction;
             }
             else
@@ -127,7 +124,7 @@ namespace PlayerSpace
 
         public bool CheckIfStorageImprovement()
         {
-            if(countyResourceType == AllEnums.CountyResourceType.StorageNonperishable
+            if (countyResourceType == AllEnums.CountyResourceType.StorageNonperishable
                 || countyResourceType == AllEnums.CountyResourceType.StoragePerishable)
             {
                 return true;
@@ -156,7 +153,7 @@ namespace PlayerSpace
         }
         public void AddPopulationToCountyImprovementList(CountyPopulation countyPopulation)
         {
-            GD.Print($"{countyPopulation.firstName} was added to {improvementName}'s list {populationAtImprovement.Count}.");
+            // GD.Print($"{countyPopulation.firstName} was added to {improvementName}'s list {populationAtImprovement.Count}.");
             populationAtImprovement.Add(countyPopulation);
         }
 
@@ -208,6 +205,9 @@ namespace PlayerSpace
                 interest = countyImprovementData.interest,
                 factionOutputGoods = countyImprovementData.factionOutputGoods,
                 countyOutputGoods = countyImprovementData.countyOutputGoods,
+                testCountyResourceList = countyImprovementData.testCountyResourceList, // Is this actually duplicating?
+                dailyWorkAmountCompleted = countyImprovementData.dailyWorkAmountCompleted,
+                workAmountForEachResource = countyImprovementData.workAmountForEachResource,
                 factionResourceConstructionCost = countyImprovementData.factionResourceConstructionCost,
                 countyResourceConstructionCost = countyImprovementData.countyResourceConstructionCost,
                 currentAmountOfCounstruction = countyImprovementData.currentAmountOfCounstruction,

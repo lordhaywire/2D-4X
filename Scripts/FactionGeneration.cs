@@ -25,12 +25,12 @@ namespace PlayerSpace
             if (directory.DirExists("res://Resources/Factions/")) //(factionDataPath))
             {
                 directory = DirAccess.Open("res://Resources/Factions/");
-                GD.Print("Faction Resource Directory Found.");
+                //GD.Print("Faction Resource Directory Found.");
                 directory.ListDirBegin();
                 string[] fileNames = directory.GetFiles();
                 for (int i = 0; i < fileNames.Length; i++)
                 {
-                    GD.Print("Files in Faction Resources: " + fileNames[i]);
+                    //GD.Print("Files in Faction Resources: " + fileNames[i]);
                     FactionData newFactionData
                         = (FactionData)ResourceLoader.Load<FactionData>(factionDataPath + fileNames[i]).Duplicate();
                     Globals.Instance.factionDatas.Add(newFactionData); // We should probably get rid of this.  We already
@@ -41,7 +41,7 @@ namespace PlayerSpace
                     {
                         Globals.Instance.playerFactionData = newFactionData;
                     }
-                    GD.Print($"{newFactionData.factionName} has been loaded from disk.");
+                    //GD.Print($"{newFactionData.factionName} has been loaded from disk.");
                     // The order is important.
                     CreateFactionNode(newFactionData); 
                     AddStartingResearch(newFactionData);
@@ -60,7 +60,7 @@ namespace PlayerSpace
             }
             else
             {
-                GD.Print("You are so fucked.  This directory doesn't exist: " + factionDataPath);
+                //GD.Print("You are so fucked.  This directory doesn't exist: " + factionDataPath);
             }
         }
 
@@ -96,7 +96,7 @@ namespace PlayerSpace
         {
             foreach (FactionResourceData factionResourceDatas in AllFactionResources.Instance.factionResourceDatas)
             {
-                GD.Print($"{factionResourceDatas.name} has been added to {factionData.factionName}");
+                //GD.Print($"{factionResourceDatas.name} has been added to {factionData.factionName}");
                 factionData.factionResources.Add(factionResourceDatas.resourceType, (FactionResourceData)factionResourceDatas.Duplicate());
                 factionData.yesterdaysFactionResources.Add(factionResourceDatas.resourceType, (FactionResourceData)factionResourceDatas.Duplicate());
                 factionData.amountUsedFactionResources.Add(factionResourceDatas.resourceType, (FactionResourceData)factionResourceDatas.Duplicate());

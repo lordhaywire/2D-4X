@@ -8,7 +8,7 @@ namespace PlayerSpace
     public class Banker
     {
         /// <summary>
-        /// Shouldn't check learning be in here?
+        /// Shouldn't check learning be in GenerateWorkAmoutWithSkillCheck?
         /// This generates the work amount per person which is divide by the number of resources the 
         /// county improvement produces and then subtracts the divided amount from the work cost of each 
         /// resource. If the result is negative it does it again until it is positive or zero.
@@ -16,16 +16,22 @@ namespace PlayerSpace
         /// </summary>
         /// <param name="countyData"></param>
         /// <param name="countyPopulation"></param>
-        public static void WorkPerPerson(CountyData countyData, CountyPopulation countyPopulation)
+        public static void ApplyWorkPerPerson(CountyData countyData, CountyPopulation countyPopulation)
         {
+            if (countyPopulation.currentCountyImprovement == null)
+            {
+                return;
+            }
+            //GD.Print($"Someone is working at {countyPopulation.currentCountyImprovement.improvementName}");
             countyPopulation.currentCountyImprovement.dailyWorkAmountCompleted += GenerateWorkAmountWithSkillCheck(countyPopulation);
         }
-            /*
-            if (countyData.factionData.isPlayer == true)
-            {
-                GD.PrintRich($"[color=green]{countyPopulation.firstName} is working at {countyPopulation.currentCountyImprovement.improvementName}[/color]");
-            }
-            */
+
+        /*
+        if (countyData.factionData.isPlayer == true)
+        {
+            GD.PrintRich($"[color=green]{countyPopulation.firstName} is working at {countyPopulation.currentCountyImprovement.improvementName}[/color]");
+        }
+        */
             // All work generated is applied to all resources.
             // Get the work amount and the number of resources.
             /*
@@ -52,9 +58,9 @@ namespace PlayerSpace
                 countyPopulation.currentCountyImprovement.workAmount = workAmountForEachResource - countyResourceData.workCost;
             }
             */
-        
 
-        // This includes the armies in the county, but it only works while the army is one person.
+
+            // This includes the armies in the county, but it only works while the army is one person.
         public static int CountEveryoneInCounty(CountyData countyData)
         {
             int numberOfPeople = countyData.countyPopulationList.Count()
@@ -118,11 +124,6 @@ namespace PlayerSpace
 
         }
 
-        private static void SubtractWorkAmountFromResource()
-        {
-            throw new NotImplementedException();
-        }
-
         public static int GenerateScavengedResourceWithSkillCheck(CountyPopulation countyPopulation)
         {
             int skillLevel = countyPopulation.skills[AllEnums.Skills.Scavenge].skillLevel;
@@ -159,7 +160,7 @@ namespace PlayerSpace
 
         public void AddStoryEventCountyResource(StoryEventData storyEventData)
         {
-            //GD.Print($"Faction: {storyEventData.eventCounty.countyData.factionData.factionName} is adding " +
+            //// GD.Print($"Faction: {storyEventData.eventCounty.countyData.factionData.factionName} is adding " +
             //   $"{storyEventData.resourceAmount} {storyEventData.resource.name}");
             if (storyEventData.resource.perishable)
             {
@@ -178,12 +179,12 @@ namespace PlayerSpace
                     if (keyValuePair.Key.countyResourceType == AllEnums.CountyResourceType.StorageNonperishable)
                     {
                         countyData.nonperishableStorage += keyValuePair.Value;
-                        GD.Print($"{countyData.countyName} now has {countyData.nonperishableStorage} nonperishable storage.");
+                        // GD.Print($"{countyData.countyName} now has {countyData.nonperishableStorage} nonperishable storage.");
                     }
                     else
                     {
                         countyData.perishableStorage += keyValuePair.Value;
-                        GD.Print($"{countyData.countyName} now has {countyData.perishableStorage} perishable storage.");
+                        // GD.Print($"{countyData.countyName} now has {countyData.perishableStorage} perishable storage.");
                     }
                 }
             }
@@ -277,7 +278,6 @@ namespace PlayerSpace
             }
         }
 
-
         private static void StopHeroResearcherFromResearching(CountyPopulation countyPopulation)
         {
             countyPopulation.RemoveFromResearch();
@@ -299,12 +299,12 @@ namespace PlayerSpace
             int researchAmount = Globals.Instance.researcherResearchIncrease + bonusResearchIncrease;
             EventLog.Instance.AddLog($"{countyPopulation.firstName} - " +
                 $"{TranslationServer.Translate(countyPopulation.currentResearchItemData.researchName)}: {researchAmount}");
-            //GD.Print($"Amount of research {countyPopulation.firstName} did: {researchAmount}");
+            //// GD.Print($"Amount of research {countyPopulation.firstName} did: {researchAmount}");
             // This will trigger the getter setting and mark the research as complete if the Amount is
             // higher or equal to the cost.
             countyPopulation.currentResearchItemData.AmountOfResearchDone
                 += researchAmount;
-            //GD.Print($"Amount of Research Done: {countyPopulation.CurrentResearchItemData.AmountOfResearchDone}");
+            //// GD.Print($"Amount of Research Done: {countyPopulation.CurrentResearchItemData.AmountOfResearchDone}");
         }
 
         public static void AddResourceToCounty(CountyData countyData, AllEnums.CountyResourceType countyResourceType, int amount)
@@ -316,7 +316,7 @@ namespace PlayerSpace
 
         public static void ChargeForHero(FactionData factionData)
         {
-            //GD.Print("Player Influence: " + Globals.Instance.playerFactionData.Influence);
+            //// GD.Print("Player Influence: " + Globals.Instance.playerFactionData.Influence);
             factionData.factionResources[AllEnums.FactionResourceType.Influence].amount
                 -= Globals.Instance.costOfHero;
         }
@@ -324,11 +324,11 @@ namespace PlayerSpace
         public bool CheckBuildingCost(FactionData factionData, CountyData countyData
             , CountyImprovementData countyImprovementData)
         {
-            GD.Print("Checking Building Cost...");
+            // GD.Print("Checking Building Cost...");
             // This is here so the county improvement can be shown in the Research pannel.
             if (countyData == null)
             {
-                GD.Print("County Data is null so Check Building Cost is skipped.");
+                // GD.Print("County Data is null so Check Building Cost is skipped.");
                 return false;
             }
             if (countyImprovementData.factionResourceConstructionCost != null)
@@ -367,9 +367,10 @@ namespace PlayerSpace
                 {
                     FactionResourceData factionResourceData = keyValuePair.Key;
                     factionData.factionResources[factionResourceData.resourceType].amount -= keyValuePair.Value;
-                    GD.Print($"{countyImprovementData.improvementName} costs " +
+                    /* GD.Print($"{countyImprovementData.improvementName} costs " +
                         $"{countyImprovementData.factionResourceConstructionCost[keyValuePair.Key]} and" +
                     $" was charged to {factionData.factionName} those cost was : {factionData.factionResources[factionResourceData.resourceType].name} {keyValuePair.Value}");
+                    */
                 }
             }
 
@@ -380,18 +381,57 @@ namespace PlayerSpace
                 {
                     AllEnums.CountyResourceType resourceType = keyValuePair.Key.countyResourceType;
                     countyData.countyResources[resourceType].Amount -= keyValuePair.Value;
-                    GD.Print($"{countyImprovementData.improvementName} costs " +
+                    /* GD.Print($"{countyImprovementData.improvementName} costs " +
                         $"{countyImprovementData.countyResourceConstructionCost[keyValuePair.Key]} and" +
                     $" was charged to {countyData.countyName} those cost was : {countyData.countyResources[resourceType].name} {keyValuePair.Value}");
+                    */
                 }
             }
         }
 
-        internal static void CalculateWorkToGoods(CountyData countyData)
+        internal static void CalculateWorkToGoodsProduction(CountyData countyData)
         {
             // This should go through the list of completed county improvements and do the math
             // to generate the goods they generate.
-            throw new NotImplementedException();
+            foreach (CountyImprovementData countyImprovementData in countyData.completedCountyImprovements)
+            {
+                GD.Print($"Improvement Test County Resource List Count: {countyImprovementData.improvementName} {countyImprovementData.testCountyResourceList?.Count}");
+                if (countyImprovementData.testCountyResourceList?.Count > 0 
+                    && countyImprovementData.maxWorkers > 0)
+                {
+                    // Divide the number of goods the improvement generates by the work amount.
+                    // Ignore the remainder.
+                    
+                    countyImprovementData.workAmountForEachResource = countyImprovementData.dailyWorkAmountCompleted
+                        / countyImprovementData.testCountyResourceList.Count;
+                    GD.Print($"Work Amount For Each Resource: {countyImprovementData.workAmountForEachResource}");
+                    foreach (CountyResourceData countyResourceData in countyImprovementData.testCountyResourceList)
+                    {
+                        if(countyImprovementData.workAmountForEachResource == 0)
+                        {
+                            GD.Print("Work Amount For Each Resource is ZERO!");
+                            return;
+                        }
+                        // If the work amount is less then the work cost, no good is produced.
+                        // This is how we will get our progress bar amount via the Work Amount Left Over.
+                        GD.Print($"{countyImprovementData.improvementName} {countyResourceData.name} work cost: {countyResourceData.workCost}");
+                        if (countyImprovementData.workAmountForEachResource < countyResourceData.workCost)
+                        {
+                            countyResourceData.todaysAmountGenerated = 0;
+                            countyResourceData.workAmountLeftOver += countyImprovementData.workAmountForEachResource;
+                        }
+                        else
+                        {
+                            // Calculate the number of items built.
+                            countyResourceData.todaysAmountGenerated = countyImprovementData.workAmountForEachResource / countyResourceData.workCost;
+
+                            // Calculate the leftover work
+                            countyResourceData.workAmountLeftOver = countyImprovementData.workAmountForEachResource % countyResourceData.workCost;
+                        }
+                        GD.Print($"{countyData.countyName} {countyImprovementData.improvementName} generated today: {countyResourceData.todaysAmountGenerated}");
+                    }
+                }
+            }
         }
     }
 }

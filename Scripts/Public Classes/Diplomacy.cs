@@ -9,7 +9,7 @@ namespace PlayerSpace
     {
         public void DeclareWar(War war)
         {
-            GD.Print($"{war.aggressorFactionData.factionName} has declared war on {war.defenderFactionData.factionName}.");
+            //GD.Print($"{war.aggressorFactionData.factionName} has declared war on {war.defenderFactionData.factionName}.");
             EventLog.Instance.AddLog($"{war.aggressorFactionData.factionName} {TranslationServer.Translate("PHRASE_HAS_DECLARED_WAR")} {war.defenderFactionData.factionName}.");
             Globals.Instance.selectedRightClickCounty.countyData
                 .factionData.diplomacy.RespondToDeclarationOfWar(war);
@@ -26,7 +26,7 @@ namespace PlayerSpace
 
         public void RespondToDeclarationOfWar(War war)
         {
-            GD.Print($"{war.defenderFactionData.factionName} is responding to the declaration of war.");
+            //GD.Print($"{war.defenderFactionData.factionName} is responding to the declaration of war.");
 
             war.aggressorFactionData.factionWarDictionary[war.defenderFactionData.factionName] = true;
             war.defenderFactionData.factionWarDictionary[war.aggressorFactionData.factionName] = true;
@@ -45,7 +45,7 @@ namespace PlayerSpace
             }
             else
             {
-                GD.Print("Defender Spawn Armies - Defender Hero is null");
+                //GD.Print("Defender Spawn Armies - Defender Hero is null");
             }
         }
 
@@ -87,7 +87,7 @@ namespace PlayerSpace
                         else
                         {
                             // This is wrong.  We need to make it check then rest of the population if there are no loyal heroes.
-                            GD.Print("No loyal heroes in county for defense.");
+                            //GD.Print("No loyal heroes in county for defense.");
                             return null;
                         }
                     }
@@ -116,8 +116,8 @@ namespace PlayerSpace
                             => countyPopulation.skills[AllEnums.Skills.Rifle].skillLevel)];
                         foreach (CountyPopulation countyPopulation in possibleDefenders)
                         {
-                            GD.Print($"{countyPopulation.firstName} {countyPopulation.skills[AllEnums.Skills.Cool].skillLevel} " +
-                                $"{countyPopulation.skills[AllEnums.Skills.Rifle].skillLevel}");
+                            //GD.Print($"{countyPopulation.firstName} {countyPopulation.skills[AllEnums.Skills.Cool].skillLevel} " +
+                             //   $"{countyPopulation.skills[AllEnums.Skills.Rifle].skillLevel}");
                         }
                         County selectCounty = (County)Globals.Instance.countiesParent.GetChild(possibleDefenders[0].location);
                         selectCounty.countyData.herosInCountyList.Add(possibleDefenders[0]);
@@ -131,7 +131,7 @@ namespace PlayerSpace
                 }
                 else
                 {
-                    GD.Print("Not enough influence to hire a hero for defence.");
+                    //GD.Print("Not enough influence to hire a hero for defence.");
                     return null;
                 }
 

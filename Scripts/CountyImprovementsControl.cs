@@ -60,7 +60,7 @@ public partial class CountyImprovementsControl : Control
     private void CreateCountyImprovementButtons(List<CountyImprovementData> listOfCountyImprovements
         , VBoxContainer parent, bool allCountyImprovements)
     {
-        GD.Print("List of County Improvements Count: " + listOfCountyImprovements.Count);
+        //GD.Print("List of County Improvements Count: " + listOfCountyImprovements.Count);
         listOfCountyImprovements.Sort((x, y) => string.Compare(x.improvementName, y.improvementName));
 
         foreach (CountyImprovementData countyImprovementData in listOfCountyImprovements)

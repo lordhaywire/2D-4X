@@ -34,7 +34,7 @@ namespace PlayerSpace
         }
         public void StartBattle(Battle currentbattle)
         {
-            GD.Print("Start Battle.");
+            //GD.Print("Start Battle.");
 
             battle = currentbattle;
             County selectCounty = (County)GetParent().GetParent();
@@ -142,13 +142,13 @@ namespace PlayerSpace
 
         private void RandomNeighborMove(CountyPopulation countyPopulation)
         {
-            GD.Print("Random Neighors Move!");
+            //GD.Print("Random Neighors Move!");
             County selectCounty = (County)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
             List<County> countyNeighbors = selectCounty.neighborCounties;
             County destinationCounty = FindFactionOwnedNeighborCounty(countyNeighbors, countyPopulation);
             if (destinationCounty != null)
             {
-                GD.Print("Destination County: " + destinationCounty.countyData.countyName);
+                //GD.Print("Destination County: " + destinationCounty.countyData.countyName);
                 countyPopulation.token.tokenMovement.StartMove(destinationCounty.countyData.countyId);
                 CountyCaptured();
             }
@@ -229,7 +229,7 @@ namespace PlayerSpace
         }
         private static void ButtonUp()
         {
-            GD.Print("Battle Log Control Clicked.");
+            //GD.Print("Battle Log Control Clicked.");
             PlayerUICanvas.Instance.BattleLogControl.Show();
         }
 

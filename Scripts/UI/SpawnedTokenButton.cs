@@ -19,7 +19,7 @@ namespace PlayerSpace
         {
             if(countyPopulation.factionData == Globals.Instance.playerFactionData)
             {
-                GD.Print("You pressed the hero button.");
+                //GD.Print("You pressed the hero button.");
                 selectToken = countyPopulation.token;
 
                 selectToken.IsSelected = true;
@@ -27,7 +27,7 @@ namespace PlayerSpace
             }
             else
             {
-                GD.Print("You don't own this token so you can't select it, wrecked mother fucker.");
+                //GD.Print("You don't own this token so you can't select it, wrecked mother fucker.");
             }
         }
 

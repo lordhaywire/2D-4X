@@ -41,8 +41,8 @@ namespace PlayerSpace
             CountyImprovementData countyImprovementData = AllResearch.Instance.allResearchItemDatas[0].countyImprovementDatas[0];
             foreach (KeyValuePair<CountyResourceData, int> keyValuePair in constructionCosts)
             {
-                GD.PrintRich($"[rainbow]{countyImprovementData.improvementName} costs {keyValuePair.Key.name}" +
-                    $" {keyValuePair.Value}");
+                //GD.PrintRich($"[rainbow]{countyImprovementData.improvementName} costs {keyValuePair.Key.name}" +
+                //    $" {keyValuePair.Value}");
             }
         }
 
@@ -53,8 +53,8 @@ namespace PlayerSpace
             CountyImprovementData countyImprovementData = AllResearch.Instance.allResearchItemDatas[0].countyImprovementDatas[0];
             foreach (KeyValuePair<FactionResourceData, int> keyValuePair in constructionCosts)
             {
-                GD.PrintRich($"[rainbow]{countyImprovementData.improvementName} costs {keyValuePair.Key.name}" +
-                    $" {keyValuePair.Value}");
+                //GD.PrintRich($"[rainbow]{countyImprovementData.improvementName} costs {keyValuePair.Key.name}" +
+                //    $" {keyValuePair.Value}");
             }
         }
 
@@ -102,7 +102,7 @@ namespace PlayerSpace
                             if (eventMouseButton.ButtonIndex == MouseButton.Right && eventMouseButton.Pressed == false
                                 && Globals.Instance.SelectedCountyPopulation != null)
                             {
-                                GD.Print("You are moving to a place you right clicked, dude! " + county.countyData.countyName);
+                                //GD.Print("You are moving to a place you right clicked, dude! " + county.countyData.countyName);
                                 if (Globals.Instance.SelectedCountyPopulation.destination == -1)
                                 {
                                     MoveSelectedToken(county.countyData);
@@ -115,7 +115,7 @@ namespace PlayerSpace
                                 {
                                     County moveToSelectCounty
                                         = (County)Globals.Instance.countiesParent.GetChild(Globals.Instance.SelectedCountyPopulation.location);
-                                    GD.PrintRich("[rainbow]Are we ever even hitting this?" + moveToSelectCounty.countyData.countyId);
+                                    //GD.PrintRich("[rainbow]Are we ever even hitting this?" + moveToSelectCounty.countyData.countyId);
                                     MoveSelectedToken(moveToSelectCounty.countyData);
                                 }
                             }
@@ -135,7 +135,7 @@ namespace PlayerSpace
             {
                 if (playerControlsEnabled == true)
                 {
-                    GD.Print($"{keyEvent.Keycode}");
+                    //GD.Print($"{keyEvent.Keycode}");
                     switch (keyEvent.Keycode)
                     {
                         case Key.Space:
@@ -149,8 +149,8 @@ namespace PlayerSpace
         private static void MoveSelectedToken(CountyData moveTargetCountyData)
         {
             Globals.Instance.selectedRightClickCounty = moveTargetCountyData.countyNode;
-            GD.Print($"Move Target County: {moveTargetCountyData.countyName}" +
-                $" {moveTargetCountyData.countyId}");
+            //GD.Print($"Move Target County: {moveTargetCountyData.countyName}" +
+             //   $" {moveTargetCountyData.countyId}");
             CountyPopulation countyPopulation = Globals.Instance.SelectedCountyPopulation;
             SelectToken selectToken = Globals.Instance.SelectedCountyPopulation.token;
 
@@ -170,7 +170,7 @@ namespace PlayerSpace
                     }
                     else
                     {
-                        GD.Print("You are about to declare war, because you are an army.");
+                        //GD.Print("You are about to declare war, because you are an army.");
                         if (Globals.Instance.playerFactionData.factionWarDictionary[Globals.Instance.selectedRightClickCounty.countyData.factionData.factionName]
                             != true)
                         {

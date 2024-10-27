@@ -83,7 +83,7 @@ public class PopulationAI
                     break;
                 case AllEnums.Activities.Work:
                     // Produce resources based on the countyimprovement
-                    Banker.WorkPerPerson(countyData, countyPopulation);
+                    Banker.ApplyWorkPerPerson(countyData, countyPopulation);
 
                     // Check for Skill Learning.
                     SkillData.CheckLearning(countyPopulation
@@ -106,7 +106,7 @@ public class PopulationAI
                     break;
             }
         }
-        GD.PrintRich($"[rainbow]{countyData.countyName}: Work Day Over For Population.");
+        //// GD.PrintRich($"[rainbow]{countyData.countyName}: Work Day Over For Population.");
     }
 
     /// <summary>
@@ -123,14 +123,14 @@ public class PopulationAI
             // from county improvement sets them to idle.
             countyPopulation.RemoveFromResearch();
             countyPopulation.RemoveFromCountyImprovement();
-            GD.Print($"{countyPopulation.firstName} is failed the loyalty check.");
+            // GD.Print($"{countyPopulation.firstName} is failed the loyalty check.");
             return;
         }
 
         // Check if the research is finished.
         if (researchItemData?.CheckIfResearchDone() == true)
         {
-            GD.Print($"{countyPopulation.firstName} has finished the research.");
+            // GD.Print($"{countyPopulation.firstName} has finished the research.");
             countyPopulation.RemoveFromResearch();
         }
     }

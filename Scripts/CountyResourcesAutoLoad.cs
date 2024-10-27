@@ -15,7 +15,7 @@ namespace GlobalSpace
         {
             Instance = this;
 
-            GD.Print("CountyResourcesAutoLoad.cs has loaded.");
+            //GD.Print("CountyResourcesAutoLoad.cs has loaded.");
             LoadCountyResources();
         }
 
@@ -38,12 +38,12 @@ namespace GlobalSpace
                 }
                 else
                 {
-                    GD.Print($"No files in {pathToCountyDatas}");
+                    //GD.Print($"No files in {pathToCountyDatas}");
                 }
             }
             else
             {
-                GD.Print($"{pathToCountyDatas} directory is missing.");
+                //GD.Print($"{pathToCountyDatas} directory is missing.");
             }
         }
     }

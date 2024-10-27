@@ -56,10 +56,10 @@ namespace PlayerSpace
             VScrollBar vScrollBar = eventLogScrollContainer.GetVScrollBar();
             //vScrollBar.Name = "FuckingScrollBar.";
             //vScrollBar.MaxValue = 9999;
-            GD.Print("Scroll Bar Max Value: " + vScrollBar.MaxValue);
+            //GD.Print("Scroll Bar Max Value: " + vScrollBar.MaxValue);
 
             vScrollBar.Value = vScrollBar.MaxValue;
-            GD.Print("Scroll Bar Value: " + vScrollBar.Value);
+            //GD.Print("Scroll Bar Value: " + vScrollBar.Value);
         }
     }
 }

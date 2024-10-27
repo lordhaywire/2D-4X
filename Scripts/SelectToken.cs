@@ -128,7 +128,7 @@ namespace PlayerSpace
             {
                 if (eventMouseButton.ButtonIndex == MouseButton.Left && eventMouseButton.Pressed == false)
                 {
-                    GD.Print($"You have clicked on {countyPopulation.firstName} {countyPopulation.lastName}");
+                    //GD.Print($"You have clicked on {countyPopulation.firstName} {countyPopulation.lastName}");
                     IsSelected = true;
                 }
             }

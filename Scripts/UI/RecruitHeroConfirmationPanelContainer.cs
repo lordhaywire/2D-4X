@@ -18,7 +18,7 @@ namespace PlayerSpace
         private void OpenConfirmationPanel(bool armyLeaderRecruited)
         {
             Show();
-            GD.Print("Army Leader Recruited? " + armyLeaderRecruited);
+            //GD.Print("Army Leader Recruited? " + armyLeaderRecruited);
             this.armyLeaderRecruited = armyLeaderRecruited;
         }
         private void YesButton()

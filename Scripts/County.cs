@@ -38,7 +38,7 @@ public partial class County : Node2D
     {
         CountyAI countyAI = new();
 
-        GD.Print("County Hour One.");
+        // GD.Print("County Hour One.");
         // Subtract county resources yesterday from today.
         countyData.SubtractCountyResources();
 
@@ -57,7 +57,7 @@ public partial class County : Node2D
 
         // Generates resources through work, scavenging, building, and research.
         PopulationAI.WorkDayOverForPopulation(countyData);
-        Banker.CalculateWorkToGoods(countyData);
+        Banker.CalculateWorkToGoodsProduction(countyData);
 
 
         PopulationAI.IsThereEnoughFood(countyData); // This is a terrible name for this method.
