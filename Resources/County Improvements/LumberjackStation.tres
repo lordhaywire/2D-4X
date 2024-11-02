@@ -7,6 +7,7 @@
 [resource]
 script = ExtResource("2_26moa")
 currentAmountOfCounstruction = 0
+workAmountForEachResource = 0
 countyImprovementType = 0
 prioritize = false
 improvementTexture = ExtResource("1_fohtd")
@@ -27,11 +28,9 @@ countyResourceType = 8
 factionResourceType = 1
 factionOutputGoods = {}
 countyOutputGoods = {}
-testCountyResourceList = null
-dailyWorkAmountCompleted = 0
+allDailyWorkAmountAtImprovementCompleted = 0
 dailyResourceGenerationAmount = 5
 dailyResourceGenerationBonus = 2
-workAmountForEachResource = 0
 factionInputGoods = {}
 countyInputGoods = {}
 status = 0
