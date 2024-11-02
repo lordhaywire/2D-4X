@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "2d 4x": {
+      "commandName": "Project"
+    },
+    "GODOT DEBUG": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Program Files\\Godot\\Godot_v4.4-dev3_mono_win64\\Godot_v4.4-dev3_mono_win64.exe",
+      "commandLineArgs": "--path. --verbose",
+      "workingDirectory": ".",
+      "nativeDebugging": true
+    }
+  }
+}
