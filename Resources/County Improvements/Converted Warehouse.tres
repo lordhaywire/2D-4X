@@ -18,7 +18,6 @@ storageAmount = 500
 [resource]
 script = ExtResource("3_nbppr")
 currentAmountOfCounstruction = 0
-workAmountForEachResource = 0
 countyImprovementType = 2
 prioritize = false
 improvementTexture = ExtResource("1_wn83v")
@@ -41,9 +40,11 @@ factionOutputGoods = {}
 countyOutputGoods = {
 ExtResource("1_i0r5k"): SubResource("Resource_k6ql1")
 }
-allDailyWorkAmountAtImprovementCompleted = 0
+testCountyResourceList = null
+dailyWorkAmountCompleted = 0
 dailyResourceGenerationAmount = 0
 dailyResourceGenerationBonus = 0
+workAmountForEachResource = 0
 factionInputGoods = {}
 countyInputGoods = {}
 status = 0
