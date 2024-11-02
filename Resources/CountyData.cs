@@ -682,7 +682,7 @@ namespace PlayerSpace
             {
                 yesterdaysCountyResources.Add(keyValuePair.Key, new CountyResourceData
                 {
-                    name = keyValuePair.Value.name,
+                    goodName = keyValuePair.Value.goodName,
                     description = keyValuePair.Value.description,
                     countyResourceType = keyValuePair.Value.countyResourceType,
                     factionResourceType = keyValuePair.Value.factionResourceType,

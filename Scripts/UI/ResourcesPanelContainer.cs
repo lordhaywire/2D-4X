@@ -36,7 +36,7 @@ namespace PlayerSpace
             {
                 StorageHbox storageHbox = (StorageHbox)storageHBoxPackedScene.Instantiate();
                 //GD.Print("Resource Name: " + resourceData.name);
-                storageHbox.Name = resourceData.name;
+                storageHbox.Name = resourceData.goodName;
                 storageHbox.resourceData = resourceData; // This is strange.
 
                 if (storageHbox.resourceData.perishable)
@@ -187,7 +187,7 @@ namespace PlayerSpace
         {
             resourceStorageHboxDictionary[keyValuePair.Key].resourceData = countyData.countyResources[keyValuePair.Key];
             //GD.Print("Update Storage Hbox Labels Resource:" + countyData.resources[keyValuePair.Key].name);
-            resourceStorageHboxDictionary[keyValuePair.Key].resourceNameLabel.Text = $"{Tr(resourceStorageHboxDictionary[keyValuePair.Key].resourceData.name)}:";
+            resourceStorageHboxDictionary[keyValuePair.Key].resourceNameLabel.Text = $"{Tr(resourceStorageHboxDictionary[keyValuePair.Key].resourceData.goodName)}:";
             resourceStorageHboxDictionary[keyValuePair.Key].resourceAmountLabel.Text = resourceStorageHboxDictionary[keyValuePair.Key].resourceData.Amount.ToString();
         }
 

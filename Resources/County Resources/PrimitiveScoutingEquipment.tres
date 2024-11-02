@@ -4,9 +4,10 @@
 
 [resource]
 script = ExtResource("1_8577a")
-name = "COUNTY_RESOURCE_PRIMITIVE_SCOUTING_EQUIPMENT"
+goodName = "COUNTY_RESOURCE_PRIMITIVE_SCOUTING_EQUIPMENT"
 description = "COUNTY_RESOURCE_DESCRIPTION_PRIMITIVE_SCOUTING_EQUIPMENT"
 countyResourceType = 3
 factionResourceType = 2
 perishable = false
 failureRate = 10
+remnantSubstitutable = false

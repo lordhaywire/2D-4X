@@ -144,7 +144,7 @@ namespace PlayerSpace
             {
                 yesterdaysFactionResources.Add(keyValuePair.Key, new FactionResourceData
                 {
-                    name = keyValuePair.Value.name,
+                    goodName = keyValuePair.Value.goodName,
                     description = keyValuePair.Value.description,
                     resourceType = keyValuePair.Value.resourceType,
                     amount = keyValuePair.Value.amount,

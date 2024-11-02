@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_dbq3a")
-name = "COUNTY_RESOURCE_STORAGE_NONPERISHABLE"
+goodName = "COUNTY_RESOURCE_STORAGE_NONPERISHABLE"
 description = "COUNTY_RESOURCE_DESCRIPTION_STORAGE_NONPERISHABLE"
 countyResourceType = 5
 factionResourceType = 0

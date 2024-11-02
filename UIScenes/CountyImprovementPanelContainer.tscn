@@ -185,9 +185,9 @@ layout_mode = 2
 focus_mode = 0
 text = "+"
 
-[node name="Goods Produced Title Label" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer"]
+[node name="Goods Produced Per Day Title Label" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer"]
 layout_mode = 2
-text = "PHRASE_GOODS_PRODUCED"
+text = "PHRASE_GOODS_PRODUCED_PER_DAY"
 horizontal_alignment = 1
 vertical_alignment = 1
 

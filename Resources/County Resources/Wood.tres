@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_5vlxb")
-name = "COUNTY_RESOURCE_WOOD"
+goodName = "COUNTY_RESOURCE_WOOD"
 description = "COUNTY_RESOURCE_DESCRIPTION_VEGETABLES"
 countyResourceType = 8
 factionResourceType = 1

@@ -7,7 +7,7 @@ and [Youtube](https://www.youtube.com/@killedbydev) channels.
 
 The old Unity version is here: [2D-4X Unity](https://github.com/lordhaywire/2D-4X-Unity)
 
-### Adding an in game county resource
+### Adding a county good
 
 These are notes for myself.
 
@@ -18,6 +18,14 @@ These are notes for myself.
 3. Assign enums on the county resource, and fix all other county resource enums.
 
 4. Add the county resource to the AllCountyResources array, and alphabetize them.
+
+### Adding a County Improvement
+
+Make productionData unique in inspector.
+
+This needs to be setup correctly in the inspector so the average daily amount generated is generated.
+
+MaxWorkers * Global Amount of Daily Work with bonus / work cost = average daily amount generated.
 
 ### How to Export from Godot
 

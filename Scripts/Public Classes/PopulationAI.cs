@@ -85,7 +85,7 @@ public class PopulationAI
                     // Produce resources based on the countyimprovement
                     Banker.ApplyWorkPerPerson(countyData, countyPopulation);
 
-                    // Check for Skill Learning.
+                    // Check for Skill Learning. I think this should be moved to inside the ApplyWorkPerPerson.
                     SkillData.CheckLearning(countyPopulation
                         , countyPopulation.skills[countyPopulation.currentCountyImprovement.workSkill]
                         , AllEnums.LearningSpeed.slow);

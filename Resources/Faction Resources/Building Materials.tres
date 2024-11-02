@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_5vfsl")
-name = "FACTION_RESOURCE_BUILDING_MATERIALS"
+goodName = "FACTION_RESOURCE_BUILDING_MATERIALS"
 description = "FACTION_RESOURCE_DESCRIPTION_BUILDING_MATERIALS"
 resourceType = 1
 amount = 0

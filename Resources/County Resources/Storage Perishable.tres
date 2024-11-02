@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_u6enf")
-name = "COUNTY_RESOURCE_STORAGE_PERISHABLE"
+goodName = "COUNTY_RESOURCE_STORAGE_PERISHABLE"
 description = "COUNTY_RESOURCE_DESCRIPTION_STORAGE_PERISHABLE"
 countyResourceType = 6
 factionResourceType = 0

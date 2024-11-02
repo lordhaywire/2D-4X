@@ -59,6 +59,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
 
     public override void _Ready()
     {
+        
         CallDeferred(nameof(UpdateImprovementLabels));
     }
 
@@ -201,11 +202,11 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     private void GenerateOutputGoods()
     {
         CheckForGoodsForColumns(outputsGridContainer
-            , countyImprovementData.factionOutputGoods, countyImprovementData.countyOutputGoods);
-
-        foreach (KeyValuePair<FactionResourceData, int> keyValuePair in countyImprovementData.factionOutputGoods)
+           , countyImprovementData.factionOutputGoods.Count, countyImprovementData.countyOutputGoods.Count);
+        
+        foreach (KeyValuePair<FactionResourceData, ProductionData> keyValuePair in countyImprovementData.factionOutputGoods)
         {
-            GoodPanelContainer goodPanelContainer = AddGoodsPanel(keyValuePair, keyValuePair.Key.name, outputsGridContainer);
+            GoodPanelContainer goodPanelContainer = AddOutputGoodsPanel(keyValuePair.Key, keyValuePair.Value, outputsGridContainer);
 
             // You can't use remnants to replace faction resources.
             goodPanelContainer.useRemnantsCheckBox.Hide();
@@ -218,10 +219,12 @@ public partial class CountryImprovementPanelContainer : PanelContainer
                 produceAsNeededCheckBox.Hide();
             }
         }
-
-        foreach (KeyValuePair<CountyResourceData, int> keyValuePair in countyImprovementData.countyOutputGoods)
+        
+        
+        foreach (KeyValuePair<CountyResourceData, ProductionData> keyValuePair in countyImprovementData.countyOutputGoods)
         {
-            GoodPanelContainer goodPanelContainer = AddGoodsPanel(keyValuePair, keyValuePair.Key.name, outputsGridContainer);
+            GoodPanelContainer goodPanelContainer 
+                = AddOutputGoodsPanel(keyValuePair.Key, keyValuePair.Value, outputsGridContainer);
 
             goodPanelContainer.useRemnantsCheckBox.Hide();
 
@@ -229,23 +232,48 @@ public partial class CountryImprovementPanelContainer : PanelContainer
             goodPanelContainer.onlyProduceCheckBox.Hide();
         }
     }
+
+    // ChatGPT wrote most of this.
+    GoodPanelContainer AddOutputGoodsPanel(object resourceData, ProductionData productionData, GridContainer goodsParentGridContainer)
+    {
+        // This is going to happen every time the player opens the County Improvement Panel.
+        countyImprovementData.GenerateAverageDailyAmountGenerated(productionData);
+        
+
+        GoodPanelContainer goodPanelContainer = (GoodPanelContainer)goodPanelContainerPackedScene.Instantiate();
+        goodsParentGridContainer.AddChild(goodPanelContainer);
+
+        string goodName = resourceData switch
+        {
+            CountyResourceData countyResource => countyResource.goodName,
+            FactionResourceData factionResource => factionResource.goodName,
+            _ => throw new InvalidOperationException("Unknown resource type")
+        };
+
+        goodPanelContainer.goodLabel.Text = $"{Tr(goodName)} " 
+            + $": {productionData.averageDailyAmountGenerated}";
+
+        return goodPanelContainer;
+    }
+
     private void GenerateInputGoods()
     {
         CheckForGoodsForColumns(inputsGridContainer
-            , countyImprovementData.factionInputGoods
-            , countyImprovementData.countyInputGoods);
+            , countyImprovementData.factionInputGoods.Count
+            , countyImprovementData.countyInputGoods.Count);
 
+        
         foreach (KeyValuePair<FactionResourceData, int> keyValuePair in countyImprovementData.factionInputGoods)
         {
-            GoodPanelContainer goodPanelContainer = AddGoodsPanel(keyValuePair, keyValuePair.Key.name, inputsGridContainer);
+            GoodPanelContainer goodPanelContainer = AddInputGoodsPanel(keyValuePair, keyValuePair.Key.goodName, inputsGridContainer);
 
             // You can't use remnants to replace faction resources.
             goodPanelContainer.useRemnantsCheckBox.Hide();
         }
-
+        
         foreach (KeyValuePair<CountyResourceData, int> keyValuePair in countyImprovementData.countyInputGoods)
         {
-            GoodPanelContainer goodPanelContainer = AddGoodsPanel(keyValuePair, keyValuePair.Key.name, inputsGridContainer);
+            GoodPanelContainer goodPanelContainer = AddInputGoodsPanel(keyValuePair, keyValuePair.Key.goodName, inputsGridContainer);
 
             if (countyImprovementData.status == AllEnums.CountyImprovementStatus.UnderConstruction)
             {
@@ -258,7 +286,8 @@ public partial class CountryImprovementPanelContainer : PanelContainer
         }
     }
 
-    GoodPanelContainer AddGoodsPanel<T>(KeyValuePair<T, int> keyValuePair, string name, GridContainer goodsParentGridContainer)
+    // ChatGPT wrote part of this.
+    GoodPanelContainer AddInputGoodsPanel<T>(KeyValuePair<T, int> keyValuePair, string name, GridContainer goodsParentGridContainer)
     {
         GoodPanelContainer goodPanelContainer = (GoodPanelContainer)goodPanelContainerPackedScene.Instantiate();
         goodsParentGridContainer.AddChild(goodPanelContainer);
@@ -267,15 +296,17 @@ public partial class CountryImprovementPanelContainer : PanelContainer
         return goodPanelContainer;
     }
 
+    
+
     void GenerateConstructionGoodsCosts()
     {
         CheckForGoodsForColumns(constructionMaterialCostGridContainer
-            , countyImprovementData.factionResourceConstructionCost
-            , countyImprovementData.countyResourceConstructionCost);
+            , countyImprovementData.factionResourceConstructionCost.Count
+            , countyImprovementData.countyResourceConstructionCost.Count);
 
         foreach (KeyValuePair<FactionResourceData, int> keyValuePair in countyImprovementData.factionResourceConstructionCost)
         {
-            GoodPanelContainer goodPanelContainer = AddGoodsPanel(keyValuePair, keyValuePair.Key.name, constructionMaterialCostGridContainer);
+            GoodPanelContainer goodPanelContainer = AddInputGoodsPanel(keyValuePair, keyValuePair.Key.goodName, constructionMaterialCostGridContainer);
 
             // You can't use remnants to replace faction resources.
             goodPanelContainer.useRemnantsCheckBox.Hide();
@@ -283,7 +314,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
 
         foreach (KeyValuePair<CountyResourceData, int> keyValuePair in countyImprovementData.countyResourceConstructionCost)
         {
-            GoodPanelContainer goodPanelContainer = AddGoodsPanel(keyValuePair, keyValuePair.Key.name, constructionMaterialCostGridContainer);
+            GoodPanelContainer goodPanelContainer = AddInputGoodsPanel(keyValuePair, keyValuePair.Key.goodName, constructionMaterialCostGridContainer);
 
             CheckForHideUseRemnants(keyValuePair, goodPanelContainer);
         }
@@ -309,11 +340,9 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     }
 
     private void CheckForGoodsForColumns(GridContainer gridContainer
-        , Godot.Collections.Dictionary<FactionResourceData, int> factionResources
-        , Godot.Collections.Dictionary<CountyResourceData, int> countyResources)
+        , int factionResourcesCount, int countyResourcesCount)
     {
-        int totalGoods = factionResources.Count
-            + countyResources.Count;
+        int totalGoods = factionResourcesCount + countyResourcesCount;
         if (totalGoods == 1)
         {
             gridContainer.Columns = 1;

@@ -10,6 +10,7 @@ namespace PlayerSpace
     {
         [ExportGroup("Not For Inspector")]
         [Export] private int currentAmountOfCounstruction;
+        [Export] public int workAmountForEachResource;
 
         [ExportGroup("Improvement Info")]
         [Export] public AllEnums.CountyImprovementType countyImprovementType;
@@ -57,16 +58,15 @@ namespace PlayerSpace
         //[Export] public string nonTangibleGoodProduced;
         //[Export] public string nonTangibleGoodNotBeingProduced;
         [ExportGroup("Outputs")]
-        [Export] public Godot.Collections.Dictionary<FactionResourceData, int> factionOutputGoods = [];
+        [Export] public Godot.Collections.Dictionary<FactionResourceData, ProductionData> factionOutputGoods = [];
         // Resource and work amount cost.
-        [Export] public Godot.Collections.Dictionary<CountyResourceData, int> countyOutputGoods = [];
-        [Export] public Godot.Collections.Array<CountyResourceData> testCountyResourceList;
-        [Export] public int dailyWorkAmountCompleted;
+        [Export] public Godot.Collections.Dictionary<CountyResourceData, ProductionData> countyOutputGoods = [];
+        //[Export] public Godot.Collections.Array<CountyResourceData> testCountyResourceList;
+        [Export] public int allDailyWorkAmountAtImprovementCompleted;
 
         [Export] public int dailyResourceGenerationAmount; // I am pretty sure these are done.
         [Export] public int dailyResourceGenerationBonus; // I am pretty sure these are done.
         //[Export] public int workAmount;
-        [Export] public int workAmountForEachResource;
         //[Export] public int numberOfGoodsGenerated;
 
         // All input goods that are need to create the finished good.
@@ -122,6 +122,22 @@ namespace PlayerSpace
 
         }
 
+        /// <summary>
+        /// MaxWorkers * Global Amount of Daily Work without bonus / work cost = average daily amount generated.
+        /// </summary>
+        /// <param name="productionData"></param>
+        public void GenerateAverageDailyAmountGenerated(ProductionData productionData)
+        {
+            if (countyImprovementType != AllEnums.CountyImprovementType.Storage)
+            {
+                productionData.averageDailyAmountGenerated = maxWorkers * Globals.Instance.dailyWorkAmount
+                    / (float)productionData.workCost;
+            }
+            else
+            {
+                productionData.averageDailyAmountGenerated = productionData.storageAmount;
+            }
+        }
         public bool CheckIfStorageImprovement()
         {
             if (countyResourceType == AllEnums.CountyResourceType.StorageNonperishable
@@ -205,8 +221,8 @@ namespace PlayerSpace
                 interest = countyImprovementData.interest,
                 factionOutputGoods = countyImprovementData.factionOutputGoods,
                 countyOutputGoods = countyImprovementData.countyOutputGoods,
-                testCountyResourceList = countyImprovementData.testCountyResourceList, // Is this actually duplicating?
-                dailyWorkAmountCompleted = countyImprovementData.dailyWorkAmountCompleted,
+                //testCountyResourceList = countyImprovementData.testCountyResourceList, // Is this actually duplicating?
+                allDailyWorkAmountAtImprovementCompleted = countyImprovementData.allDailyWorkAmountAtImprovementCompleted,
                 workAmountForEachResource = countyImprovementData.workAmountForEachResource,
                 factionResourceConstructionCost = countyImprovementData.factionResourceConstructionCost,
                 countyResourceConstructionCost = countyImprovementData.countyResourceConstructionCost,

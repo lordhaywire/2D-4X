@@ -1,14 +1,16 @@
-[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=6 format=3 uid="uid://lxjruufeuqa1"]
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=7 format=3 uid="uid://lxjruufeuqa1"]
 
 [ext_resource type="Texture2D" uid="uid://bx2dfaxw8ujc5" path="res://Graphics/County Improvements/Researchers Office County Improvement archive-research.svg" id="1_a1jyh"]
 [ext_resource type="Script" path="res://Resources/CountyImprovementData.cs" id="1_ga7gf"]
 [ext_resource type="Resource" uid="uid://okgoiywumb4s" path="res://Resources/Faction Resources/Research.tres" id="1_j5ps1"]
 [ext_resource type="Resource" uid="uid://bgy1phaeqjaiv" path="res://Resources/Interests/Information.tres" id="2_1erl4"]
+[ext_resource type="Resource" uid="uid://b7yuwt52kmgaw" path="res://Resources/Production/GenericProduction.tres" id="2_d0bq3"]
 [ext_resource type="Resource" uid="uid://cxxk8e3iy0fmq" path="res://Resources/Faction Resources/Influence.tres" id="2_x0vfs"]
 
 [resource]
 script = ExtResource("1_ga7gf")
 currentAmountOfCounstruction = 0
+workAmountForEachResource = 0
 countyImprovementType = 1
 prioritize = false
 improvementTexture = ExtResource("1_a1jyh")
@@ -30,14 +32,12 @@ adjustedMaxWorkers = 0
 countyResourceType = 0
 factionResourceType = 7
 factionOutputGoods = {
-ExtResource("1_j5ps1"): 0
+ExtResource("1_j5ps1"): ExtResource("2_d0bq3")
 }
 countyOutputGoods = {}
-testCountyResourceList = null
-dailyWorkAmountCompleted = 0
+allDailyWorkAmountAtImprovementCompleted = 0
 dailyResourceGenerationAmount = 5
 dailyResourceGenerationBonus = 2
-workAmountForEachResource = 0
 factionInputGoods = {}
 countyInputGoods = {}
 status = 0
