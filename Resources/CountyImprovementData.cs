@@ -10,7 +10,8 @@ namespace PlayerSpace
     {
         [ExportGroup("Not For Inspector")]
         [Export] private int currentAmountOfCounstruction;
-        [Export] public int workAmountForEachResource;
+        [Export] public float workAmountForEachResource;
+        [Export] public int numberBuilt; // This is used to number the improvement name in the County Improvement Panel.
 
         [ExportGroup("Improvement Info")]
         [Export] public AllEnums.CountyImprovementType countyImprovementType;
@@ -21,7 +22,6 @@ namespace PlayerSpace
         [Export] public Texture2D improvementTexture;
         [Export] public string improvementName;
         [Export] public string improvementDescription;
-        [Export] public int numberBuilt; // This is used to number the improvement name in the County Improvement Panel.
 
         [ExportGroup("Skill and Interest")]
         [Export] public AllEnums.Skills workSkill;
@@ -50,24 +50,15 @@ namespace PlayerSpace
         [ExportGroup("Resource Types")]
         [Export] public AllEnums.CountyResourceType countyResourceType;
         [Export] public AllEnums.FactionResourceType factionResourceType;
-        /// <summary>
-        /// If the improvement doesn't produce a good, but instead produces something like research, or
-        /// warehouse space.  This string says what that is.  If it null then the normal production
-        /// GridContainer is shown.
-        /// </summary>
-        //[Export] public string nonTangibleGoodProduced;
-        //[Export] public string nonTangibleGoodNotBeingProduced;
+
         [ExportGroup("Outputs")]
         [Export] public Godot.Collections.Dictionary<FactionResourceData, ProductionData> factionOutputGoods = [];
         // Resource and work amount cost.
         [Export] public Godot.Collections.Dictionary<CountyResourceData, ProductionData> countyOutputGoods = [];
-        //[Export] public Godot.Collections.Array<CountyResourceData> testCountyResourceList;
         [Export] public int allDailyWorkAmountAtImprovementCompleted;
 
-        [Export] public int dailyResourceGenerationAmount; // I am pretty sure these are done.
-        [Export] public int dailyResourceGenerationBonus; // I am pretty sure these are done.
-        //[Export] public int workAmount;
-        //[Export] public int numberOfGoodsGenerated;
+        [Export] public int dailyResourceGenerationAmount; // I am pretty sure these are not used.
+        [Export] public int dailyResourceGenerationBonus; // I am pretty sure these are not used.
 
         // All input goods that are need to create the finished good.
         // For some reason this one needs to be initialized, but the faction and county construction costs don't.
@@ -130,12 +121,12 @@ namespace PlayerSpace
         {
             if (countyImprovementType != AllEnums.CountyImprovementType.Storage)
             {
-                productionData.averageDailyAmountGenerated = maxWorkers * Globals.Instance.dailyWorkAmount
+                productionData.AverageDailyAmountGenerated = maxWorkers * Globals.Instance.dailyWorkAmount
                     / (float)productionData.workCost;
             }
             else
             {
-                productionData.averageDailyAmountGenerated = productionData.storageAmount;
+                productionData.AverageDailyAmountGenerated = productionData.storageAmount;
             }
         }
         public bool CheckIfStorageImprovement()
@@ -210,9 +201,7 @@ namespace PlayerSpace
             CountyImprovementData newCountyImprovementData = new()
             {
                 countyImprovementType = countyImprovementData.countyImprovementType,
-                //location = countyImprovementData.location,
                 prioritize = countyImprovementData.prioritize,
-                //countyImprovementPanelContainer = countyImprovementData.countyImprovementPanelContainer,
                 improvementTexture = countyImprovementData.improvementTexture,
                 improvementName = countyImprovementData.improvementName,
                 improvementDescription = countyImprovementData.improvementDescription,
@@ -221,7 +210,6 @@ namespace PlayerSpace
                 interest = countyImprovementData.interest,
                 factionOutputGoods = countyImprovementData.factionOutputGoods,
                 countyOutputGoods = countyImprovementData.countyOutputGoods,
-                //testCountyResourceList = countyImprovementData.testCountyResourceList, // Is this actually duplicating?
                 allDailyWorkAmountAtImprovementCompleted = countyImprovementData.allDailyWorkAmountAtImprovementCompleted,
                 workAmountForEachResource = countyImprovementData.workAmountForEachResource,
                 factionResourceConstructionCost = countyImprovementData.factionResourceConstructionCost,
@@ -235,8 +223,6 @@ namespace PlayerSpace
                 adjustedMaxWorkers = countyImprovementData.adjustedMaxWorkers,
                 countyResourceType = countyImprovementData.countyResourceType,
                 factionResourceType = countyImprovementData.factionResourceType,
-                //nonTangibleGoodProduced = countyImprovementData.nonTangibleGoodProduced,
-                //nonTangibleGoodNotBeingProduced = countyImprovementData.nonTangibleGoodNotBeingProduced,
                 factionInputGoods = countyImprovementData.factionInputGoods,
                 countyInputGoods = countyImprovementData.countyInputGoods,
                 dailyResourceGenerationAmount = countyImprovementData.dailyResourceGenerationAmount,

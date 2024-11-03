@@ -323,10 +323,10 @@ namespace PlayerSpace
             //GD.Print($"Completed County Improvements: {completedCountyImprovements.Count}");
             foreach (CountyImprovementData countyImprovementData in completedCountyImprovements)
             {
-                //GD.Print($"Preferred Work: {countyImprovementData.improvementName}");
+                GD.Print($"Preferred Work: {countyImprovementData.improvementName}");
                 if (countyImprovementData.countyResourceType == AllEnums.CountyResourceType.None
                     || countyImprovementData.CheckIfStorageImprovement() == true
-                    && CheckResourceStorageFull(countyResources[countyImprovementData.countyResourceType]) == true)
+                    || CheckResourceStorageFull(countyResources[countyImprovementData.countyResourceType]) == true)
                 {
                     return;
                 }
@@ -372,7 +372,7 @@ namespace PlayerSpace
             {
                 if (countyImprovementData.countyResourceType == AllEnums.CountyResourceType.None
                     || countyImprovementData.CheckIfStorageImprovement() == true
-                    && CheckResourceStorageFull(countyResources[countyImprovementData.countyResourceType]) == true)
+                    || CheckResourceStorageFull(countyResources[countyImprovementData.countyResourceType]) == true)
                 {
                     return;
                 }

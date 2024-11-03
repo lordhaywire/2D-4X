@@ -14,15 +14,15 @@ namespace PlayerSpace
         private bool isNextLogOdd = true; // Start with odd line
         [Export] private int maxLines;
 
-        private void OnVisibilityChanged()
+        private void OnBattleLogControlVisibilityChanged()
         {
             if(Visible == true)
             {
-                CameraControls.Instance.cameraControlsEnabled = false;
+                Camera.Instance.cameraControlsEnabled = false;
             }
             else
             {
-                CameraControls.Instance.cameraControlsEnabled = true;
+                Camera.Instance.cameraControlsEnabled = true;
             }
         }
         public override void _Ready()

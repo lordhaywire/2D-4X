@@ -59,7 +59,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
 
     public override void _Ready()
     {
-        
+
         CallDeferred(nameof(UpdateImprovementLabels));
     }
 
@@ -80,7 +80,6 @@ public partial class CountryImprovementPanelContainer : PanelContainer
                 break;
             // This one seems to be working for normal improvements and storage as well.
             case AllEnums.CountyImprovementStatus.Producing:
-                progressPanelContainer.Show();
                 GenerateOutputGoods();
                 GenerateInputGoods();
                 prioritizeHBox.Show();
@@ -119,6 +118,8 @@ public partial class CountryImprovementPanelContainer : PanelContainer
                 break;
         }
     }
+
+
 
     void UpdateConstructionCost()
     {
@@ -203,7 +204,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     {
         CheckForGoodsForColumns(outputsGridContainer
            , countyImprovementData.factionOutputGoods.Count, countyImprovementData.countyOutputGoods.Count);
-        
+
         foreach (KeyValuePair<FactionResourceData, ProductionData> keyValuePair in countyImprovementData.factionOutputGoods)
         {
             GoodPanelContainer goodPanelContainer = AddOutputGoodsPanel(keyValuePair.Key, keyValuePair.Value, outputsGridContainer);
@@ -219,11 +220,11 @@ public partial class CountryImprovementPanelContainer : PanelContainer
                 produceAsNeededCheckBox.Hide();
             }
         }
-        
-        
+
+
         foreach (KeyValuePair<CountyResourceData, ProductionData> keyValuePair in countyImprovementData.countyOutputGoods)
         {
-            GoodPanelContainer goodPanelContainer 
+            GoodPanelContainer goodPanelContainer
                 = AddOutputGoodsPanel(keyValuePair.Key, keyValuePair.Value, outputsGridContainer);
 
             goodPanelContainer.useRemnantsCheckBox.Hide();
@@ -236,10 +237,8 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     // ChatGPT wrote most of this.
     GoodPanelContainer AddOutputGoodsPanel(object resourceData, ProductionData productionData, GridContainer goodsParentGridContainer)
     {
-        // This is going to happen every time the player opens the County Improvement Panel.
         countyImprovementData.GenerateAverageDailyAmountGenerated(productionData);
         
-
         GoodPanelContainer goodPanelContainer = (GoodPanelContainer)goodPanelContainerPackedScene.Instantiate();
         goodsParentGridContainer.AddChild(goodPanelContainer);
 
@@ -249,9 +248,17 @@ public partial class CountryImprovementPanelContainer : PanelContainer
             FactionResourceData factionResource => factionResource.goodName,
             _ => throw new InvalidOperationException("Unknown resource type")
         };
-
-        goodPanelContainer.goodLabel.Text = $"{Tr(goodName)} " 
-            + $": {productionData.averageDailyAmountGenerated}";
+        //GD.Print($"Average Daily Amount Generated: {productionData.AverageDailyAmountGenerated}");
+        if (countyImprovementData.status != AllEnums.CountyImprovementStatus.Producing)
+        {
+            goodPanelContainer.goodLabel.Text = $"{Tr(goodName)} "
+                + $": {productionData.AverageDailyAmountGenerated}";
+        }
+        else 
+        {
+            goodPanelContainer.goodLabel.Text = $"{Tr(goodName)} "
+                + $": {countyImprovementData.workAmountForEachResource} / {productionData.workCost}";
+        }
 
         return goodPanelContainer;
     }
@@ -262,7 +269,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
             , countyImprovementData.factionInputGoods.Count
             , countyImprovementData.countyInputGoods.Count);
 
-        
+
         foreach (KeyValuePair<FactionResourceData, int> keyValuePair in countyImprovementData.factionInputGoods)
         {
             GoodPanelContainer goodPanelContainer = AddInputGoodsPanel(keyValuePair, keyValuePair.Key.goodName, inputsGridContainer);
@@ -270,7 +277,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
             // You can't use remnants to replace faction resources.
             goodPanelContainer.useRemnantsCheckBox.Hide();
         }
-        
+
         foreach (KeyValuePair<CountyResourceData, int> keyValuePair in countyImprovementData.countyInputGoods)
         {
             GoodPanelContainer goodPanelContainer = AddInputGoodsPanel(keyValuePair, keyValuePair.Key.goodName, inputsGridContainer);
@@ -296,7 +303,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
         return goodPanelContainer;
     }
 
-    
+
 
     void GenerateConstructionGoodsCosts()
     {

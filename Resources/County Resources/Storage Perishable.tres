@@ -8,6 +8,6 @@ goodName = "COUNTY_RESOURCE_STORAGE_PERISHABLE"
 description = "COUNTY_RESOURCE_DESCRIPTION_STORAGE_PERISHABLE"
 countyResourceType = 6
 factionResourceType = 0
-perishable = false
+perishable = true
 failureRate = 0
 remnantSubstitutable = false

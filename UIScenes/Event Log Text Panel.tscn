@@ -25,5 +25,5 @@ vertical_alignment = 1
 autowrap_mode = 3
 clip_text = true
 
-[connection signal="mouse_entered" from="." to="." method="OnMouseEntered"]
-[connection signal="mouse_exited" from="." to="." method="OnMouseExited"]
+[connection signal="mouse_entered" from="." to="." method="OnEventLogTextPanelMouseEntered"]
+[connection signal="mouse_exited" from="." to="." method="OnEventLogMouseTextPanelExited"]

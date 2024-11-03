@@ -173,6 +173,7 @@ script = ExtResource("1_gbt3x")
 nodesToHide = []
 
 [node name="Camera2D" type="Camera2D" parent="."]
+process_mode = 3
 position = Vector2(959, 1127)
 process_callback = 0
 position_smoothing_enabled = true
@@ -2557,7 +2558,7 @@ process_mode = 3
 [connection signal="button_up" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Recruit Army Button" to="Player UI Canvas/Recuit Hero Confirmation PanelContainer" method="OpenConfirmationPanel" binds= [true]]
 [connection signal="button_up" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Recruit Aide Button" to="Player UI Canvas/Recuit Hero Confirmation PanelContainer" method="OpenConfirmationPanel" binds= [false]]
 [connection signal="button_up" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/Close Button" to="Player UI Canvas/Population Description Control" method="CloseButton"]
-[connection signal="visibility_changed" from="Player UI Canvas/Battle Log Control" to="Player UI Canvas/Battle Log Control" method="OnVisibilityChanged"]
+[connection signal="visibility_changed" from="Player UI Canvas/Battle Log Control" to="Player UI Canvas/Battle Log Control" method="OnBattleLogControlVisibilityChanged"]
 [connection signal="mouse_entered" from="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer" to="Player UI Canvas" method="OnMouseEnterUI"]
 [connection signal="mouse_exited" from="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer" to="Player UI Canvas" method="OnMouseExitUI"]
 [connection signal="button_up" from="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/Close Button" to="Player UI Canvas/Battle Log Control" method="CloseButton"]

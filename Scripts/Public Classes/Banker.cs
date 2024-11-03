@@ -1,7 +1,5 @@
 using Godot;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace PlayerSpace
 {
@@ -49,7 +47,7 @@ namespace PlayerSpace
                 }
                 int amountGenerated = GenerateScavengedResourceWithSkillCheck(countyPopulation);
                 int amount = Mathf.Min(amountGenerated, countyData.scavengableCannedFood);
-                AddResourceToCounty(countyData, AllEnums.CountyResourceType.CannedFood, amount);
+                AddCountyResource(countyData, AllEnums.CountyResourceType.CannedFood, amount);
                 countyData.RemoveResourceFromAvailableCountyTotals(AllEnums.CountyResourceType.CannedFood, amount);
             }
             else
@@ -60,7 +58,7 @@ namespace PlayerSpace
                 }
                 int amountGenerated = GenerateScavengedResourceWithSkillCheck(countyPopulation);
                 int amount = Mathf.Min(amountGenerated, countyData.scavengableRemnants);
-                AddResourceToCounty(countyData, AllEnums.CountyResourceType.Remnants, amount);
+                AddCountyResource(countyData, AllEnums.CountyResourceType.Remnants, amount);
                 countyData.RemoveResourceFromAvailableCountyTotals(AllEnums.CountyResourceType.Remnants, amount);
             }
             // Learning skillcheck.
@@ -274,11 +272,9 @@ namespace PlayerSpace
             //// GD.Print($"Amount of Research Done: {countyPopulation.CurrentResearchItemData.AmountOfResearchDone}");
         }
 
-        public static void AddResourceToCounty(CountyData countyData, AllEnums.CountyResourceType countyResourceType, int amount)
+        public static void AddCountyResource(CountyData countyData, AllEnums.CountyResourceType countyResourceType, int amount)
         {
             countyData.countyResources[countyResourceType].Amount += amount;
-
-            //TopBarControl.Instance.UpdateResourceLabels(); 
         }
 
         public static void ChargeForHero(FactionData factionData)
@@ -386,20 +382,21 @@ namespace PlayerSpace
                             $"{keyValuePair.Value.workCost}");
                         if (countyImprovementData.workAmountForEachResource < keyValuePair.Value.workCost)
                         {
-                            keyValuePair.Value.todaysAmountGenerated = 0;
+                            keyValuePair.Value.todaysAmountGenerated = 0; // I think this needs to be reset at a different spot.
                             keyValuePair.Value.workAmountLeftOver += countyImprovementData.workAmountForEachResource;
                         }
                         else
                         {
                             // Calculate the number of items built.
                             keyValuePair.Value.todaysAmountGenerated 
-                                = countyImprovementData.workAmountForEachResource 
-                                / (int)keyValuePair.Value.workCost;
+                                = countyImprovementData.workAmountForEachResource / keyValuePair.Value.workCost;
 
                             // Calculate the leftover work
                             keyValuePair.Value.workAmountLeftOver = countyImprovementData.workAmountForEachResource % (int)keyValuePair.Value.workCost;
                         }
                         GD.Print($"{countyData.countyName} {countyImprovementData.improvementName} generated today: {keyValuePair.Value.todaysAmountGenerated}");
+
+                        AddCountyResource(countyData, keyValuePair.Key.countyResourceType,(int)keyValuePair.Value.todaysAmountGenerated);
                     }
                 }
             }

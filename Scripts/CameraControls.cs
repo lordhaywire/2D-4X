@@ -22,12 +22,7 @@ namespace PlayerSpace
             Instance = this;
 
         }
-
-        public override void _Process(double delta)
-        {
-            //SelectCounty selectCounty = (SelectCounty)Globals.Instance.countiesParent.GetChild(0);
-            //GD.Print($"{selectCounty.countyData.factionData.factionName} Number of counties: " + selectCounty.countyData.factionData.countiesFactionOwns.Count);
-        }
+        
         public void GetInput()
         {
             if (cameraControlsEnabled && PlayerControls.Instance.playerControlsEnabled)

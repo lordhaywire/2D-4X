@@ -19,9 +19,19 @@ These are notes for myself.
 
 4. Add the county resource to the AllCountyResources array, and alphabetize them.
 
-### Adding a County Improvement
+### Output Good to County Improvement
 
-Make productionData unique in inspector.
+1. Drag over county resource to County Output Goods dictionary in inspector.
+
+2. Drag over GenericProduction resource over to County Output Goods dictionary in inspector.
+
+3. Click add KeyValuePair for dictionary.
+
+4. Right click GenericProduction and select Make Unique.
+
+5. Adjust unique generic production to the correct amounts.  The main thing being work cost so that the
+
+average daily amount generated is correct.
 
 This needs to be setup correctly in the inspector so the average daily amount generated is generated.
 
@@ -37,6 +47,8 @@ Copy over the map folder from the project to the folder you are Exporting the ga
 Click Export Project.
 
 ### Thanks to the following people:
+
+Zkonj
 
 [Wind of Flatus](https://flatus.itch.io/) also has a [Grand Strategy Map System](https://github.com/HooniusDev/gs-map-system).
 

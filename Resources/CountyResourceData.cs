@@ -12,11 +12,6 @@ namespace PlayerSpace
         [Export] public AllEnums.FactionResourceType factionResourceType;
         [Export] public bool perishable;
         [Export] public int failureRate; // Daily chance of the item to fail. This isn't used yet.
-        //[Export] public int workAmount;
-        //[Export] public int workCost; // The amount of work it takes to generate 1 of this good.
-        //[Export] public int workAmountLeftOver;
-        //[Export] public int todaysAmountGenerated;
-        //[Export] public int averageDailyAmountGenerated;
         [Export] public bool remnantSubstitutable;
         private int amount; // The amount of resource.
         public int Amount

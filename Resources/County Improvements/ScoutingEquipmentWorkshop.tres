@@ -9,28 +9,29 @@
 [sub_resource type="Resource" id="Resource_atbkk"]
 script = ExtResource("2_8wsb8")
 workAmountAfterSkillCheck = 0
-workCost = 5000
-workAmountLeftOver = 0
-todaysAmountGenerated = 0
+workCost = 200.0
+workAmountLeftOver = 0.0
+todaysAmountGenerated = 0.0
 averageDailyAmountGenerated = 0.0
 storageAmount = 0
+AverageDailyAmountGenerated = 0.0
 
 [resource]
 script = ExtResource("1_wleyv")
 currentAmountOfCounstruction = 0
-workAmountForEachResource = 0
+workAmountForEachResource = 0.0
+numberBuilt = 0
 countyImprovementType = 0
 prioritize = false
 improvementTexture = ExtResource("1_231ft")
 improvementName = "IMPROVEMENT_SCOUTING_EQUIPMENT_WORKSHOP"
 improvementDescription = "IMPROVEMENT_DESCRIPTION_SCOUTING_EQUIPMENT_WORKSHOP"
-numberBuilt = 0
 workSkill = 0
 interest = ExtResource("2_tf3mf")
 factionResourceConstructionCost = null
 countyResourceConstructionCost = null
 CurrentAmountOfConstruction = 0
-maxAmountOfConstruction = 100
+maxAmountOfConstruction = 10
 maxBuilders = 5
 adjustedMaxBuilders = 0
 maxWorkers = 5

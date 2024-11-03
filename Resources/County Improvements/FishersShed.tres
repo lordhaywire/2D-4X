@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=13 format=3 uid="uid://bads4woc5toep"]
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=14 format=3 uid="uid://bads4woc5toep"]
 
 [ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/County Resources/Wood.tres" id="1_1yts0"]
 [ext_resource type="Texture2D" uid="uid://d38i5xsjnfnfq" path="res://Graphics/County Improvements/fishing-pole.svg" id="1_3xigu"]
@@ -14,25 +14,37 @@
 [sub_resource type="Resource" id="Resource_x5mj1"]
 script = ExtResource("4_j7moc")
 workAmountAfterSkillCheck = 0
-workCost = 5
-workAmountLeftOver = 0
-todaysAmountGenerated = 0
+workCost = 0.02
+workAmountLeftOver = 0.0
+todaysAmountGenerated = 0.0
 averageDailyAmountGenerated = 0.0
 storageAmount = 0
+AverageDailyAmountGenerated = 0.0
+
+[sub_resource type="Resource" id="Resource_ah8i5"]
+script = ExtResource("4_j7moc")
+workAmountAfterSkillCheck = 0
+workCost = 0.02
+workAmountLeftOver = 0.0
+todaysAmountGenerated = 0.0
+averageDailyAmountGenerated = 0.0
+storageAmount = 0
+AverageDailyAmountGenerated = 0.0
 
 [sub_resource type="Resource" id="Resource_0kpwl"]
 script = ExtResource("4_j7moc")
 workAmountAfterSkillCheck = 0
-workCost = 2
-workAmountLeftOver = 0
-todaysAmountGenerated = 0
+workCost = 2.0
+workAmountLeftOver = 0.0
+todaysAmountGenerated = 0.0
 averageDailyAmountGenerated = 0.0
 storageAmount = 0
+AverageDailyAmountGenerated = 0.0
 
 [resource]
 script = ExtResource("2_iptt2")
 currentAmountOfCounstruction = 0
-workAmountForEachResource = 2
+workAmountForEachResource = 0.0
 countyImprovementType = 0
 prioritize = false
 improvementTexture = ExtResource("1_3xigu")
@@ -60,7 +72,8 @@ factionOutputGoods = {
 ExtResource("4_8wsk1"): SubResource("Resource_0kpwl")
 }
 countyOutputGoods = {
-ExtResource("1_132qd"): SubResource("Resource_x5mj1")
+ExtResource("1_132qd"): SubResource("Resource_x5mj1"),
+ExtResource("1_1yts0"): SubResource("Resource_ah8i5")
 }
 allDailyWorkAmountAtImprovementCompleted = 0
 dailyResourceGenerationAmount = 10
