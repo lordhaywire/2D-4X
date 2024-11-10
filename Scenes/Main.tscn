@@ -5,8 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://World Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
 [ext_resource type="Script" path="res://Scripts/LoadMaps.cs" id="2_nda5i"]
 [ext_resource type="Script" path="res://Scripts/Globals.cs" id="2_yf7pt"]
-[ext_resource type="Script" path="res://Scripts/Camera.cs" id="3_jw76l"]
 [ext_resource type="Texture2D" uid="uid://dqlvmop4g8aam" path="res://Graphics/Tokens/HornedGuySelected.png" id="3_r5dcu"]
+[ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="3_x2lmt"]
 [ext_resource type="Texture2D" uid="uid://7jvylb78h24w" path="res://Graphics/Tokens/HornedGuyUnselected.png" id="4_pxob5"]
 [ext_resource type="PackedScene" uid="uid://cwe0ergnkkfm0" path="res://Prefabs/HeroToken.tscn" id="5_w6a76"]
 [ext_resource type="Script" path="res://Scripts/AllGraphics.cs" id="6_48s64"]
@@ -172,13 +172,14 @@ script = ExtResource("1_62dun")
 script = ExtResource("1_gbt3x")
 nodesToHide = []
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("camera")]
 process_mode = 3
-position = Vector2(959, 1127)
-process_callback = 0
-position_smoothing_enabled = true
-position_smoothing_speed = 12.0
-script = ExtResource("3_jw76l")
+position = Vector2(479, 634)
+script = ExtResource("3_x2lmt")
+camera = NodePath("Camera2D")
+
+[node name="Camera2D" type="Camera2D" parent="Camera CharacterBody2D"]
+position = Vector2(494, 479)
 
 [node name="Maps" type="Node" parent="."]
 script = ExtResource("2_nda5i")
@@ -203,6 +204,7 @@ minimumCountyPop = 5
 maximumCountyPop = 10
 factionsParent = NodePath("../../Factions")
 minimumFood = 100
+dailyWorkAmountBonus = 1
 heroToken = ExtResource("5_w6a76")
 spawnedTokenButton = ExtResource("8_ne3u6")
 movementSpeed = 1

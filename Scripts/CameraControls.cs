@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 namespace PlayerSpace
 {
@@ -22,39 +23,50 @@ namespace PlayerSpace
             Instance = this;
 
         }
-        
-        public void GetInput()
-        {
-            if (cameraControlsEnabled && PlayerControls.Instance.playerControlsEnabled)
-            {
-                Vector2 inputDirection = Input.GetVector("left", "right", "up", "down");
-                Velocity = inputDirection * Speed / Math.Max((int)Engine.TimeScale, 1);
-            }
-        }
 
         public override void _PhysicsProcess(double delta)
         {
             GetInput();
             MoveAndSlide();
+            //ShowWorkAmountTest();
         }
 
+        private void ShowWorkAmountTest()
+        {
+            foreach(CountyImprovementData countyImprovementData in Globals.Instance.playerFactionData.countiesFactionOwns[0].completedCountyImprovements)
+            {
+                foreach(KeyValuePair<CountyResourceData, ProductionData> keyValuePair in countyImprovementData.countyOutputGoods)
+                {
+                    GD.Print(keyValuePair.Value.workAmountLeftOver);
+                }
+                
+            }
+        }
 
+        public void GetInput()
+        {
+            if (cameraControlsEnabled && PlayerControls.Instance.playerControlsEnabled)
+            {
+                Vector2 inputDirection = Input.GetVector("camera_move_left", "camera_move_right", "camera_move_up", "camera_move_down");
+                Velocity = inputDirection * Speed / Math.Max((int)Engine.TimeScale, 1);
+            }
+        }
         public override void _Input(InputEvent @event)
         {
             if (PlayerControls.Instance.playerControlsEnabled == true && cameraControlsEnabled == true)
             {
-                if (@event.IsActionPressed("mouse_wheel_up"))
-                {
-                    if (zoomEnabled == true)
-                    {
-                        ZoomIn();
-                    }
-                }
-                else if (@event.IsActionPressed("mouse_wheel_down"))
+                if (@event.IsActionPressed("camera_zoom_out"))
                 {
                     if (zoomEnabled == true)
                     {
                         ZoomOut();
+                    }
+                }
+                else if (@event.IsActionPressed("camera_zoom_in"))
+                {
+                    if (zoomEnabled == true)
+                    {
+                        ZoomIn();
                     }
                 }
             }

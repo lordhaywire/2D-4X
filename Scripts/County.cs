@@ -59,7 +59,6 @@ public partial class County : Node2D
         PopulationAI.WorkDayOverForPopulation(countyData);
         Banker.CalculateWorkToGoodsProduction(countyData);
 
-
         PopulationAI.IsThereEnoughFood(countyData); // This is a terrible name for this method.
 
         // This is a check for Occational needs.

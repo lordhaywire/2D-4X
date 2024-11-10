@@ -35,6 +35,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     [Export] public Label maxWorkersNumberLabel;
     [Export] public Button minusWorkerButton;
     [Export] public Button plusWorkerButton;
+    [Export] public Label goodsProducedPerDayTitleLabel;
     [Export] GridContainer outputsGridContainer;
     [Export] GridContainer inputsGridContainer;
     [Export] public Label nontangibleProductionLabel;
@@ -52,6 +53,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     [Export] public Button plusBuilderButton;
     [Export] Button constructButton;
     //[Export] private Label hiringLabel;
+
     [ExportGroup("Research")]
     [Export] Label assignResearcherInPanelLabel;
     [Export] public Label underContructionLabel;
@@ -237,8 +239,10 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     // ChatGPT wrote most of this.
     GoodPanelContainer AddOutputGoodsPanel(object resourceData, ProductionData productionData, GridContainer goodsParentGridContainer)
     {
-        countyImprovementData.GenerateAverageDailyAmountGenerated(productionData);
-        
+        // Generate the goods produced without bonuses.
+        // This is going to happen every time the player opens the county improvement panel, or research panel.
+        countyImprovementData.GenerateGoodsProducedWithoutBonusesForUI(productionData);
+
         GoodPanelContainer goodPanelContainer = (GoodPanelContainer)goodPanelContainerPackedScene.Instantiate();
         goodsParentGridContainer.AddChild(goodPanelContainer);
 
@@ -252,14 +256,21 @@ public partial class CountryImprovementPanelContainer : PanelContainer
         if (countyImprovementData.status != AllEnums.CountyImprovementStatus.Producing)
         {
             goodPanelContainer.goodLabel.Text = $"{Tr(goodName)} "
-                + $": {productionData.AverageDailyAmountGenerated}";
+                + $": {productionData.AverageDailyGoodsAmountGenerated}";
         }
-        else 
+        else
         {
-            goodPanelContainer.goodLabel.Text = $"{Tr(goodName)} "
-                + $": {countyImprovementData.workAmountForEachResource} / {productionData.workCost}";
+            goodsProducedPerDayTitleLabel.Text = "PHRASE_GOODS_PRODUCED_YESTERDAY";
+            if (productionData.todaysGoodsAmountGenerated > 1)
+            {
+                goodPanelContainer.goodLabel.Text = $"{Tr(goodName)} : {productionData.todaysGoodsAmountGenerated}";
+            }
+            else
+            {
+                goodPanelContainer.goodLabel.Text = $"{Tr(goodName)} "
+                    + $": {productionData.workAmountLeftOver} / {productionData.workCost}";
+            }
         }
-
         return goodPanelContainer;
     }
 
@@ -268,7 +279,6 @@ public partial class CountryImprovementPanelContainer : PanelContainer
         CheckForGoodsForColumns(inputsGridContainer
             , countyImprovementData.factionInputGoods.Count
             , countyImprovementData.countyInputGoods.Count);
-
 
         foreach (KeyValuePair<FactionResourceData, int> keyValuePair in countyImprovementData.factionInputGoods)
         {

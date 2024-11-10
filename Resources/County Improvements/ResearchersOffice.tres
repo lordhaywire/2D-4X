@@ -11,21 +11,22 @@
 script = ExtResource("2_kdjlb")
 workAmountAfterSkillCheck = 0
 workCost = 0.02
-workAmountLeftOver = 0
-todaysAmountGenerated = 0
+workAmountForEachResourceForToday = 0.0
+workAmountLeftOver = 0.0
+todaysGoodsAmountGenerated = 0
 averageDailyAmountGenerated = 0.0
 storageAmount = 0
+AverageDailyGoodsAmountGenerated = 0.0
 
 [resource]
 script = ExtResource("1_ga7gf")
 currentAmountOfCounstruction = 0
-workAmountForEachResource = 0
+numberBuilt = 0
 countyImprovementType = 1
 prioritize = false
 improvementTexture = ExtResource("1_a1jyh")
 improvementName = "IMPROVEMENT_RESEARCHERS_OFFICE"
 improvementDescription = "IMPROVEMENT_DESCRIPTION_RESEARCHERS_OFFICE"
-numberBuilt = 0
 workSkill = 6
 interest = ExtResource("2_1erl4")
 factionResourceConstructionCost = Dictionary[Object, int]({
@@ -45,8 +46,6 @@ ExtResource("1_j5ps1"): SubResource("Resource_2s610")
 }
 countyOutputGoods = {}
 allDailyWorkAmountAtImprovementCompleted = 0
-dailyResourceGenerationAmount = 5
-dailyResourceGenerationBonus = 2
 factionInputGoods = {}
 countyInputGoods = {}
 status = 0

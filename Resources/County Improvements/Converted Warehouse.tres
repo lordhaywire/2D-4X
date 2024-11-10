@@ -10,22 +10,22 @@
 script = ExtResource("2_6meue")
 workAmountAfterSkillCheck = 0
 workCost = 0.02
+workAmountForEachResourceForToday = 0.0
 workAmountLeftOver = 0.0
-todaysAmountGenerated = 0.0
+todaysGoodsAmountGenerated = 0
 averageDailyAmountGenerated = 0.0
 storageAmount = 500
-AverageDailyAmountGenerated = 0.0
+AverageDailyGoodsAmountGenerated = 0.0
 
 [resource]
 script = ExtResource("3_nbppr")
 currentAmountOfCounstruction = 0
-workAmountForEachResource = 0.0
+numberBuilt = 0
 countyImprovementType = 2
 prioritize = false
 improvementTexture = ExtResource("1_wn83v")
 improvementName = "IMPROVEMENT_CONVERTED_WAREHOUSE"
 improvementDescription = "IMPROVEMENT_DESCRIPTION_CONVERTED_WAREHOUSE"
-numberBuilt = 0
 workSkill = 4
 interest = ExtResource("2_cl8dw")
 factionResourceConstructionCost = null
@@ -43,8 +43,6 @@ countyOutputGoods = {
 ExtResource("1_1dxds"): SubResource("Resource_ln5b8")
 }
 allDailyWorkAmountAtImprovementCompleted = 0
-dailyResourceGenerationAmount = 0
-dailyResourceGenerationBonus = 0
 factionInputGoods = {}
 countyInputGoods = {}
 status = 0

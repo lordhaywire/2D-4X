@@ -10,7 +10,7 @@ namespace PlayerSpace
     {
         [ExportGroup("Not For Inspector")]
         [Export] private int currentAmountOfCounstruction;
-        [Export] public float workAmountForEachResource;
+        //[Export] public float workAmountForEachResource;
         [Export] public int numberBuilt; // This is used to number the improvement name in the County Improvement Panel.
 
         [ExportGroup("Improvement Info")]
@@ -30,7 +30,6 @@ namespace PlayerSpace
         [ExportGroup("Construction Costs")]
         [Export] public Godot.Collections.Dictionary<FactionResourceData, int> factionResourceConstructionCost;
         [Export] public Godot.Collections.Dictionary<CountyResourceData, int> countyResourceConstructionCost;
-
 
         [Export]
         public int CurrentAmountOfConstruction
@@ -57,8 +56,8 @@ namespace PlayerSpace
         [Export] public Godot.Collections.Dictionary<CountyResourceData, ProductionData> countyOutputGoods = [];
         [Export] public int allDailyWorkAmountAtImprovementCompleted;
 
-        [Export] public int dailyResourceGenerationAmount; // I am pretty sure these are not used.
-        [Export] public int dailyResourceGenerationBonus; // I am pretty sure these are not used.
+        //[Export] public int dailyResourceGenerationAmount; // I am pretty sure these are not used.
+        //[Export] public int dailyResourceGenerationBonus; // I am pretty sure these are not used.
 
         // All input goods that are need to create the finished good.
         // For some reason this one needs to be initialized, but the faction and county construction costs don't.
@@ -113,20 +112,29 @@ namespace PlayerSpace
 
         }
 
+        public int CountNumberOfGoodsGettingProduced()
+        {
+            int numberOfGoodsGettingProduced = countyOutputGoods.Count + factionOutputGoods.Count;
+            return numberOfGoodsGettingProduced;
+        }
+
         /// <summary>
         /// MaxWorkers * Global Amount of Daily Work without bonus / work cost = average daily amount generated.
         /// </summary>
         /// <param name="productionData"></param>
-        public void GenerateAverageDailyAmountGenerated(ProductionData productionData)
+        public void GenerateGoodsProducedWithoutBonusesForUI(ProductionData productionData)
         {
             if (countyImprovementType != AllEnums.CountyImprovementType.Storage)
             {
-                productionData.AverageDailyAmountGenerated = maxWorkers * Globals.Instance.dailyWorkAmount
-                    / (float)productionData.workCost;
+                // Get all of the work and then divide it by the number of resources.
+                float workAmount = maxWorkers * Globals.Instance.dailyWorkAmount
+                    / productionData.workCost;
+                
+                productionData.AverageDailyGoodsAmountGenerated = workAmount / CountNumberOfGoodsGettingProduced();
             }
             else
             {
-                productionData.AverageDailyAmountGenerated = productionData.storageAmount;
+                productionData.AverageDailyGoodsAmountGenerated = productionData.storageAmount;
             }
         }
         public bool CheckIfStorageImprovement()
@@ -190,7 +198,7 @@ namespace PlayerSpace
                     break;
             }
         }
-
+        
         public void SetCountyImprovementStatus(AllEnums.CountyImprovementStatus newStatus)
         {
             status = newStatus;
@@ -211,7 +219,7 @@ namespace PlayerSpace
                 factionOutputGoods = countyImprovementData.factionOutputGoods,
                 countyOutputGoods = countyImprovementData.countyOutputGoods,
                 allDailyWorkAmountAtImprovementCompleted = countyImprovementData.allDailyWorkAmountAtImprovementCompleted,
-                workAmountForEachResource = countyImprovementData.workAmountForEachResource,
+                //workAmountForEachResource = countyImprovementData.workAmountForEachResource,
                 factionResourceConstructionCost = countyImprovementData.factionResourceConstructionCost,
                 countyResourceConstructionCost = countyImprovementData.countyResourceConstructionCost,
                 currentAmountOfCounstruction = countyImprovementData.currentAmountOfCounstruction,
@@ -225,8 +233,8 @@ namespace PlayerSpace
                 factionResourceType = countyImprovementData.factionResourceType,
                 factionInputGoods = countyImprovementData.factionInputGoods,
                 countyInputGoods = countyImprovementData.countyInputGoods,
-                dailyResourceGenerationAmount = countyImprovementData.dailyResourceGenerationAmount,
-                dailyResourceGenerationBonus = countyImprovementData.dailyResourceGenerationBonus,
+                //dailyResourceGenerationAmount = countyImprovementData.dailyResourceGenerationAmount,
+                //dailyResourceGenerationBonus = countyImprovementData.dailyResourceGenerationBonus,
                 status = countyImprovementData.status,
                 populationAtImprovement = new List<CountyPopulation>(countyImprovementData.populationAtImprovement),
             };

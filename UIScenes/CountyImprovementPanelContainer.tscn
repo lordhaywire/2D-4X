@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b0tyfwbm6y74e" path="res://UIScenes/GoodPanelContainer.tscn" id="2_7ne0a"]
 [ext_resource type="Texture2D" uid="uid://duyyhx30r6vow" path="res://Graphics/County Improvements/Warehouse wooden-crate.svg" id="2_jdvn2"]
 
-[node name="County Improvement PanelContainer" type="PanelContainer" node_paths=PackedStringArray("researchAssignedLabel", "progressPanelContainer", "progressTitle", "progressBar", "constructionCostLabel", "maxWorkersLabel", "prioritizeHBox", "prioritizeCheckBox", "improvementNameLabel", "improvementDescriptionLabel", "improvementTextureRect", "workersPanelContainer", "produceAsNeededCheckBox", "currentWorkersNumberLabel", "adjustedWorkersNumberLabel", "maxWorkersNumberLabel", "minusWorkerButton", "plusWorkerButton", "outputsGridContainer", "inputsGridContainer", "nontangibleProductionLabel", "constructionPanelContainer", "constructionTitleLabel", "constructionMaterialCostGridContainer", "adjustMaxBuildersHbox", "currentBuildersNumberLabel", "adjustedBuildersNumberLabel", "maxBuildersNumberLabel", "minusBuilderButton", "plusBuilderButton", "constructButton", "assignResearcherInPanelLabel", "underContructionLabel", "removeImprovementButton")]
+[node name="County Improvement PanelContainer" type="PanelContainer" node_paths=PackedStringArray("researchAssignedLabel", "progressPanelContainer", "progressTitle", "progressBar", "constructionCostLabel", "maxWorkersLabel", "prioritizeHBox", "prioritizeCheckBox", "improvementNameLabel", "improvementDescriptionLabel", "improvementTextureRect", "workersPanelContainer", "produceAsNeededCheckBox", "currentWorkersNumberLabel", "adjustedWorkersNumberLabel", "maxWorkersNumberLabel", "minusWorkerButton", "plusWorkerButton", "goodsProducedPerDayTitleLabel", "outputsGridContainer", "inputsGridContainer", "nontangibleProductionLabel", "constructionPanelContainer", "constructionTitleLabel", "constructionMaterialCostGridContainer", "adjustMaxBuildersHbox", "currentBuildersNumberLabel", "adjustedBuildersNumberLabel", "maxBuildersNumberLabel", "minusBuilderButton", "plusBuilderButton", "constructButton", "assignResearcherInPanelLabel", "underContructionLabel", "removeImprovementButton")]
 self_modulate = Color(0.302495, 0.302495, 0.302495, 1)
 offset_right = 40.0
 offset_bottom = 40.0
@@ -30,6 +30,7 @@ adjustedWorkersNumberLabel = NodePath("Everything VBoxContainer/Production and B
 maxWorkersNumberLabel = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer/Max Workers Number Label")
 minusWorkerButton = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer/Minus Max Worker Button")
 plusWorkerButton = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Workers PanelContainer/VBoxContainer/Adjustable Workers HBoxContainer/Plus Max Worker Button")
+goodsProducedPerDayTitleLabel = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Goods Produced Per Day Title Label")
 outputsGridContainer = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Outputs GridContainer")
 inputsGridContainer = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Inputs GridContainer")
 nontangibleProductionLabel = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Nontangible Goods Produced Title Label")
@@ -187,7 +188,7 @@ text = "+"
 
 [node name="Goods Produced Per Day Title Label" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer"]
 layout_mode = 2
-text = "PHRASE_GOODS_PRODUCED_PER_DAY"
+text = "PHRASE_GOODS_PRODUCED_PER_DAY_WITHOUT_BONUS"
 horizontal_alignment = 1
 vertical_alignment = 1
 

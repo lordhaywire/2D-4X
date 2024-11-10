@@ -10,13 +10,13 @@ public partial class EventLogTextPanel : Panel
     {
         //GD.PrintRich("[tornado][wave][shake]Mouse Entered: Event Log.");
         PlayerControls.Instance.AdjustClickThrough();
-        Camera.Instance.AdjustZoomEnabled();
+        CameraControls.Instance.AdjustZoomEnabled();
     }
 
     public static void OnEventLogMouseTextPanelExited()
     {
         //GD.PrintRich("[tornado][wave][shake]Mouse Exited: Event Log.");
         PlayerControls.Instance.AdjustClickThrough();
-        Camera.Instance.AdjustZoomEnabled();
+        CameraControls.Instance.AdjustZoomEnabled();
     }
 }

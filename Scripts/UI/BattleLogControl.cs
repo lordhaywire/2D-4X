@@ -18,11 +18,11 @@ namespace PlayerSpace
         {
             if(Visible == true)
             {
-                Camera.Instance.cameraControlsEnabled = false;
+                CameraControls.Instance.cameraControlsEnabled = false;
             }
             else
             {
-                Camera.Instance.cameraControlsEnabled = true;
+                CameraControls.Instance.cameraControlsEnabled = true;
             }
         }
         public override void _Ready()

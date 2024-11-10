@@ -15,42 +15,44 @@
 script = ExtResource("4_j7moc")
 workAmountAfterSkillCheck = 0
 workCost = 0.02
+workAmountForEachResourceForToday = 0.0
 workAmountLeftOver = 0.0
-todaysAmountGenerated = 0.0
+todaysGoodsAmountGenerated = 0
 averageDailyAmountGenerated = 0.0
 storageAmount = 0
-AverageDailyAmountGenerated = 0.0
+AverageDailyGoodsAmountGenerated = 0.0
 
 [sub_resource type="Resource" id="Resource_ah8i5"]
 script = ExtResource("4_j7moc")
 workAmountAfterSkillCheck = 0
-workCost = 0.02
+workCost = 0.04
+workAmountForEachResourceForToday = 0.0
 workAmountLeftOver = 0.0
-todaysAmountGenerated = 0.0
+todaysGoodsAmountGenerated = 0
 averageDailyAmountGenerated = 0.0
 storageAmount = 0
-AverageDailyAmountGenerated = 0.0
+AverageDailyGoodsAmountGenerated = 0.0
 
 [sub_resource type="Resource" id="Resource_0kpwl"]
 script = ExtResource("4_j7moc")
 workAmountAfterSkillCheck = 0
 workCost = 2.0
+workAmountForEachResourceForToday = 0.0
 workAmountLeftOver = 0.0
-todaysAmountGenerated = 0.0
+todaysGoodsAmountGenerated = 0
 averageDailyAmountGenerated = 0.0
 storageAmount = 0
-AverageDailyAmountGenerated = 0.0
+AverageDailyGoodsAmountGenerated = 0.0
 
 [resource]
 script = ExtResource("2_iptt2")
 currentAmountOfCounstruction = 0
-workAmountForEachResource = 0.0
+numberBuilt = 0
 countyImprovementType = 0
 prioritize = false
 improvementTexture = ExtResource("1_3xigu")
 improvementName = "IMPROVEMENT_FISHERS_SHED"
 improvementDescription = "IMPROVEMENT_DESCRIPTION_FISHERS_SHED"
-numberBuilt = 0
 workSkill = 3
 interest = ExtResource("2_h1ekr")
 factionResourceConstructionCost = Dictionary[Object, int]({
@@ -76,8 +78,6 @@ ExtResource("1_132qd"): SubResource("Resource_x5mj1"),
 ExtResource("1_1yts0"): SubResource("Resource_ah8i5")
 }
 allDailyWorkAmountAtImprovementCompleted = 0
-dailyResourceGenerationAmount = 10
-dailyResourceGenerationBonus = 5
 factionInputGoods = {
 ExtResource("1_t3pyc"): 2
 }

@@ -4,7 +4,7 @@ namespace PlayerSpace
 {
     public partial class Camera : Camera2D
     {
-        public static Camera Instance { get; private set; }
+        //public static Camera Instance { get; private set; }
         [Export] public int Speed { get; private set; } = 2000;
 
         [Export] private int MinSpeed = 500;
@@ -21,7 +21,7 @@ namespace PlayerSpace
 
         public override void _Ready()
         {
-            Instance = this;
+            //Instance = this;
         }
         public override void _PhysicsProcess(double delta)
         {

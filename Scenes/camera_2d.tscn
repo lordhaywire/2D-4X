@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://ss5rhsqecwbp"]
+
+[ext_resource type="Script" path="res://Scripts/Camera.cs" id="1_trp1w"]
+
+[node name="Camera2D" type="Camera2D"]
+process_mode = 3
+process_callback = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 12.0
+script = ExtResource("1_trp1w")

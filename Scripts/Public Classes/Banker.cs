@@ -21,11 +21,12 @@ namespace PlayerSpace
                 return;
             }
             GD.Print($"{countyData.countyName} Someone is working at {countyPopulation.currentCountyImprovement.improvementName}");
-            countyPopulation.currentCountyImprovement.allDailyWorkAmountAtImprovementCompleted 
+            countyPopulation.currentCountyImprovement.allDailyWorkAmountAtImprovementCompleted
                 += GenerateWorkAmountWithSkillCheck(countyPopulation);
+            GD.Print("All Daily Work Amount At Improvement Completed: " + countyPopulation.currentCountyImprovement.allDailyWorkAmountAtImprovementCompleted);
         }
 
-            // This includes the armies in the county, but it only works while the army is one person.
+        // This includes the armies in the county, but it only works while the army is one person.
         public static int CountEveryoneInCounty(CountyData countyData)
         {
             int numberOfPeople = countyData.countyPopulationList.Count()
@@ -73,7 +74,7 @@ namespace PlayerSpace
         /// <returns></returns>
         public static int GenerateWorkAmountWithSkillCheck(CountyPopulation countyPopulation)
         {
-            CountyImprovementData countyImprovementData = countyPopulation.currentCountyImprovement;
+            //CountyImprovementData countyImprovementData = countyPopulation.currentCountyImprovement;
             int skillLevel = countyPopulation.skills[countyPopulation.currentCountyImprovement.workSkill].skillLevel;
             int workAmount;
             if (SkillData.Check(countyPopulation, skillLevel, countyPopulation.skills[countyPopulation.currentCountyImprovement.workSkill].attribute, false) == true)
@@ -352,51 +353,72 @@ namespace PlayerSpace
             }
         }
 
-        internal static void CalculateWorkToGoodsProduction(CountyData countyData)
+        public static void CalculateWorkToGoodsProduction(CountyData countyData)
         {
+
             // This should go through the list of completed county improvements and do the math
-            // to generate the goods they generate.
+            // to generate the production data.
             foreach (CountyImprovementData countyImprovementData in countyData.completedCountyImprovements)
             {
                 //GD.Print($"Improvement Test County Resource List Count: {countyImprovementData.improvementName} {countyImprovementData.countyOutputGoods?.Count}");
-                if (countyImprovementData.countyOutputGoods?.Count > 0 
+                if (countyImprovementData.countyOutputGoods?.Count > 0
                     && countyImprovementData.maxWorkers > 0)
                 {
-                    // Divide the number of goods the improvement generates by the work amount.
-                    // Ignore the remainder because we don't care about it.
-                    
-                    countyImprovementData.workAmountForEachResource = countyImprovementData.allDailyWorkAmountAtImprovementCompleted
-                        / countyImprovementData.countyOutputGoods.Count;
-                    
-                    GD.Print($"{countyData.countyName} Work Amount For Each Resource: {countyImprovementData.workAmountForEachResource}");
                     foreach (KeyValuePair<CountyResourceData, ProductionData> keyValuePair in countyImprovementData.countyOutputGoods)
                     {
-                        if(countyImprovementData.workAmountForEachResource == 0)
+                        // Reset todays goods amount generated before it does all the calculations.
+                        // It needs to keep this number for the player UI until it does the math.
+                        keyValuePair.Value.todaysGoodsAmountGenerated = 0;
+                        // Divide the number of goods the improvement generates by the number of goods.
+                        keyValuePair.Value.workAmountForEachResourceForToday = (float)countyImprovementData.allDailyWorkAmountAtImprovementCompleted
+                            / countyImprovementData.CountNumberOfGoodsGettingProduced();
+                       
+                        GD.Print($"{countyData.countyName} : {countyImprovementData.improvementName} " +
+                            $"- Work Amount For Each Resource For Today: {keyValuePair.Value.workAmountForEachResourceForToday}");
+
+                        // I think this is here because without it tries to divide by zero.
+                        if (keyValuePair.Value.workAmountForEachResourceForToday == 0)
                         {
                             GD.Print("Work Amount For Each Resource is ZERO!");
                             return;
                         }
-                        // If the work amount is less then the work cost, no good is produced.
-                        // This is how we will get our progress bar amount via the Work Amount Left Over.
+                        
                         GD.Print($"{countyImprovementData.improvementName} {keyValuePair.Key.goodName} work cost: " +
                             $"{keyValuePair.Value.workCost}");
-                        if (countyImprovementData.workAmountForEachResource < keyValuePair.Value.workCost)
-                        {
-                            keyValuePair.Value.todaysAmountGenerated = 0; // I think this needs to be reset at a different spot.
-                            keyValuePair.Value.workAmountLeftOver += countyImprovementData.workAmountForEachResource;
-                        }
-                        else
-                        {
-                            // Calculate the number of items built.
-                            keyValuePair.Value.todaysAmountGenerated 
-                                = countyImprovementData.workAmountForEachResource / keyValuePair.Value.workCost;
+                        GD.Print("Work Amount For Each Resource For Today: " + keyValuePair.Value.workAmountForEachResourceForToday);
+                        // We take the work amount for today and add it to work amount left over.
+                        GD.Print("Work Amount Left Over 1: " + keyValuePair.Value.workAmountLeftOver);
+                        keyValuePair.Value.workAmountLeftOver += keyValuePair.Value.workAmountForEachResourceForToday;
+                        GD.Print("Work Amount Left Over 2: " + keyValuePair.Value.workAmountLeftOver);
 
-                            // Calculate the leftover work
-                            keyValuePair.Value.workAmountLeftOver = countyImprovementData.workAmountForEachResource % (int)keyValuePair.Value.workCost;
-                        }
-                        GD.Print($"{countyData.countyName} {countyImprovementData.improvementName} generated today: {keyValuePair.Value.todaysAmountGenerated}");
+                        // This find the todays amount generated for each goods.
+                        float todaysGoodsFloat = keyValuePair.Value.workAmountLeftOver /
+                            keyValuePair.Value.workCost;
+                        GD.Print("Before the inting: " + todaysGoodsFloat);
+                        keyValuePair.Value.todaysGoodsAmountGenerated = (int)todaysGoodsFloat;
+                        GD.Print("We are inting the todays Goods Float: " + keyValuePair.Value.todaysGoodsAmountGenerated);
 
-                        AddCountyResource(countyData, keyValuePair.Key.countyResourceType,(int)keyValuePair.Value.todaysAmountGenerated);
+                        // If todays amount generated is greater then one it has generated goods that day
+                        // otherwise it is saving the work amount for each resource until it is over 1.
+                        // This is how we will get our fraction of completed work amount via the Work Amount Left Over.
+                        if (keyValuePair.Value.todaysGoodsAmountGenerated == 1)
+                        {
+                            //keyValuePair.Value.workAmountLeftOver -= keyValuePair.Value.workCost;
+                        }
+
+                        /// THIS IS THE PROBLEM!
+                        if(keyValuePair.Value.todaysGoodsAmountGenerated > 1)
+                        {
+                            //keyValuePair.Value.workAmountLeftOver -= keyValuePair.Value.todaysGoodsAmountGenerated
+                            //    / keyValuePair.Value.workCost;
+                        }
+                        
+
+                        GD.Print($"{countyData.countyName} {countyImprovementData.improvementName} todays goods " +
+                            $"generated: {keyValuePair.Value.todaysGoodsAmountGenerated}");
+
+                        AddCountyResource(countyData, keyValuePair.Key.countyResourceType, (int)keyValuePair.Value.todaysGoodsAmountGenerated);
+
                     }
                 }
             }
