@@ -10,8 +10,7 @@
 script = ExtResource("2_6meue")
 workAmountAfterSkillCheck = 0
 workCost = 0.02
-workAmountForEachResourceForToday = 0.0
-workAmountLeftOver = 0.0
+workAmount = 0
 todaysGoodsAmountGenerated = 0
 averageDailyAmountGenerated = 0.0
 storageAmount = 500

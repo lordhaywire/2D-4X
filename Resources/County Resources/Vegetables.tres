@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_tyovi")
-goodName = "COUNTY_RESOURCE_VEGETABLES"
+GoodName = "7"
 description = "COUNTY_RESOURCE_DESCRIPTION_VEGETABLES"
 countyResourceType = 7
 factionResourceType = 3

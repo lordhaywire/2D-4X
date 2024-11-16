@@ -6,10 +6,9 @@ namespace PlayerSpace
     public partial class ProductionData : Resource
     {
         [Export] public int workAmountAfterSkillCheck; // This should be 
-        [Export] public float workCost; // The amount of work it takes to generate 1 of this good, that has
+        [Export] public int workCost; // The amount of work it takes to generate 1 of this good, that has
         // to be set in the inspector by someone.
-        [Export] public float workAmountForEachResourceForToday = 0;
-        [Export] public float workAmountLeftOver = 0;
+        [Export] public int workAmount;
         [Export] public int todaysGoodsAmountGenerated;
         [Export] private float averageDailyAmountGenerated;
         [Export] public int storageAmount;
@@ -26,6 +25,20 @@ namespace PlayerSpace
                     averageDailyAmountGenerated = Mathf.Ceil(averageDailyAmountGenerated);
                 }
             }
+        }
+
+        public ProductionData NewCopy(ProductionData productionData)
+        {
+            ProductionData newProductionData = new()
+            {
+                workAmountAfterSkillCheck = productionData.workAmountAfterSkillCheck,
+                workCost = productionData.workCost,
+                workAmount = productionData.workAmount,
+                todaysGoodsAmountGenerated = productionData.todaysGoodsAmountGenerated,
+                averageDailyAmountGenerated = productionData.averageDailyAmountGenerated,
+                storageAmount = productionData.storageAmount,
+            };
+            return newProductionData;
         }
 
     }

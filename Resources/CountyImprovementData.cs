@@ -52,7 +52,6 @@ namespace PlayerSpace
 
         [ExportGroup("Outputs")]
         [Export] public Godot.Collections.Dictionary<FactionResourceData, ProductionData> factionOutputGoods = [];
-        // Resource and work amount cost.
         [Export] public Godot.Collections.Dictionary<CountyResourceData, ProductionData> countyOutputGoods = [];
         [Export] public int allDailyWorkAmountAtImprovementCompleted;
 
@@ -127,10 +126,10 @@ namespace PlayerSpace
             if (countyImprovementType != AllEnums.CountyImprovementType.Storage)
             {
                 // Get all of the work and then divide it by the number of resources.
-                float workAmount = maxWorkers * Globals.Instance.dailyWorkAmount
+                int workAmount = maxWorkers * Globals.Instance.dailyWorkAmount
                     / productionData.workCost;
                 
-                productionData.AverageDailyGoodsAmountGenerated = workAmount / CountNumberOfGoodsGettingProduced();
+                productionData.AverageDailyGoodsAmountGenerated = workAmount;
             }
             else
             {
@@ -216,10 +215,9 @@ namespace PlayerSpace
                 numberBuilt = countyImprovementData.numberBuilt,
                 workSkill = countyImprovementData.workSkill,
                 interest = countyImprovementData.interest,
-                factionOutputGoods = countyImprovementData.factionOutputGoods,
-                countyOutputGoods = countyImprovementData.countyOutputGoods,
+                factionOutputGoods = countyImprovementData.CopyFactionOutputGoods(),
+                countyOutputGoods = countyImprovementData.CopyCountyOutputGoods(),
                 allDailyWorkAmountAtImprovementCompleted = countyImprovementData.allDailyWorkAmountAtImprovementCompleted,
-                //workAmountForEachResource = countyImprovementData.workAmountForEachResource,
                 factionResourceConstructionCost = countyImprovementData.factionResourceConstructionCost,
                 countyResourceConstructionCost = countyImprovementData.countyResourceConstructionCost,
                 currentAmountOfCounstruction = countyImprovementData.currentAmountOfCounstruction,
@@ -233,12 +231,36 @@ namespace PlayerSpace
                 factionResourceType = countyImprovementData.factionResourceType,
                 factionInputGoods = countyImprovementData.factionInputGoods,
                 countyInputGoods = countyImprovementData.countyInputGoods,
-                //dailyResourceGenerationAmount = countyImprovementData.dailyResourceGenerationAmount,
-                //dailyResourceGenerationBonus = countyImprovementData.dailyResourceGenerationBonus,
                 status = countyImprovementData.status,
                 populationAtImprovement = new List<CountyPopulation>(countyImprovementData.populationAtImprovement),
             };
             return newCountyImprovementData;
+        }
+
+        // We have to do a copy of a copy to make a copy that is unique.
+        public Godot.Collections.Dictionary<FactionResourceData, ProductionData> CopyFactionOutputGoods()
+        {
+            Godot.Collections.Dictionary<FactionResourceData, ProductionData> copiedDictionary = [];
+
+            foreach (System.Collections.Generic.KeyValuePair<FactionResourceData, ProductionData> item in factionOutputGoods)
+            {
+                copiedDictionary[item.Key] = item.Value.NewCopy(item.Value);
+            }
+
+            return copiedDictionary;
+        }
+
+        // We have to do a copy of a copy to make a copy that is unique.
+        public Godot.Collections.Dictionary<CountyResourceData, ProductionData> CopyCountyOutputGoods()
+        {
+            Godot.Collections.Dictionary<CountyResourceData, ProductionData> copiedDictionary = [];
+
+            foreach (System.Collections.Generic.KeyValuePair<CountyResourceData, ProductionData> item in countyOutputGoods)
+            {
+                copiedDictionary[item.Key] = item.Value.NewCopy(item.Value);
+            }
+
+            return copiedDictionary;
         }
     }
 }

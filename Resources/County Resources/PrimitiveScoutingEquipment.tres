@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_8577a")
-goodName = "COUNTY_RESOURCE_PRIMITIVE_SCOUTING_EQUIPMENT"
+GoodName = "3"
 description = "COUNTY_RESOURCE_DESCRIPTION_PRIMITIVE_SCOUTING_EQUIPMENT"
 countyResourceType = 3
 factionResourceType = 2

@@ -28,19 +28,6 @@ namespace PlayerSpace
         {
             GetInput();
             MoveAndSlide();
-            //ShowWorkAmountTest();
-        }
-
-        private void ShowWorkAmountTest()
-        {
-            foreach(CountyImprovementData countyImprovementData in Globals.Instance.playerFactionData.countiesFactionOwns[0].completedCountyImprovements)
-            {
-                foreach(KeyValuePair<CountyResourceData, ProductionData> keyValuePair in countyImprovementData.countyOutputGoods)
-                {
-                    GD.Print(keyValuePair.Value.workAmountLeftOver);
-                }
-                
-            }
         }
 
         public void GetInput()

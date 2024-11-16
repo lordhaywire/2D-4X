@@ -11,6 +11,7 @@ public partial class Globals : Node
     public static Globals Instance { get; private set; }
 
     public Random random = new();
+    //[ExportGroup("Test BS")]
 
     [ExportGroup("Player Faction BS")]
     [Export] public FactionData playerFactionData;
@@ -94,8 +95,8 @@ public partial class Globals : Node
     [Export] public int startingAmountOfEachResource = 1;
     [Export] public int dailyScavengedAmount = 2;
     [Export] public int dailyScavengedAmountBonus = 1;
-    [Export] public int dailyConstructionAmount = 5;
-    [Export] public int dailyConstructionAmountBonus = 2;
+    [Export] public int dailyConstructionAmount = 5; // Get rid of daily construction amount and make it the same as the daily Work amount
+    [Export] public int dailyConstructionAmountBonus = 2; // Get rid of daily construction bonus amount and make it the same as the daily Work bonus amount
     [Export] public int dailyWorkAmount = 10;
     [Export] public int dailyWorkAmountBonus = 5;
     [Export] public int foodToGainHappiness = 3;

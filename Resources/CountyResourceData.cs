@@ -4,9 +4,9 @@ using System;
 namespace PlayerSpace
 {
     [GlobalClass]
-    public partial class CountyResourceData : Resource
+    public partial class CountyResourceData : Resource, IGoodsData
     {
-        [Export] public string goodName;
+        [Export] public string GoodName { set; get; }
         [Export] public string description;
         [Export] public AllEnums.CountyResourceType countyResourceType;
         [Export] public AllEnums.FactionResourceType factionResourceType;

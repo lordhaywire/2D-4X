@@ -248,8 +248,8 @@ public partial class CountryImprovementPanelContainer : PanelContainer
 
         string goodName = resourceData switch
         {
-            CountyResourceData countyResource => countyResource.goodName,
-            FactionResourceData factionResource => factionResource.goodName,
+            CountyResourceData countyResource => countyResource.GoodName,
+            FactionResourceData factionResource => factionResource.GoodName,
             _ => throw new InvalidOperationException("Unknown resource type")
         };
         //GD.Print($"Average Daily Amount Generated: {productionData.AverageDailyAmountGenerated}");
@@ -261,14 +261,14 @@ public partial class CountryImprovementPanelContainer : PanelContainer
         else
         {
             goodsProducedPerDayTitleLabel.Text = "PHRASE_GOODS_PRODUCED_YESTERDAY";
-            if (productionData.todaysGoodsAmountGenerated > 1)
+            if (productionData.todaysGoodsAmountGenerated >= 1)
             {
                 goodPanelContainer.goodLabel.Text = $"{Tr(goodName)} : {productionData.todaysGoodsAmountGenerated}";
             }
             else
             {
                 goodPanelContainer.goodLabel.Text = $"{Tr(goodName)} "
-                    + $": {productionData.workAmountLeftOver} / {productionData.workCost}";
+                    + $": {productionData.workAmount} / {productionData.workCost}";
             }
         }
         return goodPanelContainer;
@@ -282,7 +282,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
 
         foreach (KeyValuePair<FactionResourceData, int> keyValuePair in countyImprovementData.factionInputGoods)
         {
-            GoodPanelContainer goodPanelContainer = AddInputGoodsPanel(keyValuePair, keyValuePair.Key.goodName, inputsGridContainer);
+            GoodPanelContainer goodPanelContainer = AddInputGoodsPanel(keyValuePair, keyValuePair.Key.GoodName, inputsGridContainer);
 
             // You can't use remnants to replace faction resources.
             goodPanelContainer.useRemnantsCheckBox.Hide();
@@ -290,7 +290,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
 
         foreach (KeyValuePair<CountyResourceData, int> keyValuePair in countyImprovementData.countyInputGoods)
         {
-            GoodPanelContainer goodPanelContainer = AddInputGoodsPanel(keyValuePair, keyValuePair.Key.goodName, inputsGridContainer);
+            GoodPanelContainer goodPanelContainer = AddInputGoodsPanel(keyValuePair, keyValuePair.Key.GoodName, inputsGridContainer);
 
             if (countyImprovementData.status == AllEnums.CountyImprovementStatus.UnderConstruction)
             {
@@ -323,7 +323,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
 
         foreach (KeyValuePair<FactionResourceData, int> keyValuePair in countyImprovementData.factionResourceConstructionCost)
         {
-            GoodPanelContainer goodPanelContainer = AddInputGoodsPanel(keyValuePair, keyValuePair.Key.goodName, constructionMaterialCostGridContainer);
+            GoodPanelContainer goodPanelContainer = AddInputGoodsPanel(keyValuePair, keyValuePair.Key.GoodName, constructionMaterialCostGridContainer);
 
             // You can't use remnants to replace faction resources.
             goodPanelContainer.useRemnantsCheckBox.Hide();
@@ -331,7 +331,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
 
         foreach (KeyValuePair<CountyResourceData, int> keyValuePair in countyImprovementData.countyResourceConstructionCost)
         {
-            GoodPanelContainer goodPanelContainer = AddInputGoodsPanel(keyValuePair, keyValuePair.Key.goodName, constructionMaterialCostGridContainer);
+            GoodPanelContainer goodPanelContainer = AddInputGoodsPanel(keyValuePair, keyValuePair.Key.GoodName, constructionMaterialCostGridContainer);
 
             CheckForHideUseRemnants(keyValuePair, goodPanelContainer);
         }

@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_lhf4k")
-goodName = "COUNTY_RESOURCE_REMNANTS"
+GoodName = "4"
 description = "COUNTY_RESOURCE_DESCRIPTION_REMNANTS"
 countyResourceType = 4
 factionResourceType = 6

@@ -9,9 +9,8 @@
 [sub_resource type="Resource" id="Resource_atbkk"]
 script = ExtResource("2_8wsb8")
 workAmountAfterSkillCheck = 0
-workCost = 200.0
-workAmountForEachResourceForToday = 0.0
-workAmountLeftOver = 0.0
+workCost = 100
+workAmount = 0
 todaysGoodsAmountGenerated = 0
 averageDailyAmountGenerated = 0.0
 storageAmount = 0

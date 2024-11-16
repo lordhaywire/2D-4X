@@ -14,20 +14,18 @@
 [sub_resource type="Resource" id="Resource_x5mj1"]
 script = ExtResource("4_j7moc")
 workAmountAfterSkillCheck = 0
-workCost = 0.02
-workAmountForEachResourceForToday = 0.0
-workAmountLeftOver = 0.0
+workCost = 2
+workAmount = 0
 todaysGoodsAmountGenerated = 0
 averageDailyAmountGenerated = 0.0
 storageAmount = 0
 AverageDailyGoodsAmountGenerated = 0.0
 
-[sub_resource type="Resource" id="Resource_ah8i5"]
+[sub_resource type="Resource" id="Resource_iuxb6"]
 script = ExtResource("4_j7moc")
 workAmountAfterSkillCheck = 0
-workCost = 0.04
-workAmountForEachResourceForToday = 0.0
-workAmountLeftOver = 0.0
+workCost = 15
+workAmount = 0
 todaysGoodsAmountGenerated = 0
 averageDailyAmountGenerated = 0.0
 storageAmount = 0
@@ -36,9 +34,8 @@ AverageDailyGoodsAmountGenerated = 0.0
 [sub_resource type="Resource" id="Resource_0kpwl"]
 script = ExtResource("4_j7moc")
 workAmountAfterSkillCheck = 0
-workCost = 2.0
-workAmountForEachResourceForToday = 0.0
-workAmountLeftOver = 0.0
+workCost = 3
+workAmount = 0
 todaysGoodsAmountGenerated = 0
 averageDailyAmountGenerated = 0.0
 storageAmount = 0
@@ -75,7 +72,7 @@ ExtResource("4_8wsk1"): SubResource("Resource_0kpwl")
 }
 countyOutputGoods = {
 ExtResource("1_132qd"): SubResource("Resource_x5mj1"),
-ExtResource("1_1yts0"): SubResource("Resource_ah8i5")
+ExtResource("1_1yts0"): SubResource("Resource_iuxb6")
 }
 allDailyWorkAmountAtImprovementCompleted = 0
 factionInputGoods = {

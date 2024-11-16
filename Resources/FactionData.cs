@@ -1,8 +1,6 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Resources;
 
 namespace PlayerSpace
 {
@@ -144,7 +142,7 @@ namespace PlayerSpace
             {
                 yesterdaysFactionResources.Add(keyValuePair.Key, new FactionResourceData
                 {
-                    goodName = keyValuePair.Value.goodName,
+                    GoodName = keyValuePair.Value.GoodName,
                     description = keyValuePair.Value.description,
                     resourceType = keyValuePair.Value.resourceType,
                     amount = keyValuePair.Value.amount,

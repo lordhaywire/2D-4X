@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_ios6q")
-goodName = "FACTION_RESOURCE_RESEARCH"
+GoodName = "g"
 description = "FACTION_RESOURCE_DESCRIPTION_RESEARCH"
 resourceType = 7
 amount = 0

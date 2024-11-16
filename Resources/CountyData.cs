@@ -682,7 +682,7 @@ namespace PlayerSpace
             {
                 yesterdaysCountyResources.Add(keyValuePair.Key, new CountyResourceData
                 {
-                    goodName = keyValuePair.Value.goodName,
+                    GoodName = keyValuePair.Value.GoodName,
                     description = keyValuePair.Value.description,
                     countyResourceType = keyValuePair.Value.countyResourceType,
                     factionResourceType = keyValuePair.Value.factionResourceType,
@@ -753,8 +753,8 @@ namespace PlayerSpace
 
             // Sort possibleWorkers by relevant skill
             possibleWorkers = countyImprovementData.status == AllEnums.CountyImprovementStatus.UnderConstruction
-                ? possibleWorkers.OrderByDescending(cp => cp.skills[AllEnums.Skills.Construction].skillLevel).ToList()
-                : possibleWorkers.OrderByDescending(cp => cp.skills[countyImprovementData.workSkill].skillLevel).ToList();
+                ? [.. possibleWorkers.OrderByDescending(cp => cp.skills[AllEnums.Skills.Construction].skillLevel)]
+                : [.. possibleWorkers.OrderByDescending(cp => cp.skills[countyImprovementData.workSkill].skillLevel)];
 
             int remainingWorkerSlots = maxWorkers - countyImprovementData.populationAtImprovement.Count;
             // GD.Print($"{countyImprovementData.improvementName} Population At Improvement: "
