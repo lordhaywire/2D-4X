@@ -71,7 +71,7 @@ namespace PlayerSpace
         public int daysStarving;
 
         // Resource needs, currently there is just 1 need, Remnants.
-        public Godot.Collections.Dictionary<AllEnums.CountyResourceType, int> needs;
+        public Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> needs;
 
         [ExportGroup("Attributes")]
         public Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes = [];
@@ -187,7 +187,7 @@ namespace PlayerSpace
             , Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks, int hitpoints, int maxHitpoints
             , int moraleExpendable
             , int loyaltyBase, int LoyaltyAdjusted, int Happiness, int daysStarving
-            , Godot.Collections.Dictionary<AllEnums.CountyResourceType, int> needs
+            , Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> needs
             , Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes
             , Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills
             , SkillData preferredSkill, InterestData interest, AllEnums.Activities activity

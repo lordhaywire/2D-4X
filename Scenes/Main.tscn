@@ -37,14 +37,14 @@
 [ext_resource type="Resource" uid="uid://cwkooap4yvn10" path="res://Resources/ResearchItems/Basic Storage.tres" id="16_qtbxl"]
 [ext_resource type="Script" path="res://Scripts/CountyPopulationGeneration.cs" id="17_1215r"]
 [ext_resource type="Script" path="res://Scripts/RandomFactionColor.cs" id="18_3aru6"]
-[ext_resource type="Script" path="res://Scripts/AllCountyResources.cs" id="18_wf5kh"]
-[ext_resource type="Resource" uid="uid://c55q8uucl7cqe" path="res://Resources/County Resources/Fish.tres" id="19_1e80i"]
+[ext_resource type="Script" path="res://Scripts/AllGoods.cs" id="18_wf5kh"]
+[ext_resource type="Resource" uid="uid://c55q8uucl7cqe" path="res://Resources/Goods/Fish.tres" id="19_1e80i"]
 [ext_resource type="Script" path="res://Scripts/Clock.cs" id="19_dn5gi"]
 [ext_resource type="Script" path="res://Scripts/Map Editor/FindNeighbors.cs" id="20_0i5kb"]
-[ext_resource type="Resource" uid="uid://bhmwj5yptebic" path="res://Resources/County Resources/Remnants.tres" id="20_k67vp"]
-[ext_resource type="Resource" uid="uid://dpddpnnbjvql" path="res://Resources/County Resources/Vegetables.tres" id="21_r83qp"]
+[ext_resource type="Resource" uid="uid://bhmwj5yptebic" path="res://Resources/Goods/Remnants.tres" id="20_k67vp"]
+[ext_resource type="Resource" uid="uid://dpddpnnbjvql" path="res://Resources/Goods/Vegetables.tres" id="21_r83qp"]
 [ext_resource type="Script" path="res://Resources/AttributeData.cs" id="22_0b0as"]
-[ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/County Resources/Wood.tres" id="22_leslc"]
+[ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/Goods/Wood.tres" id="22_leslc"]
 [ext_resource type="Resource" uid="uid://bljrvhrjka1hs" path="res://Resources/ResearchItems/Basic Production.tres" id="22_ugyvd"]
 [ext_resource type="Script" path="res://Scripts/AllPerks.cs" id="23_8jwco"]
 [ext_resource type="Script" path="res://Scripts/AllSkills.cs" id="23_jme5x"]
@@ -72,37 +72,37 @@
 [ext_resource type="Resource" uid="uid://dfbunjvsc63da" path="res://Resources/Skills/Rifle.tres" id="30_d528s"]
 [ext_resource type="Resource" uid="uid://dqsfduf2ukjae" path="res://Resources/Attributes/Mental Strength.tres" id="30_lqs38"]
 [ext_resource type="Resource" uid="uid://pmphig2vnrjx" path="res://Resources/Skills/Scavenge.tres" id="31_0vaa8"]
+[ext_resource type="Resource" uid="uid://khlm5miw0ik3" path="res://Resources/Goods/Building Materials.tres" id="31_hwg2s"]
 [ext_resource type="Script" path="res://Scripts/UI/PopulationDescriptionControl.cs" id="31_hwyyh"]
 [ext_resource type="Resource" uid="uid://dc6rsi4v4mw1g" path="res://Resources/Attributes/Physical Strength.tres" id="31_odxrg"]
 [ext_resource type="Texture2D" uid="uid://jyr4u6ph1nu6" path="res://Graphics/Icons/Population/portrait.svg" id="32_s1dhj"]
+[ext_resource type="Resource" uid="uid://bxlhn0725kssw" path="res://Resources/Goods/Equipment.tres" id="33_bposm"]
 [ext_resource type="Script" path="res://Scripts/UI/RecruitButton.cs" id="33_ec2f1"]
-[ext_resource type="Script" path="res://Scripts/AllFactionResources.cs" id="33_g7g2f"]
 [ext_resource type="Resource" uid="uid://7ylqwh5wl2xi" path="res://Resources/ResearchItems/Primitive Scouting Equipment.tres" id="33_uirqi"]
 [ext_resource type="Script" path="res://Scripts/UI/HeroPanelContainer.cs" id="34_8wj68"]
 [ext_resource type="Theme" uid="uid://bcc8wsoqypsuc" path="res://Themes/TopBarTheme.tres" id="34_e2d2b"]
-[ext_resource type="Resource" uid="uid://rs4bgxx8ctc8" path="res://Resources/County Resources/Canned Food.tres" id="34_hf6gg"]
+[ext_resource type="Resource" uid="uid://rs4bgxx8ctc8" path="res://Resources/Goods/Canned Food.tres" id="34_hf6gg"]
 [ext_resource type="Script" path="res://Scripts/UI/RecruitHeroConfirmationPanelContainer.cs" id="34_mgqam"]
-[ext_resource type="Resource" uid="uid://271rf0nd50ir" path="res://Resources/Faction Resources/Building Materials.tres" id="34_yfxup"]
+[ext_resource type="Resource" uid="uid://ptk65ipaec11" path="res://Resources/Goods/Food.tres" id="35_0j4c6"]
 [ext_resource type="Script" path="res://Scripts/UI/BattleLogControl.cs" id="35_10y8n"]
 [ext_resource type="Script" path="res://Scripts/UI/TopBarControl.cs" id="35_ecv6a"]
-[ext_resource type="Resource" uid="uid://cgn7e8puuli0v" path="res://Resources/Faction Resources/Food.tres" id="35_jg3b1"]
-[ext_resource type="Resource" uid="uid://cxxk8e3iy0fmq" path="res://Resources/Faction Resources/Influence.tres" id="36_drkal"]
 [ext_resource type="Texture2D" uid="uid://ddb0p4x0erycl" path="res://Graphics/Icons/Top Bar/Influence.png" id="36_fqvec"]
+[ext_resource type="Resource" uid="uid://iyqqtyef01mo" path="res://Resources/Goods/Influence.tres" id="36_qmo2n"]
 [ext_resource type="Texture2D" uid="uid://tqexbc3d8yy8" path="res://Graphics/Icons/Top Bar/Money.png" id="37_16y4w"]
 [ext_resource type="Resource" uid="uid://48te5c2ywvyh" path="res://Resources/Skills/Labor.tres" id="37_c2oha"]
+[ext_resource type="Resource" uid="uid://dx87ykrfpioxm" path="res://Resources/Goods/Money.tres" id="37_mjyee"]
 [ext_resource type="Script" path="res://Scripts/CountyImprovementsControl.cs" id="37_rkirm"]
-[ext_resource type="Resource" uid="uid://cium8f0spbwdp" path="res://Resources/County Resources/PrimitiveScoutingEquipment.tres" id="37_w4428"]
-[ext_resource type="Resource" uid="uid://djdtci0bq2vvm" path="res://Resources/Faction Resources/Money.tres" id="37_xlwo5"]
+[ext_resource type="Resource" uid="uid://cium8f0spbwdp" path="res://Resources/Goods/PrimitiveScoutingEquipment.tres" id="37_w4428"]
 [ext_resource type="Texture2D" uid="uid://u6mmuhhiejnw" path="res://Graphics/Icons/Top Bar/Food.png" id="38_0q3s5"]
-[ext_resource type="Resource" uid="uid://c75yh0abtmowb" path="res://Resources/Faction Resources/Remnants.tres" id="38_1nki6"]
 [ext_resource type="Script" path="res://Scripts/UI/BuildConfirmationDialog.cs" id="39_atdu5"]
 [ext_resource type="Texture2D" uid="uid://dmbho3pkucn34" path="res://Graphics/Icons/Top Bar/Scrap.png" id="39_mrqgp"]
+[ext_resource type="Resource" uid="uid://c2dbcupxnjaq6" path="res://Resources/Goods/Research.tres" id="40_fend5"]
 [ext_resource type="Script" path="res://Scripts/UI/ResearchControl.cs" id="40_t5amt"]
 [ext_resource type="Script" path="res://Scripts/UI/ResearchDescriptionPanel.cs" id="41_77kvj"]
+[ext_resource type="Resource" uid="uid://cvcmicp5gw3w4" path="res://Resources/Goods/Storage Nonperishable.tres" id="41_qxwff"]
+[ext_resource type="Resource" uid="uid://c2g12b5fk6456" path="res://Resources/Goods/Storage Perishable.tres" id="42_dwns0"]
 [ext_resource type="Script" path="res://Scripts/UI/DeclareWarControl.cs" id="42_g5xi4"]
-[ext_resource type="Resource" uid="uid://dttjepcbd8jkc" path="res://Resources/Faction Resources/Equipment.tres" id="43_m5xia"]
 [ext_resource type="Script" path="res://Scripts/UI/EventLog.cs" id="43_w0p1n"]
-[ext_resource type="Resource" uid="uid://okgoiywumb4s" path="res://Resources/Faction Resources/Research.tres" id="43_yw8f0"]
 [ext_resource type="PackedScene" uid="uid://bjgv6c8xhn4lo" path="res://UIScenes/Event Log Text Panel.tscn" id="44_du832"]
 [ext_resource type="PackedScene" uid="uid://x41vmtlrl1cx" path="res://UIScenes/CombatLogTextPanel.tscn" id="44_qsgen"]
 [ext_resource type="Script" path="res://Scripts/AllInterests.cs" id="45_vjt1m"]
@@ -181,13 +181,13 @@ camera = NodePath("Camera2D")
 [node name="Camera2D" type="Camera2D" parent="Camera CharacterBody2D"]
 position = Vector2(494, 479)
 
-[node name="Maps" type="Node" parent="."]
+[node name="Maps" type="Node" parent="Camera CharacterBody2D"]
 script = ExtResource("2_nda5i")
 
-[node name="Color Coded Map Sprite2D" type="Sprite2D" parent="Maps"]
+[node name="Color Coded Map Sprite2D" type="Sprite2D" parent="Camera CharacterBody2D/Maps"]
 centered = false
 
-[node name="Map Sprite2D" type="Sprite2D" parent="Maps"]
+[node name="Map Sprite2D" type="Sprite2D" parent="Camera CharacterBody2D/Maps"]
 centered = false
 
 [node name="Game Controller Node" type="Node" parent="."]
@@ -227,13 +227,9 @@ allAttributes = Array[Object]([ExtResource("24_kqay3"), ExtResource("25_arsfn"),
 script = ExtResource("23_8jwco")
 allPerks = Array[Object]([ExtResource("24_edv5e"), ExtResource("25_626s1")])
 
-[node name="All County Resources" type="Node" parent="Game Controller Node/Arrays"]
+[node name="All Goods" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("18_wf5kh")
-allResources = Array[Object]([ExtResource("34_hf6gg"), ExtResource("19_1e80i"), ExtResource("37_w4428"), ExtResource("20_k67vp"), ExtResource("21_r83qp"), ExtResource("22_leslc")])
-
-[node name="All Faction Resources" type="Node" parent="Game Controller Node/Arrays"]
-script = ExtResource("33_g7g2f")
-factionResourceDatas = Array[Object]([ExtResource("34_yfxup"), ExtResource("43_m5xia"), ExtResource("35_jg3b1"), ExtResource("36_drkal"), ExtResource("37_xlwo5"), ExtResource("38_1nki6"), ExtResource("43_yw8f0")])
+allGoods = Array[Object]([ExtResource("31_hwg2s"), ExtResource("34_hf6gg"), ExtResource("33_bposm"), ExtResource("19_1e80i"), ExtResource("35_0j4c6"), ExtResource("36_qmo2n"), ExtResource("37_mjyee"), ExtResource("37_w4428"), ExtResource("20_k67vp"), ExtResource("40_fend5"), ExtResource("41_qxwff"), ExtResource("42_dwns0"), ExtResource("21_r83qp"), ExtResource("22_leslc")])
 
 [node name="All Research" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("12_hmucs")

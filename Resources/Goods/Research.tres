@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="GoodData" load_steps=2 format=3 uid="uid://c2dbcupxnjaq6"]
+
+[ext_resource type="Script" path="res://Resources/GoodData.cs" id="1_ios6q"]
+
+[resource]
+script = ExtResource("1_ios6q")
+goodName = "GOOD_RESEARCH"
+description = "GOOD_DESCRIPTION_RESEARCH"
+goodType = 1
+countyGoodType = 0
+factionGoodType = 7
+perishable = false
+failureRate = 0
+remnantSubstitutable = false
+amount = 0

@@ -1,20 +1,8 @@
-[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=7 format=3 uid="uid://cxh2tykxlu76b"]
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=4 format=3 uid="uid://cxh2tykxlu76b"]
 
-[ext_resource type="Resource" uid="uid://cvcmicp5gw3w4" path="res://Resources/County Resources/Storage Nonperishable.tres" id="1_1dxds"]
 [ext_resource type="Texture2D" uid="uid://duyyhx30r6vow" path="res://Graphics/County Improvements/Warehouse wooden-crate.svg" id="1_wn83v"]
-[ext_resource type="Script" path="res://Resources/ProductionData.cs" id="2_6meue"]
 [ext_resource type="Resource" uid="uid://dqjlx4jv1pgfi" path="res://Resources/Interests/Engineering.tres" id="2_cl8dw"]
 [ext_resource type="Script" path="res://Resources/CountyImprovementData.cs" id="3_nbppr"]
-
-[sub_resource type="Resource" id="Resource_ln5b8"]
-script = ExtResource("2_6meue")
-workAmountAfterSkillCheck = 0
-workCost = 0.02
-workAmount = 0
-todaysGoodsAmountGenerated = 0
-averageDailyAmountGenerated = 0.0
-storageAmount = 500
-AverageDailyGoodsAmountGenerated = 0.0
 
 [resource]
 script = ExtResource("3_nbppr")
@@ -27,7 +15,6 @@ improvementName = "IMPROVEMENT_CONVERTED_WAREHOUSE"
 improvementDescription = "IMPROVEMENT_DESCRIPTION_CONVERTED_WAREHOUSE"
 workSkill = 4
 interest = ExtResource("2_cl8dw")
-factionResourceConstructionCost = null
 countyResourceConstructionCost = null
 CurrentAmountOfConstruction = 0
 maxAmountOfConstruction = 50
@@ -37,11 +24,7 @@ maxWorkers = 0
 adjustedMaxWorkers = 0
 countyResourceType = 5
 factionResourceType = 0
-factionOutputGoods = {}
-countyOutputGoods = {
-ExtResource("1_1dxds"): SubResource("Resource_ln5b8")
-}
+outputGoods = {}
 allDailyWorkAmountAtImprovementCompleted = 0
-factionInputGoods = {}
-countyInputGoods = {}
+inputGoods = {}
 status = 0

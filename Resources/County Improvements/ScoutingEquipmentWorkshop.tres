@@ -1,20 +1,8 @@
-[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=7 format=3 uid="uid://chufschxvhcsh"]
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=4 format=3 uid="uid://chufschxvhcsh"]
 
 [ext_resource type="Texture2D" uid="uid://5ya3dlibok7" path="res://Graphics/County Improvements/Scouting Equipment Workshop tarot-00-the-fool.svg" id="1_231ft"]
-[ext_resource type="Resource" uid="uid://cium8f0spbwdp" path="res://Resources/County Resources/PrimitiveScoutingEquipment.tres" id="1_ahfxg"]
 [ext_resource type="Script" path="res://Resources/CountyImprovementData.cs" id="1_wleyv"]
-[ext_resource type="Script" path="res://Resources/ProductionData.cs" id="2_8wsb8"]
 [ext_resource type="Resource" uid="uid://dqjlx4jv1pgfi" path="res://Resources/Interests/Engineering.tres" id="2_tf3mf"]
-
-[sub_resource type="Resource" id="Resource_atbkk"]
-script = ExtResource("2_8wsb8")
-workAmountAfterSkillCheck = 0
-workCost = 100
-workAmount = 0
-todaysGoodsAmountGenerated = 0
-averageDailyAmountGenerated = 0.0
-storageAmount = 0
-AverageDailyGoodsAmountGenerated = 0.0
 
 [resource]
 script = ExtResource("1_wleyv")
@@ -27,7 +15,6 @@ improvementName = "IMPROVEMENT_SCOUTING_EQUIPMENT_WORKSHOP"
 improvementDescription = "IMPROVEMENT_DESCRIPTION_SCOUTING_EQUIPMENT_WORKSHOP"
 workSkill = 0
 interest = ExtResource("2_tf3mf")
-factionResourceConstructionCost = null
 countyResourceConstructionCost = null
 CurrentAmountOfConstruction = 0
 maxAmountOfConstruction = 10
@@ -37,11 +24,7 @@ maxWorkers = 5
 adjustedMaxWorkers = 0
 countyResourceType = 3
 factionResourceType = 2
-factionOutputGoods = {}
-countyOutputGoods = {
-ExtResource("1_ahfxg"): SubResource("Resource_atbkk")
-}
+outputGoods = {}
 allDailyWorkAmountAtImprovementCompleted = 0
-factionInputGoods = {}
-countyInputGoods = {}
+inputGoods = {}
 status = 0

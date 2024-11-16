@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="GoodData" load_steps=2 format=3 uid="uid://ptk65ipaec11"]
+
+[ext_resource type="Script" path="res://Resources/GoodData.cs" id="1_1oehe"]
+
+[resource]
+script = ExtResource("1_1oehe")
+goodName = "GOOD_FOOD"
+description = "GOOD_DESCRIPTION_FOOD"
+goodType = 1
+countyGoodType = 0
+factionGoodType = 3
+perishable = 0
+failureRate = 0
+remnantSubstitutable = false
+amount = 0
+maxAmount = 2147483647

@@ -27,9 +27,9 @@ namespace PlayerSpace
         public List<CountyImprovementData> allCountyImprovements = []; // This includes all county improvements, even possible ones.
 
         // Resources.
-        public Godot.Collections.Dictionary<AllEnums.FactionResourceType, FactionResourceData> factionResources = [];
-        public Godot.Collections.Dictionary<AllEnums.FactionResourceType, FactionResourceData> yesterdaysFactionResources = [];
-        public Godot.Collections.Dictionary<AllEnums.FactionResourceType, FactionResourceData> amountUsedFactionResources = [];
+        [Export] public Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData> factionGood = [];
+        [Export] public Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData> yesterdaysFactionGoods = [];
+        [Export] public Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData> amountUsedFactionGoods = [];
         /// <summary>
         /// I am not sure we need this.
         /// </summary>
@@ -137,15 +137,15 @@ namespace PlayerSpace
         public void CopyFactionResourcesToYesterday()
         {
             // Creating a deep copy of the dictionary
-            yesterdaysFactionResources = [];
-            foreach (KeyValuePair<AllEnums.FactionResourceType, FactionResourceData> keyValuePair in factionResources)
+            yesterdaysFactionGoods = [];
+            foreach (KeyValuePair<AllEnums.FactionGoodType, GoodData> keyValuePair in factionGood)
             {
-                yesterdaysFactionResources.Add(keyValuePair.Key, new FactionResourceData
+                yesterdaysFactionGoods.Add(keyValuePair.Key, new GoodData
                 {
-                    GoodName = keyValuePair.Value.GoodName,
+                    goodName = keyValuePair.Value.goodName,
                     description = keyValuePair.Value.description,
-                    resourceType = keyValuePair.Value.resourceType,
-                    amount = keyValuePair.Value.amount,
+                    factionGoodType = keyValuePair.Value.factionGoodType,
+                    Amount = keyValuePair.Value.Amount,
                 });
             }
             if (isPlayer)
@@ -167,10 +167,10 @@ namespace PlayerSpace
         // Why not foreach this and skip the first two?
         public void ZeroFactionCountyResources()
         {
-            factionResources[AllEnums.FactionResourceType.Food].amount = 0;
-            factionResources[AllEnums.FactionResourceType.Remnants].amount = 0;
-            factionResources[AllEnums.FactionResourceType.BuildingMaterial].amount = 0;
-            factionResources[AllEnums.FactionResourceType.Equipment].amount = 0;
+            factionGood[AllEnums.FactionGoodType.Food].Amount = 0;
+            factionGood[AllEnums.FactionGoodType.Remnants].Amount = 0;
+            factionGood[AllEnums.FactionGoodType.BuildingMaterial].Amount = 0;
+            factionGood[AllEnums.FactionGoodType.Equipment].Amount = 0;
         }
 
         // This should be counting just the county resources of Faction Type, not the used.
@@ -179,14 +179,14 @@ namespace PlayerSpace
             ZeroFactionCountyResources();
             foreach (CountyData countyData in countiesFactionOwns)
             {
-                factionResources[AllEnums.FactionResourceType.Food].amount
-                    += countyData.CountFactionResourceOfType(AllEnums.FactionResourceType.Food);
-                factionResources[AllEnums.FactionResourceType.Remnants].amount
-                    += countyData.CountFactionResourceOfType(AllEnums.FactionResourceType.Remnants);
-                factionResources[AllEnums.FactionResourceType.BuildingMaterial].amount
-                    += countyData.CountFactionResourceOfType(AllEnums.FactionResourceType.BuildingMaterial);
-                factionResources[AllEnums.FactionResourceType.Equipment].amount
-                    += countyData.CountFactionResourceOfType(AllEnums.FactionResourceType.Equipment);
+                factionGood[AllEnums.FactionGoodType.Food].Amount
+                    += countyData.CountFactionResourceOfType(AllEnums.FactionGoodType.Food);
+                factionGood[AllEnums.FactionGoodType.Remnants].Amount
+                    += countyData.CountFactionResourceOfType(AllEnums.FactionGoodType.Remnants);
+                factionGood[AllEnums.FactionGoodType.BuildingMaterial].Amount
+                    += countyData.CountFactionResourceOfType(AllEnums.FactionGoodType.BuildingMaterial);
+                factionGood[AllEnums.FactionGoodType.Equipment].Amount
+                    += countyData.CountFactionResourceOfType(AllEnums.FactionGoodType.Equipment);
             }
         }
 
@@ -195,12 +195,12 @@ namespace PlayerSpace
             ZeroFactionCountyActualUsedResources();
             foreach (CountyData countyData in countiesFactionOwns)
             {
-                amountUsedFactionResources[AllEnums.FactionResourceType.Food].amount
-                    += countyData.CountUsedFactionResourceOfType(AllEnums.FactionResourceType.Food);
-                amountUsedFactionResources[AllEnums.FactionResourceType.Remnants].amount
-                    += countyData.CountUsedFactionResourceOfType(AllEnums.FactionResourceType.Remnants);
-                amountUsedFactionResources[AllEnums.FactionResourceType.BuildingMaterial].amount
-                    += countyData.CountUsedFactionResourceOfType(AllEnums.FactionResourceType.BuildingMaterial);
+                amountUsedFactionGoods[AllEnums.FactionGoodType.Food].Amount
+                    += countyData.CountUsedFactionResourceOfType(AllEnums.FactionGoodType.Food);
+                amountUsedFactionGoods[AllEnums.FactionGoodType.Remnants].Amount
+                    += countyData.CountUsedFactionResourceOfType(AllEnums.FactionGoodType.Remnants);
+                amountUsedFactionGoods[AllEnums.FactionGoodType.BuildingMaterial].Amount
+                    += countyData.CountUsedFactionResourceOfType(AllEnums.FactionGoodType.BuildingMaterial);
             }
         }
 
@@ -208,19 +208,19 @@ namespace PlayerSpace
         // Why not a foreach loop and skip the first two?
         private void ZeroFactionCountyActualUsedResources()
         {
-            amountUsedFactionResources[AllEnums.FactionResourceType.Food].amount = 0;
-            amountUsedFactionResources[AllEnums.FactionResourceType.Remnants].amount = 0;
-            amountUsedFactionResources[AllEnums.FactionResourceType.BuildingMaterial].amount = 0;
-            amountUsedFactionResources[AllEnums.FactionResourceType.Equipment].amount = 0;
+            amountUsedFactionGoods[AllEnums.FactionGoodType.Food].Amount = 0;
+            amountUsedFactionGoods[AllEnums.FactionGoodType.Remnants].Amount = 0;
+            amountUsedFactionGoods[AllEnums.FactionGoodType.BuildingMaterial].Amount = 0;
+            amountUsedFactionGoods[AllEnums.FactionGoodType.Equipment].Amount = 0;
         }
 
         public void SubtractFactionResources()
         {
             // Do the math for amount used. Subtract yesterdays from todays and that is how much we have used.
-            foreach (KeyValuePair<AllEnums.FactionResourceType, FactionResourceData> keyValuePair in factionResources)
+            foreach (KeyValuePair<AllEnums.FactionGoodType, GoodData> keyValuePair in factionGood)
             {
-                amountUsedFactionResources[keyValuePair.Key].amount = factionResources[keyValuePair.Key].amount -
-                    yesterdaysFactionResources[keyValuePair.Key].amount;
+                amountUsedFactionGoods[keyValuePair.Key].Amount = factionGood[keyValuePair.Key].Amount -
+                    yesterdaysFactionGoods[keyValuePair.Key].Amount;
             }
             if (isPlayer)
             {

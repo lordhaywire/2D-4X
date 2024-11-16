@@ -87,7 +87,7 @@ namespace PlayerSpace
                 // to the assignable researcher list.
                 foreach (CountyImprovementData countyImprovementData in countyData.completedCountyImprovements)
                 {
-                    if (countyImprovementData.factionResourceType == AllEnums.FactionResourceType.Research)
+                    if (countyImprovementData.factionResourceType == AllEnums.FactionGoodType.Research)
                     {
                         foreach (CountyPopulation countyPopulation in countyImprovementData.populationAtImprovement)
                         {

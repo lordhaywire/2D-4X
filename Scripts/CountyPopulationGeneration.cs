@@ -94,10 +94,10 @@ namespace PlayerSpace
             //GD.Print("Interest: " + interest.name);
             return interest;
         }
-        private static Godot.Collections.Dictionary<AllEnums.CountyResourceType, int> GenerateNeeds()
+        private static Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> GenerateNeeds()
         {
-            Godot.Collections.Dictionary<AllEnums.CountyResourceType, int> needs = [];
-            needs.Add(AllEnums.CountyResourceType.Remnants, 75);
+            Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> needs = [];
+            needs.Add(AllEnums.CountyGoodType.Remnants, 75);
             return needs;
         }
 

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="GoodData" load_steps=2 format=3 uid="uid://khlm5miw0ik3"]
+
+[ext_resource type="Script" path="res://Resources/GoodData.cs" id="1_5vfsl"]
+
+[resource]
+script = ExtResource("1_5vfsl")
+goodName = "GOOD_BUILDING_MATERIALS"
+description = "GOOD_DESCRIPTION_BUILDING_MATERIALS"
+goodType = 1
+countyGoodType = 0
+factionGoodType = 1
+perishable = 0
+failureRate = 0
+remnantSubstitutable = false
+amount = 0
+maxAmount = 2147483647

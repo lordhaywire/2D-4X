@@ -44,7 +44,7 @@ public class AllEnums
         Storage, // I am not sure this will end up being used.  It is getting used, but not in a good way.
     }
 
-    public enum CountyResourceType
+    public enum CountyGoodType
     {
         None,
         CannedFood,
@@ -58,7 +58,7 @@ public class AllEnums
     }
 
     // Scrap and wood should be combined into building materials.
-    public enum FactionResourceType
+    public enum FactionGoodType
     {
         None,
         BuildingMaterial,
@@ -68,6 +68,19 @@ public class AllEnums
         Money,
         Remnants,
         Research,
+    }
+
+    public enum Perishable
+    {
+        Neither,
+        Perishable,
+        Nonperishable,
+    }
+    public enum GoodType
+    {
+        CountyGood,
+        FactionGood,
+        Both,
     }
 
     public enum LearningSpeed

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="GoodData" load_steps=2 format=3 uid="uid://dpddpnnbjvql"]
+
+[ext_resource type="Script" path="res://Resources/GoodData.cs" id="1_tyovi"]
+
+[resource]
+script = ExtResource("1_tyovi")
+goodName = "GOOD_VEGETABLES"
+description = "GOOD_DESCRIPTION_VEGETABLES"
+goodType = 0
+countyGoodType = 7
+factionGoodType = 3
+perishable = 1
+failureRate = 0
+remnantSubstitutable = false
+amount = 0
+maxAmount = 2147483647

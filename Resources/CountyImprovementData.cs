@@ -28,8 +28,7 @@ namespace PlayerSpace
         [Export] public InterestData interest;
 
         [ExportGroup("Construction Costs")]
-        [Export] public Godot.Collections.Dictionary<FactionResourceData, int> factionResourceConstructionCost;
-        [Export] public Godot.Collections.Dictionary<CountyResourceData, int> countyResourceConstructionCost;
+        [Export] public Godot.Collections.Dictionary<GoodData, int> countyResourceConstructionCost;
 
         [Export]
         public int CurrentAmountOfConstruction
@@ -47,12 +46,11 @@ namespace PlayerSpace
         [Export] public int adjustedMaxWorkers;
 
         [ExportGroup("Resource Types")]
-        [Export] public AllEnums.CountyResourceType countyResourceType;
-        [Export] public AllEnums.FactionResourceType factionResourceType;
+        [Export] public AllEnums.CountyGoodType countyResourceType;
+        [Export] public AllEnums.FactionGoodType factionResourceType;
 
         [ExportGroup("Outputs")]
-        [Export] public Godot.Collections.Dictionary<FactionResourceData, ProductionData> factionOutputGoods = [];
-        [Export] public Godot.Collections.Dictionary<CountyResourceData, ProductionData> countyOutputGoods = [];
+        [Export] public Godot.Collections.Dictionary<GoodData, ProductionData> outputGoods = [];
         [Export] public int allDailyWorkAmountAtImprovementCompleted;
 
         //[Export] public int dailyResourceGenerationAmount; // I am pretty sure these are not used.
@@ -61,8 +59,7 @@ namespace PlayerSpace
         // All input goods that are need to create the finished good.
         // For some reason this one needs to be initialized, but the faction and county construction costs don't.
         [ExportGroup("Inputs")]
-        [Export] public Godot.Collections.Dictionary<FactionResourceData, int> factionInputGoods = [];
-        [Export] public Godot.Collections.Dictionary<CountyResourceData, int> countyInputGoods = [];
+        [Export] public Godot.Collections.Dictionary<GoodData, int> inputGoods = [];
 
         [Export] public AllEnums.CountyImprovementStatus status;
         public List<CountyPopulation> populationAtImprovement = [];
@@ -113,7 +110,7 @@ namespace PlayerSpace
 
         public int CountNumberOfGoodsGettingProduced()
         {
-            int numberOfGoodsGettingProduced = countyOutputGoods.Count + factionOutputGoods.Count;
+            int numberOfGoodsGettingProduced = outputGoods.Count;
             return numberOfGoodsGettingProduced;
         }
 
@@ -138,8 +135,8 @@ namespace PlayerSpace
         }
         public bool CheckIfStorageImprovement()
         {
-            if (countyResourceType == AllEnums.CountyResourceType.StorageNonperishable
-                || countyResourceType == AllEnums.CountyResourceType.StoragePerishable)
+            if (countyResourceType == AllEnums.CountyGoodType.StorageNonperishable
+                || countyResourceType == AllEnums.CountyGoodType.StoragePerishable)
             {
                 return true;
             }
@@ -215,10 +212,8 @@ namespace PlayerSpace
                 numberBuilt = countyImprovementData.numberBuilt,
                 workSkill = countyImprovementData.workSkill,
                 interest = countyImprovementData.interest,
-                factionOutputGoods = countyImprovementData.CopyFactionOutputGoods(),
-                countyOutputGoods = countyImprovementData.CopyCountyOutputGoods(),
+                outputGoods = countyImprovementData.CopyOutputGoods(),
                 allDailyWorkAmountAtImprovementCompleted = countyImprovementData.allDailyWorkAmountAtImprovementCompleted,
-                factionResourceConstructionCost = countyImprovementData.factionResourceConstructionCost,
                 countyResourceConstructionCost = countyImprovementData.countyResourceConstructionCost,
                 currentAmountOfCounstruction = countyImprovementData.currentAmountOfCounstruction,
                 CurrentAmountOfConstruction = countyImprovementData.CurrentAmountOfConstruction,
@@ -229,8 +224,7 @@ namespace PlayerSpace
                 adjustedMaxWorkers = countyImprovementData.adjustedMaxWorkers,
                 countyResourceType = countyImprovementData.countyResourceType,
                 factionResourceType = countyImprovementData.factionResourceType,
-                factionInputGoods = countyImprovementData.factionInputGoods,
-                countyInputGoods = countyImprovementData.countyInputGoods,
+                inputGoods = countyImprovementData.inputGoods,
                 status = countyImprovementData.status,
                 populationAtImprovement = new List<CountyPopulation>(countyImprovementData.populationAtImprovement),
             };
@@ -238,24 +232,11 @@ namespace PlayerSpace
         }
 
         // We have to do a copy of a copy to make a copy that is unique.
-        public Godot.Collections.Dictionary<FactionResourceData, ProductionData> CopyFactionOutputGoods()
+        public Godot.Collections.Dictionary<GoodData, ProductionData> CopyOutputGoods()
         {
-            Godot.Collections.Dictionary<FactionResourceData, ProductionData> copiedDictionary = [];
+            Godot.Collections.Dictionary<GoodData, ProductionData> copiedDictionary = [];
 
-            foreach (System.Collections.Generic.KeyValuePair<FactionResourceData, ProductionData> item in factionOutputGoods)
-            {
-                copiedDictionary[item.Key] = item.Value.NewCopy(item.Value);
-            }
-
-            return copiedDictionary;
-        }
-
-        // We have to do a copy of a copy to make a copy that is unique.
-        public Godot.Collections.Dictionary<CountyResourceData, ProductionData> CopyCountyOutputGoods()
-        {
-            Godot.Collections.Dictionary<CountyResourceData, ProductionData> copiedDictionary = [];
-
-            foreach (System.Collections.Generic.KeyValuePair<CountyResourceData, ProductionData> item in countyOutputGoods)
+            foreach (System.Collections.Generic.KeyValuePair<GoodData, ProductionData> item in outputGoods)
             {
                 copiedDictionary[item.Key] = item.Value.NewCopy(item.Value);
             }

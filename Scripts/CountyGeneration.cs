@@ -20,7 +20,7 @@ public partial class CountyGeneration : Node
         // Assign a copy of each resource to each county.
         foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
         {
-            CopyAndAssignResources(county.countyData, AllCountyResources.Instance.allResources);
+            CopyAndAssignResources(county.countyData, AllGoods.Instance.allGoods);
             UpdateScavengableResources(county);
         }
     }
@@ -31,40 +31,43 @@ public partial class CountyGeneration : Node
         county.countyData.scavengableRemnants = Globals.Instance.maxScavengableScrap;
     }
 
-    private static void CopyAndAssignResources(CountyData countyData, CountyResourceData[] AllResources)
+    private static void CopyAndAssignResources(CountyData countyData, GoodData[] AllGoods)
     {
-        foreach (CountyResourceData countyResourceData in AllResources)
+        foreach (GoodData goodData in AllGoods)
         {
-            countyData.countyResources.Add(countyResourceData.countyResourceType, (CountyResourceData)countyResourceData.Duplicate());
-            countyData.yesterdaysCountyResources.Add(countyResourceData.countyResourceType, (CountyResourceData)countyResourceData.Duplicate());
-            countyData.amountUsedCountyResources.Add(countyResourceData.countyResourceType, (CountyResourceData)countyResourceData.Duplicate());
+            if (goodData.countyGoodType != AllEnums.CountyGoodType.None)
+            {
+                countyData.goods.Add(goodData.countyGoodType, (GoodData)goodData.Duplicate());
+                countyData.yesterdaysGoods.Add(goodData.countyGoodType, (GoodData)goodData.Duplicate());
+                countyData.amountOfGoodsUsed.Add(goodData.countyGoodType, (GoodData)goodData.Duplicate());
+            }
         }
-        SetInitialMaxStorage(countyData.countyResources);
+        SetInitialMaxStorage(countyData.goods);
         // This is just for testing.  Sets all resources to a starting amount.
         // This has to be after the initial storage is set.
-        foreach (KeyValuePair<AllEnums.CountyResourceType, CountyResourceData> keyValuePair in countyData.countyResources)
+        foreach (KeyValuePair<AllEnums.CountyGoodType, GoodData> keyValuePair in countyData.goods)
         {
-            keyValuePair.Value.Amount = Globals.Instance.startingAmountOfEachResource;
+            keyValuePair.Value.Amount = Globals.Instance.startingAmountOfEachGood;
         }
     }
 
-    private static void SetInitialMaxStorage(Godot.Collections.Dictionary<AllEnums.CountyResourceType, CountyResourceData> resources)
+    private static void SetInitialMaxStorage(Godot.Collections.Dictionary<AllEnums.CountyGoodType, GoodData> resources)
     {
-        foreach (KeyValuePair<AllEnums.CountyResourceType, CountyResourceData> keyValuePair in resources)
+        foreach (KeyValuePair<AllEnums.CountyGoodType, GoodData> keyValuePair in resources)
         {
-            CountyResourceData resource = keyValuePair.Value;
+            GoodData goodData = keyValuePair.Value;
 
-            if (resource.perishable)
+            if (goodData.perishable == AllEnums.Perishable.Perishable)
             {
-                resource.MaxAmount = Globals.Instance.startingPerishableStorage
-                    / Globals.Instance.numberOfPerishableResources;
+                goodData.MaxAmount = Globals.Instance.startingPerishableStorage
+                    / Globals.Instance.numberOfPerishableGoods;
                 //+ (Globals.Instance.startingPerishableStorage % Globals.Instance.numberOfPerishableResources);
 
             }
-            else
+            else if(goodData.perishable == AllEnums.Perishable.Nonperishable)
             {
-                resource.MaxAmount = Globals.Instance.startingNonperishableStorage
-                    / Globals.Instance.numberOfNonperishableResources;
+                goodData.MaxAmount = Globals.Instance.startingNonperishableStorage
+                    / Globals.Instance.numberOfNonperishableGoods;
                 //+ (Globals.Instance.startingNonperishableStorage % Globals.Instance.numberOfNonperishableResources);
             }
             //GD.Print($"{county.countyData.countyName} - {resource.name}: " +

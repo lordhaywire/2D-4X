@@ -1,45 +1,10 @@
-[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=14 format=3 uid="uid://bads4woc5toep"]
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=6 format=3 uid="uid://bads4woc5toep"]
 
-[ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/County Resources/Wood.tres" id="1_1yts0"]
+[ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/Goods/Wood.tres" id="1_1yts0"]
 [ext_resource type="Texture2D" uid="uid://d38i5xsjnfnfq" path="res://Graphics/County Improvements/fishing-pole.svg" id="1_3xigu"]
-[ext_resource type="Resource" uid="uid://c55q8uucl7cqe" path="res://Resources/County Resources/Fish.tres" id="1_132qd"]
-[ext_resource type="Resource" uid="uid://rs4bgxx8ctc8" path="res://Resources/County Resources/Canned Food.tres" id="1_cehl8"]
-[ext_resource type="Resource" uid="uid://cxxk8e3iy0fmq" path="res://Resources/Faction Resources/Influence.tres" id="1_t3pyc"]
 [ext_resource type="Resource" uid="uid://bojgmxcwswihv" path="res://Resources/Interests/Biology.tres" id="2_h1ekr"]
 [ext_resource type="Script" path="res://Resources/CountyImprovementData.cs" id="2_iptt2"]
-[ext_resource type="Resource" uid="uid://bhmwj5yptebic" path="res://Resources/County Resources/Remnants.tres" id="2_weoty"]
-[ext_resource type="Resource" uid="uid://djdtci0bq2vvm" path="res://Resources/Faction Resources/Money.tres" id="4_8wsk1"]
-[ext_resource type="Script" path="res://Resources/ProductionData.cs" id="4_j7moc"]
-
-[sub_resource type="Resource" id="Resource_x5mj1"]
-script = ExtResource("4_j7moc")
-workAmountAfterSkillCheck = 0
-workCost = 2
-workAmount = 0
-todaysGoodsAmountGenerated = 0
-averageDailyAmountGenerated = 0.0
-storageAmount = 0
-AverageDailyGoodsAmountGenerated = 0.0
-
-[sub_resource type="Resource" id="Resource_iuxb6"]
-script = ExtResource("4_j7moc")
-workAmountAfterSkillCheck = 0
-workCost = 15
-workAmount = 0
-todaysGoodsAmountGenerated = 0
-averageDailyAmountGenerated = 0.0
-storageAmount = 0
-AverageDailyGoodsAmountGenerated = 0.0
-
-[sub_resource type="Resource" id="Resource_0kpwl"]
-script = ExtResource("4_j7moc")
-workAmountAfterSkillCheck = 0
-workCost = 3
-workAmount = 0
-todaysGoodsAmountGenerated = 0
-averageDailyAmountGenerated = 0.0
-storageAmount = 0
-AverageDailyGoodsAmountGenerated = 0.0
+[ext_resource type="Resource" uid="uid://bhmwj5yptebic" path="res://Resources/Goods/Remnants.tres" id="2_weoty"]
 
 [resource]
 script = ExtResource("2_iptt2")
@@ -52,9 +17,6 @@ improvementName = "IMPROVEMENT_FISHERS_SHED"
 improvementDescription = "IMPROVEMENT_DESCRIPTION_FISHERS_SHED"
 workSkill = 3
 interest = ExtResource("2_h1ekr")
-factionResourceConstructionCost = Dictionary[Object, int]({
-ExtResource("1_t3pyc"): 78
-})
 countyResourceConstructionCost = Dictionary[Object, int]({
 ExtResource("1_1yts0"): 1,
 ExtResource("2_weoty"): 1
@@ -67,19 +29,7 @@ maxWorkers = 5
 adjustedMaxWorkers = 0
 countyResourceType = 2
 factionResourceType = 3
-factionOutputGoods = {
-ExtResource("4_8wsk1"): SubResource("Resource_0kpwl")
-}
-countyOutputGoods = {
-ExtResource("1_132qd"): SubResource("Resource_x5mj1"),
-ExtResource("1_1yts0"): SubResource("Resource_iuxb6")
-}
+outputGoods = {}
 allDailyWorkAmountAtImprovementCompleted = 0
-factionInputGoods = {
-ExtResource("1_t3pyc"): 2
-}
-countyInputGoods = {
-ExtResource("1_cehl8"): 5,
-ExtResource("1_1yts0"): 5
-}
+inputGoods = {}
 status = 0

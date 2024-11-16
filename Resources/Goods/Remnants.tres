@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="GoodData" load_steps=2 format=3 uid="uid://bhmwj5yptebic"]
+
+[ext_resource type="Script" path="res://Resources/GoodData.cs" id="1_lhf4k"]
+
+[resource]
+script = ExtResource("1_lhf4k")
+goodName = "GOOD_REMNANTS"
+description = "GOOD_DESCRIPTION_REMNANTS"
+goodType = 2
+countyGoodType = 4
+factionGoodType = 6
+perishable = 2
+failureRate = 0
+remnantSubstitutable = false
+amount = 0
+maxAmount = 2147483647

@@ -50,9 +50,9 @@ namespace PlayerSpace
         [Export] public int scavengableRemnants; // This the total a county has available to scavenge.
         [Export] public int scavengableCannedFood; // This the total a county has available to scavenge.
 
-        [Export] public Godot.Collections.Dictionary<AllEnums.CountyResourceType, CountyResourceData> countyResources = [];
-        [Export] public Godot.Collections.Dictionary<AllEnums.CountyResourceType, CountyResourceData> yesterdaysCountyResources = [];
-        [Export] public Godot.Collections.Dictionary<AllEnums.CountyResourceType, CountyResourceData> amountUsedCountyResources = [];
+        [Export] public Godot.Collections.Dictionary<AllEnums.CountyGoodType, GoodData> goods = [];
+        [Export] public Godot.Collections.Dictionary<AllEnums.CountyGoodType, GoodData> yesterdaysGoods = [];
+        [Export] public Godot.Collections.Dictionary<AllEnums.CountyGoodType, GoodData> amountOfGoodsUsed = [];
 
         // These are used just to pass some data around.  Probably I should find a better way to do this.
         public Texture2D maskTexture;
@@ -134,13 +134,13 @@ namespace PlayerSpace
             MoveCountyImprovementToCompletedList(completedImprovements);
         }
 
-        public void RemoveResourceFromAvailableCountyTotals(AllEnums.CountyResourceType resourceType, int amount)
+        public void RemoveResourceFromAvailableCountyTotals(AllEnums.CountyGoodType resourceType, int amount)
         {
-            if (resourceType == AllEnums.CountyResourceType.CannedFood)
+            if (resourceType == AllEnums.CountyGoodType.CannedFood)
             {
                 scavengableCannedFood -= amount;
             }
-            else if (resourceType == AllEnums.CountyResourceType.Remnants)
+            else if (resourceType == AllEnums.CountyGoodType.Remnants)
             {
                 scavengableRemnants -= amount;
             }
@@ -178,8 +178,8 @@ namespace PlayerSpace
         public void CheckForScavengingFood()
         {
             // Population won't scavenge if the storage is full, or if the county is out of scavengables.
-            if (!CheckEnoughCountyScavengables(AllEnums.CountyResourceType.CannedFood)
-                || CheckResourceStorageFull(countyResources[AllEnums.CountyResourceType.CannedFood]))
+            if (!CheckEnoughCountyScavengables(AllEnums.CountyGoodType.CannedFood)
+                || CheckResourceStorageFull(goods[AllEnums.CountyGoodType.CannedFood]))
             {
                 return;
             }
@@ -204,8 +204,8 @@ namespace PlayerSpace
         public void CheckForScavengingRemnants()
         {
             // Population won't scavenge if the storage is full, or if the county is out of scavengables.
-            if (!CheckEnoughCountyScavengables(AllEnums.CountyResourceType.Remnants)
-                || CheckResourceStorageFull(countyResources[AllEnums.CountyResourceType.Remnants]))
+            if (!CheckEnoughCountyScavengables(AllEnums.CountyGoodType.Remnants)
+                || CheckResourceStorageFull(goods[AllEnums.CountyGoodType.Remnants]))
             {
                 return;
             }
@@ -221,9 +221,9 @@ namespace PlayerSpace
             RemoveWorkersFromPossibleWorkers();
 
         }
-        public bool CheckEnoughCountyScavengables(AllEnums.CountyResourceType resourceType)
+        public bool CheckEnoughCountyScavengables(AllEnums.CountyGoodType resourceType)
         {
-            if (resourceType == AllEnums.CountyResourceType.CannedFood)
+            if (resourceType == AllEnums.CountyGoodType.CannedFood)
             {
                 if (scavengableCannedFood > 0)
                 {
@@ -231,7 +231,7 @@ namespace PlayerSpace
                 }
                 return false;
             }
-            else if (resourceType == AllEnums.CountyResourceType.Remnants)
+            else if (resourceType == AllEnums.CountyGoodType.Remnants)
             {
                 if (scavengableRemnants > 0)
                 {
@@ -245,12 +245,12 @@ namespace PlayerSpace
                 return false;
             }
         }
-        public int CountFactionResourceOfType(AllEnums.FactionResourceType resourceType)
+        public int CountFactionResourceOfType(AllEnums.FactionGoodType resourceType)
         {
             int amount = 0;
-            foreach (CountyResourceData resourceData in countyResources.Values)
+            foreach (GoodData resourceData in goods.Values)
             {
-                if (resourceData.factionResourceType == resourceType)
+                if (resourceData.factionGoodType == resourceType)
                 {
                     amount += resourceData.Amount;
                     //// GD.Print($"{countyData.countyName} is counting food: {resourceData.name} {resourceData.amount}");
@@ -259,14 +259,14 @@ namespace PlayerSpace
             return amount;
         }
 
-        public int CountUsedFactionResourceOfType(AllEnums.FactionResourceType resourceType)
+        public int CountUsedFactionResourceOfType(AllEnums.FactionGoodType goodType)
         {
             int amount = 0;
-            foreach (CountyResourceData resourceData in amountUsedCountyResources.Values)
+            foreach (GoodData goodData in amountOfGoodsUsed.Values)
             {
-                if (resourceData.factionResourceType == resourceType)
+                if (goodData.factionGoodType == goodType)
                 {
-                    amount += resourceData.Amount;
+                    amount += goodData.Amount;
                     //// GD.Print($"{countyData.countyName} is counting food: {resourceData.name} {resourceData.amount}");
                 }
             }
@@ -324,9 +324,9 @@ namespace PlayerSpace
             foreach (CountyImprovementData countyImprovementData in completedCountyImprovements)
             {
                 GD.Print($"Preferred Work: {countyImprovementData.improvementName}");
-                if (countyImprovementData.countyResourceType == AllEnums.CountyResourceType.None
+                if (countyImprovementData.countyResourceType == AllEnums.CountyGoodType.None
                     || countyImprovementData.CheckIfStorageImprovement() == true
-                    || CheckResourceStorageFull(countyResources[countyImprovementData.countyResourceType]) == true)
+                    || CheckResourceStorageFull(goods[countyImprovementData.countyResourceType]) == true)
                 {
                     return;
                 }
@@ -356,7 +356,7 @@ namespace PlayerSpace
             }
         }
 
-        private static bool CheckResourceStorageFull(CountyResourceData countyResourceData)
+        private static bool CheckResourceStorageFull(GoodData countyResourceData)
         {
             if (countyResourceData.Amount >= countyResourceData.MaxAmount)
             {
@@ -370,9 +370,9 @@ namespace PlayerSpace
             //GD.Print("Possible Workers List Count: " + possibleWorkers.Count);
             foreach (CountyImprovementData countyImprovementData in completedCountyImprovements)
             {
-                if (countyImprovementData.countyResourceType == AllEnums.CountyResourceType.None
+                if (countyImprovementData.countyResourceType == AllEnums.CountyGoodType.None
                     || countyImprovementData.CheckIfStorageImprovement() == true
-                    || CheckResourceStorageFull(countyResources[countyImprovementData.countyResourceType]) == true)
+                    || CheckResourceStorageFull(goods[countyImprovementData.countyResourceType]) == true)
                 {
                     return;
                 }
@@ -393,10 +393,10 @@ namespace PlayerSpace
         public void SubtractCountyResources()
         {
             // Do the math for amount used. Subtract yesterdays from todays and that is how much we have used.
-            foreach (KeyValuePair<AllEnums.CountyResourceType, CountyResourceData> keyValuePair in countyResources)
+            foreach (KeyValuePair<AllEnums.CountyGoodType, GoodData> keyValuePair in goods)
             {
-                amountUsedCountyResources[keyValuePair.Key].Amount = countyResources[keyValuePair.Key].Amount -
-                    yesterdaysCountyResources[keyValuePair.Key].Amount;
+                amountOfGoodsUsed[keyValuePair.Key].Amount = goods[keyValuePair.Key].Amount -
+                    yesterdaysGoods[keyValuePair.Key].Amount;
             }
             /*
             if (factionData.isPlayer)
@@ -420,7 +420,7 @@ namespace PlayerSpace
             {
                 // Go through all of their needs and skill check against it and if they pass, they use the resource
                 // that is needed.
-                foreach (KeyValuePair<AllEnums.CountyResourceType, int> keyValuePair in countyPopulation.needs)
+                foreach (KeyValuePair<AllEnums.CountyGoodType, int> keyValuePair in countyPopulation.needs)
                 {
                     // Check to see if they want the resource.
                     if (SkillData.Check(countyPopulation, keyValuePair.Value, AllEnums.Attributes.MentalStrength, true) == true)
@@ -455,9 +455,9 @@ namespace PlayerSpace
                 }
             }
         }
-        public void RemoveResourceFromCounty(AllEnums.CountyResourceType countyResourceType, int amount)
+        public void RemoveResourceFromCounty(AllEnums.CountyGoodType countyResourceType, int amount)
         {
-            countyResources[countyResourceType].Amount -= amount;
+            goods[countyResourceType].Amount -= amount;
 
             // Update the top bar if the player has a county selected.
             if (Globals.Instance.SelectedLeftClickCounty == countyNode)
@@ -471,16 +471,16 @@ namespace PlayerSpace
         // should figure out a way for each different type.
         // We could actually put it in the resourceData, so each resource would know the minimum amount
         // the county needs.
-        public bool CheckEnoughCountyFactionResource(AllEnums.FactionResourceType resourceType)
+        public bool CheckEnoughCountyFactionResource(AllEnums.FactionGoodType resourceType)
         {
             int amountOfResource = CountFactionResourceOfType(resourceType);
             return amountOfResource >= Globals.Instance.minimumFood;
         }
 
-        private bool CheckEnoughOfResource(AllEnums.CountyResourceType resourceType)
+        private bool CheckEnoughOfResource(AllEnums.CountyGoodType resourceType)
         {
             bool enoughResource;
-            if (countyResources[resourceType].Amount >= Globals.Instance.occationalResourceUsageAmount)
+            if (goods[resourceType].Amount >= Globals.Instance.occationalResourceUsageAmount)
             {
                 enoughResource = true;
             }
@@ -494,22 +494,22 @@ namespace PlayerSpace
         private FoodLists
             GetListsOfFood()
         {
-            List<CountyResourceData> perishableFoodList = [];
-            List<CountyResourceData> nonperishableFoodList = [];
-            foreach (CountyResourceData resourceData in countyResources.Values)
+            List<GoodData> perishableFoodList = [];
+            List<GoodData> nonperishableFoodList = [];
+            foreach (GoodData goodData in goods.Values)
             {
                 // Is food, and there is some food.
-                if (resourceData.factionResourceType == AllEnums.FactionResourceType.Food
-                    && resourceData.perishable == true && resourceData.Amount > 0)
+                if (goodData.factionGoodType == AllEnums.FactionGoodType.Food
+                    && goodData.perishable == AllEnums.Perishable.Perishable && goodData.Amount > 0)
                 {
                     //GD.Print($"Adding to list: {resourceData.name}");
-                    perishableFoodList.Add(resourceData);
+                    perishableFoodList.Add(goodData);
                 }
-                else if (resourceData.factionResourceType == AllEnums.FactionResourceType.Food
-                    && resourceData.perishable == false && resourceData.Amount > 0)
+                else if (goodData.factionGoodType == AllEnums.FactionGoodType.Food
+                    && goodData.perishable == AllEnums.Perishable.Nonperishable && goodData.Amount > 0)
                 {
                     //GD.Print($"Adding to list: {resourceData.name}");
-                    nonperishableFoodList.Add(resourceData);
+                    nonperishableFoodList.Add(goodData);
                 }
             }
             // This a temporary list.
@@ -523,8 +523,8 @@ namespace PlayerSpace
 
         public class FoodLists
         {
-            public List<CountyResourceData> perishableFoodList = [];
-            public List<CountyResourceData> nonperishableFoodList = [];
+            public List<GoodData> perishableFoodList = [];
+            public List<GoodData> nonperishableFoodList = [];
         }
         public void PopulationEatsFood(Globals.ListWithNotify<CountyPopulation> countyPopulationList, int amount)
         {
@@ -677,15 +677,15 @@ namespace PlayerSpace
         public void CopyCountyResourcesToYesterday()
         {
             // Creating a deep copy of the dictionary
-            yesterdaysCountyResources = [];
-            foreach (KeyValuePair<AllEnums.CountyResourceType, CountyResourceData> keyValuePair in countyResources)
+            yesterdaysGoods = [];
+            foreach (KeyValuePair<AllEnums.CountyGoodType, GoodData> keyValuePair in goods)
             {
-                yesterdaysCountyResources.Add(keyValuePair.Key, new CountyResourceData
+                yesterdaysGoods.Add(keyValuePair.Key, new GoodData
                 {
-                    GoodName = keyValuePair.Value.GoodName,
+                    goodName = keyValuePair.Value.goodName,
                     description = keyValuePair.Value.description,
-                    countyResourceType = keyValuePair.Value.countyResourceType,
-                    factionResourceType = keyValuePair.Value.factionResourceType,
+                    countyGoodType = keyValuePair.Value.countyGoodType,
+                    factionGoodType = keyValuePair.Value.factionGoodType,
                     perishable = keyValuePair.Value.perishable,
                     Amount = keyValuePair.Value.Amount,
                     MaxAmount = keyValuePair.Value.MaxAmount,

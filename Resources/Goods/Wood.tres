@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="GoodData" load_steps=2 format=3 uid="uid://bhb7ok6ynakog"]
+
+[ext_resource type="Script" path="res://Resources/GoodData.cs" id="1_5vlxb"]
+
+[resource]
+script = ExtResource("1_5vlxb")
+goodName = "GOOD_WOOD"
+description = "GOOD_DESCRIPTION_WOOD"
+goodType = 0
+countyGoodType = 8
+factionGoodType = 1
+perishable = 2
+failureRate = 0
+remnantSubstitutable = false
+amount = 0
+maxAmount = 2147483647

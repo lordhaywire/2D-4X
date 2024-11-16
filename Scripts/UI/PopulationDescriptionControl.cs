@@ -125,7 +125,7 @@ namespace PlayerSpace
                 currentActivityLabel.Text = $"{Tr(countyPopulation.GetActivityName())}";
             }
 
-            if (Globals.Instance.playerFactionData.factionResources[AllEnums.FactionResourceType.Influence].amount 
+            if (Globals.Instance.playerFactionData.factionGood[AllEnums.FactionGoodType.Influence].Amount 
                 < Globals.Instance.costOfHero || countyPopulation.isHero == true)
             {
                 aideRecruitButton.Disabled = true;

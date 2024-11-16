@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="GoodData" load_steps=2 format=3 uid="uid://cium8f0spbwdp"]
+
+[ext_resource type="Script" path="res://Resources/GoodData.cs" id="1_8577a"]
+
+[resource]
+script = ExtResource("1_8577a")
+goodName = "GOOD_PRIMITIVE_SCOUTING_EQUIPMENT"
+description = "GOOD_DESCRIPTION_PRIMITIVE_SCOUTING_EQUIPMENT"
+goodType = 0
+countyGoodType = 3
+factionGoodType = 2
+perishable = 2
+failureRate = 10
+remnantSubstitutable = false
+amount = 0
+maxAmount = 2147483647

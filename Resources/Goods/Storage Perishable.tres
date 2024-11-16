@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="GoodData" load_steps=2 format=3 uid="uid://c2g12b5fk6456"]
+
+[ext_resource type="Script" path="res://Resources/GoodData.cs" id="1_u6enf"]
+
+[resource]
+script = ExtResource("1_u6enf")
+goodName = "GOOD_STORAGE_PERISHABLE"
+description = "GOOD_DESCRIPTION_STORAGE_PERISHABLE"
+goodType = 0
+countyGoodType = 6
+factionGoodType = 0
+perishable = 0
+failureRate = 0
+remnantSubstitutable = false
+amount = 0
+maxAmount = 2147483647

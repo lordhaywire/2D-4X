@@ -6,7 +6,7 @@ public class PopulationAI
     // This is a dumb name for this method.
     public static void IsThereEnoughFood(CountyData countyData)
     {
-        int amountOfFood = countyData.CountFactionResourceOfType(AllEnums.FactionResourceType.Food);
+        int amountOfFood = countyData.CountFactionResourceOfType(AllEnums.FactionGoodType.Food);
         int amountOfPeople = Banker.CountEveryoneInCounty(countyData);
         if (amountOfFood >= (Globals.Instance.foodToGainHappiness * amountOfPeople))
         {

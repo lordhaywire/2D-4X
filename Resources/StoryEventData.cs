@@ -9,8 +9,8 @@ namespace PlayerSpace
         [Export] public string storyEventDescription;
 
         [ExportGroup("Event Rewards")]
-        [Export] public CountyResourceData resource;
-        [Export] public AllEnums.CountyResourceType resourceType;
+        [Export] public GoodData good;
+        [Export] public AllEnums.CountyGoodType resourceType;
         [Export] public int resourceAmount;
 
         [Export] public string[] choices;

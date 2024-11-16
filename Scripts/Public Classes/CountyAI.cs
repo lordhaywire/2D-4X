@@ -17,9 +17,9 @@ public class CountyAI
         Banker banker = new();
 
         // Check if the county has enough food. If not, build a food building.
-        if (!county.countyData.CheckEnoughCountyFactionResource(AllEnums.FactionResourceType.Food))
+        if (!county.countyData.CheckEnoughCountyFactionResource(AllEnums.FactionGoodType.Food))
         {
-            CountyImprovementData foodBuilding = FindCountyImpovementOfType(county, AllEnums.FactionResourceType.Food);
+            CountyImprovementData foodBuilding = FindCountyImpovementOfType(county, AllEnums.FactionGoodType.Food);
 
             if (foodBuilding != null)
             {
@@ -80,7 +80,7 @@ public class CountyAI
         }
         return number;
     }
-    public static CountyImprovementData FindCountyImpovementOfType(County county, AllEnums.FactionResourceType factionResourceType)
+    public static CountyImprovementData FindCountyImpovementOfType(County county, AllEnums.FactionGoodType factionResourceType)
     {
         foreach (CountyImprovementData countyImprovementData in county.countyData.factionData.allCountyImprovements)
         {

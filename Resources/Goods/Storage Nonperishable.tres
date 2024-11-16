@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="GoodData" load_steps=2 format=3 uid="uid://cvcmicp5gw3w4"]
+
+[ext_resource type="Script" path="res://Resources/GoodData.cs" id="1_dbq3a"]
+
+[resource]
+script = ExtResource("1_dbq3a")
+goodName = "GOOD_STORAGE_NONPERISHABLE"
+description = "GOOD_DESCRIPTION_STORAGE_NONPERISHABLE"
+goodType = 0
+countyGoodType = 5
+factionGoodType = 0
+perishable = false
+failureRate = 0
+remnantSubstitutable = false
+amount = 0

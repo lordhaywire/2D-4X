@@ -43,9 +43,9 @@ namespace PlayerSpace
                     }
                     //GD.Print($"{newFactionData.factionName} has been loaded from disk.");
                     // The order is important.
-                    CreateFactionNode(newFactionData); 
+                    CreateFactionNode(newFactionData);
                     AddStartingResearch(newFactionData);
-                    CreateFactionResourceDictionary(newFactionData);
+                    CreateFactionGoodDictionary(newFactionData);
                     AddFactionsToDiplomacyWar(newFactionData);
                 }
                 /*
@@ -92,20 +92,25 @@ namespace PlayerSpace
             }
         }
 
-        private static void CreateFactionResourceDictionary(FactionData factionData)
-        {
-            foreach (FactionResourceData factionResourceDatas in AllFactionResources.Instance.factionResourceDatas)
-            {
-                //GD.Print($"{factionResourceDatas.name} has been added to {factionData.factionName}");
-                factionData.factionResources.Add(factionResourceDatas.resourceType, (FactionResourceData)factionResourceDatas.Duplicate());
-                factionData.yesterdaysFactionResources.Add(factionResourceDatas.resourceType, (FactionResourceData)factionResourceDatas.Duplicate());
-                factionData.amountUsedFactionResources.Add(factionResourceDatas.resourceType, (FactionResourceData)factionResourceDatas.Duplicate());
 
+        private static void CreateFactionGoodDictionary(FactionData factionData)
+        {
+            foreach (GoodData goodData in AllGoods.Instance.allGoods)
+            {
+                if (goodData.goodType == AllEnums.GoodType.CountyGood)
+                {
+                    continue;
+                }
+                GD.Print($"{goodData.goodName} has been added to {factionData.factionName}");
+                factionData.factionGood.Add(goodData.factionGoodType, (GoodData)goodData.Duplicate());
+                factionData.yesterdaysFactionGoods.Add(goodData.factionGoodType, (GoodData)goodData.Duplicate());
+                factionData.amountUsedFactionGoods.Add(goodData.factionGoodType, (GoodData)goodData.Duplicate());
             }
             // This is for testing.  We are going to have to have a different, more random way of
             // generating starting resources for each faction.
-            factionData.factionResources[AllEnums.FactionResourceType.Influence].amount = 1500;
-            factionData.factionResources[AllEnums.FactionResourceType.Money].amount = 1500;
+            factionData.factionGood[AllEnums.FactionGoodType.Influence].Amount = 1500;
+            factionData.factionGood[AllEnums.FactionGoodType.Money].Amount = 1500;
+            GD.Print("Faction Influence: "+ factionData.factionGood[AllEnums.FactionGoodType.Influence].Amount);
         }
 
         private static void AddFactionsToDiplomacyWar(FactionData factionData)

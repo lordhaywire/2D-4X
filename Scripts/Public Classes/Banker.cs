@@ -42,25 +42,25 @@ namespace PlayerSpace
 
             if (randomResourceNumber == 0)
             {
-                if (countyData.CheckEnoughCountyScavengables(AllEnums.CountyResourceType.CannedFood) == false)
+                if (countyData.CheckEnoughCountyScavengables(AllEnums.CountyGoodType.CannedFood) == false)
                 {
                     return;
                 }
                 int amountGenerated = GenerateScavengedResourceWithSkillCheck(countyPopulation);
                 int amount = Mathf.Min(amountGenerated, countyData.scavengableCannedFood);
-                AddCountyResource(countyData, AllEnums.CountyResourceType.CannedFood, amount);
-                countyData.RemoveResourceFromAvailableCountyTotals(AllEnums.CountyResourceType.CannedFood, amount);
+                AddCountyResource(countyData, AllEnums.CountyGoodType.CannedFood, amount);
+                countyData.RemoveResourceFromAvailableCountyTotals(AllEnums.CountyGoodType.CannedFood, amount);
             }
             else
             {
-                if (countyData.CheckEnoughCountyScavengables(AllEnums.CountyResourceType.Remnants) == false)
+                if (countyData.CheckEnoughCountyScavengables(AllEnums.CountyGoodType.Remnants) == false)
                 {
                     return;
                 }
                 int amountGenerated = GenerateScavengedResourceWithSkillCheck(countyPopulation);
                 int amount = Mathf.Min(amountGenerated, countyData.scavengableRemnants);
-                AddCountyResource(countyData, AllEnums.CountyResourceType.Remnants, amount);
-                countyData.RemoveResourceFromAvailableCountyTotals(AllEnums.CountyResourceType.Remnants, amount);
+                AddCountyResource(countyData, AllEnums.CountyGoodType.Remnants, amount);
+                countyData.RemoveResourceFromAvailableCountyTotals(AllEnums.CountyGoodType.Remnants, amount);
             }
             // Learning skillcheck.
             // Just for testing it is set to fast.
@@ -128,9 +128,9 @@ namespace PlayerSpace
         {
             //// GD.Print($"Faction: {storyEventData.eventCounty.countyData.factionData.factionName} is adding " +
             //   $"{storyEventData.resourceAmount} {storyEventData.resource.name}");
-            if (storyEventData.resource.perishable)
+            if (storyEventData.good.perishable == AllEnums.Perishable.Perishable)
             {
-                storyEventData.eventCounty.countyData.countyResources[storyEventData.resource.countyResourceType].Amount
+                storyEventData.eventCounty.countyData.goods[storyEventData.good.countyGoodType].Amount
                     += storyEventData.resourceAmount;
             }
             TopBarControl.Instance.UpdateResourceLabels();
@@ -140,9 +140,9 @@ namespace PlayerSpace
         {
             if (countyImprovementData.CheckIfStorageImprovement())
             {
-                foreach (KeyValuePair<CountyResourceData, ProductionData> keyValuePair in countyImprovementData.countyOutputGoods)
+                foreach (KeyValuePair<GoodData, ProductionData> keyValuePair in countyImprovementData.outputGoods)
                 {
-                    if (keyValuePair.Key.countyResourceType == AllEnums.CountyResourceType.StorageNonperishable)
+                    if (keyValuePair.Key.countyGoodType == AllEnums.CountyGoodType.StorageNonperishable)
                     {
                         countyData.nonperishableStorage += keyValuePair.Value.storageAmount;
                         // GD.Print($"{countyData.countyName} now has {countyData.nonperishableStorage} nonperishable storage.");
@@ -173,7 +173,7 @@ namespace PlayerSpace
         */
         public void AddLeaderInfluence(FactionData factionData)
         {
-            factionData.factionResources[AllEnums.FactionResourceType.Influence].amount
+            factionData.factionGood[AllEnums.FactionGoodType.Influence].Amount
                 += Globals.Instance.dailyInfluenceGain + AddLeaderBonusInfluence(factionData);
         }
 
@@ -273,15 +273,15 @@ namespace PlayerSpace
             //// GD.Print($"Amount of Research Done: {countyPopulation.CurrentResearchItemData.AmountOfResearchDone}");
         }
 
-        public static void AddCountyResource(CountyData countyData, AllEnums.CountyResourceType countyResourceType, int amount)
+        public static void AddCountyResource(CountyData countyData, AllEnums.CountyGoodType countyResourceType, int amount)
         {
-            countyData.countyResources[countyResourceType].Amount += amount;
+            countyData.goods[countyResourceType].Amount += amount;
         }
 
         public static void ChargeForHero(FactionData factionData)
         {
             //// GD.Print("Player Influence: " + Globals.Instance.playerFactionData.Influence);
-            factionData.factionResources[AllEnums.FactionResourceType.Influence].amount
+            factionData.factionGood[AllEnums.FactionGoodType.Influence].Amount
                 -= Globals.Instance.costOfHero;
         }
 
@@ -295,24 +295,13 @@ namespace PlayerSpace
                 // GD.Print("County Data is null so Check Building Cost is skipped.");
                 return false;
             }
-            if (countyImprovementData.factionResourceConstructionCost != null)
-            {
-                foreach (KeyValuePair<FactionResourceData, int> keyValuePair in countyImprovementData.factionResourceConstructionCost)
-                {
-                    FactionResourceData factionResourceData = keyValuePair.Key;
-                    if (factionData.factionResources[factionResourceData.resourceType].amount < keyValuePair.Value)
-                    {
-                        return false;
-                    }
-                }
-            }
 
             if (countyImprovementData.countyResourceConstructionCost != null)
             {
-                foreach (KeyValuePair<CountyResourceData, int> keyValuePair in countyImprovementData.countyResourceConstructionCost)
+                foreach (KeyValuePair<GoodData, int> keyValuePair in countyImprovementData.countyResourceConstructionCost)
                 {
-                    AllEnums.CountyResourceType resourceType = keyValuePair.Key.countyResourceType;
-                    if (countyData.countyResources[resourceType].Amount < keyValuePair.Value)
+                    AllEnums.CountyGoodType resourceType = keyValuePair.Key.countyGoodType;
+                    if (countyData.goods[resourceType].Amount < keyValuePair.Value)
                     {
                         return false;
                     }
@@ -325,26 +314,13 @@ namespace PlayerSpace
         public void ChargeForBuilding(FactionData factionData, CountyData countyData
             , CountyImprovementData countyImprovementData)
         {
-            if (countyImprovementData.factionResourceConstructionCost != null)
-            {
-                foreach (KeyValuePair<FactionResourceData, int> keyValuePair in countyImprovementData.factionResourceConstructionCost)
-                {
-                    FactionResourceData factionResourceData = keyValuePair.Key;
-                    factionData.factionResources[factionResourceData.resourceType].amount -= keyValuePair.Value;
-                    /* GD.Print($"{countyImprovementData.improvementName} costs " +
-                        $"{countyImprovementData.factionResourceConstructionCost[keyValuePair.Key]} and" +
-                    $" was charged to {factionData.factionName} those cost was : {factionData.factionResources[factionResourceData.resourceType].name} {keyValuePair.Value}");
-                    */
-                }
-            }
-
             if (countyImprovementData.countyResourceConstructionCost != null)
             {
-                foreach (KeyValuePair<CountyResourceData, int> keyValuePair
+                foreach (KeyValuePair<GoodData, int> keyValuePair
                     in countyImprovementData.countyResourceConstructionCost)
                 {
-                    AllEnums.CountyResourceType resourceType = keyValuePair.Key.countyResourceType;
-                    countyData.countyResources[resourceType].Amount -= keyValuePair.Value;
+                    AllEnums.CountyGoodType resourceType = keyValuePair.Key.countyGoodType;
+                    countyData.goods[resourceType].Amount -= keyValuePair.Value;
                     /* GD.Print($"{countyImprovementData.improvementName} costs " +
                         $"{countyImprovementData.countyResourceConstructionCost[keyValuePair.Key]} and" +
                     $" was charged to {countyData.countyName} those cost was : {countyData.countyResources[resourceType].name} {keyValuePair.Value}");
@@ -357,7 +333,7 @@ namespace PlayerSpace
         {
             foreach(KeyValuePair<Variant, ProductionData> keyValuePair in testDic )
             {
-                GD.Print("WhateveR: " + keyValuePair.Key.GoodName);
+                //GD.Print("WhateveR: " + keyValuePair.Key.GoodName);
             }
         }
         /// <summary>
@@ -371,11 +347,11 @@ namespace PlayerSpace
             {
                 // This is checking max workers because it needs to skip county improvements that don't have
                 // workers, such as a warehouse.
-                TestiGoods(countyImprovementData.countyOutputGoods);
-                if (countyImprovementData.countyOutputGoods?.Count > 0
+                //TestiGoods(countyImprovementData.countyOutputGoods);
+                if (countyImprovementData.outputGoods?.Count > 0
                     && countyImprovementData.maxWorkers > 0)
                 {
-                    foreach (KeyValuePair<CountyResourceData, ProductionData> keyValuePair in countyImprovementData.countyOutputGoods)
+                    foreach (KeyValuePair<GoodData, ProductionData> keyValuePair in countyImprovementData.outputGoods)
                     {
                         // Reset todays goods amount generated before it does all the calculations.
                         // It needs to keep this number for the player UI until it hits PopulationAI.WorkDayOverForPopulation.
@@ -399,7 +375,7 @@ namespace PlayerSpace
                         GD.Print($"{countyData.countyName} {countyImprovementData.improvementName} todays goods " +
                             $"generated: {keyValuePair.Value.todaysGoodsAmountGenerated}");
 
-                        AddCountyResource(countyData, keyValuePair.Key.countyResourceType, keyValuePair.Value.todaysGoodsAmountGenerated);
+                        AddCountyResource(countyData, keyValuePair.Key.countyGoodType, keyValuePair.Value.todaysGoodsAmountGenerated);
                     }
                     // Reset all the county improvement work so that the next day it will generate with new skill checks.
                     countyImprovementData.allDailyWorkAmountAtImprovementCompleted = 0;

@@ -1,21 +1,8 @@
-[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=8 format=3 uid="uid://lxjruufeuqa1"]
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=4 format=3 uid="uid://lxjruufeuqa1"]
 
 [ext_resource type="Texture2D" uid="uid://bx2dfaxw8ujc5" path="res://Graphics/County Improvements/Researchers Office County Improvement archive-research.svg" id="1_a1jyh"]
 [ext_resource type="Script" path="res://Resources/CountyImprovementData.cs" id="1_ga7gf"]
-[ext_resource type="Resource" uid="uid://okgoiywumb4s" path="res://Resources/Faction Resources/Research.tres" id="1_j5ps1"]
 [ext_resource type="Resource" uid="uid://bgy1phaeqjaiv" path="res://Resources/Interests/Information.tres" id="2_1erl4"]
-[ext_resource type="Script" path="res://Resources/ProductionData.cs" id="2_kdjlb"]
-[ext_resource type="Resource" uid="uid://cxxk8e3iy0fmq" path="res://Resources/Faction Resources/Influence.tres" id="2_x0vfs"]
-
-[sub_resource type="Resource" id="Resource_2s610"]
-script = ExtResource("2_kdjlb")
-workAmountAfterSkillCheck = 0
-workCost = 50
-workAmount = 0
-todaysGoodsAmountGenerated = 0
-averageDailyAmountGenerated = 0.0
-storageAmount = 0
-AverageDailyGoodsAmountGenerated = 0.0
 
 [resource]
 script = ExtResource("1_ga7gf")
@@ -28,10 +15,7 @@ improvementName = "IMPROVEMENT_RESEARCHERS_OFFICE"
 improvementDescription = "IMPROVEMENT_DESCRIPTION_RESEARCHERS_OFFICE"
 workSkill = 6
 interest = ExtResource("2_1erl4")
-factionResourceConstructionCost = Dictionary[Object, int]({
-ExtResource("2_x0vfs"): 500
-})
-countyResourceConstructionCost = null
+countyResourceConstructionCost = Dictionary[Object, int]({})
 CurrentAmountOfConstruction = 0
 maxAmountOfConstruction = 10
 maxBuilders = 5
@@ -40,11 +24,7 @@ maxWorkers = 1
 adjustedMaxWorkers = 0
 countyResourceType = 0
 factionResourceType = 7
-factionOutputGoods = {
-ExtResource("1_j5ps1"): SubResource("Resource_2s610")
-}
-countyOutputGoods = {}
+outputGoods = {}
 allDailyWorkAmountAtImprovementCompleted = 0
-factionInputGoods = {}
-countyInputGoods = {}
+inputGoods = {}
 status = 0

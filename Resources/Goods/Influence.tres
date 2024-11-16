@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="GoodData" load_steps=2 format=3 uid="uid://iyqqtyef01mo"]
+
+[ext_resource type="Script" path="res://Resources/GoodData.cs" id="1_m0mjc"]
+
+[resource]
+script = ExtResource("1_m0mjc")
+goodName = "GOOD_INFLUENCE"
+description = "GOOD_DESCRIPTION_INFLUENCE"
+goodType = 1
+countyGoodType = 0
+factionGoodType = 4
+perishable = 0
+failureRate = 0
+remnantSubstitutable = false
+amount = 0
+maxAmount = 2147483647
