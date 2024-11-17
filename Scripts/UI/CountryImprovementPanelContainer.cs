@@ -286,9 +286,9 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     void GenerateConstructionGoodsCosts()
     {
         CheckForGoodsForColumns(constructionMaterialCostGridContainer
-            , countyImprovementData.countyResourceConstructionCost.Count);
+            , countyImprovementData.goodsConstructionCost.Count);
 
-        foreach (KeyValuePair<GoodData, int> keyValuePair in countyImprovementData.countyResourceConstructionCost)
+        foreach (KeyValuePair<GoodData, int> keyValuePair in countyImprovementData.goodsConstructionCost)
         {
             GoodPanelContainer goodPanelContainer = AddInputGoodsPanel(keyValuePair, keyValuePair.Key.goodName, constructionMaterialCostGridContainer);
 
@@ -319,11 +319,11 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     /// Changes the number of columns in the grid so that it looks good.
     /// </summary>
     /// <param name="gridContainer"></param>
-    /// <param name="countyResourcesCount"></param>
+    /// <param name="goodsCount"></param>
     private void CheckForGoodsForColumns(GridContainer gridContainer
-        , int countyResourcesCount)
+        , int goodsCount)
     {
-        int totalGoods = countyResourcesCount;
+        int totalGoods = goodsCount;
         if (totalGoods == 1)
         {
             gridContainer.Columns = 1;

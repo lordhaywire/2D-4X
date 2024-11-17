@@ -204,7 +204,6 @@ minimumCountyPop = 5
 maximumCountyPop = 10
 factionsParent = NodePath("../../Factions")
 minimumFood = 100
-dailyWorkAmountBonus = 0
 heroToken = ExtResource("5_w6a76")
 spawnedTokenButton = ExtResource("8_ne3u6")
 movementSpeed = 1

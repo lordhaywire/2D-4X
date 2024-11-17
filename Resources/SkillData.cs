@@ -33,7 +33,7 @@ namespace PlayerSpace
             // Make sure the skill level with the attribute bonus is not below 1.
             int finalSkillAmount = Math.Max(skillAmount + attributeBonus, 1);
             // Rolling a 1 is always a success.
-            if (skillCheckRoll <= finalSkillAmount) 
+            if (skillCheckRoll <= finalSkillAmount)
             {
                 //GD.Print($"Skill Checks: rolled a {skillCheckRoll} which is less then or equal {skillAmount}");
                 return (true);
@@ -45,9 +45,47 @@ namespace PlayerSpace
             }
         }
 
-        // ChatGPT refactored this...
-        public static void CheckLearning(CountyPopulation countyPopulation, SkillData skillData, AllEnums.LearningSpeed learningSpeed)
+        // ChatGPT refactored this.
+        // The defending combat bool is temporary until we rewrite how combat works.
+        public static void CheckLearning(CountyPopulation countyPopulation, bool defendingCombat)
         {
+            AllEnums.LearningSpeed learningSpeed;
+            SkillData skillData;
+            switch (countyPopulation.activity)
+            {
+                case AllEnums.Activities.Scavenge:
+                    skillData = countyPopulation.skills[AllEnums.Skills.Scavenge];
+                    learningSpeed = AllEnums.LearningSpeed.fast;
+                    break;
+                case AllEnums.Activities.Build:
+                    skillData = countyPopulation.skills[AllEnums.Skills.Construction];
+                    learningSpeed = AllEnums.LearningSpeed.medium;
+                    break;
+                case AllEnums.Activities.Work:
+                    skillData = countyPopulation.skills[countyPopulation.currentCountyImprovement.workSkill];
+                    learningSpeed = AllEnums.LearningSpeed.medium;
+                    break;
+                case AllEnums.Activities.Research:
+                    skillData = countyPopulation.skills[AllEnums.Skills.Research];
+                    learningSpeed = AllEnums.LearningSpeed.slow;
+                    break;
+                case AllEnums.Activities.Combat:
+                    if (defendingCombat)
+                    {
+                        skillData = countyPopulation.skills[AllEnums.Skills.Cool];
+                    }
+                    else
+                    {
+                        skillData = countyPopulation.skills[AllEnums.Skills.Rifle];
+                    }
+                    learningSpeed = AllEnums.LearningSpeed.slow;
+                    break;
+                default:
+                    GD.Print($"{countyPopulation.firstName} activity is getting a skill check when it " +
+                        $"shouldn't. SkillData.CheckLearning.");
+                    return;
+            }
+
             // Increment the amount learned.
             skillData.amountUntilLearned++;
 

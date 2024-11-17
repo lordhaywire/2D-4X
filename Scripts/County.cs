@@ -50,14 +50,14 @@ public partial class County : Node2D
         CountyData.CheckForHealing(countyData.herosInCountyList);
         CountyData.CheckForHealing(countyData.armiesInCountyList);
 
-        // Buildings that don't require workers should be here, such as the warehouse.
-
         // Shouldn't this be at the beginning of the day??
         countyAI.DecideBuildingCountyImprovements(this);
 
         // Generates resources through work, scavenging, building, and research.
-        PopulationAI.WorkDayOverForPopulation(countyData);
-        Banker.CalculateWorkToGoodsProduction(countyData);
+        // Generates the daily amount of work/building for each county improvement per person.
+        PopulationWork.WorkDayOverForPopulation(countyData);
+        // Converts the totaly daily amount of work into goods and construction.  Possibly scavenging and research eventually.
+        PopulationWork.CalculateWorkToGoodsProduction(countyData);
 
         PopulationAI.IsThereEnoughFood(countyData); // This is a terrible name for this method.
 
@@ -65,6 +65,7 @@ public partial class County : Node2D
         // Population uses other resources besides food.
         countyData.OccationalNeeds();
 
+        // See if we can combine this into something else.
         countyData.CheckIfCountyImprovementsAreDone();
 
         // People research by interest and their jobs.

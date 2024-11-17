@@ -11,19 +11,29 @@ The old Unity version is here: [2D-4X Unity](https://github.com/lordhaywire/2D-4
 
 These are notes for myself.
 
-1. Create a county resource type enum.
+1. Create a good type enum.
 
-2. Create a county resource in the County Resource folder.
+2. Create a good in the County Resource folder.
 
-3. Assign enums on the county resource, and fix all other county resource enums.
+3. Assign enums on the good, and fix all other good enums.
 
-4. Add the county resource to the AllCountyResources array, and alphabetize them.
+4. Add the good to the AllCountyResources array, and alphabetize them.
+
+### Construction Good for County Improvement
+
+Goods Construction Cost is a one time fee charged when the county improvement is initially started being built.
+
+1. Drag over the Good resource.
+
+2. Set the int that is the cost.
+
+3. Click Add Key/Value Pair
 
 ### Output Good to County Improvement
 
-1. Drag over county resource to County Output Goods dictionary in inspector.
+1. Drag over good to Output Goods dictionary in inspector.
 
-2. Drag over GenericProduction resource over to County Output Goods dictionary in inspector.
+2. Drag over GenericProduction resource over to Output Goods dictionary in inspector.
 
 3. Click add KeyValuePair for dictionary.
 
@@ -36,6 +46,16 @@ average daily amount generated is correct.
 This needs to be setup correctly in the inspector so the average daily amount generated is generated.
 
 MaxWorkers * Global Amount of Daily Work with bonus / work cost = average daily amount generated.
+
+### Input Good to County Improvement
+
+Each input good is per worker per day.
+
+1. Drag over the Good resource.
+
+2. Set the int that is the cost.
+
+3. Click Add Key/Value Pair
 
 ### How to Export from Godot
 

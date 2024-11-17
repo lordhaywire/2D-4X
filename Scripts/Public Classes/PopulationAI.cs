@@ -1,4 +1,3 @@
-using Godot;
 namespace PlayerSpace;
 
 public class PopulationAI
@@ -58,62 +57,12 @@ public class PopulationAI
         }
     }
 
-    public static void WorkDayOverForPopulation(CountyData countyData)
-    {
-        foreach (CountyPopulation countyPopulation in countyData.countyPopulationList)
-        {
-            /*
-            if (countyData.factionData.isPlayer == true)
-            {
-                GD.PrintRich($"[color=blue]{Clock.Instance.GetDateAndTime()} {countyPopulation.firstName} {countyPopulation.activity}[/color]");
-            }
-            */
-            switch (countyPopulation.activity)
-            {
-                case AllEnums.Activities.Scavenge:
-                    //GD.Print($"{countyPopulation.firstName} {countyPopulation.lastName} is generating scavenged resources.");
-                    // Skill learning is done in the GenerateScavengedResources.
-                    Banker.GenerateScavengedResources(countyData, countyPopulation);
-                    countyPopulation.UpdateActivity(AllEnums.Activities.Idle);
-                    break;
-                case AllEnums.Activities.Build:
-                    // Skill learning is done in the CompleteConstructionWithSkilLCheck
-                    CompleteConstructionWithSkillCheck(countyPopulation);
-                    // If the building is done they will be set to idle somewhere else.
-                    break;
-                case AllEnums.Activities.Work:
-                    // Produce resources based on the countyimprovement
-                    Banker.ApplyWorkPerPerson(countyData, countyPopulation);
-
-                    // Check for Skill Learning. I think this should be moved to inside the ApplyWorkPerPerson.
-                    SkillData.CheckLearning(countyPopulation
-                        , countyPopulation.skills[countyPopulation.currentCountyImprovement.workSkill]
-                        , AllEnums.LearningSpeed.slow);
-                    // Check loyalty to see if they still want to work there and if they don't then they
-                    // get set to idle.
-                    KeepWorkingAtCountyImprovement(countyPopulation);
-                    break;
-                case AllEnums.Activities.Research:
-                    // Person working at research office generates research.
-                    // Check learning is done in Banker.AddResearchForOfficeResearch
-                    Banker.AddResearchForOfficeResearch(countyPopulation);
-
-                    KeepResearching(countyPopulation);
-                    break;
-                case AllEnums.Activities.Idle:
-                    // Give idle people their bonus happiness.
-                    countyPopulation.AddRandomHappiness(5);
-                    break;
-            }
-        }
-        //// GD.PrintRich($"[rainbow]{countyData.countyName}: Work Day Over For Population.");
-    }
-
+    
     /// <summary>
     /// Checks loyalty and if the research is done.
     /// </summary>
     /// <param name="countyPopulation"></param>
-    private static void KeepResearching(CountyPopulation countyPopulation)
+    public static void KeepResearching(CountyPopulation countyPopulation)
     {
         ResearchItemData researchItemData = countyPopulation.currentResearchItemData;
         // Check for loyalty
@@ -134,30 +83,34 @@ public class PopulationAI
             countyPopulation.RemoveFromResearch();
         }
     }
-    private static void KeepWorkingAtCountyImprovement(CountyPopulation countyPopulation)
+    public static void KeepWorkingAtCountyImprovement(CountyPopulation countyPopulation)
     {
         if (CheckLoyaltyWithSkillCheck(countyPopulation) == false)
         {
             countyPopulation.RemoveFromCountyImprovement();
         }
     }
-    private static void CompleteConstructionWithSkillCheck(CountyPopulation countyPopulation)
+    
+
+    // This is no longer used, I don't think.  Left here temporarily just in case.
+    /*
+    public static void CompleteConstructionWithSkillCheck(CountyPopulation countyPopulation)
     {
         if (SkillData.Check(countyPopulation, countyPopulation.skills[AllEnums.Skills.Construction].skillLevel
             , countyPopulation.skills[AllEnums.Skills.Construction].attribute, false))
         {
             countyPopulation.currentCountyImprovement.CurrentAmountOfConstruction
-                += Globals.Instance.dailyConstructionAmount + Globals.Instance.dailyConstructionAmountBonus;
+                += Globals.Instance.dailyWorkAmount + Globals.Instance.dailyWorkAmountBonus;
         }
         else
         {
             countyPopulation.currentCountyImprovement.CurrentAmountOfConstruction
-                += Globals.Instance.dailyConstructionAmount;
+                += Globals.Instance.dailyWorkAmount;
         }
-        SkillData.CheckLearning(countyPopulation, countyPopulation.skills[AllEnums.Skills.Construction]
+        SkillData.CheckLearning(countyPopulation
             , AllEnums.LearningSpeed.slow);
     }
-
+    */
 
     // This should be moved to the Resource that Loyalty will be part of once we figure out
     // what catagory Loyalty is.  For example, it isn't a skill, or a perk.

@@ -101,7 +101,7 @@ namespace PlayerSpace
                 {
                     continue;
                 }
-                GD.Print($"{goodData.goodName} has been added to {factionData.factionName}");
+                //GD.Print($"{goodData.goodName} has been added to {factionData.factionName}");
                 factionData.factionGood.Add(goodData.factionGoodType, (GoodData)goodData.Duplicate());
                 factionData.yesterdaysFactionGoods.Add(goodData.factionGoodType, (GoodData)goodData.Duplicate());
                 factionData.amountUsedFactionGoods.Add(goodData.factionGoodType, (GoodData)goodData.Duplicate());
@@ -110,7 +110,7 @@ namespace PlayerSpace
             // generating starting resources for each faction.
             factionData.factionGood[AllEnums.FactionGoodType.Influence].Amount = 1500;
             factionData.factionGood[AllEnums.FactionGoodType.Money].Amount = 1500;
-            GD.Print("Faction Influence: "+ factionData.factionGood[AllEnums.FactionGoodType.Influence].Amount);
+            //GD.Print("Faction Influence: "+ factionData.factionGood[AllEnums.FactionGoodType.Influence].Amount);
         }
 
         private static void AddFactionsToDiplomacyWar(FactionData factionData)

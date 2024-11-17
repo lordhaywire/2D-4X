@@ -10,15 +10,12 @@ namespace PlayerSpace
     {
         [ExportGroup("Not For Inspector")]
         [Export] private int currentAmountOfCounstruction;
-        //[Export] public float workAmountForEachResource;
         [Export] public int numberBuilt; // This is used to number the improvement name in the County Improvement Panel.
 
         [ExportGroup("Improvement Info")]
         [Export] public AllEnums.CountyImprovementType countyImprovementType;
-        //[Export] public int location;
         [Export] public bool prioritize;
-        // This can't be exported so we need to change how it works. It doesn't even look like I am using this.
-        //public CountryImprovementPanelContainer countyImprovementPanelContainer;
+
         [Export] public Texture2D improvementTexture;
         [Export] public string improvementName;
         [Export] public string improvementDescription;
@@ -28,7 +25,7 @@ namespace PlayerSpace
         [Export] public InterestData interest;
 
         [ExportGroup("Construction Costs")]
-        [Export] public Godot.Collections.Dictionary<GoodData, int> countyResourceConstructionCost;
+        [Export] public Godot.Collections.Dictionary<GoodData, int> goodsConstructionCost = [];
 
         [Export]
         public int CurrentAmountOfConstruction
@@ -52,9 +49,6 @@ namespace PlayerSpace
         [ExportGroup("Outputs")]
         [Export] public Godot.Collections.Dictionary<GoodData, ProductionData> outputGoods = [];
         [Export] public int allDailyWorkAmountAtImprovementCompleted;
-
-        //[Export] public int dailyResourceGenerationAmount; // I am pretty sure these are not used.
-        //[Export] public int dailyResourceGenerationBonus; // I am pretty sure these are not used.
 
         // All input goods that are need to create the finished good.
         // For some reason this one needs to be initialized, but the faction and county construction costs don't.
@@ -156,7 +150,7 @@ namespace PlayerSpace
 
         public bool CheckIfCountyImprovementDone()
         {
-            if (CurrentAmountOfConstruction == maxAmountOfConstruction)
+            if (CurrentAmountOfConstruction >= maxAmountOfConstruction)
             {
                 return true;
             }
@@ -191,6 +185,7 @@ namespace PlayerSpace
                     break;
                 case AllEnums.CountyImprovementType.Standard:
                     status = AllEnums.CountyImprovementStatus.Producing;
+                    allDailyWorkAmountAtImprovementCompleted = 0;
                     break;
             }
         }
@@ -214,7 +209,7 @@ namespace PlayerSpace
                 interest = countyImprovementData.interest,
                 outputGoods = countyImprovementData.CopyOutputGoods(),
                 allDailyWorkAmountAtImprovementCompleted = countyImprovementData.allDailyWorkAmountAtImprovementCompleted,
-                countyResourceConstructionCost = countyImprovementData.countyResourceConstructionCost,
+                goodsConstructionCost = countyImprovementData.goodsConstructionCost,
                 currentAmountOfCounstruction = countyImprovementData.currentAmountOfCounstruction,
                 CurrentAmountOfConstruction = countyImprovementData.CurrentAmountOfConstruction,
                 maxAmountOfConstruction = countyImprovementData.maxAmountOfConstruction,

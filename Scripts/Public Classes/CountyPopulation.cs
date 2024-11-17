@@ -83,7 +83,7 @@ namespace PlayerSpace
 
         [ExportGroup("Work")]
         public AllEnums.Activities activity;
-        public CountyImprovementData currentCountyImprovement;
+        public CountyImprovementData currentCountyImprovement; // Used for work and building.
 
         public ResearchItemData currentResearchItemData;
         

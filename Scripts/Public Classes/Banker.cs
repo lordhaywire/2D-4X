@@ -5,26 +5,7 @@ namespace PlayerSpace
 {
     public class Banker
     {
-        /// <summary>
-        /// Shouldn't check learning be in GenerateWorkAmoutWithSkillCheck?
-        /// This generates the work amount per person which is divide by the number of resources the 
-        /// county improvement produces and then subtracts the divided amount from the work cost of each 
-        /// resource. If the result is negative it does it again until it is positive or zero.
-        /// Each time is goes through the loop it generates 1 of the resource.
-        /// </summary>
-        /// <param name="countyData"></param>
-        /// <param name="countyPopulation"></param>
-        public static void ApplyWorkPerPerson(CountyData countyData, CountyPopulation countyPopulation)
-        {
-            if (countyPopulation.currentCountyImprovement == null)
-            {
-                return;
-            }
-            GD.Print($"{countyData.countyName} Someone is working at {countyPopulation.currentCountyImprovement.improvementName}");
-            countyPopulation.currentCountyImprovement.allDailyWorkAmountAtImprovementCompleted
-                += GenerateWorkAmountWithSkillCheck(countyPopulation);
-            GD.Print("All Daily Work Amount At Improvement Completed: " + countyPopulation.currentCountyImprovement.allDailyWorkAmountAtImprovementCompleted);
-        }
+        
 
         // This includes the armies in the county, but it only works while the army is one person.
         public static int CountEveryoneInCounty(CountyData countyData)
@@ -63,8 +44,8 @@ namespace PlayerSpace
                 countyData.RemoveResourceFromAvailableCountyTotals(AllEnums.CountyGoodType.Remnants, amount);
             }
             // Learning skillcheck.
-            // Just for testing it is set to fast.
-            SkillData.CheckLearning(countyPopulation, countyPopulation.skills[AllEnums.Skills.Scavenge], AllEnums.LearningSpeed.fast);
+            // Just for testing it is set to fast.  The bool doesn't matter for this skill.
+            SkillData.CheckLearning(countyPopulation, true);
         }
 
         /// <summary>
@@ -156,21 +137,6 @@ namespace PlayerSpace
             }
         }
 
-        // This is currently unused.  I am pretty sure we don't need this.
-        /*
-        public static int CountCountyResourceOfType(CountyData countyData, AllEnums.CountyResourceType resourceType)
-        {
-            int amount = 0;
-            foreach (CountyResourceData resourceData in countyData.countyResources.Values)
-            {
-                if (resourceData.countyResourceType == resourceType)
-                {
-                    amount += resourceData.Amount;
-                }
-            }
-            return amount;
-        }
-        */
         public void AddLeaderInfluence(FactionData factionData)
         {
             factionData.factionGood[AllEnums.FactionGoodType.Influence].Amount
@@ -234,7 +200,8 @@ namespace PlayerSpace
                 IncreaseResearcherResearch(countyPopulation, passedCheck);
 
                 // Only researchers learn the research skill. Normal population does not.
-                SkillData.CheckLearning(countyPopulation, countyPopulation.skills[AllEnums.Skills.Research], AllEnums.LearningSpeed.medium);
+                // The bool doesn't matter for this skill.
+                SkillData.CheckLearning(countyPopulation, true);
 
                 // Re-check if the research is done after progress update and stop researching if it is.
                 if (countyPopulation.currentResearchItemData.CheckIfResearchDone())
@@ -296,9 +263,9 @@ namespace PlayerSpace
                 return false;
             }
 
-            if (countyImprovementData.countyResourceConstructionCost != null)
+            if (countyImprovementData.goodsConstructionCost != null)
             {
-                foreach (KeyValuePair<GoodData, int> keyValuePair in countyImprovementData.countyResourceConstructionCost)
+                foreach (KeyValuePair<GoodData, int> keyValuePair in countyImprovementData.goodsConstructionCost)
                 {
                     AllEnums.CountyGoodType resourceType = keyValuePair.Key.countyGoodType;
                     if (countyData.goods[resourceType].Amount < keyValuePair.Value)
@@ -314,10 +281,10 @@ namespace PlayerSpace
         public void ChargeForBuilding(FactionData factionData, CountyData countyData
             , CountyImprovementData countyImprovementData)
         {
-            if (countyImprovementData.countyResourceConstructionCost != null)
+            if (countyImprovementData.goodsConstructionCost != null)
             {
                 foreach (KeyValuePair<GoodData, int> keyValuePair
-                    in countyImprovementData.countyResourceConstructionCost)
+                    in countyImprovementData.goodsConstructionCost)
                 {
                     AllEnums.CountyGoodType resourceType = keyValuePair.Key.countyGoodType;
                     countyData.goods[resourceType].Amount -= keyValuePair.Value;
@@ -325,60 +292,6 @@ namespace PlayerSpace
                         $"{countyImprovementData.countyResourceConstructionCost[keyValuePair.Key]} and" +
                     $" was charged to {countyData.countyName} those cost was : {countyData.countyResources[resourceType].name} {keyValuePair.Value}");
                     */
-                }
-            }
-        }
-
-        public void TestiGoods(Godot.Collections.Dictionary<Variant, ProductionData> testDic)
-        {
-            foreach(KeyValuePair<Variant, ProductionData> keyValuePair in testDic )
-            {
-                //GD.Print("WhateveR: " + keyValuePair.Key.GoodName);
-            }
-        }
-        /// <summary>
-        /// This should go through the list of completed county improvements and does the math
-        /// to generate the goods produced.
-        /// </summary>
-        /// <param name="countyData"></param>
-        public static void CalculateWorkToGoodsProduction(CountyData countyData)
-        {
-            foreach (CountyImprovementData countyImprovementData in countyData.completedCountyImprovements)
-            {
-                // This is checking max workers because it needs to skip county improvements that don't have
-                // workers, such as a warehouse.
-                //TestiGoods(countyImprovementData.countyOutputGoods);
-                if (countyImprovementData.outputGoods?.Count > 0
-                    && countyImprovementData.maxWorkers > 0)
-                {
-                    foreach (KeyValuePair<GoodData, ProductionData> keyValuePair in countyImprovementData.outputGoods)
-                    {
-                        // Reset todays goods amount generated before it does all the calculations.
-                        // It needs to keep this number for the player UI until it hits PopulationAI.WorkDayOverForPopulation.
-                        keyValuePair.Value.todaysGoodsAmountGenerated = 0;
-
-                        // The work amount isn't divided by the number of resources.  The work amount
-                        // is applied to each resource and the amount of goods generated should reflect that.
-                        keyValuePair.Value.workAmount
-                            += countyImprovementData.allDailyWorkAmountAtImprovementCompleted;
-
-                        GD.Print($"{countyData.countyName} : {countyImprovementData.improvementName} " +
-                            $"- Work Amount For Each Resource For Today: {keyValuePair.Value.workAmount}");
-
-                        if (keyValuePair.Value.workCost <= keyValuePair.Value.workAmount)
-                        {
-                            keyValuePair.Value.todaysGoodsAmountGenerated
-                                = keyValuePair.Value.workAmount / keyValuePair.Value.workCost;
-                            keyValuePair.Value.workAmount = keyValuePair.Value.workAmount % keyValuePair.Value.workCost;
-                        }
-
-                        GD.Print($"{countyData.countyName} {countyImprovementData.improvementName} todays goods " +
-                            $"generated: {keyValuePair.Value.todaysGoodsAmountGenerated}");
-
-                        AddCountyResource(countyData, keyValuePair.Key.countyGoodType, keyValuePair.Value.todaysGoodsAmountGenerated);
-                    }
-                    // Reset all the county improvement work so that the next day it will generate with new skill checks.
-                    countyImprovementData.allDailyWorkAmountAtImprovementCompleted = 0;
                 }
             }
         }

@@ -95,10 +95,8 @@ public partial class Globals : Node
     [Export] public int startingAmountOfEachGood = 1;
     [Export] public int dailyScavengedAmount = 2;
     [Export] public int dailyScavengedAmountBonus = 1;
-    [Export] public int dailyConstructionAmount = 5; // Get rid of daily construction amount and make it the same as the daily Work amount
-    [Export] public int dailyConstructionAmountBonus = 2; // Get rid of daily construction bonus amount and make it the same as the daily Work bonus amount
-    [Export] public int dailyWorkAmount = 10;
-    [Export] public int dailyWorkAmountBonus = 5;
+    [Export] public int dailyWorkAmount = 10; // This is for work and construction.
+    [Export] public int dailyWorkAmountBonus = 5; // This is for work and construction.
     [Export] public int foodToGainHappiness = 3;
     [Export] public int foodToGainNothing = 2;
     [Export] public int foodToLoseHappiness = 1;

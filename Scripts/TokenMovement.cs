@@ -74,7 +74,7 @@ namespace PlayerSpace
         {
             // Get the All Heroes List in the desination county for that county's faction and see if any of that
             // factions heros are on the way to it.
-            GD.Print("Seeing if someone is on the way.");
+            //GD.Print("Seeing if someone is on the way.");
             foreach (CountyPopulation countyPopulation in destinationCounty.countyData.factionData.allHeroesList)
             {
                 if (countyPopulation.destination == token.countyPopulation.destination)

@@ -1,10 +1,21 @@
-[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=6 format=3 uid="uid://bads4woc5toep"]
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=8 format=3 uid="uid://bads4woc5toep"]
 
 [ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/Goods/Wood.tres" id="1_1yts0"]
 [ext_resource type="Texture2D" uid="uid://d38i5xsjnfnfq" path="res://Graphics/County Improvements/fishing-pole.svg" id="1_3xigu"]
 [ext_resource type="Resource" uid="uid://bojgmxcwswihv" path="res://Resources/Interests/Biology.tres" id="2_h1ekr"]
 [ext_resource type="Script" path="res://Resources/CountyImprovementData.cs" id="2_iptt2"]
-[ext_resource type="Resource" uid="uid://bhmwj5yptebic" path="res://Resources/Goods/Remnants.tres" id="2_weoty"]
+[ext_resource type="Resource" uid="uid://c55q8uucl7cqe" path="res://Resources/Goods/Fish.tres" id="5_rxp18"]
+[ext_resource type="Script" path="res://Resources/ProductionData.cs" id="6_q1pav"]
+
+[sub_resource type="Resource" id="Resource_gpo3t"]
+script = ExtResource("6_q1pav")
+workAmountAfterSkillCheck = 0
+workCost = 1
+workAmount = 0
+todaysGoodsAmountGenerated = 0
+averageDailyAmountGenerated = 0.0
+storageAmount = 0
+AverageDailyGoodsAmountGenerated = 0.0
 
 [resource]
 script = ExtResource("2_iptt2")
@@ -17,10 +28,7 @@ improvementName = "IMPROVEMENT_FISHERS_SHED"
 improvementDescription = "IMPROVEMENT_DESCRIPTION_FISHERS_SHED"
 workSkill = 3
 interest = ExtResource("2_h1ekr")
-countyResourceConstructionCost = Dictionary[Object, int]({
-ExtResource("1_1yts0"): 1,
-ExtResource("2_weoty"): 1
-})
+goodsConstructionCost = {}
 CurrentAmountOfConstruction = 0
 maxAmountOfConstruction = 10
 maxBuilders = 5
@@ -29,7 +37,11 @@ maxWorkers = 5
 adjustedMaxWorkers = 0
 countyResourceType = 2
 factionResourceType = 3
-outputGoods = {}
+outputGoods = {
+ExtResource("5_rxp18"): SubResource("Resource_gpo3t")
+}
 allDailyWorkAmountAtImprovementCompleted = 0
-inputGoods = {}
+inputGoods = {
+ExtResource("1_1yts0"): 1
+}
 status = 0

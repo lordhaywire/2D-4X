@@ -222,10 +222,10 @@ namespace PlayerSpace
             }
 
             // Check if rifle experience is learned by the attacker.
-            SkillData.CheckLearning(shootingCountyPopulation, shootingCountyPopulation.skills[AllEnums.Skills.Rifle], AllEnums.LearningSpeed.slow);
+            SkillData.CheckLearning(shootingCountyPopulation, false);
 
             // Check if the defenders cool skill learns anything.
-            SkillData.CheckLearning(gettingShotAtCountyPopulation, gettingShotAtCountyPopulation.skills[AllEnums.Skills.Cool], AllEnums.LearningSpeed.slow);
+            SkillData.CheckLearning(gettingShotAtCountyPopulation, true);
         }
         private static void ButtonUp()
         {

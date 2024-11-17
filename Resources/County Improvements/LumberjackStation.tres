@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=4 format=3 uid="uid://cpmbf5setweth"]
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=5 format=3 uid="uid://cpmbf5setweth"]
 
+[ext_resource type="Resource" uid="uid://rs4bgxx8ctc8" path="res://Resources/Goods/Canned Food.tres" id="1_3dqef"]
 [ext_resource type="Texture2D" uid="uid://mhuco6bk8l6y" path="res://Graphics/County Improvements/axe-in-log.svg" id="1_fohtd"]
 [ext_resource type="Script" path="res://Resources/CountyImprovementData.cs" id="2_26moa"]
 [ext_resource type="Resource" uid="uid://dqjlx4jv1pgfi" path="res://Resources/Interests/Engineering.tres" id="2_cnf1p"]
@@ -15,7 +16,9 @@ improvementName = "IMPROVEMENT_LUMBERJACK_STATION"
 improvementDescription = "IMPROVEMENT_DESCRIPTION_LUMBERJACK_STATION"
 workSkill = 5
 interest = ExtResource("2_cnf1p")
-countyResourceConstructionCost = null
+goodsConstructionCost = {
+ExtResource("1_3dqef"): 10000
+}
 CurrentAmountOfConstruction = 0
 maxAmountOfConstruction = 500
 maxBuilders = 2
