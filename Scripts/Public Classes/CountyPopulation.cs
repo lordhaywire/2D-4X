@@ -79,12 +79,13 @@ namespace PlayerSpace
         [ExportGroup("Skills")]
         public Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills = [];
         public SkillData preferredSkill;
-        public InterestData interest;
+        public InterestData interestData;
 
         [ExportGroup("Work")]
         public AllEnums.Activities activity;
         public CountyImprovementData currentCountyImprovement; // Used for work and building.
 
+        public ResearchItemData passiveResearchItemData;
         public ResearchItemData currentResearchItemData;
         
         [ExportGroup("Token")]
@@ -192,6 +193,7 @@ namespace PlayerSpace
             , Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills
             , SkillData preferredSkill, InterestData interest, AllEnums.Activities activity
             , CountyImprovementData currentCountyImprovement
+            , ResearchItemData passiveResearchItemData
             , ResearchItemData currentResearchItemData)
         {
             this.factionData = factionData;
@@ -223,10 +225,11 @@ namespace PlayerSpace
 
             this.skills = skills;
             this.preferredSkill = preferredSkill;
-            this.interest = interest;
+            this.interestData = interest;
 
             this.activity = activity;
             this.currentCountyImprovement = currentCountyImprovement;
+            this.passiveResearchItemData = passiveResearchItemData;
             this.currentResearchItemData = currentResearchItemData;
         }
     }

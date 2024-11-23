@@ -68,8 +68,8 @@ public partial class County : Node2D
         // See if we can combine this into something else.
         countyData.CheckIfCountyImprovementsAreDone();
 
-        // People research by interest and their jobs.
-        countyData.factionData.PopulationResearch(countyData);
+        // Passive research for each county population, not including heroes.
+        Research.AssignPassiveResearch(countyData.factionData, countyData.countyPopulationList);
 
         // Update all the top bar resources
         TopBarControl.Instance.UpdateResourceLabels();

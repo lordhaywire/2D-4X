@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://chufschxvhcsh" path="res://Resources/County Improvements/ScoutingEquipmentWorkshop.tres" id="1_mf2vf"]
 [ext_resource type="Resource" uid="uid://dqjlx4jv1pgfi" path="res://Resources/Interests/Engineering.tres" id="1_qk700"]
-[ext_resource type="Script" path="res://Resources/ResearchItemData.cs" id="1_tdoe1"]
+[ext_resource type="Script" uid="uid://c7krhj3d0jakh" path="res://Resources/ResearchItemData.cs" id="1_tdoe1"]
 [ext_resource type="Texture2D" uid="uid://wsj5grvlt5uj" path="res://Graphics/Research/Primative Scouting binoculars.svg" id="2_7giv7"]
 
 [resource]
@@ -10,7 +10,7 @@ script = ExtResource("1_tdoe1")
 tier = 1
 skill = 6
 interest = ExtResource("1_qk700")
-researchedAtStart = true
+researchedAtStart = false
 researchName = "RESEARCH_PRIMITIVE_SCOUTING_EQUIPMENT"
 researchDescription = "RESEARCH_DESCRIPTION_PRIMITIVE_SCOUTING_EQUIPMENT"
 researchTexture = ExtResource("2_7giv7")

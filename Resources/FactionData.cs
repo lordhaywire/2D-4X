@@ -15,7 +15,7 @@ namespace PlayerSpace
         [Export] public int factionCapitalCounty;
 
         public List<ResearchItemData> researchItems = [];
-        readonly List<ResearchItemData> researchableResearch = [];
+        [Export] public Godot.Collections.Array<ResearchItemData> researchableResearch = [];
 
         public List<CountyData> countiesFactionOwns = [];
         public List<CountyPopulation> allHeroesList = [];
@@ -45,15 +45,13 @@ namespace PlayerSpace
         // It should check what they are doing and try to add that research then if they aren't doing anything
         // it should add to a random research that isn't done yet.
         // Don't forget about idle heroes researching other things.
+        /*
         public void PopulationResearch(CountyData countyData)
         {
-            // Get a list of all the research that isn't done.
-            CreateResearchableResearchList();
-
             // Have the population research by their interests or job.
             CheckEachPeopleForResearch(countyData);
         }
-
+        */
         public static FactionData GetFactionDataFromID(int id)
         {
             //GD.Print("Faction ID that is trying to be used: " + id);
@@ -61,79 +59,21 @@ namespace PlayerSpace
             return faction.factionData;
         }
 
-        /// <summary>
-        /// Have the population research by their interests or job.
-        /// </summary>
-        private void CreateResearchableResearchList()
-        {
-            researchableResearch.Clear();
-            foreach (ResearchItemData researchItemData in researchItems)
-            {
-                if (researchItemData.CheckIfResearchDone() == false
-                    && researchItemData.CheckIfPrerequisitesAreDone() == true)
-                {
-                    researchableResearch.Add(researchItemData);
-                }
-            }
-            /*
-            foreach(ResearchItemData researchItemData1 in researchableResearch)
-            {
-                GD.Print("Researchable Research: " + researchItemData1.researchName);
-            }
-            */
-        }
-
+        
+        /*
         private void CheckEachPeopleForResearch(CountyData countyData)
         {
+            GD.Print($"County Checking People Research: {countyData.countyName}");
             foreach (CountyPopulation countyPopulation in countyData.countyPopulationList)
             {
-                ResearchByInterest(countyPopulation);
+                //ResearchByInterest(countyPopulation);
                 ResearchByJob(countyPopulation);
             }
         }
+        */
+        
 
-        private void ResearchByJob(CountyPopulation countyPopulation)
-        {
-            ResearchItemData whatPopulationIsResearching = null;
 
-            foreach (ResearchItemData researchItemData in researchableResearch)
-            {
-                // If the county improvement isn't null then see if the interest matches.
-                if (countyPopulation.currentCountyImprovement?.interest == researchItemData.interest)
-                {
-                    whatPopulationIsResearching = researchItemData;
-                    //GD.Print($"{countyPopulation.firstName} {countyPopulation.interest.name} is having them research {researchItemData.researchName}");
-                    break;
-                }
-            }
-
-            if (whatPopulationIsResearching != null)
-            {
-                // After a skill check, have the banker add the research to the research with a possible bonus.
-                Banker.IncreaseResearchAmountWithBonus(countyPopulation, whatPopulationIsResearching, researchableResearch);
-            }
-        }
-
-        private void ResearchByInterest(CountyPopulation countyPopulation)
-        {
-            ResearchItemData whatPopulationIsResearching = null;
-
-            foreach (ResearchItemData researchItemData in researchableResearch)
-            {
-                if (countyPopulation.interest.interestType == researchItemData.interest.interestType)
-                {
-                    whatPopulationIsResearching = researchItemData;
-                    //GD.Print($"{countyPopulation.firstName} {countyPopulation.interest.name} is having them research {researchItemData.researchName}");
-                    break;
-                }
-            }
-
-            if (whatPopulationIsResearching != null)
-            {
-                // After a skill check, have the banker add the research to the research with a possible bonus.
-                Banker.IncreaseResearchAmountWithBonus(countyPopulation, whatPopulationIsResearching, researchableResearch);
-            }
-        }
         public void CopyFactionResourcesToYesterday()
         {
             // Creating a deep copy of the dictionary

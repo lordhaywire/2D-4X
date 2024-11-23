@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bgi425dwni4d"]
 
-[ext_resource type="Script" path="res://Scripts/CameraControls.cs" id="1_0dhaa"]
+[ext_resource type="Script" uid="uid://c8hir37ufgy3k" path="res://Scripts/CameraControls.cs" id="1_0dhaa"]
 
 [node name="Camera CharacterBody2D" type="CharacterBody2D"]
 process_mode = 3

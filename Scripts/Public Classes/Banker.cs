@@ -43,9 +43,6 @@ namespace PlayerSpace
                 AddCountyResource(countyData, AllEnums.CountyGoodType.Remnants, amount);
                 countyData.RemoveResourceFromAvailableCountyTotals(AllEnums.CountyGoodType.Remnants, amount);
             }
-            // Learning skillcheck.
-            // Just for testing it is set to fast.  The bool doesn't matter for this skill.
-            SkillData.CheckLearning(countyPopulation, true);
         }
 
         /// <summary>
@@ -86,8 +83,14 @@ namespace PlayerSpace
             return amount;
         }
 
+        /// <summary>
+        /// There is no learning check for population random research.
+        /// </summary>
+        /// <param name="countyPopulation"></param>
+        /// <param name="researchItemData"></param>
+        /// <param name="researchableResearch"></param>
         public static void IncreaseResearchAmountWithBonus(CountyPopulation countyPopulation
-            , ResearchItemData researchItemData, List<ResearchItemData> researchableResearch)
+            , ResearchItemData researchItemData, Godot.Collections.Array<ResearchItemData> researchableResearch)
         {
             if (SkillData.Check(countyPopulation, countyPopulation.skills[researchItemData.skill].skillLevel
                 , countyPopulation.skills[researchItemData.skill].attribute, false) == true)
@@ -171,45 +174,7 @@ namespace PlayerSpace
             IncreaseResearcherResearch(countyPopulation, passedCheck);
         }
 
-        /// <summary>
-        /// We have it go through all the heroes because heroes could be researching in other faction territories.
-        /// </summary>
-        /// <param name="factionData"></param>
-        public static void CheckForHeroResearch(FactionData factionData)
-        {
-            foreach (CountyPopulation countyPopulation in factionData.allHeroesList)
-            {
-                // Skip to the next hero if there is no current research.
-                if (countyPopulation.currentResearchItemData == null)
-                {
-                    continue;
-                }
-
-                // Stop researching if the current research is done and skip to the next hero.
-                if (countyPopulation.currentResearchItemData.CheckIfResearchDone())
-                {
-                    StopHeroResearcherFromResearching(countyPopulation);
-                    continue;
-                }
-
-                // Perform the research skill check.
-                bool passedCheck = SkillData.Check(countyPopulation, countyPopulation.skills[AllEnums.Skills.Research].skillLevel,
-                    countyPopulation.skills[AllEnums.Skills.Research].attribute, false);
-
-                // Increase research progress and check learning.
-                IncreaseResearcherResearch(countyPopulation, passedCheck);
-
-                // Only researchers learn the research skill. Normal population does not.
-                // The bool doesn't matter for this skill.
-                SkillData.CheckLearning(countyPopulation, true);
-
-                // Re-check if the research is done after progress update and stop researching if it is.
-                if (countyPopulation.currentResearchItemData.CheckIfResearchDone())
-                {
-                    StopHeroResearcherFromResearching(countyPopulation);
-                }
-            }
-        }
+        
 
         private static void StopHeroResearcherFromResearching(CountyPopulation countyPopulation)
         {
@@ -230,8 +195,13 @@ namespace PlayerSpace
                 bonusResearchIncrease = Globals.Instance.random.Next(1, Globals.Instance.researchIncreaseBonus);
             }
             int researchAmount = Globals.Instance.researcherResearchIncrease + bonusResearchIncrease;
-            EventLog.Instance.AddLog($"{countyPopulation.firstName} - " +
-                $"{TranslationServer.Translate(countyPopulation.currentResearchItemData.researchName)}: {researchAmount}");
+            //if (countyPopulation.factionData == Globals.Instance.playerFactionData)
+            //{
+                EventLog.Instance.AddLog($"{countyPopulation.location} " +
+                    $"{countyPopulation.firstName} - {countyPopulation.interestData.name} " +
+                    $"{TranslationServer.Translate(countyPopulation.currentResearchItemData.researchName)}" +
+                    $": {researchAmount}");
+            //}
             //// GD.Print($"Amount of research {countyPopulation.firstName} did: {researchAmount}");
             // This will trigger the getter setting and mark the research as complete if the Amount is
             // higher or equal to the cost.

@@ -2,10 +2,10 @@
 
 [ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/Goods/Wood.tres" id="1_2r2el"]
 [ext_resource type="Texture2D" uid="uid://5ya3dlibok7" path="res://Graphics/County Improvements/Scouting Equipment Workshop tarot-00-the-fool.svg" id="1_231ft"]
-[ext_resource type="Script" path="res://Resources/CountyImprovementData.cs" id="1_wleyv"]
+[ext_resource type="Script" uid="uid://blu41dxinr54t" path="res://Resources/CountyImprovementData.cs" id="1_wleyv"]
 [ext_resource type="Resource" uid="uid://dqjlx4jv1pgfi" path="res://Resources/Interests/Engineering.tres" id="2_tf3mf"]
 [ext_resource type="Resource" uid="uid://cium8f0spbwdp" path="res://Resources/Goods/PrimitiveScoutingEquipment.tres" id="4_dvaxv"]
-[ext_resource type="Script" path="res://Resources/ProductionData.cs" id="5_u02bl"]
+[ext_resource type="Script" uid="uid://b6u77qyvyfqm4" path="res://Resources/ProductionData.cs" id="5_u02bl"]
 
 [sub_resource type="Resource" id="Resource_f38jq"]
 script = ExtResource("5_u02bl")

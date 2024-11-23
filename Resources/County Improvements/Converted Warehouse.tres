@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://duyyhx30r6vow" path="res://Graphics/County Improvements/Warehouse wooden-crate.svg" id="1_wn83v"]
 [ext_resource type="Resource" uid="uid://dqjlx4jv1pgfi" path="res://Resources/Interests/Engineering.tres" id="2_cl8dw"]
-[ext_resource type="Script" path="res://Resources/CountyImprovementData.cs" id="3_nbppr"]
+[ext_resource type="Script" uid="uid://blu41dxinr54t" path="res://Resources/CountyImprovementData.cs" id="3_nbppr"]
 
 [resource]
 script = ExtResource("3_nbppr")
@@ -15,7 +15,7 @@ improvementName = "IMPROVEMENT_CONVERTED_WAREHOUSE"
 improvementDescription = "IMPROVEMENT_DESCRIPTION_CONVERTED_WAREHOUSE"
 workSkill = 4
 interest = ExtResource("2_cl8dw")
-countyResourceConstructionCost = null
+goodsConstructionCost = {}
 CurrentAmountOfConstruction = 0
 maxAmountOfConstruction = 50
 maxBuilders = 5

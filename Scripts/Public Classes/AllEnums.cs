@@ -90,7 +90,7 @@ public class AllEnums
         fast,
     }
 
-    public enum Interests
+    public enum InterestType
     {
         Biology,
         Botany,

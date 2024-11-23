@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ResearchItemData" load_steps=5 format=3 uid="uid://cwkooap4yvn10"]
 
 [ext_resource type="Texture2D" uid="uid://4qh2lfjkxnyy" path="res://Graphics/Research/Basic Storage cardboard-box-closed.svg" id="1_ardle"]
-[ext_resource type="Script" path="res://Resources/ResearchItemData.cs" id="1_hvkf1"]
+[ext_resource type="Script" uid="uid://c7krhj3d0jakh" path="res://Resources/ResearchItemData.cs" id="1_hvkf1"]
 [ext_resource type="Resource" uid="uid://cxh2tykxlu76b" path="res://Resources/County Improvements/Converted Warehouse.tres" id="1_jsy6f"]
 [ext_resource type="Resource" uid="uid://dqjlx4jv1pgfi" path="res://Resources/Interests/Engineering.tres" id="2_4et8k"]
 
@@ -10,7 +10,7 @@ script = ExtResource("1_hvkf1")
 tier = 0
 skill = 4
 interest = ExtResource("2_4et8k")
-researchedAtStart = true
+researchedAtStart = false
 researchName = "RESEARCH_BASIC_STORAGE"
 researchDescription = "RESEARCH_DESCRIPTION_BASIC_STORAGE"
 researchTexture = ExtResource("1_ardle")

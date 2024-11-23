@@ -21,16 +21,13 @@ namespace PlayerSpace
                         //GD.Print($"{countyPopulation.firstName} {countyPopulation.lastName} is generating scavenged resources.");
                         // Skill learning is done in the GenerateScavengedResources.
                         Banker.GenerateScavengedResources(countyData, countyPopulation);
+
+                        // Learning skillcheck.
+                        // Just for testing it is set to fast.  The bool doesn't matter for this skill.
+                        SkillData.CheckLearning(countyPopulation, true);
+
                         countyPopulation.UpdateActivity(AllEnums.Activities.Idle);
                         break;
-                    /*
-                    case AllEnums.Activities.Build:
-                        // Skill learning is done in the CompleteConstructionWithSkilLCheck
-                        ApplyWorkPerPerson(countyData, countyPopulation);
-                        //PopulationAI.CompleteConstructionWithSkillCheck(countyPopulation);
-                        // If the building is done they will be set to idle somewhere else.
-                        break;
-                    */
                     case AllEnums.Activities.Build:
                     case AllEnums.Activities.Work:
                         // Produce resources based on the countyimprovement

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://x448dpajwnx"]
 
-[ext_resource type="Script" path="res://Scripts/UI/CountryImprovementPanelContainer.cs" id="1_4yh6i"]
+[ext_resource type="Script" uid="uid://pa35wc2fj461" path="res://Scripts/UI/CountryImprovementPanelContainer.cs" id="1_4yh6i"]
 [ext_resource type="PackedScene" uid="uid://b0tyfwbm6y74e" path="res://UIScenes/GoodPanelContainer.tscn" id="2_7ne0a"]
 [ext_resource type="Texture2D" uid="uid://duyyhx30r6vow" path="res://Graphics/County Improvements/Warehouse wooden-crate.svg" id="2_jdvn2"]
 

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ResearchItemData" load_steps=7 format=3 uid="uid://bljrvhrjka1hs"]
 
 [ext_resource type="Resource" uid="uid://bads4woc5toep" path="res://Resources/County Improvements/FishersShed.tres" id="1_xk2ne"]
-[ext_resource type="Script" path="res://Resources/ResearchItemData.cs" id="1_xvogw"]
+[ext_resource type="Script" uid="uid://c7krhj3d0jakh" path="res://Resources/ResearchItemData.cs" id="1_xvogw"]
 [ext_resource type="Resource" uid="uid://cpmbf5setweth" path="res://Resources/County Improvements/LumberjackStation.tres" id="2_dydjr"]
 [ext_resource type="Resource" uid="uid://bkakbc8lqeex4" path="res://Resources/County Improvements/Garden.tres" id="3_oyq4t"]
 [ext_resource type="Resource" uid="uid://dqjlx4jv1pgfi" path="res://Resources/Interests/Engineering.tres" id="4_6l3xh"]
@@ -12,7 +12,7 @@ script = ExtResource("1_xvogw")
 tier = 0
 skill = 6
 interest = ExtResource("4_6l3xh")
-researchedAtStart = true
+researchedAtStart = false
 researchName = "RESEARCH_BASIC_PRODUCTION"
 researchDescription = "RESEARCH_DESCRIPTION_BASIC_PRODUCTION"
 researchTexture = ExtResource("4_rnkye")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bjgv6c8xhn4lo"]
 
-[ext_resource type="Script" path="res://Scripts/UI/EventLogTextPanel.cs" id="1_xuygu"]
+[ext_resource type="Script" uid="uid://dcwhr21tpxq87" path="res://Scripts/UI/EventLogTextPanel.cs" id="1_xuygu"]
 
 [node name="Event Log Text Panel" type="Panel" node_paths=PackedStringArray("logText")]
 custom_minimum_size = Vector2(300, 75)

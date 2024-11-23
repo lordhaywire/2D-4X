@@ -3,14 +3,14 @@
 [ext_resource type="Resource" uid="uid://lxjruufeuqa1" path="res://Resources/County Improvements/ResearchersOffice.tres" id="1_7j52q"]
 [ext_resource type="Texture2D" uid="uid://dn7aobwo3atm7" path="res://Graphics/Research/Researchers Office archive-research.svg" id="2_868j7"]
 [ext_resource type="Resource" uid="uid://bgy1phaeqjaiv" path="res://Resources/Interests/Information.tres" id="2_jpav7"]
-[ext_resource type="Script" path="res://Resources/ResearchItemData.cs" id="3_ov610"]
+[ext_resource type="Script" uid="uid://c7krhj3d0jakh" path="res://Resources/ResearchItemData.cs" id="3_ov610"]
 
 [resource]
 script = ExtResource("3_ov610")
 tier = 0
 skill = 6
 interest = ExtResource("2_jpav7")
-researchedAtStart = true
+researchedAtStart = false
 researchName = "RESEARCH_BASIC_RESEARCHING"
 researchDescription = "RESEARCH_DESCRIPTION_BASIC_RESEARCHING"
 researchTexture = ExtResource("2_868j7")

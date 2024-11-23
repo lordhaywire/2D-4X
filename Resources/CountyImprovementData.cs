@@ -22,7 +22,7 @@ namespace PlayerSpace
 
         [ExportGroup("Skill and Interest")]
         [Export] public AllEnums.Skills workSkill;
-        [Export] public InterestData interest;
+        [Export] public InterestData interestData;
 
         [ExportGroup("Construction Costs")]
         [Export] public Godot.Collections.Dictionary<GoodData, int> goodsConstructionCost = [];
@@ -206,7 +206,7 @@ namespace PlayerSpace
                 improvementDescription = countyImprovementData.improvementDescription,
                 numberBuilt = countyImprovementData.numberBuilt,
                 workSkill = countyImprovementData.workSkill,
-                interest = countyImprovementData.interest,
+                interestData = countyImprovementData.interestData,
                 outputGoods = countyImprovementData.CopyOutputGoods(),
                 allDailyWorkAmountAtImprovementCompleted = countyImprovementData.allDailyWorkAmountAtImprovementCompleted,
                 goodsConstructionCost = countyImprovementData.goodsConstructionCost,

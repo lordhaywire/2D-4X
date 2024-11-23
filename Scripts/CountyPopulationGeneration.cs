@@ -69,7 +69,7 @@ namespace PlayerSpace
                         , GenerateSkillsList()
                         , preferredSkill
                         , GenerateInterest()
-                        , AllEnums.Activities.Idle, null, null));
+                        , AllEnums.Activities.Idle, null, null, null));
                 }
                 else
                 {
@@ -83,7 +83,7 @@ namespace PlayerSpace
                         , GenerateSkillsList()
                         , preferredSkill
                         , GenerateInterest()
-                        , AllEnums.Activities.Idle, null, null));
+                        , AllEnums.Activities.Idle, null, null, null));
                 }
             }
         }

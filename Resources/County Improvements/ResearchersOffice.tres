@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="CountyImprovementData" load_steps=4 format=3 uid="uid://lxjruufeuqa1"]
 
 [ext_resource type="Texture2D" uid="uid://bx2dfaxw8ujc5" path="res://Graphics/County Improvements/Researchers Office County Improvement archive-research.svg" id="1_a1jyh"]
-[ext_resource type="Script" path="res://Resources/CountyImprovementData.cs" id="1_ga7gf"]
+[ext_resource type="Script" uid="uid://blu41dxinr54t" path="res://Resources/CountyImprovementData.cs" id="1_ga7gf"]
 [ext_resource type="Resource" uid="uid://bgy1phaeqjaiv" path="res://Resources/Interests/Information.tres" id="2_1erl4"]
 
 [resource]
@@ -15,7 +15,7 @@ improvementName = "IMPROVEMENT_RESEARCHERS_OFFICE"
 improvementDescription = "IMPROVEMENT_DESCRIPTION_RESEARCHERS_OFFICE"
 workSkill = 6
 interest = ExtResource("2_1erl4")
-countyResourceConstructionCost = Dictionary[Object, int]({})
+goodsConstructionCost = {}
 CurrentAmountOfConstruction = 0
 maxAmountOfConstruction = 10
 maxBuilders = 5

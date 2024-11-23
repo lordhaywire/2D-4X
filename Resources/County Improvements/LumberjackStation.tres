@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://rs4bgxx8ctc8" path="res://Resources/Goods/Canned Food.tres" id="1_3dqef"]
 [ext_resource type="Texture2D" uid="uid://mhuco6bk8l6y" path="res://Graphics/County Improvements/axe-in-log.svg" id="1_fohtd"]
-[ext_resource type="Script" path="res://Resources/CountyImprovementData.cs" id="2_26moa"]
+[ext_resource type="Script" uid="uid://blu41dxinr54t" path="res://Resources/CountyImprovementData.cs" id="2_26moa"]
 [ext_resource type="Resource" uid="uid://dqjlx4jv1pgfi" path="res://Resources/Interests/Engineering.tres" id="2_cnf1p"]
 
 [resource]

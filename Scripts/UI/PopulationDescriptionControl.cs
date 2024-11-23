@@ -138,7 +138,7 @@ namespace PlayerSpace
 
         private void UpdateInterest()
         {
-            interestLabel.Text = Tr(countyPopulation.interest.name);
+            interestLabel.Text = Tr(countyPopulation.interestData.name);
         }
 
         private void UpdatePreferredWork()

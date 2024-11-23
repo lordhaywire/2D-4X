@@ -2,10 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://bpj5td645dmvi" path="res://Graphics/County Improvements/spade.svg" id="1_b2i5i"]
 [ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/Goods/Wood.tres" id="2_40yu6"]
-[ext_resource type="Script" path="res://Resources/CountyImprovementData.cs" id="2_n4a1t"]
+[ext_resource type="Script" uid="uid://blu41dxinr54t" path="res://Resources/CountyImprovementData.cs" id="2_n4a1t"]
 [ext_resource type="Resource" uid="uid://ftsx8rr0uriv" path="res://Resources/Interests/Botany.tres" id="2_nsp6t"]
 [ext_resource type="Resource" uid="uid://dpddpnnbjvql" path="res://Resources/Goods/Vegetables.tres" id="4_sycl5"]
-[ext_resource type="Script" path="res://Resources/ProductionData.cs" id="5_e0wa3"]
+[ext_resource type="Script" uid="uid://b6u77qyvyfqm4" path="res://Resources/ProductionData.cs" id="5_e0wa3"]
 
 [sub_resource type="Resource" id="Resource_urcy4"]
 script = ExtResource("5_e0wa3")

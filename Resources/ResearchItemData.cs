@@ -8,7 +8,7 @@ public partial class ResearchItemData : Resource
     public int factionID;
     [Export] public AllEnums.ResearchTiers tier; // We might not need this now that the research is manually added to the research panel.
     [Export] public AllEnums.Skills skill;
-    [Export] public InterestData interest;
+    [Export] public InterestData interestData;
     [Export] public bool researchedAtStart;
     [Export] public string researchName;
     [Export] public string researchDescription;
@@ -95,7 +95,7 @@ public partial class ResearchItemData : Resource
             factionID = researchItemData.factionID,
             tier = researchItemData.tier,
             skill = researchItemData.skill,
-            interest = researchItemData.interest,
+            interestData = researchItemData.interestData,
             researchedAtStart = researchItemData.researchedAtStart,
             researchName = researchItemData.researchName,
             researchDescription = researchItemData.researchDescription,
