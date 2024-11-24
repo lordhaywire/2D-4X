@@ -84,8 +84,9 @@ namespace PlayerSpace
 
         private void UpdateVisitorsPopulationLabel()
         {
-            visitorsLabel.Text = Globals.Instance.SelectedLeftClickCounty.countyData.visitingHeroList.Count().ToString();
-            if (Globals.Instance.SelectedLeftClickCounty.countyData.visitingHeroList.Count() == 0)
+            visitorsLabel.Text 
+                = Globals.Instance.SelectedLeftClickCounty.countyData.visitingHeroList.Count.ToString();
+            if (Globals.Instance.SelectedLeftClickCounty.countyData.visitingHeroList.Count == 0)
             {
                 visitorsListButton.Disabled = true;
             }
@@ -115,7 +116,7 @@ namespace PlayerSpace
         public void GenerateHeroesPanelList()
         {
             ClearHeroList();
-            GenerateHeroes(countyData.herosInCountyList);
+            GenerateHeroes(countyData.heroesInCountyList);
             GenerateHeroes(countyData.armiesInCountyList);
             GenerateHeroes(countyData.visitingHeroList);
             GenerateHeroes(countyData.visitingArmyList);
@@ -133,7 +134,7 @@ namespace PlayerSpace
             }
         }
 
-        private void GenerateHeroes(Globals.ListWithNotify<CountyPopulation> heroCountyPopulationList)
+        private void GenerateHeroes(Godot.Collections.Array<CountyPopulation> heroCountyPopulationList)
         {
             foreach (CountyPopulation countyPopulation in heroCountyPopulationList)
             {
@@ -240,8 +241,8 @@ namespace PlayerSpace
         public void UpdateCountyPopulationLabel()
         {
 
-            int population = Globals.Instance.SelectedLeftClickCounty.countyData.countyPopulationList.Count()
-                + Globals.Instance.SelectedLeftClickCounty.countyData.herosInCountyList.Count();
+            int population = Globals.Instance.SelectedLeftClickCounty.countyData.countyPopulationList.Count
+                + Globals.Instance.SelectedLeftClickCounty.countyData.heroesInCountyList.Count;
             countyPopulationLabel.Text = population.ToString();
         }
 

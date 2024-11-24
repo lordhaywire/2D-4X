@@ -3,7 +3,7 @@ using System;
 
 namespace PlayerSpace
 {
-    public class CountyPopulation
+    public partial class CountyPopulation : Resource
     {
         public FactionData factionData;
         public int location;
@@ -107,7 +107,7 @@ namespace PlayerSpace
             IsArmyLeader = true;
             County selectCounty = (County)Globals.Instance.countiesParent.GetChild(location);
             selectCounty.countyData.armiesInCountyList.Add(this);
-            selectCounty.countyData.herosInCountyList.Remove(this);
+            selectCounty.countyData.heroesInCountyList.Remove(this);
         }
         public void UpdateActivity(AllEnums.Activities activity)
         {

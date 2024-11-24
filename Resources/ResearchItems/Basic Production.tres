@@ -11,8 +11,8 @@
 script = ExtResource("1_xvogw")
 tier = 0
 skill = 6
-interest = ExtResource("4_6l3xh")
-researchedAtStart = false
+interestData = ExtResource("4_6l3xh")
+researchedAtStart = true
 researchName = "RESEARCH_BASIC_PRODUCTION"
 researchDescription = "RESEARCH_DESCRIPTION_BASIC_PRODUCTION"
 researchTexture = ExtResource("4_rnkye")

@@ -9,7 +9,7 @@
 script = ExtResource("3_ov610")
 tier = 0
 skill = 6
-interest = ExtResource("2_jpav7")
+interestData = ExtResource("2_jpav7")
 researchedAtStart = false
 researchName = "RESEARCH_BASIC_RESEARCHING"
 researchDescription = "RESEARCH_DESCRIPTION_BASIC_RESEARCHING"

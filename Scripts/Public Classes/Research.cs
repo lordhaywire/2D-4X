@@ -43,13 +43,15 @@ namespace PlayerSpace
         /// </summary>
         /// <param name="factionData"></param>
         public static void AssignPassiveResearch(FactionData factionData
-            , List<CountyPopulation> countyPopulationList)
+            , Godot.Collections.Array<CountyPopulation> countyPopulationList)
         {
             foreach (CountyPopulation countyPopulation in countyPopulationList)
             {
-                countyPopulation.passiveResearchItemData = AssignResearchByInterest(countyPopulation);
-                countyPopulation.passiveResearchItemData ??= AssignResearchByActivity(countyPopulation);
-                countyPopulation.passiveResearchItemData ??= GetRandomResearch(countyPopulation.factionData);
+                countyPopulation.passiveResearchItemData = GetResearchByInterest(countyPopulation);
+                countyPopulation.passiveResearchItemData ??= GetResearchByActivity(countyPopulation);
+                countyPopulation.passiveResearchItemData ??= GetLowestTierRandomResearch(countyPopulation.factionData);
+                GD.Print($"Final Passive Research Outcome: {countyPopulation.firstName} " +
+                    $": {countyPopulation.passiveResearchItemData.researchName}");
             }
         }
 
@@ -58,13 +60,15 @@ namespace PlayerSpace
         /// interest.
         /// </summary>
         /// <param name="countyPopulation"></param>
-        private static ResearchItemData AssignResearchByInterest(CountyPopulation countyPopulation)
+        private static ResearchItemData GetResearchByInterest(CountyPopulation countyPopulation)
         {
+            GD.Print("Assign Research By Interest to: " + countyPopulation.firstName);
             ResearchItemData researchItemData
-                = GetFirstResearchByInterestType(countyPopulation.factionData
+                = GetRandomResearchByInterestType(countyPopulation.factionData
                 , countyPopulation.interestData.interestType);
             GD.Print($"{countyPopulation.firstName} {countyPopulation.interestData.name} " +
-                $"is having them research {countyPopulation.passiveResearchItemData.researchName}");
+                $"is having them research {researchItemData?.researchName}" +
+                $" : if this is blank then their interest doesn't match.");
             return researchItemData;
         }
 
@@ -75,43 +79,46 @@ namespace PlayerSpace
         /// </summary>
         /// <param name="countyPopulation"></param>
         /// <returns></returns>
-        private static ResearchItemData AssignResearchByActivity(CountyPopulation countyPopulation)
+        private static ResearchItemData GetResearchByActivity(CountyPopulation countyPopulation)
         {
-            ResearchItemData whatPopulationIsResearching = null;
+            ResearchItemData whatPopulationIsResearching;
             switch (countyPopulation.activity)
             {
                 case AllEnums.Activities.Build:
                     whatPopulationIsResearching
-                    = GetFirstResearchByInterestType(countyPopulation.factionData
+                    = GetRandomResearchByInterestType(countyPopulation.factionData
                     , AllEnums.InterestType.Engineering);
                     break;
                 case AllEnums.Activities.Combat:
                     whatPopulationIsResearching
-                    = GetFirstResearchByInterestType(countyPopulation.factionData
+                    = GetRandomResearchByInterestType(countyPopulation.factionData
                     , AllEnums.InterestType.Warfare);
                     break;
                 case AllEnums.Activities.Research:
                     whatPopulationIsResearching
-                    = GetFirstResearchByInterestType(countyPopulation.factionData
+                    = GetRandomResearchByInterestType(countyPopulation.factionData
                     , countyPopulation.currentResearchItemData.interestData.interestType);
                     break;
                 case AllEnums.Activities.Work:
                     whatPopulationIsResearching
-                    = GetFirstResearchByInterestType(countyPopulation.factionData
+                    = GetRandomResearchByInterestType(countyPopulation.factionData
                     , countyPopulation.currentCountyImprovement.interestData.interestType);
                     break;
-                // If they are idle or moving they get random research.
+                // If they are idle, scavenging or moving they get random research.
+                case AllEnums.Activities.Scavenge:
                 case AllEnums.Activities.Idle:
                 case AllEnums.Activities.Move:
-                    GD.Print($"{countyPopulation.firstName} is either idle or moving so they are getting " +
-                        $"random passive research.");
-                    whatPopulationIsResearching = GetRandomResearch(countyPopulation.factionData);
+                    whatPopulationIsResearching = GetLowestTierRandomResearch(countyPopulation.factionData);
+                    GD.Print($"{countyPopulation.firstName} is either idle, scavenging or moving so they are getting " +
+                        $"random passive research: {whatPopulationIsResearching.researchName}");
                     break;
+                default:
+                    throw new NotImplementedException("Josh says, No case in AssignResearchByActivity!");
             }
             return whatPopulationIsResearching;
         }
 
-        private static ResearchItemData GetRandomResearch(FactionData factionData)
+        private static ResearchItemData GetLowestTierRandomResearch(FactionData factionData)
         {
             Random random = new();
 
@@ -131,6 +138,36 @@ namespace PlayerSpace
             return randomResearchItemData;
         }
 
+        // I think this needs to get changed to find a random research by interest type.
+        private static ResearchItemData GetRandomResearchByInterestType(FactionData factionData
+            , AllEnums.InterestType interestType)
+        {
+            Random random = new();
+            ResearchItemData researchItemDataByInterest = null;
+            Godot.Collections.Array<ResearchItemData> researchByInterestList = [];
+
+            foreach (ResearchItemData researchItemData in factionData.researchableResearch)
+            {
+                if (interestType == researchItemData.interestData.interestType)
+                {
+                   researchByInterestList.Add(researchItemData);
+                }
+            }
+            // This will return a random research by interest if the list is not null.
+            if (researchByInterestList.Count > 0)
+            {
+                researchItemDataByInterest = researchByInterestList[random.Next(0, researchByInterestList.Count)];
+            }
+            /*
+            else
+            {
+                researchItemDataByInterest = null; // GetLowestTierRandomResearch(factionData);
+            }
+            */
+            GD.Print($"Get Random Research By Interest Type: {researchItemDataByInterest?.researchName}");
+            return researchItemDataByInterest;
+        }
+
         // This needs to go to the ResearchItemData, maybe.
         public void RemoveResearcher(CountyPopulation countyPopulation)
         {
@@ -142,22 +179,6 @@ namespace PlayerSpace
             {
                 countyPopulation.UpdateActivity(AllEnums.Activities.Work);
             }
-        }
-
-        // I think this needs to get changed to find a random research by interest type.
-        private static ResearchItemData GetFirstResearchByInterestType(FactionData factionData
-            , AllEnums.InterestType interestType)
-        {
-            ResearchItemData researchItemDataByInterest = null;
-            foreach (ResearchItemData researchItemData in factionData.researchableResearch)
-            {
-                if (interestType == researchItemData.interestData.interestType)
-                {
-                    researchItemDataByInterest = researchItemData;
-                    break;
-                }
-            }
-            return researchItemDataByInterest;
         }
     }
 }

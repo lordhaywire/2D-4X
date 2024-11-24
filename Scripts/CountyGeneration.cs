@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,7 +11,6 @@ public partial class CountyGeneration : Node
     {
         AssignFactionDataToCountyData();
         AssignCountyDataToFaction();
-        SubscribeToCountyHeroLists();
         UpdateResources();
         UpdateInitialCountyStorage();
     }
@@ -82,14 +82,6 @@ public partial class CountyGeneration : Node
             county.countyData.perishableStorage = Globals.Instance.startingPerishableStorage;
             county.countyData.nonperishableStorage = Globals.Instance.startingNonperishableStorage;
             //GD.Print($"{county.countyData.countyName} has {county.countyData.perishableStorage} perishable storage.");
-        }
-    }
-
-    private static void SubscribeToCountyHeroLists()
-    {
-        foreach (County selectCounty in Globals.Instance.countiesParent.GetChildren().Cast<County>())
-        {
-            selectCounty.countyData.herosInCountyList.ItemAdded += (sender, item) => Globals.Instance.AddToFactionHeroList(item);
         }
     }
 

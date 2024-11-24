@@ -231,7 +231,7 @@ namespace PlayerSpace
         {
             Godot.Collections.Dictionary<GoodData, ProductionData> copiedDictionary = [];
 
-            foreach (System.Collections.Generic.KeyValuePair<GoodData, ProductionData> item in outputGoods)
+            foreach (KeyValuePair<GoodData, ProductionData> item in outputGoods)
             {
                 copiedDictionary[item.Key] = item.Value.NewCopy(item.Value);
             }

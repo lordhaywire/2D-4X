@@ -24,25 +24,28 @@ namespace PlayerSpace
         private void YesButton()
         {
             CountyPopulation countyPopulation = PopulationDescriptionControl.Instance.countyPopulation;
-            County selectCounty = (County)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
+            County county = (County)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
 
             if (countyPopulation.isHero != true)
             {
-                selectCounty.countyData.countyPopulationList.Remove(countyPopulation);
+                county.countyData.countyPopulationList.Remove(countyPopulation);
             }
             if (armyLeaderRecruited == false)
             {
                 countyPopulation.isHero = true;
                 countyPopulation.isAide = true;
-                selectCounty.countyData.herosInCountyList.Add(countyPopulation);
+                county.countyData.heroesInCountyList.Add(countyPopulation);
+                county.countyData.factionData.AddHeroToAllHeroesList(countyPopulation);
             }
             else
             {
                 countyPopulation.isHero = true;
                 countyPopulation.isAide = false;
                 countyPopulation.IsArmyLeader = true;
-                selectCounty.countyData.herosInCountyList.Remove(countyPopulation);
-                selectCounty.countyData.armiesInCountyList.Add(countyPopulation);
+                county.countyData.heroesInCountyList.Remove(countyPopulation);
+                county.countyData.armiesInCountyList.Add(countyPopulation);
+                county.countyData.factionData.AddHeroToAllHeroesList(countyPopulation);
+
             }
 
             // This is set again to update the sprite textures;

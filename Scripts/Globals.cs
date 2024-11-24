@@ -212,6 +212,7 @@ public partial class Globals : Node
 
     }
 
+    /*
     public class ListWithNotify<T> : IEnumerable<T> where T : class
     {
         readonly List<T> list = [];
@@ -281,16 +282,10 @@ public partial class Globals : Node
             return GetEnumerator();
         }
     }
+    */
 
-    public void AddToFactionHeroList(CountyPopulation countyPopulation)
-    {
-        // We need to double check that the hero isn't already in the list.
-        if (!countyPopulation.factionData.allHeroesList.Contains(countyPopulation))
-        {
-            countyPopulation.factionData.allHeroesList.Add(countyPopulation);
-            //GD.Print($"Add To {countyPopulation.factionData.factionName} Hero List: " + countyPopulation.lastName);
-        }
-    }
+
+
     public static void OnMouseEnteredUI()
     {
         PlayerControls.Instance.stopClickThrough = true;

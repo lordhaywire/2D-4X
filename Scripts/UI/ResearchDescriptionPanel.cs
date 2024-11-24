@@ -75,7 +75,7 @@ namespace PlayerSpace
             assignableResearchers.Clear();
             foreach (CountyData countyData in Globals.Instance.playerFactionData.countiesFactionOwns)
             {
-                foreach (CountyPopulation countyPopulation in countyData.herosInCountyList)
+                foreach (CountyPopulation countyPopulation in countyData.heroesInCountyList)
                 {
                     if (countyPopulation.currentResearchItemData == null && countyPopulation.activity
                         != AllEnums.Activities.Move)

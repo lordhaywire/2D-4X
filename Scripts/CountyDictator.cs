@@ -50,12 +50,12 @@ namespace PlayerSpace
         }
 
         // Maybe move to a Faction Dictator script.
-        private static void FactionCountyPopulationDestroyer(List<CountyPopulation> allHeroesList)
+        private static void FactionCountyPopulationDestroyer(Godot.Collections.Array<CountyPopulation> allHeroesList)
         {
             foreach (CountyPopulation countyPopulation in allHeroesList)
             {
                 County selectCounty = (County)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
-                selectCounty.countyData.herosInCountyList.Remove(countyPopulation);
+                selectCounty.countyData.heroesInCountyList.Remove(countyPopulation);
                 selectCounty.countyData.armiesInCountyList.Remove(countyPopulation);
                 selectCounty.countyData.spawnedTokenButtons.Remove(countyPopulation.token.spawnedTokenButton);
                 countyPopulation.token.spawnedTokenButton.QueueFree();

@@ -92,7 +92,6 @@ namespace PlayerSpace
             }
         }
 
-
         private static void CreateFactionGoodDictionary(FactionData factionData)
         {
             foreach (GoodData goodData in AllGoods.Instance.allGoods)

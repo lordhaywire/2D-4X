@@ -68,9 +68,9 @@ namespace PlayerSpace
                 }
             }
             //GD.Print("Defending Hero List Count: " + battleLocation.countyData.herosInCountyList.Count());
-            if (battleLocation.countyData.herosInCountyList.Count() > 0)
+            if (battleLocation.countyData.heroesInCountyList.Count() > 0)
             {
-                foreach (CountyPopulation countyPopulation in battleLocation.countyData.herosInCountyList)
+                foreach (CountyPopulation countyPopulation in battleLocation.countyData.heroesInCountyList)
                 {
                     if (countyPopulation.isFactionLeader == true)
                     {
@@ -120,7 +120,7 @@ namespace PlayerSpace
                              //   $"{countyPopulation.skills[AllEnums.Skills.Rifle].skillLevel}");
                         }
                         County selectCounty = (County)Globals.Instance.countiesParent.GetChild(possibleDefenders[0].location);
-                        selectCounty.countyData.herosInCountyList.Add(possibleDefenders[0]);
+                        selectCounty.countyData.heroesInCountyList.Add(possibleDefenders[0]);
                         possibleDefenders[0].ChangeToArmy();
                         return possibleDefenders[0];
                     }

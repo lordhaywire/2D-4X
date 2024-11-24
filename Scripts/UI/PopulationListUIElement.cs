@@ -25,7 +25,7 @@ namespace PlayerSpace
                 {
                     populationListTitle.Text = $"{Globals.Instance.SelectedLeftClickCounty.countyData.countyName} {Tr("WORD_POPULATION")}";
                         
-                    GeneratePopulationRows(Globals.Instance.SelectedLeftClickCounty.countyData.herosInCountyList);
+                    GeneratePopulationRows(Globals.Instance.SelectedLeftClickCounty.countyData.heroesInCountyList);
                     GeneratePopulationRows(Globals.Instance.SelectedLeftClickCounty.countyData.countyPopulationList);
                 }
                 else
@@ -51,7 +51,7 @@ namespace PlayerSpace
             }
         }
 
-        private void GeneratePopulationRows(Globals.ListWithNotify<CountyPopulation> countyPopulation)
+        private void GeneratePopulationRows(Godot.Collections.Array<CountyPopulation> countyPopulation)
         {
             foreach (CountyPopulation person in countyPopulation)
             {

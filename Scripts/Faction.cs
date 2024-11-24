@@ -6,7 +6,6 @@ namespace PlayerSpace
     public partial class Faction : Node
     {
         [Export] public FactionData factionData;
-        
 
         public override void _Ready()
         {
@@ -27,15 +26,9 @@ namespace PlayerSpace
             factionData.CopyFactionResourcesToYesterday();
             banker.AddLeaderInfluence(factionData);
 
-            Research.CreateResearchableResearchList(factionData);
-
-            // Assign to all heroes passive research
-            Research.AssignPassiveResearch(factionData, factionData.allHeroesList);
-
-            // Assign passive research to all County Population Research should go here.
-            // This is in County.cs
-
             // Generate all passive research for all population including heroes.
+            // This is going to happen before anything is assigned the first run,
+            // so we need to account for that in the code.
 
             // Goes through each hero and checks to see if they are researching and if they are then
             // it does a skill check and skill learning roll.
@@ -53,12 +46,26 @@ namespace PlayerSpace
                 factionAI.AssignResearch(factionData);
             }
 
+            GD.PrintRich($"[rainbow]Create Researchable Research List");
+            Research.CreateResearchableResearchList(factionData);
+
+            // Assign to all heroes passive research
+            Research.AssignPassiveResearch(factionData, factionData.allHeroesList);
+
+            // Passive research for each county population, not including heroes.
+            foreach (CountyData countyData in factionData.countiesFactionOwns)
+            {
+                GD.PrintRich($"[rainbow]{countyData.countyName} is checking population passive research.");
+                Research.AssignPassiveResearch(factionData, countyData.countyPopulationList);
+            }
+            /*
             // This is just for testing.
             foreach (ResearchItemData researchItemData in factionData.researchItems)
             {
-                //GD.Print($"{factionData.factionName} research in " +
-                //    $"{researchItemData.researchName}: {researchItemData.AmountOfResearchDone}");
+                GD.Print($"{factionData.factionName} research in " +
+                    $"{researchItemData.researchName}: {researchItemData.AmountOfResearchDone}");
             }
+            */
         }
 
         private void OnTreeExit()

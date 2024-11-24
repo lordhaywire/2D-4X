@@ -27,12 +27,12 @@ namespace PlayerSpace
         [Export] public AllEnums.Terrain biomeSecondary;
         [Export] public AllEnums.Terrain biomeTertiary;
 
-        public Globals.ListWithNotify<CountyPopulation> countyPopulationList = [];
-        public Globals.ListWithNotify<CountyPopulation> herosInCountyList = [];
-        public Globals.ListWithNotify<CountyPopulation> armiesInCountyList = [];
-        public Globals.ListWithNotify<CountyPopulation> visitingHeroList = [];
-        public Globals.ListWithNotify<CountyPopulation> visitingArmyList = [];
-        public Globals.ListWithNotify<CountyPopulation> deadPeopleList = [];
+        public Godot.Collections.Array<CountyPopulation> countyPopulationList = [];
+        public Godot.Collections.Array<CountyPopulation> heroesInCountyList = [];
+        public Godot.Collections.Array<CountyPopulation> armiesInCountyList = [];
+        public Godot.Collections.Array<CountyPopulation> visitingHeroList = [];
+        public Godot.Collections.Array<CountyPopulation> visitingArmyList = [];
+        public Godot.Collections.Array<CountyPopulation> deadPeopleList = [];
 
         List<CountyPopulation> possibleWorkers = []; // List of all the idle, helpful and loyal workers for that day.
         readonly List<CountyPopulation> workersToRemoveFromPossibleWorkers = []; // List to collect county populations to be removed from the possibleWorkers.
@@ -160,9 +160,9 @@ namespace PlayerSpace
         public void CountIdleWorkers()
         {
             int idleWorkers = 0;
-            foreach (CountyPopulation person in countyPopulationList)
+            foreach (CountyPopulation countyPopulation in countyPopulationList)
             {
-                if (person.activity == AllEnums.Activities.Idle)
+                if (countyPopulation.activity == AllEnums.Activities.Idle)
                 {
                     idleWorkers++;
                 }
@@ -409,12 +409,12 @@ namespace PlayerSpace
 
         public void OccationalNeeds()
         {
-            PossiblyUseResources(herosInCountyList);
+            PossiblyUseResources(heroesInCountyList);
             PossiblyUseResources(armiesInCountyList);
             PossiblyUseResources(countyPopulationList);
         }
 
-        private void PossiblyUseResources(Globals.ListWithNotify<CountyPopulation> peopleUsingResourcesList)
+        private void PossiblyUseResources(Godot.Collections.Array<CountyPopulation> peopleUsingResourcesList)
         {
             foreach (CountyPopulation countyPopulation in peopleUsingResourcesList)
             {
@@ -526,12 +526,12 @@ namespace PlayerSpace
             public List<GoodData> perishableFoodList = [];
             public List<GoodData> nonperishableFoodList = [];
         }
-        public void PopulationEatsFood(Globals.ListWithNotify<CountyPopulation> countyPopulationList, int amount)
+        public void PopulationEatsFood(Godot.Collections.Array<CountyPopulation> countyPopulationList, int amount)
         {
             Random random = new();
             FoodLists foodLists = GetListsOfFood();
             //GD.Print("Population List count: " + countyPopulationList.Count());
-            if (countyPopulationList.Count() < 1)
+            if (countyPopulationList.Count < 1)
             {
                 //GD.PrintRich($"[pulse freq=5.0 color=green]Population Eats Food: A county population list is empty.[/pulse]");
                 return;
@@ -642,8 +642,9 @@ namespace PlayerSpace
         {
             foreach (CountyPopulation countyPopulation in peopleWhoNeedToDie)
             {
+                countyPopulation.factionData.RemoveHeroFromAllHeroesList(countyPopulation);
                 countyPopulationList.Remove(countyPopulation);
-                herosInCountyList.Remove(countyPopulation);
+                heroesInCountyList.Remove(countyPopulation);
                 armiesInCountyList.Remove(countyPopulation);
                 deadPeopleList.Add(countyPopulation);
                 //GD.PrintRich($"[color=red]{countyPopulation.firstName} {countyPopulation.lastName} has croaked.[/color]");
@@ -700,7 +701,7 @@ namespace PlayerSpace
             */
         }
 
-        public static void CheckForHealing(Globals.ListWithNotify<CountyPopulation> possibleHurtPopulationList)
+        public static void CheckForHealing(Godot.Collections.Array<CountyPopulation> possibleHurtPopulationList)
         {
             foreach (CountyPopulation countyPopulation in possibleHurtPopulationList)
             {

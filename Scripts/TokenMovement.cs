@@ -155,7 +155,7 @@ namespace PlayerSpace
         private void ArmyAttackingCounty()
         {
             ArmyVisitingCounty();
-            if (destinationCounty.countyData.armiesInCountyList.Count() > 0)
+            if (destinationCounty.countyData.armiesInCountyList.Count > 0)
             {
                 Battle battle = new(destinationCounty.countyData);
                 destinationCounty.countyData.battles.Add(battle);
@@ -182,7 +182,7 @@ namespace PlayerSpace
 
             // We don't need to check which list the hero is in because C# doesn't give a shit if the hero isn't in the list.
             // So we just try to remove it from both and it will remove it from the correct one.
-            startingCounty.countyData.herosInCountyList.Remove(token.countyPopulation);
+            startingCounty.countyData.heroesInCountyList.Remove(token.countyPopulation);
             startingCounty.countyData.armiesInCountyList.Remove(token.countyPopulation);
             startingCounty.countyData.visitingHeroList.Remove(token.countyPopulation);
             startingCounty.countyData.visitingArmyList.Remove(token.countyPopulation);
@@ -191,7 +191,7 @@ namespace PlayerSpace
         private void HeroReachedCounty()
         {
             token.spawnedTokenButton.Reparent(destinationCounty.heroesHBox);
-            destinationCounty.countyData.herosInCountyList.Add(token.countyPopulation);
+            destinationCounty.countyData.heroesInCountyList.Add(token.countyPopulation);
         }
 
         private void ArmyReachedCounty()

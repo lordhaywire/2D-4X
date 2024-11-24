@@ -18,7 +18,7 @@ namespace PlayerSpace
         [Export] public Godot.Collections.Array<ResearchItemData> researchableResearch = [];
 
         public List<CountyData> countiesFactionOwns = [];
-        public List<CountyPopulation> allHeroesList = [];
+        public Godot.Collections.Array<CountyPopulation> allHeroesList = [];
         public CountyPopulation factionLeader;
 
         public Diplomacy diplomacy = new();
@@ -41,17 +41,6 @@ namespace PlayerSpace
         [ExportGroup("Diplomatic Matrix")]
         [Export] public Godot.Collections.Dictionary<string, bool> factionWarDictionary = [];
 
-        // Goes through all the population and adds a set number to research.
-        // It should check what they are doing and try to add that research then if they aren't doing anything
-        // it should add to a random research that isn't done yet.
-        // Don't forget about idle heroes researching other things.
-        /*
-        public void PopulationResearch(CountyData countyData)
-        {
-            // Have the population research by their interests or job.
-            CheckEachPeopleForResearch(countyData);
-        }
-        */
         public static FactionData GetFactionDataFromID(int id)
         {
             //GD.Print("Faction ID that is trying to be used: " + id);
@@ -59,20 +48,26 @@ namespace PlayerSpace
             return faction.factionData;
         }
 
-        
-        /*
-        private void CheckEachPeopleForResearch(CountyData countyData)
+        // We can error on the side of adding the hero to the All Heroes List because this checks
+        // to see if the hero is already in the list.
+        public void AddHeroToAllHeroesList(CountyPopulation countyPopulation)
         {
-            GD.Print($"County Checking People Research: {countyData.countyName}");
-            foreach (CountyPopulation countyPopulation in countyData.countyPopulationList)
+            // We need to double check that the hero isn't already in the list.
+            if (!allHeroesList.Contains(countyPopulation))
             {
-                //ResearchByInterest(countyPopulation);
-                ResearchByJob(countyPopulation);
+                countyPopulation.factionData.allHeroesList.Add(countyPopulation);
+                //GD.Print($"Add To {countyPopulation.factionData.factionName} Hero List: " + countyPopulation.lastName);
             }
-        }
-        */
-        
 
+            GD.Print($"{countyPopulation.firstName} has been added to {factionName} all heroes list.");
+        }
+
+        // This isn't used yet, but when heroes die...Can heroes starve to death?
+        public void RemoveHeroFromAllHeroesList(CountyPopulation countyPopulation)
+        {
+            allHeroesList.Remove(countyPopulation);
+            GD.Print($"{countyPopulation.firstName} has been removed from {factionName} all heroes list.");
+        }
 
         public void CopyFactionResourcesToYesterday()
         {

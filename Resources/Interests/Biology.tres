@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="InterestData" load_steps=2 format=3 uid="uid://bojgmxcwswihv"]
 
-[ext_resource type="Script" path="res://Resources/InterestData.cs" id="1_28spw"]
+[ext_resource type="Script" uid="uid://bjt42ng7smtfw" path="res://Resources/InterestData.cs" id="1_28spw"]
 
 [resource]
 script = ExtResource("1_28spw")
-interestType = 1
+interestType = 0
 name = "INTEREST_BIOLOGY"
 description = ""

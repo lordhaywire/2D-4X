@@ -47,7 +47,7 @@ public partial class County : Node2D
 
         // Check to see if any population needs healing from starvation or whatever.
         CountyData.CheckForHealing(countyData.countyPopulationList);
-        CountyData.CheckForHealing(countyData.herosInCountyList);
+        CountyData.CheckForHealing(countyData.heroesInCountyList);
         CountyData.CheckForHealing(countyData.armiesInCountyList);
 
         // Shouldn't this be at the beginning of the day??
@@ -67,9 +67,6 @@ public partial class County : Node2D
 
         // See if we can combine this into something else.
         countyData.CheckIfCountyImprovementsAreDone();
-
-        // Passive research for each county population, not including heroes.
-        Research.AssignPassiveResearch(countyData.factionData, countyData.countyPopulationList);
 
         // Update all the top bar resources
         TopBarControl.Instance.UpdateResourceLabels();
