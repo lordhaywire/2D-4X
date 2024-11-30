@@ -24,11 +24,14 @@ namespace PlayerSpace
         /// <param name="attribute"></param>
         /// <param name="negativeBonus"></param>
         /// <returns></returns>
-        public static bool Check(CountyPopulation countyPopulation, int skillAmount, AllEnums.Attributes attribute, bool negativeBonus)
+        public static bool Check(CountyPopulation countyPopulation, int skillAmount
+            , AllEnums.Attributes attribute, bool negativeBonus)
         {
             int skillCheckRoll = Globals.Instance.random.Next(1, 101);
             //GD.PrintRich("[rainbow]Attribute: " + attribute);
-            int attributeBonus = AttributeData.ApplyAttributeBonuses(countyPopulation.attributes[attribute].attributeLevel, false, negativeBonus);
+            int attributeBonus 
+                = AttributeData.ApplyAttributeBonuses(countyPopulation.attributes[attribute].attributeLevel
+                , false, negativeBonus);
             //GD.PrintRich($"[color=yellow]Attribute Bonus: {attributeBonus}[/color]");
             // Make sure the skill level with the attribute bonus is not below 1.
             int finalSkillAmount = Math.Max(skillAmount + attributeBonus, 1);

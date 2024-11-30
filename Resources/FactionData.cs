@@ -14,7 +14,7 @@ namespace PlayerSpace
         [Export] public Color factionColor;
         [Export] public int factionCapitalCounty;
 
-        public List<ResearchItemData> researchItems = [];
+        [Export] public Godot.Collections.Array<ResearchItemData> researchItems = [];
         [Export] public Godot.Collections.Array<ResearchItemData> researchableResearch = [];
 
         public List<CountyData> countiesFactionOwns = [];
@@ -30,10 +30,6 @@ namespace PlayerSpace
         [Export] public Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData> factionGood = [];
         [Export] public Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData> yesterdaysFactionGoods = [];
         [Export] public Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData> amountUsedFactionGoods = [];
-        /// <summary>
-        /// I am not sure we need this.
-        /// </summary>
-        //[Obsolete("What the flying fuck is this?")] public Godot.Collections.Dictionary<AllEnums.FactionResourceType, FactionResourceData> actualUsedFactionResources = [];
 
         [ExportGroup("Diplomatic Incidences")]
         public List<War> wars = [];

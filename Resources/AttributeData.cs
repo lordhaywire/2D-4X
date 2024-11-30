@@ -15,6 +15,11 @@ namespace PlayerSpace
 
         /// <summary>
         /// Return an int that is an attribute bonus.  It can return a negative, 10, or 1.
+        /// The negative bool is there so that the bonuses are reversed, thus a good bonus would be a bad
+        /// bonus.  This is used for such things like needs where a high mental strength would give a
+        /// bonus which needs to be a resistance.
+        /// 
+        /// When the game runs loyalty is set which applies the attribute bonus to the check.
         /// </summary>
         /// <param name="attribute"></param>
         /// <param name="ones"></param>
@@ -49,6 +54,7 @@ namespace PlayerSpace
             {
                 bonus /= 5;
             }
+            // What the fuck is this?
             if (negative == true)
             {
                 bonus *= -1;

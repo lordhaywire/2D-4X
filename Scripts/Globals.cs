@@ -124,8 +124,8 @@ public partial class Globals : Node
     [Export] public int moraleRecoveryMax = 11; // One above max.
     [Export] public int researcherResearchIncrease = 10;
     [Export] public int researchIncreaseBonus = 5; // One above max.
-    [Export] public int populationResearchIncrease = 1;
-    [Export] public int populationResearchBonus = 1;
+    [Export] public int passiveResearchIncrease = 2;
+    [Export] public int passiveResearchBonus = 1;
     [Export] public int daysUntilDamageFromStarvation = 15;
     [Export] public int foodBeforeScavenge = 500; // Less then this amount will make people scavenge.
     [Export] public int remnantsBeforeScavenge = 500; // Less then this amount will make people scavenge.
@@ -283,9 +283,6 @@ public partial class Globals : Node
         }
     }
     */
-
-
-
     public static void OnMouseEnteredUI()
     {
         PlayerControls.Instance.stopClickThrough = true;

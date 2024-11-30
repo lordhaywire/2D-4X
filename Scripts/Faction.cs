@@ -26,14 +26,27 @@ namespace PlayerSpace
             factionData.CopyFactionResourcesToYesterday();
             banker.AddLeaderInfluence(factionData);
 
-            // Generate all passive research for all population including heroes.
-            // This is going to happen before anything is assigned the first run,
-            // so we need to account for that in the code.
 
-            // Goes through each hero and checks to see if they are researching and if they are then
-            // it does a skill check and skill learning roll.
-            // If the research is done it also makes them idle.
-            //Banker.CheckForHeroResearch(factionData);
+
+            // Some research points will be lost because heroes and population will continue to research
+            // items that are already done.  The amount should be insignificant in the long run.
+            // Generate passive research for all heroes.
+            Research.GeneratePassiveResearch(factionData.allHeroesList);
+
+            // Generate passive research for each county population, not including heroes.
+            foreach (CountyData countyData in factionData.countiesFactionOwns)
+            {
+                Research.GeneratePassiveResearch(countyData.countyPopulationList);
+            }
+
+            // Check for completed research and then complete it.
+            foreach (ResearchItemData researchItemData in factionData.researchableResearch)
+            {
+                if (researchItemData.CheckIfResearchDone())
+                {
+                    researchItemData.CompleteResearch();
+                }
+            }
 
             TopBarControl.Instance.UpdateResourceLabels();
         }
@@ -43,16 +56,15 @@ namespace PlayerSpace
             FactionAI factionAI = new();
             if (factionData != Globals.Instance.playerFactionData)
             {
-                factionAI.AssignResearch(factionData);
+                //factionAI.AssignResearch(factionData);
             }
 
-            GD.PrintRich($"[rainbow]Create Researchable Research List");
             Research.CreateResearchableResearchList(factionData);
 
             // Assign to all heroes passive research
             Research.AssignPassiveResearch(factionData, factionData.allHeroesList);
 
-            // Passive research for each county population, not including heroes.
+            // Assign Passive research for each county population, not including heroes.
             foreach (CountyData countyData in factionData.countiesFactionOwns)
             {
                 GD.PrintRich($"[rainbow]{countyData.countyName} is checking population passive research.");

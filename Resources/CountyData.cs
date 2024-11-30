@@ -418,12 +418,13 @@ namespace PlayerSpace
         {
             foreach (CountyPopulation countyPopulation in peopleUsingResourcesList)
             {
-                // Go through all of their needs and skill check against it and if they pass, they use the resource
-                // that is needed.
+                // Go through all of their needs and skill check against it and if they pass
+                // , they use the resource that is needed.
                 foreach (KeyValuePair<AllEnums.CountyGoodType, int> keyValuePair in countyPopulation.needs)
                 {
                     // Check to see if they want the resource.
-                    if (SkillData.Check(countyPopulation, keyValuePair.Value, AllEnums.Attributes.MentalStrength, true) == true)
+                    if (SkillData.Check(countyPopulation, keyValuePair.Value
+                        , AllEnums.Attributes.MentalStrength, true) == true)
                     {
                         //GD.Print($"Needs Checks: Passed.");
                         if (CheckEnoughOfResource(keyValuePair.Key) == true)

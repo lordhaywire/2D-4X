@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 namespace PlayerSpace;
 
@@ -20,21 +21,15 @@ public partial class ResearchItemData : Resource
         get { return amountOfResearchDone; }
         set
         {
-            amountOfResearchDone = value;
+            amountOfResearchDone = Math.Min(value, costOfResearch);
             //GD.PrintRich($"[rainbow]Research Item Data value set.");
-            if (amountOfResearchDone >= costOfResearch)
+            if (CheckIfResearchDone() == true)
             {
                 amountOfResearchDone = costOfResearch;
                 //GD.PrintRich($"[rainbow]Research Item Data amount of research is larger then cost.");
-                isResearchDone = true;
                 // This is going to complete the research when faction generation happens, but it
                 // actually doesn't do anything until after the county generation happens.
                 // We could probably have it not run until after the game starts.
-                CompleteResearch();
-            }
-            else
-            {
-                isResearchDone = false;
             }
         }
     }
@@ -42,11 +37,10 @@ public partial class ResearchItemData : Resource
     // This is the list of countyImprovementDatas that is research controls.
     [Export] public CountyImprovementData[] countyImprovementDatas = [];
     [Export] public Godot.Collections.Array<EnumsResearch.All> researchPrerequisites;
-    [Export] private bool isResearchDone;
 
     public void CompleteResearch()
     {
-        //GD.PrintRich($"[rainbow]Complete Research! " + researchName);
+        GD.PrintRich($"[rainbow]Complete Research! " + researchName);
         Faction faction = (Faction)Globals.Instance.factionsParent.GetChild(factionID);
         if (faction.factionData == Globals.Instance.playerFactionData)
         {
@@ -68,10 +62,10 @@ public partial class ResearchItemData : Resource
             }
         }
     }
-    
+
     public bool CheckIfResearchDone()
     {
-        return isResearchDone;
+        return amountOfResearchDone >= costOfResearch;
     }
 
     public bool CheckIfPrerequisitesAreDone()
@@ -104,7 +98,6 @@ public partial class ResearchItemData : Resource
             costOfResearch = researchItemData.costOfResearch,
             countyImprovementDatas = researchItemData.countyImprovementDatas,
             researchPrerequisites = researchItemData.researchPrerequisites,
-            isResearchDone = researchItemData.isResearchDone
         };
         // This was an attempt at deep copying the array.
         //countyImprovementDatas = new CountyImprovementData[researchItemData.countyImprovementDatas.Length],

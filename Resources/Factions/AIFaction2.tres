@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="FactionData" load_steps=2 format=3 uid="uid://bxcc4eq3er03d"]
 
-[ext_resource type="Script" path="res://Resources/FactionData.cs" id="1_8ctp6"]
+[ext_resource type="Script" uid="uid://6vty5uir2otq" path="res://Resources/FactionData.cs" id="1_8ctp6"]
 
 [resource]
 script = ExtResource("1_8ctp6")
@@ -9,4 +9,9 @@ isPlayer = false
 factionName = "AI Faction 2"
 factionColor = Color(0, 0, 0, 0)
 factionCapitalCounty = 1
+researchItems = []
+researchableResearch = []
+factionGood = {}
+yesterdaysFactionGoods = {}
+amountUsedFactionGoods = {}
 factionWarDictionary = {}

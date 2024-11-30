@@ -5,9 +5,10 @@ namespace PlayerSpace
 {
     public class PopulationWork
     {
-        public static void WorkDayOverForPopulation(CountyData countyData)
+        public static void WorkDayOverForPopulation(CountyData countyData
+            , Godot.Collections.Array<CountyPopulation> countyPopulationList)
         {
-            foreach (CountyPopulation countyPopulation in countyData.countyPopulationList)
+            foreach (CountyPopulation countyPopulation in countyPopulationList)
             {
                 /*
                 if (countyData.factionData.isPlayer == true)

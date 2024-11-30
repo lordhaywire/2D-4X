@@ -55,7 +55,9 @@ namespace PlayerSpace
             //CountyImprovementData countyImprovementData = countyPopulation.currentCountyImprovement;
             int skillLevel = countyPopulation.skills[countyPopulation.currentCountyImprovement.workSkill].skillLevel;
             int workAmount;
-            if (SkillData.Check(countyPopulation, skillLevel, countyPopulation.skills[countyPopulation.currentCountyImprovement.workSkill].attribute, false) == true)
+            if (SkillData.Check(countyPopulation, skillLevel
+                , countyPopulation.skills[countyPopulation.currentCountyImprovement.workSkill].attribute
+                , false) == true)
             {
                 workAmount = Globals.Instance.dailyWorkAmount + Globals.Instance.dailyWorkAmountBonus;
                 return workAmount;
@@ -72,7 +74,8 @@ namespace PlayerSpace
         {
             int skillLevel = countyPopulation.skills[AllEnums.Skills.Scavenge].skillLevel;
             int amount;
-            if (SkillData.Check(countyPopulation, skillLevel, countyPopulation.skills[AllEnums.Skills.Scavenge].attribute, false) == true)
+            if (SkillData.Check(countyPopulation, skillLevel
+                , countyPopulation.skills[AllEnums.Skills.Scavenge].attribute, false) == true)
             {
                 amount = Globals.Instance.dailyScavengedAmount + Globals.Instance.dailyScavengedAmountBonus;
             }
@@ -81,31 +84,6 @@ namespace PlayerSpace
                 amount = Globals.Instance.dailyScavengedAmount;
             }
             return amount;
-        }
-
-        /// <summary>
-        /// There is no learning check for population random research.
-        /// </summary>
-        /// <param name="countyPopulation"></param>
-        /// <param name="researchItemData"></param>
-        /// <param name="researchableResearch"></param>
-        public static void IncreaseResearchAmountWithBonus(CountyPopulation countyPopulation
-            , ResearchItemData researchItemData, Godot.Collections.Array<ResearchItemData> researchableResearch)
-        {
-            if (SkillData.Check(countyPopulation, countyPopulation.skills[researchItemData.skill].skillLevel
-                , countyPopulation.skills[researchItemData.skill].attribute, false) == true)
-            {
-                researchItemData.AmountOfResearchDone
-                    += Globals.Instance.populationResearchIncrease + Globals.Instance.populationResearchBonus;
-            }
-            else
-            {
-                researchItemData.AmountOfResearchDone += Globals.Instance.populationResearchIncrease;
-            }
-            if (researchItemData.CheckIfResearchDone())
-            {
-                researchableResearch.Remove(researchItemData);
-            }
         }
 
         public void AddStoryEventCountyResource(StoryEventData storyEventData)

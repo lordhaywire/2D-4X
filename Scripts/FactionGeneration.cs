@@ -11,6 +11,7 @@ namespace PlayerSpace
         private string factionDataPath = "res://Resources/Factions/";
         [Export] private PackedScene factionNodePackedScene;
         [Export] private CountyImprovementData[] countyImprovementData;
+        private FactionData factionData;
 
         public override void _Ready()
         {
@@ -21,6 +22,7 @@ namespace PlayerSpace
 
         private void CreateFactionsFromDisk()
         {
+            factionData = null;
             DirAccess directory = DirAccess.Open("res://");//(factionDataPath);
             if (directory.DirExists("res://Resources/Factions/")) //(factionDataPath))
             {
@@ -31,22 +33,22 @@ namespace PlayerSpace
                 for (int i = 0; i < fileNames.Length; i++)
                 {
                     //GD.Print("Files in Faction Resources: " + fileNames[i]);
-                    FactionData newFactionData
+                    factionData
                         = (FactionData)ResourceLoader.Load<FactionData>(factionDataPath + fileNames[i]).Duplicate();
-                    Globals.Instance.factionDatas.Add(newFactionData); // We should probably get rid of this.  We already
+                    Globals.Instance.factionDatas.Add(factionData); // We should probably get rid of this.  We already
                     // have it in the FactioNode children.
-                    newFactionData.factionID = i;
+                    factionData.factionID = i;
 
                     if (Globals.Instance.factionDatas[i].isPlayer == true)
                     {
-                        Globals.Instance.playerFactionData = newFactionData;
+                        Globals.Instance.playerFactionData = factionData;
                     }
-                    //GD.Print($"{newFactionData.factionName} has been loaded from disk.");
+                    GD.Print($"{factionData.factionName} has been loaded from disk.");
                     // The order is important.
-                    CreateFactionNode(newFactionData);
-                    AddStartingResearch(newFactionData);
-                    CreateFactionGoodDictionary(newFactionData);
-                    AddFactionsToDiplomacyWar(newFactionData);
+                    CreateFactionNode(factionData);
+                    CreateFactionGoodDictionary(factionData);
+                    AddFactionsToDiplomacyWar(factionData);
+                    AddStartingResearch();
                 }
                 /*
                 foreach (Faction faction in Globals.Instance.factionsParent.GetChildren().Cast<Faction>())
@@ -64,7 +66,7 @@ namespace PlayerSpace
             }
         }
 
-        private static void AddStartingResearch(FactionData factionData)
+        private void AddStartingResearch()
         {
             foreach (ResearchItemData researchItemData in AllResearch.Instance.allResearchItemDatas)
             {
@@ -89,6 +91,14 @@ namespace PlayerSpace
                     GD.Print($"Test of research item faction ID: {factionData.researchItems[0].factionID}");
                 }
                 */
+            }
+
+            foreach(ResearchItemData researchItem in factionData.researchItems)
+            {
+                if (researchItem.CheckIfResearchDone())
+                {
+                    researchItem.CompleteResearch();
+                }
             }
         }
 

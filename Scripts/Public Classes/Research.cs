@@ -1,6 +1,5 @@
 using Godot;
 using System;
-using System.Collections.Generic;
 
 namespace PlayerSpace
 {
@@ -11,6 +10,7 @@ namespace PlayerSpace
         /// </summary>
         public static void CreateResearchableResearchList(FactionData factionData)
         {
+            GD.PrintRich($"[rainbow]Create Researchable Research List");
             factionData.researchableResearch.Clear();
             foreach (ResearchItemData researchItemData in factionData.researchItems)
             {
@@ -50,8 +50,11 @@ namespace PlayerSpace
                 countyPopulation.passiveResearchItemData = GetResearchByInterest(countyPopulation);
                 countyPopulation.passiveResearchItemData ??= GetResearchByActivity(countyPopulation);
                 countyPopulation.passiveResearchItemData ??= GetLowestTierRandomResearch(countyPopulation.factionData);
-                GD.Print($"Final Passive Research Outcome: {countyPopulation.firstName} " +
-                    $": {countyPopulation.passiveResearchItemData.researchName}");
+                if (countyPopulation.passiveResearchItemData != null)
+                {
+                    GD.Print($"Final Passive Research Outcome: {countyPopulation.firstName} " +
+                        $": {countyPopulation.passiveResearchItemData.researchName}");
+                }
             }
         }
 
@@ -62,13 +65,15 @@ namespace PlayerSpace
         /// <param name="countyPopulation"></param>
         private static ResearchItemData GetResearchByInterest(CountyPopulation countyPopulation)
         {
-            GD.Print("Assign Research By Interest to: " + countyPopulation.firstName);
+            //GD.Print("Assign Research By Interest to: " + countyPopulation.firstName);
             ResearchItemData researchItemData
                 = GetRandomResearchByInterestType(countyPopulation.factionData
                 , countyPopulation.interestData.interestType);
+            /*
             GD.Print($"{countyPopulation.firstName} {countyPopulation.interestData.name} " +
                 $"is having them research {researchItemData?.researchName}" +
-                $" : if this is blank then their interest doesn't match.");
+               $" : if this is blank then their interest doesn't match.");
+            */
             return researchItemData;
         }
 
@@ -109,8 +114,10 @@ namespace PlayerSpace
                 case AllEnums.Activities.Idle:
                 case AllEnums.Activities.Move:
                     whatPopulationIsResearching = GetLowestTierRandomResearch(countyPopulation.factionData);
+                    /*
                     GD.Print($"{countyPopulation.firstName} is either idle, scavenging or moving so they are getting " +
                         $"random passive research: {whatPopulationIsResearching.researchName}");
+                    */
                     break;
                 default:
                     throw new NotImplementedException("Josh says, No case in AssignResearchByActivity!");
@@ -125,16 +132,20 @@ namespace PlayerSpace
             // List of research by the lowest tier that is researched.
             Godot.Collections.Array<ResearchItemData> researchByLowestTier = [];
             // The current research tier is gotten from the first item in the researchableResearch list.
-            AllEnums.ResearchTiers researchTier = factionData.researchableResearch[0].tier;
-            foreach (ResearchItemData researchItemData in factionData.researchableResearch)
+            ResearchItemData randomResearchItemData = null;
+            if (factionData.researchableResearch.Count > 0)
             {
-                if (researchItemData.tier == researchTier)
+                AllEnums.ResearchTiers researchTier = factionData.researchableResearch[0].tier;
+                foreach (ResearchItemData researchItemData in factionData.researchableResearch)
                 {
-                    researchByLowestTier.Add(researchItemData);
+                    if (researchItemData.tier == researchTier)
+                    {
+                        researchByLowestTier.Add(researchItemData);
+                    }
                 }
-            }
 
-            ResearchItemData randomResearchItemData = researchByLowestTier[random.Next(0, researchByLowestTier.Count)];
+                randomResearchItemData = researchByLowestTier[random.Next(0, researchByLowestTier.Count)];
+            }
             return randomResearchItemData;
         }
 
@@ -150,7 +161,7 @@ namespace PlayerSpace
             {
                 if (interestType == researchItemData.interestData.interestType)
                 {
-                   researchByInterestList.Add(researchItemData);
+                    researchByInterestList.Add(researchItemData);
                 }
             }
             // This will return a random research by interest if the list is not null.
@@ -164,7 +175,7 @@ namespace PlayerSpace
                 researchItemDataByInterest = null; // GetLowestTierRandomResearch(factionData);
             }
             */
-            GD.Print($"Get Random Research By Interest Type: {researchItemDataByInterest?.researchName}");
+            //GD.Print($"Get Random Research By Interest Type: {researchItemDataByInterest?.researchName}");
             return researchItemDataByInterest;
         }
 
@@ -178,6 +189,39 @@ namespace PlayerSpace
             if (countyPopulation.isHero == false)
             {
                 countyPopulation.UpdateActivity(AllEnums.Activities.Work);
+            }
+        }
+
+        /// <summary>
+        /// There is no learning check for population random research.
+        /// </summary>
+        public static void GeneratePassiveResearch(Godot.Collections.Array<CountyPopulation> researchers)
+        {
+            foreach (CountyPopulation countyPopulation in researchers)
+            {
+                if (countyPopulation.passiveResearchItemData == null)
+                {
+                    return;
+                }
+
+                if (SkillData.Check(countyPopulation
+                    , countyPopulation.skills[countyPopulation.passiveResearchItemData.skill].skillLevel
+                    , countyPopulation.skills[countyPopulation.passiveResearchItemData.skill].attribute
+                    , false) == true)
+                {
+                    countyPopulation.passiveResearchItemData.AmountOfResearchDone
+                        += Globals.Instance.passiveResearchIncrease + Globals.Instance.passiveResearchBonus;
+                }
+                else
+                {
+                    countyPopulation.passiveResearchItemData.AmountOfResearchDone
+                        += Globals.Instance.passiveResearchIncrease;
+                }
+                GD.Print($"County Population: {countyPopulation.location} {countyPopulation.firstName}" +
+                    $" {countyPopulation.passiveResearchItemData.researchName}: " +
+                    $"{countyPopulation.passiveResearchItemData.AmountOfResearchDone}");
+
+
             }
         }
     }

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="FactionData" load_steps=2 format=3 uid="uid://b0hrfplmtylyr"]
 
-[ext_resource type="Script" path="res://Resources/FactionData.cs" id="1_k44ld"]
+[ext_resource type="Script" uid="uid://6vty5uir2otq" path="res://Resources/FactionData.cs" id="1_k44ld"]
 
 [resource]
 script = ExtResource("1_k44ld")
@@ -9,4 +9,9 @@ isPlayer = true
 factionName = "The Shitbirds"
 factionColor = Color(0, 0, 0, 0)
 factionCapitalCounty = 3
+researchItems = []
+researchableResearch = []
+factionGood = {}
+yesterdaysFactionGoods = {}
+amountUsedFactionGoods = {}
 factionWarDictionary = {}

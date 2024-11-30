@@ -6,6 +6,7 @@ public class FactionAI
 {
     // This is very primative logic.  It just goes down the list of idle heroes and assigns the first
     // research that isn't done to them.
+    /*
     public void AssignResearch(FactionData factionData)
     {
         foreach (CountyPopulation countyPopulation in factionData.allHeroesList)
@@ -29,4 +30,5 @@ public class FactionAI
             }
         }
     }
+    */
 }
