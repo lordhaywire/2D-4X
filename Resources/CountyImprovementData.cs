@@ -56,7 +56,7 @@ namespace PlayerSpace
         [Export] public Godot.Collections.Dictionary<GoodData, int> inputGoods = [];
 
         [Export] public AllEnums.CountyImprovementStatus status;
-        public List<CountyPopulation> populationAtImprovement = [];
+        [Export] public Godot.Collections.Array<CountyPopulation> populationAtImprovement = [];
 
         public void AdjustNumberOfBuilders(int adjustment)
         {
@@ -176,8 +176,8 @@ namespace PlayerSpace
             {
                 case AllEnums.CountyImprovementType.Research:
                     status = AllEnums.CountyImprovementStatus.Researching;
+                    AddResearchOfficeToFactionResearchOfficeList(countyData.factionData);
                     break;
-                // Currently this isn't really used, so it just sets the status to producing.
                 case AllEnums.CountyImprovementType.Storage:
                     Banker banker = new();
                     banker.AddStorageToCounty(countyData, this);
@@ -190,6 +190,10 @@ namespace PlayerSpace
             }
         }
         
+        private void AddResearchOfficeToFactionResearchOfficeList(FactionData factionData)
+        {
+            factionData.researchOffices.Add(this);
+        }
         public void SetCountyImprovementStatus(AllEnums.CountyImprovementStatus newStatus)
         {
             status = newStatus;
@@ -221,7 +225,7 @@ namespace PlayerSpace
                 factionResourceType = countyImprovementData.factionResourceType,
                 inputGoods = countyImprovementData.inputGoods,
                 status = countyImprovementData.status,
-                populationAtImprovement = new List<CountyPopulation>(countyImprovementData.populationAtImprovement),
+                populationAtImprovement = new Godot.Collections.Array<CountyPopulation>(countyImprovementData.populationAtImprovement),
             };
             return newCountyImprovementData;
         }

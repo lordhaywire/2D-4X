@@ -111,14 +111,14 @@ namespace PlayerSpace
                     continue;
                 }
                 //GD.Print($"{goodData.goodName} has been added to {factionData.factionName}");
-                factionData.factionGood.Add(goodData.factionGoodType, (GoodData)goodData.Duplicate());
+                factionData.factionGoods.Add(goodData.factionGoodType, (GoodData)goodData.Duplicate());
                 factionData.yesterdaysFactionGoods.Add(goodData.factionGoodType, (GoodData)goodData.Duplicate());
                 factionData.amountUsedFactionGoods.Add(goodData.factionGoodType, (GoodData)goodData.Duplicate());
             }
             // This is for testing.  We are going to have to have a different, more random way of
             // generating starting resources for each faction.
-            factionData.factionGood[AllEnums.FactionGoodType.Influence].Amount = 1500;
-            factionData.factionGood[AllEnums.FactionGoodType.Money].Amount = 1500;
+            factionData.factionGoods[AllEnums.FactionGoodType.Influence].Amount = 1500;
+            factionData.factionGoods[AllEnums.FactionGoodType.Money].Amount = 1500;
             //GD.Print("Faction Influence: "+ factionData.factionGood[AllEnums.FactionGoodType.Influence].Amount);
         }
 

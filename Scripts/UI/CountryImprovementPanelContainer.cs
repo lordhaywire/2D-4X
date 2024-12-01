@@ -115,7 +115,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
                 GenerateInputGoods();
                 constructionPanelContainer.Show();
                 GenerateConstructionGoodsCosts();
-                CheckForConstructionResources();
+                CheckForConstructionResources(Globals.Instance.SelectedLeftClickCounty.countyData);
                 break;
         }
     }
@@ -342,11 +342,10 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     /// Currently passing in the player faction data, if the AI needs to use this then we need to have
     /// it pass in a different factionData.
     /// </summary>
-    private void CheckForConstructionResources()
+    private void CheckForConstructionResources(CountyData countyData)
     {
         Banker banker = new();
-        if (banker.CheckBuildingCost(Globals.Instance.playerFactionData
-            , Globals.Instance.SelectedLeftClickCounty.countyData, countyImprovementData))
+        if (banker.CheckBuildingCost(countyData, countyImprovementData))
         {
             constructButton.Show();
         }
@@ -375,39 +374,6 @@ public partial class CountryImprovementPanelContainer : PanelContainer
         prioritizeCheckBox.ButtonPressed = countyImprovementData.prioritize;
     }
 
-    /*
-    private void UpdateOutputGoodsProducing()
-    {
-        GD.Print("County Improvement Nontangible: " + countyImprovementData.nonTangibleGoodProduced);
-        if (string.IsNullOrEmpty(countyImprovementData.nonTangibleGoodProduced))
-        {
-            outputsGridContainer.Show();
-            nontangibleProductionLabel.Hide();
-        }
-        else
-        {
-            outputsGridContainer.Hide();
-            nontangibleProductionLabel.Text = countyImprovementData.nonTangibleGoodProduced;
-            nontangibleProductionLabel.Show();
-        }
-    }
-    
-    private void UpdateOutputGoodsNotProducing()
-    {
-        GD.Print("County Improvement Nontangible: " + countyImprovementData.nonTangibleGoodProduced);
-        if (string.IsNullOrEmpty(countyImprovementData.nonTangibleGoodProduced))
-        {
-            outputsGridContainer.Show();
-            nontangibleProductionLabel.Hide();
-        }
-        else
-        {
-            outputsGridContainer.Hide();
-            nontangibleProductionLabel.Text = countyImprovementData.nonTangibleGoodNotBeingProduced;
-            nontangibleProductionLabel.Show();
-        }
-    }
-    */
     private void UpdateInformationLabels()
     {
         //GD.Print("Number of people working at county improvement: " + countyImprovementData.populationAtImprovement.Count);

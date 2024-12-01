@@ -19,15 +19,19 @@ namespace PlayerSpace
 
         public List<CountyData> countiesFactionOwns = [];
         public Godot.Collections.Array<CountyPopulation> allHeroesList = [];
-        public CountyPopulation factionLeader;
+        [Export] public CountyPopulation factionLeader;
 
         public Diplomacy diplomacy = new();
         public TokenSpawner tokenSpawner = new();
 
         public List<CountyImprovementData> allCountyImprovements = []; // This includes all county improvements, even possible ones.
 
-        // Resources.
-        [Export] public Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData> factionGood = [];
+        // All Faction Research Offices.
+        [Export] public Godot.Collections.Array<CountyImprovementData> researchOffices = [];
+
+        // Goods.
+        [ExportGroup("Goods")]
+        [Export] public Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData> factionGoods = [];
         [Export] public Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData> yesterdaysFactionGoods = [];
         [Export] public Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData> amountUsedFactionGoods = [];
 
@@ -69,7 +73,7 @@ namespace PlayerSpace
         {
             // Creating a deep copy of the dictionary
             yesterdaysFactionGoods = [];
-            foreach (KeyValuePair<AllEnums.FactionGoodType, GoodData> keyValuePair in factionGood)
+            foreach (KeyValuePair<AllEnums.FactionGoodType, GoodData> keyValuePair in factionGoods)
             {
                 yesterdaysFactionGoods.Add(keyValuePair.Key, new GoodData
                 {
@@ -98,10 +102,10 @@ namespace PlayerSpace
         // Why not foreach this and skip the first two?
         public void ZeroFactionCountyResources()
         {
-            factionGood[AllEnums.FactionGoodType.Food].Amount = 0;
-            factionGood[AllEnums.FactionGoodType.Remnants].Amount = 0;
-            factionGood[AllEnums.FactionGoodType.BuildingMaterial].Amount = 0;
-            factionGood[AllEnums.FactionGoodType.Equipment].Amount = 0;
+            factionGoods[AllEnums.FactionGoodType.Food].Amount = 0;
+            factionGoods[AllEnums.FactionGoodType.Remnants].Amount = 0;
+            factionGoods[AllEnums.FactionGoodType.BuildingMaterial].Amount = 0;
+            factionGoods[AllEnums.FactionGoodType.Equipment].Amount = 0;
         }
 
         // This should be counting just the county resources of Faction Type, not the used.
@@ -110,13 +114,13 @@ namespace PlayerSpace
             ZeroFactionCountyResources();
             foreach (CountyData countyData in countiesFactionOwns)
             {
-                factionGood[AllEnums.FactionGoodType.Food].Amount
+                factionGoods[AllEnums.FactionGoodType.Food].Amount
                     += countyData.CountFactionResourceOfType(AllEnums.FactionGoodType.Food);
-                factionGood[AllEnums.FactionGoodType.Remnants].Amount
+                factionGoods[AllEnums.FactionGoodType.Remnants].Amount
                     += countyData.CountFactionResourceOfType(AllEnums.FactionGoodType.Remnants);
-                factionGood[AllEnums.FactionGoodType.BuildingMaterial].Amount
+                factionGoods[AllEnums.FactionGoodType.BuildingMaterial].Amount
                     += countyData.CountFactionResourceOfType(AllEnums.FactionGoodType.BuildingMaterial);
-                factionGood[AllEnums.FactionGoodType.Equipment].Amount
+                factionGoods[AllEnums.FactionGoodType.Equipment].Amount
                     += countyData.CountFactionResourceOfType(AllEnums.FactionGoodType.Equipment);
             }
         }
@@ -148,9 +152,9 @@ namespace PlayerSpace
         public void SubtractFactionResources()
         {
             // Do the math for amount used. Subtract yesterdays from todays and that is how much we have used.
-            foreach (KeyValuePair<AllEnums.FactionGoodType, GoodData> keyValuePair in factionGood)
+            foreach (KeyValuePair<AllEnums.FactionGoodType, GoodData> keyValuePair in factionGoods)
             {
-                amountUsedFactionGoods[keyValuePair.Key].Amount = factionGood[keyValuePair.Key].Amount -
+                amountUsedFactionGoods[keyValuePair.Key].Amount = factionGoods[keyValuePair.Key].Amount -
                     yesterdaysFactionGoods[keyValuePair.Key].Amount;
             }
             if (isPlayer)

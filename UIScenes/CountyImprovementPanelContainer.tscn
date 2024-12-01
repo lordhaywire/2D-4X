@@ -273,7 +273,7 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
-text = "WORD_CONSTRUCTION"
+text = "WORD_CONSTRUCT"
 
 [node name="Assign Researcher In Research Panel Label" type="Label" parent="Everything VBoxContainer/Production and Building VBoxContainer"]
 visible = false

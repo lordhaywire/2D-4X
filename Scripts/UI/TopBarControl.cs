@@ -74,8 +74,8 @@ namespace PlayerSpace
 
         private void UpdateInfluenceMoneyLabels()
         {
-            influenceLabel.Text = factionData.factionGood[AllEnums.FactionGoodType.Influence].Amount.ToString();
-            moneyLabel.Text = factionData.factionGood[AllEnums.FactionGoodType.Money].Amount.ToString();
+            influenceLabel.Text = factionData.factionGoods[AllEnums.FactionGoodType.Influence].Amount.ToString();
+            moneyLabel.Text = factionData.factionGoods[AllEnums.FactionGoodType.Money].Amount.ToString();
         }
         private void UpdateUsedInfluenceMoneyLabels()
         {
@@ -108,10 +108,10 @@ namespace PlayerSpace
 
         private void UpdateLabelsWithFactionAmounts()
         {
-            foodLabel.Text = factionData.factionGood[AllEnums.FactionGoodType.Food].Amount.ToString();
-            remnantsLabel.Text = factionData.factionGood[AllEnums.FactionGoodType.Remnants].Amount.ToString();
-            buildingMaterialsLabel.Text = factionData.factionGood[AllEnums.FactionGoodType.BuildingMaterial].Amount.ToString();
-            equipmentLabel.Text = factionData.factionGood[AllEnums.FactionGoodType.Equipment].Amount.ToString();
+            foodLabel.Text = factionData.factionGoods[AllEnums.FactionGoodType.Food].Amount.ToString();
+            remnantsLabel.Text = factionData.factionGoods[AllEnums.FactionGoodType.Remnants].Amount.ToString();
+            buildingMaterialsLabel.Text = factionData.factionGoods[AllEnums.FactionGoodType.BuildingMaterial].Amount.ToString();
+            equipmentLabel.Text = factionData.factionGoods[AllEnums.FactionGoodType.Equipment].Amount.ToString();
         }
 
         public void ChangeSpeed(int speed)

@@ -125,6 +125,53 @@ namespace PlayerSpace
             return whatPopulationIsResearching;
         }
 
+
+        /// <summary>
+        /// Check to see if there is a research office that isn't getting used by a hero.
+        /// If a normal county population is using the research office it will show as available
+        /// because the hero can replace them.
+        /// </summary>
+        /// <returns></returns>
+        public static Godot.Collections.Array<CountyImprovementData> 
+            GetListOfAvailableResearchOffices(FactionData factionData)
+        {
+            Godot.Collections.Array<CountyImprovementData> availableOffices = [];
+            foreach (CountyImprovementData countyImprovementData in factionData.researchOffices)
+            {
+                // There can only be 1 person working at a research office currently.
+                if(countyImprovementData.populationAtImprovement.Count < 1)
+                {
+                    availableOffices.Add(countyImprovementData);
+                }
+                else
+                {
+                    CountyPopulation countyPopulation = countyImprovementData.populationAtImprovement[0];
+                    if (countyPopulation.isHero == false)
+                    {
+                        availableOffices.Add(countyImprovementData);
+                    }
+                }
+            }
+            return availableOffices;    
+        }
+
+        public static Godot.Collections.Array<CountyPopulation>
+            GetListOfAvailableHeroResearchers(FactionData playerFactionData)
+        {
+            Godot.Collections.Array<CountyPopulation> availableResearchers = [];
+            foreach (CountyData countyData in Globals.Instance.playerFactionData.countiesFactionOwns)
+            {
+                foreach (CountyPopulation countyPopulation in countyData.heroesInCountyList)
+                {
+                    if (countyPopulation.currentResearchItemData == null && countyPopulation.activity
+                        != AllEnums.Activities.Move)
+                    {
+                        availableResearchers.Add(countyPopulation);
+                    }
+                }
+            }
+            return availableResearchers;
+        }
         private static ResearchItemData GetLowestTierRandomResearch(FactionData factionData)
         {
             Random random = new();
@@ -224,5 +271,7 @@ namespace PlayerSpace
 
             }
         }
+
+
     }
 }

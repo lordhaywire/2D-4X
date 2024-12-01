@@ -42,11 +42,11 @@ namespace PlayerSpace
                         PopulationAI.KeepWorkingAtCountyImprovement(countyPopulation);
                         break;
                     case AllEnums.Activities.Research:
-                        // Person working at research office generates research.
-                        // Check learning is done in Banker.AddResearchForOfficeResearch
-                        Banker.AddResearchForOfficeResearch(countyPopulation);
+                        // Person working at research office, or hero generates research.
 
-                        PopulationAI.KeepResearching(countyPopulation);
+                        //Banker.AddResearchForOfficeResearch(countyPopulation);
+
+                        //PopulationAI.KeepResearching(countyPopulation);
                         break;
                     case AllEnums.Activities.Idle:
                         // Give idle people their bonus happiness.

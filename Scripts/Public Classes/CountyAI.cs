@@ -27,9 +27,9 @@ public class CountyAI
                 GD.Print($"{county.countyData.factionData.factionName}: {county.countyData.countyName} " +
                          $"wants to build a {foodBuilding.improvementName}");
                 */
-                if (banker.CheckBuildingCost(county.countyData.factionData, county.countyData, foodBuilding))
+                if (banker.CheckBuildingCost(county.countyData, foodBuilding))
                 {
-                    banker.ChargeForBuilding(county.countyData.factionData, county.countyData, foodBuilding);
+                    banker.ChargeForBuilding(county.countyData, foodBuilding);
                     BuildImprovement(county.countyData, foodBuilding);
                 }
                 else

@@ -96,7 +96,7 @@ namespace PlayerSpace
             else
             {
                 //GD.Print("Defenders Faction Name: " + battleLocation.countyData.factionData.factionName);
-                if (battleLocation.countyData.factionData.factionGood[AllEnums.FactionGoodType.Influence].Amount 
+                if (battleLocation.countyData.factionData.factionGoods[AllEnums.FactionGoodType.Influence].Amount 
                     >= Globals.Instance.costOfHero)
                 {
                     List<CountyPopulation> possibleDefenders = [];

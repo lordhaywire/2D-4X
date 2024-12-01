@@ -24,13 +24,13 @@ namespace PlayerSpace
 
             factionData.SubtractFactionResources();
             factionData.CopyFactionResourcesToYesterday();
+
             banker.AddLeaderInfluence(factionData);
-
-
 
             // Some research points will be lost because heroes and population will continue to research
             // items that are already done.  The amount should be insignificant in the long run.
             // Generate passive research for all heroes.
+            
             Research.GeneratePassiveResearch(factionData.allHeroesList);
 
             // Generate passive research for each county population, not including heroes.
@@ -47,7 +47,7 @@ namespace PlayerSpace
                     researchItemData.CompleteResearch();
                 }
             }
-
+            
             TopBarControl.Instance.UpdateResourceLabels();
         }
 

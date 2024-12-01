@@ -18,4 +18,3 @@ amountOfResearchDone = 0
 costOfResearch = 100
 countyImprovementDatas = [ExtResource("1_jsy6f")]
 researchPrerequisites = null
-isResearchDone = false

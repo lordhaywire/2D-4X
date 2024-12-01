@@ -27,8 +27,7 @@ namespace PlayerSpace
             CountyImprovementData countyImprovementData = Globals.Instance.selectedPossibleBuildingControl.countyImprovementData;
             
             countyAI.BuildImprovement(Globals.Instance.SelectedLeftClickCounty.countyData, countyImprovementData);
-            banker.ChargeForBuilding(Globals.Instance.playerFactionData
-                , Globals.Instance.SelectedLeftClickCounty.countyData
+            banker.ChargeForBuilding(Globals.Instance.SelectedLeftClickCounty.countyData
                 , Globals.Instance.selectedPossibleBuildingControl.countyImprovementData);
             
             // Removes the cost of the building.

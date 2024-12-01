@@ -54,13 +54,15 @@ public partial class County : Node2D
         countyAI.DecideBuildingCountyImprovements(this);
 
         // Goes through each hero just like if they were a normal county population and
-        // generates their work/research.
+        // generates their work amount/research.
         PopulationWork.WorkDayOverForPopulation(countyData, countyData.heroesInCountyList);
 
         // Generates resources through work, scavenging, building, and research.
-        // Generates the daily amount of work/building for each county improvement per person.
+        // Generates the daily amount of work amount/building for each county improvement per person.
         PopulationWork.WorkDayOverForPopulation(countyData, countyData.countyPopulationList);
-        // Converts the totaly daily amount of work into goods and construction.  Possibly scavenging and research eventually.
+
+        // Converts the totaly daily amount of work into goods and construction.
+        // Possibly scavenging and research eventually.
         PopulationWork.CalculateWorkToGoodsProduction(countyData);
 
         PopulationAI.IsThereEnoughFood(countyData); // This is a terrible name for this method.

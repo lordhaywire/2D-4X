@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using System.Security.AccessControl;
 
 namespace PlayerSpace
 {
@@ -120,7 +121,7 @@ namespace PlayerSpace
 
         public void AddLeaderInfluence(FactionData factionData)
         {
-            factionData.factionGood[AllEnums.FactionGoodType.Influence].Amount
+            factionData.factionGoods[AllEnums.FactionGoodType.Influence].Amount
                 += Globals.Instance.dailyInfluenceGain + AddLeaderBonusInfluence(factionData);
         }
 
@@ -196,12 +197,11 @@ namespace PlayerSpace
         public static void ChargeForHero(FactionData factionData)
         {
             //// GD.Print("Player Influence: " + Globals.Instance.playerFactionData.Influence);
-            factionData.factionGood[AllEnums.FactionGoodType.Influence].Amount
+            factionData.factionGoods[AllEnums.FactionGoodType.Influence].Amount
                 -= Globals.Instance.costOfHero;
         }
 
-        public bool CheckBuildingCost(FactionData factionData, CountyData countyData
-            , CountyImprovementData countyImprovementData)
+        public bool CheckBuildingCost(CountyData countyData, CountyImprovementData countyImprovementData)
         {
             // GD.Print("Checking Building Cost...");
             // This is here so the county improvement can be shown in the Research pannel.
@@ -215,10 +215,25 @@ namespace PlayerSpace
             {
                 foreach (KeyValuePair<GoodData, int> keyValuePair in countyImprovementData.goodsConstructionCost)
                 {
-                    AllEnums.CountyGoodType resourceType = keyValuePair.Key.countyGoodType;
-                    if (countyData.goods[resourceType].Amount < keyValuePair.Value)
+                    AllEnums.GoodType goodType = keyValuePair.Key.goodType;
+                    AllEnums.CountyGoodType countyResourceType = keyValuePair.Key.countyGoodType;
+                    AllEnums.FactionGoodType factionResourceType = keyValuePair.Key.factionGoodType;
+
+                    // If the good type is a county good, or both it checks the county amount of the resource
+                    // currently only Remnants is both and the player is taking from the county amount.
+                    if (goodType == AllEnums.GoodType.CountyGood || goodType == AllEnums.GoodType.Both)
                     {
-                        return false;
+                        if (countyData.goods[countyResourceType].Amount < keyValuePair.Value)
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        if (countyData.factionData.factionGoods[factionResourceType].Amount < keyValuePair.Value)
+                        {
+                            return false;
+                        }
                     }
                 }
             }
@@ -226,16 +241,28 @@ namespace PlayerSpace
         }
 
         // Charge for building and also assign it to the underConstructionList.
-        public void ChargeForBuilding(FactionData factionData, CountyData countyData
-            , CountyImprovementData countyImprovementData)
+        public void ChargeForBuilding(CountyData countyData, CountyImprovementData countyImprovementData)
         {
             if (countyImprovementData.goodsConstructionCost != null)
             {
                 foreach (KeyValuePair<GoodData, int> keyValuePair
                     in countyImprovementData.goodsConstructionCost)
                 {
-                    AllEnums.CountyGoodType resourceType = keyValuePair.Key.countyGoodType;
-                    countyData.goods[resourceType].Amount -= keyValuePair.Value;
+                    AllEnums.GoodType goodType = keyValuePair.Key.goodType;
+                    AllEnums.CountyGoodType countyResourceType = keyValuePair.Key.countyGoodType;
+                    AllEnums.FactionGoodType factionResourceType = keyValuePair.Key.factionGoodType;
+
+                    // If the good type is a county good, or both it checks the county amount of the resource
+                    // currently only Remnants is both and the player is taking from the county amount.
+                    if (goodType == AllEnums.GoodType.CountyGood || goodType == AllEnums.GoodType.Both)
+                    {
+                        countyData.goods[countyResourceType].Amount -= keyValuePair.Value;
+                    }
+                    else
+                    {
+                        countyData.factionData.factionGoods[factionResourceType].Amount -= keyValuePair.Value;
+                    }
+                    
                     /* GD.Print($"{countyImprovementData.improvementName} costs " +
                         $"{countyImprovementData.countyResourceConstructionCost[keyValuePair.Key]} and" +
                     $" was charged to {countyData.countyName} those cost was : {countyData.countyResources[resourceType].name} {keyValuePair.Value}");

@@ -18,4 +18,3 @@ amountOfResearchDone = 0
 costOfResearch = 100
 countyImprovementDatas = [ExtResource("1_mf2vf")]
 researchPrerequisites = Array[int]([0])
-isResearchDone = false

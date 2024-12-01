@@ -23,7 +23,8 @@ namespace PlayerSpace
         [Export] private MenuButton assignResearcherMenuButton;
 
         public ResearchItemData researchItemData;
-        private readonly List<CountyPopulation> assignableResearchers = [];
+        Godot.Collections.Array<CountyPopulation> availableResearchers = [];
+        Godot.Collections.Array<CountyImprovementData> availableOffices = [];
         public override void _Ready()
         {
             Instance = this;
@@ -34,8 +35,10 @@ namespace PlayerSpace
             {
                 //GD.Print("Research Description Panel!");
                 assignResearcherMenuButton.GetPopup().IdPressed += SelectResearcher;
+                assignResearcherMenuButton.Hide(); // This is probably temporary.
                 RemoveCountyImprovements();
                 UpdateDescriptionLabels();
+                CheckToShowAssignResearcherButton();
                 AssignResearcherMenuButton();
                 AssignCountyImprovements();
             }
@@ -44,47 +47,55 @@ namespace PlayerSpace
                 assignResearcherMenuButton.GetPopup().IdPressed -= SelectResearcher;
             }
         }
-        private void SelectResearcher(long id)
-        {
-            //GD.Print("Assigned Researcher ID: " + id);
-            //GD.Print($"Ass Researcher: {assignableResearchers[(int)id].firstName} {assignableResearchers[(int)id].lastName}");
-            ResearchControl.Instance.assignedResearchers.Add(assignableResearchers[(int)id]);
-            assignableResearchers[(int)id].UpdateCurrentResearch(researchItemData);
-            //GD.Print("Assigned Researcher in Select Reseacher Count: " + ResearchControl.Instance.assignedResearchers.Count);
-            ResearchControl.Instance.GenerateAssignedResearchers();
-            if (CountyInfoControl.Instance.Visible == true)
-            {
-                CountyInfoControl.Instance.GenerateHeroesPanelList();
-            }
-            EventLog.Instance.AddLog($"{assignableResearchers[(int)id].firstName} {assignableResearchers[(int)id].lastName}" +
-                $" {Tr("PHRASE_IS_NOW_RESEARCHING")} {Tr(researchItemData.researchName)}");
-            //populationListTitle.Text = $"{Globals.Instance.SelectedLeftClickCounty.countyData.countyName} {Tr("WORD_POPULATION")}";
 
-            AssignResearcherMenuButton(); // This clears the list.
+        /// <summary>
+        /// This checks to make sure the research is done, all of the prerequisites are done,
+        /// there are available offices and available heroes.  
+        /// If so then it shows the Assign Researcher Button.
+        /// </summary>
+        private void CheckToShowAssignResearcherButton()
+        {
+            availableOffices.Clear();
+            availableResearchers.Clear();
+            availableOffices
+                = Research.GetListOfAvailableResearchOffices(Globals.Instance.playerFactionData);
+            availableResearchers 
+                = Research.GetListOfAvailableHeroResearchers(Globals.Instance.playerFactionData);
+
+            foreach (CountyImprovementData availableOffice in availableOffices)
+            {
+                GD.Print($"Available Office: " + availableOffice.improvementName);
+            }
+            if (researchItemData.CheckIfResearchDone() == false 
+                && researchItemData.CheckIfPrerequisitesAreDone() == true 
+                && availableOffices.Count > 0 && availableResearchers.Count > 0)
+            {
+                assignResearcherMenuButton.Show();
+            }
         }
 
         private void AssignResearcherMenuButton()
         {
-            if (researchItemData.CheckIfResearchDone() == true || researchItemData.CheckIfPrerequisitesAreDone() == false)
-            {
-                assignResearcherMenuButton.Hide();
-                return;
-            }
-            assignResearcherMenuButton.Show();
             assignResearcherMenuButton.GetPopup().Clear();
-            assignableResearchers.Clear();
-            foreach (CountyData countyData in Globals.Instance.playerFactionData.countiesFactionOwns)
+            foreach (CountyPopulation countyPopulation in availableResearchers) 
             {
-                foreach (CountyPopulation countyPopulation in countyData.heroesInCountyList)
-                {
-                    if (countyPopulation.currentResearchItemData == null && countyPopulation.activity
-                        != AllEnums.Activities.Move)
-                    {
-                        AddResearcherToMenu(countyData, countyPopulation);
-                    }
-                }
-                // Go through every county data that is built and if it produces research then add it
+                PopupMenu submenuResearchOffice = new PopupMenu();
+                PopupMenu secondSubmenu = new PopupMenu();
+                assignResearcherMenuButton.GetPopup().AddChild(submenuResearchOffice);
+                
+                submenuResearchOffice.AddChild(secondSubmenu);
+
+                assignResearcherMenuButton.GetPopup().AddItem($"{countyPopulation.firstName} {countyPopulation.lastName}");
+                assignResearcherMenuButton.GetPopup().AddSubmenuNodeItem("WHatgever", submenuResearchOffice);
+                submenuResearchOffice.AddItem("SecondWah");
+               
+                // AddResearcherToMenu();
+
+            }
+                // Go through every county improvement data that is built and if it produces
+                // research then add it
                 // to the assignable researcher list.
+                /*
                 foreach (CountyImprovementData countyImprovementData in countyData.completedCountyImprovements)
                 {
                     if (countyImprovementData.factionResourceType == AllEnums.FactionGoodType.Research)
@@ -99,8 +110,9 @@ namespace PlayerSpace
 
                     }
                 }
-            }
-            if (assignableResearchers.Count == 0)
+                */
+            /*
+            if (availableResearchers.Count == 0)
             {
                 assignResearcherMenuButton.Hide();
             }
@@ -108,15 +120,32 @@ namespace PlayerSpace
             {
                 assignResearcherMenuButton.Show();
             }
+            */
         }
 
-        
+        private void SelectResearcher(long id)
+        {
+            //GD.Print("Assigned Researcher ID: " + id);
+            //GD.Print($"Ass Researcher: {assignableResearchers[(int)id].firstName} {assignableResearchers[(int)id].lastName}");
+            ResearchControl.Instance.assignedResearchers.Add(availableResearchers[(int)id]);
+            availableResearchers[(int)id].UpdateCurrentResearch(researchItemData);
+            //GD.Print("Assigned Researcher in Select Reseacher Count: " + ResearchControl.Instance.assignedResearchers.Count);
+            ResearchControl.Instance.GenerateAssignedResearchers();
+            if (CountyInfoControl.Instance.Visible == true)
+            {
+                CountyInfoControl.Instance.GenerateHeroesPanelList();
+            }
+            EventLog.Instance.AddLog($"{availableResearchers[(int)id].firstName} {availableResearchers[(int)id].lastName}" +
+                $" {Tr("PHRASE_IS_NOW_RESEARCHING")} {Tr(researchItemData.researchName)}");
+            //populationListTitle.Text = $"{Globals.Instance.SelectedLeftClickCounty.countyData.countyName} {Tr("WORD_POPULATION")}";
+
+            AssignResearcherMenuButton(); // This clears the list.
+        }
 
         private void AddResearcherToMenu(CountyData countyData, CountyPopulation countyPopulation)
         {
             assignResearcherMenuButton.GetPopup().AddItem($"{countyPopulation.firstName} {countyPopulation.lastName}" +
                 $" - {countyData.countyName}");
-            assignableResearchers.Add(countyPopulation);
         }
 
 
