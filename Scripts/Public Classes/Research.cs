@@ -21,10 +21,12 @@ namespace PlayerSpace
                 }
             }
 
+            /*
             foreach (ResearchItemData researchItemData1 in factionData.researchableResearch)
             {
                 GD.Print("Researchable Research: " + researchItemData1.researchName);
             }
+            */
         }
 
         /// <summary>
@@ -52,8 +54,8 @@ namespace PlayerSpace
                 countyPopulation.passiveResearchItemData ??= GetLowestTierRandomResearch(countyPopulation.factionData);
                 if (countyPopulation.passiveResearchItemData != null)
                 {
-                    GD.Print($"Final Passive Research Outcome: {countyPopulation.firstName} " +
-                        $": {countyPopulation.passiveResearchItemData.researchName}");
+                    //GD.Print($"Final Passive Research Outcome: {countyPopulation.firstName} " +
+                    //   $": {countyPopulation.passiveResearchItemData.researchName}");
                 }
             }
         }
@@ -264,10 +266,11 @@ namespace PlayerSpace
                     countyPopulation.passiveResearchItemData.AmountOfResearchDone
                         += Globals.Instance.passiveResearchIncrease;
                 }
+                /*
                 GD.Print($"County Population: {countyPopulation.location} {countyPopulation.firstName}" +
                     $" {countyPopulation.passiveResearchItemData.researchName}: " +
                     $"{countyPopulation.passiveResearchItemData.AmountOfResearchDone}");
-
+                */
 
             }
         }

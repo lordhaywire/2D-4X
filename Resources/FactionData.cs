@@ -24,7 +24,7 @@ namespace PlayerSpace
         public Diplomacy diplomacy = new();
         public TokenSpawner tokenSpawner = new();
 
-        public List<CountyImprovementData> allCountyImprovements = []; // This includes all county improvements, even possible ones.
+        [Export] public Godot.Collections.Array<CountyImprovementData> allCountyImprovements = []; // This includes all county improvements, even possible ones.
 
         // All Faction Research Offices.
         [Export] public Godot.Collections.Array<CountyImprovementData> researchOffices = [];

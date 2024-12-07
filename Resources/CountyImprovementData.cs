@@ -127,6 +127,22 @@ namespace PlayerSpace
                 productionData.AverageDailyGoodsAmountGenerated = productionData.storageAmount;
             }
         }
+        public bool CheckIfWorkersFull()
+        {
+            if(populationAtImprovement.Count >= adjustedMaxWorkers)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool CheckIfResearchImprovement()
+        {
+            if (factionResourceType == AllEnums.FactionGoodType.Research)
+            {
+                return true;
+            }
+            return false;
+        }
         public bool CheckIfStorageImprovement()
         {
             if (countyResourceType == AllEnums.CountyGoodType.StorageNonperishable

@@ -31,3 +31,4 @@ outputGoods = {}
 allDailyWorkAmountAtImprovementCompleted = 0
 inputGoods = {}
 status = 0
+populationAtImprovement = []

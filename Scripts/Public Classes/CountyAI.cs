@@ -14,8 +14,6 @@ public class CountyAI
             return;
         }
 
-        Banker banker = new();
-
         // Check if the county has enough food. If not, build a food building.
         if (!county.countyData.CheckEnoughCountyFactionResource(AllEnums.FactionGoodType.Food))
         {
@@ -27,9 +25,9 @@ public class CountyAI
                 GD.Print($"{county.countyData.factionData.factionName}: {county.countyData.countyName} " +
                          $"wants to build a {foodBuilding.improvementName}");
                 */
-                if (banker.CheckBuildingCost(county.countyData, foodBuilding))
+                if (Banker.CheckBuildingCost(county.countyData, foodBuilding))
                 {
-                    banker.ChargeForBuilding(county.countyData, foodBuilding);
+                    Banker.ChargeForBuilding(county.countyData, foodBuilding);
                     BuildImprovement(county.countyData, foodBuilding);
                 }
                 else
@@ -68,7 +66,8 @@ public class CountyAI
         //GD.Print($"County Improvement Number Built: {countyImprovementData.numberBuilt}");
     }
 
-    int CountDuplicateImprovement(CountyImprovementData originalCountyImprovementData, List<CountyImprovementData> countyImprovementDatas)
+    private static int CountDuplicateImprovement(CountyImprovementData originalCountyImprovementData
+        , Godot.Collections.Array<CountyImprovementData> countyImprovementDatas)
     {
         int number = 0;
         foreach (CountyImprovementData countyImprovementData in countyImprovementDatas)

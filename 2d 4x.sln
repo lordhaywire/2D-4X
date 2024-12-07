@@ -1,6 +1,6 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2d 4x", "2d 4x.csproj", "{EF632870-BBD5-4729-B5EB-02235E6EDDE3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2d 4x", "2d 4x.csproj", "{B40E164C-591F-44DE-BA2C-0DE543897E21}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,11 +9,11 @@ Global
 	ExportRelease|Any CPU = ExportRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EF632870-BBD5-4729-B5EB-02235E6EDDE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EF632870-BBD5-4729-B5EB-02235E6EDDE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EF632870-BBD5-4729-B5EB-02235E6EDDE3}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
-		{EF632870-BBD5-4729-B5EB-02235E6EDDE3}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
-		{EF632870-BBD5-4729-B5EB-02235E6EDDE3}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
-		{EF632870-BBD5-4729-B5EB-02235E6EDDE3}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{B40E164C-591F-44DE-BA2C-0DE543897E21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B40E164C-591F-44DE-BA2C-0DE543897E21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B40E164C-591F-44DE-BA2C-0DE543897E21}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{B40E164C-591F-44DE-BA2C-0DE543897E21}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{B40E164C-591F-44DE-BA2C-0DE543897E21}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{B40E164C-591F-44DE-BA2C-0DE543897E21}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
 	EndGlobalSection
 EndGlobal

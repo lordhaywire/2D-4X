@@ -44,7 +44,7 @@ public partial class ResearchItemData : Resource
         Faction faction = (Faction)Globals.Instance.factionsParent.GetChild(factionID);
         if (faction.factionData == Globals.Instance.playerFactionData)
         {
-            EventLog.Instance?.AddLog($"{Tr(researchName)} {Tr("PHRASE_HAS_BEEN_COMPLETED")}.");
+            EventLog.Instance?.AddLog($"{Tr("PHRASE_RESEARCH_FOR")} {Tr(researchName)} {Tr("PHRASE_HAS_BEEN_COMPLETED")}.");
         }
         //GD.Print("County Improvement Array Count: " + countyImprovementDatas.Length);
         if (countyImprovementDatas.Length > 0)

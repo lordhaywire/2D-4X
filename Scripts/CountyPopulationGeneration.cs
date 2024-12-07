@@ -27,6 +27,7 @@ namespace PlayerSpace
         // This has to be up here so the other methods can access it for Preferred Skill.
         Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> newAttributes = [];
         private SkillData preferredSkill;
+
         public override void _Ready()
         {
             CreateFactionLeaders();
@@ -134,6 +135,10 @@ namespace PlayerSpace
             }
         }
 
+        /// <summary>
+        /// This also generates prefered work.
+        /// </summary>
+        /// <returns></returns>
         private Godot.Collections.Dictionary<AllEnums.Skills, SkillData> GenerateSkillsList()
         {
             Godot.Collections.Dictionary<AllEnums.Skills, SkillData> newSkills = [];

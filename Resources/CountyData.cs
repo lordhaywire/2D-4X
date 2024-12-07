@@ -39,8 +39,8 @@ namespace PlayerSpace
 
         public List<Button> spawnedTokenButtons = [];
 
-        public List<CountyImprovementData> underConstructionCountyImprovements = [];
-        public List<CountyImprovementData> completedCountyImprovements = [];
+        [Export] public Godot.Collections.Array<CountyImprovementData> underConstructionCountyImprovements = [];
+        [Export] public Godot.Collections.Array<CountyImprovementData> completedCountyImprovements = [];
         public List<Battle> battles = [];
 
         public int population = 0;
@@ -106,6 +106,11 @@ namespace PlayerSpace
         {
             List<CountyImprovementData> completedImprovements = [];
             completedImprovements.Clear();
+            foreach (CountyImprovementData countyImprovementData in underConstructionCountyImprovements)
+            {
+                GD.Print($"Under Construction Improvements - Checking if done: " +
+                    $"{countyImprovementData.improvementName}");
+            }
             foreach (CountyImprovementData countyImprovementData in underConstructionCountyImprovements)
             {
                 // If the county improvement is done, make everyone working on it idle.
@@ -179,7 +184,7 @@ namespace PlayerSpace
         {
             // Population won't scavenge if the storage is full, or if the county is out of scavengables.
             if (!CheckEnoughCountyScavengables(AllEnums.CountyGoodType.CannedFood)
-                || CheckResourceStorageFull(goods[AllEnums.CountyGoodType.CannedFood]))
+                || CheckGoodStorageFull(goods[AllEnums.CountyGoodType.CannedFood]))
             {
                 return;
             }
@@ -205,7 +210,7 @@ namespace PlayerSpace
         {
             // Population won't scavenge if the storage is full, or if the county is out of scavengables.
             if (!CheckEnoughCountyScavengables(AllEnums.CountyGoodType.Remnants)
-                || CheckResourceStorageFull(goods[AllEnums.CountyGoodType.Remnants]))
+                || CheckGoodStorageFull(goods[AllEnums.CountyGoodType.Remnants]))
             {
                 return;
             }
@@ -317,27 +322,38 @@ namespace PlayerSpace
             }
         }
 
+        public bool CheckIfImprovementWantsWorkers(CountyImprovementData countyImprovementData)
+        {
+            if(countyImprovementData.CheckIfResearchImprovement() == true)
+            {
+                return true;
+            }
+            if (countyImprovementData.CheckIfStorageImprovement() == true
+               || CheckGoodStorageFull(goods[countyImprovementData.countyResourceType]) == true)
+            {
+                return false;
+            }
+            return true;
+        }
         public void CheckForPreferredWork()
         {
             //GD.Print($"{county.countyData.countyName}: Checking for Preferred Work!");
             //GD.Print($"Completed County Improvements: {completedCountyImprovements.Count}");
             foreach (CountyImprovementData countyImprovementData in completedCountyImprovements)
             {
-                GD.Print($"Preferred Work: {countyImprovementData.improvementName}");
-                if (countyImprovementData.countyResourceType == AllEnums.CountyGoodType.None
-                    || countyImprovementData.CheckIfStorageImprovement() == true
-                    || CheckResourceStorageFull(goods[countyImprovementData.countyResourceType]) == true)
+                if (CheckIfImprovementWantsWorkers(countyImprovementData) == false)
                 {
-                    return;
+                    continue;
                 }
                 foreach (CountyPopulation countyPopulation in possibleWorkers)
                 {
                     // If they have the preferred skill, they are added to the county improvement
                     // and marked for removal from the possibleWorkers list.
-                    if (countyPopulation.preferredSkill.skill == countyImprovementData.workSkill)
+                    // It needs to check if workers full here, so that it doesn't add extra people to the 
+                    // county improvement.
+                    if(countyImprovementData.CheckIfWorkersFull() == false)
                     {
-                        if (countyImprovementData.populationAtImprovement.Count
-                            < countyImprovementData.adjustedMaxWorkers)
+                        if (countyPopulation.preferredSkill.skill == countyImprovementData.workSkill)
                         {
                             countyPopulation.UpdateActivity(AllEnums.Activities.Work);
                             UpdateWorkLocation(countyPopulation, countyImprovementData);
@@ -351,18 +367,10 @@ namespace PlayerSpace
                             workersToRemoveFromPossibleWorkers.Add(countyPopulation);
                         }
                     }
+
                 }
                 RemoveWorkersFromPossibleWorkers();
             }
-        }
-
-        private static bool CheckResourceStorageFull(GoodData countyResourceData)
-        {
-            if (countyResourceData.Amount >= countyResourceData.MaxAmount)
-            {
-                return true;
-            }
-            return false;
         }
 
         public void CheckForAnyWork()
@@ -370,17 +378,15 @@ namespace PlayerSpace
             //GD.Print("Possible Workers List Count: " + possibleWorkers.Count);
             foreach (CountyImprovementData countyImprovementData in completedCountyImprovements)
             {
-                if (countyImprovementData.countyResourceType == AllEnums.CountyGoodType.None
-                    || countyImprovementData.CheckIfStorageImprovement() == true
-                    || CheckResourceStorageFull(goods[countyImprovementData.countyResourceType]) == true)
+                if (CheckIfImprovementWantsWorkers(countyImprovementData) == false)
                 {
-                    return;
+                    continue;
                 }
-                //GD.Print("")
                 foreach (CountyPopulation countyPopulation in possibleWorkers)
                 {
-                    if (countyImprovementData.populationAtImprovement.Count
-                        < countyImprovementData.adjustedMaxWorkers)
+                    // It needs to check if workers full here, so that it doesn't add extra people to the 
+                    // county improvement.
+                    if (countyImprovementData.CheckIfWorkersFull() == false)
                     {
                         countyPopulation.UpdateActivity(AllEnums.Activities.Work);
                         UpdateWorkLocation(countyPopulation, countyImprovementData);
@@ -389,6 +395,16 @@ namespace PlayerSpace
                 }
                 RemoveWorkersFromPossibleWorkers();
             }
+        }
+
+        private static bool CheckGoodStorageFull(GoodData countyResourceData)
+        {
+
+            if (countyResourceData.Amount >= countyResourceData.MaxAmount)
+            {
+                return true;
+            }
+            return false;
         }
         public void SubtractCountyResources()
         {
@@ -722,7 +738,7 @@ namespace PlayerSpace
             CheckForPrioritizedImprovements(completedCountyImprovements);
         }
 
-        private void CheckForPrioritizedImprovements(List<CountyImprovementData> countyImprovements)
+        private void CheckForPrioritizedImprovements(Godot.Collections.Array<CountyImprovementData> countyImprovements)
         {
             foreach (CountyImprovementData countyImprovementData in countyImprovements)
             {
@@ -760,7 +776,7 @@ namespace PlayerSpace
 
             int remainingWorkerSlots = maxWorkers - countyImprovementData.populationAtImprovement.Count;
             // GD.Print($"{countyImprovementData.improvementName} Population At Improvement: "
-                //+ countyImprovementData.populationAtImprovement.Count);
+            //+ countyImprovementData.populationAtImprovement.Count);
 
             // Assign sorted workers if there is room
             foreach (CountyPopulation countyPopulation in possibleWorkers.Take(remainingWorkerSlots))

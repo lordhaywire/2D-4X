@@ -344,8 +344,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     /// </summary>
     private void CheckForConstructionResources(CountyData countyData)
     {
-        Banker banker = new();
-        if (banker.CheckBuildingCost(countyData, countyImprovementData))
+        if (Banker.CheckBuildingCost(countyData, countyImprovementData))
         {
             constructButton.Show();
         }

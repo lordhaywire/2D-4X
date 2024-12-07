@@ -45,3 +45,4 @@ inputGoods = {
 ExtResource("1_1yts0"): 1
 }
 status = 0
+populationAtImprovement = []

@@ -53,6 +53,7 @@ namespace PlayerSpace
 
         private void DayStart()
         {
+            // This is just commented out until we get to Research.
             FactionAI factionAI = new();
             if (factionData != Globals.Instance.playerFactionData)
             {
@@ -67,7 +68,7 @@ namespace PlayerSpace
             // Assign Passive research for each county population, not including heroes.
             foreach (CountyData countyData in factionData.countiesFactionOwns)
             {
-                GD.PrintRich($"[rainbow]{countyData.countyName} is checking population passive research.");
+                //GD.PrintRich($"[rainbow]{countyData.countyName} is checking population passive research.");
                 Research.AssignPassiveResearch(factionData, countyData.countyPopulationList);
             }
             /*

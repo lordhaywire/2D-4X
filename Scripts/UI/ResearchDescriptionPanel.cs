@@ -79,8 +79,8 @@ namespace PlayerSpace
             assignResearcherMenuButton.GetPopup().Clear();
             foreach (CountyPopulation countyPopulation in availableResearchers) 
             {
-                PopupMenu submenuResearchOffice = new PopupMenu();
-                PopupMenu secondSubmenu = new PopupMenu();
+                PopupMenu submenuResearchOffice = new();
+                PopupMenu secondSubmenu = new();
                 assignResearcherMenuButton.GetPopup().AddChild(submenuResearchOffice);
                 
                 submenuResearchOffice.AddChild(secondSubmenu);

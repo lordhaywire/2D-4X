@@ -26,7 +26,7 @@ prioritize = false
 improvementTexture = ExtResource("1_231ft")
 improvementName = "IMPROVEMENT_SCOUTING_EQUIPMENT_WORKSHOP"
 improvementDescription = "IMPROVEMENT_DESCRIPTION_SCOUTING_EQUIPMENT_WORKSHOP"
-workSkill = 0
+workSkill = 6
 interestData = ExtResource("3_dvaxv")
 goodsConstructionCost = {
 ExtResource("1_2r2el"): 1
@@ -45,3 +45,4 @@ ExtResource("4_dvaxv"): SubResource("Resource_f38jq")
 allDailyWorkAmountAtImprovementCompleted = 0
 inputGoods = {}
 status = 0
+populationAtImprovement = []

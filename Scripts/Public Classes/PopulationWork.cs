@@ -72,10 +72,12 @@ namespace PlayerSpace
             //GD.Print($"{countyData.countyName} Someone is working at {countyPopulation.currentCountyImprovement.improvementName}");
             countyPopulation.currentCountyImprovement.allDailyWorkAmountAtImprovementCompleted
                 += Banker.GenerateWorkAmountWithSkillCheck(countyPopulation);
+            /*
             GD.Print($"{countyPopulation.location}: " +
                 $"{countyPopulation.currentCountyImprovement.improvementName}: " +
                 $"All Daily {countyPopulation.activity} Amount At Improvement Completed: "
                 + countyPopulation.currentCountyImprovement.allDailyWorkAmountAtImprovementCompleted);
+            */
         }
 
         /// <summary>
@@ -109,8 +111,8 @@ namespace PlayerSpace
                         keyValuePair.Value.workAmount
                             += countyImprovementData.allDailyWorkAmountAtImprovementCompleted;
 
-                        GD.Print($"{countyData.countyName} : {countyImprovementData.improvementName} " +
-                            $"- Work Amount For Each Resource For Today: {keyValuePair.Value.workAmount}");
+                        // GD.Print($"{countyData.countyName} : {countyImprovementData.improvementName} " +
+                        //    $"- Work Amount For Each Resource For Today: {keyValuePair.Value.workAmount}");
 
                         if (keyValuePair.Value.workCost <= keyValuePair.Value.workAmount)
                         {

@@ -23,11 +23,10 @@ namespace PlayerSpace
         {
             //GD.Print("Yes was pressed.");
             CountyAI countyAI = new();
-            Banker banker = new();
             CountyImprovementData countyImprovementData = Globals.Instance.selectedPossibleBuildingControl.countyImprovementData;
             
             countyAI.BuildImprovement(Globals.Instance.SelectedLeftClickCounty.countyData, countyImprovementData);
-            banker.ChargeForBuilding(Globals.Instance.SelectedLeftClickCounty.countyData
+            Banker.ChargeForBuilding(Globals.Instance.SelectedLeftClickCounty.countyData
                 , Globals.Instance.selectedPossibleBuildingControl.countyImprovementData);
             
             // Removes the cost of the building.

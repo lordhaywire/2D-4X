@@ -1,5 +1,4 @@
 using Godot;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace PlayerSpace;
@@ -57,11 +56,17 @@ public partial class CountyImprovementsControl : Control
     /// </summary>
     /// <param name="listOfCountyImprovements"></param>
     /// <param name="parent"></param>
-    private void CreateCountyImprovementButtons(List<CountyImprovementData> listOfCountyImprovements
+    private void CreateCountyImprovementButtons(Godot.Collections.Array<CountyImprovementData> disorderedListOfCountyImprovements
         , VBoxContainer parent, bool allCountyImprovements)
     {
         //GD.Print("List of County Improvements Count: " + listOfCountyImprovements.Count);
-        listOfCountyImprovements.Sort((x, y) => string.Compare(x.improvementName, y.improvementName));
+        // Sort using LINQ and convert back to Godot.Collections.Array
+        Godot.Collections.Array<CountyImprovementData> listOfCountyImprovements =
+            new(
+                disorderedListOfCountyImprovements
+                    .ToList()
+                    .OrderBy(countyImprovementData => countyImprovementData.improvementName)
+            );
 
         foreach (CountyImprovementData countyImprovementData in listOfCountyImprovements)
         {
