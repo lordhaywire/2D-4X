@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 namespace PlayerSpace;
 
@@ -52,13 +53,15 @@ public partial class ResearchItemData : Resource
             foreach (CountyImprovementData countyImprovementData in countyImprovementDatas)
             {
                 FactionData factionData = FactionData.GetFactionDataFromID(factionID);
-                //GD.Print($"This is where it breaks: {factionData.factionName} {countyImprovementData.improvementName}");
+                GD.Print($"This is where it breaks: {factionData.factionName} {countyImprovementData.improvementName}");
 
                 // This is to set the starting adjusted max builders and workers.
                 countyImprovementData.adjustedMaxBuilders = countyImprovementData.maxBuilders;
                 countyImprovementData.adjustedMaxWorkers = countyImprovementData.maxWorkers;
 
                 factionData.AddCountyImprovementToAllCountyImprovements(countyImprovementData);
+
+
             }
         }
     }

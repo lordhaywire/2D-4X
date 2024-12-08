@@ -87,6 +87,13 @@ public partial class County : Node2D
 
     private void DayStart()
     {
+        // Prioritized County Improvements needs to go first.
+        // County Improvements gather goods for their stockpile.
+        foreach(CountyImprovementData countyImprovementData in countyData.completedCountyImprovements)
+        {
+            Haulmaster.GatherStockpileGoods(countyData, countyImprovementData);
+        }
+
         // Assign people to the prioritized county improvements.
         countyData.AssignPeopleToPrioritizedImprovements();
         // Gets all the idle people and puts them in a list for the next methods.

@@ -83,14 +83,14 @@ namespace PlayerSpace
                 }
                 factionData.researchItems.Add(researchItemDataCopy);
 
-                /* This is for testing.
+                // This is for testing.
                 if (factionData.researchItems.Count > 0)
                 {
                     GD.Print($"Faction Data Research Items Count: {factionData.researchItems.Count}");
 
                     GD.Print($"Test of research item faction ID: {factionData.researchItems[0].factionID}");
                 }
-                */
+                
             }
 
             foreach(ResearchItemData researchItem in factionData.researchItems)

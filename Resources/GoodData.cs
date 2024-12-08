@@ -18,6 +18,7 @@ namespace PlayerSpace
 
         // I don't think we need to export the Getter Setter because the private int amount
         // is exported.
+        [Export]
         public int Amount
         {
             get { return amount; }
@@ -32,6 +33,7 @@ namespace PlayerSpace
 
         [Export] private int maxAmount = int.MaxValue; // This is the max amount that can be stored.
 
+        [Export]
         public int MaxAmount
         {
             get { return maxAmount; }
@@ -48,6 +50,26 @@ namespace PlayerSpace
                 Amount = Math.Min(Amount, maxAmount);
                 //GD.Print($"Good Max Amount: {goodName} {maxAmount}");
             }
+        }
+
+        public GoodData NewCopy(GoodData goodData)
+        {
+            GoodData newGoodData = new()
+            {
+                goodName = goodData.goodName,
+                description = goodData.description,
+                goodType = goodData.goodType,
+                countyGoodType = goodData.countyGoodType,
+                factionGoodType = goodData.factionGoodType,
+                perishable = goodData.perishable,
+                failureRate = goodData.failureRate,
+                remnantSubstitutable = goodData.remnantSubstitutable,
+                amount = goodData.amount,
+                Amount = goodData.Amount,
+                maxAmount = goodData.maxAmount,
+                MaxAmount = goodData.MaxAmount,
+            };
+            return newGoodData;
         }
     }
 }

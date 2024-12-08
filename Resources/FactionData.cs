@@ -91,6 +91,9 @@ namespace PlayerSpace
         }
         public void AddCountyImprovementToAllCountyImprovements(CountyImprovementData countyImprovementData)
         {
+            // Generates the stockpile good dictionary.
+            Haulmaster.GenerateStockpileGoodsDictionary(countyImprovementData);
+
             allCountyImprovements.Add(CountyImprovementData.NewCopy(countyImprovementData));
             //GD.PrintRich($"[rainbow][tornado]{factionName} {countyImprovementData.improvementName} has been added.");
             // Alphabetize the list by improvementName

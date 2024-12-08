@@ -54,6 +54,7 @@ namespace PlayerSpace
         // For some reason this one needs to be initialized, but the faction and county construction costs don't.
         [ExportGroup("Inputs")]
         [Export] public Godot.Collections.Dictionary<GoodData, int> inputGoods = [];
+        [Export] public Godot.Collections.Dictionary<GoodData, int> stockpiledGoods = [];
 
         [Export] public AllEnums.CountyImprovementStatus status;
         [Export] public Godot.Collections.Array<CountyPopulation> populationAtImprovement = [];
@@ -240,10 +241,24 @@ namespace PlayerSpace
                 countyResourceType = countyImprovementData.countyResourceType,
                 factionResourceType = countyImprovementData.factionResourceType,
                 inputGoods = countyImprovementData.inputGoods,
+                stockpiledGoods = countyImprovementData.CopyStockpiledGoods(),
                 status = countyImprovementData.status,
                 populationAtImprovement = new Godot.Collections.Array<CountyPopulation>(countyImprovementData.populationAtImprovement),
             };
             return newCountyImprovementData;
+        }
+
+        // We have to do a copy of a copy to make a copy that is unique.
+        public Godot.Collections.Dictionary<GoodData, int> CopyStockpiledGoods()
+        {
+            Godot.Collections.Dictionary<GoodData, int> copiedDictionary = [];
+
+            foreach (KeyValuePair<GoodData, int> keyValuePair in stockpiledGoods)
+            {
+                copiedDictionary.Add(keyValuePair.Key.NewCopy(keyValuePair.Key), keyValuePair.Value);
+            }
+            return copiedDictionary;
+            
         }
 
         // We have to do a copy of a copy to make a copy that is unique.

@@ -113,7 +113,6 @@ public partial class CountyGeneration : Node
         selectCounty.countyData.factionData = Globals.Instance.factionDatas[2];
     }
 
-
     private static void AssignCountyDataToFaction()
     {
         // This goes through every county and adds itself to the faction data that is already assigned to the county.

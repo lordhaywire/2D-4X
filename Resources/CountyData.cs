@@ -27,12 +27,12 @@ namespace PlayerSpace
         [Export] public AllEnums.Terrain biomeSecondary;
         [Export] public AllEnums.Terrain biomeTertiary;
 
-        public Godot.Collections.Array<CountyPopulation> countyPopulationList = [];
-        public Godot.Collections.Array<CountyPopulation> heroesInCountyList = [];
-        public Godot.Collections.Array<CountyPopulation> armiesInCountyList = [];
-        public Godot.Collections.Array<CountyPopulation> visitingHeroList = [];
-        public Godot.Collections.Array<CountyPopulation> visitingArmyList = [];
-        public Godot.Collections.Array<CountyPopulation> deadPeopleList = [];
+        [Export] public Godot.Collections.Array<CountyPopulation> countyPopulationList = [];
+        [Export] public Godot.Collections.Array<CountyPopulation> heroesInCountyList = [];
+        [Export] public Godot.Collections.Array<CountyPopulation> armiesInCountyList = [];
+        [Export] public Godot.Collections.Array<CountyPopulation> visitingHeroList = [];
+        [Export] public Godot.Collections.Array<CountyPopulation> visitingArmyList = [];
+        [Export] public Godot.Collections.Array<CountyPopulation> deadPeopleList = [];
 
         List<CountyPopulation> possibleWorkers = []; // List of all the idle, helpful and loyal workers for that day.
         readonly List<CountyPopulation> workersToRemoveFromPossibleWorkers = []; // List to collect county populations to be removed from the possibleWorkers.

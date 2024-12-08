@@ -86,15 +86,18 @@ public partial class Globals : Node
 
     [ExportGroup("County Stuff")]
     // These two are populated from AllResources at Ready.
-    [Export] public int numberOfPerishableGoods;
-    [Export] public int numberOfNonperishableGoods;
+    [Export] public int numberOfPerishableGoods; // Total perishable goods
+    [Export] public int numberOfNonperishableGoods; // Total nonperishable goods
     [Export] public int maxScavengableScrap = 10000;
     [Export] public int maxScavengableFood = 10000;
     [Export] public int startingPerishableStorage = 500;
     [Export] public int startingNonperishableStorage = 500;
     [Export] public int startingAmountOfEachGood = 1;
+
+    [ExportGroup("Population Work")]
     [Export] public int dailyScavengedAmount = 2;
     [Export] public int dailyScavengedAmountBonus = 1;
+    [Export] public int inputStockpileMultiplier = 2; // The amount of input goods a improvement tries to hold.
     [Export] public int dailyWorkAmount = 10; // This is for work and construction.
     [Export] public int dailyWorkAmountBonus = 5; // This is for work and construction.
     [Export] public int foodToGainHappiness = 3;

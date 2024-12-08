@@ -9,7 +9,7 @@ namespace GlobalSpace
         public static CountyResourcesAutoLoad Instance { get; private set; }
 
         private string pathToCountyDatas = "res://Resources/Counties/";
-        public Godot.Collections.Array<CountyData> countyDatas = [];
+        [Export] public Godot.Collections.Array<CountyData> countyDatas = [];
 
         public override void _Ready()
         {
