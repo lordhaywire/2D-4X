@@ -29,12 +29,12 @@ public class AllEnums
     public enum CountyImprovementStatus
     {
         None,
-        AwaitingPlayerAssignment,
+        AwaitingPlayerAssignment, // I think this will go away.  This for research and we won't do research this way.
         Producing,
-        //ProducingWithoutWorkers,
         Researching,
+        NotEnoughStockpiledGoods,
         UnderConstruction,
-        InResearchPanel,
+        InResearchPanel, // I think this will go away.  This for research and we won't do research this way.
     }
 
     public enum CountyImprovementType

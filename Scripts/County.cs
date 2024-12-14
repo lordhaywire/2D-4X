@@ -96,10 +96,12 @@ public partial class County : Node2D
 
         // Assign people to the prioritized county improvements.
         countyData.AssignPeopleToPrioritizedImprovements();
+
         // Gets all the idle people and puts them in a list for the next methods.
         countyData.FindIdlePopulation();
 
         countyData.CheckForPreferredWork();
+
         // We may want construction to come before work, so that people will build stuff vs always be working
         // and never build anything.
         countyData.CheckForConstruction();

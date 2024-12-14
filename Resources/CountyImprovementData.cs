@@ -54,7 +54,7 @@ namespace PlayerSpace
         // For some reason this one needs to be initialized, but the faction and county construction costs don't.
         [ExportGroup("Inputs")]
         [Export] public Godot.Collections.Dictionary<GoodData, int> inputGoods = [];
-        [Export] public Godot.Collections.Dictionary<GoodData, int> stockpiledGoods = [];
+        [Export] public Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> countyStockpiledGoods = [];
 
         [Export] public AllEnums.CountyImprovementStatus status;
         [Export] public Godot.Collections.Array<CountyPopulation> populationAtImprovement = [];
@@ -173,6 +173,15 @@ namespace PlayerSpace
             }
             return false;
         }
+
+        public bool CheckIfStatusNotEnoughStockpiledGoods()
+        {
+            if (status == AllEnums.CountyImprovementStatus.NotEnoughStockpiledGoods)
+            {
+                return true;
+            }
+            return false;
+        }
         public void AddPopulationToCountyImprovementList(CountyPopulation countyPopulation)
         {
             // GD.Print($"{countyPopulation.firstName} was added to {improvementName}'s list {populationAtImprovement.Count}.");
@@ -241,7 +250,7 @@ namespace PlayerSpace
                 countyResourceType = countyImprovementData.countyResourceType,
                 factionResourceType = countyImprovementData.factionResourceType,
                 inputGoods = countyImprovementData.inputGoods,
-                stockpiledGoods = countyImprovementData.CopyStockpiledGoods(),
+                countyStockpiledGoods = countyImprovementData.CopyStockpiledGoods(),
                 status = countyImprovementData.status,
                 populationAtImprovement = new Godot.Collections.Array<CountyPopulation>(countyImprovementData.populationAtImprovement),
             };
@@ -249,19 +258,19 @@ namespace PlayerSpace
         }
 
         // We have to do a copy of a copy to make a copy that is unique.
-        public Godot.Collections.Dictionary<GoodData, int> CopyStockpiledGoods()
+        public Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> CopyStockpiledGoods()
         {
-            Godot.Collections.Dictionary<GoodData, int> copiedDictionary = [];
+            Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> copiedDictionary = [];
 
-            foreach (KeyValuePair<GoodData, int> keyValuePair in stockpiledGoods)
+            foreach (KeyValuePair<AllEnums.CountyGoodType, int> keyValuePair in countyStockpiledGoods)
             {
-                copiedDictionary.Add(keyValuePair.Key.NewCopy(keyValuePair.Key), keyValuePair.Value);
+                copiedDictionary.Add(keyValuePair.Key, keyValuePair.Value);
             }
             return copiedDictionary;
-            
         }
-
+        
         // We have to do a copy of a copy to make a copy that is unique.
+        // I bet this isn't really unique.
         public Godot.Collections.Dictionary<GoodData, ProductionData> CopyOutputGoods()
         {
             Godot.Collections.Dictionary<GoodData, ProductionData> copiedDictionary = [];

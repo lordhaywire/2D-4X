@@ -49,5 +49,6 @@ allDailyWorkAmountAtImprovementCompleted = 0
 inputGoods = {
 ExtResource("2_40yu6"): 100
 }
+stockpiledGoods = {}
 status = 0
 populationAtImprovement = []

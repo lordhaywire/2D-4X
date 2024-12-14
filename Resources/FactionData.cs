@@ -17,8 +17,8 @@ namespace PlayerSpace
         [Export] public Godot.Collections.Array<ResearchItemData> researchItems = [];
         [Export] public Godot.Collections.Array<ResearchItemData> researchableResearch = [];
 
-        public List<CountyData> countiesFactionOwns = [];
-        public Godot.Collections.Array<CountyPopulation> allHeroesList = [];
+        [Export] public Godot.Collections.Array<CountyData> countiesFactionOwns = [];
+        [Export] public Godot.Collections.Array<CountyPopulation> allHeroesList = [];
         [Export] public CountyPopulation factionLeader;
 
         public Diplomacy diplomacy = new();

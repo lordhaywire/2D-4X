@@ -92,7 +92,7 @@ public partial class Globals : Node
     [Export] public int maxScavengableFood = 10000;
     [Export] public int startingPerishableStorage = 500;
     [Export] public int startingNonperishableStorage = 500;
-    [Export] public int startingAmountOfEachGood = 1;
+    [Export] public int startingAmountOfEachGood = 100;
 
     [ExportGroup("Population Work")]
     [Export] public int dailyScavengedAmount = 2;
@@ -105,6 +105,7 @@ public partial class Globals : Node
     [Export] public int foodToLoseHappiness = 1;
     [Export] public int occationalResourceUsageAmount = 1;
     [Export] public int occationalNeedIncreaseAmount = 5;
+    [Export] public int daysEmployedIdleBeforeLookingForNewWork = 7;
 
     [ExportGroup("Population Shit")]
     [Export] public PackedScene heroToken;

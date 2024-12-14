@@ -40,6 +40,5 @@ namespace PlayerSpace
             };
             return newProductionData;
         }
-
     }
 }

@@ -124,7 +124,7 @@ namespace PlayerSpace
                     }
                     // Set countyImprovement status to producing.  I think this is going to fuck everything up.
                     countyImprovementData.SetCountyImprovementComplete(this);
-                    // Clear the people on the county improvement list.
+                    // Clear the people building on the county improvement.
                     countyImprovementData.populationAtImprovement.Clear();
                     completedImprovements.Add(countyImprovementData);
 
@@ -341,7 +341,8 @@ namespace PlayerSpace
             //GD.Print($"Completed County Improvements: {completedCountyImprovements.Count}");
             foreach (CountyImprovementData countyImprovementData in completedCountyImprovements)
             {
-                if (CheckIfImprovementWantsWorkers(countyImprovementData) == false)
+                if (CheckIfImprovementWantsWorkers(countyImprovementData) == false 
+                    || countyImprovementData.CheckIfStatusNotEnoughStockpiledGoods() == true)
                 {
                     continue;
                 }
@@ -742,13 +743,17 @@ namespace PlayerSpace
         {
             foreach (CountyImprovementData countyImprovementData in countyImprovements)
             {
-                int maxWorkers = countyImprovementData.status == AllEnums.CountyImprovementStatus.UnderConstruction
-                    ? countyImprovementData.adjustedMaxBuilders
-                    : countyImprovementData.adjustedMaxWorkers;
-                if (countyImprovementData.prioritize == true
-                    && countyImprovementData.populationAtImprovement.Count < maxWorkers)
+                // If there are zero goods stockpiled then don't assign workers.
+                if (countyImprovementData.CheckIfStatusNotEnoughStockpiledGoods() == false)
                 {
-                    AssignWorkersToCountyImprovement(countyImprovementData);
+                    int maxWorkers = countyImprovementData.status == AllEnums.CountyImprovementStatus.UnderConstruction
+                        ? countyImprovementData.adjustedMaxBuilders
+                        : countyImprovementData.adjustedMaxWorkers;
+                    if (countyImprovementData.prioritize == true
+                        && countyImprovementData.populationAtImprovement.Count < maxWorkers)
+                    {
+                        AssignWorkersToCountyImprovement(countyImprovementData);
+                    }
                 }
             }
         }

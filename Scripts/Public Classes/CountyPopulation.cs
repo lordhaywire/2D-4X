@@ -68,7 +68,8 @@ namespace PlayerSpace
             }
         }
 
-        public int daysStarving;
+        [Export] public int employedDaysIdle;
+        [Export] public int daysStarving;
 
         // Resource needs, currently there is just 1 need, Remnants.
         public Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> needs;

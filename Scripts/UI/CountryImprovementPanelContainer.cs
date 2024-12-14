@@ -258,7 +258,9 @@ public partial class CountryImprovementPanelContainer : PanelContainer
 
         foreach (KeyValuePair<GoodData, int> keyValuePair in countyImprovementData.inputGoods)
         {
-            GoodPanelContainer goodPanelContainer = AddInputGoodsPanel(keyValuePair, keyValuePair.Key.goodName, inputsGridContainer);
+            GoodPanelContainer goodPanelContainer 
+                = AddInputGoodsPanel(keyValuePair, keyValuePair.Key.goodName
+                , countyImprovementData.adjustedMaxWorkers, inputsGridContainer);
 
             if (countyImprovementData.status == AllEnums.CountyImprovementStatus.UnderConstruction)
             {
@@ -272,16 +274,15 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     }
 
     // ChatGPT wrote part of this.
-    GoodPanelContainer AddInputGoodsPanel<T>(KeyValuePair<T, int> keyValuePair, string name, GridContainer goodsParentGridContainer)
+    GoodPanelContainer AddInputGoodsPanel<T>(KeyValuePair<T, int> keyValuePair
+        , string name, int numberOfAdjustedWorkers, GridContainer goodsParentGridContainer)
     {
         GoodPanelContainer goodPanelContainer = (GoodPanelContainer)goodPanelContainerPackedScene.Instantiate();
         goodsParentGridContainer.AddChild(goodPanelContainer);
-        goodPanelContainer.goodLabel.Text = $"{Tr(name)} : {keyValuePair.Value}";
+        goodPanelContainer.goodLabel.Text = $"{Tr(name)} : {keyValuePair.Value * numberOfAdjustedWorkers}";
 
         return goodPanelContainer;
     }
-
-
 
     void GenerateConstructionGoodsCosts()
     {
@@ -290,7 +291,9 @@ public partial class CountryImprovementPanelContainer : PanelContainer
 
         foreach (KeyValuePair<GoodData, int> keyValuePair in countyImprovementData.goodsConstructionCost)
         {
-            GoodPanelContainer goodPanelContainer = AddInputGoodsPanel(keyValuePair, keyValuePair.Key.goodName, constructionMaterialCostGridContainer);
+            GoodPanelContainer goodPanelContainer 
+                = AddInputGoodsPanel(keyValuePair, keyValuePair.Key.goodName
+                , countyImprovementData.adjustedMaxWorkers, constructionMaterialCostGridContainer);
 
             CheckForHideUseRemnants(keyValuePair, goodPanelContainer);
         }
