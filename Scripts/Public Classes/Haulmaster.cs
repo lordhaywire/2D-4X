@@ -5,53 +5,126 @@ using System.Collections.Generic;
 namespace PlayerSpace;
 public class Haulmaster
 {
-    // Multiply the input goods by the adjusted max number of workers then multiple by the stockpile multiplier.
+    // Gathers stockpiled goods for the county improvement based on its input needs.
     public static void GatherStockpileGoods(CountyData countyData, CountyImprovementData countyImprovementData)
     {
-        foreach (KeyValuePair<GoodData, int> keyValuePair in countyImprovementData.inputGoods)
+        // Mark the improvement as currently producing.
+        countyImprovementData.status = AllEnums.CountyImprovementStatus.Producing;
+
+        foreach (KeyValuePair<GoodData, int> inputGood in countyImprovementData.inputGoods)
         {
-            int stockpileAmountWanted = keyValuePair.Value * countyImprovementData.adjustedMaxWorkers 
-                * Globals.Instance.inputStockpileMultiplier;
-            GoodData countyGood = countyData.goods[keyValuePair.Key.countyGoodType];
-            // The county improvement needs to get as many of the good as they can so it loops through
-            // and does that.
+            // Calculate the desired stockpile range.
+            int minStockpileAmount = inputGood.Value * countyImprovementData.adjustedMaxWorkers 
+                * Globals.Instance.minDaysStockpile;
+            int maxStockpileAmount = inputGood.Value * countyImprovementData.adjustedMaxWorkers 
+                * Globals.Instance.maxDaysStockpile;
 
-            GD.Print($"Input good : {countyImprovementData.improvementName} " +
-            $": {keyValuePair.Key.goodName} : {countyGood.Amount} : " +
-            $"{countyImprovementData.countyStockpiledGoods[keyValuePair.Key.countyGoodType]}");
-            if (stockpileAmountWanted <= countyGood.Amount)
-            {
-                countyGood.Amount -= stockpileAmountWanted;
-                countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType] += stockpileAmountWanted;
-            }
-            else
-            {
-                countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType] += countyGood.Amount;
-                countyGood.Amount = 0;
-            }
-            GD.Print($"Input good : {countyImprovementData.improvementName} " +
-                $": {keyValuePair.Key.goodName} : {countyGood.Amount} : " +
-                $"{countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType]}");
+            // Get the county's stockpile and available amount for the required good.
+            GoodData countyGood = countyData.goods[inputGood.Key.countyGoodType];
+            int currentStockpileAmount = countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType];
 
-            CheckIfNoGoodsStockpiled(countyImprovementData, countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType]);
+            GD.Print($"{countyImprovementData.improvementName} requires: {inputGood.Key.goodName}, " +
+                     $"Available: {countyGood.Amount}, Stockpiled: {currentStockpileAmount}");
+
+            // Skip if the current stockpile meets or exceeds the maximum desired amount.
+            if (currentStockpileAmount >= maxStockpileAmount)
+            {
+                continue;
+            }
+
+            // Determine how much to transfer from the county's stock to the improvement's stockpile.
+            int amountToStockpile = Math.Min(minStockpileAmount, countyGood.Amount);
+
+            // Transfer goods and update stockpile.
+            if (amountToStockpile > 0)
+            {
+                countyGood.Amount -= amountToStockpile;
+                countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType] += amountToStockpile;
+            }
+
+            // If the stockpile is below the minimum desired amount, update the improvement status.
+            if (currentStockpileAmount < minStockpileAmount)
+            {
+                countyImprovementData.status = AllEnums.CountyImprovementStatus.LowStockpiledGoods;
+            }
+
+            // Log the post-transfer state.
+            GD.Print($"Updated {countyImprovementData.improvementName} stockpile for {inputGood.Key.goodName}: " +
+                     $"Available: {countyGood.Amount}, Stockpiled: {countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType]}");
         }
     }
 
+    /*
+    // Multiply the input goods by the adjusted max number of workers then multiple by the stockpile multiplier.
+    public static void GatherStockpileGoods(CountyData countyData, CountyImprovementData countyImprovementData)
+    {
+        countyImprovementData.status = AllEnums.CountyImprovementStatus.Producing;
+        foreach (KeyValuePair<GoodData, int> keyValuePair in countyImprovementData.inputGoods)
+        {
+            int minStockpileAmountWanted = keyValuePair.Value * countyImprovementData.adjustedMaxWorkers
+                * Globals.Instance.minDaysStockpile;
+            int maxStockpileAmountWanted = keyValuePair.Value * countyImprovementData.adjustedMaxWorkers
+                * Globals.Instance.maxDaysStockpile;
+
+            GoodData countyGood = countyData.goods[keyValuePair.Key.countyGoodType];
+            int amountStockpiled = countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType];
+
+            // The county improvement needs to get as many of the good as they can.
+
+            GD.Print($"Input good : {countyImprovementData.improvementName} " +
+            $": {keyValuePair.Key.goodName} : County Amount {countyGood.Amount} : Stockpiled Amount " +
+            $"{amountStockpiled}");
+
+
+            // If the county improvement has over the max amount then it skips to the next good it needs.
+            if (amountStockpiled >= maxStockpileAmountWanted)
+            {
+                continue;
+            }
+
+            // If the goods wanted to stockpile is greater then 2 days (currently) it will take 2 days worth.
+            if (countyGood.Amount >= minStockpileAmountWanted)
+            {
+                countyGood.Amount -= minStockpileAmountWanted;
+                countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType] 
+                    += minStockpileAmountWanted;
+            }
+            else
+            {
+                countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType] 
+                    += countyGood.Amount;
+                countyGood.Amount = 0;
+            }
+
+            if(amountStockpiled < minStockpileAmountWanted)
+            {
+                countyImprovementData.status = AllEnums.CountyImprovementStatus.LowStockpiledGoods;
+            }
+            GD.Print($"Input good : {countyImprovementData.improvementName} " +
+                $": {keyValuePair.Key.goodName} : {countyGood.Amount} : " +
+                $"{amountStockpiled}");
+        }
+    }
+    */
+    /*
     /// <summary>
-    /// It sets the countyimprovementStatus to Not enough stockpiled good, and if there is any good that is
+    /// It sets the countyimprovementStatus to low stockpiled good, and if there is any good that is
     /// greater then 0 it sets it back to producing.
     /// </summary>
     /// <param name="countyImprovementData"></param>
     /// <param name="stockpiledAmount"></param>
-    private static void CheckIfNoGoodsStockpiled(CountyImprovementData countyImprovementData, int stockpiledAmount)
+    private static void CheckIfLowStockpiledGoods(CountyImprovementData countyImprovementData
+        , int goodNeededPerDay, int stockpiledAmount)
     {
-        countyImprovementData.status = AllEnums.CountyImprovementStatus.NotEnoughStockpiledGoods;
-        if (stockpiledAmount > 0)
+        countyImprovementData.status = AllEnums.CountyImprovementStatus.LowStockpiledGoods;
+        int neededGoods = Globals.Instance.lowStockpiledGoodDays * countyImprovementData.adjustedMaxWorkers
+            * goodNeededPerDay;
+        if (stockpiledAmount > neededGoods)
         {
             countyImprovementData.status = AllEnums.CountyImprovementStatus.Producing;
         }
     }
-
+    */
     public static void GenerateStockpileGoodsDictionary(CountyImprovementData countyImprovementData)
     {
         foreach (KeyValuePair<GoodData, int> keyValuePair in countyImprovementData.inputGoods)

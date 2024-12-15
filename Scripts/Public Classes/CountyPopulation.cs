@@ -5,24 +5,25 @@ namespace PlayerSpace
 {
     public partial class CountyPopulation : Resource
     {
-        public FactionData factionData;
-        public int location;
+        [Export] public FactionData factionData;
+        [Export] public int location;
 
-        public int lastLocation;
-        public int destination;
+        [Export] public int lastLocation;
+        [Export] public int destination;
 
         [ExportGroup("Info")]
         [Export] public string firstName;
-        public string lastName;
-        public bool isMale;
-        public int age;
+        [Export] public string lastName;
+        [Export] public bool isMale;
+        [Export] public int age;
 
-        public bool isHero;
-        public bool isFactionLeader;
-        public bool isAide;
-        private bool isArmyLeader;
-        public bool isWorker;
+        [Export] public bool isHero;
+        [Export] public bool isFactionLeader;
+        [Export] public bool isAide;
+        [Export] private bool isArmyLeader;
+        [Export] public bool isWorker;
 
+        [Export]
         public bool IsArmyLeader
         {
             get { return isArmyLeader; }
@@ -37,15 +38,16 @@ namespace PlayerSpace
         }
 
         [ExportGroup("Perks")]
-        public Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks;
+        [Export] public Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks;
 
         [ExportGroup("Expendables")]
-        public int hitpoints;
-        public int maxHitpoints;
+        [Export] public int hitpoints;
+        [Export] public int maxHitpoints;
 
-        public int moraleExpendable; // I think we are going to have to have this as leader morale or army morale or some shit.
-        private readonly int loyaltyBase;
-        private int loyaltyAdjusted;
+        [Export] public int moraleExpendable; // I think we are going to have to have this as leader morale or army morale or some shit.
+        [Export] private int loyaltyBase;
+        [Export] private int loyaltyAdjusted;
+        [Export]
         public int LoyaltyAdjusted
         {
             get { return loyaltyAdjusted; }
@@ -55,8 +57,9 @@ namespace PlayerSpace
                 loyaltyAdjusted = Math.Min(value, 100);
             }
         }
-        private int happiness;
+        [Export] private int happiness;
 
+        [Export]
         public int Happiness
         {
             get { return happiness; }
@@ -72,24 +75,23 @@ namespace PlayerSpace
         [Export] public int daysStarving;
 
         // Resource needs, currently there is just 1 need, Remnants.
-        public Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> needs;
+        [Export] public Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> needs;
 
         [ExportGroup("Attributes")]
-        public Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes = [];
+        [Export] public Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes = [];
 
         [ExportGroup("Skills")]
-        public Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills = [];
-        public SkillData preferredSkill;
-        public InterestData interestData;
+        [Export] public Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills = [];
+        [Export] public SkillData preferredSkill;
+        [Export] public InterestData interestData;
 
         [ExportGroup("Work")]
-        public AllEnums.Activities activity;
-        public CountyImprovementData currentCountyImprovement; // Used for work and building.
+        [Export] public AllEnums.Activities activity;
+        [Export] public CountyImprovementData currentCountyImprovement; // Used for work and building.
 
-        public ResearchItemData passiveResearchItemData;
-        public ResearchItemData currentResearchItemData;
-        
-        [ExportGroup("Token")]
+        [Export] public ResearchItemData passiveResearchItemData;
+        [Export] public ResearchItemData currentResearchItemData;
+
         public SelectToken token;
 
         public bool CheckForPerk(AllEnums.Perks perk)

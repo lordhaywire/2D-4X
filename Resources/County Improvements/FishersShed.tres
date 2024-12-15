@@ -44,6 +44,6 @@ allDailyWorkAmountAtImprovementCompleted = 0
 inputGoods = {
 ExtResource("1_1yts0"): 1
 }
-stockpiledGoods = {}
+countyStockpiledGoods = {}
 status = 0
 populationAtImprovement = []

@@ -342,10 +342,11 @@ namespace PlayerSpace
             foreach (CountyImprovementData countyImprovementData in completedCountyImprovements)
             {
                 if (CheckIfImprovementWantsWorkers(countyImprovementData) == false 
-                    || countyImprovementData.CheckIfStatusNotEnoughStockpiledGoods() == true)
+                    || countyImprovementData.CheckIfStatusLowStockpiledGoods() == true)
                 {
                     continue;
                 }
+                
                 foreach (CountyPopulation countyPopulation in possibleWorkers)
                 {
                     // If they have the preferred skill, they are added to the county improvement
@@ -379,7 +380,8 @@ namespace PlayerSpace
             //GD.Print("Possible Workers List Count: " + possibleWorkers.Count);
             foreach (CountyImprovementData countyImprovementData in completedCountyImprovements)
             {
-                if (CheckIfImprovementWantsWorkers(countyImprovementData) == false)
+                if (CheckIfImprovementWantsWorkers(countyImprovementData) == false 
+                    || countyImprovementData.CheckIfStatusLowStockpiledGoods() == true)
                 {
                     continue;
                 }
@@ -744,7 +746,7 @@ namespace PlayerSpace
             foreach (CountyImprovementData countyImprovementData in countyImprovements)
             {
                 // If there are zero goods stockpiled then don't assign workers.
-                if (countyImprovementData.CheckIfStatusNotEnoughStockpiledGoods() == false)
+                if (countyImprovementData.CheckIfStatusLowStockpiledGoods() == false)
                 {
                     int maxWorkers = countyImprovementData.status == AllEnums.CountyImprovementStatus.UnderConstruction
                         ? countyImprovementData.adjustedMaxBuilders

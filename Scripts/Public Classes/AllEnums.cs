@@ -32,7 +32,7 @@ public class AllEnums
         AwaitingPlayerAssignment, // I think this will go away.  This for research and we won't do research this way.
         Producing,
         Researching,
-        NotEnoughStockpiledGoods,
+        LowStockpiledGoods,
         UnderConstruction,
         InResearchPanel, // I think this will go away.  This for research and we won't do research this way.
     }

@@ -45,31 +45,6 @@ public class Banker
         }
     }
 
-    /// <summary>
-    /// Return the work amount for a single person that should be subtracted from the resource cost.
-    /// </summary>
-    /// <param name="countyPopulation"></param>
-    /// <returns></returns>
-    public static int GenerateWorkAmountWithSkillCheck(CountyPopulation countyPopulation)
-    {
-        //CountyImprovementData countyImprovementData = countyPopulation.currentCountyImprovement;
-        int skillLevel = countyPopulation.skills[countyPopulation.currentCountyImprovement.workSkill].skillLevel;
-        int workAmount;
-        if (SkillData.Check(countyPopulation, skillLevel
-            , countyPopulation.skills[countyPopulation.currentCountyImprovement.workSkill].attribute
-            , false) == true)
-        {
-            workAmount = Globals.Instance.dailyWorkAmount + Globals.Instance.dailyWorkAmountBonus;
-            return workAmount;
-        }
-        else
-        {
-            workAmount = Globals.Instance.dailyWorkAmount;
-            return workAmount;
-        }
-
-    }
-
     // This should be in PopulationWork.
     public static int GenerateScavengedResourceWithSkillCheck(CountyPopulation countyPopulation)
     {

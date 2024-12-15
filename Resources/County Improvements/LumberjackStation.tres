@@ -30,6 +30,6 @@ factionResourceType = 1
 outputGoods = {}
 allDailyWorkAmountAtImprovementCompleted = 0
 inputGoods = {}
-stockpiledGoods = {}
+countyStockpiledGoods = {}
 status = 0
 populationAtImprovement = []

@@ -174,9 +174,9 @@ namespace PlayerSpace
             return false;
         }
 
-        public bool CheckIfStatusNotEnoughStockpiledGoods()
+        public bool CheckIfStatusLowStockpiledGoods()
         {
-            if (status == AllEnums.CountyImprovementStatus.NotEnoughStockpiledGoods)
+            if (status == AllEnums.CountyImprovementStatus.LowStockpiledGoods)
             {
                 return true;
             }

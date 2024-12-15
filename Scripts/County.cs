@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PlayerSpace;
 
@@ -89,7 +90,9 @@ public partial class County : Node2D
     {
         // Prioritized County Improvements needs to go first.
         // County Improvements gather goods for their stockpile.
-        foreach(CountyImprovementData countyImprovementData in countyData.completedCountyImprovements)
+        // Sorts the list first by prioritized, then gathers the stockpiled goods.  Written by ChatGPT.
+        foreach (CountyImprovementData countyImprovementData in countyData.completedCountyImprovements
+            .OrderByDescending(c => c.prioritize))
         {
             Haulmaster.GatherStockpileGoods(countyData, countyImprovementData);
         }
@@ -112,6 +115,7 @@ public partial class County : Node2D
         countyData.CheckForScavengingRemnants();
 
         // Counts the idle works and sets the idleWorkers variable in the County Data.
+        // This is for the player UI mostly.
         countyData.CountIdleWorkers();
     }
 

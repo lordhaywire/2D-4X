@@ -80,6 +80,8 @@ public partial class CountryImprovementPanelContainer : PanelContainer
                 GenerateConstructionGoodsCosts();
                 break;
             // This one seems to be working for normal improvements and storage as well.
+            // Currently low stockpiled goods status is the same, but it will probably change.
+            case AllEnums.CountyImprovementStatus.LowStockpiledGoods:
             case AllEnums.CountyImprovementStatus.Producing:
                 GenerateOutputGoods();
                 GenerateInputGoods();

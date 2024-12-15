@@ -5,7 +5,7 @@ namespace PlayerSpace
 {
     public partial class SelectToken : CharacterBody2D
     {
-        public CountyPopulation countyPopulation;
+        [Export] public CountyPopulation countyPopulation;
         [Export] public Sprite2D sprite;
 
         [Export] public Texture2D selectedTexture;
@@ -20,6 +20,8 @@ namespace PlayerSpace
 
         [Export] public bool isRetreating;
         [Export] private bool inCombat;
+
+        [Export]
         public bool InCombat
         {
             get { return inCombat; }

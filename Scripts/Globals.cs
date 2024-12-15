@@ -92,12 +92,14 @@ public partial class Globals : Node
     [Export] public int maxScavengableFood = 10000;
     [Export] public int startingPerishableStorage = 500;
     [Export] public int startingNonperishableStorage = 500;
-    [Export] public int startingAmountOfEachGood = 100;
+    [Export] public int startingAmountOfEachGood = 15;
 
+    [ExportGroup("County Improvement Stuff")]
+    [Export] public int minDaysStockpile = 2; // The amount of input goods (days) a improvement tries to hold.
+    [Export] public int maxDaysStockpile = 14; // The max amount (in days) of goods a county improvement will try to stockpile
     [ExportGroup("Population Work")]
     [Export] public int dailyScavengedAmount = 2;
     [Export] public int dailyScavengedAmountBonus = 1;
-    [Export] public int inputStockpileMultiplier = 2; // The amount of input goods a improvement tries to hold.
     [Export] public int dailyWorkAmount = 10; // This is for work and construction.
     [Export] public int dailyWorkAmountBonus = 5; // This is for work and construction.
     [Export] public int foodToGainHappiness = 3;

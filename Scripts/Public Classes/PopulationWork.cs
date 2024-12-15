@@ -30,9 +30,8 @@ namespace PlayerSpace
                         countyPopulation.UpdateActivity(AllEnums.Activities.Idle);
                         break;
                     case AllEnums.Activities.Build:
-                    case AllEnums.Activities.Work:
                         // Produce resources based on the countyimprovement
-                        ApplyWorkPerPerson(countyData, countyPopulation);
+                        ApplyWorkPerPerson(countyPopulation);
 
                         // Check for Skill Learning.
                         // The bool doesn't matter for this skill.
@@ -41,6 +40,85 @@ namespace PlayerSpace
                         // get set to idle.
                         PopulationAI.KeepWorkingAtCountyImprovement(countyPopulation);
                         break;
+                    case AllEnums.Activities.Work:
+                        {
+                            // Retrieve the current county improvement for the population.
+                            CountyImprovementData countyImprovementData = countyPopulation.currentCountyImprovement;
+
+                            // Check if there are enough input goods to proceed with work.
+                            bool hasEnoughInputGoods = true;
+
+                            foreach (KeyValuePair<GoodData, int> inputGood in countyImprovementData.inputGoods)
+                            {
+                                int stockpileAmount = countyImprovementData.countyStockpiledGoods[inputGood.Key.countyGoodType];
+                                GD.Print($"{countyPopulation.location} Input Good vs Stockpile amount: {inputGood.Value} " +
+                                    $"vs {stockpileAmount}");
+                                if (inputGood.Value > stockpileAmount)
+                                {
+                                    hasEnoughInputGoods = false;
+                                    countyPopulation.employedDaysIdle++;
+                                    GD.Print($"{countyPopulation.firstName} employed days idle: " +
+                                        $"{countyPopulation.employedDaysIdle}");
+                                    break; // No need to check further if one good is insufficient.
+                                }
+                            }
+
+                            if (hasEnoughInputGoods)
+                            {
+                                // Deduct input goods and perform work actions.
+                                foreach (KeyValuePair<GoodData, int> inputGood in countyImprovementData.inputGoods)
+                                {
+                                    countyImprovementData.countyStockpiledGoods[inputGood.Key.countyGoodType] 
+                                        -= inputGood.Value;
+                                }
+
+                                // Perform work-related processes.
+                                ApplyWorkPerPerson(countyPopulation);
+
+                                // Trigger skill learning.
+                                SkillData.CheckLearning(countyPopulation, true);
+                            }
+                            GD.Print($"Second: {countyPopulation.firstName} employed days idle: " +
+                                $"{countyPopulation.employedDaysIdle}");
+                            // Check loyalty and update work status if necessary.
+                            //PopulationAI.KeepWorkingAtCountyImprovement(countyPopulation);
+                            break;
+                        }
+
+                    //case AllEnums.Activities.Work:
+                    //    // Check and spend stockpiled goods, if there isn't enough of a stockpiled good
+                    //    // then work should not be applied and the time till a person quits it added.
+                    //    CountyImprovementData countyImprovementData = countyPopulation.currentCountyImprovement;
+                    //    bool enoughInputGoods = true;
+                    //    foreach (KeyValuePair<GoodData, int> inputGood in countyImprovementData.inputGoods)
+                    //    {
+                    //        if (inputGood.Value
+                    //            < countyImprovementData.countyStockpiledGoods[inputGood.Key.countyGoodType])
+                    //        {
+                    //            enoughInputGoods = false;
+                    //            countyPopulation.employedDaysIdle += 1;
+                    //        }
+                    //    }
+                    //    if (enoughInputGoods == true)
+                    //    {
+                    //        foreach (KeyValuePair<GoodData, int> inputGood in countyImprovementData.inputGoods)
+                    //        {
+                    //            // Subtract input good value from stockpile
+                    //            countyImprovementData.countyStockpiledGoods[inputGood.Key.countyGoodType]
+                    //                -= inputGood.Value;
+                    //            // Produce resources based on the countyimprovement
+                    //            ApplyWorkPerPerson(countyPopulation);
+
+                    //            // Check for Skill Learning.
+                    //            // The bool doesn't matter for this skill.
+                    //            SkillData.CheckLearning(countyPopulation, true);
+                    //        }
+                    //    }
+
+                    //    // Check loyalty to see if they still want to work there and if they don't then they
+                    //    // get set to idle.
+                    //    PopulationAI.KeepWorkingAtCountyImprovement(countyPopulation);
+                    //    break;
                     case AllEnums.Activities.Research:
                         // Person working at research office, or hero generates research.
 
@@ -63,7 +141,7 @@ namespace PlayerSpace
         /// </summary>
         /// <param name="countyData"></param>
         /// <param name="countyPopulation"></param>
-        public static void ApplyWorkPerPerson(CountyData countyData, CountyPopulation countyPopulation)
+        public static void ApplyWorkPerPerson(CountyPopulation countyPopulation)
         {
             if (countyPopulation.currentCountyImprovement == null)
             {
@@ -71,7 +149,7 @@ namespace PlayerSpace
             }
             //GD.Print($"{countyData.countyName} Someone is working at {countyPopulation.currentCountyImprovement.improvementName}");
             countyPopulation.currentCountyImprovement.allDailyWorkAmountAtImprovementCompleted
-                += Banker.GenerateWorkAmountWithSkillCheck(countyPopulation);
+                += GenerateWorkAmountWithSkillCheck(countyPopulation);
             /*
             GD.Print($"{countyPopulation.location}: " +
                 $"{countyPopulation.currentCountyImprovement.improvementName}: " +
@@ -80,6 +158,30 @@ namespace PlayerSpace
             */
         }
 
+        /// <summary>
+        /// Return the work amount for a single person that should be subtracted from the resource cost.
+        /// </summary>
+        /// <param name="countyPopulation"></param>
+        /// <returns></returns>
+        public static int GenerateWorkAmountWithSkillCheck(CountyPopulation countyPopulation)
+        {
+            //CountyImprovementData countyImprovementData = countyPopulation.currentCountyImprovement;
+            int skillLevel = countyPopulation.skills[countyPopulation.currentCountyImprovement.workSkill].skillLevel;
+            int workAmount;
+            if (SkillData.Check(countyPopulation, skillLevel
+                , countyPopulation.skills[countyPopulation.currentCountyImprovement.workSkill].attribute
+                , false) == true)
+            {
+                workAmount = Globals.Instance.dailyWorkAmount + Globals.Instance.dailyWorkAmountBonus;
+                return workAmount;
+            }
+            else
+            {
+                workAmount = Globals.Instance.dailyWorkAmount;
+                return workAmount;
+            }
+
+        }
         /// <summary>
         /// This should go through the list of completed county improvements and does the math
         /// to generate the goods produced.
@@ -90,7 +192,7 @@ namespace PlayerSpace
             foreach (CountyImprovementData underConstructionCountyImprovementData in
                 countyData.underConstructionCountyImprovements)
             {
-                underConstructionCountyImprovementData.CurrentAmountOfConstruction 
+                underConstructionCountyImprovementData.CurrentAmountOfConstruction
                     += underConstructionCountyImprovementData.allDailyWorkAmountAtImprovementCompleted;
             }
             foreach (CountyImprovementData countyImprovementData in countyData.completedCountyImprovements)
