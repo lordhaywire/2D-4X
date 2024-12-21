@@ -97,6 +97,7 @@ public partial class Globals : Node
     [ExportGroup("County Improvement Stuff")]
     [Export] public int minDaysStockpile = 2; // The amount of input goods (days) a improvement tries to hold.
     [Export] public int maxDaysStockpile = 14; // The max amount (in days) of goods a county improvement will try to stockpile
+    
     [ExportGroup("Population Work")]
     [Export] public int dailyScavengedAmount = 2;
     [Export] public int dailyScavengedAmountBonus = 1;

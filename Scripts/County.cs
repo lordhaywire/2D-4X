@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -30,13 +31,23 @@ public partial class County : Node2D
         // This is here so that it doesn't subscribe to the clock when the Map Editor is running.
         if (GetTree().CurrentScene.SceneFilePath == "res://Scenes/Main.tscn")
         {
-            Clock.Instance.SetDay += EndOfDay;
-            Clock.Instance.SetDay += DayStart;
+            Clock.Instance.DailyHourOne += EndOfDay;
+            Clock.Instance.Weekly += Weekly;
+            Clock.Instance.DailyHourThree += StartDay;
         }
+    }
+
+    private void Weekly()
+    {
+        GD.PrintRich($"[rainbow]County : Weekly!!!!!");
+        // Check loyalty and update work status if necessary.
+        PopulationWork.WorkWeekOverForPopulation(countyData.countyPopulationList);
     }
 
     private void EndOfDay()
     {
+        GD.PrintRich($"[rainbow]County : EndOfDay!!!!!");
+
         CountyAI countyAI = new();
 
         // GD.Print("County Hour One.");
@@ -86,8 +97,10 @@ public partial class County : Node2D
         }
     }
 
-    private void DayStart()
+    private void StartDay()
     {
+        GD.PrintRich($"[rainbow]County : StartOfDay!!!!!");
+
         // Prioritized County Improvements needs to go first.
         // County Improvements gather goods for their stockpile.
         // Sorts the list first by prioritized, then gathers the stockpiled goods.  Written by ChatGPT.
@@ -121,8 +134,8 @@ public partial class County : Node2D
 
     private void OnTreeExit()
     {
-        Clock.Instance.SetDay -= EndOfDay;
-        Clock.Instance.SetDay -= DayStart;
+        Clock.Instance.DailyHourOne -= EndOfDay;
+        Clock.Instance.DailyHourOne -= StartDay;
     }
 }
 

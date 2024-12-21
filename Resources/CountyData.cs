@@ -105,12 +105,7 @@ namespace PlayerSpace
         public void CheckIfCountyImprovementsAreDone()
         {
             List<CountyImprovementData> completedImprovements = [];
-            completedImprovements.Clear();
-            foreach (CountyImprovementData countyImprovementData in underConstructionCountyImprovements)
-            {
-                GD.Print($"Under Construction Improvements - Checking if done: " +
-                    $"{countyImprovementData.improvementName}");
-            }
+            completedImprovements.Clear(); // Why is this here?
             foreach (CountyImprovementData countyImprovementData in underConstructionCountyImprovements)
             {
                 // If the county improvement is done, make everyone working on it idle.
@@ -133,6 +128,9 @@ namespace PlayerSpace
                     {
                         EventLog.Instance.AddLog($"{Tr(countyImprovementData.improvementName)} {Tr("PHRASE_HAS_BEEN_COMPLETED")}.");
                     }
+
+                    GD.Print($"Under Construction Improvements - Checking if done : " +
+                        $"{countyImprovementData.improvementName} : {countyImprovementData.status}");
                 }
             }
             // Move the county improvement to the correct list and remove it from the old list.
@@ -322,7 +320,7 @@ namespace PlayerSpace
             }
         }
 
-        public bool CheckIfImprovementWantsWorkers(CountyImprovementData countyImprovementData)
+        public bool CheckIfImprovementTypeNeedsWorkers(CountyImprovementData countyImprovementData)
         {
             if(countyImprovementData.CheckIfResearchImprovement() == true)
             {
@@ -341,7 +339,7 @@ namespace PlayerSpace
             //GD.Print($"Completed County Improvements: {completedCountyImprovements.Count}");
             foreach (CountyImprovementData countyImprovementData in completedCountyImprovements)
             {
-                if (CheckIfImprovementWantsWorkers(countyImprovementData) == false 
+                if (CheckIfImprovementTypeNeedsWorkers(countyImprovementData) == false 
                     || countyImprovementData.CheckIfStatusLowStockpiledGoods() == true)
                 {
                     continue;
@@ -380,14 +378,16 @@ namespace PlayerSpace
             //GD.Print("Possible Workers List Count: " + possibleWorkers.Count);
             foreach (CountyImprovementData countyImprovementData in completedCountyImprovements)
             {
-                if (CheckIfImprovementWantsWorkers(countyImprovementData) == false 
+                if (CheckIfImprovementTypeNeedsWorkers(countyImprovementData) == false 
                     || countyImprovementData.CheckIfStatusLowStockpiledGoods() == true)
                 {
+                    GD.Print("I think something is wrong here!!!!!");
                     continue;
                 }
                 foreach (CountyPopulation countyPopulation in possibleWorkers)
                 {
-                    // It needs to check if workers full here, so that it doesn't add extra people to the 
+                    // It needs to check if county improvement's workers are full,
+                    // so that it doesn't add extra people to the 
                     // county improvement.
                     if (countyImprovementData.CheckIfWorkersFull() == false)
                     {
@@ -745,7 +745,7 @@ namespace PlayerSpace
         {
             foreach (CountyImprovementData countyImprovementData in countyImprovements)
             {
-                // If there are zero goods stockpiled then don't assign workers.
+                // If there are low goods stockpiled then don't assign workers.
                 if (countyImprovementData.CheckIfStatusLowStockpiledGoods() == false)
                 {
                     int maxWorkers = countyImprovementData.status == AllEnums.CountyImprovementStatus.UnderConstruction
@@ -782,10 +782,11 @@ namespace PlayerSpace
                 : [.. possibleWorkers.OrderByDescending(cp => cp.skills[countyImprovementData.workSkill].skillLevel)];
 
             int remainingWorkerSlots = maxWorkers - countyImprovementData.populationAtImprovement.Count;
-            // GD.Print($"{countyImprovementData.improvementName} Population At Improvement: "
-            //+ countyImprovementData.populationAtImprovement.Count);
+             GD.Print($"{countyName} : {countyImprovementData.improvementName} Population At Improvement: "
+            + countyImprovementData.populationAtImprovement.Count);
 
             // Assign sorted workers if there is room
+            // This is removing them from any possible county improvement they where assigned to.
             foreach (CountyPopulation countyPopulation in possibleWorkers.Take(remainingWorkerSlots))
             {
                 countyPopulation.RemoveFromCountyImprovement();
@@ -793,6 +794,7 @@ namespace PlayerSpace
                 UpdateWorkLocation(countyPopulation, countyImprovementData);
                 workersToRemoveFromPossibleWorkers.Add(countyPopulation);
             }
+            
             RemoveWorkersFromPossibleWorkers();
         }
 

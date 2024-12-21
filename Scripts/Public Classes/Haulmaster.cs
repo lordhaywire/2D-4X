@@ -21,13 +21,14 @@ public class Haulmaster
 
             // Get the county's stockpile and available amount for the required good.
             GoodData countyGood = countyData.goods[inputGood.Key.countyGoodType];
-            int currentStockpileAmount = countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType];
 
             GD.Print($"{countyImprovementData.improvementName} requires: {inputGood.Key.goodName}, " +
-                     $"Available: {countyGood.Amount}, Stockpiled: {currentStockpileAmount}");
+                     $"Available: {countyGood.Amount}, " +
+                     $"Stockpiled: {countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType]}");
 
             // Skip if the current stockpile meets or exceeds the maximum desired amount.
-            if (currentStockpileAmount >= maxStockpileAmount)
+            if (countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType] 
+                >= maxStockpileAmount)
             {
                 continue;
             }
@@ -43,14 +44,18 @@ public class Haulmaster
             }
 
             // If the stockpile is below the minimum desired amount, update the improvement status.
-            if (currentStockpileAmount < minStockpileAmount)
+            if (countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType] 
+                < minStockpileAmount)
             {
                 countyImprovementData.status = AllEnums.CountyImprovementStatus.LowStockpiledGoods;
             }
 
             // Log the post-transfer state.
             GD.Print($"Updated {countyImprovementData.improvementName} stockpile for {inputGood.Key.goodName}: " +
-                     $"Available: {countyGood.Amount}, Stockpiled: {countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType]}");
+                     $"Available: {countyGood.Amount}, " +
+                     $"Stockpiled: {countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType]} " +
+                     $"Min Stockpiled: {minStockpileAmount} " + 
+                     $"Status: {countyImprovementData.status}");
         }
     }
 

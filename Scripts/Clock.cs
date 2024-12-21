@@ -7,8 +7,14 @@ public partial class Clock : Node
 {
     public static Clock Instance { get; private set; }
 
-    public event Action SetDay;
+    public event Action DailyHourOne;
+    public event Action DailyHourTwo;
+    public event Action DailyHourThree;
+
+    public event Action Weekly;
     public event Action HourChanged; // This is currently used for battles.
+
+    private int occationalEvent = 7;
     
     [Export] private Label dayLabel;
     [Export] private Label HourLabel;
@@ -67,8 +73,23 @@ public partial class Clock : Node
             // This will not trigger on day zero.
             if (hours == 1)
             {
-                SetDay?.Invoke();
+                DailyHourOne?.Invoke();
+
             }
+            if(hours == 2)
+            {
+                // This will happen on day zero as well.
+                if (days % occationalEvent == 0)
+                {
+                    Weekly?.Invoke();
+                }
+                DailyHourTwo?.Invoke();
+            }
+            if(hours == 3)
+            {
+                DailyHourThree?.Invoke();
+            }
+
             HourChanged?.Invoke();
             //GD.Print("Hours: " + hours);
         }
@@ -115,7 +136,7 @@ public partial class Clock : Node
         }
     }
 
-    // Should this be _PhysicsProcess or just _Process
+    // Should this be _PhysicsProcess or just _Process?
     public override void _PhysicsProcess(double delta)
     {
         //GD.Print("Delta: " + delta);

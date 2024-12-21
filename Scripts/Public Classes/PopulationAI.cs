@@ -83,7 +83,7 @@ public class PopulationAI
             countyPopulation.RemoveFromResearch();
         }
     }
-    public static void KeepWorkingAtCountyImprovement(CountyPopulation countyPopulation)
+    public static void LoyaltyCheckToKeepWorkingAtCountyImprovement(CountyPopulation countyPopulation)
     {
         if (CheckLoyaltyWithSkillCheck(countyPopulation) == false)
         {

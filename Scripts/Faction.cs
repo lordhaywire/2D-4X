@@ -14,12 +14,19 @@ namespace PlayerSpace
 
         private void SubscribeToEvents()
         {
-            Clock.Instance.SetDay += EndOfDay;
-            Clock.Instance.SetDay += DayStart;
+            Clock.Instance.DailyHourOne += EndOfDay;
+            Clock.Instance.Weekly += Weekly;
+            Clock.Instance.DailyHourThree += DayStart;
+        }
+
+        private void Weekly()
+        {
+            GD.PrintRich($"[rainbow]Faction : Weekly!!!!!");
         }
 
         private void EndOfDay()
         {
+            GD.PrintRich($"[rainbow]Faction : EndOfDay!!!!!");
             Banker banker = new();
 
             factionData.SubtractFactionResources();
@@ -54,6 +61,8 @@ namespace PlayerSpace
         private void DayStart()
         {
             // This is just commented out until we get to Research.
+            GD.PrintRich($"[rainbow]Faction : StartOfDay!!!!!");
+
             FactionAI factionAI = new();
             if (factionData != Globals.Instance.playerFactionData)
             {
@@ -83,8 +92,8 @@ namespace PlayerSpace
 
         private void OnTreeExit()
         {
-            Clock.Instance.SetDay -= EndOfDay;
-            Clock.Instance.SetDay -= DayStart;
+            Clock.Instance.DailyHourOne -= EndOfDay;
+            Clock.Instance.DailyHourOne -= DayStart;
         }
     }
 }

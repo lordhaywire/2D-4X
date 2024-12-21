@@ -53,7 +53,7 @@ namespace PlayerSpace
         {
             // Checkes for spawned armies.  If there is one, then it returns null, otherwise it spawns one.
             //GD.Print("Defending Army List Count: " + battleLocation.countyData.armiesInCountyList.Count());
-            if(battleLocation.countyData.armiesInCountyList.Count() > 0)
+            if(battleLocation.countyData.armiesInCountyList.Count > 0)
             {
                 foreach(CountyPopulation countyPopulation in battleLocation.countyData.armiesInCountyList)
                 {
@@ -68,7 +68,7 @@ namespace PlayerSpace
                 }
             }
             //GD.Print("Defending Hero List Count: " + battleLocation.countyData.herosInCountyList.Count());
-            if (battleLocation.countyData.heroesInCountyList.Count() > 0)
+            if (battleLocation.countyData.heroesInCountyList.Count > 0)
             {
                 foreach (CountyPopulation countyPopulation in battleLocation.countyData.heroesInCountyList)
                 {
