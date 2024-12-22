@@ -26,7 +26,7 @@ namespace PlayerSpace
                     populationListTitle.Text = $"{Globals.Instance.SelectedLeftClickCounty.countyData.countyName} {Tr("WORD_POPULATION")}";
                         
                     GeneratePopulationRows(Globals.Instance.SelectedLeftClickCounty.countyData.heroesInCountyList);
-                    GeneratePopulationRows(Globals.Instance.SelectedLeftClickCounty.countyData.countyPopulationList);
+                    GeneratePopulationRows(Globals.Instance.SelectedLeftClickCounty.countyData.populationDataList);
                 }
                 else
                 {
@@ -51,9 +51,9 @@ namespace PlayerSpace
             }
         }
 
-        private void GeneratePopulationRows(Godot.Collections.Array<CountyPopulation> countyPopulation)
+        private void GeneratePopulationRows(Godot.Collections.Array<PopulationData> populationData)
         {
-            foreach (CountyPopulation person in countyPopulation)
+            foreach (PopulationData person in populationData)
             {
                 PopulationRowButton populationRow = (PopulationRowButton)populationRowButtonPackedScene.Instantiate();
 
@@ -74,20 +74,20 @@ namespace PlayerSpace
 
                 populationListParent.AddChild(populationRow);
                 PopulationRowButton populationRowButton = populationRow;
-                populationRowButton.countyPopulation = person;
+                populationRowButton.populationData = person;
             }
         }
 
 
         // This are all broken.  This are all seems to be working?
         // This is where we would us a method to return the name.
-        private static void UpdateActivities(PopulationRowButton populationRow, CountyPopulation countyPopulation)
+        private static void UpdateActivities(PopulationRowButton populationRow, PopulationData populationData)
         {
             // This sets their current activity then checks to see if Building, Work, or Research is null and if it isn't
             // then it adds where to the end of the label.  If they are all null then it puts nothing.
-            populationRow.currentActivityLabel.Text = countyPopulation.GetActivityName();
-            string currentWhere = countyPopulation.currentCountyImprovement?.GetCountyImprovementName()
-                ?? TranslationServer.Translate(countyPopulation.currentResearchItemData?.researchName)
+            populationRow.currentActivityLabel.Text = populationData.GetActivityName();
+            string currentWhere = populationData.currentCountyImprovement?.GetCountyImprovementName()
+                ?? TranslationServer.Translate(populationData.currentResearchItemData?.researchName)
                 ?? string.Empty;
             populationRow.currentActivityLabel.Text += $" {currentWhere}";
         }
@@ -95,11 +95,11 @@ namespace PlayerSpace
         // This will not be shown in to the player eventually.  It is just shown right now for testing.
         // We might need a second testing bar to show these things later.
         // This should be not equal to null.
-        private void UpdateUnHelpfulPerk(PopulationRowButton populationRow, CountyPopulation countyPopulation)
+        private void UpdateUnHelpfulPerk(PopulationRowButton populationRow, PopulationData populationData)
         {
-            if (countyPopulation.CheckForPerk(AllEnums.Perks.Unhelpful) == true)
+            if (populationData.CheckForPerk(AllEnums.Perks.Unhelpful) == true)
             {
-                populationRow.UnhelpfulLabel.Text = $"{Tr(countyPopulation.perks[AllEnums.Perks.Unhelpful].perkName)}";
+                populationRow.UnhelpfulLabel.Text = $"{Tr(populationData.perks[AllEnums.Perks.Unhelpful].perkName)}";
 
             }
             else
@@ -109,11 +109,11 @@ namespace PlayerSpace
         }
 
 
-        private static void UpdateAttributes(PopulationRowButton populationRow, CountyPopulation person)
+        private static void UpdateAttributes(PopulationRowButton populationRow, PopulationData person)
         {
             populationRow.loyaltyAttributeLabel.Text = $"{person.LoyaltyAdjusted}";
         }
-        private static void UpdateSkills(PopulationRowButton populationRow, CountyPopulation person)
+        private static void UpdateSkills(PopulationRowButton populationRow, PopulationData person)
         {
             for (int i = 0; i < person.skills.Count; i++)
             {

@@ -11,8 +11,8 @@ namespace PlayerSpace
             if (Visible == true)
             {
                 titleLabel.Text = $"{Tr("PHRASE_RECRUIT_HERO_CONFIRMATION")} " +
-                    $"{PopulationDescriptionControl.Instance.countyPopulation.firstName} " +
-                    $"{PopulationDescriptionControl.Instance.countyPopulation.lastName}";
+                    $"{PopulationDescriptionControl.Instance.populationData.firstName} " +
+                    $"{PopulationDescriptionControl.Instance.populationData.lastName}";
             }
         }
         private void OpenConfirmationPanel(bool armyLeaderRecruited)
@@ -23,37 +23,37 @@ namespace PlayerSpace
         }
         private void YesButton()
         {
-            CountyPopulation countyPopulation = PopulationDescriptionControl.Instance.countyPopulation;
-            County county = (County)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
+            PopulationData populationData = PopulationDescriptionControl.Instance.populationData;
+            County county = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
 
-            if (countyPopulation.isHero != true)
+            if (populationData.isHero != true)
             {
-                county.countyData.countyPopulationList.Remove(countyPopulation);
+                county.countyData.populationDataList.Remove(populationData);
             }
             if (armyLeaderRecruited == false)
             {
-                countyPopulation.isHero = true;
-                countyPopulation.isAide = true;
-                county.countyData.heroesInCountyList.Add(countyPopulation);
-                county.countyData.factionData.AddHeroToAllHeroesList(countyPopulation);
+                populationData.isHero = true;
+                populationData.isAide = true;
+                county.countyData.heroesInCountyList.Add(populationData);
+                county.countyData.factionData.AddHeroToAllHeroesList(populationData);
             }
             else
             {
-                countyPopulation.isHero = true;
-                countyPopulation.isAide = false;
-                countyPopulation.IsArmyLeader = true;
-                county.countyData.heroesInCountyList.Remove(countyPopulation);
-                county.countyData.armiesInCountyList.Add(countyPopulation);
-                county.countyData.factionData.AddHeroToAllHeroesList(countyPopulation);
+                populationData.isHero = true;
+                populationData.isAide = false;
+                populationData.IsArmyLeader = true;
+                county.countyData.heroesInCountyList.Remove(populationData);
+                county.countyData.armiesInCountyList.Add(populationData);
+                county.countyData.factionData.AddHeroToAllHeroesList(populationData);
 
             }
 
             // This is set again to update the sprite textures;
-            if (countyPopulation.token != null)
+            if (populationData.token != null)
             {
-                AllTokenTextures.Instance.AssignTokenTextures(countyPopulation.token);
-                countyPopulation.token.UpdateSpriteTexture();
-                countyPopulation.token.spawnedTokenButton.UpdateButtonIcon();
+                AllTokenTextures.Instance.AssignTokenTextures(populationData.token);
+                populationData.token.UpdateSpriteTexture();
+                populationData.token.spawnedTokenButton.UpdateButtonIcon();
             }
 
             Banker.ChargeForHero(Globals.Instance.playerFactionData);

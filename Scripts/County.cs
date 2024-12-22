@@ -41,7 +41,7 @@ public partial class County : Node2D
     {
         GD.PrintRich($"[rainbow]County : Weekly!!!!!");
         // Check loyalty and update work status if necessary.
-        PopulationWork.WorkWeekOverForPopulation(countyData.countyPopulationList);
+        PopulationWork.WorkWeekOverForPopulation(countyData.populationDataList);
     }
 
     private void EndOfDay()
@@ -58,11 +58,11 @@ public partial class County : Node2D
         countyData.CopyCountyResourcesToYesterday(); // We will use this data to update the numbers on the top bar all day.
 
         // Check to see if any population needs healing from starvation or whatever.
-        CountyData.CheckForHealing(countyData.countyPopulationList);
+        CountyData.CheckForHealing(countyData.populationDataList);
         CountyData.CheckForHealing(countyData.heroesInCountyList);
         CountyData.CheckForHealing(countyData.armiesInCountyList);
 
-        // Shouldn't this be at the beginning of the day??
+        // It checks this at end of day, so that at day start all of the employment etc hits.
         countyAI.DecideBuildingCountyImprovements(this);
 
         // Goes through each hero just like if they were a normal county population and
@@ -71,7 +71,7 @@ public partial class County : Node2D
 
         // Generates resources through work, scavenging, building, and research.
         // Generates the daily amount of work amount/building for each county improvement per person.
-        PopulationWork.WorkDayOverForPopulation(countyData, countyData.countyPopulationList);
+        PopulationWork.WorkDayOverForPopulation(countyData, countyData.populationDataList);
 
         // Converts the totaly daily amount of work into goods and construction.
         // Possibly scavenging and research eventually.

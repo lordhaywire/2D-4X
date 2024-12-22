@@ -683,7 +683,7 @@ text = "WORD_PAUSED"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="County Info Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("countyInfoControl", "factionNamelabel", "countyNameLabel", "countyFoodLabel", "countyScrapLabel", "countyPopulationLabel", "countyIdleWorkersLabel", "visitorsLabel", "populationListMarginContainer", "populationDescriptionControl", "countyImprovementsPanelControl", "heroListParent", "heroSpawnCheckButtonParent", "populationListButton", "visitorsListButton", "countyImprovementsButton", "resourcesButton")]
+[node name="County Info Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("countyInfoControl", "factionNamelabel", "countyNameLabel", "countyFoodLabel", "countyScrapLabel", "populationDataNumberLabel", "countyIdleWorkersLabel", "visitorsLabel", "populationListMarginContainer", "populationDescriptionControl", "countyImprovementsPanelControl", "heroListParent", "heroSpawnCheckButtonParent", "populationListButton", "visitorsListButton", "countyImprovementsButton", "resourcesButton")]
 visible = false
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 3
@@ -699,7 +699,7 @@ factionNamelabel = NodePath("MarginContainer/County Info and Selected Hero HBoxC
 countyNameLabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer/County Name Label")
 countyFoodLabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer/Scavengable Resources PanelContainer/Scavengable Resources VBoxContainer/HBoxContainer/County Food")
 countyScrapLabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer/Scavengable Resources PanelContainer/Scavengable Resources VBoxContainer/HBoxContainer/County Scrap")
-countyPopulationLabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer/Population List Button/Population Button PanelContainer/Population Number Label")
+populationDataNumberLabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer/Population List Button/Population Button PanelContainer/Population Data Number Label")
 countyIdleWorkersLabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer/Idle Workers List Button/Idle Workers Button PanelContainer/Idle Workers Number Label")
 visitorsLabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer/Visitors List Button/Visitors Button PanelContainer/Vistors Number Label")
 populationListMarginContainer = NodePath("../Population List MarginContainer")
@@ -836,7 +836,7 @@ layout_mode = 2
 text = "Population"
 horizontal_alignment = 1
 
-[node name="Population Number Label" type="Label" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer/Population List Button/Population Button PanelContainer"]
+[node name="Population Data Number Label" type="Label" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer/Population List Button/Population Button PanelContainer"]
 layout_mode = 2
 text = "666
 "

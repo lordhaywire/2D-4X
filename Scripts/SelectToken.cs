@@ -5,7 +5,7 @@ namespace PlayerSpace
 {
     public partial class SelectToken : CharacterBody2D
     {
-        [Export] public CountyPopulation countyPopulation;
+        [Export] public PopulationData populationData;
         [Export] public Sprite2D sprite;
 
         [Export] public Texture2D selectedTexture;
@@ -30,7 +30,7 @@ namespace PlayerSpace
                 inCombat = value;
                 if (value == false)
                 {
-                    if (countyPopulation.moraleExpendable == 100)
+                    if (populationData.moraleExpendable == 100)
                     {
                         return;
                     }
@@ -48,17 +48,17 @@ namespace PlayerSpace
 
         private void IncreaseMorale()
         {
-            if (countyPopulation.moraleExpendable == 100)
+            if (populationData.moraleExpendable == 100)
             {
                 Clock.Instance.HourChanged -= IncreaseMorale;
                 return;
             }
 
             int coolCheck = Globals.Instance.random.Next(1, 101);
-            if (countyPopulation.skills[AllEnums.Skills.Cool].skillLevel > coolCheck)
+            if (populationData.skills[AllEnums.Skills.Cool].skillLevel > coolCheck)
             {
                 int moraleIncrease = Globals.Instance.random.Next(Globals.Instance.moraleRecoveryMin, Globals.Instance.moraleRecoveryMax);
-                countyPopulation.moraleExpendable = Math.Min(countyPopulation.moraleExpendable + moraleIncrease, 100);
+                populationData.moraleExpendable = Math.Min(populationData.moraleExpendable + moraleIncrease, 100);
             }
 
         }
@@ -72,15 +72,15 @@ namespace PlayerSpace
                 isSelected = value;
                 if (value == true)
                 {
-                    //GD.Print("Token County Population? " + countyPopulation.firstName);
+                    //GD.Print("Token County Population? " + populationData.firstName);
                     sprite.Texture = selectedTexture;
-                    if (Globals.Instance.SelectedCountyPopulation != null && countyPopulation != Globals.Instance.SelectedCountyPopulation)
+                    if (Globals.Instance.SelectedCountyPopulation != null && populationData != Globals.Instance.SelectedCountyPopulation)
                     {
                         SelectToken currentSelectToken = Globals.Instance.SelectedCountyPopulation.token;
                         //GD.PrintRich("[rainbow]Current Select Token Value True: " + currentSelectToken.Name);
                         currentSelectToken.IsSelected = false;
                     }
-                    Globals.Instance.SelectedCountyPopulation = countyPopulation;
+                    Globals.Instance.SelectedCountyPopulation = populationData;
                     //GD.Print("Globals Instance County Population: " + Globals.Instance.SelectedCountyPopulation.firstName);
 
                 }
@@ -114,8 +114,8 @@ namespace PlayerSpace
         {
             //GD.Print("Mouse is inside the token.");
             PlayerControls.Instance.stopClickThrough = true;
-            spawnedTokenButton.TooltipText = $"{countyPopulation.firstName} {countyPopulation.lastName} " +
-                $"\n Morale: {countyPopulation.moraleExpendable}";
+            spawnedTokenButton.TooltipText = $"{populationData.firstName} {populationData.lastName} " +
+                $"\n Morale: {populationData.moraleExpendable}";
         }
 
         private static void OnMouseExit()
@@ -126,11 +126,11 @@ namespace PlayerSpace
 
         private void OnClick(Viewport viewport, InputEvent @event, int _shapeIdx)
         {
-            if (@event is InputEventMouseButton eventMouseButton && countyPopulation.factionData == Globals.Instance.playerFactionData)
+            if (@event is InputEventMouseButton eventMouseButton && populationData.factionData == Globals.Instance.playerFactionData)
             {
                 if (eventMouseButton.ButtonIndex == MouseButton.Left && eventMouseButton.Pressed == false)
                 {
-                    //GD.Print($"You have clicked on {countyPopulation.firstName} {countyPopulation.lastName}");
+                    //GD.Print($"You have clicked on {populationData.firstName} {populationData.lastName}");
                     IsSelected = true;
                 }
             }
@@ -138,8 +138,8 @@ namespace PlayerSpace
 
         public void RemoveFromResearch()
         {
-            countyPopulation.currentResearchItemData = null;
-            ResearchControl.Instance.assignedResearchers.Remove(countyPopulation);
+            populationData.currentResearchItemData = null;
+            ResearchControl.Instance.assignedResearchers.Remove(populationData);
             //GD.Print("Removed from Research - Assigned Researchers Count: " + ResearchControl.Instance.assignedResearchers.Count);
             CountyInfoControl.Instance.GenerateHeroesPanelList();
         }

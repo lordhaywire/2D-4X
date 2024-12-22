@@ -43,7 +43,8 @@ public class Haulmaster
                 countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType] += amountToStockpile;
             }
 
-            // If the stockpile is below the minimum desired amount, update the improvement status.
+            // If the stockpile is below the minimum desired amount, update the improvement status and
+            // add a day to each person's employed but idle count.
             if (countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType] 
                 < minStockpileAmount)
             {
@@ -59,6 +60,15 @@ public class Haulmaster
         }
     }
 
+    public static void DeductStockPiledGoods(CountyImprovementData countyImprovementData)
+    {
+        // Deduct input goods and perform work actions.
+        foreach (KeyValuePair<GoodData, int> inputGood in countyImprovementData.inputGoods)
+        {
+            countyImprovementData.countyStockpiledGoods[inputGood.Key.countyGoodType]
+                -= inputGood.Value;
+        }
+    }
     /*
     // Multiply the input goods by the adjusted max number of workers then multiple by the stockpile multiplier.
     public static void GatherStockpileGoods(CountyData countyData, CountyImprovementData countyImprovementData)

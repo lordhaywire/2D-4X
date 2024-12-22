@@ -62,7 +62,7 @@ namespace PlayerSpace
                 if (hero == false)
                 {
                     // This is for the standard population.
-                    countyData.countyPopulationList.Add(new CountyPopulation(countyData.factionData, countyData.countyId
+                    countyData.populationDataList.Add(new PopulationData(countyData.factionData, countyData.countyId
                         , -1, -1, firstName, lastName, isMale, GenerateAge(), false, false, false, false, false
                         , GeneratePopulationPerks(), Globals.Instance.startingHitPoints, maxHitpoints
                         , GenerateExpendables()
@@ -75,8 +75,8 @@ namespace PlayerSpace
                 }
                 else
                 {
-                    // Generates a hero that is a faction leader countyPopulation.
-                    countyData.heroesInCountyList.Add(new CountyPopulation(countyData.factionData, countyData.countyId
+                    // Generates a hero that is a faction leader populationData.
+                    countyData.heroesInCountyList.Add(new PopulationData(countyData.factionData, countyData.countyId
                         , -1, -1, firstName, lastName, isMale, GenerateAge(), true, true, false, false, false
                         , GenerateLeaderPerks(), Globals.Instance.startingHitPoints, maxHitpoints
                         , GenerateExpendables()
@@ -237,7 +237,7 @@ namespace PlayerSpace
                 {
                     // Generate Normal Population
                     GeneratePopulation(false, Globals.Instance.totalCapitolPop);
-                    countyData.population += countyData.countyPopulationList.Count;
+                    countyData.population += countyData.populationDataList.Count;
                     countyData.IdleWorkers = countyData.population -= countyData.heroesInCountyList.Count;
                 }
                 else
@@ -245,7 +245,7 @@ namespace PlayerSpace
                     // Generate Normal Population
                     int normalPopulation = random.Next(Globals.Instance.minimumCountyPop, Globals.Instance.maximumCountyPop);
                     GeneratePopulation(false, normalPopulation);
-                    countyData.population += countyData.countyPopulationList.Count;
+                    countyData.population += countyData.populationDataList.Count;
                     countyData.IdleWorkers = countyData.population -= countyData.heroesInCountyList.Count;
                 }
             }

@@ -43,7 +43,7 @@ namespace PlayerSpace
             // Generate passive research for each county population, not including heroes.
             foreach (CountyData countyData in factionData.countiesFactionOwns)
             {
-                Research.GeneratePassiveResearch(countyData.countyPopulationList);
+                Research.GeneratePassiveResearch(countyData.populationDataList);
             }
 
             // Check for completed research and then complete it.
@@ -63,7 +63,6 @@ namespace PlayerSpace
             // This is just commented out until we get to Research.
             GD.PrintRich($"[rainbow]Faction : StartOfDay!!!!!");
 
-            FactionAI factionAI = new();
             if (factionData != Globals.Instance.playerFactionData)
             {
                 //factionAI.AssignResearch(factionData);
@@ -72,13 +71,13 @@ namespace PlayerSpace
             Research.CreateResearchableResearchList(factionData);
 
             // Assign to all heroes passive research
-            Research.AssignPassiveResearch(factionData, factionData.allHeroesList);
+            Research.AssignPassiveResearch(factionData.allHeroesList);
 
             // Assign Passive research for each county population, not including heroes.
             foreach (CountyData countyData in factionData.countiesFactionOwns)
             {
                 //GD.PrintRich($"[rainbow]{countyData.countyName} is checking population passive research.");
-                Research.AssignPassiveResearch(factionData, countyData.countyPopulationList);
+                Research.AssignPassiveResearch(countyData.populationDataList);
             }
             /*
             // This is just for testing.

@@ -124,14 +124,14 @@ namespace PlayerSpace
             Globals.Instance.selectedRightClickCounty = moveTargetCountyData.countyNode;
             //GD.Print($"Move Target County: {moveTargetCountyData.countyName}" +
              //   $" {moveTargetCountyData.countyId}");
-            CountyPopulation countyPopulation = Globals.Instance.SelectedCountyPopulation;
+            PopulationData populationData = Globals.Instance.SelectedCountyPopulation;
             SelectToken selectToken = Globals.Instance.SelectedCountyPopulation.token;
 
             selectToken.Show();
 
             if (selectToken.tokenMovement.MoveToken != true)
             {
-                if (countyPopulation.IsArmyLeader == false)
+                if (populationData.IsArmyLeader == false)
                 {
                     selectToken.tokenMovement.StartMove(moveTargetCountyData.countyId);
                 }
@@ -165,8 +165,8 @@ namespace PlayerSpace
                 }
                 else
                 {
-                    EventLog.Instance.AddLog($"{selectToken.countyPopulation.firstName} " +
-                        $"{selectToken.countyPopulation.lastName} " +
+                    EventLog.Instance.AddLog($"{selectToken.populationData.firstName} " +
+                        $"{selectToken.populationData.lastName} " +
                         $"{TranslationServer.Translate("PHRASE_IS_RETREATING")}.");
                 }
             }

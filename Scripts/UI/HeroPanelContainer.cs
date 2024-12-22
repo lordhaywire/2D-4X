@@ -4,7 +4,7 @@ namespace PlayerSpace
 {
     public partial class HeroPanelContainer : PanelContainer
     {
-        public CountyPopulation countyPopulation;
+        public PopulationData populationData;
 
         [Export] public TextureRect factionLeaderTextureRect;
         [Export] public TextureRect aideTextureRect;
@@ -15,7 +15,7 @@ namespace PlayerSpace
         [Export] public CheckBox researchCheckbox;
         private void HeroButtonOnPressed()
         {
-            PopulationDescriptionControl.Instance.countyPopulation = countyPopulation;
+            PopulationDescriptionControl.Instance.populationData = populationData;
             CountyInfoControl.Instance.populationDescriptionControl.Show();
             if (CountyInfoControl.Instance.populationDescriptionControl.Visible == true)
             {
@@ -27,11 +27,11 @@ namespace PlayerSpace
 
         private void SpawnHeroCheckBox(bool toggleOn)
         {
-            if (toggleOn == true && countyPopulation.token == null)
+            if (toggleOn == true && populationData.token == null)
             {
                 // Assign to Currently Selected Hero so it is ready to be moved.
                 Globals.Instance.SelectedCountyPopulation
-                = Globals.Instance.playerFactionData.tokenSpawner.Spawn(Globals.Instance.SelectedLeftClickCounty, countyPopulation);
+                = Globals.Instance.playerFactionData.tokenSpawner.Spawn(Globals.Instance.SelectedLeftClickCounty, populationData);
                 //GD.Print("Spawn Hero Check Box " + Globals.Instance.SelectedCountyPopulation.firstName);
             }
         }
@@ -42,7 +42,7 @@ namespace PlayerSpace
             if (toggled == false)
             {
                 Research research = new();
-                research.RemoveResearcher(countyPopulation);
+                research.RemoveResearcher(populationData);
             }
         }
 

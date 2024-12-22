@@ -23,7 +23,7 @@ namespace PlayerSpace
         [Export] private MenuButton assignResearcherMenuButton;
 
         public ResearchItemData researchItemData;
-        Godot.Collections.Array<CountyPopulation> availableResearchers = [];
+        Godot.Collections.Array<PopulationData> availableResearchers = [];
         Godot.Collections.Array<CountyImprovementData> availableOffices = [];
         public override void _Ready()
         {
@@ -60,7 +60,7 @@ namespace PlayerSpace
             availableOffices
                 = Research.GetListOfAvailableResearchOffices(Globals.Instance.playerFactionData);
             availableResearchers 
-                = Research.GetListOfAvailableHeroResearchers(Globals.Instance.playerFactionData);
+                = Research.GetListOfAvailableHeroResearchers();
 
             foreach (CountyImprovementData availableOffice in availableOffices)
             {
@@ -77,7 +77,7 @@ namespace PlayerSpace
         private void AssignResearcherMenuButton()
         {
             assignResearcherMenuButton.GetPopup().Clear();
-            foreach (CountyPopulation countyPopulation in availableResearchers) 
+            foreach (PopulationData populationData in availableResearchers) 
             {
                 PopupMenu submenuResearchOffice = new();
                 PopupMenu secondSubmenu = new();
@@ -85,7 +85,7 @@ namespace PlayerSpace
                 
                 submenuResearchOffice.AddChild(secondSubmenu);
 
-                assignResearcherMenuButton.GetPopup().AddItem($"{countyPopulation.firstName} {countyPopulation.lastName}");
+                assignResearcherMenuButton.GetPopup().AddItem($"{populationData.firstName} {populationData.lastName}");
                 assignResearcherMenuButton.GetPopup().AddSubmenuNodeItem("WHatgever", submenuResearchOffice);
                 submenuResearchOffice.AddItem("SecondWah");
                
@@ -100,11 +100,11 @@ namespace PlayerSpace
                 {
                     if (countyImprovementData.factionResourceType == AllEnums.FactionGoodType.Research)
                     {
-                        foreach (CountyPopulation countyPopulation in countyImprovementData.populationAtImprovement)
+                        foreach (CountyPopulation populationData in countyImprovementData.populationAtImprovement)
                         {
-                            if (countyPopulation.activity != AllEnums.Activities.Research)
+                            if (populationData.activity != AllEnums.Activities.Research)
                             {
-                                AddResearcherToMenu(countyData, countyPopulation);
+                                AddResearcherToMenu(countyData, populationData);
                             }
                         }
 
@@ -142,9 +142,9 @@ namespace PlayerSpace
             AssignResearcherMenuButton(); // This clears the list.
         }
 
-        private void AddResearcherToMenu(CountyData countyData, CountyPopulation countyPopulation)
+        private void AddResearcherToMenu(CountyData countyData, PopulationData populationData)
         {
-            assignResearcherMenuButton.GetPopup().AddItem($"{countyPopulation.firstName} {countyPopulation.lastName}" +
+            assignResearcherMenuButton.GetPopup().AddItem($"{populationData.firstName} {populationData.lastName}" +
                 $" - {countyData.countyName}");
         }
 

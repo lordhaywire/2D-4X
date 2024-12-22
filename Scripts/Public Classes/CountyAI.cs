@@ -79,14 +79,15 @@ public class CountyAI
         }
         return number;
     }
-    public static CountyImprovementData FindCountyImpovementOfType(County county, AllEnums.FactionGoodType factionResourceType)
+    public static CountyImprovementData FindCountyImpovementOfType(County county
+        , AllEnums.FactionGoodType factionResourceType)
     {
         foreach (CountyImprovementData countyImprovementData in county.countyData.factionData.allCountyImprovements)
         {
-            if (countyImprovementData.factionResourceType == factionResourceType
-                && countyImprovementData.status == AllEnums.CountyImprovementStatus.None)
+            if (countyImprovementData.factionResourceType == factionResourceType)
             {
-                //GD.Print($"{factionData.factionName} found {improvementData.improvementName} in {countyDataItem.countyName}.");
+                GD.Print($"{county.countyData.factionData.factionName} found {countyImprovementData.improvementName} " +
+                    $"in {county.countyData.countyName}.");
                 return countyImprovementData;
             }
         }

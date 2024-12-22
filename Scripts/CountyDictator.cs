@@ -30,9 +30,9 @@ namespace PlayerSpace
             // Go through all the population in that county and assign them the winners faction.
             selectCounty.countyData.factionData = winnersFactionData;
             selectCounty.countySprite.SelfModulate = winnersFactionData.factionColor;
-            foreach (CountyPopulation countyPopulation in selectCounty.countyData.countyPopulationList)
+            foreach (PopulationData populationData in selectCounty.countyData.populationDataList)
             {
-                countyPopulation.factionData = winnersFactionData;
+                populationData.factionData = winnersFactionData;
             }
 
             // Assign the faction's
@@ -50,18 +50,18 @@ namespace PlayerSpace
         }
 
         // Maybe move to a Faction Dictator script.
-        private static void FactionCountyPopulationDestroyer(Godot.Collections.Array<CountyPopulation> allHeroesList)
+        private static void FactionCountyPopulationDestroyer(Godot.Collections.Array<PopulationData> allHeroesList)
         {
-            foreach (CountyPopulation countyPopulation in allHeroesList)
+            foreach (PopulationData populationData in allHeroesList)
             {
-                County selectCounty = (County)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
-                selectCounty.countyData.heroesInCountyList.Remove(countyPopulation);
-                selectCounty.countyData.armiesInCountyList.Remove(countyPopulation);
-                selectCounty.countyData.spawnedTokenButtons.Remove(countyPopulation.token.spawnedTokenButton);
-                countyPopulation.token.spawnedTokenButton.QueueFree();
-                countyPopulation.token.QueueFree();
+                County selectCounty = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
+                selectCounty.countyData.heroesInCountyList.Remove(populationData);
+                selectCounty.countyData.armiesInCountyList.Remove(populationData);
+                selectCounty.countyData.spawnedTokenButtons.Remove(populationData.token.spawnedTokenButton);
+                populationData.token.spawnedTokenButton.QueueFree();
+                populationData.token.QueueFree();
 
-                //GD.PrintRich($"[rainbow]{countyPopulation.firstName}");
+                //GD.PrintRich($"[rainbow]{populationData.firstName}");
                 CountyInfoControl.Instance.GenerateHeroesPanelList();
             }
             allHeroesList.Clear();

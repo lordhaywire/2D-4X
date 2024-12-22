@@ -6,21 +6,21 @@ namespace PlayerSpace
 {
     public partial class SpawnedTokenButton : Button
     {
-        public CountyPopulation countyPopulation;
+        public PopulationData populationData;
         private SelectToken selectToken;
         [Export] public TextureRect tokenIconTextureRect;
 
         public void UpdateButtonIcon()
         {
-            selectToken = countyPopulation.token;
+            selectToken = populationData.token;
             tokenIconTextureRect.Texture = selectToken.sprite.Texture;
         }
         public void OnButtonUp()
         {
-            if(countyPopulation.factionData == Globals.Instance.playerFactionData)
+            if(populationData.factionData == Globals.Instance.playerFactionData)
             {
                 //GD.Print("You pressed the hero button.");
-                selectToken = countyPopulation.token;
+                selectToken = populationData.token;
 
                 selectToken.IsSelected = true;
                 UpdateTokenTextures();
@@ -33,12 +33,12 @@ namespace PlayerSpace
 
         public void UpdateTokenTextures()
         {
-            County selectCounty = (County)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
-            //GD.Print($"Select County Name: {selectCounty.Name} vs County Population Location {countyPopulation.location}");
+            County selectCounty = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
+            //GD.Print($"Select County Name: {selectCounty.Name} vs County Population Location {populationData.location}");
             //GD.Print("Select Counties Spawned Token Buttons List Count: " + selectCounty.countyData.spawnedTokenButtons.Count);
             foreach (SpawnedTokenButton spawnedTokenButton in selectCounty.countyData.spawnedTokenButtons.Cast<SpawnedTokenButton>())
             {
-                //GD.Print($"Going through buttons {spawnedTokenButton.countyPopulation.firstName}");
+                //GD.Print($"Going through buttons {spawnedTokenButton.populationData.firstName}");
                 spawnedTokenButton.UpdateButtonIcon();
                 //UpdateToolTip();
             }
@@ -47,7 +47,7 @@ namespace PlayerSpace
         // Moved this somewhere else, but may need to put it back here.
         private void UpdateToolTip()
         {
-            TooltipText = $"{selectToken.countyPopulation.firstName} {selectToken.countyPopulation.lastName}";
+            TooltipText = $"{selectToken.populationData.firstName} {selectToken.populationData.lastName}";
         }
 
         public static void OnMouseEntered()

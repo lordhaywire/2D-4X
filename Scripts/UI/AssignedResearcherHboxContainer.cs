@@ -7,7 +7,7 @@ namespace PlayerSpace
         [Export] public Button assignedResearcherButton;
         [Export] public CheckBox assignedResearcherCheckbox;
 
-        public CountyPopulation countyPopulation;
+        public PopulationData populationData;
 
         
         private void RemoveResearcherCheckBoxToggled(bool toggled)
@@ -16,14 +16,14 @@ namespace PlayerSpace
             {
                 //GD.Print("Research Checkbox has been unchecked.");
                 Research research = new();
-                research.RemoveResearcher(countyPopulation);
+                research.RemoveResearcher(populationData);
                 QueueFree();
             }
         }
 
         private void AssignedResearcherButton()
         {
-            ResearchDescriptionPanel.Instance.researchItemData = countyPopulation.currentResearchItemData;
+            ResearchDescriptionPanel.Instance.researchItemData = populationData.currentResearchItemData;
             ResearchDescriptionPanel.Instance.Show();
         }
     }

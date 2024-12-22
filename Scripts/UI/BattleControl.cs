@@ -29,8 +29,8 @@ namespace PlayerSpace
         private void CountyCaptured()
         {
             EndBattle();
-            CountyDictator.Instance.CaptureCounty(countyDefendersSelectToken.countyPopulation.location
-                , countyAttackerSelectToken.countyPopulation.factionData);
+            CountyDictator.Instance.CaptureCounty(countyDefendersSelectToken.populationData.location
+                , countyAttackerSelectToken.populationData.factionData);
         }
         public void StartBattle(Battle currentbattle)
         {
@@ -41,28 +41,28 @@ namespace PlayerSpace
 
             // How could any of the token's ever be equal to null?
             // Attackers Army
-            foreach (CountyPopulation attackerCountyPopulation in selectCounty.countyData.visitingArmyList)
+            foreach (PopulationData attackerCountyPopulation in selectCounty.countyData.visitingArmyList)
             {
                 if (attackerCountyPopulation.token != null)
                 {
                     countyAttackerSelectToken = attackerCountyPopulation.token;
                     countyAttackerSelectToken.Hide();
                     attackerTokenTextureRect.Texture = countyAttackerSelectToken.unselectedTexture;
-                    attackerMoraleLabel.Text = countyAttackerSelectToken.countyPopulation.moraleExpendable.ToString();
+                    attackerMoraleLabel.Text = countyAttackerSelectToken.populationData.moraleExpendable.ToString();
                     countyAttackerSelectToken.InCombat = true;
                     break;
                 }
             }
 
             // Defenders Army
-            foreach (CountyPopulation defenderCountyPopulation in selectCounty.countyData.armiesInCountyList)
+            foreach (PopulationData defenderCountyPopulation in selectCounty.countyData.armiesInCountyList)
             {
                 if (defenderCountyPopulation.token != null)
                 {
                     countyDefendersSelectToken = defenderCountyPopulation.token;
                     countyDefendersSelectToken.Hide();
                     defenderTokenTextureRect.Texture = countyDefendersSelectToken.unselectedTexture;
-                    defenderMoraleLabel.Text = countyDefendersSelectToken.countyPopulation.moraleExpendable.ToString();
+                    defenderMoraleLabel.Text = countyDefendersSelectToken.populationData.moraleExpendable.ToString();
                     countyDefendersSelectToken.InCombat = true;
                     break;
                 }
@@ -79,11 +79,11 @@ namespace PlayerSpace
         {
             //GD.Print("Hourly Battle.");
             // County defender attacks county attacker.
-            Attack(countyAttackerSelectToken.countyPopulation, countyDefendersSelectToken.countyPopulation, false);
+            Attack(countyAttackerSelectToken.populationData, countyDefendersSelectToken.populationData, false);
 
             // County attacker attacks county defender.
-            countyAttackerSelectToken.countyPopulation.moraleExpendable = 100; // This is just for testing.
-            Attack(countyDefendersSelectToken.countyPopulation, countyAttackerSelectToken.countyPopulation, true);
+            countyAttackerSelectToken.populationData.moraleExpendable = 100; // This is just for testing.
+            Attack(countyDefendersSelectToken.populationData, countyAttackerSelectToken.populationData, true);
 
             ContinueBattleCheck();
         }
@@ -91,65 +91,65 @@ namespace PlayerSpace
         private void ContinueBattleCheck()
         {
             // Both have zero morale.
-            if (countyAttackerSelectToken.countyPopulation.moraleExpendable == 0
-                && countyDefendersSelectToken.countyPopulation.moraleExpendable == 0)
+            if (countyAttackerSelectToken.populationData.moraleExpendable == 0
+                && countyDefendersSelectToken.populationData.moraleExpendable == 0)
             {
-                ArmyFlees(countyAttackerSelectToken.countyPopulation);
-                EventLog.Instance.AddLog($"{countyAttackerSelectToken.countyPopulation.firstName} " +
-                    $"{countyAttackerSelectToken.countyPopulation.lastName} " +
+                ArmyFlees(countyAttackerSelectToken.populationData);
+                EventLog.Instance.AddLog($"{countyAttackerSelectToken.populationData.firstName} " +
+                    $"{countyAttackerSelectToken.populationData.lastName} " +
                     $"{Tr("PHRASE_LOST_BATTLE")}");
             }
             // Attacker has zero morale.
-            if (countyAttackerSelectToken.countyPopulation.moraleExpendable == 0)
+            if (countyAttackerSelectToken.populationData.moraleExpendable == 0)
             {
-                ArmyFlees(countyAttackerSelectToken.countyPopulation);
-                EventLog.Instance.AddLog($"{countyAttackerSelectToken.countyPopulation.firstName} " +
-                    $"{countyAttackerSelectToken.countyPopulation.lastName} " +
+                ArmyFlees(countyAttackerSelectToken.populationData);
+                EventLog.Instance.AddLog($"{countyAttackerSelectToken.populationData.firstName} " +
+                    $"{countyAttackerSelectToken.populationData.lastName} " +
                     $"{Tr("PHRASE_LOST_BATTLE")}");
             }
             // Defender has zero morale.
-            if (countyDefendersSelectToken.countyPopulation.moraleExpendable == 0)
+            if (countyDefendersSelectToken.populationData.moraleExpendable == 0)
             {
-                ArmyFlees(countyDefendersSelectToken.countyPopulation);
-                EventLog.Instance.AddLog($"{countyDefendersSelectToken.countyPopulation.firstName} " +
-                    $"{countyDefendersSelectToken.countyPopulation.lastName} " +
+                ArmyFlees(countyDefendersSelectToken.populationData);
+                EventLog.Instance.AddLog($"{countyDefendersSelectToken.populationData.firstName} " +
+                    $"{countyDefendersSelectToken.populationData.lastName} " +
                     $"{Tr("PHRASE_LOST_BATTLE")}");
             }
         }
 
-        private void ArmyFlees(CountyPopulation countyPopulation)
+        private void ArmyFlees(PopulationData populationData)
         {
-            countyPopulation.token.isRetreating = true;
-            if (countyPopulation.lastLocation == -1)
+            populationData.token.isRetreating = true;
+            if (populationData.lastLocation == -1)
             {
-                RandomNeighborMove(countyPopulation);
+                RandomNeighborMove(populationData);
                 return;
             }
             else
             {
-                County selectCounty = (County)Globals.Instance.countiesParent.GetChild(countyPopulation.lastLocation);
-                if (selectCounty.countyData.factionData.factionName == countyPopulation.factionData.factionName)
+                County selectCounty = (County)Globals.Instance.countiesParent.GetChild(populationData.lastLocation);
+                if (selectCounty.countyData.factionData.factionName == populationData.factionData.factionName)
                 {
-                    countyPopulation.token.tokenMovement.StartMove(countyPopulation.lastLocation);
+                    populationData.token.tokenMovement.StartMove(populationData.lastLocation);
                     EndBattle();
                 }
                 else
                 {
-                    RandomNeighborMove(countyPopulation);
+                    RandomNeighborMove(populationData);
                 }
             }
         }
 
-        private void RandomNeighborMove(CountyPopulation countyPopulation)
+        private void RandomNeighborMove(PopulationData populationData)
         {
             //GD.Print("Random Neighors Move!");
-            County selectCounty = (County)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
+            County selectCounty = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
             List<County> countyNeighbors = selectCounty.neighborCounties;
-            County destinationCounty = FindFactionOwnedNeighborCounty(countyNeighbors, countyPopulation);
+            County destinationCounty = FindFactionOwnedNeighborCounty(countyNeighbors, populationData);
             if (destinationCounty != null)
             {
                 //GD.Print("Destination County: " + destinationCounty.countyData.countyName);
-                countyPopulation.token.tokenMovement.StartMove(destinationCounty.countyData.countyId);
+                populationData.token.tokenMovement.StartMove(destinationCounty.countyData.countyId);
                 CountyCaptured();
             }
             else
@@ -158,10 +158,10 @@ namespace PlayerSpace
             }
         }
 
-        private static County FindFactionOwnedNeighborCounty(List<County> countyNeighbors, CountyPopulation countyPopulation)
+        private static County FindFactionOwnedNeighborCounty(List<County> countyNeighbors, PopulationData populationData)
         {
             List<County> eligibleCounties = countyNeighbors
-                .Where(c => c.countyData.factionData == countyPopulation.factionData)
+                .Where(c => c.countyData.factionData == populationData.factionData)
                 .ToList();
 
             if (eligibleCounties.Count > 0)
@@ -169,8 +169,8 @@ namespace PlayerSpace
                 int randomIndex = Globals.Instance.random.Next(0, eligibleCounties.Count);
                 County chosenCounty = eligibleCounties[randomIndex];
 
-                countyPopulation.destination = chosenCounty.countyData.countyId;
-                countyPopulation.token.tokenMovement.StartMove(countyPopulation.destination);
+                populationData.destination = chosenCounty.countyData.countyId;
+                populationData.token.tokenMovement.StartMove(populationData.destination);
 
                 return chosenCounty;
             }
@@ -190,7 +190,7 @@ namespace PlayerSpace
         }
 
         // This is confusing.  Needs a fucking rewrite.
-        private void Attack(CountyPopulation gettingShotAtCountyPopulation, CountyPopulation shootingCountyPopulation, bool isAttacker)
+        private void Attack(PopulationData gettingShotAtCountyPopulation, PopulationData shootingCountyPopulation, bool isAttacker)
         {
             if (SkillData.Check(shootingCountyPopulation, shootingCountyPopulation.skills[AllEnums.Skills.Rifle].skillLevel
                 , shootingCountyPopulation.skills[AllEnums.Skills.Rifle].attribute, false) == true)
@@ -212,8 +212,8 @@ namespace PlayerSpace
                     BattleLogControl.Instance.AddLog($"{gettingShotAtCountyPopulation.firstName} " +
                         $"{gettingShotAtCountyPopulation.lastName} {Tr("PHRASE_ISNT_SCARED")}.", !isAttacker);
                 }
-                attackerMoraleLabel.Text = countyAttackerSelectToken.countyPopulation.moraleExpendable.ToString();
-                defenderMoraleLabel.Text = countyDefendersSelectToken.countyPopulation.moraleExpendable.ToString();
+                attackerMoraleLabel.Text = countyAttackerSelectToken.populationData.moraleExpendable.ToString();
+                defenderMoraleLabel.Text = countyDefendersSelectToken.populationData.moraleExpendable.ToString();
             }
             else
             {

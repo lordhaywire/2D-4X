@@ -3,7 +3,7 @@ using System;
 
 namespace PlayerSpace
 {
-    public partial class CountyPopulation : Resource
+    public partial class PopulationData : Resource
     {
         [Export] public FactionData factionData;
         [Export] public int location;
@@ -17,6 +17,7 @@ namespace PlayerSpace
         [Export] public bool isMale;
         [Export] public int age;
 
+        // Change this to an enum
         [Export] public bool isHero;
         [Export] public bool isFactionLeader;
         [Export] public bool isAide;
@@ -75,7 +76,8 @@ namespace PlayerSpace
             }
         }
 
-        [Export] public int employedDaysIdle;
+        [Export] public int daysEmployed;
+        [Export] public int daysEmployedButIdle;
         [Export] public int daysStarving;
 
         // Resource needs, currently there is just 1 need, Remnants.
@@ -107,10 +109,6 @@ namespace PlayerSpace
             return false;
         }
 
-        public void AddAttributeBonusToLoyaltyAdjusted()
-        {
-
-        }
         // They always need to be a hero first for everything else to work.
         public void ChangeToArmy()
         {
@@ -195,7 +193,7 @@ namespace PlayerSpace
             ResearchControl.Instance.assignedResearchers.Remove(this);
         }
 
-        public CountyPopulation(
+        public PopulationData(
             FactionData factionData, int location, int lastLocation, int destination, string firstName, string lastName
             , bool isMale, int age, bool isHero, bool isFactionLeader, bool isAide, bool IsArmyLeader, bool isWorker
             , Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks, int hitpoints, int maxHitpoints

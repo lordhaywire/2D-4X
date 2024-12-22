@@ -8,9 +8,9 @@ public class FactionAI
     /*
     public void AssignResearch(FactionData factionData)
     {
-        foreach (CountyPopulation countyPopulation in factionData.allHeroesList)
+        foreach (CountyPopulation populationData in factionData.allHeroesList)
         {
-            if (countyPopulation.activity != AllEnums.Activities.Idle)
+            if (populationData.activity != AllEnums.Activities.Idle)
             {
                 return;
             }
@@ -20,8 +20,8 @@ public class FactionAI
                 {
                     if (researchItemData.CheckIfResearchDone() == false)
                     {
-                        countyPopulation.currentResearchItemData = researchItemData;
-                        GD.Print($"{factionData.factionName}'s hero, {countyPopulation.firstName}, has been assigned" +
+                        populationData.currentResearchItemData = researchItemData;
+                        GD.Print($"{factionData.factionName}'s hero, {populationData.firstName}, has been assigned" +
                             $" {researchItemData.researchName}.");
                         return;
                     }

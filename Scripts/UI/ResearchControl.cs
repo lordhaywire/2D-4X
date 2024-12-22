@@ -22,7 +22,7 @@ namespace PlayerSpace
 
         public event Action ResearchVisible;
 
-        public List<CountyPopulation> assignedResearchers = [];
+        public List<PopulationData> assignedResearchers = [];
 
         public override void _Ready()
         {
@@ -63,17 +63,17 @@ namespace PlayerSpace
         public void GenerateAssignedResearchers()
         {
             ClearResearcherHBoxContainers();
-            foreach (CountyPopulation countyPopulation in assignedResearchers)
+            foreach (PopulationData populationData in assignedResearchers)
             {
-                //GD.Print("Generate Assigned Researchers: " + countyPopulation.firstName);
+                //GD.Print("Generate Assigned Researchers: " + populationData.firstName);
                 AssignedResearcherHboxContainer researcherButton = (AssignedResearcherHboxContainer)assignedResearchersButton.Instantiate();
                 researcherButton.assignedResearcherButton.Text
-                    = $"{countyPopulation.firstName} {countyPopulation.lastName}: {Tr(countyPopulation.currentResearchItemData.researchName)}";
-                researcherButton.countyPopulation = countyPopulation;
+                    = $"{populationData.firstName} {populationData.lastName}: {Tr(populationData.currentResearchItemData.researchName)}";
+                researcherButton.populationData = populationData;
                 // If the county population is working at an research office, then their button is disabled, so they can't be
                 // removed from the research.
                 /*
-                if(researcherButton.countyPopulation.isHero == false)
+                if(researcherButton.populationData.isHero == false)
                 {
                     researcherButton.assignedResearcherCheckbox.Disabled = true;
                 }

@@ -187,19 +187,19 @@ public partial class CountryImprovementPanelContainer : PanelContainer
         {
             return;
         }
-        CountyPopulation countyPopulation = countyImprovementData.populationAtImprovement[0];
-        if (countyPopulation.currentResearchItemData == null)
+        PopulationData populationData = countyImprovementData.populationAtImprovement[0];
+        if (populationData.currentResearchItemData == null)
         {
             assignResearcherInPanelLabel.Show();
             return;
         }
-        researchAssignedLabel.Text = $"{countyPopulation.firstName} {countyPopulation.lastName}" +
-            $" {Tr("PHRASE_IS_RESEARCHING")} {Tr(countyPopulation.currentResearchItemData.researchName)}";
+        researchAssignedLabel.Text = $"{populationData.firstName} {populationData.lastName}" +
+            $" {Tr("PHRASE_IS_RESEARCHING")} {Tr(populationData.currentResearchItemData.researchName)}";
         researchAssignedLabel.Show();
         progressPanelContainer.Show();
         progressTitle.Text = "PHRASE_RESEARCH_PROGRESS";
-        progressBar.MaxValue = countyPopulation.currentResearchItemData.costOfResearch;
-        progressBar.Value = countyPopulation.currentResearchItemData.AmountOfResearchDone;
+        progressBar.MaxValue = populationData.currentResearchItemData.costOfResearch;
+        progressBar.Value = populationData.currentResearchItemData.AmountOfResearchDone;
         assignResearcherInPanelLabel.Hide();
     }
 

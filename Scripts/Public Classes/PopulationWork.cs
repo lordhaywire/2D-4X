@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 
 namespace PlayerSpace;
@@ -6,140 +7,109 @@ namespace PlayerSpace;
 public class PopulationWork
 {
     public static void WorkWeekOverForPopulation(
-        Godot.Collections.Array<CountyPopulation> countyPopulationList)
+        Godot.Collections.Array<PopulationData> populationDataList)
     {
-        foreach (CountyPopulation countyPopulation in countyPopulationList)
+        foreach (PopulationData populationData in populationDataList)
         {
-            switch (countyPopulation.activity)
+            switch (populationData.activity)
             {
                 case AllEnums.Activities.Build:
                 case AllEnums.Activities.Work:
-                    PopulationAI.LoyaltyCheckToKeepWorkingAtCountyImprovement(countyPopulation);
+                    PopulationAI.LoyaltyCheckToKeepWorkingAtCountyImprovement(populationData);
                     break;
             }
         }
     }
-    public static void WorkDayOverForPopulation(CountyData countyData
-        , Godot.Collections.Array<CountyPopulation> countyPopulationList)
+
+    private static bool CheckEnoughGoods(CountyImprovementData countyImprovementData, PopulationData populationData)
     {
-        foreach (CountyPopulation countyPopulation in countyPopulationList)
+        bool hasEnoughInputGoods = true;
+
+        foreach (KeyValuePair<GoodData, int> inputGood in countyImprovementData.inputGoods)
+        {
+            int stockpileAmount = countyImprovementData.countyStockpiledGoods[inputGood.Key.countyGoodType];
+            GD.Print($"{populationData.location} Input Good vs Stockpile amount: {inputGood.Value} " +
+                $"vs {stockpileAmount}");
+            if (inputGood.Value > stockpileAmount)
+            {
+                hasEnoughInputGoods = false;
+
+                break; // No need to check further if one good is insufficient.
+            }
+        }
+        return hasEnoughInputGoods;
+    }
+    public static void WorkDayOverForPopulation(CountyData countyData
+        , Godot.Collections.Array<PopulationData> populationDataList)
+    {
+        foreach (PopulationData populationData in populationDataList)
         {
             /*
             if (countyData.factionData.isPlayer == true)
             {
-                GD.PrintRich($"[color=blue]{Clock.Instance.GetDateAndTime()} {countyPopulation.firstName} {countyPopulation.activity}[/color]");
+                GD.PrintRich($"[color=blue]{Clock.Instance.GetDateAndTime()} {populationData.firstName} {populationData.activity}[/color]");
             }
             */
-            switch (countyPopulation.activity)
+            switch (populationData.activity)
             {
                 case AllEnums.Activities.Scavenge:
-                    //GD.Print($"{countyPopulation.firstName} {countyPopulation.lastName} is generating scavenged resources.");
+                    //GD.Print($"{populationData.firstName} {populationData.lastName} is generating scavenged resources.");
                     // Skill learning is done in the GenerateScavengedResources.
-                    Banker.GenerateScavengedResources(countyData, countyPopulation);
+                    Banker.GenerateScavengedResources(countyData, populationData);
 
                     // Learning skillcheck.
                     // Just for testing it is set to fast.  The bool doesn't matter for this skill.
-                    SkillData.CheckLearning(countyPopulation, true);
+                    SkillData.CheckLearning(populationData, true);
 
-                    countyPopulation.UpdateActivity(AllEnums.Activities.Idle);
+                    populationData.UpdateActivity(AllEnums.Activities.Idle);
                     break;
                 case AllEnums.Activities.Build:
                     // Produce resources based on the countyimprovement
-                    ApplyWorkPerPerson(countyPopulation);
+                    ApplyWorkPerPerson(populationData);
 
                     // Check for Skill Learning.
                     // The bool doesn't matter for this skill.
-                    SkillData.CheckLearning(countyPopulation, true);
-
+                    SkillData.CheckLearning(populationData, true);
                     break;
                 case AllEnums.Activities.Work:
+
+                    // Retrieve the current county improvement for the population.
+                    CountyImprovementData countyImprovementData = populationData.currentCountyImprovement;
+
+                    // Check if there are enough input goods to proceed with work.
+                    bool hasEnoughInputGoods = CheckEnoughGoods(countyImprovementData, populationData);
+
+                    if (hasEnoughInputGoods)
                     {
-                        // Retrieve the current county improvement for the population.
-                        CountyImprovementData countyImprovementData = countyPopulation.currentCountyImprovement;
+                        Haulmaster.DeductStockPiledGoods(countyImprovementData);
 
-                        // Check if there are enough input goods to proceed with work.
-                        bool hasEnoughInputGoods = true;
+                        // Perform work-related processes.
+                        ApplyWorkPerPerson(populationData);
 
-                        foreach (KeyValuePair<GoodData, int> inputGood in countyImprovementData.inputGoods)
-                        {
-                            int stockpileAmount = countyImprovementData.countyStockpiledGoods[inputGood.Key.countyGoodType];
-                            GD.Print($"{countyPopulation.location} Input Good vs Stockpile amount: {inputGood.Value} " +
-                                $"vs {stockpileAmount}");
-                            if (inputGood.Value > stockpileAmount)
-                            {
-                                hasEnoughInputGoods = false;
-                                countyPopulation.employedDaysIdle++;
-                                GD.Print($"{countyPopulation.firstName} employed days idle: " +
-                                    $"{countyPopulation.employedDaysIdle}");
-                                break; // No need to check further if one good is insufficient.
-                            }
-                        }
-
-                        if (hasEnoughInputGoods)
-                        {
-                            // Deduct input goods and perform work actions.
-                            foreach (KeyValuePair<GoodData, int> inputGood in countyImprovementData.inputGoods)
-                            {
-                                countyImprovementData.countyStockpiledGoods[inputGood.Key.countyGoodType] 
-                                    -= inputGood.Value;
-                            }
-
-                            // Perform work-related processes.
-                            ApplyWorkPerPerson(countyPopulation);
-
-                            // Trigger skill learning.
-                            SkillData.CheckLearning(countyPopulation, true);
-                        }
-                        GD.Print($"Second: {countyPopulation.firstName} employed days idle: " +
-                            $"{countyPopulation.employedDaysIdle}");
-
-                        break;
+                        // Skill learning.
+                        SkillData.CheckLearning(populationData, true);
+                    }
+                    else
+                    {
+                        // If there isn't enough goods add a day to days employed but idle.
+                        populationData.daysEmployedButIdle++;
                     }
 
-                //case AllEnums.Activities.Work:
-                //    // Check and spend stockpiled goods, if there isn't enough of a stockpiled good
-                //    // then work should not be applied and the time till a person quits it added.
-                //    CountyImprovementData countyImprovementData = countyPopulation.currentCountyImprovement;
-                //    bool enoughInputGoods = true;
-                //    foreach (KeyValuePair<GoodData, int> inputGood in countyImprovementData.inputGoods)
-                //    {
-                //        if (inputGood.Value
-                //            < countyImprovementData.countyStockpiledGoods[inputGood.Key.countyGoodType])
-                //        {
-                //            enoughInputGoods = false;
-                //            countyPopulation.employedDaysIdle += 1;
-                //        }
-                //    }
-                //    if (enoughInputGoods == true)
-                //    {
-                //        foreach (KeyValuePair<GoodData, int> inputGood in countyImprovementData.inputGoods)
-                //        {
-                //            // Subtract input good value from stockpile
-                //            countyImprovementData.countyStockpiledGoods[inputGood.Key.countyGoodType]
-                //                -= inputGood.Value;
-                //            // Produce resources based on the countyimprovement
-                //            ApplyWorkPerPerson(countyPopulation);
-
-                //            // Check for Skill Learning.
-                //            // The bool doesn't matter for this skill.
-                //            SkillData.CheckLearning(countyPopulation, true);
-                //        }
-                //    }
-
-                //    // Check loyalty to see if they still want to work there and if they don't then they
-                //    // get set to idle.
-                //    PopulationAI.KeepWorkingAtCountyImprovement(countyPopulation);
-                //    break;
+                    if (populationData.isHero != true)
+                    {
+                        KeepWorkingAtCountyImprovement(populationData);
+                    }
+                    break;
                 case AllEnums.Activities.Research:
                     // Person working at research office, or hero generates research.
 
-                    //Banker.AddResearchForOfficeResearch(countyPopulation);
+                    //Banker.AddResearchForOfficeResearch(populationData);
 
-                    //PopulationAI.KeepResearching(countyPopulation);
+                    //PopulationAI.KeepResearching(populationData);
                     break;
                 case AllEnums.Activities.Idle:
                     // Give idle people their bonus happiness.
-                    countyPopulation.AddRandomHappiness(5);
+                    populationData.AddRandomHappiness(5);
                     break;
             }
         }
@@ -147,40 +117,69 @@ public class PopulationWork
     }
 
     /// <summary>
+    /// Uses a loyalty skill check to see if the person wants to keep working at the improvement.  It is a skill check
+    /// so it is pure percental chance.
+    /// Then it does another check to see if the person is employed but idle and also does another loyalty skill check.
+    /// Resets the days employed and employed but idle numbers to zero if they get a check.
+    /// </summary>
+    /// <param name="populationData"></param>
+    private static void KeepWorkingAtCountyImprovement(PopulationData populationData)
+    {
+        populationData.daysEmployed++;
+        if (populationData.daysEmployed > Globals.Instance.daysEmpoyedBeforeLoyaltyCheck)
+        {
+            PopulationAI.LoyaltyCheckToKeepWorkingAtCountyImprovement(populationData);
+            populationData.daysEmployed = 0;
+        }
+        if (populationData.currentCountyImprovement != null)
+        {
+            if (populationData.daysEmployedButIdle > Globals.Instance.daysEmployedIdleBeforeLookingForNewWork)
+            {
+                PopulationAI.LoyaltyCheckToKeepWorkingAtCountyImprovement(populationData);
+                populationData.daysEmployedButIdle = 0;
+            }
+        }
+        GD.Print($"{populationData.firstName} - Days Employed: {populationData.daysEmployed} Days Employed but Idle: " +
+            $"{populationData.daysEmployedButIdle}");
+    }
+
+
+
+    /// <summary>
     /// Shouldn't check learning be in GenerateWorkAmoutWithSkillCheck?
     /// Applies work for each person and adds it to the county improvments All Daily Work Amount At Improvement Completed.
     /// </summary>
     /// <param name="countyData"></param>
-    /// <param name="countyPopulation"></param>
-    public static void ApplyWorkPerPerson(CountyPopulation countyPopulation)
+    /// <param name="populationData"></param>
+    public static void ApplyWorkPerPerson(PopulationData populationData)
     {
-        if (countyPopulation.currentCountyImprovement == null)
+        if (populationData.currentCountyImprovement == null)
         {
             return;
         }
-        //GD.Print($"{countyData.countyName} Someone is working at {countyPopulation.currentCountyImprovement.improvementName}");
-        countyPopulation.currentCountyImprovement.allDailyWorkAmountAtImprovementCompleted
-            += GenerateWorkAmountWithSkillCheck(countyPopulation);
+        //GD.Print($"{countyData.countyName} Someone is working at {populationData.currentCountyImprovement.improvementName}");
+        populationData.currentCountyImprovement.allDailyWorkAmountAtImprovementCompleted
+            += GenerateWorkAmountWithSkillCheck(populationData);
         /*
-        GD.Print($"{countyPopulation.location}: " +
-            $"{countyPopulation.currentCountyImprovement.improvementName}: " +
-            $"All Daily {countyPopulation.activity} Amount At Improvement Completed: "
-            + countyPopulation.currentCountyImprovement.allDailyWorkAmountAtImprovementCompleted);
+        GD.Print($"{populationData.location}: " +
+            $"{populationData.currentCountyImprovement.improvementName}: " +
+            $"All Daily {populationData.activity} Amount At Improvement Completed: "
+            + populationData.currentCountyImprovement.allDailyWorkAmountAtImprovementCompleted);
         */
     }
 
     /// <summary>
     /// Return the work amount for a single person that should be subtracted from the resource cost.
     /// </summary>
-    /// <param name="countyPopulation"></param>
+    /// <param name="populationData"></param>
     /// <returns></returns>
-    public static int GenerateWorkAmountWithSkillCheck(CountyPopulation countyPopulation)
+    public static int GenerateWorkAmountWithSkillCheck(PopulationData populationData)
     {
-        //CountyImprovementData countyImprovementData = countyPopulation.currentCountyImprovement;
-        int skillLevel = countyPopulation.skills[countyPopulation.currentCountyImprovement.workSkill].skillLevel;
+        //CountyImprovementData countyImprovementData = populationData.currentCountyImprovement;
+        int skillLevel = populationData.skills[populationData.currentCountyImprovement.workSkill].skillLevel;
         int workAmount;
-        if (SkillData.Check(countyPopulation, skillLevel
-            , countyPopulation.skills[countyPopulation.currentCountyImprovement.workSkill].attribute
+        if (SkillData.Check(populationData, skillLevel
+            , populationData.skills[populationData.currentCountyImprovement.workSkill].attribute
             , false) == true)
         {
             workAmount = Globals.Instance.dailyWorkAmount + Globals.Instance.dailyWorkAmountBonus;

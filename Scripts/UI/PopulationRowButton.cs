@@ -4,7 +4,7 @@ namespace PlayerSpace
 {
     public partial class PopulationRowButton : Button
     {
-        public CountyPopulation countyPopulation;
+        public PopulationData populationData;
         [Export] public Label populationNameLabel;
         [Export] public Label ageLabel;
         [Export] public Label sexLabel;
@@ -20,7 +20,7 @@ namespace PlayerSpace
         {
             CountyInfoControl.Instance.populationDescriptionControl.Show();
             CountyInfoControl.Instance.populationListMarginContainer.Hide();
-            PopulationDescriptionControl.Instance.countyPopulation = countyPopulation;
+            PopulationDescriptionControl.Instance.populationData = populationData;
         }
     }
 }

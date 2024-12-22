@@ -37,7 +37,7 @@ namespace PlayerSpace
 
         public void DefenderSpawnArmies(County battleLocation)
         {
-            CountyPopulation defenderHero = CheckForArmies(battleLocation);
+            PopulationData defenderHero = CheckForArmies(battleLocation);
             if (defenderHero != null)
             {
                 // Defender's faction data.
@@ -49,40 +49,40 @@ namespace PlayerSpace
             }
         }
 
-        public static CountyPopulation CheckForArmies(County battleLocation)
+        public static PopulationData CheckForArmies(County battleLocation)
         {
             // Checkes for spawned armies.  If there is one, then it returns null, otherwise it spawns one.
             //GD.Print("Defending Army List Count: " + battleLocation.countyData.armiesInCountyList.Count());
             if(battleLocation.countyData.armiesInCountyList.Count > 0)
             {
-                foreach(CountyPopulation countyPopulation in battleLocation.countyData.armiesInCountyList)
+                foreach(PopulationData populationData in battleLocation.countyData.armiesInCountyList)
                 {
-                    if(countyPopulation.token != null)
+                    if(populationData.token != null)
                     {
                         return null;
                     }
                     else
                     {
-                        return countyPopulation;
+                        return populationData;
                     }
                 }
             }
             //GD.Print("Defending Hero List Count: " + battleLocation.countyData.herosInCountyList.Count());
             if (battleLocation.countyData.heroesInCountyList.Count > 0)
             {
-                foreach (CountyPopulation countyPopulation in battleLocation.countyData.heroesInCountyList)
+                foreach (PopulationData populationData in battleLocation.countyData.heroesInCountyList)
                 {
-                    if (countyPopulation.isFactionLeader == true)
+                    if (populationData.isFactionLeader == true)
                     {
-                        countyPopulation.ChangeToArmy();
-                        return countyPopulation;
+                        populationData.ChangeToArmy();
+                        return populationData;
                     }
                     else
                     {
-                        if (countyPopulation.LoyaltyAdjusted > Globals.Instance.loyaltyCheckNumber)
+                        if (populationData.LoyaltyAdjusted > Globals.Instance.loyaltyCheckNumber)
                         {
-                            countyPopulation.ChangeToArmy();
-                            return countyPopulation;
+                            populationData.ChangeToArmy();
+                            return populationData;
                         }
                         else
                         {
@@ -99,25 +99,25 @@ namespace PlayerSpace
                 if (battleLocation.countyData.factionData.factionGoods[AllEnums.FactionGoodType.Influence].Amount 
                     >= Globals.Instance.costOfHero)
                 {
-                    List<CountyPopulation> possibleDefenders = [];
-                    foreach (CountyPopulation countyPopulation in battleLocation.countyData.countyPopulationList)
+                    List<PopulationData> possibleDefenders = [];
+                    foreach (PopulationData populationData in battleLocation.countyData.populationDataList)
                     {
-                        if (countyPopulation.LoyaltyAdjusted > Globals.Instance.loyaltyCheckNumber)
+                        if (populationData.LoyaltyAdjusted > Globals.Instance.loyaltyCheckNumber)
                         {
-                            possibleDefenders.Add(countyPopulation);
+                            possibleDefenders.Add(populationData);
                         }
                     }
 
                     if (possibleDefenders.Count > 0)
                     {
                         // Order the possbileDefenders list by highest cool and rifle skill.
-                        possibleDefenders = [.. possibleDefenders.OrderByDescending(countyPopulation 
-                            => countyPopulation.skills[AllEnums.Skills.Cool].skillLevel).ThenByDescending(countyPopulation 
-                            => countyPopulation.skills[AllEnums.Skills.Rifle].skillLevel)];
-                        foreach (CountyPopulation countyPopulation in possibleDefenders)
+                        possibleDefenders = [.. possibleDefenders.OrderByDescending(populationData 
+                            => populationData.skills[AllEnums.Skills.Cool].skillLevel).ThenByDescending(populationData 
+                            => populationData.skills[AllEnums.Skills.Rifle].skillLevel)];
+                        foreach (PopulationData populationData in possibleDefenders)
                         {
-                            //GD.Print($"{countyPopulation.firstName} {countyPopulation.skills[AllEnums.Skills.Cool].skillLevel} " +
-                             //   $"{countyPopulation.skills[AllEnums.Skills.Rifle].skillLevel}");
+                            //GD.Print($"{populationData.firstName} {populationData.skills[AllEnums.Skills.Cool].skillLevel} " +
+                             //   $"{populationData.skills[AllEnums.Skills.Rifle].skillLevel}");
                         }
                         County selectCounty = (County)Globals.Instance.countiesParent.GetChild(possibleDefenders[0].location);
                         selectCounty.countyData.heroesInCountyList.Add(possibleDefenders[0]);

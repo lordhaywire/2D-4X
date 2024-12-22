@@ -27,15 +27,15 @@ namespace PlayerSpace
         [Export] public AllEnums.Terrain biomeSecondary;
         [Export] public AllEnums.Terrain biomeTertiary;
 
-        [Export] public Godot.Collections.Array<CountyPopulation> countyPopulationList = [];
-        [Export] public Godot.Collections.Array<CountyPopulation> heroesInCountyList = [];
-        [Export] public Godot.Collections.Array<CountyPopulation> armiesInCountyList = [];
-        [Export] public Godot.Collections.Array<CountyPopulation> visitingHeroList = [];
-        [Export] public Godot.Collections.Array<CountyPopulation> visitingArmyList = [];
-        [Export] public Godot.Collections.Array<CountyPopulation> deadPeopleList = [];
+        [Export] public Godot.Collections.Array<PopulationData> populationDataList = [];
+        [Export] public Godot.Collections.Array<PopulationData> heroesInCountyList = [];
+        [Export] public Godot.Collections.Array<PopulationData> armiesInCountyList = [];
+        [Export] public Godot.Collections.Array<PopulationData> visitingHeroList = [];
+        [Export] public Godot.Collections.Array<PopulationData> visitingArmyList = [];
+        [Export] public Godot.Collections.Array<PopulationData> deadPeopleList = [];
 
-        List<CountyPopulation> possibleWorkers = []; // List of all the idle, helpful and loyal workers for that day.
-        readonly List<CountyPopulation> workersToRemoveFromPossibleWorkers = []; // List to collect county populations to be removed from the possibleWorkers.
+        List<PopulationData> possibleWorkers = []; // List of all the idle, helpful and loyal workers for that day.
+        readonly List<PopulationData> workersToRemoveFromPossibleWorkers = []; // List to collect county populations to be removed from the possibleWorkers.
 
         public List<Button> spawnedTokenButtons = [];
 
@@ -100,7 +100,7 @@ namespace PlayerSpace
             }
         }
 
-        readonly List<CountyPopulation> peopleWhoNeedToDie = [];
+        readonly List<PopulationData> peopleWhoNeedToDie = [];
 
         public void CheckIfCountyImprovementsAreDone()
         {
@@ -112,10 +112,10 @@ namespace PlayerSpace
                 // Set their current work to null.
                 if (countyImprovementData.CheckIfCountyImprovementDone())
                 {
-                    foreach (CountyPopulation countyPopulation in countyImprovementData.populationAtImprovement)
+                    foreach (PopulationData populationData in countyImprovementData.populationAtImprovement)
                     {
-                        countyPopulation.UpdateActivity(AllEnums.Activities.Idle);
-                        countyPopulation.UpdateCurrentCountyImprovement(null);
+                        populationData.UpdateActivity(AllEnums.Activities.Idle);
+                        populationData.UpdateCurrentCountyImprovement(null);
                     }
                     // Set countyImprovement status to producing.  I think this is going to fuck everything up.
                     countyImprovementData.SetCountyImprovementComplete(this);
@@ -153,19 +153,19 @@ namespace PlayerSpace
             }
         }
 
-        private static void UpdateWorkLocation(CountyPopulation countyPopulation, CountyImprovementData countyImprovementData)
+        private static void UpdateWorkLocation(PopulationData populationData, CountyImprovementData countyImprovementData)
         {
-            // GD.Print($"{countyPopulation.firstName} is working at {countyImprovementData.improvementName}");
+            // GD.Print($"{populationData.firstName} is working at {countyImprovementData.improvementName}");
             // This same thing is done multiple times.  We should make it its own method.
-            countyPopulation.UpdateCurrentCountyImprovement(countyImprovementData);
-            countyImprovementData.AddPopulationToCountyImprovementList(countyPopulation);
+            populationData.UpdateCurrentCountyImprovement(countyImprovementData);
+            countyImprovementData.AddPopulationToCountyImprovementList(populationData);
         }
         public void CountIdleWorkers()
         {
             int idleWorkers = 0;
-            foreach (CountyPopulation countyPopulation in countyPopulationList)
+            foreach (PopulationData populationData in populationDataList)
             {
-                if (countyPopulation.activity == AllEnums.Activities.Idle)
+                if (populationData.activity == AllEnums.Activities.Idle)
                 {
                     idleWorkers++;
                 }
@@ -190,11 +190,11 @@ namespace PlayerSpace
             //int amountOfFood = CountFactionResourceOfType(AllEnums.FactionResourceType.Food);
             //// GD.Print($"{county.countyData.countyName} Amount of food: " + amountOfFood);
 
-            foreach (CountyPopulation countyPopulation in possibleWorkers)
+            foreach (PopulationData populationData in possibleWorkers)
             {
-                countyPopulation.UpdateActivity(AllEnums.Activities.Scavenge);
-                countyPopulation.UpdateCurrentCountyImprovement(null);
-                workersToRemoveFromPossibleWorkers.Add(countyPopulation);
+                populationData.UpdateActivity(AllEnums.Activities.Scavenge);
+                populationData.UpdateCurrentCountyImprovement(null);
+                workersToRemoveFromPossibleWorkers.Add(populationData);
             }
             RemoveWorkersFromPossibleWorkers();
         }
@@ -215,11 +215,11 @@ namespace PlayerSpace
 
             //// GD.Print($"{county.countyData.countyName} Amount of remnants: " + county.countyData.resources[AllEnums.CountyResourceType.Remnants].amount);
 
-            foreach (CountyPopulation countyPopulation in possibleWorkers)
+            foreach (PopulationData populationData in possibleWorkers)
             {
-                countyPopulation.UpdateActivity(AllEnums.Activities.Scavenge);
-                countyPopulation.UpdateCurrentCountyImprovement(null);
-                workersToRemoveFromPossibleWorkers.Add(countyPopulation);
+                populationData.UpdateActivity(AllEnums.Activities.Scavenge);
+                populationData.UpdateCurrentCountyImprovement(null);
+                workersToRemoveFromPossibleWorkers.Add(populationData);
             }
             RemoveWorkersFromPossibleWorkers();
 
@@ -295,9 +295,9 @@ namespace PlayerSpace
         private void RemoveWorkersFromPossibleWorkers()
         {
             // Remove the collected items from the possibleWorkers list
-            foreach (CountyPopulation countyPopulation in workersToRemoveFromPossibleWorkers)
+            foreach (PopulationData populationData in workersToRemoveFromPossibleWorkers)
             {
-                possibleWorkers.Remove(countyPopulation);
+                possibleWorkers.Remove(populationData);
             }
             workersToRemoveFromPossibleWorkers.Clear();
         }
@@ -307,15 +307,15 @@ namespace PlayerSpace
             possibleWorkers.Clear(); // Clear the list at the start of each county.
             workersToRemoveFromPossibleWorkers.Clear();
             // Go through each person in the county.
-            foreach (CountyPopulation countyPopulation in countyPopulationList)
+            foreach (PopulationData populationData in populationDataList)
             {
                 // Go through everyone and if they are idle, helpful and loyal add them to the possibleWorkers list.
-                if (countyPopulation.activity == AllEnums.Activities.Idle
-                    && countyPopulation.CheckWillWorkLoyalty() == true
-                    && countyPopulation.CheckForPerk(AllEnums.Perks.Unhelpful) == false)
+                if (populationData.activity == AllEnums.Activities.Idle
+                    && populationData.CheckWillWorkLoyalty() == true
+                    && populationData.CheckForPerk(AllEnums.Perks.Unhelpful) == false)
                 {
-                    // GD.Print($"{countyName}: {countyPopulation.firstName} is idle, is loyal and is not unhelpful.");
-                    possibleWorkers.Add(countyPopulation);
+                    // GD.Print($"{countyName}: {populationData.firstName} is idle, is loyal and is not unhelpful.");
+                    possibleWorkers.Add(populationData);
                 }
             }
         }
@@ -345,7 +345,7 @@ namespace PlayerSpace
                     continue;
                 }
                 
-                foreach (CountyPopulation countyPopulation in possibleWorkers)
+                foreach (PopulationData populationData in possibleWorkers)
                 {
                     // If they have the preferred skill, they are added to the county improvement
                     // and marked for removal from the possibleWorkers list.
@@ -353,18 +353,18 @@ namespace PlayerSpace
                     // county improvement.
                     if(countyImprovementData.CheckIfWorkersFull() == false)
                     {
-                        if (countyPopulation.preferredSkill.skill == countyImprovementData.workSkill)
+                        if (populationData.preferredSkill.skill == countyImprovementData.workSkill)
                         {
-                            countyPopulation.UpdateActivity(AllEnums.Activities.Work);
-                            UpdateWorkLocation(countyPopulation, countyImprovementData);
+                            populationData.UpdateActivity(AllEnums.Activities.Work);
+                            UpdateWorkLocation(populationData, countyImprovementData);
 
-                            /*GD.Print($"{countyPopulation.firstName} {countyPopulation.lastName} preferred work is " +
-                                $"{countyPopulation.preferredSkill.skillName} and they are " +
-                                $"{countyPopulation.GetActivityName()} at " +
-                                $"{countyPopulation.currentCountyImprovement.improvementName}");
+                            /*GD.Print($"{populationData.firstName} {populationData.lastName} preferred work is " +
+                                $"{populationData.preferredSkill.skillName} and they are " +
+                                $"{populationData.GetActivityName()} at " +
+                                $"{populationData.currentCountyImprovement.improvementName}");
                             */
 
-                            workersToRemoveFromPossibleWorkers.Add(countyPopulation);
+                            workersToRemoveFromPossibleWorkers.Add(populationData);
                         }
                     }
 
@@ -384,16 +384,16 @@ namespace PlayerSpace
                     GD.Print("I think something is wrong here!!!!!");
                     continue;
                 }
-                foreach (CountyPopulation countyPopulation in possibleWorkers)
+                foreach (PopulationData populationData in possibleWorkers)
                 {
                     // It needs to check if county improvement's workers are full,
                     // so that it doesn't add extra people to the 
                     // county improvement.
                     if (countyImprovementData.CheckIfWorkersFull() == false)
                     {
-                        countyPopulation.UpdateActivity(AllEnums.Activities.Work);
-                        UpdateWorkLocation(countyPopulation, countyImprovementData);
-                        workersToRemoveFromPossibleWorkers.Add(countyPopulation);
+                        populationData.UpdateActivity(AllEnums.Activities.Work);
+                        UpdateWorkLocation(populationData, countyImprovementData);
+                        workersToRemoveFromPossibleWorkers.Add(populationData);
                     }
                 }
                 RemoveWorkersFromPossibleWorkers();
@@ -430,19 +430,19 @@ namespace PlayerSpace
         {
             PossiblyUseResources(heroesInCountyList);
             PossiblyUseResources(armiesInCountyList);
-            PossiblyUseResources(countyPopulationList);
+            PossiblyUseResources(populationDataList);
         }
 
-        private void PossiblyUseResources(Godot.Collections.Array<CountyPopulation> peopleUsingResourcesList)
+        private void PossiblyUseResources(Godot.Collections.Array<PopulationData> peopleUsingResourcesList)
         {
-            foreach (CountyPopulation countyPopulation in peopleUsingResourcesList)
+            foreach (PopulationData populationData in peopleUsingResourcesList)
             {
                 // Go through all of their needs and skill check against it and if they pass
                 // , they use the resource that is needed.
-                foreach (KeyValuePair<AllEnums.CountyGoodType, int> keyValuePair in countyPopulation.needs)
+                foreach (KeyValuePair<AllEnums.CountyGoodType, int> keyValuePair in populationData.needs)
                 {
                     // Check to see if they want the resource.
-                    if (SkillData.Check(countyPopulation, keyValuePair.Value
+                    if (SkillData.Check(populationData, keyValuePair.Value
                         , AllEnums.Attributes.MentalStrength, true) == true)
                     {
                         //GD.Print($"Needs Checks: Passed.");
@@ -453,15 +453,15 @@ namespace PlayerSpace
                             RemoveResourceFromCounty(keyValuePair.Key, Globals.Instance.occationalResourceUsageAmount);
 
                             // Add happiness.
-                            countyPopulation.AddRandomHappiness(1);
+                            populationData.AddRandomHappiness(1);
 
                             // Set need back to zero.
-                            countyPopulation.needs[keyValuePair.Key] = 0;
+                            populationData.needs[keyValuePair.Key] = 0;
                         }
                         else
                         {
                             // Reduce this populations happiness.
-                            countyPopulation.RemoveRandomHappiness(1);
+                            populationData.RemoveRandomHappiness(1);
                         }
                     }
                     else
@@ -469,8 +469,8 @@ namespace PlayerSpace
                         // Gain 1d4 amount to the need for the next day.
                         Random random = new();
                         int needIncrease = random.Next(1, Globals.Instance.occationalNeedIncreaseAmount);
-                        countyPopulation.needs[keyValuePair.Key] += needIncrease;
-                        //GD.Print($"Needs Checks: Failed: " + countyPopulation.needs[keyValuePair.Key]);
+                        populationData.needs[keyValuePair.Key] += needIncrease;
+                        //GD.Print($"Needs Checks: Failed: " + populationData.needs[keyValuePair.Key]);
                     }
                 }
             }
@@ -546,20 +546,21 @@ namespace PlayerSpace
             public List<GoodData> perishableFoodList = [];
             public List<GoodData> nonperishableFoodList = [];
         }
-        public void PopulationEatsFood(Godot.Collections.Array<CountyPopulation> countyPopulationList, int amount)
+        public void PopulationEatsFood(Godot.Collections.Array<PopulationData> populationDataList, int amount)
         {
             Random random = new();
             FoodLists foodLists = GetListsOfFood();
-            //GD.Print("Population List count: " + countyPopulationList.Count());
-            if (countyPopulationList.Count < 1)
+            //GD.Print("Population List count: " + populationDataList.Count());
+            if (populationDataList.Count < 1)
             {
-                //GD.PrintRich($"[pulse freq=5.0 color=green]Population Eats Food: A county population list is empty.[/pulse]");
+                GD.PrintRich($"[pulse freq=5.0 color=green]Population Eats Food: " +
+                    $"A population list such as herolist or armylist is empty.[/pulse]");
                 return;
             }
             else
             {
                 peopleWhoNeedToDie.Clear();
-                foreach (CountyPopulation countyPopulation in countyPopulationList)
+                foreach (PopulationData populationData in populationDataList)
                 {
                     if (foodLists.perishableFoodList.Count > 0)
                     {
@@ -582,7 +583,7 @@ namespace PlayerSpace
                         {
                             if (foodLists.nonperishableFoodList[0].Amount > amount)
                             {
-                                // The County Population eats nonperishable food.
+                                // The Population eats nonperishable food.
                                 foodLists.nonperishableFoodList[0].Amount -= amount;
 
                                 // Check to see if there is enough nonperishable food for the next person,
@@ -596,8 +597,8 @@ namespace PlayerSpace
                         else
                         {
                             // There is no food so this person starves.
-                            //GD.PrintRich($"[color=red]People Eat Food - Perishable: Starvation![/color]");
-                            Starvation(countyPopulation, amount);
+                            GD.PrintRich($"[color=red]People Eat Food - Perishable: Starvation![/color]");
+                            Starvation(populationData, amount);
                         }
                     }
                     else if (foodLists.nonperishableFoodList.Count > 0)
@@ -617,7 +618,7 @@ namespace PlayerSpace
                                 foodLists.nonperishableFoodList.Remove(foodLists.nonperishableFoodList[0]);
                             }
                             /*
-                            GD.Print($"{countyPopulation.firstName} {countyPopulation.lastName} ate {amount}" +
+                            GD.Print($"{populationData.firstName} {populationData.lastName} ate {amount}" +
                                 $" now that county has {foodLists.nonperishableFoodList[randomNumber].name}" +
                                 $" {foodLists.nonperishableFoodList[randomNumber].amount}");
                             */
@@ -625,65 +626,65 @@ namespace PlayerSpace
                         else
                         {
                             // There is no food so this person starves.
-                            Starvation(countyPopulation, amount);
-                            //GD.PrintRich($"[color=red]People Eat Food - Nonperishable: Starvation![/color]");
+                            Starvation(populationData, amount);
+                            GD.PrintRich($"[color=red]People Eat Food - Nonperishable: Starvation![/color]");
                         }
                     }
                     else
                     {
                         // Starving!
-                        Starvation(countyPopulation, amount);
+                        Starvation(populationData, amount);
                     }
-                    AdjustPopulationHappiness(amount, countyPopulation);
+                    AdjustPopulationHappiness(amount, populationData);
                 }
                 KillPeopleWhoNeedToDie(peopleWhoNeedToDie);
             }
         }
 
-        private void Starvation(CountyPopulation countyPopulation, int amount)
+        private void Starvation(PopulationData populationData, int amount)
         {
             //GD.PrintRich($"[rainbow]There is no food at all!");
-            //GD.Print($"{countyPopulation.firstName} has starved for {countyPopulation.daysStarving} days.");
+            //GD.Print($"{populationData.firstName} has starved for {populationData.daysStarving} days.");
             // This will give each population an additonal -1 to their happiness which works for now.
-            AdjustPopulationHappiness(amount, countyPopulation);
-            if (countyPopulation.daysStarving >= Globals.Instance.daysUntilDamageFromStarvation)
+            AdjustPopulationHappiness(amount, populationData);
+            if (populationData.daysStarving >= Globals.Instance.daysUntilDamageFromStarvation)
             {
-                countyPopulation.hitpoints--;
-                // This should be its own method in countyPopulation that kills the population.
-                if (countyPopulation.hitpoints < 1)
+                populationData.hitpoints--;
+                // This should be its own method in populationData that kills the population.
+                if (populationData.hitpoints < 1)
                 {
-                    peopleWhoNeedToDie.Add(countyPopulation);
+                    peopleWhoNeedToDie.Add(populationData);
                 }
             }
-            countyPopulation.daysStarving++;
+            populationData.daysStarving++;
         }
 
-        private void KillPeopleWhoNeedToDie(List<CountyPopulation> peopleWhoNeedToDie)
+        private void KillPeopleWhoNeedToDie(List<PopulationData> peopleWhoNeedToDie)
         {
-            foreach (CountyPopulation countyPopulation in peopleWhoNeedToDie)
+            foreach (PopulationData populationData in peopleWhoNeedToDie)
             {
-                countyPopulation.factionData.RemoveHeroFromAllHeroesList(countyPopulation);
-                countyPopulationList.Remove(countyPopulation);
-                heroesInCountyList.Remove(countyPopulation);
-                armiesInCountyList.Remove(countyPopulation);
-                deadPeopleList.Add(countyPopulation);
-                //GD.PrintRich($"[color=red]{countyPopulation.firstName} {countyPopulation.lastName} has croaked.[/color]");
+                populationData.factionData.RemoveHeroFromAllHeroesList(populationData);
+                populationDataList.Remove(populationData);
+                heroesInCountyList.Remove(populationData);
+                armiesInCountyList.Remove(populationData);
+                deadPeopleList.Add(populationData);
+                //GD.PrintRich($"[color=red]{populationData.firstName} {populationData.lastName} has croaked.[/color]");
             }
         }
 
-        // This is sort of duplicate code.  It is almost the same as the countyPopulation.AddRandomHappiness.
-        private static void AdjustPopulationHappiness(int amount, CountyPopulation countyPopulation)
+        // This is sort of duplicate code.  It is almost the same as the populationData.AddRandomHappiness.
+        private static void AdjustPopulationHappiness(int amount, PopulationData populationData)
         {
-            //GD.Print($"{countyPopulation.firstName} happiness: {countyPopulation.Happiness}");
+            //GD.Print($"{populationData.firstName} happiness: {populationData.Happiness}");
             if (amount == Globals.Instance.foodToGainHappiness)
             {
-                countyPopulation.Happiness++;
+                populationData.Happiness++;
             }
             else if (amount == Globals.Instance.foodToLoseHappiness)
             {
-                countyPopulation.Happiness--;
+                populationData.Happiness--;
             }
-            //GD.Print($"{countyPopulation.firstName} happiness: {countyPopulation.Happiness}");
+            //GD.Print($"{populationData.firstName} happiness: {populationData.Happiness}");
         }
 
         public void MoveCountyImprovementToCompletedList(List<CountyImprovementData> countyImprovementDataToRemove)
@@ -721,13 +722,13 @@ namespace PlayerSpace
             */
         }
 
-        public static void CheckForHealing(Godot.Collections.Array<CountyPopulation> possibleHurtPopulationList)
+        public static void CheckForHealing(Godot.Collections.Array<PopulationData> possibleHurtPopulationList)
         {
-            foreach (CountyPopulation countyPopulation in possibleHurtPopulationList)
+            foreach (PopulationData populationData in possibleHurtPopulationList)
             {
-                if (countyPopulation.hitpoints < countyPopulation.maxHitpoints && countyPopulation.daysStarving < 1)
+                if (populationData.hitpoints < populationData.maxHitpoints && populationData.daysStarving < 1)
                 {
-                    countyPopulation.hitpoints++;
+                    populationData.hitpoints++;
                 }
             }
         }
@@ -787,12 +788,12 @@ namespace PlayerSpace
 
             // Assign sorted workers if there is room
             // This is removing them from any possible county improvement they where assigned to.
-            foreach (CountyPopulation countyPopulation in possibleWorkers.Take(remainingWorkerSlots))
+            foreach (PopulationData populationData in possibleWorkers.Take(remainingWorkerSlots))
             {
-                countyPopulation.RemoveFromCountyImprovement();
-                countyPopulation.UpdateActivity(activity);
-                UpdateWorkLocation(countyPopulation, countyImprovementData);
-                workersToRemoveFromPossibleWorkers.Add(countyPopulation);
+                populationData.RemoveFromCountyImprovement();
+                populationData.UpdateActivity(activity);
+                UpdateWorkLocation(populationData, countyImprovementData);
+                workersToRemoveFromPossibleWorkers.Add(populationData);
             }
             
             RemoveWorkersFromPossibleWorkers();
@@ -804,14 +805,14 @@ namespace PlayerSpace
         private void GetPrioritizedWorkersList()
         {
             // Go through each person in the county.
-            foreach (CountyPopulation countyPopulation in countyPopulationList)
+            foreach (PopulationData populationData in populationDataList)
             {
                 // Go through everyone and if they are helpful and loyal add them to the possibleWorkers list.
-                if (countyPopulation.CheckWillWorkLoyalty() == true
-                    && countyPopulation.CheckForPerk(AllEnums.Perks.Unhelpful) == false)
+                if (populationData.CheckWillWorkLoyalty() == true
+                    && populationData.CheckForPerk(AllEnums.Perks.Unhelpful) == false)
                 {
-                    // GD.Print($"{countyName}: {countyPopulation.firstName} is loyal and is helpful.");
-                    possibleWorkers.Add(countyPopulation);
+                    // GD.Print($"{countyName}: {populationData.firstName} is loyal and is helpful.");
+                    possibleWorkers.Add(populationData);
                 }
             }
         }

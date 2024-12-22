@@ -38,7 +38,7 @@ namespace PlayerSpace
         [Export] private Button armyLeaderRecruitButton;
         [Export] private PanelContainer heroRecruitmentConfirmPanel;
 
-        public CountyPopulation countyPopulation;
+        public PopulationData populationData;
 
         public bool heroButtonClicked; // If the player has clicked a hero from the list below the countyinfo panel.
 
@@ -83,11 +83,11 @@ namespace PlayerSpace
         {
             CountyInfoControl.Instance.DisableSpawnHeroCheckButton(true);
             PlayerControls.Instance.AdjustPlayerControls(false); // This was probably happening too fast which is why it is here.
-            County selectCounty = (County)Globals.Instance.countiesParent.GetChild(countyPopulation.location);
-            //GD.Print("Select County Location: " + countyPopulation.location);
+            County selectCounty = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
+            //GD.Print("Select County Location: " + populationData.location);
 
             //GD.Print("It goes to the update description: " + person.firstName);
-            populationName.Text = $"{countyPopulation.firstName} {countyPopulation.lastName}";
+            populationName.Text = $"{populationData.firstName} {populationData.lastName}";
 
             DisableUIElements();
 
@@ -97,11 +97,11 @@ namespace PlayerSpace
 
             CheckForTitles();
 
-            UpdateAttributes(countyPopulation);
+            UpdateAttributes(populationData);
 
-            ageLabel.Text = countyPopulation.age.ToString();
+            ageLabel.Text = populationData.age.ToString();
 
-            if (countyPopulation.isMale)
+            if (populationData.isMale)
             {
                 sexLabel.Text = "WORD_MALE";
             }
@@ -115,18 +115,18 @@ namespace PlayerSpace
             UpdatePreferredWork();
             UpdateSkills();
 
-            if (countyPopulation.currentCountyImprovement != null)
+            if (populationData.currentCountyImprovement != null)
             {
-                currentActivityLabel.Text = $"{Tr(countyPopulation.GetActivityName())} " +
-                    $"{Tr(countyPopulation.currentCountyImprovement.improvementName)}";
+                currentActivityLabel.Text = $"{Tr(populationData.GetActivityName())} " +
+                    $"{Tr(populationData.currentCountyImprovement.improvementName)}";
             }
             else
             {
-                currentActivityLabel.Text = $"{Tr(countyPopulation.GetActivityName())}";
+                currentActivityLabel.Text = $"{Tr(populationData.GetActivityName())}";
             }
 
             if (Globals.Instance.playerFactionData.factionGoods[AllEnums.FactionGoodType.Influence].Amount 
-                < Globals.Instance.costOfHero || countyPopulation.isHero == true)
+                < Globals.Instance.costOfHero || populationData.isHero == true)
             {
                 aideRecruitButton.Disabled = true;
             }
@@ -138,26 +138,26 @@ namespace PlayerSpace
 
         private void UpdateInterest()
         {
-            interestLabel.Text = Tr(countyPopulation.interestData.name);
+            interestLabel.Text = Tr(populationData.interestData.name);
         }
 
         private void UpdatePreferredWork()
         {
-            preferredWorkLabel.Text = Tr(countyPopulation.preferredSkill.skillName);
+            preferredWorkLabel.Text = Tr(populationData.preferredSkill.skillName);
         }
 
         // All perks are known for now, but eventually we want the player not to know all of their population's perks.
         private void UpdatePerks()
         {
             ClearPerks();
-            if(countyPopulation.perks.Count < 1)
+            if(populationData.perks.Count < 1)
             {
                 Label perksLabel = (Label)perkLabel.Instantiate();
                 perksParent.AddChild(perksLabel);
             }
             else
             {
-                foreach (KeyValuePair<AllEnums.Perks, PerkData> keyValuePair in countyPopulation.perks)
+                foreach (KeyValuePair<AllEnums.Perks, PerkData> keyValuePair in populationData.perks)
                 {
                     Label perksLabel = (Label)perkLabel.Instantiate();
                     perksLabel.Text = Tr(keyValuePair.Value.perkName);
@@ -176,17 +176,17 @@ namespace PlayerSpace
 
         private void CheckForTitles()
         {
-            //GD.Print("Check for Titles! " + countyPopulation.IsArmyLeader);
+            //GD.Print("Check for Titles! " + populationData.IsArmyLeader);
 
-            if (countyPopulation.isFactionLeader)
+            if (populationData.isFactionLeader)
             {
                 leaderTitleButton.Disabled = false;
             }
-            if (countyPopulation.isAide)
+            if (populationData.isAide)
             {
                 aideTitleButton.Disabled = false;
             }
-            if (countyPopulation.IsArmyLeader)
+            if (populationData.IsArmyLeader)
             {
                 //GD.Print("Army Leader is true!");
                 armyLeaderTitleButton.Disabled = false;
@@ -197,23 +197,23 @@ namespace PlayerSpace
         private void CheckForArmyRecruitmentButton(County selectCounty)
         {
             bool isPlayerFaction = selectCounty.countyData.factionData == Globals.Instance.playerFactionData;
-            bool isTokenMoving = countyPopulation.token?.tokenMovement.MoveToken ?? false;
+            bool isTokenMoving = populationData.token?.tokenMovement.MoveToken ?? false;
 
-            armyLeaderRecruitButton.Disabled = countyPopulation.IsArmyLeader || (isPlayerFaction && isTokenMoving);
+            armyLeaderRecruitButton.Disabled = populationData.IsArmyLeader || (isPlayerFaction && isTokenMoving);
         }
 
-        private void UpdateAttributes(CountyPopulation countyPopulation)
+        private void UpdateAttributes(PopulationData populationData)
         {
-            physicalStrengthLabel.Text = countyPopulation.attributes[AllEnums.Attributes.PhysicalStrength].attributeLevel.ToString();
-            agilityLabel.Text = countyPopulation.attributes[AllEnums.Attributes.Agility].attributeLevel.ToString();
-            enduranceLabel.Text = countyPopulation.attributes[AllEnums.Attributes.Endurance].attributeLevel.ToString();
-            intelligenceLabel.Text = countyPopulation.attributes[AllEnums.Attributes.Intelligence].attributeLevel.ToString();
-            mentalStrengthLabel.Text = countyPopulation.attributes[AllEnums.Attributes.MentalStrength].attributeLevel.ToString();
-            awarenessLabel.Text = countyPopulation.attributes[AllEnums.Attributes.Awareness].attributeLevel.ToString();
-            charismaLabel.Text = countyPopulation.attributes[AllEnums.Attributes.Charisma].attributeLevel.ToString();
-            looksLabel.Text = countyPopulation.attributes[AllEnums.Attributes.Looks].attributeLevel.ToString();
+            physicalStrengthLabel.Text = populationData.attributes[AllEnums.Attributes.PhysicalStrength].attributeLevel.ToString();
+            agilityLabel.Text = populationData.attributes[AllEnums.Attributes.Agility].attributeLevel.ToString();
+            enduranceLabel.Text = populationData.attributes[AllEnums.Attributes.Endurance].attributeLevel.ToString();
+            intelligenceLabel.Text = populationData.attributes[AllEnums.Attributes.Intelligence].attributeLevel.ToString();
+            mentalStrengthLabel.Text = populationData.attributes[AllEnums.Attributes.MentalStrength].attributeLevel.ToString();
+            awarenessLabel.Text = populationData.attributes[AllEnums.Attributes.Awareness].attributeLevel.ToString();
+            charismaLabel.Text = populationData.attributes[AllEnums.Attributes.Charisma].attributeLevel.ToString();
+            looksLabel.Text = populationData.attributes[AllEnums.Attributes.Looks].attributeLevel.ToString();
 
-            loyaltyAttributeLabel.Text = countyPopulation.LoyaltyAdjusted.ToString();
+            loyaltyAttributeLabel.Text = populationData.LoyaltyAdjusted.ToString();
         }
 
         private void DisableUIElements()
@@ -226,10 +226,10 @@ namespace PlayerSpace
 
         private void UpdateSkills()
         {
-            for (int i = 0; i < countyPopulation.skills.Count; i++)
+            for (int i = 0; i < populationData.skills.Count; i++)
             {
                 AllEnums.Skills skillNumber = (AllEnums.Skills)i;
-                skillLabels[i].Text = $"{Tr(countyPopulation.skills[skillNumber].skillName)} {countyPopulation.skills[skillNumber].skillLevel}";
+                skillLabels[i].Text = $"{Tr(populationData.skills[skillNumber].skillName)} {populationData.skills[skillNumber].skillLevel}";
             }
         }
 

@@ -14,7 +14,7 @@ public partial class Clock : Node
     public event Action Weekly;
     public event Action HourChanged; // This is currently used for battles.
 
-    private int occationalEvent = 7;
+    private int weeklyEvent = 7;
     
     [Export] private Label dayLabel;
     [Export] private Label HourLabel;
@@ -79,7 +79,7 @@ public partial class Clock : Node
             if(hours == 2)
             {
                 // This will happen on day zero as well.
-                if (days % occationalEvent == 0)
+                if (days % weeklyEvent == 0)
                 {
                     Weekly?.Invoke();
                 }

@@ -10,14 +10,14 @@ public class Banker
     // This includes the armies in the county, but it only works while the army is one person.
     public static int CountEveryoneInCounty(CountyData countyData)
     {
-        int numberOfPeople = countyData.countyPopulationList.Count
+        int numberOfPeople = countyData.populationDataList.Count
             + countyData.heroesInCountyList.Count + countyData.visitingHeroList.Count
             + countyData.armiesInCountyList.Count;
         //GD.Print($"{countyData.countyName} has {numberOfPeople} people.");
         return numberOfPeople;
     }
 
-    public static void GenerateScavengedResources(CountyData countyData, CountyPopulation countyPopulation)
+    public static void GenerateScavengedResources(CountyData countyData, PopulationData populationData)
     {
         int randomResourceNumber = Globals.Instance.random.Next(0, 2);
 
@@ -27,7 +27,7 @@ public class Banker
             {
                 return;
             }
-            int amountGenerated = GenerateScavengedResourceWithSkillCheck(countyPopulation);
+            int amountGenerated = GenerateScavengedResourceWithSkillCheck(populationData);
             int amount = Mathf.Min(amountGenerated, countyData.scavengableCannedFood);
             AddCountyResource(countyData, AllEnums.CountyGoodType.CannedFood, amount);
             countyData.RemoveResourceFromAvailableCountyTotals(AllEnums.CountyGoodType.CannedFood, amount);
@@ -38,7 +38,7 @@ public class Banker
             {
                 return;
             }
-            int amountGenerated = GenerateScavengedResourceWithSkillCheck(countyPopulation);
+            int amountGenerated = GenerateScavengedResourceWithSkillCheck(populationData);
             int amount = Mathf.Min(amountGenerated, countyData.scavengableRemnants);
             AddCountyResource(countyData, AllEnums.CountyGoodType.Remnants, amount);
             countyData.RemoveResourceFromAvailableCountyTotals(AllEnums.CountyGoodType.Remnants, amount);
@@ -46,12 +46,12 @@ public class Banker
     }
 
     // This should be in PopulationWork.
-    public static int GenerateScavengedResourceWithSkillCheck(CountyPopulation countyPopulation)
+    public static int GenerateScavengedResourceWithSkillCheck(PopulationData populationData)
     {
-        int skillLevel = countyPopulation.skills[AllEnums.Skills.Scavenge].skillLevel;
+        int skillLevel = populationData.skills[AllEnums.Skills.Scavenge].skillLevel;
         int amount;
-        if (SkillData.Check(countyPopulation, skillLevel
-            , countyPopulation.skills[AllEnums.Skills.Scavenge].attribute, false) == true)
+        if (SkillData.Check(populationData, skillLevel
+            , populationData.skills[AllEnums.Skills.Scavenge].attribute, false) == true)
         {
             amount = Globals.Instance.dailyScavengedAmount + Globals.Instance.dailyScavengedAmountBonus;
         }
@@ -117,31 +117,31 @@ public class Banker
     /// Do a skill check of the person working at the research office, and increase the research.
     /// Includes skill learning.
     /// </summary>
-    /// <param name="countyPopulation"></param>
-    public static void AddResearchForOfficeResearch(CountyPopulation countyPopulation)
+    /// <param name="populationData"></param>
+    public static void AddResearchForOfficeResearch(PopulationData populationData)
     {
         // Perform the research skill check.
-        bool passedCheck = SkillData.Check(countyPopulation, countyPopulation.skills[AllEnums.Skills.Research].skillLevel,
-            countyPopulation.skills[AllEnums.Skills.Research].attribute, false);
+        bool passedCheck = SkillData.Check(populationData, populationData.skills[AllEnums.Skills.Research].skillLevel,
+            populationData.skills[AllEnums.Skills.Research].attribute, false);
 
         // Increase research progress and check learning.
-        IncreaseResearcherResearch(countyPopulation, passedCheck);
+        IncreaseResearcherResearch(populationData, passedCheck);
     }
 
     
-
-    private static void StopHeroResearcherFromResearching(CountyPopulation countyPopulation)
+    /*
+    private static void StopHeroResearcherFromResearching(PopulationData populationData)
     {
-        countyPopulation.RemoveFromResearch();
+        populationData.RemoveFromResearch();
         // This needs to be below RemoveFromResearch because that sets the population's activity to work.
-        countyPopulation.UpdateActivity(AllEnums.Activities.Idle);
-        if (countyPopulation.factionData.isPlayer)
+        populationData.UpdateActivity(AllEnums.Activities.Idle);
+        if (populationData.factionData.isPlayer)
         {
-            ResearchControl.Instance.assignedResearchers.Remove(countyPopulation);
+            ResearchControl.Instance.assignedResearchers.Remove(populationData);
         }
     }
-
-    private static void IncreaseResearcherResearch(CountyPopulation countyPopulation, bool passedCheck)
+    */
+    private static void IncreaseResearcherResearch(PopulationData populationData, bool passedCheck)
     {
         int bonusResearchIncrease = 0;
         if (passedCheck == true)
@@ -149,19 +149,19 @@ public class Banker
             bonusResearchIncrease = Globals.Instance.random.Next(1, Globals.Instance.researchIncreaseBonus);
         }
         int researchAmount = Globals.Instance.researcherResearchIncrease + bonusResearchIncrease;
-        //if (countyPopulation.factionData == Globals.Instance.playerFactionData)
+        //if (populationData.factionData == Globals.Instance.playerFactionData)
         //{
-            EventLog.Instance.AddLog($"{countyPopulation.location} " +
-                $"{countyPopulation.firstName} - {countyPopulation.interestData.name} " +
-                $"{TranslationServer.Translate(countyPopulation.currentResearchItemData.researchName)}" +
+            EventLog.Instance.AddLog($"{populationData.location} " +
+                $"{populationData.firstName} - {populationData.interestData.name} " +
+                $"{TranslationServer.Translate(populationData.currentResearchItemData.researchName)}" +
                 $": {researchAmount}");
         //}
-        //// GD.Print($"Amount of research {countyPopulation.firstName} did: {researchAmount}");
+        //// GD.Print($"Amount of research {populationData.firstName} did: {researchAmount}");
         // This will trigger the getter setting and mark the research as complete if the Amount is
         // higher or equal to the cost.
-        countyPopulation.currentResearchItemData.AmountOfResearchDone
+        populationData.currentResearchItemData.AmountOfResearchDone
             += researchAmount;
-        //// GD.Print($"Amount of Research Done: {countyPopulation.CurrentResearchItemData.AmountOfResearchDone}");
+        //// GD.Print($"Amount of Research Done: {populationData.CurrentResearchItemData.AmountOfResearchDone}");
     }
 
     public static void AddCountyResource(CountyData countyData, AllEnums.CountyGoodType countyResourceType, int amount)

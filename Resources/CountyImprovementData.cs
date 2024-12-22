@@ -57,7 +57,7 @@ public partial class CountyImprovementData : Resource
     [Export] public Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> countyStockpiledGoods = [];
 
     [Export] public AllEnums.CountyImprovementStatus status;
-    [Export] public Godot.Collections.Array<CountyPopulation> populationAtImprovement = [];
+    [Export] public Godot.Collections.Array<PopulationData> populationAtImprovement = [];
 
     public void AdjustNumberOfBuilders(int adjustment)
     {
@@ -66,7 +66,7 @@ public partial class CountyImprovementData : Resource
         if (adjustedMaxBuilders < populationAtImprovement.Count)
         {
             // Remove lowest skilled worker.
-            CountyPopulation lowestSkilledPopulation = GetLowestSkilledPopulation(true);
+            PopulationData lowestSkilledPopulation = GetLowestSkilledPopulation(true);
             lowestSkilledPopulation.RemoveFromCountyImprovement();
         }
     }
@@ -84,7 +84,7 @@ public partial class CountyImprovementData : Resource
         }
         return name;
     }
-    private CountyPopulation GetLowestSkilledPopulation(bool constructing)
+    private PopulationData GetLowestSkilledPopulation(bool constructing)
     {
         AllEnums.Skills skill;
         if (constructing)
@@ -96,9 +96,9 @@ public partial class CountyImprovementData : Resource
             skill = workSkill;
         }
         // Remove the lowest skilled worker.
-        List<CountyPopulation> sortedLowestSkillLevelPopulation
+        List<PopulationData> sortedLowestSkillLevelPopulation
             = [.. populationAtImprovement.OrderBy(pop => pop.skills[skill].skillLevel)];
-        CountyPopulation lowestSkilledPopulation = sortedLowestSkillLevelPopulation.FirstOrDefault();
+        PopulationData lowestSkilledPopulation = sortedLowestSkillLevelPopulation.FirstOrDefault();
         return lowestSkilledPopulation;
 
     }
@@ -160,7 +160,7 @@ public partial class CountyImprovementData : Resource
         if (adjustedMaxWorkers < populationAtImprovement.Count)
         {
             // Remove lowest skilled worker.
-            CountyPopulation lowestSkilledPopulation = GetLowestSkilledPopulation(false);
+            PopulationData lowestSkilledPopulation = GetLowestSkilledPopulation(false);
             lowestSkilledPopulation.RemoveFromCountyImprovement();
         }
     }
@@ -182,15 +182,15 @@ public partial class CountyImprovementData : Resource
         }
         return false;
     }
-    public void AddPopulationToCountyImprovementList(CountyPopulation countyPopulation)
+    public void AddPopulationToCountyImprovementList(PopulationData populationData)
     {
-        // GD.Print($"{countyPopulation.firstName} was added to {improvementName}'s list {populationAtImprovement.Count}.");
-        populationAtImprovement.Add(countyPopulation);
+        // GD.Print($"{populationData.firstName} was added to {improvementName}'s list {populationAtImprovement.Count}.");
+        populationAtImprovement.Add(populationData);
     }
 
-    public void RemovePopulationFromCountyImprovementList(CountyPopulation countyPopulation)
+    public void RemovePopulationFromCountyImprovementList(PopulationData populationData)
     {
-        populationAtImprovement.Remove(countyPopulation);
+        populationAtImprovement.Remove(populationData);
     }
 
     /// <summary>
@@ -252,7 +252,7 @@ public partial class CountyImprovementData : Resource
             inputGoods = countyImprovementData.inputGoods,
             countyStockpiledGoods = countyImprovementData.CopyStockpiledGoods(),
             status = countyImprovementData.status,
-            populationAtImprovement = new Godot.Collections.Array<CountyPopulation>(countyImprovementData.populationAtImprovement),
+            populationAtImprovement = new Godot.Collections.Array<PopulationData>(countyImprovementData.populationAtImprovement),
         };
         return newCountyImprovementData;
     }

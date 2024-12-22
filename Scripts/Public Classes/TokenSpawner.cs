@@ -4,27 +4,27 @@ namespace PlayerSpace
 {
     public class TokenSpawner
     {
-        public CountyPopulation Spawn(County selectCounty, CountyPopulation countyPopulation)
+        public PopulationData Spawn(County selectCounty, PopulationData populationData)
         {
             // Spawning the token.
             Node2D tokenSpawnParent = selectCounty.heroSpawn;
             SelectToken spawnedToken = (SelectToken)Globals.Instance.heroToken.Instantiate();
             tokenSpawnParent.AddChild(spawnedToken);
 
-            spawnedToken.countyPopulation = countyPopulation;
+            spawnedToken.populationData = populationData;
 
             AllTokenTextures.Instance.AssignTokenTextures(spawnedToken);
 
-            countyPopulation.token = spawnedToken;
-            countyPopulation.location = selectCounty.countyData.countyId;
-            spawnedToken.Name = $"{countyPopulation.firstName} {countyPopulation.lastName}";
+            populationData.token = spawnedToken;
+            populationData.location = selectCounty.countyData.countyId;
+            spawnedToken.Name = $"{populationData.firstName} {populationData.lastName}";
 
             // Update the token's name label
-            spawnedToken.tokenNameLabel.Text = $"{countyPopulation.firstName} {countyPopulation.lastName}";
+            spawnedToken.tokenNameLabel.Text = $"{populationData.firstName} {populationData.lastName}";
 
             // Spawning the Spawned Token Button
             SpawnedTokenButton spawnedTokenButton = (SpawnedTokenButton)Globals.Instance.spawnedTokenButton.Instantiate();
-            if (countyPopulation.IsArmyLeader == false)
+            if (populationData.IsArmyLeader == false)
             {
                 selectCounty.heroesHBox.AddChild(spawnedTokenButton);
                 selectCounty.heroesHBox.Show();
@@ -34,7 +34,7 @@ namespace PlayerSpace
                 selectCounty.armiesHBox.AddChild(spawnedTokenButton);
                 selectCounty.armiesHBox.Show();
             }
-            spawnedTokenButton.countyPopulation = countyPopulation;
+            spawnedTokenButton.populationData = populationData;
 
             selectCounty.countyData.spawnedTokenButtons.Add(spawnedTokenButton);
 
@@ -57,21 +57,21 @@ namespace PlayerSpace
             // This is at the bottom just in case the Getter Setter is fired too fast.
             DecidedIfSelected(selectCounty, spawnedToken);
 
-            spawnedTokenButton.UpdateTokenTextures(); // This has to be below the countyPopulation assignment.
+            spawnedTokenButton.UpdateTokenTextures(); // This has to be below the populationData assignment.
 
-            GD.Print($"Is {countyPopulation.firstName} an army leader?" + countyPopulation.IsArmyLeader);
-            return countyPopulation;
+            GD.Print($"Is {populationData.firstName} an army leader?" + populationData.IsArmyLeader);
+            return populationData;
         }
 
 
         // This is so that the AI token spawning doesn't make the player select it.
-        private void DecidedIfSelected(County selectCounty, SelectToken spawnedToken)
+        private static void DecidedIfSelected(County selectCounty, SelectToken spawnedToken)
         {
             GD.Print($"{selectCounty.countyData.factionData.factionName} vs {Globals.Instance.playerFactionData.factionName}");
             if(selectCounty.countyData.factionData == Globals.Instance.playerFactionData)
             {
                 spawnedToken.IsSelected = true;
-                GD.Print("Spawned Token Button Token's Name: " + spawnedToken.countyPopulation.firstName + spawnedToken.IsSelected);
+                GD.Print("Spawned Token Button Token's Name: " + spawnedToken.populationData.firstName + spawnedToken.IsSelected);
             }
         }
     }

@@ -18,8 +18,8 @@ namespace PlayerSpace
         [Export] public Godot.Collections.Array<ResearchItemData> researchableResearch = [];
 
         [Export] public Godot.Collections.Array<CountyData> countiesFactionOwns = [];
-        [Export] public Godot.Collections.Array<CountyPopulation> allHeroesList = [];
-        [Export] public CountyPopulation factionLeader;
+        [Export] public Godot.Collections.Array<PopulationData> allHeroesList = [];
+        [Export] public PopulationData factionLeader;
 
         public Diplomacy diplomacy = new();
         public TokenSpawner tokenSpawner = new();
@@ -50,23 +50,23 @@ namespace PlayerSpace
 
         // We can error on the side of adding the hero to the All Heroes List because this checks
         // to see if the hero is already in the list.
-        public void AddHeroToAllHeroesList(CountyPopulation countyPopulation)
+        public void AddHeroToAllHeroesList(PopulationData populationData)
         {
             // We need to double check that the hero isn't already in the list.
-            if (!allHeroesList.Contains(countyPopulation))
+            if (!allHeroesList.Contains(populationData))
             {
-                countyPopulation.factionData.allHeroesList.Add(countyPopulation);
-                //GD.Print($"Add To {countyPopulation.factionData.factionName} Hero List: " + countyPopulation.lastName);
+                populationData.factionData.allHeroesList.Add(populationData);
+                //GD.Print($"Add To {populationData.factionData.factionName} Hero List: " + populationData.lastName);
             }
 
-            GD.Print($"{countyPopulation.firstName} has been added to {factionName} all heroes list.");
+            GD.Print($"{populationData.firstName} has been added to {factionName} all heroes list.");
         }
 
         // This isn't used yet, but when heroes die...Can heroes starve to death?
-        public void RemoveHeroFromAllHeroesList(CountyPopulation countyPopulation)
+        public void RemoveHeroFromAllHeroesList(PopulationData populationData)
         {
-            allHeroesList.Remove(countyPopulation);
-            GD.Print($"{countyPopulation.firstName} has been removed from {factionName} all heroes list.");
+            allHeroesList.Remove(populationData);
+            GD.Print($"{populationData.firstName} has been removed from {factionName} all heroes list.");
         }
 
         public void CopyFactionResourcesToYesterday()

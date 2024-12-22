@@ -13,7 +13,7 @@ namespace PlayerSpace
         [Export] public Label countyNameLabel;
         [Export] private Label countyFoodLabel;
         [Export] private Label countyScrapLabel;
-        [Export] private Label countyPopulationLabel;
+        [Export] private Label populationDataNumberLabel;
         [Export] private Label countyIdleWorkersLabel;
         [Export] private Label visitorsLabel;
         private CountyData countyData;
@@ -101,7 +101,7 @@ namespace PlayerSpace
             foreach (Node node in heroSpawnCheckButtonParent.GetChildren())
             {
                 HeroPanelContainer heroPanelContainer = (HeroPanelContainer)node;
-                if (heroPanelContainer.countyPopulation.factionData == Globals.Instance.playerFactionData)
+                if (heroPanelContainer.populationData.factionData == Globals.Instance.playerFactionData)
                 {
                     heroPanelContainer.spawnHeroButton.Disabled = value;
                 }
@@ -134,21 +134,21 @@ namespace PlayerSpace
             }
         }
 
-        private void GenerateHeroes(Godot.Collections.Array<CountyPopulation> heroCountyPopulationList)
+        private void GenerateHeroes(Godot.Collections.Array<PopulationData> heroCountyPopulationList)
         {
-            foreach (CountyPopulation countyPopulation in heroCountyPopulationList)
+            foreach (PopulationData populationData in heroCountyPopulationList)
             {
                 HeroPanelContainer heroPrefab = (HeroPanelContainer)heroListPrefab.Instantiate();
 
-                UpdateHeroInfo(heroPrefab, countyPopulation);
+                UpdateHeroInfo(heroPrefab, populationData);
 
                 heroListParent.AddChild(heroPrefab);
-                heroPrefab.countyPopulation = countyPopulation;
+                heroPrefab.populationData = populationData;
 
                 // Change color of panel to the faction color.
-                heroPrefab.SelfModulate = countyPopulation.factionData.factionColor;
+                heroPrefab.SelfModulate = populationData.factionData.factionColor;
 
-                if (heroPrefab.countyPopulation.factionData != Globals.Instance.playerFactionData)
+                if (heroPrefab.populationData.factionData != Globals.Instance.playerFactionData)
                 {
                     heroPrefab.heroListButton.Disabled = true;
                     heroPrefab.spawnHeroButton.Disabled = true;
@@ -158,8 +158,8 @@ namespace PlayerSpace
                     heroPrefab.heroListButton.Disabled = false;
                     heroPrefab.spawnHeroButton.Disabled = false;
                 }
-                //GD.Print("Hero Token: " + countyPopulation.token);
-                if (countyPopulation.token == null)
+                //GD.Print("Hero Token: " + populationData.token);
+                if (populationData.token == null)
                 {
                     heroPrefab.spawnHeroButton.ButtonPressed = false;
                     continue;
@@ -171,27 +171,27 @@ namespace PlayerSpace
             }
         }
 
-        public void UpdateHeroInfo(HeroPanelContainer heroPrefab, CountyPopulation countyPopulation)
+        public void UpdateHeroInfo(HeroPanelContainer heroPrefab, PopulationData populationData)
         {
-            heroPrefab.heroNameLabel.Text = $"{countyPopulation.firstName} {countyPopulation.lastName}";
+            heroPrefab.heroNameLabel.Text = $"{populationData.firstName} {populationData.lastName}";
 
             // Check for hero activities
             if (heroPrefab.researchCheckbox != null)
             {
                 heroPrefab.researchCheckbox.ButtonPressed = false;
             }
-            //GD.Print("Researching?" + countyPopulation.currentResearchItemData.researchName);
-            if (countyPopulation.currentResearchItemData != null)
+            //GD.Print("Researching?" + populationData.currentResearchItemData.researchName);
+            if (populationData.currentResearchItemData != null)
             {
                 //GD.Print("Research CheckBox!?");
                 heroPrefab.researchCheckbox.ButtonPressed = true;
             }
             else
             {
-                //GD.Print($"{countyPopulation.firstName} research is null.");
+                //GD.Print($"{populationData.firstName} research is null.");
             }
 
-            switch (countyPopulation)
+            switch (populationData)
             {
                 case { isFactionLeader: true, isAide: false, IsArmyLeader: false }:
                     heroPrefab.factionLeaderTextureRect.Show();
@@ -241,9 +241,9 @@ namespace PlayerSpace
         public void UpdateCountyPopulationLabel()
         {
 
-            int population = Globals.Instance.SelectedLeftClickCounty.countyData.countyPopulationList.Count
+            int population = Globals.Instance.SelectedLeftClickCounty.countyData.populationDataList.Count
                 + Globals.Instance.SelectedLeftClickCounty.countyData.heroesInCountyList.Count;
-            countyPopulationLabel.Text = population.ToString();
+            populationDataNumberLabel.Text = population.ToString();
         }
 
         // This is going to break once we put people to work.

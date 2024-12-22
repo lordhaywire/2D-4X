@@ -1,3 +1,5 @@
+using Godot;
+
 namespace PlayerSpace;
 
 public class PopulationAI
@@ -14,7 +16,7 @@ public class PopulationAI
                 Globals.Instance.foodToGainHappiness);
             countyData.PopulationEatsFood(countyData.armiesInCountyList,
                 Globals.Instance.foodToGainHappiness);
-            countyData.PopulationEatsFood(countyData.countyPopulationList,
+            countyData.PopulationEatsFood(countyData.populationDataList,
                 Globals.Instance.foodToGainHappiness);
             // Visiting heroes need to be able to eat food too.  It needs to improve faction relations.
         }
@@ -26,7 +28,7 @@ public class PopulationAI
                 Globals.Instance.foodToGainNothing);
             countyData.PopulationEatsFood(countyData.armiesInCountyList,
                 Globals.Instance.foodToGainNothing);
-            countyData.PopulationEatsFood(countyData.countyPopulationList,
+            countyData.PopulationEatsFood(countyData.populationDataList,
                 Globals.Instance.foodToGainNothing);
             // Visiting heroes need to be able to eat food too.  It needs to improve faction relations.
 
@@ -38,7 +40,7 @@ public class PopulationAI
                 Globals.Instance.foodToLoseHappiness);
             countyData.PopulationEatsFood(countyData.armiesInCountyList,
                 Globals.Instance.foodToLoseHappiness);
-            countyData.PopulationEatsFood(countyData.countyPopulationList,
+            countyData.PopulationEatsFood(countyData.populationDataList,
                 Globals.Instance.foodToLoseHappiness);
             // Visiting heroes need to be able to eat food too.  It needs to improve faction relations.
         }
@@ -51,7 +53,7 @@ public class PopulationAI
                 Globals.Instance.foodToLoseHappiness);
             countyData.PopulationEatsFood(countyData.armiesInCountyList,
                 Globals.Instance.foodToLoseHappiness);
-            countyData.PopulationEatsFood(countyData.countyPopulationList,
+            countyData.PopulationEatsFood(countyData.populationDataList,
                 Globals.Instance.foodToLoseHappiness);
             // Visiting heroes need to be able to eat food too.  It needs to improve faction relations.
         }
@@ -61,62 +63,66 @@ public class PopulationAI
     /// <summary>
     /// Checks loyalty and if the research is done.
     /// </summary>
-    /// <param name="countyPopulation"></param>
-    public static void KeepResearching(CountyPopulation countyPopulation)
+    /// <param name="populationData"></param>
+    public static void KeepResearching(PopulationData populationData)
     {
-        ResearchItemData researchItemData = countyPopulation.currentResearchItemData;
+        ResearchItemData researchItemData = populationData.currentResearchItemData;
         // Check for loyalty
-        if (CheckLoyaltyWithSkillCheck(countyPopulation) == false)
+        if (CheckLoyaltyWithSkillCheck(populationData) == false)
         {
             // Remove From Research needs to be above Remove From County Improvement, so that the remove
             // from county improvement sets them to idle.
-            countyPopulation.RemoveFromResearch();
-            countyPopulation.RemoveFromCountyImprovement();
-            // GD.Print($"{countyPopulation.firstName} is failed the loyalty check.");
+            populationData.RemoveFromResearch();
+            populationData.RemoveFromCountyImprovement();
+            // GD.Print($"{populationData.firstName} is failed the loyalty check.");
             return;
         }
 
         // Check if the research is finished.
         if (researchItemData?.CheckIfResearchDone() == true)
         {
-            // GD.Print($"{countyPopulation.firstName} has finished the research.");
-            countyPopulation.RemoveFromResearch();
+            // GD.Print($"{populationData.firstName} has finished the research.");
+            populationData.RemoveFromResearch();
         }
     }
-    public static void LoyaltyCheckToKeepWorkingAtCountyImprovement(CountyPopulation countyPopulation)
+
+    public static void LoyaltyCheckToKeepWorkingAtCountyImprovement(PopulationData populationData)
     {
-        if (CheckLoyaltyWithSkillCheck(countyPopulation) == false)
+        if (CheckLoyaltyWithSkillCheck(populationData) == false)
         {
-            countyPopulation.RemoveFromCountyImprovement();
+            GD.Print($"{populationData.firstName} failed their loyalty check.");
+            populationData.daysEmployed = 0;
+            populationData.daysEmployedButIdle = 0;
+            populationData.RemoveFromCountyImprovement();
         }
     }
     
 
     // This is no longer used, I don't think.  Left here temporarily just in case.
     /*
-    public static void CompleteConstructionWithSkillCheck(CountyPopulation countyPopulation)
+    public static void CompleteConstructionWithSkillCheck(CountyPopulation populationData)
     {
-        if (SkillData.Check(countyPopulation, countyPopulation.skills[AllEnums.Skills.Construction].skillLevel
-            , countyPopulation.skills[AllEnums.Skills.Construction].attribute, false))
+        if (SkillData.Check(populationData, populationData.skills[AllEnums.Skills.Construction].skillLevel
+            , populationData.skills[AllEnums.Skills.Construction].attribute, false))
         {
-            countyPopulation.currentCountyImprovement.CurrentAmountOfConstruction
+            populationData.currentCountyImprovement.CurrentAmountOfConstruction
                 += Globals.Instance.dailyWorkAmount + Globals.Instance.dailyWorkAmountBonus;
         }
         else
         {
-            countyPopulation.currentCountyImprovement.CurrentAmountOfConstruction
+            populationData.currentCountyImprovement.CurrentAmountOfConstruction
                 += Globals.Instance.dailyWorkAmount;
         }
-        SkillData.CheckLearning(countyPopulation
+        SkillData.CheckLearning(populationData
             , AllEnums.LearningSpeed.slow);
     }
     */
 
     // This should be moved to the Resource that Loyalty will be part of once we figure out
     // what catagory Loyalty is.  For example, it isn't a skill, or a perk.
-    private static bool CheckLoyaltyWithSkillCheck(CountyPopulation countyPopulation)
+    private static bool CheckLoyaltyWithSkillCheck(PopulationData populationData)
     {
-        if (SkillData.Check(countyPopulation, countyPopulation.LoyaltyAdjusted, AllEnums.Attributes.MentalStrength, false))
+        if (SkillData.Check(populationData, populationData.LoyaltyAdjusted, AllEnums.Attributes.MentalStrength, false))
         {
             return true;
         }

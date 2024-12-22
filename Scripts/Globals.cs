@@ -47,8 +47,8 @@ public partial class Globals : Node
         }
     }
     [Export] public County selectedRightClickCounty;
-    private CountyPopulation selectedCountyPopulation;
-    public CountyPopulation SelectedCountyPopulation
+    private PopulationData selectedCountyPopulation;
+    public PopulationData SelectedCountyPopulation
     {
         get { return selectedCountyPopulation; }
         set
@@ -92,11 +92,11 @@ public partial class Globals : Node
     [Export] public int maxScavengableFood = 10000;
     [Export] public int startingPerishableStorage = 500;
     [Export] public int startingNonperishableStorage = 500;
-    [Export] public int startingAmountOfEachGood = 15;
+    [Export] public int startingAmountOfEachGood = 100;
 
     [ExportGroup("County Improvement Stuff")]
     [Export] public int minDaysStockpile = 2; // The amount of input goods (days) a improvement tries to hold.
-    [Export] public int maxDaysStockpile = 14; // The max amount (in days) of goods a county improvement will try to stockpile
+    [Export] public int maxDaysStockpile = 7; // The max amount (in days) of goods a county improvement will try to stockpile
     
     [ExportGroup("Population Work")]
     [Export] public int dailyScavengedAmount = 2;
@@ -108,6 +108,7 @@ public partial class Globals : Node
     [Export] public int foodToLoseHappiness = 1;
     [Export] public int occationalResourceUsageAmount = 1;
     [Export] public int occationalNeedIncreaseAmount = 5;
+    [Export] public int daysEmpoyedBeforeLoyaltyCheck = 7;
     [Export] public int daysEmployedIdleBeforeLookingForNewWork = 7;
 
     [ExportGroup("Population Shit")]
@@ -168,7 +169,7 @@ public partial class Globals : Node
     }
     public void UpdateSelectedHero()
     {
-        PlayerUICanvas.Instance.selectedHeroPanelContainer.countyPopulation = selectedCountyPopulation;
+        PlayerUICanvas.Instance.selectedHeroPanelContainer.populationData = selectedCountyPopulation;
         CountyInfoControl.Instance.UpdateHeroInfo(PlayerUICanvas.Instance.selectedHeroPanelContainer, selectedCountyPopulation);
     }
 
