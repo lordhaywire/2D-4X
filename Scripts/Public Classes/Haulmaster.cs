@@ -11,20 +11,24 @@ public class Haulmaster
         // Mark the improvement as currently producing.
         countyImprovementData.status = AllEnums.CountyImprovementStatus.Producing;
 
-        foreach (KeyValuePair<GoodData, int> inputGood in countyImprovementData.inputGoods)
+        foreach (KeyValuePair<GoodData, int> uniqueInputGood in countyImprovementData.uniqueInputGoods)
         {
             // Calculate the desired stockpile range.
-            int minStockpileAmount = inputGood.Value * countyImprovementData.adjustedMaxWorkers 
+            int minStockpileAmount = uniqueInputGood.Value * countyImprovementData.adjustedMaxWorkers 
                 * Globals.Instance.minDaysStockpile;
-            int maxStockpileAmount = inputGood.Value * countyImprovementData.adjustedMaxWorkers 
+            int maxStockpileAmount = uniqueInputGood.Value * countyImprovementData.adjustedMaxWorkers 
                 * Globals.Instance.maxDaysStockpile;
 
             // Get the county's stockpile and available amount for the required good.
-            GoodData countyGood = countyData.goods[inputGood.Key.countyGoodType];
+            GoodData countyGood = countyData.goods[uniqueInputGood.Key.countyGoodType];
+            GD.Print("County Good: " + countyGood.goodName);
+            GD.Print("County Good County Good Type: " + countyGood.countyGoodType);
+            GD.Print("Unique Input Good County Good Type: " + uniqueInputGood.Key.countyGoodType);
 
-            GD.Print($"{countyImprovementData.improvementName} requires: {inputGood.Key.goodName}, " +
-                     $"Available: {countyGood.Amount}, " +
-                     $"Stockpiled: {countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType]}");
+            GD.Print($"{uniqueInputGood.Key.goodName}, ");
+            GD.Print($"{countyImprovementData.improvementName} requires:");
+            GD.Print($"Available: {countyGood.Amount}, ");
+            GD.Print($"Stockpiled: {countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType]}");
 
             // Skip if the current stockpile meets or exceeds the maximum desired amount.
             if (countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType] 
@@ -52,7 +56,7 @@ public class Haulmaster
             }
 
             // Log the post-transfer state.
-            GD.Print($"Updated {countyImprovementData.improvementName} stockpile for {inputGood.Key.goodName}: " +
+            GD.Print($"Updated {countyImprovementData.improvementName} stockpile for {uniqueInputGood.Key.goodName}: " +
                      $"Available: {countyGood.Amount}, " +
                      $"Stockpiled: {countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType]} " +
                      $"Min Stockpiled: {minStockpileAmount} " + 
@@ -142,7 +146,7 @@ public class Haulmaster
     */
     public static void GenerateStockpileGoodsDictionary(CountyImprovementData countyImprovementData)
     {
-        foreach (KeyValuePair<GoodData, int> keyValuePair in countyImprovementData.inputGoods)
+        foreach (KeyValuePair<GoodData, int> keyValuePair in countyImprovementData.uniqueInputGoods)
         {
             countyImprovementData.countyStockpiledGoods[keyValuePair.Key.countyGoodType] = 0;
         }

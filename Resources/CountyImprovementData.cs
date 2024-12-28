@@ -51,8 +51,10 @@ public partial class CountyImprovementData : Resource
     [Export] public int allDailyWorkAmountAtImprovementCompleted;
 
     // All input goods that are need to create the finished good.
-    // For some reason this one needs to be initialized, but the faction and county construction costs don't.
     [ExportGroup("Inputs")]
+    // Unqiue input goods are needed for the county improvement container so that the GoodData can remember
+    // changes such as Use Remnants that the player or AI does.
+    [Export] public Godot.Collections.Dictionary<GoodData, int> uniqueInputGoods = [];
     [Export] public Godot.Collections.Dictionary<GoodData, int> inputGoods = [];
     [Export] public Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> countyStockpiledGoods = [];
 
@@ -215,7 +217,17 @@ public partial class CountyImprovementData : Resource
                 break;
         }
     }
-    
+
+    /*
+    private void CreateUniqueInputGoodsDictionary()
+    {
+        foreach(KeyValuePair<GoodData, int> keyValuePair in inputGoods)
+        {
+            uniqueInputGoods.Add(keyValuePair.Key, keyValuePair.Value);
+        }
+    }
+    */
+
     private void AddResearchOfficeToFactionResearchOfficeList(FactionData factionData)
     {
         factionData.researchOffices.Add(this);
@@ -249,12 +261,24 @@ public partial class CountyImprovementData : Resource
             adjustedMaxWorkers = countyImprovementData.adjustedMaxWorkers,
             countyResourceType = countyImprovementData.countyResourceType,
             factionResourceType = countyImprovementData.factionResourceType,
+            uniqueInputGoods = countyImprovementData.CopyUniqueInputGoods(),
             inputGoods = countyImprovementData.inputGoods,
             countyStockpiledGoods = countyImprovementData.CopyStockpiledGoods(),
             status = countyImprovementData.status,
             populationAtImprovement = new Godot.Collections.Array<PopulationData>(countyImprovementData.populationAtImprovement),
         };
         return newCountyImprovementData;
+    }
+
+    public Godot.Collections.Dictionary<GoodData, int> CopyUniqueInputGoods()
+    {
+        Godot.Collections.Dictionary<GoodData, int> copiedDictionary = [];
+
+        foreach (KeyValuePair<GoodData, int> keyValuePair in inputGoods) 
+        {
+            copiedDictionary.Add(keyValuePair.Key.NewCopy(keyValuePair.Key), keyValuePair.Value);
+        }
+        return copiedDictionary;
     }
 
     // We have to do a copy of a copy to make a copy that is unique.

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=9 format=3 uid="uid://chufschxvhcsh"]
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=10 format=3 uid="uid://chufschxvhcsh"]
 
 [ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/Goods/Wood.tres" id="1_2r2el"]
 [ext_resource type="Texture2D" uid="uid://5ya3dlibok7" path="res://Graphics/County Improvements/Scouting Equipment Workshop tarot-00-the-fool.svg" id="1_231ft"]
@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://c55q8uucl7cqe" path="res://Resources/Goods/Fish.tres" id="3_u02bl"]
 [ext_resource type="Resource" uid="uid://cium8f0spbwdp" path="res://Resources/Goods/PrimitiveScoutingEquipment.tres" id="4_dvaxv"]
 [ext_resource type="Script" uid="uid://b6u77qyvyfqm4" path="res://Resources/ProductionData.cs" id="5_u02bl"]
+[ext_resource type="Script" uid="uid://bvkux0mhx52u8" path="res://Resources/PopulationData.cs" id="7_f38jq"]
 
 [sub_resource type="Resource" id="Resource_f38jq"]
 script = ExtResource("5_u02bl")
@@ -44,9 +45,10 @@ outputGoods = {
 ExtResource("4_dvaxv"): SubResource("Resource_f38jq")
 }
 allDailyWorkAmountAtImprovementCompleted = 0
+uniqueInputGoods = {}
 inputGoods = {
 ExtResource("3_u02bl"): 1
 }
-countyStockpiledGoods = {}
+countyStockpiledGoods = Dictionary[int, int]({})
 status = 0
-populationAtImprovement = []
+populationAtImprovement = Array[ExtResource("7_f38jq")]([])

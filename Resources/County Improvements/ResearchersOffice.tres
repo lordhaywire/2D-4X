@@ -26,6 +26,7 @@ countyResourceType = 0
 factionResourceType = 7
 outputGoods = {}
 allDailyWorkAmountAtImprovementCompleted = 0
+uniqueInputGoods = {}
 inputGoods = {}
 countyStockpiledGoods = {}
 status = 0

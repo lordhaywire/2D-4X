@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b0tyfwbm6y74e"]
 
-[ext_resource type="Script" path="res://Scripts/UI/GoodPanelContainer.cs" id="1_ocxnq"]
+[ext_resource type="Script" uid="uid://cysaqvdwbpupl" path="res://Scripts/UI/GoodPanelContainer.cs" id="1_ocxnq"]
 
 [node name="Goods PanelContainer" type="PanelContainer" node_paths=PackedStringArray("goodLabel", "useRemnantsCheckBox", "onlyProduceCheckBox")]
 size_flags_horizontal = 3

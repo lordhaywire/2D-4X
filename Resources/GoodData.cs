@@ -14,6 +14,7 @@ namespace PlayerSpace
         [Export] public AllEnums.Perishable perishable;
         [Export] public int failureRate; // Daily chance of the item to fail. This isn't used yet.
         [Export] public bool remnantSubstitutable;
+        [Export] public bool useRemnants;
         [Export] private int amount; // The amount of resource.
 
         // I don't think we need to export the Getter Setter because the private int amount
@@ -26,7 +27,7 @@ namespace PlayerSpace
             {
                 // Make the amount never got above MaxAmount.
                 amount = Math.Min(value, MaxAmount);
-                //// GD.Print($"Resource Amount: {name} has been set to {amount}");
+                //GD.Print($"Resource Amount: {goodName} has been set to {amount}");
 
             }
         }
@@ -64,6 +65,7 @@ namespace PlayerSpace
                 perishable = goodData.perishable,
                 failureRate = goodData.failureRate,
                 remnantSubstitutable = goodData.remnantSubstitutable,
+                useRemnants = goodData.useRemnants,
                 amount = goodData.amount,
                 Amount = goodData.Amount,
                 maxAmount = goodData.maxAmount,

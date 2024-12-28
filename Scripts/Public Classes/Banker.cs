@@ -5,8 +5,6 @@ namespace PlayerSpace;
 
 public class Banker
 {
-    
-
     // This includes the armies in the county, but it only works while the army is one person.
     public static int CountEveryoneInCounty(CountyData countyData)
     {

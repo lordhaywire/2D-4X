@@ -256,12 +256,12 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     private void GenerateInputGoods()
     {
         CheckForGoodsForColumns(inputsGridContainer
-            , countyImprovementData.inputGoods.Count);
+            , countyImprovementData.uniqueInputGoods.Count);
 
-        foreach (KeyValuePair<GoodData, int> keyValuePair in countyImprovementData.inputGoods)
+        foreach (KeyValuePair<GoodData, int> keyValuePair in countyImprovementData.uniqueInputGoods)
         {
             GoodPanelContainer goodPanelContainer 
-                = AddInputGoodsPanel(keyValuePair, keyValuePair.Key.goodName
+                = AddInputGoodsPanel(keyValuePair.Key, keyValuePair.Value
                 , countyImprovementData.adjustedMaxWorkers, inputsGridContainer);
 
             if (countyImprovementData.status == AllEnums.CountyImprovementStatus.UnderConstruction)
@@ -272,16 +272,25 @@ public partial class CountryImprovementPanelContainer : PanelContainer
             {
                 CheckForHideUseRemnants(keyValuePair, goodPanelContainer);
             }
+            goodPanelContainer.useRemnantsCheckBox.Toggled += (GoodData) 
+                => SetUseRemnants(goodPanelContainer.useRemnantsCheckBox.ButtonPressed, keyValuePair.Key);
         }
     }
 
+    private void SetUseRemnants(bool toggledOn, GoodData goodData)
+    {
+        GD.Print($"{goodData.goodName} Use Remnants has been toggled!!!!!!!!" + toggledOn);
+        goodData.useRemnants = toggledOn;
+    }
+
     // ChatGPT wrote part of this.
-    GoodPanelContainer AddInputGoodsPanel<T>(KeyValuePair<T, int> keyValuePair
-        , string name, int numberOfAdjustedWorkers, GridContainer goodsParentGridContainer)
+    GoodPanelContainer AddInputGoodsPanel(GoodData goodData, int amount
+        , int numberOfAdjustedWorkers, GridContainer goodsParentGridContainer)
     {
         GoodPanelContainer goodPanelContainer = (GoodPanelContainer)goodPanelContainerPackedScene.Instantiate();
         goodsParentGridContainer.AddChild(goodPanelContainer);
-        goodPanelContainer.goodLabel.Text = $"{Tr(name)} : {keyValuePair.Value * numberOfAdjustedWorkers}";
+        goodPanelContainer.goodLabel.Text = $"{Tr(goodData.goodName)} : {amount * numberOfAdjustedWorkers}";
+        goodPanelContainer.useRemnantsCheckBox.ButtonPressed = goodData.useRemnants;
 
         return goodPanelContainer;
     }
@@ -294,7 +303,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
         foreach (KeyValuePair<GoodData, int> keyValuePair in countyImprovementData.goodsConstructionCost)
         {
             GoodPanelContainer goodPanelContainer 
-                = AddInputGoodsPanel(keyValuePair, keyValuePair.Key.goodName
+                = AddInputGoodsPanel(keyValuePair.Key, keyValuePair.Value
                 , countyImprovementData.adjustedMaxWorkers, constructionMaterialCostGridContainer);
 
             CheckForHideUseRemnants(keyValuePair, goodPanelContainer);

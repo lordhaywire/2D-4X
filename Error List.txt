@@ -1,0 +1,25 @@
+  Failed to create an autoload, script 'res://Scripts/AutoLoad.cs' is not compiling.
+  Failed to create an autoload, script 'res://Scripts/CountyResourcesAutoLoad.cs' is not compiling.
+  Failed to get property 'skillLabels' from node 'Population Row Button'.
+  Failed to get property 'nodesToHide' from node 'Hidder Node'.
+  Failed to get property 'skillLabels' from node 'Population Row Button'.
+  Failed to get property 'skillLabels' from node 'Population Description Control'.
+  Failed to get property 'choiceButtons' from node 'Story Event Control'.
+  Cannot connect to 'button_up': the provided callable is not valid: 'Control(TopBarControl.cs)::ChangeSpeed'.
+  Cannot connect to 'button_up': the provided callable is not valid: 'Control(TopBarControl.cs)::ChangeSpeed'.
+  Cannot connect to 'button_up': the provided callable is not valid: 'Control(TopBarControl.cs)::ChangeSpeed'.
+  Cannot connect to 'button_up': the provided callable is not valid: 'Control(TopBarControl.cs)::ChangeSpeed'.
+  Cannot connect to 'button_up': the provided callable is not valid: 'Control(TopBarControl.cs)::ChangeSpeed'.
+  Cannot connect to 'button_up': the provided callable is not valid: 'VBoxContainer(PopAndIdleButtons.cs)::OnButtonClick'.
+  Cannot connect to 'button_up': the provided callable is not valid: 'VBoxContainer(PopAndIdleButtons.cs)::OnButtonClick'.
+  Cannot connect to 'button_up': the provided callable is not valid: 'PanelContainer(RecruitHeroConfirmationPanelContainer.cs)::OpenConfirmationPanel'.
+  Cannot connect to 'button_up': the provided callable is not valid: 'PanelContainer(RecruitHeroConfirmationPanelContainer.cs)::OpenConfirmationPanel'.
+
+ ERROR: Failed to create an autoload, script 'res://Scripts/AutoLoad.cs' is not compiling.
+  ERROR: Failed to create an autoload, script 'res://Scripts/CountyResourcesAutoLoad.cs' is not compiling.
+  ERROR: Failed to get property 'skillLabels' from node 'Population Row Button'.
+  ERROR: Failed to get property 'nodesToHide' from node 'Hidder Node'.
+  ERROR: Failed to get property 'skillLabels' from node 'Population Row Button'.
+  ERROR: Failed to get property 'skillLabels' from node 'Population Description Control'.
+  ERROR: Failed to get property 'choiceButtons' from node 'Story Event Control'.
+
