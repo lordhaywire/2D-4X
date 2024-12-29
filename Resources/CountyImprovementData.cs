@@ -218,16 +218,6 @@ public partial class CountyImprovementData : Resource
         }
     }
 
-    /*
-    private void CreateUniqueInputGoodsDictionary()
-    {
-        foreach(KeyValuePair<GoodData, int> keyValuePair in inputGoods)
-        {
-            uniqueInputGoods.Add(keyValuePair.Key, keyValuePair.Value);
-        }
-    }
-    */
-
     private void AddResearchOfficeToFactionResearchOfficeList(FactionData factionData)
     {
         factionData.researchOffices.Add(this);

@@ -25,7 +25,7 @@ public class PopulationWork
     {
         bool hasEnoughInputGoods = true;
 
-        foreach (KeyValuePair<GoodData, int> inputGood in countyImprovementData.inputGoods)
+        foreach (KeyValuePair<GoodData, int> inputGood in countyImprovementData.uniqueInputGoods)
         {
             int stockpileAmount = countyImprovementData.countyStockpiledGoods[inputGood.Key.countyGoodType];
             GD.Print($"{populationData.location} Input Good vs Stockpile amount: {inputGood.Value} " +

@@ -114,10 +114,11 @@ namespace PlayerSpace
                 {
                     foreach (PopulationData populationData in countyImprovementData.populationAtImprovement)
                     {
+                        // The population would be on this list because they would be doing construction.
                         populationData.UpdateActivity(AllEnums.Activities.Idle);
                         populationData.UpdateCurrentCountyImprovement(null);
                     }
-                    // Set countyImprovement status to producing.  I think this is going to fuck everything up.
+                    // Set countyImprovement status to producing.
                     countyImprovementData.SetCountyImprovementComplete(this);
                     // Clear the people building on the county improvement.
                     countyImprovementData.populationAtImprovement.Clear();
