@@ -6,7 +6,7 @@ namespace PlayerSpace
     {
         [Export] private MarginContainer populationListMarginContainer;
 
-        private void OnButtonClick(bool isVisitorList)
+        private void PopAndIdleOnButtonPressed(bool isVisitorList)
         {
             Globals.Instance.isVisitorList = isVisitorList;
             populationListMarginContainer.Show();

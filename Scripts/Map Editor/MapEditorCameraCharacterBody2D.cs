@@ -16,7 +16,12 @@ namespace MapEditorSpace
 
         public void GetInput()
         {
-            Vector2 inputDirection = Input.GetVector("left", "right", "up", "down");
+            Vector2 inputDirection 
+                = Input.GetVector(
+                    "camera_move_left"
+                    , "camera_move_right"
+                    , "camera_move_up"
+                    , "camera_move_down");
 
 
             Velocity = inputDirection * Speed / Math.Max((int)Engine.TimeScale, 1);
@@ -35,11 +40,11 @@ namespace MapEditorSpace
         public override void _Input(InputEvent @event)
         {
 
-            if (@event.IsActionPressed("mouse_wheel_up"))
+            if (@event.IsActionPressed("camera_zoom_in"))
             {
                 ZoomIn();
             }
-            else if (@event.IsActionPressed("mouse_wheel_down"))
+            else if (@event.IsActionPressed("camera_zoom_out"))
             {
                 ZoomOut();
             }

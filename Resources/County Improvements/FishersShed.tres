@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=9 format=3 uid="uid://bads4woc5toep"]
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=8 format=3 uid="uid://bads4woc5toep"]
 
 [ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/Goods/Wood.tres" id="1_1yts0"]
 [ext_resource type="Texture2D" uid="uid://d38i5xsjnfnfq" path="res://Graphics/County Improvements/fishing-pole.svg" id="1_3xigu"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://blu41dxinr54t" path="res://Resources/CountyImprovementData.cs" id="2_iptt2"]
 [ext_resource type="Resource" uid="uid://c55q8uucl7cqe" path="res://Resources/Goods/Fish.tres" id="5_rxp18"]
 [ext_resource type="Script" uid="uid://b6u77qyvyfqm4" path="res://Resources/ProductionData.cs" id="6_q1pav"]
-[ext_resource type="Script" uid="uid://bvkux0mhx52u8" path="res://Resources/PopulationData.cs" id="6_rxp18"]
 
 [sub_resource type="Resource" id="Resource_gpo3t"]
 script = ExtResource("6_q1pav")
@@ -46,6 +45,6 @@ uniqueInputGoods = {}
 inputGoods = {
 ExtResource("1_1yts0"): 1
 }
-countyStockpiledGoods = Dictionary[int, int]({})
+countyStockpiledGoods = {}
 status = 0
-populationAtImprovement = Array[ExtResource("6_rxp18")]([])
+populationAtImprovement = []

@@ -1,71 +1,65 @@
 using Godot;
 
-namespace PlayerSpace
+namespace PlayerSpace;
+
+public partial class RecruitHeroConfirmationPanelContainer : PanelContainer
 {
-    public partial class RecruitHeroConfirmationPanelContainer : PanelContainer
+    [Export] private Label titleLabel;
+    [Export] public bool armyLeaderRecruited;
+    private void OnVisibilityChange()
     {
-        [Export] private Label titleLabel;
-        [Export] private bool armyLeaderRecruited;
-        private void OnVisibilityChange()
+        if (Visible == true)
         {
-            if (Visible == true)
-            {
-                titleLabel.Text = $"{Tr("PHRASE_RECRUIT_HERO_CONFIRMATION")} " +
-                    $"{PopulationDescriptionControl.Instance.populationData.firstName} " +
-                    $"{PopulationDescriptionControl.Instance.populationData.lastName}";
-            }
+            titleLabel.Text = $"{Tr("PHRASE_RECRUIT_HERO_CONFIRMATION")} " +
+                $"{PopulationDescriptionControl.Instance.populationData.firstName} " +
+                $"{PopulationDescriptionControl.Instance.populationData.lastName}";
         }
-        private void OpenConfirmationPanel(bool armyLeaderRecruited)
+    }
+
+    private void YesButton()
+    {
+        PopulationData populationData = PopulationDescriptionControl.Instance.populationData;
+        County county = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
+
+        if (populationData.isHero != true)
         {
-            Show();
-            //GD.Print("Army Leader Recruited? " + armyLeaderRecruited);
-            this.armyLeaderRecruited = armyLeaderRecruited;
+            county.countyData.populationDataList.Remove(populationData);
         }
-        private void YesButton()
+        if (armyLeaderRecruited == false)
         {
-            PopulationData populationData = PopulationDescriptionControl.Instance.populationData;
-            County county = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
+            populationData.isHero = true;
+            populationData.isAide = true;
+            county.countyData.heroesInCountyList.Add(populationData);
+            county.countyData.factionData.AddHeroToAllHeroesList(populationData);
+        }
+        else
+        {
+            populationData.isHero = true;
+            populationData.isAide = false;
+            populationData.IsArmyLeader = true;
+            county.countyData.heroesInCountyList.Remove(populationData);
+            county.countyData.armiesInCountyList.Add(populationData);
+            county.countyData.factionData.AddHeroToAllHeroesList(populationData);
 
-            if (populationData.isHero != true)
-            {
-                county.countyData.populationDataList.Remove(populationData);
-            }
-            if (armyLeaderRecruited == false)
-            {
-                populationData.isHero = true;
-                populationData.isAide = true;
-                county.countyData.heroesInCountyList.Add(populationData);
-                county.countyData.factionData.AddHeroToAllHeroesList(populationData);
-            }
-            else
-            {
-                populationData.isHero = true;
-                populationData.isAide = false;
-                populationData.IsArmyLeader = true;
-                county.countyData.heroesInCountyList.Remove(populationData);
-                county.countyData.armiesInCountyList.Add(populationData);
-                county.countyData.factionData.AddHeroToAllHeroesList(populationData);
-
-            }
-
-            // This is set again to update the sprite textures;
-            if (populationData.token != null)
-            {
-                AllTokenTextures.Instance.AssignTokenTextures(populationData.token);
-                populationData.token.UpdateSpriteTexture();
-                populationData.token.spawnedTokenButton.UpdateButtonIcon();
-            }
-
-            Banker.ChargeForHero(Globals.Instance.playerFactionData);
-            PopulationDescriptionControl.Instance.UpdateDescriptionInfo();
-            CountyInfoControl.Instance.GenerateHeroesPanelList();
-
-            Hide();
         }
 
-        private void NoButton()
+        // This is set again to update the sprite textures;
+        if (populationData.token != null)
         {
-            Hide();
+            AllTokenTextures.Instance.AssignTokenTextures(populationData.token);
+            populationData.token.UpdateSpriteTexture();
+            populationData.token.spawnedTokenButton.UpdateButtonIcon();
         }
+
+        Banker.ChargeForHero(Globals.Instance.playerFactionData);
+        PopulationDescriptionControl.Instance.UpdateDescriptionInfo();
+        CountyInfoControl.Instance.GenerateHeroesPanelList();
+
+        Hide();
+    }
+
+    private void NoButton()
+    {
+        Hide();
     }
 }

@@ -13,9 +13,9 @@ namespace PlayerSpace
         [Export] public Label[] skillLabels;
 
         [Export] public Label currentActivityLabel;
-        [Export] public Label currentWhereLabel;
-        [Export] public Label nextActivityLabel;
-        [Export] public Label nextWhereLabel;
+        //[Export] public Label currentWhereLabel;
+        //[Export] public Label nextActivityLabel;
+        //[Export] public Label nextWhereLabel;
         private void OnButtonClick()
         {
             CountyInfoControl.Instance.populationDescriptionControl.Show();

@@ -15,7 +15,7 @@ namespace GlobalSpace
         {
             Instance = this;
 
-            //GD.Print("CountyResourcesAutoLoad.cs has loaded.");
+            GD.Print("CountyResourcesAutoLoad.cs has loaded.");
             LoadCountyResources();
         }
 

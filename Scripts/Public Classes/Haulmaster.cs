@@ -21,6 +21,7 @@ public class Haulmaster
 
             // Get the county's stockpile and available amount for the required good.
             GoodData countyGood = countyData.goods[uniqueInputGood.Key.countyGoodType];
+            GD.Print($"Stockpiled: {countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType]}");
             GD.Print("County Good: " + countyGood.goodName);
             GD.Print("County Good County Good Type: " + countyGood.countyGoodType);
             GD.Print("Unique Input Good County Good Type: " + uniqueInputGood.Key.countyGoodType);
@@ -28,7 +29,6 @@ public class Haulmaster
             GD.Print($"{uniqueInputGood.Key.goodName}, ");
             GD.Print($"{countyImprovementData.improvementName} requires:");
             GD.Print($"Available: {countyGood.Amount}, ");
-            GD.Print($"Stockpiled: {countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType]}");
 
             // Skip if the current stockpile meets or exceeds the maximum desired amount.
             if (countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType] 

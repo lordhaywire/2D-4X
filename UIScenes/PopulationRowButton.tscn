@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://djph5cv7o4atl"]
 
-[ext_resource type="Script" path="res://Scripts/UI/PopulationRowButton.cs" id="1_dhxh4"]
+[ext_resource type="Script" uid="uid://bbb0mawmhkijj" path="res://Scripts/UI/PopulationRowButton.cs" id="1_dhxh4"]
 
 [node name="Population Row Button" type="Button" node_paths=PackedStringArray("populationNameLabel", "ageLabel", "sexLabel", "UnhelpfulLabel", "loyaltyAttributeLabel", "skillLabels", "currentActivityLabel")]
 custom_minimum_size = Vector2(0, 25)

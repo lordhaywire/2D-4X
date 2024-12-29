@@ -2,6 +2,7 @@ using Godot;
 
 namespace PlayerSpace;
 
+
 public partial class AutoLoad : Node
 {
     public static AutoLoad Instance { get; private set; }

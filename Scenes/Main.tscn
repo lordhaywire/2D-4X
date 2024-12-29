@@ -1,7 +1,6 @@
-[gd_scene load_steps=137 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=136 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" uid="uid://ctm4ah5pwyf7d" path="res://Scripts/Main.cs" id="1_62dun"]
-[ext_resource type="Script" uid="uid://cca3ju13aeegd" path="res://Scripts/HidderNode.cs" id="1_gbt3x"]
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://World Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
 [ext_resource type="Script" uid="uid://bl7hn0hgb5876" path="res://Scripts/LoadMaps.cs" id="2_nda5i"]
 [ext_resource type="Script" uid="uid://b2ga6cfedp6xn" path="res://Scripts/Globals.cs" id="2_yf7pt"]
@@ -77,7 +76,7 @@
 [ext_resource type="Resource" uid="uid://dc6rsi4v4mw1g" path="res://Resources/Attributes/Physical Strength.tres" id="31_odxrg"]
 [ext_resource type="Texture2D" uid="uid://jyr4u6ph1nu6" path="res://Graphics/Icons/Population/portrait.svg" id="32_s1dhj"]
 [ext_resource type="Resource" uid="uid://bxlhn0725kssw" path="res://Resources/Goods/Equipment.tres" id="33_bposm"]
-[ext_resource type="Script" uid="uid://dnx12v2hl3wur" path="res://Scripts/UI/RecruitButton.cs" id="33_ec2f1"]
+[ext_resource type="Script" uid="uid://dnx12v2hl3wur" path="res://Scripts/UI/RecruitHeroButton.cs" id="33_ec2f1"]
 [ext_resource type="Resource" uid="uid://7ylqwh5wl2xi" path="res://Resources/ResearchItems/Primitive Scouting Equipment.tres" id="33_uirqi"]
 [ext_resource type="Script" uid="uid://cb81oehioy1sr" path="res://Scripts/UI/HeroPanelContainer.cs" id="34_8wj68"]
 [ext_resource type="Theme" uid="uid://bcc8wsoqypsuc" path="res://Themes/TopBarTheme.tres" id="34_e2d2b"]
@@ -167,10 +166,6 @@ expand_margin_bottom = 5.0
 
 [node name="Root Node" type="Node"]
 script = ExtResource("1_62dun")
-
-[node name="Hidder Node" type="Node" parent="." node_paths=PackedStringArray("nodesToHide")]
-script = ExtResource("1_gbt3x")
-nodesToHide = []
 
 [node name="Camera CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("camera")]
 process_mode = 3
@@ -679,6 +674,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="County Info Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("countyInfoControl", "factionNamelabel", "countyNameLabel", "countyFoodLabel", "countyScrapLabel", "populationDataNumberLabel", "countyIdleWorkersLabel", "visitorsLabel", "populationListMarginContainer", "populationDescriptionControl", "countyImprovementsPanelControl", "heroListParent", "heroSpawnCheckButtonParent", "populationListButton", "visitorsListButton", "countyImprovementsButton", "resourcesButton")]
+visible = false
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 3
 anchors_preset = 0
@@ -1306,7 +1302,7 @@ looksLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContai
 loyaltyAttributeLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Loyalty Label")
 ageLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Age Label")
 sexLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Sex Label")
-skillLabels = []
+skillLabels = [NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Construction Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Cool Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Farm Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Fish Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Labor Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Lumberjack Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Production Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Research Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Rifle Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Scavenge Skill Label")]
 interestLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Interest Label")
 preferredWorkLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Preferred Work Label")
 currentActivityLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Activity Label")
@@ -1591,7 +1587,7 @@ text = "Sex Bool
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Recruit Army Button" type="Button" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer" node_paths=PackedStringArray("confirmationPanelContainer")]
+[node name="Recruit Army Button" type="Button" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer" node_paths=PackedStringArray("recruitHeroConfirmationPanelContainer")]
 custom_minimum_size = Vector2(75, 50)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -1599,7 +1595,7 @@ size_flags_vertical = 8
 focus_mode = 0
 text = "PHRASE_RECRUITE_AS_ARMY_LEADER"
 script = ExtResource("33_ec2f1")
-confirmationPanelContainer = NodePath("../../../../../../../Recuit Hero Confirmation PanelContainer")
+recruitHeroConfirmationPanelContainer = NodePath("../../../../../../../Recuit Hero Confirmation PanelContainer")
 
 [node name="Right PanelContainer" type="PanelContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
@@ -1751,14 +1747,14 @@ text = "Activity"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Recruit Aide Button" type="Button" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer" node_paths=PackedStringArray("confirmationPanelContainer")]
+[node name="Recruit Aide Button" type="Button" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer" node_paths=PackedStringArray("recruitHeroConfirmationPanelContainer")]
 custom_minimum_size = Vector2(75, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "PHRASE_RECRUITE_AS_AIDE"
 script = ExtResource("33_ec2f1")
-confirmationPanelContainer = NodePath("../../../../../../../Recuit Hero Confirmation PanelContainer")
+recruitHeroConfirmationPanelContainer = NodePath("../../../../../../../Recuit Hero Confirmation PanelContainer")
 
 [node name="Close Button" type="Button" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer"]
 custom_minimum_size = Vector2(75, 50)
@@ -2373,7 +2369,7 @@ script = ExtResource("62_onxgq")
 storyEventTitle = NodePath("PanelContainer/VBoxContainer/Story Event Title Label")
 storyEventDescription = NodePath("PanelContainer/VBoxContainer/Story Event Description Label")
 storyEventLocation = NodePath("PanelContainer/VBoxContainer/Story Event Location Label")
-choiceButtons = []
+choiceButtons = [NodePath("PanelContainer/VBoxContainer/Accept Button"), NodePath("PanelContainer/VBoxContainer/Option 2 Button"), NodePath("PanelContainer/VBoxContainer/Option 3 Button"), NodePath("PanelContainer/VBoxContainer/Decline Button")]
 
 [node name="PanelContainer" type="PanelContainer" parent="Player UI Canvas/Story Event Control"]
 layout_mode = 1
@@ -2512,19 +2508,26 @@ process_mode = 3
 [connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/Speed Panel" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
 [connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x0 Button" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x0 Button" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
+[connection signal="pressed" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x0 Button" to="Player UI Canvas/Top Bar Control" method="ChangeSpeed" binds= [0]]
 [connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x1 Button" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x1 Button" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
+[connection signal="pressed" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x1 Button" to="Player UI Canvas/Top Bar Control" method="ChangeSpeed" binds= [1]]
 [connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x2 Button" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x2 Button" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
+[connection signal="pressed" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x2 Button" to="Player UI Canvas/Top Bar Control" method="ChangeSpeed" binds= [2]]
 [connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x4 Button" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x4 Button" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
+[connection signal="pressed" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x4 Button" to="Player UI Canvas/Top Bar Control" method="ChangeSpeed" binds= [4]]
 [connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x8 Button" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x8 Button" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
+[connection signal="pressed" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x8 Button" to="Player UI Canvas/Top Bar Control" method="ChangeSpeed" binds= [8]]
 [connection signal="mouse_entered" from="Player UI Canvas/Pause Control" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="Player UI Canvas/Pause Control" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
 [connection signal="visibility_changed" from="Player UI Canvas/County Info Control" to="Player UI Canvas/County Info Control" method="OnVisibilityChanged"]
 [connection signal="mouse_entered" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer" to="Player UI Canvas/County Info Control" method="OnMouseEntered"]
 [connection signal="mouse_exited" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer" to="Player UI Canvas/County Info Control" method="OnMouseExited"]
+[connection signal="pressed" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer/Population List Button" to="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer" method="PopAndIdleOnButtonPressed" binds= [false]]
+[connection signal="pressed" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer/Visitors List Button" to="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer" method="PopAndIdleOnButtonPressed" binds= [true]]
 [connection signal="pressed" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Resources Button" to="Player UI Canvas/County Info Control" method="ResourcesButtonPressed"]
 [connection signal="button_up" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/County Improvements Button" to="Player UI Canvas/County Info Control" method="CountyImprovementsButton"]
 [connection signal="mouse_entered" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/Heroes VBoxContainer" to="Player UI Canvas/County Info Control" method="OnMouseEntered"]
@@ -2538,6 +2541,8 @@ process_mode = 3
 [connection signal="visibility_changed" from="Player UI Canvas/Population List MarginContainer" to="Player UI Canvas/Population List MarginContainer" method="OnPopulationListUIElementVisibilityChanged"]
 [connection signal="button_up" from="Player UI Canvas/Population List MarginContainer/Close Button" to="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer" method="CloseButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Population Description Control" to="Player UI Canvas/Population Description Control" method="OnPopulationDescriptionControlVisibilityChanged"]
+[connection signal="pressed" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Recruit Army Button" to="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Recruit Army Button" method="OpenConfirmationPanel" binds= [true]]
+[connection signal="pressed" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Recruit Aide Button" to="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Recruit Aide Button" method="OpenConfirmationPanel" binds= [false]]
 [connection signal="button_up" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/Close Button" to="Player UI Canvas/Population Description Control" method="CloseButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Battle Log Control" to="Player UI Canvas/Battle Log Control" method="OnBattleLogControlVisibilityChanged"]
 [connection signal="mouse_entered" from="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer" to="Player UI Canvas" method="OnMouseEnterUI"]
