@@ -48,7 +48,8 @@ ExtResource("4_sycl5"): SubResource("Resource_urcy4")
 allDailyWorkAmountAtImprovementCompleted = 0
 uniqueInputGoods = {}
 inputGoods = {
-ExtResource("2_40yu6"): 100
+ExtResource("2_40yu6"): 100,
+ExtResource("1_urcy4"): 1
 }
 countyStockpiledGoods = {}
 status = 0

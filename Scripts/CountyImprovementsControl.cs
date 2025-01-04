@@ -10,6 +10,7 @@ public partial class CountyImprovementsControl : Control
     [Export] private VBoxContainer possibleImprovementsScrollContainerParent;
     [Export] public VBoxContainer currentImprovementsScrollContainerParent;
     [Export] public ConfirmationDialog buildConfirmationDialog;
+    [Export] public RemoveCountyImprovementConfirmationPanelContainer removeCountyImprovementConfirmationPanelContainer;
 
     [Export] private PackedScene countyImprovementPanelContainerPackedScene;
 

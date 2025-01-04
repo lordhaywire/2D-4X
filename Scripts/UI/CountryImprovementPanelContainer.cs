@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 
 namespace PlayerSpace;
@@ -122,9 +121,13 @@ public partial class CountryImprovementPanelContainer : PanelContainer
         }
     }
 
-
-
-    void UpdateConstructionCost()
+    private void RemoveImprovementButtonPressed()
+    {
+        CountyImprovementsControl.Instance.removeCountyImprovementConfirmationPanelContainer.Show();
+        CountyImprovementsControl.Instance.removeCountyImprovementConfirmationPanelContainer.removingCountyImprovementData =
+            countyImprovementData;
+    }
+    private void UpdateConstructionCost()
     {
         progressPanelContainer.Show();
         progressBar.Hide();
@@ -260,9 +263,9 @@ public partial class CountryImprovementPanelContainer : PanelContainer
 
         foreach (KeyValuePair<GoodData, int> keyValuePair in countyImprovementData.uniqueInputGoods)
         {
-            GoodPanelContainer goodPanelContainer 
+            GoodPanelContainer goodPanelContainer
                 = AddInputGoodsPanel(keyValuePair.Key, keyValuePair.Value
-                , countyImprovementData.adjustedMaxWorkers, inputsGridContainer);
+                , countyImprovementData.adjustedMaxWorkers);
 
             if (countyImprovementData.status == AllEnums.CountyImprovementStatus.UnderConstruction)
             {
@@ -272,7 +275,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
             {
                 CheckForHideUseRemnants(keyValuePair, goodPanelContainer);
             }
-            goodPanelContainer.useRemnantsCheckBox.Toggled += (GoodData) 
+            goodPanelContainer.useRemnantsCheckBox.Toggled += (GoodData)
                 => SetUseRemnants(goodPanelContainer.useRemnantsCheckBox.ButtonPressed, keyValuePair.Key);
         }
     }
@@ -283,13 +286,24 @@ public partial class CountryImprovementPanelContainer : PanelContainer
         goodData.useRemnants = toggledOn;
     }
 
-    // ChatGPT wrote part of this.
-    GoodPanelContainer AddInputGoodsPanel(GoodData goodData, int amount
-        , int numberOfAdjustedWorkers, GridContainer goodsParentGridContainer)
+    GoodPanelContainer AddConstructionGoodsPanel(GoodData goodData, int amount)
     {
         GoodPanelContainer goodPanelContainer = (GoodPanelContainer)goodPanelContainerPackedScene.Instantiate();
-        goodsParentGridContainer.AddChild(goodPanelContainer);
+        constructionMaterialCostGridContainer.AddChild(goodPanelContainer);
+
+        goodPanelContainer.goodLabel.Text = $"{Tr(goodData.goodName)} : {amount}";
+
+        return goodPanelContainer;
+    }
+
+    GoodPanelContainer AddInputGoodsPanel(GoodData goodData, int amount
+        , int numberOfAdjustedWorkers)
+    {
+        GoodPanelContainer goodPanelContainer = (GoodPanelContainer)goodPanelContainerPackedScene.Instantiate();
+        inputsGridContainer.AddChild(goodPanelContainer);
+
         goodPanelContainer.goodLabel.Text = $"{Tr(goodData.goodName)} : {amount * numberOfAdjustedWorkers}";
+
         goodPanelContainer.useRemnantsCheckBox.ButtonPressed = goodData.useRemnants;
 
         return goodPanelContainer;
@@ -302,9 +316,8 @@ public partial class CountryImprovementPanelContainer : PanelContainer
 
         foreach (KeyValuePair<GoodData, int> keyValuePair in countyImprovementData.goodsConstructionCost)
         {
-            GoodPanelContainer goodPanelContainer 
-                = AddInputGoodsPanel(keyValuePair.Key, keyValuePair.Value
-                , countyImprovementData.adjustedMaxWorkers, constructionMaterialCostGridContainer);
+            GoodPanelContainer goodPanelContainer
+                = AddConstructionGoodsPanel(keyValuePair.Key, keyValuePair.Value);
 
             CheckForHideUseRemnants(keyValuePair, goodPanelContainer);
         }
@@ -315,6 +328,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     {
         bool shouldHideCheckBox =
             countyImprovementData.status == AllEnums.CountyImprovementStatus.None
+            || countyImprovementData.status == AllEnums.CountyImprovementStatus.UnderConstruction
             || countyImprovementData.status == AllEnums.CountyImprovementStatus.InResearchPanel
             || keyValuePair.Key.countyGoodType == AllEnums.CountyGoodType.Remnants
             || keyValuePair.Key.factionGoodType == AllEnums.FactionGoodType.Food;

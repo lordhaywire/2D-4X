@@ -302,3 +302,4 @@ text = "PHRASE_REMOVE_IMPROVEMENT"
 [connection signal="pressed" from="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Goods VBoxContainer/Adjustable Builders HBoxContainer/Minus Max Builders Button" to="." method="MinusMaxBuildersButtonPressed"]
 [connection signal="pressed" from="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Goods VBoxContainer/Adjustable Builders HBoxContainer/Plus Max Builders Button" to="." method="PlusMaxBuildersButtonPressed"]
 [connection signal="pressed" from="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Goods VBoxContainer/Construct Button" to="." method="ConstructButtonPressed"]
+[connection signal="pressed" from="Everything VBoxContainer/Remove Improvement Button" to="." method="RemoveImprovementButtonPressed"]

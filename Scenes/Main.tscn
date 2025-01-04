@@ -1,4 +1,4 @@
-[gd_scene load_steps=136 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=137 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" uid="uid://ctm4ah5pwyf7d" path="res://Scripts/Main.cs" id="1_62dun"]
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://World Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
@@ -130,6 +130,7 @@
 [ext_resource type="Script" uid="uid://bk012pwi1wh6t" path="res://Scripts/GameStart.cs" id="84_lusaj"]
 [ext_resource type="Texture2D" uid="uid://cyphf3703b4qa" path="res://Graphics/Icons/Top Bar/bolter-gun.svg" id="98_qs8v3"]
 [ext_resource type="PackedScene" uid="uid://x448dpajwnx" path="res://UIScenes/CountyImprovementPanelContainer.tscn" id="119_kkhw7"]
+[ext_resource type="Script" uid="uid://cc6kc1k26qlew" path="res://Scripts/UI/RemoveCountyImprovementConfirmationPanelContainer.cs" id="122_hwg2s"]
 [ext_resource type="PackedScene" uid="uid://ctmeblm8t3ynu" path="res://UIScenes/ResearchPrerequisiteLabel.tscn" id="124_veo43"]
 
 [sub_resource type="Resource" id="Resource_6tiru"]
@@ -1922,7 +1923,7 @@ size_flags_horizontal = 3
 tooltip_text = "You are a piece of shit!"
 text = "Yes"
 
-[node name="County Improvements Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("possibleImprovementsScrollContainerParent", "currentImprovementsScrollContainerParent", "buildConfirmationDialog")]
+[node name="County Improvements Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("possibleImprovementsScrollContainerParent", "currentImprovementsScrollContainerParent", "buildConfirmationDialog", "removeCountyImprovementConfirmationPanelContainer")]
 process_mode = 3
 visible = false
 layout_mode = 3
@@ -1935,7 +1936,8 @@ mouse_filter = 2
 script = ExtResource("37_rkirm")
 possibleImprovementsScrollContainerParent = NodePath("County Improvements MarginContainer/County Improvements PanelContainer/MarginContainer/HBoxContainer/Possible Improvement Title VBoxContainer/Possible Building ScrollContainer/Possible Buildings VBoxContainer")
 currentImprovementsScrollContainerParent = NodePath("County Improvements MarginContainer/County Improvements PanelContainer/MarginContainer/HBoxContainer/Current Improvement Title VBoxContainer/Current Building ScrollContainer/Current Buildings VBoxContainer")
-buildConfirmationDialog = NodePath("County Improvements MarginContainer/County Improvements PanelContainer/MarginContainer/Build ConfirmationDialog")
+buildConfirmationDialog = NodePath("County Improvements MarginContainer/Build ConfirmationDialog")
+removeCountyImprovementConfirmationPanelContainer = NodePath("County Improvements MarginContainer/Remove County Improvement Confirmation PanelContainer")
 countyImprovementPanelContainerPackedScene = ExtResource("119_kkhw7")
 
 [node name="Background ColorRect" type="ColorRect" parent="Player UI Canvas/County Improvements Control"]
@@ -2016,7 +2018,19 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Build ConfirmationDialog" type="ConfirmationDialog" parent="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/County Improvements PanelContainer/MarginContainer"]
+[node name="Close Button" type="Button" parent="Player UI Canvas/County Improvements Control/County Improvements MarginContainer"]
+custom_minimum_size = Vector2(75, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "WORD_CLOSE"
+
+[node name="Click Blocker Panel" type="Panel" parent="Player UI Canvas/County Improvements Control/County Improvements MarginContainer"]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="Build ConfirmationDialog" type="ConfirmationDialog" parent="Player UI Canvas/County Improvements Control/County Improvements MarginContainer"]
 initial_position = 2
 size = Vector2i(400, 100)
 ok_button_text = "Yes"
@@ -2024,12 +2038,40 @@ dialog_text = "gfhfdfhgfdhgfgh"
 cancel_button_text = "No"
 script = ExtResource("39_atdu5")
 
-[node name="Close Button" type="Button" parent="Player UI Canvas/County Improvements Control/County Improvements MarginContainer"]
-custom_minimum_size = Vector2(75, 50)
+[node name="Remove County Improvement Confirmation PanelContainer" type="PanelContainer" parent="Player UI Canvas/County Improvements Control/County Improvements MarginContainer" node_paths=PackedStringArray("clickBlockerPanel", "titleLabel")]
+visible = false
+custom_minimum_size = Vector2(400, 200)
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("122_hwg2s")
+clickBlockerPanel = NodePath("../Click Blocker Panel")
+titleLabel = NodePath("Title Label")
+
+[node name="Title Label" type="Label" parent="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/Remove County Improvement Confirmation PanelContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 16
+text = "Remove County Improvement?!?!?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/Remove County Improvement Confirmation PanelContainer"]
+layout_mode = 2
 size_flags_vertical = 8
-text = "WORD_CLOSE"
+alignment = 1
+
+[node name="Yes Button" type="Button" parent="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/Remove County Improvement Confirmation PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "You are a piece of shit!"
+text = "Yes"
+
+[node name="No Button" type="Button" parent="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/Remove County Improvement Confirmation PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "No"
 
 [node name="Research Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("assignedResearchersTitleLabel", "tierOneResearchItemParent", "tierTwoResearchItemParent", "tierThreeResearchItemParent", "assignedResearchersParent")]
 visible = false
@@ -2555,9 +2597,12 @@ process_mode = 3
 [connection signal="button_up" from="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer/HBoxContainer/Yes Button" to="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer" method="YesButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/County Improvements Control" to="Player UI Canvas/County Improvements Control" method="OnCountyImprovementControlVisibilityChanged"]
 [connection signal="visibility_changed" from="Player UI Canvas/County Improvements Control/County Improvements MarginContainer" to="Player UI Canvas/County Improvements Control/County Improvements MarginContainer" method="OnVisibilityChange"]
-[connection signal="confirmed" from="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/County Improvements PanelContainer/MarginContainer/Build ConfirmationDialog" to="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/County Improvements PanelContainer/MarginContainer/Build ConfirmationDialog" method="YesButton"]
-[connection signal="visibility_changed" from="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/County Improvements PanelContainer/MarginContainer/Build ConfirmationDialog" to="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/County Improvements PanelContainer/MarginContainer/Build ConfirmationDialog" method="OnBuildingConfirmationDialogVisibilityChanged"]
 [connection signal="button_up" from="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/Close Button" to="Player UI Canvas/County Improvements Control" method="CloseButton"]
+[connection signal="confirmed" from="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/Build ConfirmationDialog" to="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/Build ConfirmationDialog" method="YesButton"]
+[connection signal="visibility_changed" from="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/Build ConfirmationDialog" to="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/Build ConfirmationDialog" method="OnBuildingConfirmationDialogVisibilityChanged"]
+[connection signal="visibility_changed" from="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/Remove County Improvement Confirmation PanelContainer" to="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/Remove County Improvement Confirmation PanelContainer" method="RemoveCountyImprovementOnVisibilityChanged"]
+[connection signal="pressed" from="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/Remove County Improvement Confirmation PanelContainer/HBoxContainer/Yes Button" to="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/Remove County Improvement Confirmation PanelContainer" method="RemoveImprovementYesButtonPressed"]
+[connection signal="pressed" from="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/Remove County Improvement Confirmation PanelContainer/HBoxContainer/No Button" to="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/Remove County Improvement Confirmation PanelContainer" method="RemoveImprovementNoButtonPressed"]
 [connection signal="visibility_changed" from="Player UI Canvas/Research Control" to="Player UI Canvas/Research Control" method="OnVisibilityChange"]
 [connection signal="button_up" from="Player UI Canvas/Research Control/Close Button" to="Player UI Canvas/Research Control" method="CloseButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Research Description PanelContainer" to="Player UI Canvas/Research Description PanelContainer" method="OnResearchDescriptionPanelVisibilityChanged"]

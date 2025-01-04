@@ -5,7 +5,6 @@ res://Resources/County Improvements/Garden.tres
 res://Resources/County Improvements/ScoutingEquipmentWorkshop.tres
 res://UIScenes/PopulationRowButton.tscn
 res://Scenes/MapEditor.tscn
-res://Scripts/Map Editor/MapEditorCameraCharacterBody2D.cs
 res://Resources/ActivityData.cs
 res://Scripts/UI/ResearchControl.cs
 res://Scripts/AutoLoad.cs
@@ -45,6 +44,7 @@ res://Scripts/SelectToken.cs
 res://Scripts/UI/EventLog.cs
 res://Scripts/UI/ResearchDescriptionPanel.cs
 res://Scripts/GameStart.cs
+res://Scripts/Map Editor/MapEditorCameraCharacterBody2D.cs
 res://Scripts/UI/PopulationListUIElement.cs
 res://Resources/HeroData.cs
 res://Scripts/MapEditorControl.cs
@@ -92,3 +92,7 @@ res://Scripts/UI/RecruitHeroConfirmationPanelContainer.cs
 res://Scripts/AllAttributes.cs
 res://Scripts/LoadMaps.cs
 res://Scripts/UI/ResearchItemButton.cs
+res://Scripts/UI/RemoveCountyImprovementConfirmationPanelContainer.cs
+res://UIScenes/CountyImprovementPanelContainer.tscn
+res://Localization/2D 4X Main Text.en.translation
+res://Localization/2D 4X Main Text.es.translation

@@ -5,19 +5,48 @@ using System.Collections.Generic;
 namespace PlayerSpace;
 public class Haulmaster
 {
+    public static void ReturnHalfOfConstructionCost(CountyData countyData, CountyImprovementData countyImprovementData)
+    {
+        foreach(KeyValuePair<GoodData, int> keyValuePair in countyImprovementData.goodsConstructionCost)
+        {
+            int returnedAmount = keyValuePair.Value / 2;
+            if (keyValuePair.Key.goodType == AllEnums.GoodType.CountyGood 
+                || keyValuePair.Key.goodType == AllEnums.GoodType.Both)
+            {
+                countyData.goods[keyValuePair.Key.countyGoodType].Amount += returnedAmount;
+            }
+            else
+            {
+                countyData.factionData.factionGoods[keyValuePair.Key.factionGoodType].Amount += returnedAmount;
+            }
+        }
+    }
     // Gathers stockpiled goods for the county improvement based on its input needs.
     public static void GatherStockpileGoods(CountyData countyData, CountyImprovementData countyImprovementData)
     {
         // Mark the improvement as currently producing.
         countyImprovementData.status = AllEnums.CountyImprovementStatus.Producing;
 
+        // This includes if the county improvement already just has remnants as a good.
+        int minNumberOfRemnantsUsedForInputGoods = 0; // GetNumberOfRemnantsNeededAsInputGoods(countyImprovementData);
+        int maxNumberOfRemnantsUsedForInputGoods = 0; // GetNumberOfRemnantsNeededAsInputGoods(countyImprovementData);
+        
         foreach (KeyValuePair<GoodData, int> uniqueInputGood in countyImprovementData.uniqueInputGoods)
         {
             // Calculate the desired stockpile range.
-            int minStockpileAmount = uniqueInputGood.Value * countyImprovementData.adjustedMaxWorkers 
+            int minStockpileAmount = uniqueInputGood.Value * countyImprovementData.adjustedMaxWorkers
                 * Globals.Instance.minDaysStockpile;
-            int maxStockpileAmount = uniqueInputGood.Value * countyImprovementData.adjustedMaxWorkers 
+            int maxStockpileAmount = uniqueInputGood.Value * countyImprovementData.adjustedMaxWorkers
                 * Globals.Instance.maxDaysStockpile;
+
+            // Add the amount of stockpiled remnants depending on the number of unique input goods that are using remnants.
+            if(uniqueInputGood.Key.countyGoodType == AllEnums.CountyGoodType.Remnants || uniqueInputGood.Key.useRemnants)
+            {
+                minNumberOfRemnantsUsedForInputGoods += minStockpileAmount;
+                maxNumberOfRemnantsUsedForInputGoods += maxStockpileAmount;
+                minStockpileAmount = minNumberOfRemnantsUsedForInputGoods;
+                maxStockpileAmount = maxNumberOfRemnantsUsedForInputGoods;
+            }
 
             // Get the county's stockpile and available amount for the required good.
             GoodData countyGood = countyData.goods[uniqueInputGood.Key.countyGoodType];
@@ -32,7 +61,7 @@ public class Haulmaster
             GD.Print($"Available: {countyGood.Amount}, ");
 
             // Skip if the current stockpile meets or exceeds the maximum desired amount.
-            if (countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType] 
+            if (countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType]
                 >= maxStockpileAmount)
             {
                 continue;
@@ -50,7 +79,7 @@ public class Haulmaster
 
             // If the stockpile is below the minimum desired amount, update the improvement status and
             // add a day to each person's employed but idle count.
-            if (countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType] 
+            if (countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType]
                 < minStockpileAmount)
             {
                 countyImprovementData.status = AllEnums.CountyImprovementStatus.LowStockpiledGoods;
@@ -60,7 +89,7 @@ public class Haulmaster
             GD.Print($"Updated {countyImprovementData.improvementName} stockpile for {uniqueInputGood.Key.goodName}: " +
                      $"Available: {countyGood.Amount}, " +
                      $"Stockpiled: {countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType]} " +
-                     $"Min Stockpiled: {minStockpileAmount} " + 
+                     $"Min Stockpiled: {minStockpileAmount} " +
                      $"Status: {countyImprovementData.status}");
         }
     }
@@ -74,7 +103,7 @@ public class Haulmaster
                 -= inputGood.Value;
         }
     }
-    
+
     /// <summary>
     /// This has to generate the stock piled goods from the developer created inputGoods list.  The inputGoods list
     /// is later copied to the uniqueList because it has to be.
@@ -86,6 +115,17 @@ public class Haulmaster
         foreach (KeyValuePair<GoodData, int> keyValuePair in countyImprovementData.inputGoods)
         {
             countyImprovementData.countyStockpiledGoods[keyValuePair.Key.countyGoodType] = 0;
+        }
+        // If this county improvement's countyStockpiledGoods doesn't contain remnants then add it.
+        if (!countyImprovementData.countyStockpiledGoods.TryGetValue(AllEnums.CountyGoodType.Remnants, out int value))
+        {
+            countyImprovementData.countyStockpiledGoods[AllEnums.CountyGoodType.Remnants] = 0;
+            GD.Print($"Remnants added to {countyImprovementData.improvementName}.");
+        }
+        else
+        {
+            GD.Print($"It already has {value}" +
+                $" remnants in the countyStockedpiledGoods at {countyImprovementData.improvementName}");
         }
     }
 }

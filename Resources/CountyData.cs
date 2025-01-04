@@ -382,7 +382,7 @@ namespace PlayerSpace
                 if (CheckIfImprovementTypeNeedsWorkers(countyImprovementData) == false 
                     || countyImprovementData.CheckIfStatusLowStockpiledGoods() == true)
                 {
-                    GD.Print("I think something is wrong here!!!!!");
+                    GD.Print("Low Stockpiled Goods, or the improvement is storage or research.");
                     continue;
                 }
                 foreach (PopulationData populationData in possibleWorkers)
