@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Godot\\Projects\\2D 4X\\2d 4x.csproj": {}
+    "E:\\GODOT\\PROJECTS\\2D 4X\\2d 4x.csproj": {}
   },
   "projects": {
-    "E:\\Godot\\Projects\\2D 4X\\2d 4x.csproj": {
+    "E:\\GODOT\\PROJECTS\\2D 4X\\2d 4x.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Godot\\Projects\\2D 4X\\2d 4x.csproj",
+        "projectUniqueName": "E:\\GODOT\\PROJECTS\\2D 4X\\2d 4x.csproj",
         "projectName": "2d 4x",
-        "projectPath": "E:\\Godot\\Projects\\2D 4X\\2d 4x.csproj",
+        "projectPath": "E:\\GODOT\\PROJECTS\\2D 4X\\2d 4x.csproj",
         "packagesPath": "C:\\Users\\lordhaywire\\.nuget\\packages\\",
-        "outputPath": "E:\\Godot\\Projects\\2D 4X\\.godot\\mono\\temp\\obj\\",
+        "outputPath": "E:\\GODOT\\PROJECTS\\2D 4X\\.godot\\mono\\temp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Users\\lordhaywire\\AppData\\Roaming\\Godot\\mono\\GodotNuGetFallbackFolder",
@@ -60,6 +60,10 @@
             "GodotSharp": {
               "target": "Package",
               "version": "[4.4.0-dev.5, )"
+            },
+            "GodotSharpEditor": {
+              "target": "Package",
+              "version": "[4.4.0-dev.5, )"
             }
           },
           "imports": [
@@ -73,31 +77,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
-              "version": "[8.0.11, 8.0.11]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Runtime.win-x64",
-              "version": "[8.0.11, 8.0.11]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
-              "version": "[8.0.11, 8.0.11]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
-        }
-      },
-      "runtimes": {
-        "win-x64": {
-          "#import": []
         }
       }
     }
