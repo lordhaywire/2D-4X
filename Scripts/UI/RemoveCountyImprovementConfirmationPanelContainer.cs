@@ -26,9 +26,16 @@ public partial class RemoveCountyImprovementConfirmationPanelContainer : PanelCo
         CountyData countyData = Globals.Instance.SelectedLeftClickCounty.countyData;
         Haulmaster.ReturnHalfOfConstructionCost(countyData, removingCountyImprovementData);
 
-        // Remove building from Construction List
+        // Remove building from Construction Lists
         countyData.underConstructionCountyImprovements.Remove(removingCountyImprovementData);
         countyData.completedCountyImprovements.Remove(removingCountyImprovementData);
+
+        // Check to see if it is a storage improvement and not under construction then remove the storage.
+        if (removingCountyImprovementData.CheckIfStorageImprovement() && removingCountyImprovementData.status
+            == AllEnums.CountyImprovementStatus.Producing)
+        {
+            Haulmaster.SubtractImprovementStorageFromCounty(countyData, removingCountyImprovementData);
+        }
         CountyImprovementsControl.Instance.CreateAllCountyImprovementButtons();
         Hide();
     }

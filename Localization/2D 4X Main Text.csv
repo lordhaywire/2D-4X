@@ -139,6 +139,7 @@ PHRASE_RECRUITE_AS_AIDE,Recruite as Aide,Recluta como ayudante
 PHRASE_RECRUITE_AS_ARMY_LEADER,Recruite as Army Leader,Recluta como líder del ejército
 PHRASE_REMOVE_IMPROVEMENT,Remove Improvement,Eliminar mejora
 PHRASE_RESEARCH_COST,Research Cost,Coste de investigación
+PHRASE_RESEARCH_FOR,Research for,Investigación para
 PHRASE_RESEARCH_PROGRESS,Research Progress,Avances en la investigación
 PHRASE_UNDER_CONSTRUCTION,Under Construction,En obra
 PHRASE_USE_REMNANTS_FOR_CONSTRUCTION,Use Remnants for construction,Usar remanentes para la construcción
@@ -177,6 +178,7 @@ WORD_ACTIVITY,Activity,Actividad
 WORD_AGE,Age,Edad
 WORD_ATTRIBUTES,Attributes,Atributos
 WORD_CLOSE,Close,Cerrar
+WORD_CONSTRUCT,Construct,Construir
 WORD_CONSTRUCTION,Construction,Construcción
 WORD_DAY,Day:,Día
 WORD_FEMALE,Female,Hembra
@@ -204,5 +206,5 @@ WORD_SPEED,Speed:,Velocidad
 WORD_TIME,Time:,Hora
 WORD_TITLES,Titles,Títulos
 WORD_VISITORS,Visitors,Visitantes
-WORD_CONSTRUCT,Construct,Construir
-PHRASE_RESEARCH_FOR,Research for,Investigación para
+WORD_GOODS,Goods,Bienes
+PHRASE_THERE_IS_NEGATIVE_STORAGE,There is negative storage!,¡Hay almacenamiento negativo!

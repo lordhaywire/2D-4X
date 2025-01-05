@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,18 +9,34 @@ public partial class CountyGeneration : Node
 {
     public override void _Ready()
     {
+        // This whole thing could probably be done in 1 foreach.  Maybe?
         AssignFactionDataToCountyData();
         AssignCountyDataToFaction();
-        UpdateResources();
-        UpdateInitialCountyStorage();
-    }
-
-    private static void UpdateResources()
-    {
-        // Assign a copy of each resource to each county.
+        UpdateGoods();
+        PrebuildCountyImprovements(); // Currently Empty.
         foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
         {
-            CopyAndAssignResources(county.countyData, AllGoods.Instance.allGoods);
+            Haulmaster.CountCountyMaxStorage(county.countyData);
+            Haulmaster.AssignMaxStorageToGoods(county.countyData);
+            //Haulmaster.AssignStorageToCountyStorage(county.countyData);
+}
+    }
+
+    /// <summary>
+    /// This is going to be for when there is a checkbox or randomly generated starting county improvements.
+    /// This has to be above the CountCountyTotalStorage because it will count completed buildings.
+    /// </summary>
+    private void PrebuildCountyImprovements()
+    {
+        
+    }
+
+    private static void UpdateGoods()
+    {
+        // Assign a copy of each good to each county.
+        foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
+        {
+            CopyAndAssignGoods(county.countyData, AllGoods.Instance.allGoods);
             UpdateScavengableResources(county);
         }
     }
@@ -30,7 +47,7 @@ public partial class CountyGeneration : Node
         county.countyData.scavengableRemnants = Globals.Instance.maxScavengableScrap;
     }
 
-    private static void CopyAndAssignResources(CountyData countyData, GoodData[] AllGoods)
+    private static void CopyAndAssignGoods(CountyData countyData, GoodData[] AllGoods)
     {
         foreach (GoodData goodData in AllGoods)
         {
@@ -41,46 +58,12 @@ public partial class CountyGeneration : Node
                 countyData.amountOfGoodsUsed.Add(goodData.countyGoodType, (GoodData)goodData.Duplicate());
             }
         }
-        SetInitialMaxStorage(countyData.goods);
+
         // This is just for testing.  Sets all resources to a starting amount.
         // This has to be after the initial storage is set.
         foreach (KeyValuePair<AllEnums.CountyGoodType, GoodData> keyValuePair in countyData.goods)
         {
             keyValuePair.Value.Amount = Globals.Instance.startingAmountOfEachGood;
-        }
-    }
-
-    private static void SetInitialMaxStorage(Godot.Collections.Dictionary<AllEnums.CountyGoodType, GoodData> resources)
-    {
-        foreach (KeyValuePair<AllEnums.CountyGoodType, GoodData> keyValuePair in resources)
-        {
-            GoodData goodData = keyValuePair.Value;
-
-            if (goodData.perishable == AllEnums.Perishable.Perishable)
-            {
-                goodData.MaxAmount = Globals.Instance.startingPerishableStorage
-                    / Globals.Instance.numberOfPerishableGoods;
-                //+ (Globals.Instance.startingPerishableStorage % Globals.Instance.numberOfPerishableResources);
-
-            }
-            else if(goodData.perishable == AllEnums.Perishable.Nonperishable)
-            {
-                goodData.MaxAmount = Globals.Instance.startingNonperishableStorage
-                    / Globals.Instance.numberOfNonperishableGoods;
-                //+ (Globals.Instance.startingNonperishableStorage % Globals.Instance.numberOfNonperishableResources);
-            }
-            //GD.Print($"{county.countyData.countyName} - {resource.name}: " +
-            //       $"{resource.MaxAmount}");
-        }
-    }
-
-    private static void UpdateInitialCountyStorage()
-    {
-        foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
-        {
-            county.countyData.perishableStorage = Globals.Instance.startingPerishableStorage;
-            county.countyData.nonperishableStorage = Globals.Instance.startingNonperishableStorage;
-            //GD.Print($"{county.countyData.countyName} has {county.countyData.perishableStorage} perishable storage.");
         }
     }
 

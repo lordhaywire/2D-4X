@@ -72,26 +72,6 @@ public class Banker
         TopBarControl.Instance.UpdateResourceLabels();
     }
 
-    public void AddStorageToCounty(CountyData countyData, CountyImprovementData countyImprovementData)
-    {
-        if (countyImprovementData.CheckIfStorageImprovement())
-        {
-            foreach (KeyValuePair<GoodData, ProductionData> keyValuePair in countyImprovementData.outputGoods)
-            {
-                if (keyValuePair.Key.countyGoodType == AllEnums.CountyGoodType.StorageNonperishable)
-                {
-                    countyData.nonperishableStorage += keyValuePair.Value.storageAmount;
-                    // GD.Print($"{countyData.countyName} now has {countyData.nonperishableStorage} nonperishable storage.");
-                }
-                else
-                {
-                    countyData.perishableStorage += keyValuePair.Value.storageAmount;
-                    // GD.Print($"{countyData.countyName} now has {countyData.perishableStorage} perishable storage.");
-                }
-            }
-        }
-    }
-
     public void AddLeaderInfluence(FactionData factionData)
     {
         factionData.factionGoods[AllEnums.FactionGoodType.Influence].Amount

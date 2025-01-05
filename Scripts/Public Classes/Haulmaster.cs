@@ -1,16 +1,17 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PlayerSpace;
 public class Haulmaster
 {
     public static void ReturnHalfOfConstructionCost(CountyData countyData, CountyImprovementData countyImprovementData)
     {
-        foreach(KeyValuePair<GoodData, int> keyValuePair in countyImprovementData.goodsConstructionCost)
+        foreach (KeyValuePair<GoodData, int> keyValuePair in countyImprovementData.goodsConstructionCost)
         {
             int returnedAmount = keyValuePair.Value / 2;
-            if (keyValuePair.Key.goodType == AllEnums.GoodType.CountyGood 
+            if (keyValuePair.Key.goodType == AllEnums.GoodType.CountyGood
                 || keyValuePair.Key.goodType == AllEnums.GoodType.Both)
             {
                 countyData.goods[keyValuePair.Key.countyGoodType].Amount += returnedAmount;
@@ -21,6 +22,108 @@ public class Haulmaster
             }
         }
     }
+
+    /// <summary>
+    /// Subtracts improvement storage from County.
+    /// </summary>
+    /// <param name="countyData"></param>
+    /// <param name="countyImprovementData"></param>
+    public static void SubtractImprovementStorageFromCounty(CountyData countyData, CountyImprovementData countyImprovementData)
+    {
+        foreach (KeyValuePair<GoodData, ProductionData> keyValuePair in countyImprovementData.outputGoods)
+        {
+            if (keyValuePair.Key.countyGoodType == AllEnums.CountyGoodType.StorageNonperishable)
+            {
+                countyData.nonperishableStorage -= keyValuePair.Value.storageAmount;
+                GD.Print($"{countyData.countyName} now has {countyData.nonperishableStorage} nonperishable storage.");
+            }
+            else
+            {
+                countyData.perishableStorage -= keyValuePair.Value.storageAmount;
+                GD.Print($"{countyData.countyName} now has {countyData.perishableStorage} perishable storage.");
+            }
+        }
+    }
+
+    /// <summary>
+    /// Count all the available county storage. This is dumb.
+    /// </summary>
+    /*
+    public static void AssignMaxStorageToCountyStorage(CountyData countyData)
+    {
+        countyData.perishableStorage = Globals.Instance.startingPerishableStorage;
+        countyData.nonperishableStorage = Globals.Instance.startingNonperishableStorage;
+        GD.Print($"{countyData.countyName} has {countyData.perishableStorage} perishable storage.");
+        GD.Print($"{countyData.countyName} has {countyData.nonperishableStorage} perishable storage.");
+    }
+    */
+
+    public static void CountCountyMaxStorage(CountyData countyData)
+    {
+        countyData.nonperishableStorage = Globals.Instance.startingNonperishableStorage;
+        countyData.perishableStorage = Globals.Instance.startingPerishableStorage;
+        GD.Print("Initial County Storage: " + countyData.nonperishableStorage);
+        foreach (CountyImprovementData countyImprovementData in countyData.completedCountyImprovements)
+        {
+            if(countyImprovementData.countyImprovementType == AllEnums.CountyImprovementType.Storage)
+            {
+                foreach (KeyValuePair<GoodData, ProductionData> keyValuePair in countyImprovementData.outputGoods) 
+                {
+                    if(keyValuePair.Key.countyGoodType == AllEnums.CountyGoodType.StorageNonperishable)
+                    {
+                        countyData.nonperishableStorage += keyValuePair.Value.storageAmount;
+                    }
+                    else
+                    {
+                        countyData.perishableStorage += keyValuePair.Value.storageAmount;
+                    }
+                }
+            }
+        }
+    }
+    public static void AssignMaxStorageToGoods(CountyData countyData)
+    {
+        foreach (KeyValuePair<AllEnums.CountyGoodType, GoodData> keyValuePair in countyData.goods)
+        {
+            GoodData goodData = keyValuePair.Value;
+
+            if (goodData.perishable == AllEnums.Perishable.Perishable)
+            {
+                goodData.MaxAmount = countyData.perishableStorage
+                    / Globals.Instance.numberOfPerishableGoods;
+
+            }
+            else if (goodData.perishable == AllEnums.Perishable.Nonperishable)
+            {
+                goodData.MaxAmount = countyData.nonperishableStorage
+                    / Globals.Instance.numberOfNonperishableGoods;
+            }
+            GD.Print($"AssignMaxStorageToGoods: {countyData.countyName} : {goodData.goodName}: {goodData.MaxAmount}");
+        }
+    }
+
+    /// <summary>
+    /// Adds county improvement storage to the county.
+    /// </summary>
+    /// <param name="countyData"></param>
+    /// <param name="countyImprovementData"></param>
+    public static void AddImprovementStorageToCounty(CountyData countyData, CountyImprovementData countyImprovementData)
+    {
+        foreach (KeyValuePair<GoodData, ProductionData> keyValuePair in countyImprovementData.outputGoods)
+        {
+            if (keyValuePair.Key.countyGoodType == AllEnums.CountyGoodType.StorageNonperishable)
+            {
+                countyData.nonperishableStorage += keyValuePair.Value.storageAmount;
+                GD.Print($"{countyData.countyName} now has {countyData.nonperishableStorage} nonperishable storage.");
+            }
+            else
+            {
+                countyData.perishableStorage += keyValuePair.Value.storageAmount;
+                GD.Print($"{countyData.countyName} now has {countyData.perishableStorage} perishable storage.");
+            }
+        }
+    }
+
     // Gathers stockpiled goods for the county improvement based on its input needs.
     public static void GatherStockpileGoods(CountyData countyData, CountyImprovementData countyImprovementData)
     {
@@ -30,7 +133,7 @@ public class Haulmaster
         // This includes if the county improvement already just has remnants as a good.
         int minNumberOfRemnantsUsedForInputGoods = 0; // GetNumberOfRemnantsNeededAsInputGoods(countyImprovementData);
         int maxNumberOfRemnantsUsedForInputGoods = 0; // GetNumberOfRemnantsNeededAsInputGoods(countyImprovementData);
-        
+
         foreach (KeyValuePair<GoodData, int> uniqueInputGood in countyImprovementData.uniqueInputGoods)
         {
             // Calculate the desired stockpile range.
@@ -40,7 +143,7 @@ public class Haulmaster
                 * Globals.Instance.maxDaysStockpile;
 
             // Add the amount of stockpiled remnants depending on the number of unique input goods that are using remnants.
-            if(uniqueInputGood.Key.countyGoodType == AllEnums.CountyGoodType.Remnants || uniqueInputGood.Key.useRemnants)
+            if (uniqueInputGood.Key.countyGoodType == AllEnums.CountyGoodType.Remnants || uniqueInputGood.Key.useRemnants)
             {
                 minNumberOfRemnantsUsedForInputGoods += minStockpileAmount;
                 maxNumberOfRemnantsUsedForInputGoods += maxStockpileAmount;

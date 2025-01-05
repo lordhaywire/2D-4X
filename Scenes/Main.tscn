@@ -116,7 +116,7 @@
 [ext_resource type="Texture2D" uid="uid://buiql8w31bmgq" path="res://Graphics/Icons/Top Bar/Building Materials concrete-bag.svg" id="52_5fb6h"]
 [ext_resource type="Resource" uid="uid://deym3plaxo5wl" path="res://Resources/Interests/Warfare.tres" id="52_ie7mt"]
 [ext_resource type="PackedScene" uid="uid://bif5f4i17oc2p" path="res://UIScenes/StorageHbox.tscn" id="53_xnh1n"]
-[ext_resource type="Script" uid="uid://cvdjp0n1wtfi5" path="res://Scripts/UI/ResourcesPanelContainer.cs" id="54_ia1o5"]
+[ext_resource type="Script" uid="uid://cvdjp0n1wtfi5" path="res://Scripts/UI/GoodsPanelContainer.cs" id="54_ia1o5"]
 [ext_resource type="PackedScene" uid="uid://4t2ve1w4uvww" path="res://UIScenes/AssignedResearcherHBoxContainer.tscn" id="62_dhpbg"]
 [ext_resource type="PackedScene" uid="uid://dbh44f2eysibn" path="res://ResearchItemButton.tscn" id="62_nohy5"]
 [ext_resource type="Script" uid="uid://c8wh1vjtb6kne" path="res://Scripts/UI/StoryEventControl.cs" id="62_onxgq"]
@@ -300,7 +300,7 @@ script = ExtResource("24_s3wh2")
 BattleLogControl = NodePath("Battle Log Control")
 populationListUIElement = NodePath("Population List MarginContainer")
 selectedHeroPanelContainer = NodePath("County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Select Hero PanelContainer")
-resourcesPanelContainer = NodePath("Resources PanelContainer")
+resourcesPanelContainer = NodePath("Goods PanelContainer")
 
 [node name="Event Log ScrollContainer" type="ScrollContainer" parent="Player UI Canvas" node_paths=PackedStringArray("eventLogScrollContainer", "eventLogVBoxContainer")]
 custom_minimum_size = Vector2(300, 75)
@@ -701,7 +701,7 @@ heroSpawnCheckButtonParent = NodePath("MarginContainer/County Info and Selected 
 populationListButton = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer/Population List Button")
 visitorsListButton = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer/Visitors List Button")
 countyImprovementsButton = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/County Improvements Button")
-resourcesButton = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Resources Button")
+resourcesButton = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Goods Button")
 heroListPrefab = ExtResource("27_03q5w")
 
 [node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/County Info Control"]
@@ -888,13 +888,13 @@ text = "420
 "
 horizontal_alignment = 1
 
-[node name="Resources Button" type="Button" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2"]
+[node name="Goods Button" type="Button" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 focus_mode = 0
 mouse_filter = 1
-text = "Resources"
+text = "WORD_GOODS"
 
 [node name="County Improvements Button" type="Button" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2"]
 layout_mode = 2
@@ -974,7 +974,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "x"
 
-[node name="Resources PanelContainer" type="PanelContainer" parent="Player UI Canvas" node_paths=PackedStringArray("countyNameTitleLabel", "currentPerishableAvailableLabel", "maxPerishableAmountAvailableLabel", "currentNonperishableAvailableLabel", "maxNonperisableAmountAvailableLabel", "perishableVboxParent", "nonperishableVboxParent")]
+[node name="Goods PanelContainer" type="PanelContainer" parent="Player UI Canvas" node_paths=PackedStringArray("negativeStoragePanelContainer", "countyNameTitleLabel", "currentPerishableAvailableLabel", "maxPerishableAmountAvailableLabel", "currentNonperishableAvailableLabel", "maxNonperisableAmountAvailableLabel", "perishableVboxParent", "nonperishableVboxParent")]
 visible = false
 anchors_preset = 15
 anchor_right = 1.0
@@ -983,6 +983,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("50_5cg3n")
 script = ExtResource("54_ia1o5")
+negativeStoragePanelContainer = NodePath("Negative Storage PanelContainer")
 countyNameTitleLabel = NodePath("VBoxContainer/County Name Title Label")
 currentPerishableAvailableLabel = NodePath("VBoxContainer/Available Storage HBoxContainer/Current Perishable Amount Available Label")
 maxPerishableAmountAvailableLabel = NodePath("VBoxContainer/Available Storage HBoxContainer/Max Perishable Max Amount Available Label")
@@ -992,10 +993,10 @@ storageHBoxPackedScene = ExtResource("53_xnh1n")
 perishableVboxParent = NodePath("MarginContainer/All Resources VBoxContainer/Perishable VBoxContainer")
 nonperishableVboxParent = NodePath("MarginContainer/All Resources VBoxContainer/Nonperishable VBoxContainer")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Resources PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Goods PanelContainer"]
 layout_mode = 2
 
-[node name="County Name Title Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer"]
+[node name="County Name Title Label" type="Label" parent="Player UI Canvas/Goods PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 24
@@ -1003,11 +1004,11 @@ text = "County Name"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Available Storage HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer"]
+[node name="Available Storage HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Goods PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Max Perishable Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/Available Storage HBoxContainer"]
+[node name="Max Perishable Label" type="Label" parent="Player UI Canvas/Goods PanelContainer/VBoxContainer/Available Storage HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -1016,22 +1017,22 @@ text = "PHRASE_MAX_PERISHABLE_STORAGE_AVAILABLE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Current Perishable Amount Available Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/Available Storage HBoxContainer"]
+[node name="Current Perishable Amount Available Label" type="Label" parent="Player UI Canvas/Goods PanelContainer/VBoxContainer/Available Storage HBoxContainer"]
 layout_mode = 2
 text = "500"
 
-[node name="Slash Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/Available Storage HBoxContainer"]
+[node name="Slash Label" type="Label" parent="Player UI Canvas/Goods PanelContainer/VBoxContainer/Available Storage HBoxContainer"]
 layout_mode = 2
 text = "/"
 
-[node name="Max Perishable Max Amount Available Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/Available Storage HBoxContainer"]
+[node name="Max Perishable Max Amount Available Label" type="Label" parent="Player UI Canvas/Goods PanelContainer/VBoxContainer/Available Storage HBoxContainer"]
 layout_mode = 2
 text = "500"
 
-[node name="VSeparator" type="VSeparator" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/Available Storage HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="Player UI Canvas/Goods PanelContainer/VBoxContainer/Available Storage HBoxContainer"]
 layout_mode = 2
 
-[node name="Max Nonperishable Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/Available Storage HBoxContainer"]
+[node name="Max Nonperishable Label" type="Label" parent="Player UI Canvas/Goods PanelContainer/VBoxContainer/Available Storage HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -1040,45 +1041,70 @@ text = "PHRASE_MAX_NONPERISHABLE_STORAGE_AVAILABLE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Current Nonperishable Amount Available Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/Available Storage HBoxContainer"]
+[node name="Current Nonperishable Amount Available Label" type="Label" parent="Player UI Canvas/Goods PanelContainer/VBoxContainer/Available Storage HBoxContainer"]
 layout_mode = 2
 text = "500"
 
-[node name="Slash Label2" type="Label" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/Available Storage HBoxContainer"]
+[node name="Slash Label2" type="Label" parent="Player UI Canvas/Goods PanelContainer/VBoxContainer/Available Storage HBoxContainer"]
 layout_mode = 2
 text = "/"
 
-[node name="Max Nonperishable Max Amount Available Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/VBoxContainer/Available Storage HBoxContainer"]
+[node name="Max Nonperishable Max Amount Available Label" type="Label" parent="Player UI Canvas/Goods PanelContainer/VBoxContainer/Available Storage HBoxContainer"]
 layout_mode = 2
 text = "500"
 
-[node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Resources PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Goods PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 70
 
-[node name="All Resources VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Resources PanelContainer/MarginContainer"]
+[node name="All Resources VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Goods PanelContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Perishable VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Resources PanelContainer/MarginContainer/All Resources VBoxContainer"]
+[node name="Perishable VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Goods PanelContainer/MarginContainer/All Resources VBoxContainer"]
 layout_mode = 2
 
-[node name="Perishable Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/MarginContainer/All Resources VBoxContainer/Perishable VBoxContainer"]
+[node name="Perishable Label" type="Label" parent="Player UI Canvas/Goods PanelContainer/MarginContainer/All Resources VBoxContainer/Perishable VBoxContainer"]
 layout_mode = 2
 text = "WORD_PERISHABLE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Nonperishable VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Resources PanelContainer/MarginContainer/All Resources VBoxContainer"]
+[node name="Nonperishable VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Goods PanelContainer/MarginContainer/All Resources VBoxContainer"]
 layout_mode = 2
 
-[node name="Nonperishable Label" type="Label" parent="Player UI Canvas/Resources PanelContainer/MarginContainer/All Resources VBoxContainer/Nonperishable VBoxContainer"]
+[node name="Nonperishable Label" type="Label" parent="Player UI Canvas/Goods PanelContainer/MarginContainer/All Resources VBoxContainer/Nonperishable VBoxContainer"]
 layout_mode = 2
 text = "WORD_NONPERISHABLE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Close Button" type="Button" parent="Player UI Canvas/Resources PanelContainer"]
+[node name="Close Button" type="Button" parent="Player UI Canvas/Goods PanelContainer"]
+custom_minimum_size = Vector2(75, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "WORD_CLOSE"
+
+[node name="Negative Storage PanelContainer" type="PanelContainer" parent="Player UI Canvas/Goods PanelContainer"]
+visible = false
+modulate = Color(0.807296, 0.807296, 0.807296, 1)
+self_modulate = Color(0.647059, 0.647059, 0.647059, 0)
+custom_minimum_size = Vector2(400, 200)
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Player UI Canvas/Goods PanelContainer/Negative Storage PanelContainer"]
+custom_minimum_size = Vector2(400, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Title Label" type="Label" parent="Player UI Canvas/Goods PanelContainer/Negative Storage PanelContainer/PanelContainer"]
+layout_mode = 2
+text = "PHRASE_THERE_IS_NEGATIVE_STORAGE"
+horizontal_alignment = 1
+
+[node name="Close Button" type="Button" parent="Player UI Canvas/Goods PanelContainer/Negative Storage PanelContainer/PanelContainer"]
 custom_minimum_size = Vector2(75, 50)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -2570,7 +2596,7 @@ process_mode = 3
 [connection signal="mouse_exited" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer" to="Player UI Canvas/County Info Control" method="OnMouseExited"]
 [connection signal="pressed" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer/Population List Button" to="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer" method="PopAndIdleOnButtonPressed" binds= [false]]
 [connection signal="pressed" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer/Visitors List Button" to="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer" method="PopAndIdleOnButtonPressed" binds= [true]]
-[connection signal="pressed" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Resources Button" to="Player UI Canvas/County Info Control" method="ResourcesButtonPressed"]
+[connection signal="pressed" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Goods Button" to="Player UI Canvas/County Info Control" method="ResourcesButtonPressed"]
 [connection signal="button_up" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/County Improvements Button" to="Player UI Canvas/County Info Control" method="CountyImprovementsButton"]
 [connection signal="mouse_entered" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/Heroes VBoxContainer" to="Player UI Canvas/County Info Control" method="OnMouseEntered"]
 [connection signal="mouse_exited" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/Heroes VBoxContainer" to="Player UI Canvas/County Info Control" method="OnMouseExited"]
@@ -2578,8 +2604,9 @@ process_mode = 3
 [connection signal="mouse_entered" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Select Hero PanelContainer/Hero List Button" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Select Hero PanelContainer/Hero List Button" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
 [connection signal="pressed" from="Player UI Canvas/County Info Control/MarginContainer/X Button" to="Player UI Canvas/County Info Control" method="OnXButtonPressed"]
-[connection signal="visibility_changed" from="Player UI Canvas/Resources PanelContainer" to="Player UI Canvas/Resources PanelContainer" method="OnResourcesPanelContainerVisibilityChanged"]
-[connection signal="pressed" from="Player UI Canvas/Resources PanelContainer/Close Button" to="Player UI Canvas/Resources PanelContainer" method="CloseButtonPressed"]
+[connection signal="visibility_changed" from="Player UI Canvas/Goods PanelContainer" to="Player UI Canvas/Goods PanelContainer" method="OnResourcesPanelContainerVisibilityChanged"]
+[connection signal="pressed" from="Player UI Canvas/Goods PanelContainer/Close Button" to="Player UI Canvas/Goods PanelContainer" method="CloseButtonPressed"]
+[connection signal="pressed" from="Player UI Canvas/Goods PanelContainer/Negative Storage PanelContainer/PanelContainer/Close Button" to="Player UI Canvas/Goods PanelContainer" method="negativeStoragePanelCloseButtonPressed"]
 [connection signal="visibility_changed" from="Player UI Canvas/Population List MarginContainer" to="Player UI Canvas/Population List MarginContainer" method="OnPopulationListUIElementVisibilityChanged"]
 [connection signal="button_up" from="Player UI Canvas/Population List MarginContainer/Close Button" to="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer" method="CloseButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Population Description Control" to="Player UI Canvas/Population Description Control" method="OnPopulationDescriptionControlVisibilityChanged"]

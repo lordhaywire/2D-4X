@@ -14,8 +14,8 @@ namespace PlayerSpace
         private static void ValueChanged(float value)
         {
             GD.Print("Value Changed:" + value);
-            ResourcesPanelContainer.Instance.UpdateCountyAvailableStorageLabels();
-            ResourcesPanelContainer.Instance.UpdateSpinBoxMaxValuePlusLabel();
+            GoodsPanelContainer.Instance.UpdateCountyAvailableStorageLabels();
+            GoodsPanelContainer.Instance.UpdateSpinBoxMaxValuePlusLabel();
         }
     }
 }

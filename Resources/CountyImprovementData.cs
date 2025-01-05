@@ -207,8 +207,7 @@ public partial class CountyImprovementData : Resource
                 AddResearchOfficeToFactionResearchOfficeList(countyData.factionData);
                 break;
             case AllEnums.CountyImprovementType.Storage:
-                Banker banker = new();
-                banker.AddStorageToCounty(countyData, this);
+                Haulmaster.AddImprovementStorageToCounty(countyData, this);
                 status = AllEnums.CountyImprovementStatus.Producing;
                 break;
             case AllEnums.CountyImprovementType.Standard:

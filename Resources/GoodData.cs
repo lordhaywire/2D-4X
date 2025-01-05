@@ -15,10 +15,8 @@ namespace PlayerSpace
         [Export] public int failureRate; // Daily chance of the item to fail. This isn't used yet.
         [Export] public bool remnantSubstitutable;
         [Export] public bool useRemnants;
-        [Export] private int amount; // The amount of resource.
+        [Export] private int amount; // The amount of good.
 
-        // I don't think we need to export the Getter Setter because the private int amount
-        // is exported.
         [Export]
         public int Amount
         {
@@ -32,7 +30,7 @@ namespace PlayerSpace
             }
         }
 
-        [Export] private int maxAmount = int.MaxValue; // This is the max amount that can be stored.
+        [Export] private int maxAmount; // This is the max amount that can be stored.
 
         [Export]
         public int MaxAmount
@@ -43,13 +41,13 @@ namespace PlayerSpace
                 if (goodType == AllEnums.GoodType.FactionGood)
                 {
                     maxAmount = int.MaxValue;
-                    //GD.PrintRich($"[rainbow]Good Max Amount: {goodName} {maxAmount}");
+                    GD.PrintRich($"Faction Good Max Amount: {goodName} {maxAmount}");
                     return;
                 }
 
                 maxAmount = value;
                 Amount = Math.Min(Amount, maxAmount);
-                //GD.Print($"Good Max Amount: {goodName} {maxAmount}");
+                GD.Print($"Good Max Amount: {goodName} {maxAmount}");
             }
         }
 

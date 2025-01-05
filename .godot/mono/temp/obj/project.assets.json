@@ -20,19 +20,24 @@
             "related": ".xml"
           }
         }
-      },
-      "GodotSharpEditor/4.4.0-dev.5": {
+      }
+    },
+    "net8.0/win-x64": {
+      "Godot.SourceGenerators/4.4.0-dev.5": {
         "type": "package",
-        "dependencies": {
-          "GodotSharp": "4.4.0-dev.5"
-        },
+        "build": {
+          "build/Godot.SourceGenerators.props": {}
+        }
+      },
+      "GodotSharp/4.4.0-dev.5": {
+        "type": "package",
         "compile": {
-          "lib/net6.0/GodotSharpEditor.dll": {
+          "lib/net6.0/GodotSharp.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net6.0/GodotSharpEditor.dll": {
+          "lib/net6.0/GodotSharp.dll": {
             "related": ".xml"
           }
         }
@@ -65,26 +70,12 @@
         "lib/net6.0/GodotSharp.dll",
         "lib/net6.0/GodotSharp.xml"
       ]
-    },
-    "GodotSharpEditor/4.4.0-dev.5": {
-      "sha512": "I2nq96B7ZrckvPIfEIl2tuqkLpTJEjmSrAFxnp6hOF54z/aY4TOaX7b/6cM2k7FKmRZQJH4pBUT/tmPx+Plzkg==",
-      "type": "package",
-      "path": "godotsharpeditor/4.4.0-dev.5",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "godotsharpeditor.4.4.0-dev.5.nupkg.sha512",
-        "godotsharpeditor.nuspec",
-        "lib/net6.0/GodotSharpEditor.dll",
-        "lib/net6.0/GodotSharpEditor.xml"
-      ]
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
       "Godot.SourceGenerators >= 4.4.0-dev.5",
-      "GodotSharp >= 4.4.0-dev.5",
-      "GodotSharpEditor >= 4.4.0-dev.5"
+      "GodotSharp >= 4.4.0-dev.5"
     ]
   },
   "packageFolders": {
@@ -148,10 +139,6 @@
           "GodotSharp": {
             "target": "Package",
             "version": "[4.4.0-dev.5, )"
-          },
-          "GodotSharpEditor": {
-            "target": "Package",
-            "version": "[4.4.0-dev.5, )"
           }
         },
         "imports": [
@@ -165,12 +152,31 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
+            "version": "[8.0.11, 8.0.11]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Runtime.win-x64",
+            "version": "[8.0.11, 8.0.11]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
+            "version": "[8.0.11, 8.0.11]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+      }
+    },
+    "runtimes": {
+      "win-x64": {
+        "#import": []
       }
     }
   }
