@@ -28,10 +28,10 @@ namespace PlayerSpace
         {
             Instance = this;
             factionData = Globals.Instance.playerFactionData;
-            UpdateResourceLabels();
+            UpdateTopBarGoodLabels();
         }
 
-        public void UpdateResourceLabels()
+        public void UpdateTopBarGoodLabels()
         {
             //GD.Print("Top Bar expendables have been updated, motherfucker!");
             UpdateInfluenceMoneyLabels();
@@ -39,15 +39,15 @@ namespace PlayerSpace
 
             if (Globals.Instance.SelectedLeftClickCounty == null)
             {
-                FactionLevelResources();
+                FactionLevelGoods();
             }
             else
             {
-                CountyLevelResources();
+                CountyLevelGoods();
             }
         }
 
-        private void CountyLevelResources()
+        private void CountyLevelGoods()
         {
             UpdateLabelWithCountyAmount();
             UpdateLabelWithCountyUsedAmount();
@@ -85,7 +85,7 @@ namespace PlayerSpace
                 = $"({factionData.amountUsedFactionGoods[AllEnums.FactionGoodType.Money].Amount})";
         }
 
-        private void FactionLevelResources()
+        private void FactionLevelGoods()
         {
             // Count all the county resources and assign them to the faction resource dictionary.
             factionData.CountAllCountyFactionResources();

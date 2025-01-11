@@ -49,7 +49,7 @@ namespace PlayerSpace
             else
             {
                 // Update the faction resources, which is all the county resources.
-                TopBarControl.Instance.UpdateResourceLabels();
+                TopBarControl.Instance.UpdateTopBarGoodLabels();
             }
         }
 
@@ -193,25 +193,25 @@ namespace PlayerSpace
 
             switch (populationData)
             {
-                case { isFactionLeader: true, isAide: false, IsArmyLeader: false }:
+                case {HeroType: AllEnums.HeroType.FactionLeader}: // FactionLeader
                     heroPrefab.factionLeaderTextureRect.Show();
                     heroPrefab.aideTextureRect.Hide();
                     heroPrefab.armyLeaderTextureRect.Hide();
                     break;
 
-                case { isFactionLeader: true, isAide: false, IsArmyLeader: true }:
+                case { HeroType: AllEnums.HeroType.FactionLeaderArmyLeader }: // FactionArmyLeader
                     heroPrefab.factionLeaderTextureRect.Show();
                     heroPrefab.aideTextureRect.Hide();
                     heroPrefab.armyLeaderTextureRect.Show();
                     break;
 
-                case { isFactionLeader: false, isAide: true, IsArmyLeader: false }:
+                case { HeroType: AllEnums.HeroType.Aide }: // Aide
                     heroPrefab.factionLeaderTextureRect.Hide();
                     heroPrefab.aideTextureRect.Show();
                     heroPrefab.armyLeaderTextureRect.Hide();
                     break;
 
-                case { isFactionLeader: false, isAide: false, IsArmyLeader: true }:
+                case { HeroType: AllEnums.HeroType.ArmyLeader }: // ArmyLeader
                     heroPrefab.factionLeaderTextureRect.Hide();
                     heroPrefab.aideTextureRect.Hide();
                     heroPrefab.armyLeaderTextureRect.Show();

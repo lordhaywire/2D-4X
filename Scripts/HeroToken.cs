@@ -3,7 +3,7 @@ using System;
 
 namespace PlayerSpace
 {
-    public partial class SelectToken : CharacterBody2D
+    public partial class HeroToken : CharacterBody2D
     {
         [Export] public PopulationData populationData;
         [Export] public Sprite2D sprite;
@@ -76,7 +76,7 @@ namespace PlayerSpace
                     sprite.Texture = selectedTexture;
                     if (Globals.Instance.SelectedCountyPopulation != null && populationData != Globals.Instance.SelectedCountyPopulation)
                     {
-                        SelectToken currentSelectToken = Globals.Instance.SelectedCountyPopulation.token;
+                        HeroToken currentSelectToken = Globals.Instance.SelectedCountyPopulation.token;
                         //GD.PrintRich("[rainbow]Current Select Token Value True: " + currentSelectToken.Name);
                         currentSelectToken.IsSelected = false;
                     }

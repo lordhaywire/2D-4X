@@ -30,7 +30,7 @@ namespace PlayerSpace
                 , Globals.Instance.selectedPossibleBuildingControl.countyImprovementData);
             
             // Removes the cost of the building.
-            TopBarControl.Instance.UpdateResourceLabels();
+            TopBarControl.Instance.UpdateTopBarGoodLabels();
             CountyImprovementsControl.Instance.CreateAllCountyImprovementButtons();
             Hide();
         }

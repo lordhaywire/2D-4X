@@ -19,8 +19,8 @@ namespace PlayerSpace
         [Export] private Label defenderMoraleLabel;
         [Export] private Label attackerMoraleLabel;
 
-        private SelectToken countyAttackerSelectToken;
-        private SelectToken countyDefendersSelectToken;
+        private HeroToken countyAttackerSelectToken;
+        private HeroToken countyDefendersSelectToken;
 
         private Battle battle;
 

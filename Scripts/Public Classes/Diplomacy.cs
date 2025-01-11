@@ -72,7 +72,7 @@ namespace PlayerSpace
             {
                 foreach (PopulationData populationData in battleLocation.countyData.heroesInCountyList)
                 {
-                    if (populationData.isFactionLeader == true)
+                    if (populationData.HeroType == AllEnums.HeroType.FactionLeader)
                     {
                         populationData.ChangeToArmy();
                         return populationData;

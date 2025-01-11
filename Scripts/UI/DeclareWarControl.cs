@@ -25,7 +25,7 @@ namespace PlayerSpace
             //GD.Print($"{newWar.aggressorFactionData.factionName} is attacking {newWar.defenderFactionData.factionName}");
             // Once yes has been hit, this is the actual declaration of war.
             Globals.Instance.playerFactionData.diplomacy.DeclareWar(newWar);
-            SelectToken selectToken = Globals.Instance.SelectedCountyPopulation.token;
+            HeroToken selectToken = Globals.Instance.SelectedCountyPopulation.token;
             selectToken.tokenMovement.StartMove(Globals.Instance.selectedRightClickCounty.countyData.countyId);
         }
 

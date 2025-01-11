@@ -66,7 +66,7 @@ namespace PlayerSpace
                                 Globals.Instance.selectedCountyId = county.countyData.countyId;
                                 Globals.Instance.SelectedLeftClickCounty = county;
 
-                                TopBarControl.Instance.UpdateResourceLabels();
+                                TopBarControl.Instance.UpdateTopBarGoodLabels();
                                 CountyInfoControl.Instance.UpdateEverything();
                                 CountyInfoControl.Instance.countyInfoControl.Show(); // This has to be last.
                             }
@@ -125,13 +125,13 @@ namespace PlayerSpace
             //GD.Print($"Move Target County: {moveTargetCountyData.countyName}" +
              //   $" {moveTargetCountyData.countyId}");
             PopulationData populationData = Globals.Instance.SelectedCountyPopulation;
-            SelectToken selectToken = Globals.Instance.SelectedCountyPopulation.token;
+            HeroToken selectToken = Globals.Instance.SelectedCountyPopulation.token;
 
             selectToken.Show();
 
             if (selectToken.tokenMovement.MoveToken != true)
             {
-                if (populationData.IsArmyLeader == false)
+                if (populationData.IsThisAnArmy() == false)
                 {
                     selectToken.tokenMovement.StartMove(moveTargetCountyData.countyId);
                 }

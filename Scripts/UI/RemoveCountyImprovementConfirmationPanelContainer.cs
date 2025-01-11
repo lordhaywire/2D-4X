@@ -16,7 +16,7 @@ public partial class RemoveCountyImprovementConfirmationPanelContainer : PanelCo
         }
         else
         {
-            TopBarControl.Instance.UpdateResourceLabels();
+            TopBarControl.Instance.UpdateTopBarGoodLabels();
             clickBlockerPanel.Hide();
         }
     }

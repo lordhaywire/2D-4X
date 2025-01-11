@@ -19,10 +19,11 @@ namespace PlayerSpace
             Instance = this;
         }
 
-        public void AssignTokenTextures(SelectToken token)
+        // I think this is missing the Faction Leader option.
+        public void AssignTokenTextures(HeroToken token)
         {
             //GD.Print("Assign Token Textures: " + token.populationData.firstName + token.populationData.IsArmyLeader);
-            if (token.populationData.IsArmyLeader == false)
+            if (token.populationData.HeroType == AllEnums.HeroType.Aide)
             {
                 token.selectedTexture = selectedHeroTexture;
                 token.unselectedTexture = unselectedHeroTexture;

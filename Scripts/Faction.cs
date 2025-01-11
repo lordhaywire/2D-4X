@@ -55,7 +55,7 @@ namespace PlayerSpace
                 }
             }
             
-            TopBarControl.Instance.UpdateResourceLabels();
+            TopBarControl.Instance.UpdateTopBarGoodLabels();
         }
 
         private void DayStart()

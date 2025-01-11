@@ -7,7 +7,7 @@ namespace PlayerSpace
     public partial class SpawnedTokenButton : Button
     {
         public PopulationData populationData;
-        private SelectToken selectToken;
+        private HeroToken selectToken;
         [Export] public TextureRect tokenIconTextureRect;
 
         public void UpdateButtonIcon()

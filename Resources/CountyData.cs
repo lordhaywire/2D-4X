@@ -483,7 +483,7 @@ namespace PlayerSpace
             // Update the top bar if the player has a county selected.
             if (Globals.Instance.SelectedLeftClickCounty == countyNode)
             {
-                TopBarControl.Instance.UpdateResourceLabels();
+                TopBarControl.Instance.UpdateTopBarGoodLabels();
             }
         }
 

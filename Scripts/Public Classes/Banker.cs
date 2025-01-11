@@ -69,7 +69,7 @@ public class Banker
             storyEventData.eventCounty.countyData.goods[storyEventData.good.countyGoodType].Amount
                 += storyEventData.resourceAmount;
         }
-        TopBarControl.Instance.UpdateResourceLabels();
+        TopBarControl.Instance.UpdateTopBarGoodLabels();
     }
 
     public void AddLeaderInfluence(FactionData factionData)

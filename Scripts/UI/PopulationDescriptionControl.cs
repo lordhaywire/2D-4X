@@ -78,12 +78,11 @@ namespace PlayerSpace
             }
         }
 
-        // I should probably rewrite this so it is less of a mess.
         public void UpdateDescriptionInfo()
         {
             CountyInfoControl.Instance.DisableSpawnHeroCheckButton(true);
             PlayerControls.Instance.AdjustPlayerControls(false); // This was probably happening too fast which is why it is here.
-            County selectCounty = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
+            County county = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
             //GD.Print("Select County Location: " + populationData.location);
 
             //GD.Print("It goes to the update description: " + person.firstName);
@@ -93,7 +92,8 @@ namespace PlayerSpace
 
             // If the token is moving and doesn't belong to the player's faction disable the ability to turn
             // it into an Army.
-            CheckForArmyRecruitmentButton(selectCounty);
+            CheckForArmyRecruitmentButton(county);
+            CheckForAideRecruitmentButton();
 
             CheckForTitles();
 
@@ -124,8 +124,50 @@ namespace PlayerSpace
             {
                 currentActivityLabel.Text = $"{Tr(populationData.GetActivityName())}";
             }
+        }
 
-            if (Globals.Instance.playerFactionData.factionGoods[AllEnums.FactionGoodType.Influence].Amount 
+        // This was a simplification written by ChatGPT.
+        /// <summary>
+        /// Check to show if the Army Recruitment Button is active.  It will be disabled if it is in counties that the
+        /// player doesn't own.
+        /// </summary>
+        /// <param name="county"></param>
+        private void CheckForArmyRecruitmentButton(County county)
+        {
+            if (county.countyData.factionData == Globals.Instance.playerFactionData)
+            {
+                // If this is just a normal population
+                if (populationData.HeroType == AllEnums.HeroType.None 
+                    && Globals.Instance.playerFactionData.factionGoods[AllEnums.FactionGoodType.Influence].Amount
+                        < Globals.Instance.costOfHero)
+                {
+                    armyLeaderRecruitButton.Disabled = false;
+                    return;
+                }
+
+                // If the token is moving then it can't become an army.
+                if (populationData.token?.tokenMovement.MoveToken == true)
+                {
+                    return;
+                }
+
+                // If the population is already an Aide the player has already paid for the aide
+                // and they can make it an army leader.
+                if (populationData.IsThisAnArmy() == false)
+                {
+                    armyLeaderRecruitButton.Disabled = false;
+                    return;
+                }
+            }
+        }
+
+        /// <summary>
+        /// If the the player's faction doesn't have enough influence or the population is already a hero
+        /// the button is disabled.
+        /// </summary>
+        private void CheckForAideRecruitmentButton()
+        {
+            if (Globals.Instance.playerFactionData.factionGoods[AllEnums.FactionGoodType.Influence].Amount
                 < Globals.Instance.costOfHero || populationData.isHero == true)
             {
                 aideRecruitButton.Disabled = true;
@@ -150,7 +192,7 @@ namespace PlayerSpace
         private void UpdatePerks()
         {
             ClearPerks();
-            if(populationData.perks.Count < 1)
+            if (populationData.perks.Count < 1)
             {
                 Label perksLabel = (Label)perkLabel.Instantiate();
                 perksParent.AddChild(perksLabel);
@@ -168,7 +210,7 @@ namespace PlayerSpace
 
         private void ClearPerks()
         {
-            foreach(Label label in perksParent.GetChildren().Cast<Label>().Skip(0))
+            foreach (Label label in perksParent.GetChildren().Cast<Label>().Skip(0))
             {
                 label.QueueFree();
             }
@@ -177,30 +219,21 @@ namespace PlayerSpace
         private void CheckForTitles()
         {
             //GD.Print("Check for Titles! " + populationData.IsArmyLeader);
-
-            if (populationData.isFactionLeader)
+            switch (populationData.HeroType)
             {
-                leaderTitleButton.Disabled = false;
-            }
-            if (populationData.isAide)
-            {
-                aideTitleButton.Disabled = false;
-            }
-            if (populationData.IsArmyLeader)
-            {
-                //GD.Print("Army Leader is true!");
-                armyLeaderTitleButton.Disabled = false;
+                case AllEnums.HeroType.FactionLeader:
+                    leaderTitleButton.Disabled = false;
+                    return;
+                case AllEnums.HeroType.Aide:
+                    aideTitleButton.Disabled = false;
+                    return;
+                case AllEnums.HeroType.FactionLeaderArmyLeader:
+                case AllEnums.HeroType.ArmyLeader:
+                    armyLeaderTitleButton.Disabled = false;
+                    return;
             }
         }
 
-        // This means nothing to me.  This was a simplification written by ChatGPT.
-        private void CheckForArmyRecruitmentButton(County selectCounty)
-        {
-            bool isPlayerFaction = selectCounty.countyData.factionData == Globals.Instance.playerFactionData;
-            bool isTokenMoving = populationData.token?.tokenMovement.MoveToken ?? false;
-
-            armyLeaderRecruitButton.Disabled = populationData.IsArmyLeader || (isPlayerFaction && isTokenMoving);
-        }
 
         private void UpdateAttributes(PopulationData populationData)
         {

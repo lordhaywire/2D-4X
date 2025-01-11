@@ -20,7 +20,7 @@ public partial class County : Node2D
     [Export] public HBoxContainer armiesHBox;
     [Export] public HBoxContainer heroesHBox;
 
-    private SelectToken selectToken;
+    private HeroToken selectToken;
 
     public List<County> neighborCounties = [];
 
@@ -88,7 +88,7 @@ public partial class County : Node2D
         countyData.CheckIfCountyImprovementsAreDone();
 
         // Update all the top bar resources
-        TopBarControl.Instance.UpdateResourceLabels();
+        TopBarControl.Instance.UpdateTopBarGoodLabels();
 
         // Update the county info control with the counties available resources.
         if (Globals.Instance.SelectedLeftClickCounty != null)

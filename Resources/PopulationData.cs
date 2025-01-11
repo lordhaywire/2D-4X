@@ -19,18 +19,17 @@ namespace PlayerSpace
 
         // Change this to an enum
         [Export] public bool isHero;
-        [Export] public bool isFactionLeader;
-        [Export] public bool isAide;
-        [Export] private bool isArmyLeader;
         [Export] public bool isWorker;
 
+        [Export] private AllEnums.HeroType heroType;
         [Export]
-        public bool IsArmyLeader
+        public AllEnums.HeroType HeroType
         {
-            get { return isArmyLeader; }
+            get { return heroType; }
             set
             {
-                isArmyLeader = value;
+                heroType = value;
+
                 if (token != null)
                 {
                     AllTokenTextures.Instance.AssignTokenTextures(token);
@@ -98,7 +97,7 @@ namespace PlayerSpace
         [Export] public ResearchItemData passiveResearchItemData;
         [Export] public ResearchItemData currentResearchItemData;
 
-        public SelectToken token;
+        public HeroToken token;
 
         public bool CheckForPerk(AllEnums.Perks perk)
         {
@@ -113,7 +112,14 @@ namespace PlayerSpace
         public void ChangeToArmy()
         {
             isHero = true;
-            IsArmyLeader = true;
+            if (HeroType == AllEnums.HeroType.FactionLeader)
+            {
+                HeroType = AllEnums.HeroType.FactionLeaderArmyLeader;
+            }
+            else
+            {
+                HeroType = AllEnums.HeroType.ArmyLeader;
+            }
             County selectCounty = (County)Globals.Instance.countiesParent.GetChild(location);
             selectCounty.countyData.armiesInCountyList.Add(this);
             selectCounty.countyData.heroesInCountyList.Remove(this);
@@ -182,6 +188,14 @@ namespace PlayerSpace
             currentResearchItemData = researchItemData;
         }
 
+        public bool IsThisAnArmy()
+        {
+            if (HeroType == AllEnums.HeroType.FactionLeaderArmyLeader || HeroType == AllEnums.HeroType.ArmyLeader)
+            {
+                return true;
+            }
+            return false;
+        }
         /// <summary>
         /// Removes the populations research Item Data and sets their activity to Work.
         /// </summary>
@@ -193,9 +207,10 @@ namespace PlayerSpace
             ResearchControl.Instance.assignedResearchers.Remove(this);
         }
 
+        
         public PopulationData(
             FactionData factionData, int location, int lastLocation, int destination, string firstName, string lastName
-            , bool isMale, int age, bool isHero, bool isFactionLeader, bool isAide, bool IsArmyLeader, bool isWorker
+            , bool isMale, int age, bool isHero, bool isWorker, AllEnums.HeroType HeroType
             , Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks, int hitpoints, int maxHitpoints
             , int moraleExpendable
             , int loyaltyBase, int LoyaltyAdjusted, int Happiness, int daysStarving
@@ -217,10 +232,8 @@ namespace PlayerSpace
             this.age = age;
 
             this.isHero = isHero;
-            this.isFactionLeader = isFactionLeader;
-            this.isAide = isAide;
-            this.IsArmyLeader = IsArmyLeader;
             this.isWorker = isWorker;
+            this.HeroType = HeroType;
 
             this.perks = perks;
 
@@ -243,5 +256,6 @@ namespace PlayerSpace
             this.passiveResearchItemData = passiveResearchItemData;
             this.currentResearchItemData = currentResearchItemData;
         }
+        
     }
 }

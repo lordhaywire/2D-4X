@@ -8,7 +8,7 @@ namespace PlayerSpace
         {
             // Spawning the token.
             Node2D tokenSpawnParent = selectCounty.heroSpawn;
-            SelectToken spawnedToken = (SelectToken)Globals.Instance.heroToken.Instantiate();
+            HeroToken spawnedToken = (HeroToken)Globals.Instance.heroToken.Instantiate();
             tokenSpawnParent.AddChild(spawnedToken);
 
             spawnedToken.populationData = populationData;
@@ -24,7 +24,7 @@ namespace PlayerSpace
 
             // Spawning the Spawned Token Button
             SpawnedTokenButton spawnedTokenButton = (SpawnedTokenButton)Globals.Instance.spawnedTokenButton.Instantiate();
-            if (populationData.IsArmyLeader == false)
+            if (populationData.IsThisAnArmy() == false)
             {
                 selectCounty.heroesHBox.AddChild(spawnedTokenButton);
                 selectCounty.heroesHBox.Show();
@@ -59,13 +59,13 @@ namespace PlayerSpace
 
             spawnedTokenButton.UpdateTokenTextures(); // This has to be below the populationData assignment.
 
-            GD.Print($"Is {populationData.firstName} an army leader?" + populationData.IsArmyLeader);
+            GD.Print($"Is {populationData.firstName} an army leader?" + populationData.IsThisAnArmy());
             return populationData;
         }
 
 
         // This is so that the AI token spawning doesn't make the player select it.
-        private static void DecidedIfSelected(County selectCounty, SelectToken spawnedToken)
+        private static void DecidedIfSelected(County selectCounty, HeroToken spawnedToken)
         {
             GD.Print($"{selectCounty.countyData.factionData.factionName} vs {Globals.Instance.playerFactionData.factionName}");
             if(selectCounty.countyData.factionData == Globals.Instance.playerFactionData)

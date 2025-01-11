@@ -52,6 +52,7 @@ namespace PlayerSpace
 
         private void GeneratePopulation(bool hero, int totalPopulation)
         {
+
             for (int i = 0; i < totalPopulation; i++)
             {
                 GenerateNameAndSex();  // This could probably be broken into two methods.
@@ -63,7 +64,7 @@ namespace PlayerSpace
                 {
                     // This is for the standard population.
                     countyData.populationDataList.Add(new PopulationData(countyData.factionData, countyData.countyId
-                        , -1, -1, firstName, lastName, isMale, GenerateAge(), false, false, false, false, false
+                        , -1, -1, firstName, lastName, isMale, GenerateAge(), false, false, AllEnums.HeroType.None
                         , GeneratePopulationPerks(), Globals.Instance.startingHitPoints, maxHitpoints
                         , GenerateExpendables()
                         , loyaltyBase, loyaltyBase, happiness, daysStarving, GenerateNeeds()
@@ -77,7 +78,7 @@ namespace PlayerSpace
                 {
                     // Generates a hero that is a faction leader populationData.
                     countyData.heroesInCountyList.Add(new PopulationData(countyData.factionData, countyData.countyId
-                        , -1, -1, firstName, lastName, isMale, GenerateAge(), true, true, false, false, false
+                        , -1, -1, firstName, lastName, isMale, GenerateAge(), true, true, AllEnums.HeroType.FactionLeader
                         , GenerateLeaderPerks(), Globals.Instance.startingHitPoints, maxHitpoints
                         , GenerateExpendables()
                         , loyaltyBase, loyaltyBase, happiness, daysStarving, GenerateNeeds()

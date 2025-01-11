@@ -1790,6 +1790,51 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "WORD_CLOSE"
 
+[node name="Recuit Hero Confirmation PanelContainer" type="PanelContainer" parent="Player UI Canvas" node_paths=PackedStringArray("titleLabel")]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(400, 200)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("34_mgqam")
+titleLabel = NodePath("PanelContainer/Title Label")
+
+[node name="PanelContainer" type="PanelContainer" parent="Player UI Canvas/Recuit Hero Confirmation PanelContainer"]
+custom_minimum_size = Vector2(400, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Title Label" type="Label" parent="Player UI Canvas/Recuit Hero Confirmation PanelContainer/PanelContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 16
+text = "Do you want to recruit bill smill for realz?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Recuit Hero Confirmation PanelContainer/PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+alignment = 1
+
+[node name="Yes Button" type="Button" parent="Player UI Canvas/Recuit Hero Confirmation PanelContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "You are a piece of shit!"
+text = "Yes"
+
+[node name="No Button" type="Button" parent="Player UI Canvas/Recuit Hero Confirmation PanelContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "No"
+
 [node name="Battle Log Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("battleLogControlTitle", "defenderVboxContainer", "attackerVboxContainer")]
 visible = false
 layout_mode = 3
@@ -1922,7 +1967,7 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("34_mgqam")
-titleLabel = NodePath("../../Recuit Hero Confirmation PanelContainer/Title Label")
+titleLabel = NodePath("../../Recuit Hero Confirmation PanelContainer/PanelContainer/Title Label")
 
 [node name="Title Label" type="Label" parent="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer"]
 custom_minimum_size = Vector2(0, 100)
@@ -2325,50 +2370,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "WORD_CLOSE"
 
-[node name="Recuit Hero Confirmation PanelContainer" type="PanelContainer" parent="Player UI Canvas" node_paths=PackedStringArray("titleLabel")]
-visible = false
-custom_minimum_size = Vector2(400, 200)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -100.0
-offset_right = 200.0
-offset_bottom = 100.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-script = ExtResource("34_mgqam")
-titleLabel = NodePath("Title Label")
-
-[node name="Title Label" type="Label" parent="Player UI Canvas/Recuit Hero Confirmation PanelContainer"]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_font_sizes/font_size = 16
-text = "Do you want to recruit bill smill for realz?"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Recuit Hero Confirmation PanelContainer"]
-layout_mode = 2
-size_flags_vertical = 8
-alignment = 1
-
-[node name="No Button" type="Button" parent="Player UI Canvas/Recuit Hero Confirmation PanelContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "No"
-
-[node name="Yes Button" type="Button" parent="Player UI Canvas/Recuit Hero Confirmation PanelContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "You are a piece of shit!"
-text = "Yes"
-
 [node name="Declare War Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("declareWarPanelContainer", "declareWarTitleLabel")]
 visible = false
 layout_mode = 3
@@ -2613,6 +2614,9 @@ process_mode = 3
 [connection signal="pressed" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Recruit Army Button" to="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Recruit Army Button" method="OpenConfirmationPanel" binds= [true]]
 [connection signal="pressed" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Recruit Aide Button" to="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Recruit Aide Button" method="OpenConfirmationPanel" binds= [false]]
 [connection signal="button_up" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/Close Button" to="Player UI Canvas/Population Description Control" method="CloseButton"]
+[connection signal="visibility_changed" from="Player UI Canvas/Recuit Hero Confirmation PanelContainer" to="Player UI Canvas/Recuit Hero Confirmation PanelContainer" method="OnVisibilityChange"]
+[connection signal="button_up" from="Player UI Canvas/Recuit Hero Confirmation PanelContainer/PanelContainer/HBoxContainer/Yes Button" to="Player UI Canvas/Recuit Hero Confirmation PanelContainer" method="YesButton"]
+[connection signal="button_up" from="Player UI Canvas/Recuit Hero Confirmation PanelContainer/PanelContainer/HBoxContainer/No Button" to="Player UI Canvas/Recuit Hero Confirmation PanelContainer" method="NoButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Battle Log Control" to="Player UI Canvas/Battle Log Control" method="OnBattleLogControlVisibilityChanged"]
 [connection signal="mouse_entered" from="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer" to="Player UI Canvas" method="OnMouseEnterUI"]
 [connection signal="mouse_exited" from="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer" to="Player UI Canvas" method="OnMouseExitUI"]
@@ -2634,9 +2638,6 @@ process_mode = 3
 [connection signal="button_up" from="Player UI Canvas/Research Control/Close Button" to="Player UI Canvas/Research Control" method="CloseButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Research Description PanelContainer" to="Player UI Canvas/Research Description PanelContainer" method="OnResearchDescriptionPanelVisibilityChanged"]
 [connection signal="button_up" from="Player UI Canvas/Research Description PanelContainer/Close Button" to="Player UI Canvas/Research Control" method="CloseButton"]
-[connection signal="visibility_changed" from="Player UI Canvas/Recuit Hero Confirmation PanelContainer" to="Player UI Canvas/Recuit Hero Confirmation PanelContainer" method="OnVisibilityChange"]
-[connection signal="button_up" from="Player UI Canvas/Recuit Hero Confirmation PanelContainer/HBoxContainer/No Button" to="Player UI Canvas/Recuit Hero Confirmation PanelContainer" method="NoButton"]
-[connection signal="button_up" from="Player UI Canvas/Recuit Hero Confirmation PanelContainer/HBoxContainer/Yes Button" to="Player UI Canvas/Recuit Hero Confirmation PanelContainer" method="YesButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Declare War Control" to="Player UI Canvas/Declare War Control" method="OnVisibilityChanged"]
 [connection signal="mouse_entered" from="Player UI Canvas/Declare War Control/Declare War Confirmation PanelContainer" to="Player UI Canvas" method="OnMouseEnterUI"]
 [connection signal="mouse_exited" from="Player UI Canvas/Declare War Control/Declare War Confirmation PanelContainer" to="Player UI Canvas" method="OnMouseExitUI"]

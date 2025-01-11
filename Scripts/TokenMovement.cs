@@ -5,7 +5,7 @@ namespace PlayerSpace
 {
     public partial class TokenMovement : Node2D
     {
-        [Export] public SelectToken token;
+        [Export] public HeroToken token;
         [Export] private bool moveToken;
         private Vector2 target;
         private County destinationCounty;
@@ -116,7 +116,7 @@ namespace PlayerSpace
             GD.Print("Faction of Destination County: " + destinationCounty.countyData.factionData.factionName);
             if (destinationCounty.countyData.factionData == token.populationData.factionData)
             {
-                if (token.populationData.IsArmyLeader == false)
+                if (token.populationData.IsThisAnArmy() == false)
                 {
                     HeroReachedCounty();
                     token.populationData.UpdateActivity(AllEnums.Activities.Idle);
@@ -129,7 +129,7 @@ namespace PlayerSpace
             }
             else
             {
-                if (token.populationData.IsArmyLeader == false)
+                if (token.populationData.IsThisAnArmy() == false)
                 {
                     HeroVisitingCounty();
                     // We will probably need to change this to what the token occupation does.

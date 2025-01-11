@@ -14,6 +14,7 @@ public class AllEnums
         Scavenge,
         Work,
     }
+
     public enum Attributes
     {
         Agility,
@@ -70,12 +71,7 @@ public class AllEnums
         Research,
     }
 
-    public enum Perishable
-    {
-        Neither,
-        Perishable,
-        Nonperishable,
-    }
+
     public enum GoodType
     {
         CountyGood,
@@ -83,11 +79,13 @@ public class AllEnums
         Both,
     }
 
-    public enum LearningSpeed
+    public enum HeroType
     {
-        slow,
-        medium,
-        fast,
+        None,
+        Aide,
+        ArmyLeader,
+        FactionLeader,
+        FactionLeaderArmyLeader,
     }
 
     public enum InterestType
@@ -101,6 +99,22 @@ public class AllEnums
         Warfare,
         // Maybe medicine?  Is biology too broad?
     }
+
+    public enum LearningSpeed
+    {
+        Slow,
+        Medium,
+        Fast,
+    }
+
+    public enum Perishable
+    {
+        Neither,
+        Perishable,
+        Nonperishable,
+    }
+
+
     public enum Perks
     {
         LeaderOfPeople,

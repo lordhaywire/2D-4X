@@ -58,19 +58,19 @@ namespace PlayerSpace
             {
                 case AllEnums.Activities.Scavenge:
                     skillData = populationData.skills[AllEnums.Skills.Scavenge];
-                    learningSpeed = AllEnums.LearningSpeed.fast;
+                    learningSpeed = AllEnums.LearningSpeed.Fast;
                     break;
                 case AllEnums.Activities.Build:
                     skillData = populationData.skills[AllEnums.Skills.Construction];
-                    learningSpeed = AllEnums.LearningSpeed.medium;
+                    learningSpeed = AllEnums.LearningSpeed.Medium;
                     break;
                 case AllEnums.Activities.Work:
                     skillData = populationData.skills[populationData.currentCountyImprovement.workSkill];
-                    learningSpeed = AllEnums.LearningSpeed.medium;
+                    learningSpeed = AllEnums.LearningSpeed.Medium;
                     break;
                 case AllEnums.Activities.Research:
                     skillData = populationData.skills[AllEnums.Skills.Research];
-                    learningSpeed = AllEnums.LearningSpeed.slow;
+                    learningSpeed = AllEnums.LearningSpeed.Slow;
                     break;
                 case AllEnums.Activities.Combat:
                     if (defendingCombat)
@@ -81,7 +81,7 @@ namespace PlayerSpace
                     {
                         skillData = populationData.skills[AllEnums.Skills.Rifle];
                     }
-                    learningSpeed = AllEnums.LearningSpeed.slow;
+                    learningSpeed = AllEnums.LearningSpeed.Slow;
                     break;
                 default:
                     GD.Print($"{populationData.firstName} activity is getting a skill check when it " +
@@ -95,9 +95,9 @@ namespace PlayerSpace
             // Dictionary to map learning speeds to the required amount.
             Dictionary<AllEnums.LearningSpeed, int> learningSpeedMap = new()
             {
-                { AllEnums.LearningSpeed.slow, Globals.Instance.slowLearningNeeded },
-                { AllEnums.LearningSpeed.medium, Globals.Instance.mediumLearningNeeded },
-                { AllEnums.LearningSpeed.fast, Globals.Instance.fastLearningNeeded }
+                { AllEnums.LearningSpeed.Slow, Globals.Instance.slowLearningNeeded },
+                { AllEnums.LearningSpeed.Medium, Globals.Instance.mediumLearningNeeded },
+                { AllEnums.LearningSpeed.Fast, Globals.Instance.fastLearningNeeded }
             };
 
             if (!learningSpeedMap.TryGetValue(learningSpeed, out int learningNeeded))
