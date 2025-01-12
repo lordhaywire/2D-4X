@@ -8,6 +8,7 @@ public class AllEnums
     {
         Build,
         Combat,
+        Explore,
         Idle,
         Move,
         Research,

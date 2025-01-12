@@ -66,11 +66,18 @@ public partial class RecruitHeroConfirmationPanelContainer : PanelContainer
             populationData.token.spawnedTokenButton.UpdateButtonIcon();
         }
 
+        MakePopulationIdle(populationData);
         PopulationDescriptionControl.Instance.UpdateDescriptionInfo();
         CountyInfoControl.Instance.GenerateHeroesPanelList();
 
         TopBarControl.Instance.UpdateTopBarGoodLabels();
         Hide();
+    }
+
+    private void MakePopulationIdle(PopulationData populationData)
+    {
+        populationData.RemoveFromCountyImprovement();
+        // I don't think we need to remove them from research or scavenging.  I think.
     }
 
     private void NoButton()

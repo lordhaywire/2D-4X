@@ -1,4 +1,4 @@
-[gd_scene load_steps=137 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=138 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" uid="uid://ctm4ah5pwyf7d" path="res://Scripts/Main.cs" id="1_62dun"]
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://World Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
@@ -35,6 +35,7 @@
 [ext_resource type="Script" uid="uid://bvi0u5nh4c4p5" path="res://Scripts/CountyGeneration.cs" id="16_pxxn4"]
 [ext_resource type="Resource" uid="uid://cwkooap4yvn10" path="res://Resources/ResearchItems/Basic Storage.tres" id="16_qtbxl"]
 [ext_resource type="Script" uid="uid://w7efp2g0eih7" path="res://Scripts/CountyPopulationGeneration.cs" id="17_1215r"]
+[ext_resource type="Resource" uid="uid://drln8l4n4qtg7" path="res://Resources/Activities/Explore.tres" id="17_bposm"]
 [ext_resource type="Script" uid="uid://c6nd17mfkssti" path="res://Scripts/RandomFactionColor.cs" id="18_3aru6"]
 [ext_resource type="Script" uid="uid://dhynx3i0k61wi" path="res://Scripts/AllGoods.cs" id="18_wf5kh"]
 [ext_resource type="Resource" uid="uid://c55q8uucl7cqe" path="res://Resources/Goods/Fish.tres" id="19_1e80i"]
@@ -212,7 +213,7 @@ script = ExtResource("7_fr5hn")
 
 [node name="All Activities" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("9_bq1ko")
-allActivityData = Array[Object]([ExtResource("10_6i1wp"), ExtResource("11_pouup"), ExtResource("12_rh1yq"), ExtResource("13_fv5u6"), ExtResource("14_e28rg"), ExtResource("15_k2peh"), ExtResource("16_er5gf")])
+allActivityData = Array[Object]([ExtResource("10_6i1wp"), ExtResource("11_pouup"), ExtResource("17_bposm"), ExtResource("12_rh1yq"), ExtResource("13_fv5u6"), ExtResource("14_e28rg"), ExtResource("15_k2peh"), ExtResource("16_er5gf")])
 
 [node name="All Attributes" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("23_ucd0c")
@@ -908,7 +909,7 @@ text = "County Improvements"
 layout_mode = 2
 mouse_filter = 0
 
-[node name="Select Hero PanelContainer" type="PanelContainer" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer" node_paths=PackedStringArray("factionLeaderTextureRect", "aideTextureRect", "armyLeaderTextureRect", "heroNameLabel", "heroListButton", "researchCheckbox")]
+[node name="Select Hero PanelContainer" type="PanelContainer" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer" node_paths=PackedStringArray("factionLeaderTextureRect", "aideTextureRect", "armyLeaderTextureRect", "heroNameLabel", "heroListButton", "heroCheckBoxes")]
 visible = false
 custom_minimum_size = Vector2(300, 50)
 layout_mode = 2
@@ -921,7 +922,7 @@ aideTextureRect = NodePath("HBoxContainer/Aide TextureRect")
 armyLeaderTextureRect = NodePath("HBoxContainer/Army TextureRect")
 heroNameLabel = NodePath("Hero Name Label")
 heroListButton = NodePath("Hero List Button")
-researchCheckbox = NodePath("Fake CheckBox")
+heroCheckBoxes = []
 
 [node name="Hero Name Label" type="Label" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Select Hero PanelContainer"]
 layout_mode = 2

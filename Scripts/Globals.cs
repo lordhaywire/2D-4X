@@ -170,9 +170,17 @@ public partial class Globals : Node
     public void UpdateSelectedHero()
     {
         PlayerUICanvas.Instance.selectedHeroPanelContainer.populationData = selectedCountyPopulation;
-        CountyInfoControl.Instance.UpdateHeroInfo(PlayerUICanvas.Instance.selectedHeroPanelContainer, selectedCountyPopulation);
+        CountyInfoControl.Instance.UpdateHeroInfo(PlayerUICanvas.Instance.selectedHeroPanelContainer);
     }
 
+    public bool CheckIfPlayerFaction(FactionData factionData)
+    {
+        if(factionData == playerFactionData)
+        {
+            return true;
+        }
+        return false;
+    }
     private void LoadNames()
     {
         // Load all the names from disk.

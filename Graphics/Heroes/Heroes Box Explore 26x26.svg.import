@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ptgt05xnjvvc"
-path="res://.godot/imported/Heroes Research.svg-da0bba02aacaea658fe2275ccfef522f.ctex"
+uid="uid://bsis4q8s0yeye"
+path="res://.godot/imported/Heroes Box Explore 26x26.svg-f01df84e17d30f7b211e4b2835fe6582.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Graphics/Heroes/Heroes Research.svg"
-dest_files=["res://.godot/imported/Heroes Research.svg-da0bba02aacaea658fe2275ccfef522f.ctex"]
+source_file="res://Graphics/Heroes/Heroes Box Explore 26x26.svg"
+dest_files=["res://.godot/imported/Heroes Box Explore 26x26.svg-f01df84e17d30f7b211e4b2835fe6582.ctex"]
 
 [params]
 
@@ -32,6 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=0.05
+svg/scale=1.0
 editor/scale_with_editor_scale=false
 editor/convert_colors_with_editor_theme=false

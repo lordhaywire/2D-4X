@@ -139,24 +139,27 @@ namespace PlayerSpace
             foreach (PopulationData populationData in heroCountyPopulationList)
             {
                 HeroPanelContainer heroPrefab = (HeroPanelContainer)heroListPrefab.Instantiate();
-
-                UpdateHeroInfo(heroPrefab, populationData);
-
                 heroListParent.AddChild(heroPrefab);
+
                 heroPrefab.populationData = populationData;
+
+                UpdateHeroInfo(heroPrefab);
+
 
                 // Change color of panel to the faction color.
                 heroPrefab.SelfModulate = populationData.factionData.factionColor;
 
-                if (heroPrefab.populationData.factionData != Globals.Instance.playerFactionData)
+                if (Globals.Instance.CheckIfPlayerFaction(populationData.factionData) == false)
                 {
                     heroPrefab.heroListButton.Disabled = true;
-                    heroPrefab.spawnHeroButton.Disabled = true;
+                    heroPrefab.spawnHeroButton.Hide();
+                    heroPrefab.heroActivitesHboxContainer.Hide();
                 }
                 else
                 {
                     heroPrefab.heroListButton.Disabled = false;
-                    heroPrefab.spawnHeroButton.Disabled = false;
+                    heroPrefab.spawnHeroButton.Show();
+                    heroPrefab.heroActivitesHboxContainer.Show();
                 }
                 //GD.Print("Hero Token: " + populationData.token);
                 if (populationData.token == null)
@@ -171,11 +174,13 @@ namespace PlayerSpace
             }
         }
 
-        public void UpdateHeroInfo(HeroPanelContainer heroPrefab, PopulationData populationData)
+        public void UpdateHeroInfo(HeroPanelContainer heroPrefab)
         {
-            heroPrefab.heroNameLabel.Text = $"{populationData.firstName} {populationData.lastName}";
+            heroPrefab.heroNameLabel.Text = $"{heroPrefab.populationData.firstName} {heroPrefab.populationData.lastName}";
 
+            
             // Check for hero activities
+            /*
             if (heroPrefab.researchCheckbox != null)
             {
                 heroPrefab.researchCheckbox.ButtonPressed = false;
@@ -190,8 +195,8 @@ namespace PlayerSpace
             {
                 //GD.Print($"{populationData.firstName} research is null.");
             }
-
-            switch (populationData)
+            */
+            switch (heroPrefab.populationData)
             {
                 case {HeroType: AllEnums.HeroType.FactionLeader}: // FactionLeader
                     heroPrefab.factionLeaderTextureRect.Show();
