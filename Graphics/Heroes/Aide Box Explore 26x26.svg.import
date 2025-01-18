@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d11kxklcymkx8"
-path="res://.godot/imported/Heroes Box Scavenge 26x26.svg-e8c5fa4e8f0b31bda275fb33a8c074d1.ctex"
+uid="uid://bsis4q8s0yeye"
+path="res://.godot/imported/Aide Box Explore 26x26.svg-41d423b17f568864c00ff8e49fb0cdf4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Graphics/Heroes/Heroes Box Scavenge 26x26.svg"
-dest_files=["res://.godot/imported/Heroes Box Scavenge 26x26.svg-e8c5fa4e8f0b31bda275fb33a8c074d1.ctex"]
+source_file="res://Graphics/Heroes/Aide Box Explore 26x26.svg"
+dest_files=["res://.godot/imported/Aide Box Explore 26x26.svg-41d423b17f568864c00ff8e49fb0cdf4.ctex"]
 
 [params]
 

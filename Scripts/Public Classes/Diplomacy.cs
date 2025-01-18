@@ -41,7 +41,7 @@ namespace PlayerSpace
             if (defenderHero != null)
             {
                 // Defender's faction data.
-                battleLocation.countyData.factionData.tokenSpawner.Spawn(battleLocation, defenderHero);
+                TokenSpawner.Spawn(battleLocation, defenderHero);
             }
             else
             {

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ptgt05xnjvvc"
-path="res://.godot/imported/Heroes Research 26x26.svg-e602086a3255f3b02df6fb9f1bceed47.ctex"
+uid="uid://be0fr5imc4ox5"
+path="res://.godot/imported/Army Box Muster 26x26.svg-db80be113a00d0326f4cffd6ff436f6c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Graphics/Heroes/Heroes Research 26x26.svg"
-dest_files=["res://.godot/imported/Heroes Research 26x26.svg-e602086a3255f3b02df6fb9f1bceed47.ctex"]
+source_file="res://Graphics/Heroes/Army Box Muster 26x26.svg"
+dest_files=["res://.godot/imported/Army Box Muster 26x26.svg-db80be113a00d0326f4cffd6ff436f6c.ctex"]
 
 [params]
 
@@ -32,6 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=0.05
+svg/scale=1.0
 editor/scale_with_editor_scale=false
 editor/convert_colors_with_editor_theme=false

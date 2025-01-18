@@ -13,7 +13,8 @@ namespace PlayerSpace
         [Export] public Label heroNameLabel;
         [Export] public Button heroListButton;
         [Export] public CheckButton spawnHeroButton;
-        [Export] public HBoxContainer heroActivitesHboxContainer;
+        [Export] public HBoxContainer aideActivitiesHboxContainer;
+        [Export] public HBoxContainer armyActivitiesHboxContainer;
         [Export] public CheckBox[] heroCheckBoxes;
         //[Export] public CheckBox researchCheckbox;
         private void HeroButtonOnPressed()
@@ -41,14 +42,26 @@ namespace PlayerSpace
             }
         }
 
-        private void SpawnHeroCheckButton(bool toggleOn)
+        // I wonder if the populationData.IsHeroSpawned is needed anymore.
+        private void SpawnHeroCheckButton()
         {
-            if (toggleOn == true && populationData.token == null)
+            GD.Print($"{populationData.firstName} token is: {populationData.token}");
+            
+            if (spawnHeroButton.ButtonPressed)// == true && populationData.IsHeroSpawned() == false)
             {
+                
                 // Assign to Currently Selected Hero so it is ready to be moved.
                 Globals.Instance.SelectedCountyPopulation
-                = Globals.Instance.playerFactionData.tokenSpawner.Spawn(Globals.Instance.SelectedLeftClickCounty, populationData);
-                //GD.Print("Spawn Hero Check Box " + Globals.Instance.SelectedCountyPopulation.firstName);
+                = TokenSpawner.Spawn(Globals.Instance.SelectedLeftClickCounty, populationData);
+                GD.Print("Spawn Hero Check Box " + Globals.Instance.SelectedCountyPopulation.firstName);
+                CountyInfoControl.Instance.UpdateEverything();
+                
+                GD.Print("Toggled: " + spawnHeroButton.ButtonPressed);
+            }
+            else
+            {
+                TokenSpawner.Unspawn(Globals.Instance.SelectedLeftClickCounty, populationData);
+                GD.Print("Else Toggled: " + spawnHeroButton.ButtonPressed);
             }
         }
 

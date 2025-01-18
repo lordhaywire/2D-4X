@@ -1,6 +1,5 @@
 using Godot;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -171,6 +170,12 @@ public partial class Globals : Node
     {
         PlayerUICanvas.Instance.selectedHeroPanelContainer.populationData = selectedCountyPopulation;
         CountyInfoControl.Instance.UpdateHeroInfo(PlayerUICanvas.Instance.selectedHeroPanelContainer);
+    }
+
+    public CountyData GetCountyDataFromLocationID(int location)
+    {
+        County county = (County)countiesParent.GetChild(location);
+        return county.countyData;
     }
 
     public bool CheckIfPlayerFaction(FactionData factionData)

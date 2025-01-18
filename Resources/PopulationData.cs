@@ -172,6 +172,18 @@ namespace PlayerSpace
         }
 
         /// <summary>
+        /// Checks to see if the token has been instantiated and if it has then the hero is considered spawned.
+        /// </summary>
+        public bool IsHeroSpawned()
+        {
+            if(token != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
         /// Makes activity idle and removes the population from the populationAtImprovement list.
         /// </summary>
         public void RemoveFromCountyImprovement()
@@ -257,6 +269,5 @@ namespace PlayerSpace
             this.passiveResearchItemData = passiveResearchItemData;
             this.currentResearchItemData = currentResearchItemData;
         }
-        
     }
 }

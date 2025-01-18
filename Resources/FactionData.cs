@@ -22,7 +22,6 @@ public partial class FactionData : Resource
     [Export] public PopulationData factionLeader;
 
     public Diplomacy diplomacy = new();
-    public TokenSpawner tokenSpawner = new();
 
     [Export] public Godot.Collections.Array<CountyImprovementData> allCountyImprovements = []; // This includes all county improvements, even possible ones.
 

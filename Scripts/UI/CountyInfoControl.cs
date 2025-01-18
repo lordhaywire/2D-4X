@@ -145,21 +145,33 @@ namespace PlayerSpace
 
                 UpdateHeroInfo(heroPrefab);
 
-
                 // Change color of panel to the faction color.
                 heroPrefab.SelfModulate = populationData.factionData.factionColor;
 
-                if (Globals.Instance.CheckIfPlayerFaction(populationData.factionData) == false)
+                // Check to see if the hero is part of the player's faction to determine what to show.
+                // Once we add the ability for heroes to do things in enemy faction counties we will change this.
+                // Currently we are just making it so that the heroes Activities boxes are hidden.
+                CountyData locationCountyData = Globals.Instance.GetCountyDataFromLocationID(populationData.location);
+                if (Globals.Instance.CheckIfPlayerFaction(populationData.factionData) == false
+                    || Globals.Instance.CheckIfPlayerFaction(locationCountyData.factionData) == false)
                 {
                     heroPrefab.heroListButton.Disabled = true;
                     heroPrefab.spawnHeroButton.Hide();
-                    heroPrefab.heroActivitesHboxContainer.Hide();
+                    heroPrefab.aideActivitiesHboxContainer.Hide();
+                    heroPrefab.armyActivitiesHboxContainer.Hide();
                 }
                 else
                 {
+                    if (populationData.IsThisAnArmy())
+                    {
+                        heroPrefab.armyActivitiesHboxContainer.Show();
+                    }
+                    else
+                    {
+                        heroPrefab.aideActivitiesHboxContainer.Show();
+                    }
                     heroPrefab.heroListButton.Disabled = false;
                     heroPrefab.spawnHeroButton.Show();
-                    heroPrefab.heroActivitesHboxContainer.Show();
                 }
                 //GD.Print("Hero Token: " + populationData.token);
                 if (populationData.token == null)

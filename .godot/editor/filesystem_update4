@@ -1,13 +1,11 @@
-res://Localization/2D 4X Main Text.en.translation
-res://Localization/2D 4X Main Text.es.translation
-res://UIScenes/HeroListCheckBoxPanelContainer.tscn
+res://Scenes/Main.tscn
 res://Resources/County Improvements/Converted Warehouse.tres
 res://Resources/County Improvements/FishersShed.tres
 res://Resources/County Improvements/Garden.tres
 res://Resources/County Improvements/ScoutingEquipmentWorkshop.tres
-res://Scenes/Main.tscn
 res://Prefabs/HeroToken.tscn
 res://Scenes/MapEditor.tscn
+res://UIScenes/HeroListCheckBoxPanelContainer.tscn
 res://Resources/ActivityData.cs
 res://Scripts/UI/RemoveCountyImprovementConfirmationPanelContainer.cs
 res://Scripts/AutoLoad.cs
@@ -96,4 +94,6 @@ res://Scripts/AllAttributes.cs
 res://Scripts/LoadMaps.cs
 res://Scripts/UI/ResearchDescriptionPanel.cs
 res://Scripts/Globals.cs
-res://Resources/Activities/Explore.tres
+res://Scripts/Public Classes/TokenSpawner.cs
+res://Scripts/Public Classes/Diplomacy.cs
+res://Counties/0 Cowlitz.tscn
