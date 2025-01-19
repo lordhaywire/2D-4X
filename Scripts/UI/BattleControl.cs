@@ -43,9 +43,9 @@ namespace PlayerSpace
             // Attackers Army
             foreach (PopulationData attackerCountyPopulation in selectCounty.countyData.visitingArmyList)
             {
-                if (attackerCountyPopulation.token != null)
+                if (attackerCountyPopulation.heroToken != null)
                 {
-                    countyAttackerSelectToken = attackerCountyPopulation.token;
+                    countyAttackerSelectToken = attackerCountyPopulation.heroToken;
                     countyAttackerSelectToken.Hide();
                     attackerTokenTextureRect.Texture = countyAttackerSelectToken.unselectedTexture;
                     attackerMoraleLabel.Text = countyAttackerSelectToken.populationData.moraleExpendable.ToString();
@@ -57,9 +57,9 @@ namespace PlayerSpace
             // Defenders Army
             foreach (PopulationData defenderCountyPopulation in selectCounty.countyData.armiesInCountyList)
             {
-                if (defenderCountyPopulation.token != null)
+                if (defenderCountyPopulation.heroToken != null)
                 {
-                    countyDefendersSelectToken = defenderCountyPopulation.token;
+                    countyDefendersSelectToken = defenderCountyPopulation.heroToken;
                     countyDefendersSelectToken.Hide();
                     defenderTokenTextureRect.Texture = countyDefendersSelectToken.unselectedTexture;
                     defenderMoraleLabel.Text = countyDefendersSelectToken.populationData.moraleExpendable.ToString();
@@ -119,7 +119,7 @@ namespace PlayerSpace
 
         private void ArmyFlees(PopulationData populationData)
         {
-            populationData.token.isRetreating = true;
+            populationData.heroToken.isRetreating = true;
             if (populationData.lastLocation == -1)
             {
                 RandomNeighborMove(populationData);
@@ -130,7 +130,7 @@ namespace PlayerSpace
                 County selectCounty = (County)Globals.Instance.countiesParent.GetChild(populationData.lastLocation);
                 if (selectCounty.countyData.factionData.factionName == populationData.factionData.factionName)
                 {
-                    populationData.token.tokenMovement.StartMove(populationData.lastLocation);
+                    populationData.heroToken.tokenMovement.StartMove(populationData.lastLocation);
                     EndBattle();
                 }
                 else
@@ -149,7 +149,7 @@ namespace PlayerSpace
             if (destinationCounty != null)
             {
                 //GD.Print("Destination County: " + destinationCounty.countyData.countyName);
-                populationData.token.tokenMovement.StartMove(destinationCounty.countyData.countyId);
+                populationData.heroToken.tokenMovement.StartMove(destinationCounty.countyData.countyId);
                 CountyCaptured();
             }
             else
@@ -170,7 +170,7 @@ namespace PlayerSpace
                 County chosenCounty = eligibleCounties[randomIndex];
 
                 populationData.destination = chosenCounty.countyData.countyId;
-                populationData.token.tokenMovement.StartMove(populationData.destination);
+                populationData.heroToken.tokenMovement.StartMove(populationData.destination);
 
                 return chosenCounty;
             }

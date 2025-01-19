@@ -25,7 +25,7 @@ heroListButton = NodePath("Buttons HBoxContainer/Hero List Button")
 spawnHeroButton = NodePath("Buttons HBoxContainer/Spawn CheckButton")
 aideActivitiesHboxContainer = NodePath("VBoxContainer/Aide Activites HBoxContainer")
 armyActivitiesHboxContainer = NodePath("VBoxContainer/Army Activites HBoxContainer")
-heroCheckBoxes = [NodePath("VBoxContainer/Aide Activites HBoxContainer/Scavenge CheckBox"), NodePath("VBoxContainer/Aide Activites HBoxContainer/Work CheckBox"), NodePath("VBoxContainer/Aide Activites HBoxContainer/Research CheckBox"), null]
+heroCheckBoxes = [NodePath("VBoxContainer/Aide Activites HBoxContainer/Scavenge CheckBox"), NodePath("VBoxContainer/Aide Activites HBoxContainer/Work CheckBox"), NodePath("VBoxContainer/Aide Activites HBoxContainer/Research CheckBox"), NodePath("VBoxContainer/Aide Activites HBoxContainer/Explore CheckBox")]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -151,10 +151,8 @@ focus_mode = 0
 [connection signal="pressed" from="VBoxContainer/Aide Activites HBoxContainer/Explore CheckBox" to="." method="HeroActivitiesCheckBoxPressed" binds= [3]]
 [connection signal="mouse_entered" from="VBoxContainer/Army Activites HBoxContainer/Muster CheckBox" to="." method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="VBoxContainer/Army Activites HBoxContainer/Muster CheckBox" to="." method="OnMouseExitedUI"]
-[connection signal="pressed" from="VBoxContainer/Army Activites HBoxContainer/Muster CheckBox" to="." method="HeroActivitiesCheckBoxPressed" binds= [3]]
 [connection signal="mouse_entered" from="VBoxContainer/Army Activites HBoxContainer/Train CheckBox" to="." method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="VBoxContainer/Army Activites HBoxContainer/Train CheckBox" to="." method="OnMouseExitedUI"]
-[connection signal="pressed" from="VBoxContainer/Army Activites HBoxContainer/Train CheckBox" to="." method="HeroActivitiesCheckBoxPressed" binds= [3]]
 [connection signal="mouse_entered" from="Buttons HBoxContainer/Hero List Button" to="." method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="Buttons HBoxContainer/Hero List Button" to="." method="OnMouseExitedUI"]
 [connection signal="pressed" from="Buttons HBoxContainer/Hero List Button" to="." method="HeroButtonOnPressed"]

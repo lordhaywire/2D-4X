@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 
 namespace PlayerSpace
@@ -84,7 +85,7 @@ namespace PlayerSpace
 
         private void UpdateVisitorsPopulationLabel()
         {
-            visitorsLabel.Text 
+            visitorsLabel.Text
                 = Globals.Instance.SelectedLeftClickCounty.countyData.visitingHeroList.Count.ToString();
             if (Globals.Instance.SelectedLeftClickCounty.countyData.visitingHeroList.Count == 0)
             {
@@ -152,6 +153,8 @@ namespace PlayerSpace
                 // Once we add the ability for heroes to do things in enemy faction counties we will change this.
                 // Currently we are just making it so that the heroes Activities boxes are hidden.
                 CountyData locationCountyData = Globals.Instance.GetCountyDataFromLocationID(populationData.location);
+
+                PopulateActivityHboxes(populationData, heroPrefab);
                 if (Globals.Instance.CheckIfPlayerFaction(populationData.factionData) == false
                     || Globals.Instance.CheckIfPlayerFaction(locationCountyData.factionData) == false)
                 {
@@ -159,22 +162,23 @@ namespace PlayerSpace
                     heroPrefab.spawnHeroButton.Hide();
                     heroPrefab.aideActivitiesHboxContainer.Hide();
                     heroPrefab.armyActivitiesHboxContainer.Hide();
+                    continue;
+                }
+
+                if (populationData.IsThisAnArmy())
+                {
+                    heroPrefab.armyActivitiesHboxContainer.Show();
                 }
                 else
                 {
-                    if (populationData.IsThisAnArmy())
-                    {
-                        heroPrefab.armyActivitiesHboxContainer.Show();
-                    }
-                    else
-                    {
-                        heroPrefab.aideActivitiesHboxContainer.Show();
-                    }
-                    heroPrefab.heroListButton.Disabled = false;
-                    heroPrefab.spawnHeroButton.Show();
+                    heroPrefab.aideActivitiesHboxContainer.Show();
                 }
+                heroPrefab.heroListButton.Disabled = false;
+                heroPrefab.spawnHeroButton.Show();
+
                 //GD.Print("Hero Token: " + populationData.token);
-                if (populationData.token == null)
+                // This is only for the players tokens.
+                if (populationData.heroToken == null)
                 {
                     heroPrefab.spawnHeroButton.ButtonPressed = false;
                     continue;
@@ -186,31 +190,36 @@ namespace PlayerSpace
             }
         }
 
+        private void PopulateActivityHboxes(PopulationData populationData, HeroPanelContainer heroPrefab)
+        {
+            switch (populationData.activity)
+            {
+                case AllEnums.Activities.Scavenge:
+                    heroPrefab.heroCheckBoxes[0].ButtonPressed = true;
+                    return;
+                case AllEnums.Activities.Work:
+                    heroPrefab.heroCheckBoxes[1].ButtonPressed = true;
+                    return;
+                case AllEnums.Activities.Research:
+                    heroPrefab.heroCheckBoxes[2].ButtonPressed = true;
+                    return;
+                case AllEnums.Activities.Explore:
+                    heroPrefab.heroCheckBoxes[3].ButtonPressed = true;
+                    return;
+
+                // We need to add Build once the checkbox is in play.
+            }
+        }
+
         public void UpdateHeroInfo(HeroPanelContainer heroPrefab)
         {
             heroPrefab.heroNameLabel.Text = $"{heroPrefab.populationData.firstName} {heroPrefab.populationData.lastName}";
 
-            
             // Check for hero activities
-            /*
-            if (heroPrefab.researchCheckbox != null)
-            {
-                heroPrefab.researchCheckbox.ButtonPressed = false;
-            }
-            //GD.Print("Researching?" + populationData.currentResearchItemData.researchName);
-            if (populationData.currentResearchItemData != null)
-            {
-                //GD.Print("Research CheckBox!?");
-                heroPrefab.researchCheckbox.ButtonPressed = true;
-            }
-            else
-            {
-                //GD.Print($"{populationData.firstName} research is null.");
-            }
-            */
+
             switch (heroPrefab.populationData)
             {
-                case {HeroType: AllEnums.HeroType.FactionLeader}: // FactionLeader
+                case { HeroType: AllEnums.HeroType.FactionLeader }: // FactionLeader
                     heroPrefab.factionLeaderTextureRect.Show();
                     heroPrefab.aideTextureRect.Hide();
                     heroPrefab.armyLeaderTextureRect.Hide();

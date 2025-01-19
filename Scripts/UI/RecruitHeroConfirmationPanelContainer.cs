@@ -22,23 +22,24 @@ public partial class RecruitHeroConfirmationPanelContainer : PanelContainer
     private void YesButton()
     {
         PopulationData populationData = PopulationDescriptionControl.Instance.populationData;
-        County county = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
+        CountyData countyData = Globals.Instance.GetCountyDataFromLocationID(populationData.location);
 
         if (populationData.isHero == false)
         {
             Banker.ChargeForHero(Globals.Instance.playerFactionData);
         }
+
         // If the population isn't a hero already then it removes it from the population list.
         if (populationData.isHero != true)
         {
-            county.countyData.populationDataList.Remove(populationData);
+            countyData.populationDataList.Remove(populationData);
         }
         if (armyLeaderRecruited == false)
         {
             populationData.isHero = true;
             populationData.HeroType = AllEnums.HeroType.Aide;
-            county.countyData.heroesInCountyList.Add(populationData);
-            county.countyData.factionData.AddHeroToAllHeroesList(populationData);
+            countyData.heroesInCountyList.Add(populationData);
+            countyData.factionData.AddHeroToAllHeroesList(populationData);
         }
         else
         {
@@ -52,18 +53,18 @@ public partial class RecruitHeroConfirmationPanelContainer : PanelContainer
                 populationData.HeroType = AllEnums.HeroType.ArmyLeader;
             }
 
-            county.countyData.heroesInCountyList.Remove(populationData);
-            county.countyData.armiesInCountyList.Add(populationData);
-            county.countyData.factionData.AddHeroToAllHeroesList(populationData);
-
+            countyData.heroesInCountyList.Remove(populationData);
+            countyData.armiesInCountyList.Add(populationData);
+            countyData.factionData.AddHeroToAllHeroesList(populationData);
         }
 
         // This is set again to update the sprite textures;
-        if (populationData.token != null)
+        // Why is there a null check here?  Does this sometimes not have a token?
+        if (populationData.heroToken != null)
         {
-            AllTokenTextures.Instance.AssignTokenTextures(populationData.token);
-            populationData.token.UpdateSpriteTexture();
-            populationData.token.spawnedTokenButton.UpdateButtonIcon();
+            AllTokenTextures.Instance.AssignTokenTextures(populationData.heroToken);
+            populationData.heroToken.UpdateSpriteTexture();
+            populationData.heroToken.spawnedTokenButton.UpdateButtonIcon();
         }
 
         MakePopulationIdle(populationData);

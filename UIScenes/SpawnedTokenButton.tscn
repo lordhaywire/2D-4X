@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://wlnn33lx7wjt"]
 
-[ext_resource type="Script" path="res://Scripts/UI/SpawnedTokenButton.cs" id="1_5mavu"]
+[ext_resource type="Script" uid="uid://dhv0nhm25qjt5" path="res://Scripts/UI/SpawnedTokenButton.cs" id="1_5mavu"]
 
 [sub_resource type="ImageTexture" id="ImageTexture_p5dn1"]
 
-[node name="Spawned Token Button" type="Button" node_paths=PackedStringArray("tokenIconTextureRect")]
+[node name="Spawned Token Button" type="Button"]
 custom_minimum_size = Vector2(20, 20)
 offset_right = 20.0
 offset_bottom = 20.0
@@ -17,9 +17,8 @@ theme_override_font_sizes/font_size = 5
 icon = SubResource("ImageTexture_p5dn1")
 icon_alignment = 1
 script = ExtResource("1_5mavu")
-tokenIconTextureRect = NodePath("TextureRect")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="Token Icon TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,5 +28,5 @@ grow_vertical = 2
 expand_mode = 2
 
 [connection signal="button_up" from="." to="." method="OnButtonUp"]
-[connection signal="mouse_entered" from="TextureRect" to="." method="OnMouseEntered"]
-[connection signal="mouse_exited" from="TextureRect" to="." method="OnMouseExited"]
+[connection signal="mouse_entered" from="Token Icon TextureRect" to="." method="OnMouseEntered"]
+[connection signal="mouse_exited" from="Token Icon TextureRect" to="." method="OnMouseExited"]

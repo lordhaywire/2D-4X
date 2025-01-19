@@ -125,7 +125,7 @@ namespace PlayerSpace
             //GD.Print($"Move Target County: {moveTargetCountyData.countyName}" +
              //   $" {moveTargetCountyData.countyId}");
             PopulationData populationData = Globals.Instance.SelectedCountyPopulation;
-            HeroToken selectToken = Globals.Instance.SelectedCountyPopulation.token;
+            HeroToken selectToken = Globals.Instance.SelectedCountyPopulation.heroToken;
 
             selectToken.Show();
 

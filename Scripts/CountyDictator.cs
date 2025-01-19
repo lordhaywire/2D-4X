@@ -57,9 +57,9 @@ namespace PlayerSpace
                 County selectCounty = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
                 selectCounty.countyData.heroesInCountyList.Remove(populationData);
                 selectCounty.countyData.armiesInCountyList.Remove(populationData);
-                selectCounty.countyData.spawnedTokenButtons.Remove(populationData.token.spawnedTokenButton);
-                populationData.token.spawnedTokenButton.QueueFree();
-                populationData.token.QueueFree();
+                selectCounty.countyData.spawnedTokenButtons.Remove(populationData.heroToken.spawnedTokenButton);
+                populationData.heroToken.spawnedTokenButton.QueueFree();
+                populationData.heroToken.QueueFree();
 
                 //GD.PrintRich($"[rainbow]{populationData.firstName}");
                 CountyInfoControl.Instance.GenerateHeroesPanelList();

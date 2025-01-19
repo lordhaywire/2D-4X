@@ -146,7 +146,7 @@ namespace PlayerSpace
                 }
 
                 // If the token is moving then it can't become an army.
-                if (populationData.token?.tokenMovement.MoveToken == true)
+                if (populationData.heroToken?.tokenMovement.MoveToken == true)
                 {
                     return;
                 }

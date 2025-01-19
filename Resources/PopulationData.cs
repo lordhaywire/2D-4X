@@ -30,9 +30,9 @@ namespace PlayerSpace
             {
                 heroType = value;
 
-                if (token != null)
+                if (heroToken != null)
                 {
-                    AllTokenTextures.Instance.AssignTokenTextures(token);
+                    AllTokenTextures.Instance.AssignTokenTextures(heroToken);
                 }
             }
         }
@@ -97,7 +97,7 @@ namespace PlayerSpace
         [Export] public ResearchItemData passiveResearchItemData;
         [Export] public ResearchItemData currentResearchItemData;
 
-        public HeroToken token;
+        public HeroToken heroToken;
 
         public bool CheckForPerk(AllEnums.Perks perk)
         {
@@ -176,7 +176,7 @@ namespace PlayerSpace
         /// </summary>
         public bool IsHeroSpawned()
         {
-            if(token != null)
+            if(heroToken != null)
             {
                 return true;
             }
@@ -233,7 +233,8 @@ namespace PlayerSpace
             , SkillData preferredSkill, InterestData interest, AllEnums.Activities activity
             , CountyImprovementData currentCountyImprovement
             , ResearchItemData passiveResearchItemData
-            , ResearchItemData currentResearchItemData)
+            , ResearchItemData currentResearchItemData
+            , HeroToken heroToken)
         {
             this.factionData = factionData;
             this.location = location;
@@ -268,6 +269,7 @@ namespace PlayerSpace
             this.currentCountyImprovement = currentCountyImprovement;
             this.passiveResearchItemData = passiveResearchItemData;
             this.currentResearchItemData = currentResearchItemData;
+            this.heroToken = heroToken;
         }
     }
 }

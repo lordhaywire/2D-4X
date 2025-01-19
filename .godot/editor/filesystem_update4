@@ -94,6 +94,5 @@ res://Scripts/AllAttributes.cs
 res://Scripts/LoadMaps.cs
 res://Scripts/UI/ResearchDescriptionPanel.cs
 res://Scripts/Globals.cs
-res://Scripts/Public Classes/TokenSpawner.cs
-res://Scripts/Public Classes/Diplomacy.cs
-res://Counties/0 Cowlitz.tscn
+res://UIScenes/SpawnedTokenButton.tscn
+res://Resources/ResearchItems/Basic Production.tres

@@ -61,7 +61,10 @@ public class PopulationWork
                     // Just for testing it is set to fast.  The bool doesn't matter for this skill.
                     SkillData.CheckLearning(populationData, true);
 
-                    populationData.UpdateActivity(AllEnums.Activities.Idle);
+                    if (populationData.isHero != true)
+                    {
+                        populationData.UpdateActivity(AllEnums.Activities.Idle);
+                    }
                     break;
                 case AllEnums.Activities.Build:
                     // Produce resources based on the countyimprovement
@@ -101,6 +104,9 @@ public class PopulationWork
                     }
                     break;
                 case AllEnums.Activities.Research:
+                    // This is commented out because we are changing research from each office researching
+                    // their own project to faction wide projects.
+
                     // Person working at research office, or hero generates research.
 
                     //Banker.AddResearchForOfficeResearch(populationData);

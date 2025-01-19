@@ -52,7 +52,6 @@ namespace PlayerSpace
 
         private void GeneratePopulation(bool hero, int totalPopulation)
         {
-
             for (int i = 0; i < totalPopulation; i++)
             {
                 GenerateNameAndSex();  // This could probably be broken into two methods.
@@ -72,7 +71,7 @@ namespace PlayerSpace
                         , GenerateSkillsList()
                         , preferredSkill
                         , GenerateInterest()
-                        , AllEnums.Activities.Idle, null, null, null));
+                        , AllEnums.Activities.Idle, null, null, null, null)); // HeroToken is null.
                 }
                 else
                 {
@@ -86,7 +85,7 @@ namespace PlayerSpace
                         , GenerateSkillsList()
                         , preferredSkill
                         , GenerateInterest()
-                        , AllEnums.Activities.Idle, null, null, null));
+                        , AllEnums.Activities.Idle, null, null, null, null)); // HeroToken is null.
 
                     // Add hero to allHeroesList
                     countyData.factionData.AddHeroToAllHeroesList(countyData.heroesInCountyList[0]);

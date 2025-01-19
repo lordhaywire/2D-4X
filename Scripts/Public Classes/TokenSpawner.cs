@@ -10,14 +10,15 @@ namespace PlayerSpace
             // Spawning the token.
             Node2D tokenSpawnParent = county.heroSpawn;
             HeroToken spawnedToken = (HeroToken)Globals.Instance.heroToken.Instantiate();
-            GD.Print("Hero token button: " + spawnedToken.spawnedTokenButton);
+            GD.Print("Global Hero Token: " + Globals.Instance.heroToken);
+            GD.Print("Spawned token button: " + spawnedToken.spawnedTokenButton);
             tokenSpawnParent.AddChild(spawnedToken);
 
             spawnedToken.populationData = populationData;
 
             AllTokenTextures.Instance.AssignTokenTextures(spawnedToken);
 
-            populationData.token = spawnedToken;
+            populationData.heroToken = spawnedToken;
             populationData.location = county.countyData.countyId; // The populationData should have already have the location.
             spawnedToken.Name = $"{populationData.firstName} {populationData.lastName}";
 
@@ -69,8 +70,10 @@ namespace PlayerSpace
 
         public static void Unspawn(County county, PopulationData populationData)
         {
-            county.countyData.spawnedTokenButtons.Remove(populationData.token.spawnedTokenButton);
-            populationData.token.QueueFree();
+            county.countyData.spawnedTokenButtons.Remove(populationData.heroToken.spawnedTokenButton);
+            GD.Print("Unspawn Spawned Token Buttons Count: " + county.countyData.spawnedTokenButtons.Count);
+            populationData.heroToken.spawnedTokenButton.QueueFree();
+            populationData.heroToken.QueueFree();
         }
 
         // This is so that the AI token spawning doesn't make the player select it.

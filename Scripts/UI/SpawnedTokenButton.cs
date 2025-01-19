@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using System.Linq;
 
 namespace PlayerSpace
@@ -7,38 +6,47 @@ namespace PlayerSpace
     public partial class SpawnedTokenButton : Button
     {
         public PopulationData populationData;
-        private HeroToken selectToken;
-        [Export] public TextureRect tokenIconTextureRect;
+        private HeroToken heroToken;
+        public TextureRect tokenIconTextureRect;
 
+        public override void _Ready()
+        {
+            tokenIconTextureRect = (TextureRect)GetChild(0);
+        }
         public void UpdateButtonIcon()
         {
-            selectToken = populationData.token;
-            tokenIconTextureRect.Texture = selectToken.sprite.Texture;
+            GD.Print("Update Button Icon hero token: " + populationData.heroToken);
+            GD.Print("Update Button Icon hero token sprite: " + populationData.heroToken.sprite);
+            GD.Print("Update Button Icon hero token sprite texture: " + populationData.heroToken.sprite.Texture);
+            GD.Print("Update Button Icon tokenIconTextureRect: " + tokenIconTextureRect);
+
+            tokenIconTextureRect.Texture = populationData.heroToken.sprite.Texture;
         }
+
         public void OnButtonUp()
         {
             if(populationData.factionData == Globals.Instance.playerFactionData)
             {
                 //GD.Print("You pressed the hero button.");
-                selectToken = populationData.token;
+                heroToken = populationData.heroToken;
 
-                selectToken.IsSelected = true;
+                heroToken.IsSelected = true;
                 UpdateTokenTextures();
             }
             else
             {
-                //GD.Print("You don't own this token so you can't select it, wrecked mother fucker.");
+                //GD.Print("You don't own this token so you can't select it, get wrecked mother fucker.");
             }
         }
 
         public void UpdateTokenTextures()
         {
-            County selectCounty = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
-            //GD.Print($"Select County Name: {selectCounty.Name} vs County Population Location {populationData.location}");
-            //GD.Print("Select Counties Spawned Token Buttons List Count: " + selectCounty.countyData.spawnedTokenButtons.Count);
-            foreach (SpawnedTokenButton spawnedTokenButton in selectCounty.countyData.spawnedTokenButtons.Cast<SpawnedTokenButton>())
+            CountyData countyData = Globals.Instance.GetCountyDataFromLocationID(populationData.location);
+            GD.Print($"County Name: {countyData.countyNode.Name} vs County Population Location {populationData.location}");
+            GD.Print("County's Spawned Token Buttons List Count: " + countyData.spawnedTokenButtons.Count);
+            foreach (SpawnedTokenButton spawnedTokenButton in countyData.spawnedTokenButtons.Cast<SpawnedTokenButton>())
             {
-                //GD.Print($"Going through buttons {spawnedTokenButton.populationData.firstName}");
+                GD.Print($"Going through buttons {spawnedTokenButton.populationData.firstName}");
                 spawnedTokenButton.UpdateButtonIcon();
                 //UpdateToolTip();
             }
@@ -47,7 +55,7 @@ namespace PlayerSpace
         // Moved this somewhere else, but may need to put it back here.
         private void UpdateToolTip()
         {
-            TooltipText = $"{selectToken.populationData.firstName} {selectToken.populationData.lastName}";
+            TooltipText = $"{heroToken.populationData.firstName} {heroToken.populationData.lastName}";
         }
 
         public static void OnMouseEntered()

@@ -57,7 +57,7 @@ namespace PlayerSpace
             {
                 foreach(PopulationData populationData in battleLocation.countyData.armiesInCountyList)
                 {
-                    if(populationData.token != null)
+                    if(populationData.heroToken != null)
                     {
                         return null;
                     }

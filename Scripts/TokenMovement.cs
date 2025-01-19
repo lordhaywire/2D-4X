@@ -186,6 +186,8 @@ namespace PlayerSpace
             startingCounty.countyData.armiesInCountyList.Remove(token.populationData);
             startingCounty.countyData.visitingHeroList.Remove(token.populationData);
             startingCounty.countyData.visitingArmyList.Remove(token.populationData);
+
+            startingCounty.countyData.spawnedTokenButtons.Remove(token.spawnedTokenButton);
         }
 
         private void HeroReachedCounty()
