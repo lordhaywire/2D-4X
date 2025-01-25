@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://d4i6w8w8jld3d"]
+[gd_scene load_steps=12 format=3 uid="uid://d4i6w8w8jld3d"]
 
 [ext_resource type="Script" uid="uid://cb81oehioy1sr" path="res://Scripts/UI/HeroPanelContainer.cs" id="1_u8h0k"]
 [ext_resource type="Texture2D" uid="uid://du76vrdfhckkd" path="res://Graphics/Icons/Population/resized faction leader icon.png" id="2_kbo0x"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://d11kxklcymkx8" path="res://Graphics/Heroes/Aide Box Scavenge 26x26.svg" id="5_w17qn"]
 [ext_resource type="Texture2D" uid="uid://f2mjv4an23g7" path="res://Graphics/Heroes/Aide Box Work 26x26.svg" id="6_18qnw"]
 [ext_resource type="Texture2D" uid="uid://bsis4q8s0yeye" path="res://Graphics/Heroes/Aide Box Explore 26x26.svg" id="7_18qnw"]
+[ext_resource type="Texture2D" uid="uid://cie0xxbcq8aqu" path="res://Graphics/Heroes/Aide Box Build 26x26.svg" id="7_m61kt"]
 [ext_resource type="Texture2D" uid="uid://be0fr5imc4ox5" path="res://Graphics/Heroes/Army Box Muster 26x26.svg" id="9_nlplk"]
 [ext_resource type="Texture2D" uid="uid://toeud0ofktrk" path="res://Graphics/Heroes/Army Box Train 26x26.svg" id="10_m61kt"]
 
@@ -25,7 +26,7 @@ heroListButton = NodePath("Buttons HBoxContainer/Hero List Button")
 spawnHeroButton = NodePath("Buttons HBoxContainer/Spawn CheckButton")
 aideActivitiesHboxContainer = NodePath("VBoxContainer/Aide Activites HBoxContainer")
 armyActivitiesHboxContainer = NodePath("VBoxContainer/Army Activites HBoxContainer")
-heroCheckBoxes = [NodePath("VBoxContainer/Aide Activites HBoxContainer/Scavenge CheckBox"), NodePath("VBoxContainer/Aide Activites HBoxContainer/Work CheckBox"), NodePath("VBoxContainer/Aide Activites HBoxContainer/Research CheckBox"), NodePath("VBoxContainer/Aide Activites HBoxContainer/Explore CheckBox")]
+heroCheckBoxes = [NodePath("VBoxContainer/Aide Activites HBoxContainer/Scavenge CheckBox"), NodePath("VBoxContainer/Aide Activites HBoxContainer/Work CheckBox"), NodePath("VBoxContainer/Aide Activites HBoxContainer/Build CheckBox"), NodePath("VBoxContainer/Aide Activites HBoxContainer/Research CheckBox"), NodePath("VBoxContainer/Aide Activites HBoxContainer/Explore CheckBox")]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -68,7 +69,6 @@ texture = ExtResource("3_qqxdl")
 stretch_mode = 2
 
 [node name="Aide Activites HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-visible = false
 layout_mode = 2
 
 [node name="Scavenge CheckBox" type="CheckBox" parent="VBoxContainer/Aide Activites HBoxContainer"]
@@ -87,6 +87,13 @@ tooltip_text = "WORD_WORK"
 focus_mode = 0
 icon = ExtResource("6_18qnw")
 
+[node name="Build CheckBox" type="CheckBox" parent="VBoxContainer/Aide Activites HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+tooltip_text = "WORD_BUILD"
+focus_mode = 0
+icon = ExtResource("7_m61kt")
+
 [node name="Research CheckBox" type="CheckBox" parent="VBoxContainer/Aide Activites HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -102,20 +109,19 @@ focus_mode = 0
 icon = ExtResource("7_18qnw")
 
 [node name="Army Activites HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-visible = false
 layout_mode = 2
 
 [node name="Muster CheckBox" type="CheckBox" parent="VBoxContainer/Army Activites HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-tooltip_text = "WORD_EXPLORE"
+tooltip_text = "WORD_MUSTER"
 focus_mode = 0
 icon = ExtResource("9_nlplk")
 
 [node name="Train CheckBox" type="CheckBox" parent="VBoxContainer/Army Activites HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-tooltip_text = "WORD_EXPLORE"
+tooltip_text = "WORD_TRAIN"
 focus_mode = 0
 icon = ExtResource("10_m61kt")
 
@@ -143,12 +149,15 @@ focus_mode = 0
 [connection signal="mouse_entered" from="VBoxContainer/Aide Activites HBoxContainer/Work CheckBox" to="." method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="VBoxContainer/Aide Activites HBoxContainer/Work CheckBox" to="." method="OnMouseExitedUI"]
 [connection signal="pressed" from="VBoxContainer/Aide Activites HBoxContainer/Work CheckBox" to="." method="HeroActivitiesCheckBoxPressed" binds= [1]]
+[connection signal="mouse_entered" from="VBoxContainer/Aide Activites HBoxContainer/Build CheckBox" to="." method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="VBoxContainer/Aide Activites HBoxContainer/Build CheckBox" to="." method="OnMouseExitedUI"]
+[connection signal="pressed" from="VBoxContainer/Aide Activites HBoxContainer/Build CheckBox" to="." method="HeroActivitiesCheckBoxPressed" binds= [2]]
 [connection signal="mouse_entered" from="VBoxContainer/Aide Activites HBoxContainer/Research CheckBox" to="." method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="VBoxContainer/Aide Activites HBoxContainer/Research CheckBox" to="." method="OnMouseExitedUI"]
-[connection signal="pressed" from="VBoxContainer/Aide Activites HBoxContainer/Research CheckBox" to="." method="HeroActivitiesCheckBoxPressed" binds= [2]]
+[connection signal="pressed" from="VBoxContainer/Aide Activites HBoxContainer/Research CheckBox" to="." method="HeroActivitiesCheckBoxPressed" binds= [3]]
 [connection signal="mouse_entered" from="VBoxContainer/Aide Activites HBoxContainer/Explore CheckBox" to="." method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="VBoxContainer/Aide Activites HBoxContainer/Explore CheckBox" to="." method="OnMouseExitedUI"]
-[connection signal="pressed" from="VBoxContainer/Aide Activites HBoxContainer/Explore CheckBox" to="." method="HeroActivitiesCheckBoxPressed" binds= [3]]
+[connection signal="pressed" from="VBoxContainer/Aide Activites HBoxContainer/Explore CheckBox" to="." method="HeroActivitiesCheckBoxPressed" binds= [4]]
 [connection signal="mouse_entered" from="VBoxContainer/Army Activites HBoxContainer/Muster CheckBox" to="." method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="VBoxContainer/Army Activites HBoxContainer/Muster CheckBox" to="." method="OnMouseExitedUI"]
 [connection signal="mouse_entered" from="VBoxContainer/Army Activites HBoxContainer/Train CheckBox" to="." method="OnMouseEnteredUI"]

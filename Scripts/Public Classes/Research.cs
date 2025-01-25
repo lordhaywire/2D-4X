@@ -49,7 +49,7 @@ namespace PlayerSpace
             foreach (PopulationData populationData in populationDataList)
             {
                 populationData.passiveResearchItemData = GetResearchByInterest(populationData);
-                populationData.passiveResearchItemData ??= GetResearchByActivity(populationData);
+                populationData.passiveResearchItemData ??= GetPassiveResearchByActivity(populationData);
                 populationData.passiveResearchItemData ??= GetLowestTierRandomResearch(populationData.factionData);
                 if (populationData.passiveResearchItemData != null)
                 {
@@ -85,7 +85,7 @@ namespace PlayerSpace
         /// </summary>
         /// <param name="populationData"></param>
         /// <returns></returns>
-        private static ResearchItemData GetResearchByActivity(PopulationData populationData)
+        private static ResearchItemData GetPassiveResearchByActivity(PopulationData populationData)
         {
             ResearchItemData whatPopulationIsResearching;
             switch (populationData.activity)
@@ -110,7 +110,8 @@ namespace PlayerSpace
                     = GetRandomResearchByInterestType(populationData.factionData
                     , populationData.currentCountyImprovement.interestData.interestType);
                     break;
-                // If they are idle, scavenging or moving they get random research.
+                // If they are idle, scavenging, exploring or moving they get random research.
+                case AllEnums.Activities.Explore:
                 case AllEnums.Activities.Scavenge:
                 case AllEnums.Activities.Idle:
                 case AllEnums.Activities.Move:

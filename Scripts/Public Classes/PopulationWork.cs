@@ -53,7 +53,7 @@ public class PopulationWork
             switch (populationData.activity)
             {
                 case AllEnums.Activities.Scavenge:
-                    //GD.Print($"{populationData.firstName} {populationData.lastName} is generating scavenged resources.");
+                    GD.Print($"{populationData.firstName} {populationData.lastName} is generating scavenged resources.");
                     // Skill learning is done in the GenerateScavengedResources.
                     Banker.GenerateScavengedResources(countyData, populationData);
 
@@ -75,7 +75,6 @@ public class PopulationWork
                     SkillData.CheckLearning(populationData, true);
                     break;
                 case AllEnums.Activities.Work:
-
                     // Retrieve the current county improvement for the population.
                     CountyImprovementData countyImprovementData = populationData.currentCountyImprovement;
 
@@ -166,12 +165,12 @@ public class PopulationWork
         //GD.Print($"{countyData.countyName} Someone is working at {populationData.currentCountyImprovement.improvementName}");
         populationData.currentCountyImprovement.allDailyWorkAmountAtImprovementCompleted
             += GenerateWorkAmountWithSkillCheck(populationData);
-        /*
+        
         GD.Print($"{populationData.location}: " +
             $"{populationData.currentCountyImprovement.improvementName}: " +
             $"All Daily {populationData.activity} Amount At Improvement Completed: "
             + populationData.currentCountyImprovement.allDailyWorkAmountAtImprovementCompleted);
-        */
+        
     }
 
     /// <summary>

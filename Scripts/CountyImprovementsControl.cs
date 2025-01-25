@@ -33,6 +33,7 @@ public partial class CountyImprovementsControl : Control
         {
             Clock.Instance.UnpauseTime();
             PlayerControls.Instance.AdjustPlayerControls(true);
+            CountyInfoControl.Instance.UpdateEverything();
         }
     }
 

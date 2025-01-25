@@ -10,7 +10,7 @@
 [sub_resource type="Resource" id="Resource_kdctx"]
 script = ExtResource("4_agw8b")
 workAmountAfterSkillCheck = 0
-workCost = 0.02
+workCost = 0
 workAmount = 0
 todaysGoodsAmountGenerated = 0
 averageDailyAmountGenerated = 0.0
@@ -20,7 +20,7 @@ AverageDailyGoodsAmountGenerated = 0.0
 [sub_resource type="Resource" id="Resource_mvq14"]
 script = ExtResource("4_agw8b")
 workAmountAfterSkillCheck = 0
-workCost = 0.02
+workCost = 0
 workAmount = 0
 todaysGoodsAmountGenerated = 0
 averageDailyAmountGenerated = 0.0

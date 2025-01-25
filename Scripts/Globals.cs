@@ -169,7 +169,7 @@ public partial class Globals : Node
     public void UpdateSelectedHero()
     {
         PlayerUICanvas.Instance.selectedHeroPanelContainer.populationData = selectedCountyPopulation;
-        CountyInfoControl.Instance.UpdateHeroInfo(PlayerUICanvas.Instance.selectedHeroPanelContainer);
+        CountyInfoControl.UpdateHeroInfo(PlayerUICanvas.Instance.selectedHeroPanelContainer);
     }
 
     public CountyData GetCountyDataFromLocationID(int location)

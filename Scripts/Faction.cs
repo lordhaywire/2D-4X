@@ -21,12 +21,12 @@ namespace PlayerSpace
 
         private void Weekly()
         {
-            GD.PrintRich($"[rainbow]Faction : Weekly!!!!!");
+            //GD.PrintRich($"[rainbow]Faction : Weekly!!!!!");
         }
 
         private void EndOfDay()
         {
-            GD.PrintRich($"[rainbow]Faction : EndOfDay!!!!!");
+            //GD.PrintRich($"[rainbow]Faction : EndOfDay!!!!!");
             Banker banker = new();
 
             factionData.SubtractFactionResources();

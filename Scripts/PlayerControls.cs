@@ -170,6 +170,7 @@ namespace PlayerSpace
                         $"{TranslationServer.Translate("PHRASE_IS_RETREATING")}.");
                 }
             }
+            CountyInfoControl.Instance.UpdateEverything();
 
         }
 

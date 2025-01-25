@@ -25,11 +25,13 @@ namespace PlayerSpace
             //GD.Print("Assign Token Textures: " + token.populationData.firstName + token.populationData.IsArmyLeader);
             // This is so the AI tokens get the correct textures assigned.
             // I don't know why there isn't an army option in this if statement.
+            /*
             if (heroToken.populationData.factionData != Globals.Instance.playerFactionData)
             {
-                heroToken.sprite.Texture = heroToken.unselectedTexture;
+                heroToken.sprite.Texture = unselectedHeroTexture;
                 return;
             }
+            */
             // We don't actually have 4 different textures, but we will at some point, which is why this is this way.
             switch (heroToken.populationData.HeroType)
             {

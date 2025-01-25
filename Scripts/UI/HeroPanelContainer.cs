@@ -76,9 +76,12 @@ public partial class HeroPanelContainer : PanelContainer
                 populationData.UpdateActivity(AllEnums.Activities.Work);
                 return;
             case 2:
-                populationData.UpdateActivity(AllEnums.Activities.Research);
+                populationData.UpdateActivity(AllEnums.Activities.Build);
                 return;
             case 3:
+                populationData.UpdateActivity(AllEnums.Activities.Research);
+                return;
+            case 4:
                 populationData.UpdateActivity(AllEnums.Activities.Explore);
                 return;
             default:

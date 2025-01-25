@@ -214,3 +214,6 @@ WORD_SCAVENGE,Scavenge,Recoger la basura
 ACTIVITY_EXPLORE_NAME,Explore,Explorar
 ACTIVITY_EXPLORE_DESCRIPTION,Exploring a county,Explorando un condado
 ACTIVITY_EXPLORE_TOOLTIP,Exploring a county,Explorando un condado
+WORD_BUILD,Build,Construir
+WORD_TRAIN,Train,Entrenar
+WORD_MUSTER,Muster,Patrón

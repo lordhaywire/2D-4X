@@ -98,7 +98,7 @@ public partial class County : Node2D
 
     private void StartDay()
     {
-        GD.PrintRich($"[rainbow]County : StartOfDay!!!!!");
+        //GD.PrintRich($"[rainbow]County : StartOfDay!!!!!");
 
         // Prioritized County Improvements needs to go first.
         // County Improvements gather goods for their stockpile.

@@ -130,12 +130,14 @@ namespace PlayerSpace
                         EventLog.Instance.AddLog($"{Tr(countyImprovementData.improvementName)} {Tr("PHRASE_HAS_BEEN_COMPLETED")}.");
                     }
 
-                    GD.Print($"Under Construction Improvements - Checking if done : " +
-                        $"{countyImprovementData.improvementName} : {countyImprovementData.status}");
+                    //GD.Print($"Under Construction Improvements - Checking if done : " +
+                    //    $"{countyImprovementData.improvementName} : {countyImprovementData.status}");
                 }
             }
             // Move the county improvement to the correct list and remove it from the old list.
             MoveCountyImprovementToCompletedList(completedImprovements);
+            // Refresh the panel so that heros checkboxes are enabled or disabled.
+            CountyInfoControl.Instance.UpdateEverything();
         }
 
         public void RemoveResourceFromAvailableCountyTotals(AllEnums.CountyGoodType resourceType, int amount)

@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq;
 
 
 namespace PlayerSpace
@@ -149,6 +150,8 @@ namespace PlayerSpace
                 // Change color of panel to the faction color.
                 heroPrefab.SelfModulate = populationData.factionData.factionColor;
 
+                CheckForAvailableActivities(heroPrefab);
+
                 // Check to see if the hero is part of the player's faction to determine what to show.
                 // Once we add the ability for heroes to do things in enemy faction counties we will change this.
                 // Currently we are just making it so that the heroes Activities boxes are hidden.
@@ -190,6 +193,42 @@ namespace PlayerSpace
             }
         }
 
+        private void CheckForAvailableActivities(HeroPanelContainer heroPrefab)
+        {
+            DisableMostActivityCheckboxes(heroPrefab);
+            foreach (CountyImprovementData countyImprovementData in countyData.completedCountyImprovements)
+            {
+                // Work
+                if (countyImprovementData.maxWorkers > 0
+                    && countyImprovementData.factionResourceType != AllEnums.FactionGoodType.Research)
+                {
+                    heroPrefab.heroCheckBoxes[1].Disabled = false;
+                }
+            }
+            // Build
+            if (countyData.underConstructionCountyImprovements.Count > 0)
+            {
+                heroPrefab.heroCheckBoxes[2].Disabled = false;
+            }
+        }
+
+        /// <summary>
+        /// Disables all checkboxes except scavenge.
+        /// </summary>
+        /// <param name="heroPrefab"></param>
+        private void DisableMostActivityCheckboxes(HeroPanelContainer heroPrefab)
+        {
+            foreach (CheckBox checkBox in heroPrefab.heroCheckBoxes)
+            {
+                if (checkBox != heroPrefab.heroCheckBoxes[0]
+                    && checkBox != heroPrefab.heroCheckBoxes[3]
+                    && checkBox != heroPrefab.heroCheckBoxes[4])
+                {
+                    checkBox.Disabled = true;
+                }
+            }
+        }
+
         private void PopulateActivityHboxes(PopulationData populationData, HeroPanelContainer heroPrefab)
         {
             switch (populationData.activity)
@@ -200,18 +239,19 @@ namespace PlayerSpace
                 case AllEnums.Activities.Work:
                     heroPrefab.heroCheckBoxes[1].ButtonPressed = true;
                     return;
-                case AllEnums.Activities.Research:
+                case AllEnums.Activities.Build:
                     heroPrefab.heroCheckBoxes[2].ButtonPressed = true;
                     return;
-                case AllEnums.Activities.Explore:
+                case AllEnums.Activities.Research:
                     heroPrefab.heroCheckBoxes[3].ButtonPressed = true;
                     return;
-
-                // We need to add Build once the checkbox is in play.
+                case AllEnums.Activities.Explore:
+                    heroPrefab.heroCheckBoxes[4].ButtonPressed = true;
+                    return;
             }
         }
 
-        public void UpdateHeroInfo(HeroPanelContainer heroPrefab)
+        public static void UpdateHeroInfo(HeroPanelContainer heroPrefab)
         {
             heroPrefab.heroNameLabel.Text = $"{heroPrefab.populationData.firstName} {heroPrefab.populationData.lastName}";
 
