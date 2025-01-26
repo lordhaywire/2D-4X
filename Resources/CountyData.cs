@@ -35,6 +35,7 @@ namespace PlayerSpace
         [Export] public Godot.Collections.Array<PopulationData> deadPeopleList = [];
 
         List<PopulationData> possibleWorkers = []; // List of all the idle, helpful and loyal workers for that day.
+        [Export] public Godot.Collections.Array<PopulationData> prioritizedWorkers = [];
         readonly List<PopulationData> workersToRemoveFromPossibleWorkers = []; // List to collect county populations to be removed from the possibleWorkers.
 
         public List<Button> spawnedTokenButtons = [];
@@ -115,8 +116,17 @@ namespace PlayerSpace
                     foreach (PopulationData populationData in countyImprovementData.populationAtImprovement)
                     {
                         // The population would be on this list because they would be doing construction.
-                        populationData.UpdateActivity(AllEnums.Activities.Idle);
-                        populationData.UpdateCurrentCountyImprovement(null);
+                        if(populationData.isHero != true)
+                        {
+                            populationData.UpdateActivity(AllEnums.Activities.Idle);
+                            populationData.UpdateCurrentCountyImprovement(null);
+                        }
+                        else
+                        {
+                            populationData.UpdateActivity(AllEnums.Activities.Work);
+                            populationData.UpdateCurrentCountyImprovement(null);
+
+                        }
                     }
                     // Set countyImprovement status to producing.
                     countyImprovementData.SetCountyImprovementComplete(this);
@@ -307,7 +317,7 @@ namespace PlayerSpace
 
         public void FindIdlePopulation()
         {
-            possibleWorkers.Clear(); // Clear the list at the start of each county.
+            // Why is this here?
             workersToRemoveFromPossibleWorkers.Clear();
             // Go through each person in the county.
             foreach (PopulationData populationData in populationDataList)
@@ -317,15 +327,20 @@ namespace PlayerSpace
                     && populationData.CheckWillWorkLoyalty() == true
                     && populationData.CheckForPerk(AllEnums.Perks.Unhelpful) == false)
                 {
-                    // GD.Print($"{countyName}: {populationData.firstName} is idle, is loyal and is not unhelpful.");
+                    GD.Print($"{countyName}: {populationData.firstName} is idle, is loyal and is not unhelpful.");
                     possibleWorkers.Add(populationData);
                 }
             }
         }
 
+        public void ClearPossibleWorkersList()
+        {
+            possibleWorkers.Clear(); // Clear the list at the start of each day.
+        }
+
         public bool CheckIfImprovementTypeNeedsWorkers(CountyImprovementData countyImprovementData)
         {
-            if(countyImprovementData.CheckIfResearchImprovement() == true)
+            if (countyImprovementData.CheckIfResearchImprovement() == true)
             {
                 return true;
             }
@@ -342,19 +357,19 @@ namespace PlayerSpace
             //GD.Print($"Completed County Improvements: {completedCountyImprovements.Count}");
             foreach (CountyImprovementData countyImprovementData in completedCountyImprovements)
             {
-                if (CheckIfImprovementTypeNeedsWorkers(countyImprovementData) == false 
+                if (CheckIfImprovementTypeNeedsWorkers(countyImprovementData) == false
                     || countyImprovementData.CheckIfStatusLowStockpiledGoods() == true)
                 {
                     continue;
                 }
-                
+
                 foreach (PopulationData populationData in possibleWorkers)
                 {
                     // If they have the preferred skill, they are added to the county improvement
                     // and marked for removal from the possibleWorkers list.
                     // It needs to check if workers full here, so that it doesn't add extra people to the 
                     // county improvement.
-                    if(countyImprovementData.CheckIfWorkersFull() == false)
+                    if (countyImprovementData.CheckIfWorkersFull() == false)
                     {
                         if (populationData.preferredSkill.skill == countyImprovementData.workSkill)
                         {
@@ -381,7 +396,7 @@ namespace PlayerSpace
             //GD.Print("Possible Workers List Count: " + possibleWorkers.Count);
             foreach (CountyImprovementData countyImprovementData in completedCountyImprovements)
             {
-                if (CheckIfImprovementTypeNeedsWorkers(countyImprovementData) == false 
+                if (CheckIfImprovementTypeNeedsWorkers(countyImprovementData) == false
                     || countyImprovementData.CheckIfStatusLowStockpiledGoods() == true)
                 {
                     GD.Print("Low Stockpiled Goods, or the improvement is storage or research.");
@@ -690,6 +705,10 @@ namespace PlayerSpace
             //GD.Print($"{populationData.firstName} happiness: {populationData.Happiness}");
         }
 
+        public void AddPopulationDataToPossibleWorkersList(PopulationData populationData)
+        {
+            possibleWorkers.Add(populationData);
+        }
         public void MoveCountyImprovementToCompletedList(List<CountyImprovementData> countyImprovementDataToRemove)
         {
             foreach (CountyImprovementData countyImprovementData in countyImprovementDataToRemove)
@@ -743,9 +762,16 @@ namespace PlayerSpace
             CheckForPrioritizedImprovements(underConstructionCountyImprovements);
             // Check finished improvements
             CheckForPrioritizedImprovements(completedCountyImprovements);
+
+            ClearPrioritizedWorkers();
         }
 
-        private void CheckForPrioritizedImprovements(Godot.Collections.Array<CountyImprovementData> countyImprovements)
+        private void ClearPrioritizedWorkers()
+        {
+            prioritizedWorkers.Clear();
+        }
+
+        public void CheckForPrioritizedImprovements(Godot.Collections.Array<CountyImprovementData> countyImprovements)
         {
             foreach (CountyImprovementData countyImprovementData in countyImprovements)
             {
@@ -769,6 +795,56 @@ namespace PlayerSpace
         /// possible workers list.
         /// </summary>
         /// <param name="countyImprovementData"></param>
+        /// 
+        private void AssignWorkersToCountyImprovement(CountyImprovementData countyImprovementData)
+        {
+            // Determine activity and max workers based on status
+            AllEnums.Activities activity = countyImprovementData.status == AllEnums.CountyImprovementStatus.UnderConstruction
+                ? AllEnums.Activities.Build
+                : AllEnums.Activities.Work;
+
+            int maxWorkers = countyImprovementData.status == AllEnums.CountyImprovementStatus.UnderConstruction
+                ? countyImprovementData.adjustedMaxBuilders
+                : countyImprovementData.adjustedMaxWorkers;
+
+            // Separate heroes from the general population
+            List<PopulationData> heroes = possibleWorkers.Where(pd => pd.isHero).ToList();
+            List<PopulationData> nonHeroes = possibleWorkers.Except(heroes).ToList();
+
+            // Sort non-hero workers by relevant skill
+            nonHeroes = countyImprovementData.status == AllEnums.CountyImprovementStatus.UnderConstruction
+                ? nonHeroes.OrderByDescending(cp => cp.skills[AllEnums.Skills.Construction].skillLevel).ToList()
+                : nonHeroes.OrderByDescending(cp => cp.skills[countyImprovementData.workSkill].skillLevel).ToList();
+
+            // Calculate remaining worker slots
+            int remainingWorkerSlots = maxWorkers - countyImprovementData.populationAtImprovement.Count;
+
+            // Assign heroes first
+            foreach (PopulationData hero in heroes.Take(remainingWorkerSlots))
+            {
+                hero.RemoveFromCountyImprovement();
+                hero.UpdateActivity(activity);
+                UpdateWorkLocation(hero, countyImprovementData);
+                workersToRemoveFromPossibleWorkers.Add(hero);
+                remainingWorkerSlots--;
+            }
+
+            // Assign non-hero workers if there are remaining slots
+            foreach (PopulationData populationData in nonHeroes.Take(remainingWorkerSlots))
+            {
+                populationData.RemoveFromCountyImprovement();
+                populationData.UpdateActivity(activity);
+                UpdateWorkLocation(populationData, countyImprovementData);
+                workersToRemoveFromPossibleWorkers.Add(populationData);
+            }
+
+            RemoveWorkersFromPossibleWorkers();
+
+            GD.Print($"{countyName} : {countyImprovementData.improvementName} Population At Improvement: "
+                + countyImprovementData.populationAtImprovement.Count);
+        }
+
+        /*
         private void AssignWorkersToCountyImprovement(CountyImprovementData countyImprovementData)
         {
             // Determine activity and max workers based on status
@@ -786,8 +862,8 @@ namespace PlayerSpace
                 : [.. possibleWorkers.OrderByDescending(cp => cp.skills[countyImprovementData.workSkill].skillLevel)];
 
             int remainingWorkerSlots = maxWorkers - countyImprovementData.populationAtImprovement.Count;
-             GD.Print($"{countyName} : {countyImprovementData.improvementName} Population At Improvement: "
-            + countyImprovementData.populationAtImprovement.Count);
+            GD.Print($"{countyName} : {countyImprovementData.improvementName} Population At Improvement: "
+           + countyImprovementData.populationAtImprovement.Count);
 
             // Assign sorted workers if there is room
             // This is removing them from any possible county improvement they where assigned to.
@@ -798,9 +874,9 @@ namespace PlayerSpace
                 UpdateWorkLocation(populationData, countyImprovementData);
                 workersToRemoveFromPossibleWorkers.Add(populationData);
             }
-            
             RemoveWorkersFromPossibleWorkers();
         }
+        */
 
         /// <summary>
         /// Get all the people who are helpful and loyal for prioritized construction and work.
@@ -814,8 +890,28 @@ namespace PlayerSpace
                 if (populationData.CheckWillWorkLoyalty() == true
                     && populationData.CheckForPerk(AllEnums.Perks.Unhelpful) == false)
                 {
-                    // GD.Print($"{countyName}: {populationData.firstName} is loyal and is helpful.");
-                    possibleWorkers.Add(populationData);
+                    GD.Print($"Prioritized: {countyName}: {populationData.firstName} is loyal and is helpful.");
+                    prioritizedWorkers.Add(populationData);
+                }
+            }
+
+            foreach (PopulationData populationData in possibleWorkers)
+            {
+                if (populationData.isHero)
+                {
+                    GD.Print($"{populationData.firstName} is a hero and in the possible workers list.");
+                }
+            }
+        }
+
+        public void AssignWorkingHeroes()
+        {
+            foreach (PopulationData populationData in heroesInCountyList)
+            { 
+                if(populationData.activity == AllEnums.Activities.Work)
+                {
+                    AddPopulationDataToPossibleWorkersList(populationData);
+                    GD.Print($"{populationData.firstName} has added to the possbile workers list.");
                 }
             }
         }

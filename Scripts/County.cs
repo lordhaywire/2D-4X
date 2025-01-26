@@ -38,14 +38,14 @@ public partial class County : Node2D
 
     private void Weekly()
     {
-        GD.PrintRich($"[rainbow]County : Weekly!!!!!");
+        //GD.PrintRich($"[rainbow]County : Weekly!!!!!");
         // Check loyalty and update work status if necessary.
         PopulationWork.WorkWeekOverForPopulation(countyData.populationDataList);
     }
 
     private void EndOfDay()
     {
-        GD.PrintRich($"[rainbow]County : EndOfDay!!!!!");
+        //GD.PrintRich($"[rainbow]County : EndOfDay!!!!!");
 
         CountyAI countyAI = new();
 
@@ -94,6 +94,8 @@ public partial class County : Node2D
         {
             CountyInfoControl.Instance.UpdateCountyAvailableResources();
         }
+
+        countyData.ClearPossibleWorkersList();
     }
 
     private void StartDay()
@@ -108,6 +110,9 @@ public partial class County : Node2D
         {
             Haulmaster.GatherStockpileGoods(countyData, countyImprovementData);
         }
+
+        // Add heroes to both prioritized workers and possible workers.
+        countyData.AssignWorkingHeroes();
 
         // Assign people to the prioritized county improvements.
         countyData.AssignPeopleToPrioritizedImprovements();

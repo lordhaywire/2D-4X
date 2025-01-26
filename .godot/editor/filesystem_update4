@@ -3,6 +3,7 @@ res://Resources/County Improvements/Converted Warehouse.tres
 res://Resources/County Improvements/FishersShed.tres
 res://Resources/County Improvements/Garden.tres
 res://Resources/County Improvements/ScoutingEquipmentWorkshop.tres
+res://Resources/County Improvements/ResearchersOffice.tres
 res://Prefabs/HeroToken.tscn
 res://Scenes/MapEditor.tscn
 res://UIScenes/HeroListCheckBoxPanelContainer.tscn
@@ -95,11 +96,4 @@ res://Scripts/AllAttributes.cs
 res://Scripts/LoadMaps.cs
 res://Scripts/UI/ResearchDescriptionPanel.cs
 res://Scripts/Globals.cs
-res://Localization/2D 4X Main Text.en.translation
-res://Localization/2D 4X Main Text.es.translation
-res://Resources/County Improvements/ResearchersOffice.tres
-res://Scripts/Public Classes/Research.cs
-res://Resources/Factions/AIFaction1.tres
-res://Resources/Factions/AIFaction2.tres
-res://Resources/Factions/AIFaction3.tres
-res://Resources/Factions/PlayerFaction.tres
+res://Scripts/Public Classes/PopulationWork.cs

@@ -68,7 +68,11 @@ namespace PlayerSpace
         // This update everything needs to be looked at.
         public void UpdateEverything()
         {
-            countyData = Globals.Instance.SelectedLeftClickCounty.countyData;
+            countyData = Globals.Instance.SelectedLeftClickCounty?.countyData;
+            if(countyData == null)
+            {
+                return;
+            }
             CheckForOwnership();
             UpdateNameLabels();
             UpdateCountyAvailableResources();

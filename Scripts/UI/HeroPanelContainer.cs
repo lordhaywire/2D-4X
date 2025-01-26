@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 namespace PlayerSpace;
 
@@ -76,7 +77,8 @@ public partial class HeroPanelContainer : PanelContainer
                 populationData.UpdateActivity(AllEnums.Activities.Work);
                 return;
             case 2:
-                populationData.UpdateActivity(AllEnums.Activities.Build);
+                populationData.UpdateActivity(AllEnums.Activities.Work);
+                //AssignBuildingCountyImprovement();
                 return;
             case 3:
                 populationData.UpdateActivity(AllEnums.Activities.Research);
@@ -88,6 +90,14 @@ public partial class HeroPanelContainer : PanelContainer
                 GD.Print("Some hero activity doesn't exist.");
                 return;
         }
+    }
+
+    private void AssignBuildingCountyImprovement()
+    {
+        County county = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
+        CountyData countyData = county.countyData;
+        // Add hero to possible workers list.
+        countyData.AddPopulationDataToPossibleWorkersList(populationData);
     }
 
     // This needs to be moved into the switch above.

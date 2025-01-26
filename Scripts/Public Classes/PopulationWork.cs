@@ -28,8 +28,8 @@ public class PopulationWork
         foreach (KeyValuePair<GoodData, int> inputGood in countyImprovementData.uniqueInputGoods)
         {
             int stockpileAmount = countyImprovementData.countyStockpiledGoods[inputGood.Key.countyGoodType];
-            GD.Print($"{populationData.location} Input Good vs Stockpile amount: {inputGood.Value} " +
-                $"vs {stockpileAmount}");
+            //GD.Print($"{populationData.location} Input Good vs Stockpile amount: {inputGood.Value} " +
+            //    $"vs {stockpileAmount}");
             if (inputGood.Value > stockpileAmount)
             {
                 hasEnoughInputGoods = false;
@@ -75,6 +75,12 @@ public class PopulationWork
                     SkillData.CheckLearning(populationData, true);
                     break;
                 case AllEnums.Activities.Work:
+
+                    // If the hero hasn't been assigned a currentCountyImprovement yet, get out of here.
+                    if(populationData.currentCountyImprovement == null)
+                    {
+                        break;
+                    }
                     // Retrieve the current county improvement for the population.
                     CountyImprovementData countyImprovementData = populationData.currentCountyImprovement;
 
@@ -113,7 +119,7 @@ public class PopulationWork
                     //PopulationAI.KeepResearching(populationData);
                     break;
                 case AllEnums.Activities.Idle:
-                    // Give idle people their bonus happiness.
+                    // Give idle people their bonus happiness, this includes heroes that are idle.
                     populationData.AddRandomHappiness(5);
                     break;
             }
