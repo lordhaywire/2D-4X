@@ -72,6 +72,7 @@ public partial class HeroPanelContainer : PanelContainer
         {
             case 0:
                 populationData.UpdateActivity(AllEnums.Activities.Scavenge);
+                populationData.currentCountyImprovement = null;
                 return;
             case 1:
                 populationData.UpdateActivity(AllEnums.Activities.Work);

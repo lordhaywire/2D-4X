@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("2d 4x")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ad68cf1df0c31f5353747aea6ee36e7b09cf946d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7d2cbd44a279ad1700b02f0ec8b8747f7dbfa6dc")]
 [assembly: System.Reflection.AssemblyProductAttribute("2d 4x")]
 [assembly: System.Reflection.AssemblyTitleAttribute("2d 4x")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -908,7 +908,8 @@ namespace PlayerSpace
         {
             foreach (PopulationData populationData in heroesInCountyList)
             { 
-                if(populationData.activity == AllEnums.Activities.Work)
+                if(populationData.activity == AllEnums.Activities.Work 
+                    && populationData.currentCountyImprovement == null)
                 {
                     AddPopulationDataToPossibleWorkersList(populationData);
                     GD.Print($"{populationData.firstName} has added to the possbile workers list.");
