@@ -184,13 +184,13 @@ public partial class CountyImprovementData : Resource
         }
         return false;
     }
-    public void AddPopulationToCountyImprovementList(PopulationData populationData)
+    public void AddPopulationToPopulationAtImprovementList(PopulationData populationData)
     {
         // GD.Print($"{populationData.firstName} was added to {improvementName}'s list {populationAtImprovement.Count}.");
         populationAtImprovement.Add(populationData);
     }
 
-    public void RemovePopulationFromCountyImprovementList(PopulationData populationData)
+    public void RemovePopulationFromPopulationAtImprovementList(PopulationData populationData)
     {
         populationAtImprovement.Remove(populationData);
     }

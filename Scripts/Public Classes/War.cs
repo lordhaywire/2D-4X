@@ -1,10 +1,8 @@
+namespace PlayerSpace;
 
-namespace PlayerSpace
+public class War
 {
-    public class War
-    {
-        public FactionData aggressorFactionData;
-        public FactionData defenderFactionData;
-        //public List<Battle> battles = new();
-    }
+    public FactionData aggressorFactionData;
+    public FactionData defenderFactionData;
+    //public List<Battle> battles = new();
 }

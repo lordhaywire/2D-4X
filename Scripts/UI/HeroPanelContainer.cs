@@ -72,6 +72,7 @@ public partial class HeroPanelContainer : PanelContainer
         {
             case 0:
                 populationData.UpdateActivity(AllEnums.Activities.Scavenge);
+                populationData.currentCountyImprovement?.RemovePopulationFromPopulationAtImprovementList(populationData);
                 populationData.currentCountyImprovement = null;
                 return;
             case 1:
@@ -79,7 +80,6 @@ public partial class HeroPanelContainer : PanelContainer
                 return;
             case 2:
                 populationData.UpdateActivity(AllEnums.Activities.Work);
-                //AssignBuildingCountyImprovement();
                 return;
             case 3:
                 populationData.UpdateActivity(AllEnums.Activities.Research);

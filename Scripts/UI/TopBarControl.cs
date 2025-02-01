@@ -1,122 +1,119 @@
 using Godot;
-using System;
-using System.Collections.Generic;
 
-namespace PlayerSpace
+namespace PlayerSpace;
+
+public partial class TopBarControl : Control
 {
-    public partial class TopBarControl : Control
+    public static TopBarControl Instance { get; private set; }
+
+    [Export] private Clock clock;
+    [Export] private Label influenceLabel;
+    [Export] private Label influenceAmountUsed;
+    [Export] private Label moneyLabel;
+    [Export] private Label moneyAmountUsed;
+    [Export] private Label remnantsLabel;
+    [Export] private Label remnantsAmountUsed;
+    [Export] private Label buildingMaterialsLabel;
+    [Export] private Label buildingMaterialsAmountUsed;
+    [Export] private Label equipmentLabel;
+    [Export] private Label equipmentAmountUsed;
+    [Export] private Label foodLabel;
+    [Export] private Label foodAmountUsed;
+
+    FactionData factionData;
+
+    public override void _Ready()
     {
-        public static TopBarControl Instance { get; private set; }
+        Instance = this;
+        factionData = Globals.Instance.playerFactionData;
+        UpdateTopBarGoodLabels();
+    }
 
-        [Export] private Clock clock;
-        [Export] private Label influenceLabel;
-        [Export] private Label influenceAmountUsed;
-        [Export] private Label moneyLabel;
-        [Export] private Label moneyAmountUsed;
-        [Export] private Label remnantsLabel;
-        [Export] private Label remnantsAmountUsed;
-        [Export] private Label buildingMaterialsLabel;
-        [Export] private Label buildingMaterialsAmountUsed;
-        [Export] private Label equipmentLabel;
-        [Export] private Label equipmentAmountUsed;
-        [Export] private Label foodLabel;
-        [Export] private Label foodAmountUsed;
+    public void UpdateTopBarGoodLabels()
+    {
+        //GD.Print("Top Bar expendables have been updated, motherfucker!");
+        UpdateInfluenceMoneyLabels();
+        UpdateUsedInfluenceMoneyLabels();
 
-        FactionData factionData;
-
-        public override void _Ready()
+        if (Globals.Instance.SelectedLeftClickCounty == null)
         {
-            Instance = this;
-            factionData = Globals.Instance.playerFactionData;
-            UpdateTopBarGoodLabels();
+            FactionLevelGoods();
         }
-
-        public void UpdateTopBarGoodLabels()
+        else
         {
-            //GD.Print("Top Bar expendables have been updated, motherfucker!");
-            UpdateInfluenceMoneyLabels();
-            UpdateUsedInfluenceMoneyLabels();
-
-            if (Globals.Instance.SelectedLeftClickCounty == null)
-            {
-                FactionLevelGoods();
-            }
-            else
-            {
-                CountyLevelGoods();
-            }
+            CountyLevelGoods();
         }
+    }
 
-        private void CountyLevelGoods()
-        {
-            UpdateLabelWithCountyAmount();
-            UpdateLabelWithCountyUsedAmount();
-        }
+    private void CountyLevelGoods()
+    {
+        UpdateLabelWithCountyAmount();
+        UpdateLabelWithCountyUsedAmount();
+    }
 
-        private void UpdateLabelWithCountyAmount()
-        {
-            CountyData countyData = Globals.Instance.SelectedLeftClickCounty.countyData;
+    private void UpdateLabelWithCountyAmount()
+    {
+        CountyData countyData = Globals.Instance.SelectedLeftClickCounty.countyData;
 
-            foodLabel.Text = $"{countyData.CountFactionResourceOfType(AllEnums.FactionGoodType.Food)}";
-            remnantsLabel.Text = $"{countyData.CountFactionResourceOfType(AllEnums.FactionGoodType.Remnants)}";
-            buildingMaterialsLabel.Text = $"{countyData.CountFactionResourceOfType(AllEnums.FactionGoodType.BuildingMaterial)}";
-            equipmentLabel.Text = $"{countyData.CountFactionResourceOfType(AllEnums.FactionGoodType.Equipment)}";
-        }
-        private void UpdateLabelWithCountyUsedAmount()
-        {
-            CountyData countyData = Globals.Instance.SelectedLeftClickCounty.countyData;
+        foodLabel.Text = $"{countyData.CountFactionResourceOfType(AllEnums.FactionGoodType.Food)}";
+        remnantsLabel.Text = $"{countyData.CountFactionResourceOfType(AllEnums.FactionGoodType.Remnants)}";
+        buildingMaterialsLabel.Text = $"{countyData.CountFactionResourceOfType(AllEnums.FactionGoodType.BuildingMaterial)}";
+        equipmentLabel.Text = $"{countyData.CountFactionResourceOfType(AllEnums.FactionGoodType.Equipment)}";
+    }
+    private void UpdateLabelWithCountyUsedAmount()
+    {
+        CountyData countyData = Globals.Instance.SelectedLeftClickCounty.countyData;
 
-            foodAmountUsed.Text = $"({countyData.CountUsedFactionResourceOfType(AllEnums.FactionGoodType.Food)})";
-            remnantsAmountUsed.Text = $"({countyData.CountUsedFactionResourceOfType(AllEnums.FactionGoodType.Remnants)})";
-            buildingMaterialsAmountUsed.Text = $"({countyData.CountUsedFactionResourceOfType(AllEnums.FactionGoodType.BuildingMaterial)})";
-            equipmentAmountUsed.Text = $"({countyData.CountUsedFactionResourceOfType(AllEnums.FactionGoodType.Equipment)})";
-        }
+        foodAmountUsed.Text = $"({countyData.CountUsedFactionResourceOfType(AllEnums.FactionGoodType.Food)})";
+        remnantsAmountUsed.Text = $"({countyData.CountUsedFactionResourceOfType(AllEnums.FactionGoodType.Remnants)})";
+        buildingMaterialsAmountUsed.Text = $"({countyData.CountUsedFactionResourceOfType(AllEnums.FactionGoodType.BuildingMaterial)})";
+        equipmentAmountUsed.Text = $"({countyData.CountUsedFactionResourceOfType(AllEnums.FactionGoodType.Equipment)})";
+    }
 
-        private void UpdateInfluenceMoneyLabels()
-        {
-            influenceLabel.Text = factionData.factionGoods[AllEnums.FactionGoodType.Influence].Amount.ToString();
-            moneyLabel.Text = factionData.factionGoods[AllEnums.FactionGoodType.Money].Amount.ToString();
-        }
-        private void UpdateUsedInfluenceMoneyLabels()
-        {
-            influenceAmountUsed.Text
-                = $"({factionData.amountUsedFactionGoods[AllEnums.FactionGoodType.Influence].Amount})";
-            moneyAmountUsed.Text
-                = $"({factionData.amountUsedFactionGoods[AllEnums.FactionGoodType.Money].Amount})";
-        }
+    private void UpdateInfluenceMoneyLabels()
+    {
+        influenceLabel.Text = factionData.factionGoods[AllEnums.FactionGoodType.Influence].Amount.ToString();
+        moneyLabel.Text = factionData.factionGoods[AllEnums.FactionGoodType.Money].Amount.ToString();
+    }
+    private void UpdateUsedInfluenceMoneyLabels()
+    {
+        influenceAmountUsed.Text
+            = $"({factionData.amountUsedFactionGoods[AllEnums.FactionGoodType.Influence].Amount})";
+        moneyAmountUsed.Text
+            = $"({factionData.amountUsedFactionGoods[AllEnums.FactionGoodType.Money].Amount})";
+    }
 
-        private void FactionLevelGoods()
-        {
-            // Count all the county resources and assign them to the faction resource dictionary.
-            factionData.CountAllCountyFactionResources();
-            factionData.CountAllCountyFactionUsedResources();
+    private void FactionLevelGoods()
+    {
+        // Count all the county resources and assign them to the faction resource dictionary.
+        factionData.CountAllCountyFactionResources();
+        factionData.CountAllCountyFactionUsedResources();
 
-            // Update all of the faction labels
-            UpdateLabelsWithFactionAmounts();
+        // Update all of the faction labels
+        UpdateLabelsWithFactionAmounts();
 
-            // Update the used resource amount.
-            UpdateLabelsWithFactionUsedAmounts();
-        }
+        // Update the used resource amount.
+        UpdateLabelsWithFactionUsedAmounts();
+    }
 
-        private void UpdateLabelsWithFactionUsedAmounts()
-        {
-            foodAmountUsed.Text = $"({factionData.amountUsedFactionGoods[AllEnums.FactionGoodType.Food].Amount})";
-            remnantsAmountUsed.Text = $"({factionData.amountUsedFactionGoods[AllEnums.FactionGoodType.Remnants].Amount})";
-            buildingMaterialsAmountUsed.Text = $"({factionData.amountUsedFactionGoods[AllEnums.FactionGoodType.BuildingMaterial].Amount})";
-            equipmentAmountUsed.Text = $"({factionData.amountUsedFactionGoods[AllEnums.FactionGoodType.Equipment].Amount})";
-        }
+    private void UpdateLabelsWithFactionUsedAmounts()
+    {
+        foodAmountUsed.Text = $"({factionData.amountUsedFactionGoods[AllEnums.FactionGoodType.Food].Amount})";
+        remnantsAmountUsed.Text = $"({factionData.amountUsedFactionGoods[AllEnums.FactionGoodType.Remnants].Amount})";
+        buildingMaterialsAmountUsed.Text = $"({factionData.amountUsedFactionGoods[AllEnums.FactionGoodType.BuildingMaterial].Amount})";
+        equipmentAmountUsed.Text = $"({factionData.amountUsedFactionGoods[AllEnums.FactionGoodType.Equipment].Amount})";
+    }
 
-        private void UpdateLabelsWithFactionAmounts()
-        {
-            foodLabel.Text = factionData.factionGoods[AllEnums.FactionGoodType.Food].Amount.ToString();
-            remnantsLabel.Text = factionData.factionGoods[AllEnums.FactionGoodType.Remnants].Amount.ToString();
-            buildingMaterialsLabel.Text = factionData.factionGoods[AllEnums.FactionGoodType.BuildingMaterial].Amount.ToString();
-            equipmentLabel.Text = factionData.factionGoods[AllEnums.FactionGoodType.Equipment].Amount.ToString();
-        }
+    private void UpdateLabelsWithFactionAmounts()
+    {
+        foodLabel.Text = factionData.factionGoods[AllEnums.FactionGoodType.Food].Amount.ToString();
+        remnantsLabel.Text = factionData.factionGoods[AllEnums.FactionGoodType.Remnants].Amount.ToString();
+        buildingMaterialsLabel.Text = factionData.factionGoods[AllEnums.FactionGoodType.BuildingMaterial].Amount.ToString();
+        equipmentLabel.Text = factionData.factionGoods[AllEnums.FactionGoodType.Equipment].Amount.ToString();
+    }
 
-        public void ChangeSpeed(int speed)
-        {
-            clock.ChangeSpeed(speed);
-        }
+    public void ChangeSpeed(int speed)
+    {
+        clock.ChangeSpeed(speed);
     }
 }

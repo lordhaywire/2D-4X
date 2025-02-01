@@ -1,15 +1,15 @@
 # 2D 4X
 
-## Using Godot 4.4.dev5.mono C#
+## Using Godot 4.4.beta2.mono C#
 
 This is the repository containing the open source code for the game creation streams that Lord Haywire does on his KilledByDev [Twitch](https://www.twitch.tv/killedbydev) 
 and [Youtube](https://www.youtube.com/@killedbydev) channels.
 
 The old Unity version is here: [2D-4X Unity](https://github.com/lordhaywire/2D-4X-Unity)
 
-### Adding a county good
+### These are notes for myself.
 
-These are notes for myself.
+#### Adding a county good
 
 1. Create a good type enum.
 
@@ -19,7 +19,7 @@ These are notes for myself.
 
 4. Add the good to the AllCountyResources array, and alphabetize them.
 
-### Construction Good for County Improvement
+#### Construction Good for County Improvement
 
 Goods Construction Cost is a one time fee charged when the county improvement is initially started being built.
 
@@ -29,7 +29,7 @@ Goods Construction Cost is a one time fee charged when the county improvement is
 
 3. Click Add Key/Value Pair
 
-### Output Good to County Improvement
+#### Output Good to County Improvement
 
 1. Drag over good to Output Goods dictionary in inspector.
 
@@ -47,7 +47,7 @@ This needs to be setup correctly in the inspector so the average daily amount ge
 
 MaxWorkers * Global Amount of Daily Work with bonus / work cost = average daily amount generated.
 
-### Input Good to County Improvement
+#### Input Good to County Improvement
 
 Each input good is per worker per day.
 
@@ -57,7 +57,7 @@ Each input good is per worker per day.
 
 3. Click Add Key/Value Pair
 
-### How to Export from Godot
+#### How to Export from Godot
 
 In Godot Project>Export make sure Embed PCK is checked and the Export path goes somewhere that is not in the project
 folder.
@@ -66,7 +66,7 @@ Copy over the map folder from the project to the folder you are Exporting the ga
 
 Click Export Project.
 
-### Thanks to the following people:
+#### Thanks to the following people:
 
 Zkonj
 
@@ -80,6 +80,6 @@ thatguykeedo
 
 fooblaz
 
-#### Other People's Videos
+##### Other People's Videos
 
 [Good Solution Interactive](https://www.youtube.com/watch?v=UtbU2fa4fMM)

@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=8 format=3 uid="uid://bads4woc5toep"]
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=10 format=3 uid="uid://bads4woc5toep"]
 
 [ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/Goods/Wood.tres" id="1_1yts0"]
 [ext_resource type="Texture2D" uid="uid://d38i5xsjnfnfq" path="res://Graphics/County Improvements/fishing-pole.svg" id="1_3xigu"]
+[ext_resource type="Script" uid="uid://cmfu3g7sbgyfx" path="res://Resources/GoodData.cs" id="1_q1pav"]
 [ext_resource type="Resource" uid="uid://bojgmxcwswihv" path="res://Resources/Interests/Biology.tres" id="2_h1ekr"]
 [ext_resource type="Script" uid="uid://blu41dxinr54t" path="res://Resources/CountyImprovementData.cs" id="2_iptt2"]
 [ext_resource type="Resource" uid="uid://c55q8uucl7cqe" path="res://Resources/Goods/Fish.tres" id="5_rxp18"]
 [ext_resource type="Script" uid="uid://b6u77qyvyfqm4" path="res://Resources/ProductionData.cs" id="6_q1pav"]
+[ext_resource type="Script" uid="uid://bvkux0mhx52u8" path="res://Resources/PopulationData.cs" id="7_gpo3t"]
 
 [sub_resource type="Resource" id="Resource_gpo3t"]
 script = ExtResource("6_q1pav")
@@ -28,7 +30,7 @@ improvementName = "IMPROVEMENT_FISHERS_SHED"
 improvementDescription = "IMPROVEMENT_DESCRIPTION_FISHERS_SHED"
 workSkill = 3
 interestData = ExtResource("2_h1ekr")
-goodsConstructionCost = {}
+goodsConstructionCost = Dictionary[ExtResource("1_q1pav"), int]({})
 CurrentAmountOfConstruction = 0
 maxAmountOfConstruction = 10
 maxBuilders = 5
@@ -37,14 +39,14 @@ maxWorkers = 5
 adjustedMaxWorkers = 0
 countyResourceType = 2
 factionResourceType = 3
-outputGoods = {
+outputGoods = Dictionary[ExtResource("1_q1pav"), ExtResource("6_q1pav")]({
 ExtResource("5_rxp18"): SubResource("Resource_gpo3t")
-}
+})
 allDailyWorkAmountAtImprovementCompleted = 0
-uniqueInputGoods = {}
-inputGoods = {
+uniqueInputGoods = Dictionary[ExtResource("1_q1pav"), int]({})
+inputGoods = Dictionary[ExtResource("1_q1pav"), int]({
 ExtResource("1_1yts0"): 1
-}
-countyStockpiledGoods = {}
+})
+countyStockpiledGoods = Dictionary[int, int]({})
 status = 0
-populationAtImprovement = []
+populationAtImprovement = Array[ExtResource("7_gpo3t")]([])

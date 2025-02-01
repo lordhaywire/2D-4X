@@ -28,10 +28,6 @@ namespace PlayerSpace
         {
             GetInput();
             MoveAndSlide();
-            if(Globals.Instance.playerFactionData.factionLeader != null)
-            {
-                GD.Print(Globals.Instance.playerFactionData.factionLeader.activity);
-            }
         }
 
         public void GetInput()

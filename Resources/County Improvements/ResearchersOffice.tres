@@ -1,8 +1,11 @@
-[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=4 format=3 uid="uid://lxjruufeuqa1"]
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=7 format=3 uid="uid://lxjruufeuqa1"]
 
 [ext_resource type="Texture2D" uid="uid://bx2dfaxw8ujc5" path="res://Graphics/County Improvements/Researchers Office County Improvement archive-research.svg" id="1_a1jyh"]
 [ext_resource type="Script" uid="uid://blu41dxinr54t" path="res://Resources/CountyImprovementData.cs" id="1_ga7gf"]
+[ext_resource type="Script" uid="uid://cmfu3g7sbgyfx" path="res://Resources/GoodData.cs" id="1_ig50m"]
 [ext_resource type="Resource" uid="uid://bgy1phaeqjaiv" path="res://Resources/Interests/Information.tres" id="2_1erl4"]
+[ext_resource type="Script" uid="uid://b6u77qyvyfqm4" path="res://Resources/ProductionData.cs" id="4_ah7mh"]
+[ext_resource type="Script" uid="uid://bvkux0mhx52u8" path="res://Resources/PopulationData.cs" id="5_caqfa"]
 
 [resource]
 script = ExtResource("1_ga7gf")
@@ -15,7 +18,7 @@ improvementName = "IMPROVEMENT_RESEARCHERS_OFFICE"
 improvementDescription = "IMPROVEMENT_DESCRIPTION_RESEARCHERS_OFFICE"
 workSkill = 7
 interestData = ExtResource("2_1erl4")
-goodsConstructionCost = {}
+goodsConstructionCost = Dictionary[ExtResource("1_ig50m"), int]({})
 CurrentAmountOfConstruction = 0
 maxAmountOfConstruction = 10
 maxBuilders = 5
@@ -24,10 +27,10 @@ maxWorkers = 1
 adjustedMaxWorkers = 0
 countyResourceType = 0
 factionResourceType = 7
-outputGoods = {}
+outputGoods = Dictionary[ExtResource("1_ig50m"), ExtResource("4_ah7mh")]({})
 allDailyWorkAmountAtImprovementCompleted = 0
-uniqueInputGoods = {}
-inputGoods = {}
-countyStockpiledGoods = {}
+uniqueInputGoods = Dictionary[ExtResource("1_ig50m"), int]({})
+inputGoods = Dictionary[ExtResource("1_ig50m"), int]({})
+countyStockpiledGoods = Dictionary[int, int]({})
 status = 0
-populationAtImprovement = []
+populationAtImprovement = Array[ExtResource("5_caqfa")]([])
