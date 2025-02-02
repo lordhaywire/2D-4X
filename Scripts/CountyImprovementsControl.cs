@@ -47,9 +47,9 @@ public partial class CountyImprovementsControl : Control
 
         CreateCountyImprovementButtons(Globals.Instance.playerFactionData.allCountyImprovements
             , possibleImprovementsScrollContainerParent, true);
-        CreateCountyImprovementButtons(Globals.Instance.SelectedLeftClickCounty.countyData.underConstructionCountyImprovements
+        CreateCountyImprovementButtons(Globals.Instance.SelectedLeftClickCounty.countyData.underConstructionCountyImprovementList
             , currentImprovementsScrollContainerParent, false);
-        CreateCountyImprovementButtons(Globals.Instance.SelectedLeftClickCounty.countyData.completedCountyImprovements
+        CreateCountyImprovementButtons(Globals.Instance.SelectedLeftClickCounty.countyData.completedCountyImprovementList
             , currentImprovementsScrollContainerParent, false);
     }
 

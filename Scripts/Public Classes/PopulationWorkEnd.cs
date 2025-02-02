@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PlayerSpace;
 
-public class PopulationWork
+public class PopulationWorkEnd
 {
     public static void WorkWeekOverForPopulation(
         Godot.Collections.Array<PopulationData> populationDataList)
@@ -20,24 +20,8 @@ public class PopulationWork
         }
     }
 
-    private static bool CheckEnoughGoods(CountyImprovementData countyImprovementData, PopulationData populationData)
-    {
-        bool hasEnoughInputGoods = true;
 
-        foreach (KeyValuePair<GoodData, int> inputGood in countyImprovementData.uniqueInputGoods)
-        {
-            int stockpileAmount = countyImprovementData.countyStockpiledGoods[inputGood.Key.countyGoodType];
-            //GD.Print($"{populationData.location} Input Good vs Stockpile amount: {inputGood.Value} " +
-            //    $"vs {stockpileAmount}");
-            if (inputGood.Value > stockpileAmount)
-            {
-                hasEnoughInputGoods = false;
 
-                break; // No need to check further if one good is insufficient.
-            }
-        }
-        return hasEnoughInputGoods;
-    }
     public static void WorkDayOverForPopulation(CountyData countyData
         , Godot.Collections.Array<PopulationData> populationDataList)
     {
@@ -84,7 +68,7 @@ public class PopulationWork
                     CountyImprovementData countyImprovementData = populationData.currentCountyImprovement;
 
                     // Check if there are enough input goods to proceed with work.
-                    bool hasEnoughInputGoods = CheckEnoughGoods(countyImprovementData, populationData);
+                    bool hasEnoughInputGoods = Haulmaster.CheckEnoughGoods(countyImprovementData, populationData);
 
                     if (hasEnoughInputGoods)
                     {
@@ -210,12 +194,12 @@ public class PopulationWork
     public static void CalculateWorkToGoodsProduction(CountyData countyData)
     {
         foreach (CountyImprovementData underConstructionCountyImprovementData in
-            countyData.underConstructionCountyImprovements)
+            countyData.underConstructionCountyImprovementList)
         {
             underConstructionCountyImprovementData.CurrentAmountOfConstruction
                 += underConstructionCountyImprovementData.allDailyWorkAmountAtImprovementCompleted;
         }
-        foreach (CountyImprovementData countyImprovementData in countyData.completedCountyImprovements)
+        foreach (CountyImprovementData countyImprovementData in countyData.completedCountyImprovementList)
         {
             // This is checking max workers because it needs to skip county improvements that don't have
             // workers, such as a warehouse.

@@ -200,7 +200,7 @@ namespace PlayerSpace
         private void CheckForAvailableActivities(HeroPanelContainer heroPrefab)
         {
             DisableMostActivityCheckboxes(heroPrefab);
-            foreach (CountyImprovementData countyImprovementData in countyData.completedCountyImprovements)
+            foreach (CountyImprovementData countyImprovementData in countyData.completedCountyImprovementList)
             {
                 // Work
                 if (countyImprovementData.maxWorkers > 0
@@ -210,7 +210,7 @@ namespace PlayerSpace
                 }
             }
             // Build
-            if (countyData.underConstructionCountyImprovements.Count > 0)
+            if (countyData.underConstructionCountyImprovementList.Count > 0)
             {
                 heroPrefab.heroCheckBoxes[2].Disabled = false;
             }

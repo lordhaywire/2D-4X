@@ -52,13 +52,13 @@ public class CountyAI
         // Numbers improvement if there is more then 1.
         NumberBuiltImprovement(countyData, countyImprovementData);
 
-        countyData.underConstructionCountyImprovements.Add(countyImprovementData);
+        countyData.underConstructionCountyImprovementList.Add(countyImprovementData);
     }
     
     private void NumberBuiltImprovement(CountyData countyData, CountyImprovementData countyImprovementData)
     {
-        int underConstructionImprovements =  CountDuplicateImprovement(countyImprovementData, countyData.underConstructionCountyImprovements);
-        int completedImprovements = CountDuplicateImprovement(countyImprovementData,countyData.completedCountyImprovements);
+        int underConstructionImprovements =  CountDuplicateImprovement(countyImprovementData, countyData.underConstructionCountyImprovementList);
+        int completedImprovements = CountDuplicateImprovement(countyImprovementData,countyData.completedCountyImprovementList);
         int numberOfDuplicateImprovements = underConstructionImprovements + completedImprovements;
         countyImprovementData.numberBuilt = ++numberOfDuplicateImprovements;
         //GD.Print($"Under Construction Improvements: {underConstructionImprovements}");

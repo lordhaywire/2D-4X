@@ -40,7 +40,7 @@ public partial class County : Node2D
     {
         //GD.PrintRich($"[rainbow]County : Weekly!!!!!");
         // Check loyalty and update work status if necessary.
-        PopulationWork.WorkWeekOverForPopulation(countyData.populationDataList);
+        PopulationWorkEnd.WorkWeekOverForPopulation(countyData.populationDataList);
     }
 
     private void EndOfDay()
@@ -66,15 +66,15 @@ public partial class County : Node2D
 
         // Goes through each hero just like if they were a normal county population and
         // generates their work amount/research.
-        PopulationWork.WorkDayOverForPopulation(countyData, countyData.heroesInCountyList);
+        PopulationWorkEnd.WorkDayOverForPopulation(countyData, countyData.heroesInCountyList);
 
         // Generates resources through work, scavenging, building, and research.
         // Generates the daily amount of work amount/building for each county improvement per person.
-        PopulationWork.WorkDayOverForPopulation(countyData, countyData.populationDataList);
+        PopulationWorkEnd.WorkDayOverForPopulation(countyData, countyData.populationDataList);
 
         // Converts the totaly daily amount of work into goods and construction.
         // Possibly scavenging and research eventually.
-        PopulationWork.CalculateWorkToGoodsProduction(countyData);
+        PopulationWorkEnd.CalculateWorkToGoodsProduction(countyData);
 
         PopulationAI.IsThereEnoughFood(countyData); // This is a terrible name for this method.
 
@@ -105,17 +105,44 @@ public partial class County : Node2D
         // Prioritized County Improvements needs to go first.
         // County Improvements gather goods for their stockpile.
         // Sorts the list first by prioritized, then gathers the stockpiled goods.  Written by ChatGPT.
-        foreach (CountyImprovementData countyImprovementData in countyData.completedCountyImprovements
+        foreach (CountyImprovementData countyImprovementData in countyData.completedCountyImprovementList
             .OrderByDescending(c => c.prioritize))
         {
             Haulmaster.GatherStockpileGoods(countyData, countyImprovementData);
         }
 
-        // Add heroes to both prioritized workers and possible workers.
-        countyData.AssignWorkingHeroes();
+        // Add heroes to both prioritized workers and possible worker lists.
+        // We are doing this first because there aren't that many heroes that should be working, or building.
+        HeroWorkStart.AssignWorkingHeroesToLists(countyData);
 
-        // Assign people to the prioritized county improvements.
-        countyData.AssignPeopleToPrioritizedImprovements();
+        // If there is no prioritized construction or building, skip making the list.
+        // Check for prioritized under construction improvements
+        PopulationWorkStart.GeneratePrioritizedConstructionImprovementList(countyData);
+
+        if (countyData.prioritizedConstructionImprovementList.Count > 0)
+        {
+            PopulationWorkStart.GeneratePrioritizedBuildersList(countyData);
+            // Add builders to improvement
+            PopulationWorkStart.AssignBuildersToImprovement(countyData);
+        }
+        else
+        {
+            // Do we need to clear prioritized building lists here?
+        }
+
+        // Check for prioritized work improvements.
+        PopulationWorkStart.GeneratePrioritizedWorkImprovementList(countyData);
+
+        // Assign people to the prioritized work improvements.
+        if (countyData.prioritizedWorkImprovementList.Count > 0)
+        {
+            PopulationWorkStart.GeneratePrioritizedWorkersList(countyData);
+            // Add workers to improvement
+        }
+
+
+
+        PopulationWorkStart.ClearPrioritizedWorkersList(countyData);
 
         // Gets all the idle people and puts them in a list for the next methods.
         countyData.FindIdlePopulation();

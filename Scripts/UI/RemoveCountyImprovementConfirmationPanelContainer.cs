@@ -27,8 +27,8 @@ public partial class RemoveCountyImprovementConfirmationPanelContainer : PanelCo
         Haulmaster.ReturnHalfOfConstructionCost(countyData, removingCountyImprovementData);
 
         // Remove building from Construction Lists
-        countyData.underConstructionCountyImprovements.Remove(removingCountyImprovementData);
-        countyData.completedCountyImprovements.Remove(removingCountyImprovementData);
+        countyData.underConstructionCountyImprovementList.Remove(removingCountyImprovementData);
+        countyData.completedCountyImprovementList.Remove(removingCountyImprovementData);
 
         // Check to see if it is a storage improvement and not under construction then remove the storage.
         if (removingCountyImprovementData.CheckIfStorageImprovement() && removingCountyImprovementData.status
