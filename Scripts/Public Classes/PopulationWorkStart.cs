@@ -1,7 +1,6 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace PlayerSpace;
@@ -85,44 +84,101 @@ public class PopulationWorkStart
     {
         foreach(CountyImprovementData countyImprovementData in countyData.prioritizedConstructionImprovementList)
         {
-            int remainingWorkerSlots = countyImprovementData.adjustedMaxBuilders - countyImprovementData.populationAtImprovement.Count;
-            // Assign Heroes to improvement.
-            int availableBuilderSlots = Math.Min(countyData.prioritizedHeroBuildersList.Count
-                , remainingWorkerSlots);
+            HeroWorkStart.AssignHeroesToBuildImprovement(countyData, countyImprovementData);
 
-            foreach (PopulationData populationData in countyData.prioritizedHeroBuildersList.Slice(0, availableBuilderSlots))
-            {
-                populationData.RemoveFromCountyImprovement(); // This is just in case they are already at a county improvement.
-                populationData.UpdateActivity(AllEnums.Activities.Build);
-                populationData.UpdateCurrentCountyImprovement(countyImprovementData);
-                countyImprovementData.AddPopulationToPopulationAtImprovementList(populationData);
-                countyData.workersToRemoveFromLists.Add(populationData);
-            }
-            
-            countyData.RemovePopulationFromLists(countyData.prioritizedHeroBuildersList);
-
-            List<PopulationData> sortedList = countyData.prioritizedBuildersList.ToList();
-
-            // We should probably test that this is sorting correctly.
-            // Sort population list by highest construction skill.
-            sortedList.Sort((a, b) => b.skills[AllEnums.Skills.Construction].skillLevel
-                .CompareTo(a.skills[AllEnums.Skills.Construction].skillLevel));
-
-            // Update the remaining workers slots number.
-            remainingWorkerSlots = countyImprovementData.adjustedMaxBuilders - countyImprovementData.populationAtImprovement.Count;
-            availableBuilderSlots = Math.Min(countyData.prioritizedBuildersList.Count
-                , remainingWorkerSlots);
-            foreach (PopulationData populationData in sortedList.Take(availableBuilderSlots))
-            {
-                populationData.RemoveFromCountyImprovement();
-                populationData.UpdateActivity(AllEnums.Activities.Build);
-                populationData.UpdateCurrentCountyImprovement(countyImprovementData);
-                countyImprovementData.AddPopulationToPopulationAtImprovementList(populationData);
-                countyData.workersToRemoveFromLists.Add(populationData);
-            }
-
-            countyData.RemovePopulationFromLists(countyData.prioritizedBuildersList);
+            AssignPopulationToBuildImprovement(countyData, countyImprovementData, countyData.prioritizedBuildersList);
         }
+    }
+
+    /// <summary>
+    /// This list is getting sorted because the populations skill does matter, and the heroes
+    /// should have been removed from the list at this point.
+    /// </summary>
+    /// <param name="countyData"></param>
+    /// <param name="countyImprovementData"></param>
+    public static void AssignPopulationToBuildImprovement(CountyData countyData
+        , CountyImprovementData countyImprovementData, Godot.Collections.Array<PopulationData> improvementBuildersList)
+    {
+        // We are not sorting the list till here, because the heroes are at the top of the list to start with.
+        List<PopulationData> sortedList = improvementBuildersList.ToList();
+
+        // We should probably test that this is sorting correctly.
+        // Sort population list by highest construction skill.
+        sortedList.Sort((a, b) => b.skills[AllEnums.Skills.Construction].skillLevel
+            .CompareTo(a.skills[AllEnums.Skills.Construction].skillLevel));
+
+        // Update the remaining workers slots number.
+        int remainingWorkerSlots = countyImprovementData.adjustedMaxBuilders - countyImprovementData.populationAtImprovement.Count;
+        int availableBuilderSlots = Math.Min(improvementBuildersList.Count
+            , remainingWorkerSlots);
+
+        // Adds normal population to improvement.
+        foreach (PopulationData populationData in sortedList.Take(availableBuilderSlots))
+        {
+            populationData.RemoveFromCountyImprovement();
+            populationData.UpdateActivity(AllEnums.Activities.Build);
+            populationData.UpdateCurrentCountyImprovement(countyImprovementData);
+            countyImprovementData.AddPopulationToPopulationAtImprovementList(populationData);
+            countyData.workersToRemoveFromLists.Add(populationData);
+        }
+
+        countyData.RemovePopulationFromLists(improvementBuildersList);
+    }
+
+    /// <summary>
+    /// This list is getting sorted because the populations skill does matter, and the heroes
+    /// should have been removed from the list at this point.
+    /// </summary>
+    /// <param name="countyData"></param>
+    /// <param name="countyImprovementData"></param>
+    public static void AssignPopulationToWorkImprovement(CountyData countyData, CountyImprovementData countyImprovementData
+        )
+    {
+        // We are not sorting the list till here, because the heroes are at the top of the list to start with.
+        List<PopulationData> sortedList = countyData.prioritizedWorkersList.ToList();
+
+        // We should probably test that this is sorting correctly.
+        // Sort population list by highest construction skill.
+        sortedList.Sort((a, b) => b.skills[countyImprovementData.workSkill].skillLevel
+            .CompareTo(a.skills[countyImprovementData.workSkill].skillLevel));
+
+        // Update the remaining workers slots number.
+        int remainingWorkerSlots = countyImprovementData.adjustedMaxWorkers 
+            - countyImprovementData.populationAtImprovement.Count;
+        int availableWorkersSlots = Math.Min(countyData.prioritizedWorkersList.Count
+            , remainingWorkerSlots);
+
+        // Adds normal population to improvement.
+        foreach (PopulationData populationData in sortedList.Take(availableWorkersSlots))
+        {
+            populationData.RemoveFromCountyImprovement();
+            populationData.UpdateActivity(AllEnums.Activities.Work);
+            populationData.UpdateCurrentCountyImprovement(countyImprovementData);
+            countyImprovementData.AddPopulationToPopulationAtImprovementList(populationData);
+            countyData.workersToRemoveFromLists.Add(populationData);
+        }
+
+        countyData.RemovePopulationFromLists(countyData.prioritizedWorkersList);
+    }
+
+    /// <summary>
+    /// This has not been changed at all from AssignBuildersToImprovement.
+    /// </summary>
+    /// <param name="countyData"></param>
+    public static void AssignWorkersToImprovement(CountyData countyData)
+    {
+        foreach (CountyImprovementData countyImprovementData 
+            in countyData.prioritizedWorkImprovementList)
+        {
+            HeroWorkStart.AssignHeroesToWorkImprovement(countyData, countyImprovementData);
+
+            AssignPopulationToWorkImprovement(countyData, countyImprovementData);
+        }
+    }
+
+    public static void ClearPrioritizedBuildersList(CountyData countyData)
+    {
+        countyData.prioritizedBuildersList.Clear();
     }
 
     public static void ClearPrioritizedWorkersList(CountyData countyData)

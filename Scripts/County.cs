@@ -95,7 +95,7 @@ public partial class County : Node2D
             CountyInfoControl.Instance.UpdateCountyAvailableResources();
         }
 
-        countyData.ClearPossibleWorkersList();
+        countyData.ClearIdlePopulationList();
     }
 
     private void StartDay()
@@ -113,7 +113,7 @@ public partial class County : Node2D
 
         // Add heroes to both prioritized workers and possible worker lists.
         // We are doing this first because there aren't that many heroes that should be working, or building.
-        HeroWorkStart.AssignWorkingHeroesToLists(countyData);
+        HeroWorkStart.AssignWorkingHeroesToPrioritizedLists(countyData);
 
         // If there is no prioritized construction or building, skip making the list.
         // Check for prioritized under construction improvements
@@ -122,13 +122,19 @@ public partial class County : Node2D
         if (countyData.prioritizedConstructionImprovementList.Count > 0)
         {
             PopulationWorkStart.GeneratePrioritizedBuildersList(countyData);
-            // Add builders to improvement
+
+            // Adds builders and heroes to improvement
             PopulationWorkStart.AssignBuildersToImprovement(countyData);
+
+            countyData.prioritizedConstructionImprovementList.Clear();
         }
-        else
-        {
-            // Do we need to clear prioritized building lists here?
-        }
+
+
+        // Clear the prioritized builders lists.
+        // We need this prioritizedHeroBuilderList for later.
+        //HeroWorkStart.ClearPrioritizedHeroBuildersList(countyData);
+
+        PopulationWorkStart.ClearPrioritizedBuildersList(countyData);
 
         // Check for prioritized work improvements.
         PopulationWorkStart.GeneratePrioritizedWorkImprovementList(countyData);
@@ -137,21 +143,25 @@ public partial class County : Node2D
         if (countyData.prioritizedWorkImprovementList.Count > 0)
         {
             PopulationWorkStart.GeneratePrioritizedWorkersList(countyData);
-            // Add workers to improvement
+
+            // Adds workers and heroes to improvement
+            PopulationWorkStart.AssignWorkersToImprovement(countyData);
+
+            countyData.prioritizedWorkImprovementList.Clear();
         }
-
-
-
+        
+        // Clear the priortized workers lists.
         PopulationWorkStart.ClearPrioritizedWorkersList(countyData);
 
         // Gets all the idle people and puts them in a list for the next methods.
         countyData.FindIdlePopulation();
 
+        // Currently construction is first to everything gets built first.
+        // Heroes work, or building depends on the player.
+        countyData.AssignEveryoneToConstruction();
+
         countyData.CheckForPreferredWork();
 
-        // We may want construction to come before work, so that people will build stuff vs always be working
-        // and never build anything.
-        countyData.CheckForConstruction();
         countyData.CheckForAnyWork();
 
         // Sets people to scavenge.

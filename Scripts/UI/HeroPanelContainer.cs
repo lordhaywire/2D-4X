@@ -64,26 +64,35 @@ public partial class HeroPanelContainer : PanelContainer
         }
     }
 
+    /// <summary>
+    /// The int bound in the signal is the equvilent to the enum in the case.
+    /// </summary>
+    /// <param name="numberOfCheckBox"></param>
     private void HeroActivitiesCheckBoxPressed(int numberOfCheckBox)
     {
         DeselectAllOtherCheckBoxes(numberOfCheckBox);
 
         switch (numberOfCheckBox)
         {
+            // Scavenge
             case 0:
                 populationData.UpdateActivity(AllEnums.Activities.Scavenge);
                 populationData.currentCountyImprovement?.RemovePopulationFromPopulationAtImprovementList(populationData);
                 populationData.currentCountyImprovement = null;
                 return;
+            // Work
             case 1:
                 populationData.UpdateActivity(AllEnums.Activities.Work);
                 return;
+            // Build
             case 2:
-                populationData.UpdateActivity(AllEnums.Activities.Work);
+                populationData.UpdateActivity(AllEnums.Activities.Build);
                 return;
+            // Research
             case 3:
                 populationData.UpdateActivity(AllEnums.Activities.Research);
                 return;
+            // Explore
             case 4:
                 populationData.UpdateActivity(AllEnums.Activities.Explore);
                 return;

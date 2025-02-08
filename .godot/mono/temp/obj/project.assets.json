@@ -2,13 +2,13 @@
   "version": 3,
   "targets": {
     "net8.0": {
-      "Godot.SourceGenerators/4.4.0-beta.2": {
+      "Godot.SourceGenerators/4.4.0-beta.3": {
         "type": "package",
         "build": {
           "build/Godot.SourceGenerators.props": {}
         }
       },
-      "GodotSharp/4.4.0-beta.2": {
+      "GodotSharp/4.4.0-beta.3": {
         "type": "package",
         "compile": {
           "lib/net8.0/GodotSharp.dll": {
@@ -21,10 +21,10 @@
           }
         }
       },
-      "GodotSharpEditor/4.4.0-beta.2": {
+      "GodotSharpEditor/4.4.0-beta.3": {
         "type": "package",
         "dependencies": {
-          "GodotSharp": "4.4.0-beta.2"
+          "GodotSharp": "4.4.0-beta.3"
         },
         "compile": {
           "lib/net8.0/GodotSharpEditor.dll": {
@@ -40,40 +40,40 @@
     }
   },
   "libraries": {
-    "Godot.SourceGenerators/4.4.0-beta.2": {
-      "sha512": "/yZ1EbwYB3DX8HTyztMmVk/5+P2bVYP1tqFP3Qu/FWOipwlw+J9j0fTx1dMfIMtJgTsdQhr/hx2bh4zZJuJEnw==",
+    "Godot.SourceGenerators/4.4.0-beta.3": {
+      "sha512": "N8CIbHJg+npO2USg7ICnC/DH6C/ksBY70YXVixVJuoY0rTmJPOiPdEQ6tX0fIM7hdB1h1Kqvl0vL8xkXEYtR4A==",
       "type": "package",
-      "path": "godot.sourcegenerators/4.4.0-beta.2",
+      "path": "godot.sourcegenerators/4.4.0-beta.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "analyzers/dotnet/cs/Godot.SourceGenerators.dll",
         "build/Godot.SourceGenerators.props",
-        "godot.sourcegenerators.4.4.0-beta.2.nupkg.sha512",
+        "godot.sourcegenerators.4.4.0-beta.3.nupkg.sha512",
         "godot.sourcegenerators.nuspec"
       ]
     },
-    "GodotSharp/4.4.0-beta.2": {
-      "sha512": "j2o4VOmeMLhbj/kdc0YLTJzqRE8phST9QxKim+H/o/qz+dCBJqqVGOt626Lh6CxLjWaUZzwxNbTpwDRQvMA9ZA==",
+    "GodotSharp/4.4.0-beta.3": {
+      "sha512": "StX5QSWvFcX3kFe7zzzyIMVD+m9hAKofxFZ5Asq6Dq23yI2CRlatXOg27l0vUMaRjAvXNxkuDGiR+P9SC80now==",
       "type": "package",
-      "path": "godotsharp/4.4.0-beta.2",
+      "path": "godotsharp/4.4.0-beta.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "godotsharp.4.4.0-beta.2.nupkg.sha512",
+        "godotsharp.4.4.0-beta.3.nupkg.sha512",
         "godotsharp.nuspec",
         "lib/net8.0/GodotSharp.dll",
         "lib/net8.0/GodotSharp.xml"
       ]
     },
-    "GodotSharpEditor/4.4.0-beta.2": {
-      "sha512": "z9wOCnMenTABKI01hZ27HxN8P8fgcQ08Xu3hXObh2ONyEkdF1a7bMT2nBOnPVv2RKepoJiKpfJpBVfLIxpFhOg==",
+    "GodotSharpEditor/4.4.0-beta.3": {
+      "sha512": "Pw2zwoP0dcxD52vo3N46u3v2O5TTRWyJc8lAF6pq3NvyDX2D7aada+gAUudPhsR3y//HqcbvuJxKcZTCotg//Q==",
       "type": "package",
-      "path": "godotsharpeditor/4.4.0-beta.2",
+      "path": "godotsharpeditor/4.4.0-beta.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "godotsharpeditor.4.4.0-beta.2.nupkg.sha512",
+        "godotsharpeditor.4.4.0-beta.3.nupkg.sha512",
         "godotsharpeditor.nuspec",
         "lib/net8.0/GodotSharpEditor.dll",
         "lib/net8.0/GodotSharpEditor.xml"
@@ -82,9 +82,9 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "Godot.SourceGenerators >= 4.4.0-beta.2",
-      "GodotSharp >= 4.4.0-beta.2",
-      "GodotSharpEditor >= 4.4.0-beta.2"
+      "Godot.SourceGenerators >= 4.4.0-beta.3",
+      "GodotSharp >= 4.4.0-beta.3",
+      "GodotSharpEditor >= 4.4.0-beta.3"
     ]
   },
   "packageFolders": {
@@ -95,11 +95,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\GODOT\\PROJECTS\\2D 4X\\2d 4x.csproj",
+      "projectUniqueName": "E:\\Godot\\Projects\\2D 4X\\2d 4x.csproj",
       "projectName": "2d 4x",
-      "projectPath": "E:\\GODOT\\PROJECTS\\2D 4X\\2d 4x.csproj",
+      "projectPath": "E:\\Godot\\Projects\\2D 4X\\2d 4x.csproj",
       "packagesPath": "C:\\Users\\lordhaywire\\.nuget\\packages\\",
-      "outputPath": "E:\\GODOT\\PROJECTS\\2D 4X\\.godot\\mono\\temp\\obj\\",
+      "outputPath": "E:\\Godot\\Projects\\2D 4X\\.godot\\mono\\temp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Users\\lordhaywire\\AppData\\Roaming\\Godot\\mono\\GodotNuGetFallbackFolder",
@@ -143,15 +143,15 @@
         "dependencies": {
           "Godot.SourceGenerators": {
             "target": "Package",
-            "version": "[4.4.0-beta.2, )"
+            "version": "[4.4.0-beta.3, )"
           },
           "GodotSharp": {
             "target": "Package",
-            "version": "[4.4.0-beta.2, )"
+            "version": "[4.4.0-beta.3, )"
           },
           "GodotSharpEditor": {
             "target": "Package",
-            "version": "[4.4.0-beta.2, )"
+            "version": "[4.4.0-beta.3, )"
           }
         },
         "imports": [

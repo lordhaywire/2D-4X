@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "+ngzEj9jsN4=",
+  "dgSpecHash": "A4r3APu890k=",
   "success": true,
   "projectFilePath": "E:\\Godot\\Projects\\2D 4X\\2d 4x.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\lordhaywire\\.nuget\\packages\\godot.sourcegenerators\\4.4.0-beta.2\\godot.sourcegenerators.4.4.0-beta.2.nupkg.sha512",
-    "C:\\Users\\lordhaywire\\.nuget\\packages\\godotsharp\\4.4.0-beta.2\\godotsharp.4.4.0-beta.2.nupkg.sha512",
-    "C:\\Users\\lordhaywire\\.nuget\\packages\\godotsharpeditor\\4.4.0-beta.2\\godotsharpeditor.4.4.0-beta.2.nupkg.sha512"
+    "C:\\Users\\lordhaywire\\.nuget\\packages\\godot.sourcegenerators\\4.4.0-beta.3\\godot.sourcegenerators.4.4.0-beta.3.nupkg.sha512",
+    "C:\\Users\\lordhaywire\\.nuget\\packages\\godotsharp\\4.4.0-beta.3\\godotsharp.4.4.0-beta.3.nupkg.sha512",
+    "C:\\Users\\lordhaywire\\.nuget\\packages\\godotsharpeditor\\4.4.0-beta.3\\godotsharpeditor.4.4.0-beta.3.nupkg.sha512"
   ],
   "logs": []
 }
