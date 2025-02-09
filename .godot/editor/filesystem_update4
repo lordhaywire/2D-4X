@@ -1,5 +1,3 @@
-res://Localization/2D 4X Main Text.en.translation
-res://Localization/2D 4X Main Text.es.translation
 res://Scenes/Main.tscn
 res://Resources/County Improvements/Converted Warehouse.tres
 res://Resources/County Improvements/FishersShed.tres
@@ -10,8 +8,6 @@ res://Prefabs/HeroToken.tscn
 res://Scenes/MapEditor.tscn
 res://UIScenes/HeroListCheckBoxPanelContainer.tscn
 res://UIScenes/SpawnedTokenButton.tscn
-res://Scripts/County.cs
-res://Resources/CountyData.cs
 res://Resources/ActivityData.cs
 res://Scripts/UI/ResearchControl.cs
 res://Scripts/Camera.cs
@@ -40,6 +36,7 @@ res://Scripts/UI/RecruitHeroConfirmationPanelContainer.cs
 res://Resources/PerkData.cs
 res://Scripts/UI/DeclareWarControl.cs
 res://Scripts/UI/BattleLogControl.cs
+res://Resources/CountyData.cs
 res://Scripts/CountyDictator.cs
 res://Scripts/UI/PopAndIdleButtons.cs
 res://Scripts/FactionGeneration.cs
@@ -54,6 +51,7 @@ res://Scripts/Map Editor/MapEditorControls.cs
 res://Scripts/UI/PopulationRowButton.cs
 res://Resources/HeroData.cs
 res://Scripts/PlayerControls.cs
+res://Scripts/County.cs
 res://Scripts/UI/CombatLogTextPanel.cs
 res://Scripts/Globals.cs
 res://Scripts/Map Editor/MapEditorGlobals.cs

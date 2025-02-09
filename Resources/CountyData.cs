@@ -38,8 +38,8 @@ public partial class CountyData : Resource
     [ExportGroup("Construction and Work Lists")]
     [Export] public Godot.Collections.Array<PopulationData> heroBuildersList = [];
     [Export] public Godot.Collections.Array<PopulationData> heroWorkersList = [];
-    [Export] public Godot.Collections.Array<PopulationData> buildersList = []; // List of all the idle, helpful and loyal workers for that day.
-    [Export] public Godot.Collections.Array<PopulationData> idlePopulationList = []; // List of all the idle, helpful and loyal workers for that day.
+    //[Export] public Godot.Collections.Array<PopulationData> buildersList = []; // List of all the idle, helpful and loyal workers for that day.
+    [Export] public Godot.Collections.Array<PopulationData> workersList = []; // List of all the idle, helpful and loyal workers for that day.
     [Export] public Godot.Collections.Array<PopulationData> prioritizedHeroBuildersList = [];
     [Export] public Godot.Collections.Array<PopulationData> prioritizedHeroWorkersList = [];
     [Export] public Godot.Collections.Array<PopulationData> prioritizedBuildersList = [];
@@ -135,9 +135,7 @@ public partial class CountyData : Resource
                     }
                     else
                     {
-                        populationData.UpdateActivity(AllEnums.Activities.Work);
                         populationData.UpdateCurrentCountyImprovement(null);
-
                     }
                 }
                 // Set countyImprovement status to producing.
@@ -149,7 +147,7 @@ public partial class CountyData : Resource
                 // Check to only print the event logs of the players county improvements.
                 if (factionData == Globals.Instance.playerFactionData)
                 {
-                    EventLog.Instance.AddLog($"{Tr(countyImprovementData.improvementName)} {Tr("PHRASE_HAS_BEEN_COMPLETED")}.");
+                    EventLog.Instance.AddLog($"{Tr(countyImprovementData.GetCountyImprovementName())} {Tr("PHRASE_HAS_BEEN_COMPLETED")}.");
                 }
 
                 //GD.Print($"Under Construction Improvements - Checking if done : " +
@@ -208,13 +206,13 @@ public partial class CountyData : Resource
         //int amountOfFood = CountFactionResourceOfType(AllEnums.FactionResourceType.Food);
         //// GD.Print($"{county.countyData.countyName} Amount of food: " + amountOfFood);
 
-        foreach (PopulationData populationData in idlePopulationList)
+        foreach (PopulationData populationData in workersList)
         {
             populationData.UpdateActivity(AllEnums.Activities.Scavenge);
             populationData.UpdateCurrentCountyImprovement(null);
             workersToRemoveFromLists.Add(populationData);
         }
-        RemovePopulationFromLists(idlePopulationList);
+        RemovePopulationFromLists(workersList);
     }
 
     /// <summary>
@@ -233,13 +231,13 @@ public partial class CountyData : Resource
 
         //// GD.Print($"{county.countyData.countyName} Amount of remnants: " + county.countyData.resources[AllEnums.CountyResourceType.Remnants].amount);
 
-        foreach (PopulationData populationData in idlePopulationList)
+        foreach (PopulationData populationData in workersList)
         {
             populationData.UpdateActivity(AllEnums.Activities.Scavenge);
             populationData.UpdateCurrentCountyImprovement(null);
             workersToRemoveFromLists.Add(populationData);
         }
-        RemovePopulationFromLists(idlePopulationList);
+        RemovePopulationFromLists(workersList);
     }
 
     public bool CheckEnoughCountyScavengables(AllEnums.CountyGoodType resourceType)
@@ -307,9 +305,13 @@ public partial class CountyData : Resource
     {
         foreach (CountyImprovementData countyImprovementData in underConstructionCountyImprovementList)
         {
-            HeroWorkStart.AssignHeroesToBuildImprovement(this, countyImprovementData);
+            if (prioritizedHeroBuildersList.Count > 0)
+            {
+                countyImprovementData.RemoveEveryoneFromCountyImprovement(this);
+                HeroWorkStart.AssignHeroesToBuildImprovement(this, countyImprovementData);
+            }
 
-            PopulationWorkStart.AssignPopulationToBuildImprovement(this, countyImprovementData, buildersList);
+            PopulationWorkStart.AssignPopulationToBuildImprovement(this, countyImprovementData, workersList);
         }
     }
 
@@ -333,15 +335,15 @@ public partial class CountyData : Resource
                 && populationData.CheckWillWorkLoyalty() == true
                 && populationData.CheckForPerk(AllEnums.Perks.Unhelpful) == false)
             {
-                GD.Print($"{countyName}: {populationData.firstName} is idle, is loyal and is not unhelpful.");
-                idlePopulationList.Add(populationData);
+                //GD.Print($"{countyName}: {populationData.firstName} is idle, is loyal and is not unhelpful.");
+                workersList.Add(populationData);
             }
         }
     }
 
     public void ClearIdlePopulationList()
     {
-        idlePopulationList.Clear(); // Clear the list at the start of each day.
+        workersList.Clear(); // Clear the list at the start of each day.
     }
 
     public bool CheckIfImprovementTypeNeedsWorkers(CountyImprovementData countyImprovementData)
@@ -369,35 +371,38 @@ public partial class CountyData : Resource
                 continue;
             }
 
-            foreach (PopulationData populationData in idlePopulationList)
-            {
-                // If they have the preferred skill, they are added to the county improvement
-                // and marked for removal from the possibleWorkers list.
-                // It needs to check if workers full here, so that it doesn't add extra people to the 
-                // county improvement.
-                if (countyImprovementData.CheckIfWorkersFull() == false)
-                {
-                    if (populationData.preferredSkill.skill == countyImprovementData.workSkill)
-                    {
-                        // I don't think we need RemoveFromCountyImprovement here.
-                        populationData.RemoveFromCountyImprovement();
-                        populationData.UpdateActivity(AllEnums.Activities.Work);
-                        populationData.UpdateCurrentCountyImprovement(countyImprovementData);
-                        countyImprovementData.AddPopulationToPopulationAtImprovementList(populationData);
-
-                        /*GD.Print($"{populationData.firstName} {populationData.lastName} preferred work is " +
-                            $"{populationData.preferredSkill.skillName} and they are " +
-                            $"{populationData.GetActivityName()} at " +
-                            $"{populationData.currentCountyImprovement.improvementName}");
-                        */
-
-                        workersToRemoveFromLists.Add(populationData);
-                    }
-                }
-
-            }
-            RemovePopulationFromLists(idlePopulationList);
+            LookForPopulationPreferredWork(countyImprovementData, prioritizedHeroWorkersList);
+            LookForPopulationPreferredWork(countyImprovementData, workersList);
         }
+    }
+
+    private void LookForPopulationPreferredWork(CountyImprovementData countyImprovementData
+        , Godot.Collections.Array<PopulationData> populationList)
+    {
+        foreach (PopulationData populationData in populationList)
+        {
+            // If they have the preferred skill, they are added to the county improvement
+            // and marked for removal from the possibleWorkers list.
+            // It needs to check if workers full here, so that it doesn't add extra people to the 
+            // county improvement.
+            if (countyImprovementData.CheckIfWorkersFull() == false)
+            {
+                if (populationData.preferredSkill.skill == countyImprovementData.workSkill)
+                {
+                    AddPersonToWorkImprovement(countyImprovementData, populationData);
+                }
+            }
+        }
+        RemovePopulationFromLists(populationList);
+    }
+
+    private void AddPersonToWorkImprovement(CountyImprovementData countyImprovementData, PopulationData populationData)
+    {
+        populationData.RemoveFromCountyImprovement();
+        populationData.UpdateActivity(AllEnums.Activities.Work);
+        populationData.UpdateCurrentCountyImprovement(countyImprovementData);
+        countyImprovementData.AddPopulationToPopulationAtImprovementList(populationData);
+        workersToRemoveFromLists.Add(populationData);
     }
 
     public void CheckForAnyWork()
@@ -411,22 +416,29 @@ public partial class CountyData : Resource
                 GD.Print("Low Stockpiled Goods, or the improvement is storage or research.");
                 continue;
             }
-            foreach (PopulationData populationData in idlePopulationList)
+            if (prioritizedHeroWorkersList.Count > 0)
             {
-                // It needs to check if county improvement's workers are full,
-                // so that it doesn't add extra people to the 
-                // county improvement.
-                if (countyImprovementData.CheckIfWorkersFull() == false)
-                {
-                    populationData.RemoveFromCountyImprovement();
-                    populationData.UpdateActivity(AllEnums.Activities.Work);
-                    populationData.UpdateCurrentCountyImprovement(countyImprovementData);
-                    countyImprovementData.AddPopulationToPopulationAtImprovementList(populationData);
-                    workersToRemoveFromLists.Add(populationData);
-                }
+                countyImprovementData.RemoveEveryoneFromCountyImprovement(this);
+                LookForPopulationToWorkImprovement(countyImprovementData, prioritizedHeroWorkersList);
             }
-            RemovePopulationFromLists(idlePopulationList);
+            LookForPopulationToWorkImprovement(countyImprovementData, workersList);
         }
+    }
+
+    private void LookForPopulationToWorkImprovement(CountyImprovementData countyImprovementData
+        , Godot.Collections.Array<PopulationData> anyWorkersList)
+    {
+        foreach (PopulationData populationData in anyWorkersList)
+        {
+            // It needs to check if county improvement's workers are full,
+            // so that it doesn't add extra people to the 
+            // county improvement.
+            if (countyImprovementData.CheckIfWorkersFull() == false)
+            {
+                AddPersonToWorkImprovement(countyImprovementData, populationData);
+            }
+        }
+        RemovePopulationFromLists(anyWorkersList);
     }
 
     private static bool CheckGoodStorageFull(GoodData countyResourceData)
@@ -718,7 +730,7 @@ public partial class CountyData : Resource
 
     public void AddPopulationDataToPossibleWorkersList(PopulationData populationData)
     {
-        idlePopulationList.Add(populationData);
+        workersList.Add(populationData);
     }
 
     public void AddPopulationDataToPrioritizedWorkersList(PopulationData populationData)
@@ -786,14 +798,16 @@ public partial class CountyData : Resource
     {
         prioritizedBuildersList.Add(populationData);
     }
+    /*
     public void AddPopulationBuildersList(PopulationData populationData)
     {
         buildersList.Add(populationData);
     }
+    */
 
     public void AddPopulationWorkersList(PopulationData populationData)
     {
-        idlePopulationList.Add(populationData);
+        workersList.Add(populationData);
     }
 
     public void AddHeroToPrioritizedHeroBuildersList(PopulationData populationData)

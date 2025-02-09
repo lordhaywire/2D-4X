@@ -26,7 +26,7 @@ heroListButton = NodePath("Buttons HBoxContainer/Hero List Button")
 spawnHeroButton = NodePath("Buttons HBoxContainer/Spawn CheckButton")
 aideActivitiesHboxContainer = NodePath("VBoxContainer/Aide Activites HBoxContainer")
 armyActivitiesHboxContainer = NodePath("VBoxContainer/Army Activites HBoxContainer")
-heroCheckBoxes = [NodePath("VBoxContainer/Aide Activites HBoxContainer/Scavenge CheckBox"), NodePath("VBoxContainer/Aide Activites HBoxContainer/Work CheckBox"), NodePath("VBoxContainer/Aide Activites HBoxContainer/Build CheckBox"), NodePath("VBoxContainer/Aide Activites HBoxContainer/Research CheckBox"), NodePath("VBoxContainer/Aide Activites HBoxContainer/Explore CheckBox")]
+heroCheckBoxes = [NodePath("VBoxContainer/Aide Activites HBoxContainer/Scavenge CheckBox"), NodePath("VBoxContainer/Aide Activites HBoxContainer/Build CheckBox"), NodePath("VBoxContainer/Aide Activites HBoxContainer/Work CheckBox"), NodePath("VBoxContainer/Aide Activites HBoxContainer/Research CheckBox"), NodePath("VBoxContainer/Aide Activites HBoxContainer/Explore CheckBox")]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -80,19 +80,19 @@ mouse_force_pass_scroll_events = false
 icon = ExtResource("5_w17qn")
 icon_alignment = 1
 
-[node name="Work CheckBox" type="CheckBox" parent="VBoxContainer/Aide Activites HBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-tooltip_text = "WORD_WORK"
-focus_mode = 0
-icon = ExtResource("6_18qnw")
-
 [node name="Build CheckBox" type="CheckBox" parent="VBoxContainer/Aide Activites HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 tooltip_text = "WORD_BUILD"
 focus_mode = 0
 icon = ExtResource("7_m61kt")
+
+[node name="Work CheckBox" type="CheckBox" parent="VBoxContainer/Aide Activites HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+tooltip_text = "WORD_WORK"
+focus_mode = 0
+icon = ExtResource("6_18qnw")
 
 [node name="Research CheckBox" type="CheckBox" parent="VBoxContainer/Aide Activites HBoxContainer"]
 layout_mode = 2
@@ -146,12 +146,12 @@ focus_mode = 0
 [connection signal="mouse_entered" from="VBoxContainer/Aide Activites HBoxContainer/Scavenge CheckBox" to="." method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="VBoxContainer/Aide Activites HBoxContainer/Scavenge CheckBox" to="." method="OnMouseExitedUI"]
 [connection signal="pressed" from="VBoxContainer/Aide Activites HBoxContainer/Scavenge CheckBox" to="." method="HeroActivitiesCheckBoxPressed" binds= [0]]
-[connection signal="mouse_entered" from="VBoxContainer/Aide Activites HBoxContainer/Work CheckBox" to="." method="OnMouseEnteredUI"]
-[connection signal="mouse_exited" from="VBoxContainer/Aide Activites HBoxContainer/Work CheckBox" to="." method="OnMouseExitedUI"]
-[connection signal="pressed" from="VBoxContainer/Aide Activites HBoxContainer/Work CheckBox" to="." method="HeroActivitiesCheckBoxPressed" binds= [1]]
 [connection signal="mouse_entered" from="VBoxContainer/Aide Activites HBoxContainer/Build CheckBox" to="." method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="VBoxContainer/Aide Activites HBoxContainer/Build CheckBox" to="." method="OnMouseExitedUI"]
-[connection signal="pressed" from="VBoxContainer/Aide Activites HBoxContainer/Build CheckBox" to="." method="HeroActivitiesCheckBoxPressed" binds= [2]]
+[connection signal="pressed" from="VBoxContainer/Aide Activites HBoxContainer/Build CheckBox" to="." method="HeroActivitiesCheckBoxPressed" binds= [1]]
+[connection signal="mouse_entered" from="VBoxContainer/Aide Activites HBoxContainer/Work CheckBox" to="." method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="VBoxContainer/Aide Activites HBoxContainer/Work CheckBox" to="." method="OnMouseExitedUI"]
+[connection signal="pressed" from="VBoxContainer/Aide Activites HBoxContainer/Work CheckBox" to="." method="HeroActivitiesCheckBoxPressed" binds= [2]]
 [connection signal="mouse_entered" from="VBoxContainer/Aide Activites HBoxContainer/Research CheckBox" to="." method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="VBoxContainer/Aide Activites HBoxContainer/Research CheckBox" to="." method="OnMouseExitedUI"]
 [connection signal="pressed" from="VBoxContainer/Aide Activites HBoxContainer/Research CheckBox" to="." method="HeroActivitiesCheckBoxPressed" binds= [3]]

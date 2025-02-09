@@ -118,7 +118,7 @@ namespace PlayerSpace
             if (populationData.currentCountyImprovement != null)
             {
                 currentActivityLabel.Text = $"{Tr(populationData.GetActivityName())} " +
-                    $"{Tr(populationData.currentCountyImprovement.improvementName)}";
+                    $"{Tr(populationData.currentCountyImprovement.GetCountyImprovementName())}";
             }
             else
             {

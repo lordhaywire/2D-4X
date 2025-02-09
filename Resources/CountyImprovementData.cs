@@ -189,10 +189,19 @@ public partial class CountyImprovementData : Resource
         // GD.Print($"{populationData.firstName} was added to {improvementName}'s list {populationAtImprovement.Count}.");
         populationAtImprovement.Add(populationData);
     }
-
+    public void RemoveEveryoneFromCountyImprovement(CountyData countyData)
+    {
+        Godot.Collections.Array<PopulationData> peopleToRemove = populationAtImprovement.Duplicate();
+        foreach(PopulationData populationData in peopleToRemove)
+        {
+            populationData.RemoveFromCountyImprovement();
+            countyData.workersList.Add(populationData);
+        }
+    }
     public void RemovePopulationFromPopulationAtImprovementList(PopulationData populationData)
     {
         populationAtImprovement.Remove(populationData);
+        populationData.currentCountyImprovement = null;
     }
 
     /// <summary>

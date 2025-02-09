@@ -82,9 +82,13 @@ public class PopulationWorkStart
 
     public static void AssignBuildersToImprovement(CountyData countyData)
     {
-        foreach(CountyImprovementData countyImprovementData in countyData.prioritizedConstructionImprovementList)
+        foreach (CountyImprovementData countyImprovementData in countyData.prioritizedConstructionImprovementList)
         {
-            HeroWorkStart.AssignHeroesToBuildImprovement(countyData, countyImprovementData);
+            if (countyData.prioritizedHeroBuildersList.Count > 0)
+            {
+                countyImprovementData.RemoveEveryoneFromCountyImprovement(countyData);
+                HeroWorkStart.AssignHeroesToBuildImprovement(countyData, countyImprovementData);
+            }
 
             AssignPopulationToBuildImprovement(countyData, countyImprovementData, countyData.prioritizedBuildersList);
         }
@@ -143,7 +147,7 @@ public class PopulationWorkStart
             .CompareTo(a.skills[countyImprovementData.workSkill].skillLevel));
 
         // Update the remaining workers slots number.
-        int remainingWorkerSlots = countyImprovementData.adjustedMaxWorkers 
+        int remainingWorkerSlots = countyImprovementData.adjustedMaxWorkers
             - countyImprovementData.populationAtImprovement.Count;
         int availableWorkersSlots = Math.Min(countyData.prioritizedWorkersList.Count
             , remainingWorkerSlots);
@@ -167,10 +171,14 @@ public class PopulationWorkStart
     /// <param name="countyData"></param>
     public static void AssignWorkersToImprovement(CountyData countyData)
     {
-        foreach (CountyImprovementData countyImprovementData 
+        foreach (CountyImprovementData countyImprovementData
             in countyData.prioritizedWorkImprovementList)
         {
-            HeroWorkStart.AssignHeroesToWorkImprovement(countyData, countyImprovementData);
+            if (countyData.prioritizedHeroWorkersList.Count > 0)
+            {
+                countyImprovementData.RemoveEveryoneFromCountyImprovement(countyData);
+                HeroWorkStart.AssignHeroesToWorkImprovement(countyData, countyImprovementData);
+            }
 
             AssignPopulationToWorkImprovement(countyData, countyImprovementData);
         }

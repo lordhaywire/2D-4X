@@ -129,11 +129,7 @@ public partial class County : Node2D
             countyData.prioritizedConstructionImprovementList.Clear();
         }
 
-
-        // Clear the prioritized builders lists.
-        // We need this prioritizedHeroBuilderList for later.
-        //HeroWorkStart.ClearPrioritizedHeroBuildersList(countyData);
-
+        // We don't need the priortized builders list anymore, because we generate the idlePopulationList after this.
         PopulationWorkStart.ClearPrioritizedBuildersList(countyData);
 
         // Check for prioritized work improvements.
@@ -149,8 +145,9 @@ public partial class County : Node2D
 
             countyData.prioritizedWorkImprovementList.Clear();
         }
-        
+
         // Clear the priortized workers lists.
+        // We don't need the priortized workers list anymore, because we generate the idlePopulationList after this.
         PopulationWorkStart.ClearPrioritizedWorkersList(countyData);
 
         // Gets all the idle people and puts them in a list for the next methods.

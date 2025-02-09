@@ -70,6 +70,14 @@ public partial class HeroPanelContainer : PanelContainer
     /// <param name="numberOfCheckBox"></param>
     private void HeroActivitiesCheckBoxPressed(int numberOfCheckBox)
     {
+        if (heroCheckBoxes[numberOfCheckBox].ButtonPressed == false)
+        {
+            populationData.UpdateActivity(AllEnums.Activities.Idle);
+            populationData.currentCountyImprovement?.RemovePopulationFromPopulationAtImprovementList(populationData);
+            GD.Print("Scavenge has been unpressed.");
+            return;
+        }
+
         DeselectAllOtherCheckBoxes(numberOfCheckBox);
 
         switch (numberOfCheckBox)
@@ -77,16 +85,17 @@ public partial class HeroPanelContainer : PanelContainer
             // Scavenge
             case 0:
                 populationData.UpdateActivity(AllEnums.Activities.Scavenge);
-                populationData.currentCountyImprovement?.RemovePopulationFromPopulationAtImprovementList(populationData);
-                populationData.currentCountyImprovement = null;
-                return;
-            // Work
-            case 1:
-                populationData.UpdateActivity(AllEnums.Activities.Work);
+                //populationData.currentCountyImprovement?.RemovePopulationFromPopulationAtImprovementList(populationData);
+                //populationData.currentCountyImprovement = null;
+                GD.Print("Scavenge has been pressed.");
                 return;
             // Build
-            case 2:
+            case 1:
                 populationData.UpdateActivity(AllEnums.Activities.Build);
+                return;
+            // Work
+            case 2:
+                populationData.UpdateActivity(AllEnums.Activities.Work);
                 return;
             // Research
             case 3:

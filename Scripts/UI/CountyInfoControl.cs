@@ -206,18 +206,19 @@ namespace PlayerSpace
                 if (countyImprovementData.maxWorkers > 0
                     && countyImprovementData.factionResourceType != AllEnums.FactionGoodType.Research)
                 {
-                    heroPrefab.heroCheckBoxes[1].Disabled = false;
+                    heroPrefab.heroCheckBoxes[2].Disabled = false;
                 }
             }
             // Build
             if (countyData.underConstructionCountyImprovementList.Count > 0)
             {
-                heroPrefab.heroCheckBoxes[2].Disabled = false;
+                heroPrefab.heroCheckBoxes[1].Disabled = false;
             }
         }
 
         /// <summary>
         /// Disables all checkboxes except scavenge.
+        /// This is dumb.
         /// </summary>
         /// <param name="heroPrefab"></param>
         private void DisableMostActivityCheckboxes(HeroPanelContainer heroPrefab)
@@ -233,6 +234,7 @@ namespace PlayerSpace
             }
         }
 
+        // This is dumb too.
         private void PopulateActivityHboxes(PopulationData populationData, HeroPanelContainer heroPrefab)
         {
             switch (populationData.activity)
@@ -240,10 +242,10 @@ namespace PlayerSpace
                 case AllEnums.Activities.Scavenge:
                     heroPrefab.heroCheckBoxes[0].ButtonPressed = true;
                     return;
-                case AllEnums.Activities.Work:
+                case AllEnums.Activities.Build:
                     heroPrefab.heroCheckBoxes[1].ButtonPressed = true;
                     return;
-                case AllEnums.Activities.Build:
+                case AllEnums.Activities.Work:
                     heroPrefab.heroCheckBoxes[2].ButtonPressed = true;
                     return;
                 case AllEnums.Activities.Research:

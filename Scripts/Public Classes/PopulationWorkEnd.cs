@@ -36,7 +36,6 @@ public class PopulationWorkEnd
             switch (populationData.activity)
             {
                 case AllEnums.Activities.Scavenge:
-                    GD.Print($"{populationData.firstName} {populationData.lastName} is generating scavenged resources.");
                     // Skill learning is done in the GenerateScavengedResources.
                     Banker.GenerateScavengedResources(countyData, populationData);
 

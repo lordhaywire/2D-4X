@@ -30,6 +30,7 @@ public class HeroWorkStart
     }
 
     /// <summary>
+    /// My fear is that the hero will be removed from a county improvement and moved to a new one whenever things change.
     /// Heroes who are already working on prioritized buildings should have been removed from the prioritized
     /// hero builders list at this point.
     /// We do not sort this list because at this point the heroes should be at the top of the list,
@@ -44,7 +45,6 @@ public class HeroWorkStart
         // Assign Heroes to improvement.
         int availableBuilderSlots = Math.Min(countyData.prioritizedHeroBuildersList.Count
             , remainingWorkerSlots);
-
         foreach (PopulationData populationData in countyData.prioritizedHeroBuildersList.Slice(0, availableBuilderSlots))
         {
             populationData.RemoveFromCountyImprovement(); // This is just in case they are already at a county improvement.
@@ -56,6 +56,7 @@ public class HeroWorkStart
 
         countyData.RemovePopulationFromLists(countyData.prioritizedHeroBuildersList);
     }
+
 
     /// <summary>
     /// We do not sort this list because at this point the heroes should be at the top of the list,
@@ -82,6 +83,7 @@ public class HeroWorkStart
 
         countyData.RemovePopulationFromLists(countyData.prioritizedHeroWorkersList);
     }
+
 
     public static void ClearPrioritizedHeroWorkersList(CountyData countyData)
     {
