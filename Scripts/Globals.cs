@@ -1,6 +1,5 @@
 using Godot;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -76,7 +75,7 @@ public partial class Globals : Node
     [ExportGroup("Population Generation")]
     [Export] public Node2D countiesParent; // Used for Population generation and random color.  I think we are going to change how the colors are distubuted.
     //[Export] public int heroPopulation = 1;
-    [Export] public int totalCapitolPop = 10;
+    [Export] public int totalCapitolPop = 8;
     [Export] public int minimumCountyPop = 1;
     [Export] public int maximumCountyPop = 4;
 
@@ -170,9 +169,23 @@ public partial class Globals : Node
     public void UpdateSelectedHero()
     {
         PlayerUICanvas.Instance.selectedHeroPanelContainer.populationData = selectedCountyPopulation;
-        CountyInfoControl.Instance.UpdateHeroInfo(PlayerUICanvas.Instance.selectedHeroPanelContainer, selectedCountyPopulation);
+        CountyInfoControl.UpdateHeroInfo(PlayerUICanvas.Instance.selectedHeroPanelContainer);
     }
 
+    public CountyData GetCountyDataFromLocationID(int location)
+    {
+        County county = (County)countiesParent.GetChild(location);
+        return county.countyData;
+    }
+
+    public bool CheckIfPlayerFaction(FactionData factionData)
+    {
+        if(factionData == playerFactionData)
+        {
+            return true;
+        }
+        return false;
+    }
     private void LoadNames()
     {
         // Load all the names from disk.

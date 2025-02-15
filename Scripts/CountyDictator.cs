@@ -38,15 +38,15 @@ namespace PlayerSpace
             // Assign the faction's
         }
 
-        private static void DestroyFaction(County selectCounty)
+        private static void DestroyFaction(County county)
         {
             //GD.Print("All Heroes List Count: " + selectCounty.countyData.factionData.allHeroesList.Count);
             // Remove all of this factions heroes from game.
-            FactionCountyPopulationDestroyer(selectCounty.countyData.factionData.allHeroesList);
+            FactionCountyPopulationDestroyer(county.countyData.factionData.allHeroesList);
 
-            Globals.Instance.deadFactions.Add(selectCounty.countyData.factionData);
-            Globals.Instance.factionDatas.Remove(selectCounty.countyData.factionData);
-            FactionGeneration.Instance.GetChild(selectCounty.countyData.factionData.factionID).QueueFree();
+            Globals.Instance.deadFactions.Add(county.countyData.factionData);
+            Globals.Instance.factionDatas.Remove(county.countyData.factionData);
+            Globals.Instance.factionsParent.GetChild(county.countyData.factionData.factionID).QueueFree();
         }
 
         // Maybe move to a Faction Dictator script.
@@ -57,9 +57,9 @@ namespace PlayerSpace
                 County selectCounty = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
                 selectCounty.countyData.heroesInCountyList.Remove(populationData);
                 selectCounty.countyData.armiesInCountyList.Remove(populationData);
-                selectCounty.countyData.spawnedTokenButtons.Remove(populationData.token.spawnedTokenButton);
-                populationData.token.spawnedTokenButton.QueueFree();
-                populationData.token.QueueFree();
+                selectCounty.countyData.spawnedTokenButtons.Remove(populationData.heroToken.spawnedTokenButton);
+                populationData.heroToken.spawnedTokenButton.QueueFree();
+                populationData.heroToken.QueueFree();
 
                 //GD.PrintRich($"[rainbow]{populationData.firstName}");
                 CountyInfoControl.Instance.GenerateHeroesPanelList();

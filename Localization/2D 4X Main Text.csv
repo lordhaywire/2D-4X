@@ -141,6 +141,7 @@ PHRASE_REMOVE_IMPROVEMENT,Remove Improvement,Eliminar mejora
 PHRASE_RESEARCH_COST,Research Cost,Coste de investigación
 PHRASE_RESEARCH_FOR,Research for,Investigación para
 PHRASE_RESEARCH_PROGRESS,Research Progress,Avances en la investigación
+PHRASE_THERE_IS_NEGATIVE_STORAGE,There is negative storage!,¡Hay almacenamiento negativo!
 PHRASE_UNDER_CONSTRUCTION,Under Construction,En obra
 PHRASE_USE_REMNANTS_FOR_CONSTRUCTION,Use Remnants for construction,Usar remanentes para la construcción
 RESEARCH_BASIC_PRODUCTION,Basic Production,Producción básica
@@ -181,7 +182,9 @@ WORD_CLOSE,Close,Cerrar
 WORD_CONSTRUCT,Construct,Construir
 WORD_CONSTRUCTION,Construction,Construcción
 WORD_DAY,Day:,Día
+WORD_EXPLORE,Explore,Explorar
 WORD_FEMALE,Female,Hembra
+WORD_GOODS,Goods,Bienes
 WORD_HELPFUL,Helpful,Útil
 WORD_HIRING,Hiring,Contratación
 WORD_IDLE,Idle,Ocioso
@@ -206,5 +209,11 @@ WORD_SPEED,Speed:,Velocidad
 WORD_TIME,Time:,Hora
 WORD_TITLES,Titles,Títulos
 WORD_VISITORS,Visitors,Visitantes
-WORD_GOODS,Goods,Bienes
-PHRASE_THERE_IS_NEGATIVE_STORAGE,There is negative storage!,¡Hay almacenamiento negativo!
+WORD_WORK,Work,Trabajo
+WORD_SCAVENGE,Scavenge,Recoger la basura
+ACTIVITY_EXPLORE_NAME,Explore,Explorar
+ACTIVITY_EXPLORE_DESCRIPTION,Exploring a county,Explorando un condado
+ACTIVITY_EXPLORE_TOOLTIP,Exploring a county,Explorando un condado
+WORD_BUILD,Build,Construir
+WORD_TRAIN,Train,Entrenar
+WORD_MUSTER,Muster,Patrón

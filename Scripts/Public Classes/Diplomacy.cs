@@ -41,7 +41,7 @@ namespace PlayerSpace
             if (defenderHero != null)
             {
                 // Defender's faction data.
-                battleLocation.countyData.factionData.tokenSpawner.Spawn(battleLocation, defenderHero);
+                TokenSpawner.Spawn(battleLocation, defenderHero);
             }
             else
             {
@@ -57,7 +57,7 @@ namespace PlayerSpace
             {
                 foreach(PopulationData populationData in battleLocation.countyData.armiesInCountyList)
                 {
-                    if(populationData.token != null)
+                    if(populationData.heroToken != null)
                     {
                         return null;
                     }
@@ -72,7 +72,7 @@ namespace PlayerSpace
             {
                 foreach (PopulationData populationData in battleLocation.countyData.heroesInCountyList)
                 {
-                    if (populationData.isFactionLeader == true)
+                    if (populationData.HeroType == AllEnums.HeroType.FactionLeader)
                     {
                         populationData.ChangeToArmy();
                         return populationData;

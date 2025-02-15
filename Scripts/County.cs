@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,7 +19,7 @@ public partial class County : Node2D
     [Export] public HBoxContainer armiesHBox;
     [Export] public HBoxContainer heroesHBox;
 
-    private SelectToken selectToken;
+    private HeroToken selectToken;
 
     public List<County> neighborCounties = [];
 
@@ -39,14 +38,14 @@ public partial class County : Node2D
 
     private void Weekly()
     {
-        GD.PrintRich($"[rainbow]County : Weekly!!!!!");
+        //GD.PrintRich($"[rainbow]County : Weekly!!!!!");
         // Check loyalty and update work status if necessary.
-        PopulationWork.WorkWeekOverForPopulation(countyData.populationDataList);
+        PopulationWorkEnd.WorkWeekOverForPopulation(countyData.populationDataList);
     }
 
     private void EndOfDay()
     {
-        GD.PrintRich($"[rainbow]County : EndOfDay!!!!!");
+        //GD.PrintRich($"[rainbow]County : EndOfDay!!!!!");
 
         CountyAI countyAI = new();
 
@@ -67,15 +66,15 @@ public partial class County : Node2D
 
         // Goes through each hero just like if they were a normal county population and
         // generates their work amount/research.
-        PopulationWork.WorkDayOverForPopulation(countyData, countyData.heroesInCountyList);
+        PopulationWorkEnd.WorkDayOverForPopulation(countyData, countyData.heroesInCountyList);
 
         // Generates resources through work, scavenging, building, and research.
         // Generates the daily amount of work amount/building for each county improvement per person.
-        PopulationWork.WorkDayOverForPopulation(countyData, countyData.populationDataList);
+        PopulationWorkEnd.WorkDayOverForPopulation(countyData, countyData.populationDataList);
 
         // Converts the totaly daily amount of work into goods and construction.
         // Possibly scavenging and research eventually.
-        PopulationWork.CalculateWorkToGoodsProduction(countyData);
+        PopulationWorkEnd.CalculateWorkToGoodsProduction(countyData);
 
         PopulationAI.IsThereEnoughFood(countyData); // This is a terrible name for this method.
 
@@ -88,39 +87,78 @@ public partial class County : Node2D
         countyData.CheckIfCountyImprovementsAreDone();
 
         // Update all the top bar resources
-        TopBarControl.Instance.UpdateResourceLabels();
+        TopBarControl.Instance.UpdateTopBarGoodLabels();
 
         // Update the county info control with the counties available resources.
         if (Globals.Instance.SelectedLeftClickCounty != null)
         {
             CountyInfoControl.Instance.UpdateCountyAvailableResources();
         }
+
+        countyData.ClearIdlePopulationList();
     }
 
     private void StartDay()
     {
-        GD.PrintRich($"[rainbow]County : StartOfDay!!!!!");
+        //GD.PrintRich($"[rainbow]County : StartOfDay!!!!!");
 
         // Prioritized County Improvements needs to go first.
         // County Improvements gather goods for their stockpile.
         // Sorts the list first by prioritized, then gathers the stockpiled goods.  Written by ChatGPT.
-        foreach (CountyImprovementData countyImprovementData in countyData.completedCountyImprovements
+        foreach (CountyImprovementData countyImprovementData in countyData.completedCountyImprovementList
             .OrderByDescending(c => c.prioritize))
         {
             Haulmaster.GatherStockpileGoods(countyData, countyImprovementData);
         }
 
-        // Assign people to the prioritized county improvements.
-        countyData.AssignPeopleToPrioritizedImprovements();
+        // Add heroes to both prioritized workers and possible worker lists.
+        // We are doing this first because there aren't that many heroes that should be working, or building.
+        HeroWorkStart.AssignWorkingHeroesToPrioritizedLists(countyData);
+
+        // If there is no prioritized construction or building, skip making the list.
+        // Check for prioritized under construction improvements
+        PopulationWorkStart.GeneratePrioritizedConstructionImprovementList(countyData);
+
+        if (countyData.prioritizedConstructionImprovementList.Count > 0)
+        {
+            PopulationWorkStart.GeneratePrioritizedBuildersList(countyData);
+
+            // Adds builders and heroes to improvement
+            PopulationWorkStart.AssignBuildersToImprovement(countyData);
+
+            countyData.prioritizedConstructionImprovementList.Clear();
+        }
+
+        // We don't need the priortized builders list anymore, because we generate the idlePopulationList after this.
+        PopulationWorkStart.ClearPrioritizedBuildersList(countyData);
+
+        // Check for prioritized work improvements.
+        PopulationWorkStart.GeneratePrioritizedWorkImprovementList(countyData);
+
+        // Assign people to the prioritized work improvements.
+        if (countyData.prioritizedWorkImprovementList.Count > 0)
+        {
+            PopulationWorkStart.GeneratePrioritizedWorkersList(countyData);
+
+            // Adds workers and heroes to improvement
+            PopulationWorkStart.AssignWorkersToImprovement(countyData);
+
+            countyData.prioritizedWorkImprovementList.Clear();
+        }
+
+        // Clear the priortized workers lists.
+        // We don't need the priortized workers list anymore, because we generate the idlePopulationList after this.
+        PopulationWorkStart.ClearPrioritizedWorkersList(countyData);
 
         // Gets all the idle people and puts them in a list for the next methods.
         countyData.FindIdlePopulation();
 
+        // Currently construction is first to everything gets built first.
+        // Heroes work, or building depends on the player.
+        countyData.AssignEveryoneToConstruction();
+
         countyData.CheckForPreferredWork();
 
-        // We may want construction to come before work, so that people will build stuff vs always be working
-        // and never build anything.
-        countyData.CheckForConstruction();
         countyData.CheckForAnyWork();
 
         // Sets people to scavenge.

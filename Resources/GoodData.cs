@@ -41,13 +41,13 @@ namespace PlayerSpace
                 if (goodType == AllEnums.GoodType.FactionGood)
                 {
                     maxAmount = int.MaxValue;
-                    GD.PrintRich($"Faction Good Max Amount: {goodName} {maxAmount}");
+                    //GD.PrintRich($"Faction Good Max Amount: {goodName} {maxAmount}");
                     return;
                 }
 
                 maxAmount = value;
                 Amount = Math.Min(Amount, maxAmount);
-                GD.Print($"Good Max Amount: {goodName} {maxAmount}");
+                //GD.Print($"Good Max Amount: {goodName} {maxAmount}");
             }
         }
 

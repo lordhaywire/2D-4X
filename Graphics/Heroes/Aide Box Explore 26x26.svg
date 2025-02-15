@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 26 26"
+   version="1.1"
+   id="svg8"
+   sodipodi:docname="Heroes Box Explore.svg"
+   inkscape:export-filename="E:\Godot\Projects\2D 4X\Graphics\Heroes\Heroes Box Explore.png"
+   inkscape:export-xdpi="4.8800001"
+   inkscape:export-ydpi="4.8800001"
+   width="26"
+   height="26"
+   inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs12" />
+  <sodipodi:namedview
+     id="namedview10"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="1.4042969"
+     inkscape:cx="256"
+     inkscape:cy="141.70793"
+     inkscape:window-width="2560"
+     inkscape:window-height="1377"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg8" />
+  <path
+     d="M 0,0 H 26 V 26 H 0 Z"
+     fill="#000000"
+     fill-opacity="1"
+     id="path2"
+     style="stroke-width:1" />
+  <g
+     class=""
+     style="stroke-width:19.6923"
+     transform="scale(0.05078125)"
+     id="g6">
+    <path
+       d="M 331.903,390.047 H 492.808 V 490.59 H 142.51 L 91.77,390.047 h 98.483 c 6.271,33.322 19.28,59.742 34.251,79.718 l 33.436,-0.837 -14.837,-120.625 c 0,0 32.072,82.707 100.429,104.178 l 21.888,-14.752 c 0,0 -15.397,-20.083 -33.516,-47.682 z M 331.255,280.43 a 9.04,9.04 0 0 1 0.179,-0.92 l 15.212,-60.713 C 317.066,207.959 292.81,187.875 273.597,159.05 l -56.038,17.571 -29.72,139.753 96.5,-1.204 -18.307,-65.215 4.578,-25.546 z m 32.331,-56.574 -7.143,28.511 c 22.545,1.257 60.24,-0.335 62.413,-24.703 -19.99,1.449 -38.399,0.154 -55.27,-3.808 z M 198.891,182.273 65.338,227.723 c 5.984,22.053 68.665,-0.608 68.665,-0.608 l 11.108,18.669 36.37,-16.285 z m 2.287,-53.477 -149.988,65.86 c -4.462,1.961 -6.495,7.175 -4.536,11.638 1.96,4.462 7.175,6.495 11.638,4.536 l 150.052,-65.89 c -1.97,-2.826 -3.671,-6.011 -5.06,-9.536 a 53.96,53.96 0 0 1 -2.106,-6.608 z m 91.357,-40.115 c -0.277,6.653 -1.364,13.67 -3.385,20.777 l 94.137,-41.337 c -2.434,4.412 -6.759,12.7 -8.42,16.632 -16.34,35.613 -16.78,61.244 -10.473,77.087 6.952,17.468 21.572,25.184 36.38,24.183 14.045,-0.95 28.716,-10.072 36.729,-27.628 7.87,-17.24 9.327,-43.639 -5.226,-78.378 l -0.074,-0.218 -0.015,0.005 c -4.672,-11.113 -10.984,-23.085 -19.247,-35.882 -2.385,-3.694 -7.07,-5.014 -10.97,-3.295 l -0.079,0.034 z M 259.471,54.639 c 14.209,4.421 19.654,27.58 12.154,51.682 -7.501,24.102 -25.125,40.08 -39.332,35.659 -14.209,-4.422 -19.654,-27.579 -12.154,-51.68 7.501,-24.103 25.125,-40.082 39.332,-35.66 z m 156.024,30.892 c 3.133,9.128 3.377,16.36 1.346,21.786 -2.466,6.586 -8.468,9.798 -14.337,9.878 -4.648,0.064 -9.33,-1.778 -11.87,-5.84 -4.853,-7.762 -2.044,-18.829 14.689,-46.012 4.051,7.068 7.43,13.795 10.199,20.18 z"
+       fill="#ffffff"
+       fill-opacity="1"
+       id="path4"
+       style="stroke-width:87.3866" />
+  </g>
+</svg>

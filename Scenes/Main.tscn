@@ -1,4 +1,4 @@
-[gd_scene load_steps=137 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=142 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" uid="uid://ctm4ah5pwyf7d" path="res://Scripts/Main.cs" id="1_62dun"]
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://World Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
@@ -7,13 +7,14 @@
 [ext_resource type="Texture2D" uid="uid://dqlvmop4g8aam" path="res://Graphics/Tokens/HornedGuySelected.png" id="3_r5dcu"]
 [ext_resource type="Script" uid="uid://c8hir37ufgy3k" path="res://Scripts/CameraControls.cs" id="3_x2lmt"]
 [ext_resource type="Texture2D" uid="uid://7jvylb78h24w" path="res://Graphics/Tokens/HornedGuyUnselected.png" id="4_pxob5"]
-[ext_resource type="PackedScene" uid="uid://cwe0ergnkkfm0" path="res://Prefabs/HeroToken.tscn" id="5_w6a76"]
+[ext_resource type="Script" uid="uid://bk83rlc3sdl8r" path="res://Scripts/HeroToken.cs" id="6_0j4c6"]
 [ext_resource type="Script" uid="uid://clpo80c2m3pbo" path="res://Scripts/AllGraphics.cs" id="6_48s64"]
 [ext_resource type="Script" uid="uid://dg83vbn4mppht" path="res://Scripts/Public Classes/AllTokenTextures.cs" id="7_7iyml"]
+[ext_resource type="Script" uid="uid://dhv0nhm25qjt5" path="res://Scripts/UI/SpawnedTokenButton.cs" id="7_bposm"]
 [ext_resource type="Script" uid="uid://bpj8qnqg0d8d" path="res://Scripts/UserFolderController.cs" id="7_fr5hn"]
 [ext_resource type="Texture2D" uid="uid://du76vrdfhckkd" path="res://Graphics/Icons/Population/resized faction leader icon.png" id="7_g78s2"]
 [ext_resource type="Script" uid="uid://cshbx03lu00mu" path="res://Scripts/CountyLoader.cs" id="7_o23yn"]
-[ext_resource type="PackedScene" uid="uid://wlnn33lx7wjt" path="res://UIScenes/SpawnedTokenButton.tscn" id="8_ne3u6"]
+[ext_resource type="Script" uid="uid://dotu8ux8tg6l8" path="res://Scripts/TokenMovement.cs" id="7_qmo2n"]
 [ext_resource type="Texture2D" uid="uid://b67d6nynwdq3o" path="res://Graphics/Icons/Population/resized faction aide.png" id="8_rm8kv"]
 [ext_resource type="Script" uid="uid://8nqlrujpaio1" path="res://Scripts/AllActivities.cs" id="9_bq1ko"]
 [ext_resource type="Texture2D" uid="uid://cbpah1j3xx4f2" path="res://Graphics/Icons/Population/resized army icon.png" id="9_ft7d6"]
@@ -35,6 +36,7 @@
 [ext_resource type="Script" uid="uid://bvi0u5nh4c4p5" path="res://Scripts/CountyGeneration.cs" id="16_pxxn4"]
 [ext_resource type="Resource" uid="uid://cwkooap4yvn10" path="res://Resources/ResearchItems/Basic Storage.tres" id="16_qtbxl"]
 [ext_resource type="Script" uid="uid://w7efp2g0eih7" path="res://Scripts/CountyPopulationGeneration.cs" id="17_1215r"]
+[ext_resource type="Resource" uid="uid://drln8l4n4qtg7" path="res://Resources/Activities/Explore.tres" id="17_bposm"]
 [ext_resource type="Script" uid="uid://c6nd17mfkssti" path="res://Scripts/RandomFactionColor.cs" id="18_3aru6"]
 [ext_resource type="Script" uid="uid://dhynx3i0k61wi" path="res://Scripts/AllGoods.cs" id="18_wf5kh"]
 [ext_resource type="Resource" uid="uid://c55q8uucl7cqe" path="res://Resources/Goods/Fish.tres" id="19_1e80i"]
@@ -127,11 +129,41 @@
 [ext_resource type="PackedScene" uid="uid://iur3kq10dikl" path="res://Scenes/MapEditor.tscn" id="66_sq6pt"]
 [ext_resource type="PackedScene" uid="uid://bhgbnf6lykhb6" path="res://UIScenes/PerkLabel.tscn" id="68_6cv3c"]
 [ext_resource type="Texture2D" uid="uid://cs6gb8bpwt7xd" path="res://Graphics/yellow-crumpled-lined-paper-background-2022-12-16-00-47-47-utc-scaled.webp" id="76_xlxp7"]
-[ext_resource type="Script" uid="uid://bk012pwi1wh6t" path="res://Scripts/GameStart.cs" id="84_lusaj"]
 [ext_resource type="Texture2D" uid="uid://cyphf3703b4qa" path="res://Graphics/Icons/Top Bar/bolter-gun.svg" id="98_qs8v3"]
 [ext_resource type="PackedScene" uid="uid://x448dpajwnx" path="res://UIScenes/CountyImprovementPanelContainer.tscn" id="119_kkhw7"]
 [ext_resource type="Script" uid="uid://cc6kc1k26qlew" path="res://Scripts/UI/RemoveCountyImprovementConfirmationPanelContainer.cs" id="122_hwg2s"]
 [ext_resource type="PackedScene" uid="uid://ctmeblm8t3ynu" path="res://UIScenes/ResearchPrerequisiteLabel.tscn" id="124_veo43"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kukrp"]
+size = Vector2(45, 45)
+
+[sub_resource type="PackedScene" id="PackedScene_mjyee"]
+_bundled = {
+"conn_count": 3,
+"conns": PackedInt32Array(0, 0, 43, 42, 2, 0, 0, 4, 0, 45, 44, 2, 0, 0, 4, 0, 47, 46, 2, 0, 0),
+"editable_instances": [],
+"names": PackedStringArray("HeroToken", "visible", "z_index", "input_pickable", "script", "sprite", "tokenNameLabel", "tokenMovement", "CharacterBody2D", "CollisionShape2D", "position", "shape", "Token Movement", "Node2D", "Sprite2D", "scale", "texture", "Token Control", "layout_mode", "anchors_preset", "anchor_left", "anchor_top", "anchor_right", "anchor_bottom", "offset_left", "offset_top", "offset_right", "offset_bottom", "grow_horizontal", "grow_vertical", "mouse_filter", "Control", "Name Control", "size_flags_horizontal", "size_flags_vertical", "Name Label", "theme_override_font_sizes/font_size", "text", "horizontal_alignment", "Label", "Stack Count Control", "Stack Count Label", "OnClick", "input_event", "OnMouseEnter", "mouse_entered", "OnMouseExit", "mouse_exited"),
+"node_count": 9,
+"node_paths": [],
+"nodes": PackedInt32Array(-1, -1, 8, 0, -1, 7, 1, 0, 2, 1, 3, 2, 4, 3, 1073741829, 4, 1073741830, 5, 1073741831, 6, 0, 0, 0, 9, 9, -1, 3, 1, 0, 10, 7, 11, 8, 0, 0, 0, 13, 12, -1, 1, 4, 9, 0, 0, 0, 14, 14, -1, 2, 15, 10, 16, 11, 0, 0, 0, 31, 17, -1, 13, 18, 12, 19, 13, 20, 14, 21, 14, 22, 14, 23, 14, 24, 15, 25, 15, 26, 16, 27, 16, 28, 17, 29, 17, 30, 18, 0, 4, 0, 31, 32, -1, 9, 18, 18, 19, 19, 20, 14, 22, 14, 28, 17, 15, 20, 33, 21, 34, 22, 30, 17, 0, 5, 0, 39, 35, -1, 11, 18, 18, 19, 19, 20, 14, 22, 14, 24, 23, 26, 24, 27, 25, 28, 17, 36, 26, 37, 27, 38, 18, 0, 4, 0, 31, 40, -1, 9, 18, 18, 19, 21, 21, 14, 23, 14, 29, 17, 15, 20, 33, 21, 34, 22, 30, 17, 0, 7, 0, 39, 41, -1, 12, 1, 0, 18, 18, 19, 21, 21, 14, 23, 14, 25, 28, 26, 29, 27, 30, 29, 17, 36, 26, 37, 31, 38, 18, 0),
+"variants": [false, 15, true, ExtResource("6_0j4c6"), NodePath("Sprite2D"), NodePath("Token Control/Name Control/Name Label"), NodePath("Token Movement"), Vector2(0.5, -1.5), SubResource("RectangleShape2D_kukrp"), ExtResource("7_qmo2n"), Vector2(0.1, 0.1), ExtResource("4_pxob5"), 3, 8, 0.5, -22.5, 22.5, 2, 1, 5, Vector2(0.15, 0.15), 4, 0, -149.0, 149.0, 67.0, 48, "LOrd Whatvs", -33.5, 27.0, 33.5, "5"],
+"version": 3
+}
+
+[sub_resource type="ImageTexture" id="ImageTexture_p5dn1"]
+
+[sub_resource type="PackedScene" id="PackedScene_0j4c6"]
+_bundled = {
+"conn_count": 3,
+"conns": PackedInt32Array(1073741826, 1073741825, 25, 24, 2, 0, 0, 1073741828, 1073741827, 27, 26, 2, 0, 0, 1073741830, 1073741829, 29, 28, 2, 0, 0),
+"editable_instances": [],
+"names": PackedStringArray("Spawned Token Button", "Button", "custom_minimum_size", "offset_right", "offset_bottom", "size_flags_horizontal", "size_flags_vertical", "tooltip_text", "focus_mode", "mouse_filter", "theme_override_font_sizes/font_size", "icon", "icon_alignment", "script", "tokenIconTextureRect", "TextureRect", "TextureRect", "layout_mode", "anchors_preset", "anchor_right", "anchor_bottom", "grow_horizontal", "grow_vertical", "expand_mode", "OnButtonUp", "button_up", "OnMouseEntered", "mouse_entered", "OnMouseExited", "mouse_exited"),
+"node_count": 2,
+"node_paths": [NodePath("."), NodePath("."), NodePath("."), NodePath("."), NodePath("TextureRect"), NodePath("."), NodePath("TextureRect")],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 13, 2, 0, 3, 1, 4, 2, 5, 3, 6, 4, 7, 5, 8, 6, 9, 7, 10, 8, 11, 9, 12, 10, 13, 11, 1073741838, 12, 0, 1073741824, 0, 16, 15, -1, 7, 17, 13, 18, 14, 19, 15, 20, 16, 21, 17, 22, 18, 23, 19, 0),
+"variants": [Vector2(20, 20), 20.0, 20.0, 4, 4, "This is tooltip!", 0, 1, 5, SubResource("ImageTexture_p5dn1"), 1, ExtResource("7_bposm"), NodePath("TextureRect"), 1, 15, 1.0, 1.0, 2, 2, 2],
+"version": 3
+}
 
 [sub_resource type="Resource" id="Resource_6tiru"]
 script = ExtResource("22_0b0as")
@@ -200,8 +232,8 @@ minimumCountyPop = 5
 maximumCountyPop = 10
 factionsParent = NodePath("../../Factions")
 minimumFood = 100
-heroToken = ExtResource("5_w6a76")
-spawnedTokenButton = ExtResource("8_ne3u6")
+heroToken = SubResource("PackedScene_mjyee")
+spawnedTokenButton = SubResource("PackedScene_0j4c6")
 movementSpeed = 1
 costOfHero = 500
 
@@ -212,7 +244,7 @@ script = ExtResource("7_fr5hn")
 
 [node name="All Activities" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("9_bq1ko")
-allActivityData = Array[Object]([ExtResource("10_6i1wp"), ExtResource("11_pouup"), ExtResource("12_rh1yq"), ExtResource("13_fv5u6"), ExtResource("14_e28rg"), ExtResource("15_k2peh"), ExtResource("16_er5gf")])
+allActivityData = Array[Object]([ExtResource("10_6i1wp"), ExtResource("11_pouup"), ExtResource("17_bposm"), ExtResource("12_rh1yq"), ExtResource("13_fv5u6"), ExtResource("14_e28rg"), ExtResource("15_k2peh"), ExtResource("16_er5gf")])
 
 [node name="All Attributes" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("23_ucd0c")
@@ -290,9 +322,6 @@ ticks = 100
 
 [node name="County Dictator" type="Node" parent="Game Controller Node"]
 script = ExtResource("28_qe8u4")
-
-[node name="Game Start" type="Node" parent="Game Controller Node"]
-script = ExtResource("84_lusaj")
 
 [node name="Player UI Canvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("BattleLogControl", "populationListUIElement", "selectedHeroPanelContainer", "resourcesPanelContainer")]
 process_mode = 3
@@ -908,7 +937,7 @@ text = "County Improvements"
 layout_mode = 2
 mouse_filter = 0
 
-[node name="Select Hero PanelContainer" type="PanelContainer" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer" node_paths=PackedStringArray("factionLeaderTextureRect", "aideTextureRect", "armyLeaderTextureRect", "heroNameLabel", "heroListButton", "researchCheckbox")]
+[node name="Select Hero PanelContainer" type="PanelContainer" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer" node_paths=PackedStringArray("factionLeaderTextureRect", "aideTextureRect", "armyLeaderTextureRect", "heroNameLabel", "heroListButton", "heroCheckBoxes")]
 visible = false
 custom_minimum_size = Vector2(300, 50)
 layout_mode = 2
@@ -921,7 +950,7 @@ aideTextureRect = NodePath("HBoxContainer/Aide TextureRect")
 armyLeaderTextureRect = NodePath("HBoxContainer/Army TextureRect")
 heroNameLabel = NodePath("Hero Name Label")
 heroListButton = NodePath("Hero List Button")
-researchCheckbox = NodePath("Fake CheckBox")
+heroCheckBoxes = []
 
 [node name="Hero Name Label" type="Label" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Select Hero PanelContainer"]
 layout_mode = 2
@@ -1790,6 +1819,51 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "WORD_CLOSE"
 
+[node name="Recuit Hero Confirmation PanelContainer" type="PanelContainer" parent="Player UI Canvas" node_paths=PackedStringArray("titleLabel")]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(400, 200)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("34_mgqam")
+titleLabel = NodePath("PanelContainer/Title Label")
+
+[node name="PanelContainer" type="PanelContainer" parent="Player UI Canvas/Recuit Hero Confirmation PanelContainer"]
+custom_minimum_size = Vector2(400, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Title Label" type="Label" parent="Player UI Canvas/Recuit Hero Confirmation PanelContainer/PanelContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 16
+text = "Do you want to recruit bill smill for realz?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Recuit Hero Confirmation PanelContainer/PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+alignment = 1
+
+[node name="Yes Button" type="Button" parent="Player UI Canvas/Recuit Hero Confirmation PanelContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "You are a piece of shit!"
+text = "Yes"
+
+[node name="No Button" type="Button" parent="Player UI Canvas/Recuit Hero Confirmation PanelContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "No"
+
 [node name="Battle Log Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("battleLogControlTitle", "defenderVboxContainer", "attackerVboxContainer")]
 visible = false
 layout_mode = 3
@@ -1922,7 +1996,7 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("34_mgqam")
-titleLabel = NodePath("../../Recuit Hero Confirmation PanelContainer/Title Label")
+titleLabel = NodePath("../../Recuit Hero Confirmation PanelContainer/PanelContainer/Title Label")
 
 [node name="Title Label" type="Label" parent="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer"]
 custom_minimum_size = Vector2(0, 100)
@@ -2325,50 +2399,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "WORD_CLOSE"
 
-[node name="Recuit Hero Confirmation PanelContainer" type="PanelContainer" parent="Player UI Canvas" node_paths=PackedStringArray("titleLabel")]
-visible = false
-custom_minimum_size = Vector2(400, 200)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -100.0
-offset_right = 200.0
-offset_bottom = 100.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-script = ExtResource("34_mgqam")
-titleLabel = NodePath("Title Label")
-
-[node name="Title Label" type="Label" parent="Player UI Canvas/Recuit Hero Confirmation PanelContainer"]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_font_sizes/font_size = 16
-text = "Do you want to recruit bill smill for realz?"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Recuit Hero Confirmation PanelContainer"]
-layout_mode = 2
-size_flags_vertical = 8
-alignment = 1
-
-[node name="No Button" type="Button" parent="Player UI Canvas/Recuit Hero Confirmation PanelContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "No"
-
-[node name="Yes Button" type="Button" parent="Player UI Canvas/Recuit Hero Confirmation PanelContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "You are a piece of shit!"
-text = "Yes"
-
 [node name="Declare War Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("declareWarPanelContainer", "declareWarTitleLabel")]
 visible = false
 layout_mode = 3
@@ -2613,6 +2643,9 @@ process_mode = 3
 [connection signal="pressed" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Recruit Army Button" to="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Recruit Army Button" method="OpenConfirmationPanel" binds= [true]]
 [connection signal="pressed" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Recruit Aide Button" to="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Recruit Aide Button" method="OpenConfirmationPanel" binds= [false]]
 [connection signal="button_up" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/Close Button" to="Player UI Canvas/Population Description Control" method="CloseButton"]
+[connection signal="visibility_changed" from="Player UI Canvas/Recuit Hero Confirmation PanelContainer" to="Player UI Canvas/Recuit Hero Confirmation PanelContainer" method="OnVisibilityChange"]
+[connection signal="button_up" from="Player UI Canvas/Recuit Hero Confirmation PanelContainer/PanelContainer/HBoxContainer/Yes Button" to="Player UI Canvas/Recuit Hero Confirmation PanelContainer" method="YesButton"]
+[connection signal="button_up" from="Player UI Canvas/Recuit Hero Confirmation PanelContainer/PanelContainer/HBoxContainer/No Button" to="Player UI Canvas/Recuit Hero Confirmation PanelContainer" method="NoButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Battle Log Control" to="Player UI Canvas/Battle Log Control" method="OnBattleLogControlVisibilityChanged"]
 [connection signal="mouse_entered" from="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer" to="Player UI Canvas" method="OnMouseEnterUI"]
 [connection signal="mouse_exited" from="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer" to="Player UI Canvas" method="OnMouseExitUI"]
@@ -2634,9 +2667,6 @@ process_mode = 3
 [connection signal="button_up" from="Player UI Canvas/Research Control/Close Button" to="Player UI Canvas/Research Control" method="CloseButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Research Description PanelContainer" to="Player UI Canvas/Research Description PanelContainer" method="OnResearchDescriptionPanelVisibilityChanged"]
 [connection signal="button_up" from="Player UI Canvas/Research Description PanelContainer/Close Button" to="Player UI Canvas/Research Control" method="CloseButton"]
-[connection signal="visibility_changed" from="Player UI Canvas/Recuit Hero Confirmation PanelContainer" to="Player UI Canvas/Recuit Hero Confirmation PanelContainer" method="OnVisibilityChange"]
-[connection signal="button_up" from="Player UI Canvas/Recuit Hero Confirmation PanelContainer/HBoxContainer/No Button" to="Player UI Canvas/Recuit Hero Confirmation PanelContainer" method="NoButton"]
-[connection signal="button_up" from="Player UI Canvas/Recuit Hero Confirmation PanelContainer/HBoxContainer/Yes Button" to="Player UI Canvas/Recuit Hero Confirmation PanelContainer" method="YesButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Declare War Control" to="Player UI Canvas/Declare War Control" method="OnVisibilityChanged"]
 [connection signal="mouse_entered" from="Player UI Canvas/Declare War Control/Declare War Confirmation PanelContainer" to="Player UI Canvas" method="OnMouseEnterUI"]
 [connection signal="mouse_exited" from="Player UI Canvas/Declare War Control/Declare War Confirmation PanelContainer" to="Player UI Canvas" method="OnMouseExitUI"]

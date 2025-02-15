@@ -27,6 +27,7 @@ public class Banker
             }
             int amountGenerated = GenerateScavengedResourceWithSkillCheck(populationData);
             int amount = Mathf.Min(amountGenerated, countyData.scavengableCannedFood);
+            GD.Print($"{populationData.firstName} {populationData.lastName} is generating scavenged food: {amount}");
             AddCountyResource(countyData, AllEnums.CountyGoodType.CannedFood, amount);
             countyData.RemoveResourceFromAvailableCountyTotals(AllEnums.CountyGoodType.CannedFood, amount);
         }
@@ -38,6 +39,7 @@ public class Banker
             }
             int amountGenerated = GenerateScavengedResourceWithSkillCheck(populationData);
             int amount = Mathf.Min(amountGenerated, countyData.scavengableRemnants);
+            GD.Print($"{populationData.firstName} {populationData.lastName} is generating scavenged remnants: {amount}");
             AddCountyResource(countyData, AllEnums.CountyGoodType.Remnants, amount);
             countyData.RemoveResourceFromAvailableCountyTotals(AllEnums.CountyGoodType.Remnants, amount);
         }
@@ -69,7 +71,7 @@ public class Banker
             storyEventData.eventCounty.countyData.goods[storyEventData.good.countyGoodType].Amount
                 += storyEventData.resourceAmount;
         }
-        TopBarControl.Instance.UpdateResourceLabels();
+        TopBarControl.Instance.UpdateTopBarGoodLabels();
     }
 
     public void AddLeaderInfluence(FactionData factionData)

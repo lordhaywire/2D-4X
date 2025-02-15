@@ -220,7 +220,7 @@ namespace PlayerSpace
             }
         }
 
-        private void negativeStoragePanelCloseButtonPressed()
+        private void NegativeStoragePanelCloseButtonPressed()
         {
             negativeStoragePanelContainer.Hide();
         }

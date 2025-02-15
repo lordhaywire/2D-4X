@@ -63,7 +63,7 @@ public class Haulmaster
         countyData.nonperishableStorage = Globals.Instance.startingNonperishableStorage;
         countyData.perishableStorage = Globals.Instance.startingPerishableStorage;
         GD.Print("Initial County Storage: " + countyData.nonperishableStorage);
-        foreach (CountyImprovementData countyImprovementData in countyData.completedCountyImprovements)
+        foreach (CountyImprovementData countyImprovementData in countyData.completedCountyImprovementList)
         {
             if(countyImprovementData.countyImprovementType == AllEnums.CountyImprovementType.Storage)
             {
@@ -98,7 +98,7 @@ public class Haulmaster
                 goodData.MaxAmount = countyData.nonperishableStorage
                     / Globals.Instance.numberOfNonperishableGoods;
             }
-            GD.Print($"AssignMaxStorageToGoods: {countyData.countyName} : {goodData.goodName}: {goodData.MaxAmount}");
+            //GD.Print($"AssignMaxStorageToGoods: {countyData.countyName} : {goodData.goodName}: {goodData.MaxAmount}");
         }
     }
 
@@ -153,6 +153,7 @@ public class Haulmaster
 
             // Get the county's stockpile and available amount for the required good.
             GoodData countyGood = countyData.goods[uniqueInputGood.Key.countyGoodType];
+            /*
             GD.Print("CountyImprovement Stockpiled Goods Count: " + countyImprovementData.countyStockpiledGoods.Count);
             GD.Print($"Stockpiled: {countyImprovementData.countyStockpiledGoods[uniqueInputGood.Key.countyGoodType]}");
             GD.Print("County Good: " + countyGood.goodName);
@@ -162,7 +163,7 @@ public class Haulmaster
             GD.Print($"{uniqueInputGood.Key.goodName}, ");
             GD.Print($"{countyImprovementData.improvementName} requires:");
             GD.Print($"Available: {countyGood.Amount}, ");
-
+            */
             // Skip if the current stockpile meets or exceeds the maximum desired amount.
             if (countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType]
                 >= maxStockpileAmount)
@@ -189,14 +190,34 @@ public class Haulmaster
             }
 
             // Log the post-transfer state.
+            /*
             GD.Print($"Updated {countyImprovementData.improvementName} stockpile for {uniqueInputGood.Key.goodName}: " +
                      $"Available: {countyGood.Amount}, " +
                      $"Stockpiled: {countyImprovementData.countyStockpiledGoods[countyGood.countyGoodType]} " +
                      $"Min Stockpiled: {minStockpileAmount} " +
                      $"Status: {countyImprovementData.status}");
+            */
         }
     }
 
+    public static bool CheckEnoughGoods(CountyImprovementData countyImprovementData, PopulationData populationData)
+    {
+        bool hasEnoughInputGoods = true;
+
+        foreach (KeyValuePair<GoodData, int> inputGood in countyImprovementData.uniqueInputGoods)
+        {
+            int stockpileAmount = countyImprovementData.countyStockpiledGoods[inputGood.Key.countyGoodType];
+            //GD.Print($"{populationData.location} Input Good vs Stockpile amount: {inputGood.Value} " +
+            //    $"vs {stockpileAmount}");
+            if (inputGood.Value > stockpileAmount)
+            {
+                hasEnoughInputGoods = false;
+
+                break; // No need to check further if one good is insufficient.
+            }
+        }
+        return hasEnoughInputGoods;
+    }
     public static void DeductStockPiledGoods(CountyImprovementData countyImprovementData)
     {
         // Deduct input goods and perform work actions.
