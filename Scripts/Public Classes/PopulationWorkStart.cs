@@ -86,7 +86,6 @@ public class PopulationWorkStart
         {
             if (countyData.prioritizedHeroBuildersList.Count > 0)
             {
-                countyImprovementData.RemoveEveryoneFromCountyImprovement(countyData);
                 HeroWorkStart.AssignHeroesToBuildImprovement(countyData, countyImprovementData);
             }
 
@@ -176,7 +175,6 @@ public class PopulationWorkStart
         {
             if (countyData.prioritizedHeroWorkersList.Count > 0)
             {
-                countyImprovementData.RemoveEveryoneFromCountyImprovement(countyData);
                 HeroWorkStart.AssignHeroesToWorkImprovement(countyData, countyImprovementData);
             }
 
