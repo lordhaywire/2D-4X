@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 namespace PlayerSpace
 {
@@ -39,8 +38,12 @@ namespace PlayerSpace
                 = (County)Globals.Instance.countiesParent.GetChild(destinationCountyID);
 
             token.populationData.destination = destinationCountyID;
+
+            // Remove hero from research
             token.RemoveFromResearch();
 
+            // Remove the hero's current county improvement.
+            token.populationData.UpdateCurrentCountyImprovement(null);
             token.populationData.UpdateActivity(AllEnums.Activities.Move);
 
             //GD.Print("Destination Global Position: " + destinationCounty.heroSpawn.GlobalPosition);
