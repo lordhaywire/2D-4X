@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://d4i6w8w8jld3d"]
 
-[ext_resource type="Script" path="res://Scripts/UI/HeroPanelContainer.cs" id="1_u8h0k"]
+[ext_resource type="Script" uid="uid://cb81oehioy1sr" path="res://Scripts/UI/HeroPanelContainer.cs" id="1_u8h0k"]
 [ext_resource type="Texture2D" uid="uid://du76vrdfhckkd" path="res://Graphics/Icons/Population/resized faction leader icon.png" id="2_kbo0x"]
 [ext_resource type="Texture2D" uid="uid://b67d6nynwdq3o" path="res://Graphics/Icons/Population/resized faction aide.png" id="3_hrfe5"]
 [ext_resource type="Texture2D" uid="uid://cbpah1j3xx4f2" path="res://Graphics/Icons/Population/resized army icon.png" id="3_qqxdl"]

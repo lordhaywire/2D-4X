@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=10 format=3 uid="uid://bkakbc8lqeex4"]
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=12 format=3 uid="uid://bkakbc8lqeex4"]
 
 [ext_resource type="Texture2D" uid="uid://bpj5td645dmvi" path="res://Graphics/County Improvements/spade.svg" id="1_b2i5i"]
+[ext_resource type="Script" uid="uid://cmfu3g7sbgyfx" path="res://Resources/GoodData.cs" id="1_sp5ji"]
 [ext_resource type="Resource" uid="uid://bhmwj5yptebic" path="res://Resources/Goods/Remnants.tres" id="1_urcy4"]
 [ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/Goods/Wood.tres" id="2_40yu6"]
 [ext_resource type="Resource" uid="uid://dx87ykrfpioxm" path="res://Resources/Goods/Money.tres" id="2_hnqk4"]
@@ -8,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://ftsx8rr0uriv" path="res://Resources/Interests/Botany.tres" id="2_nsp6t"]
 [ext_resource type="Resource" uid="uid://dpddpnnbjvql" path="res://Resources/Goods/Vegetables.tres" id="4_sycl5"]
 [ext_resource type="Script" uid="uid://b6u77qyvyfqm4" path="res://Resources/ProductionData.cs" id="5_e0wa3"]
+[ext_resource type="Script" uid="uid://bvkux0mhx52u8" path="res://Resources/PopulationData.cs" id="9_3mxi4"]
 
 [sub_resource type="Resource" id="Resource_urcy4"]
 script = ExtResource("5_e0wa3")
@@ -30,10 +32,10 @@ improvementName = "IMPROVEMENT_GARDEN"
 improvementDescription = "IMPROVEMENT_DESCRIPTION_GARDEN"
 workSkill = 2
 interestData = ExtResource("2_nsp6t")
-goodsConstructionCost = {
+goodsConstructionCost = Dictionary[ExtResource("1_sp5ji"), int]({
 ExtResource("1_urcy4"): 1,
 ExtResource("2_hnqk4"): 100
-}
+})
 CurrentAmountOfConstruction = 0
 maxAmountOfConstruction = 5
 maxBuilders = 5
@@ -42,15 +44,15 @@ maxWorkers = 10
 adjustedMaxWorkers = 0
 countyResourceType = 7
 factionResourceType = 3
-outputGoods = {
+outputGoods = Dictionary[ExtResource("1_sp5ji"), ExtResource("5_e0wa3")]({
 ExtResource("4_sycl5"): SubResource("Resource_urcy4")
-}
+})
 allDailyWorkAmountAtImprovementCompleted = 0
-uniqueInputGoods = {}
-inputGoods = {
+uniqueInputGoods = Dictionary[ExtResource("1_sp5ji"), int]({})
+inputGoods = Dictionary[ExtResource("1_sp5ji"), int]({
 ExtResource("2_40yu6"): 100,
 ExtResource("1_urcy4"): 1
-}
-countyStockpiledGoods = {}
+})
+countyStockpiledGoods = Dictionary[int, int]({})
 status = 0
-populationAtImprovement = []
+populationAtImprovement = Array[ExtResource("9_3mxi4")]([])

@@ -181,7 +181,6 @@ E:\Godot\Projects\2D 4X\.godot\mono\temp\bin\ExportDebug\win-x64\createdump.exe
 E:\Godot\Projects\2D 4X\.godot\mono\temp\bin\ExportDebug\win-x64\hostfxr.dll
 E:\Godot\Projects\2D 4X\.godot\mono\temp\bin\ExportDebug\win-x64\hostpolicy.dll
 E:\Godot\Projects\2D 4X\.godot\mono\temp\bin\ExportDebug\win-x64\mscordaccore.dll
-E:\Godot\Projects\2D 4X\.godot\mono\temp\bin\ExportDebug\win-x64\mscordaccore_amd64_amd64_8.0.1124.51707.dll
 E:\Godot\Projects\2D 4X\.godot\mono\temp\bin\ExportDebug\win-x64\mscordbi.dll
 E:\Godot\Projects\2D 4X\.godot\mono\temp\bin\ExportDebug\win-x64\mscorrc.dll
 E:\Godot\Projects\2D 4X\.godot\mono\temp\bin\ExportDebug\win-x64\msquic.dll
@@ -197,3 +196,4 @@ E:\Godot\Projects\2D 4X\.godot\mono\temp\obj\ExportDebug\win-x64\refint\2d 4x.dl
 E:\Godot\Projects\2D 4X\.godot\mono\temp\obj\ExportDebug\win-x64\2d 4x.pdb
 E:\Godot\Projects\2D 4X\.godot\mono\temp\obj\ExportDebug\win-x64\2d 4x.genruntimeconfig.cache
 E:\Godot\Projects\2D 4X\.godot\mono\temp\obj\ExportDebug\win-x64\ref\2d 4x.dll
+E:\Godot\Projects\2D 4X\.godot\mono\temp\bin\ExportDebug\win-x64\mscordaccore_amd64_amd64_8.0.1325.6609.dll

@@ -1,6 +1,7 @@
+Label
+CheckBox
+HBoxContainer
 PanelContainer
 Panel
 VBoxContainer
-HBoxContainer
 Button
-Label
