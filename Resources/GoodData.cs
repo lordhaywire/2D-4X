@@ -12,6 +12,7 @@ namespace PlayerSpace
         [Export] public AllEnums.CountyGoodType countyGoodType;
         [Export] public AllEnums.FactionGoodType factionGoodType;
         [Export] public AllEnums.Perishable perishable;
+        [Export] public EquipmentData equipmentData = new();
         [Export] public int failureRate; // Daily chance of the item to fail. This isn't used yet.
         [Export] public bool remnantSubstitutable;
         [Export] public bool useRemnants;
@@ -41,13 +42,13 @@ namespace PlayerSpace
                 if (goodType == AllEnums.GoodType.FactionGood)
                 {
                     maxAmount = int.MaxValue;
-                    GD.PrintRich($"Faction Good Max Amount: {goodName} {maxAmount}");
+                    //GD.PrintRich($"Faction Good Max Amount: {goodName} {maxAmount}");
                     return;
                 }
 
                 maxAmount = value;
                 Amount = Math.Min(Amount, maxAmount);
-                GD.Print($"Good Max Amount: {goodName} {maxAmount}");
+                //GD.Print($"Good Max Amount: {goodName} {maxAmount}");
             }
         }
 

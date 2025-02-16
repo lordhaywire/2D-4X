@@ -1,8 +1,6 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Resources;
 
 namespace PlayerSpace
 {
@@ -34,11 +32,12 @@ namespace PlayerSpace
         [Export] private Label preferredWorkLabel;
         [Export] private Label currentActivityLabel;
 
+        [Export] private InventoryVBoxContainer inventoryVBoxContainer;
         [Export] private Button aideRecruitButton;
         [Export] private Button armyLeaderRecruitButton;
         [Export] private PanelContainer heroRecruitmentConfirmPanel;
 
-        public PopulationData populationData;
+        [Export] public PopulationData populationData;
 
         public bool heroButtonClicked; // If the player has clicked a hero from the list below the countyinfo panel.
 
@@ -81,6 +80,8 @@ namespace PlayerSpace
         // I should probably rewrite this so it is less of a mess.
         public void UpdateDescriptionInfo()
         {
+            inventoryVBoxContainer.GenerateEquipment(populationData);
+
             CountyInfoControl.Instance.DisableSpawnHeroCheckButton(true);
             PlayerControls.Instance.AdjustPlayerControls(false); // This was probably happening too fast which is why it is here.
             County selectCounty = (County)Globals.Instance.countiesParent.GetChild(populationData.location);

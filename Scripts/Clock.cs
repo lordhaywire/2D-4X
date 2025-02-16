@@ -10,6 +10,7 @@ public partial class Clock : Node
     public event Action DailyHourOne;
     public event Action DailyHourTwo;
     public event Action DailyHourThree;
+    public event Action DailyHourFour;
 
     public event Action Weekly;
     public event Action HourChanged; // This is currently used for battles.
@@ -88,6 +89,10 @@ public partial class Clock : Node
             if(hours == 3)
             {
                 DailyHourThree?.Invoke();
+            }
+            if (hours == 4)
+            {
+                DailyHourFour?.Invoke();
             }
 
             HourChanged?.Invoke();

@@ -57,6 +57,16 @@ public class AllEnums
         Wood,
     }
 
+    public enum EquipmentType
+    {
+        None,
+        Reconnaissance,
+        Medical,
+        Defensive,
+        Offensive,
+        Auxiliary,
+    }
+
     // Scrap and wood should be combined into building materials.
     public enum FactionGoodType
     {
@@ -70,24 +80,12 @@ public class AllEnums
         Research,
     }
 
-    public enum Perishable
-    {
-        Neither,
-        Perishable,
-        Nonperishable,
-    }
+
     public enum GoodType
     {
         CountyGood,
         FactionGood,
         Both,
-    }
-
-    public enum LearningSpeed
-    {
-        slow,
-        medium,
-        fast,
     }
 
     public enum InterestType
@@ -100,6 +98,20 @@ public class AllEnums
         Politics,
         Warfare,
         // Maybe medicine?  Is biology too broad?
+    }
+
+    public enum LearningSpeed
+    {
+        slow,
+        medium,
+        fast,
+    }
+
+    public enum Perishable
+    {
+        Neither,
+        Perishable,
+        Nonperishable,
     }
     public enum Perks
     {

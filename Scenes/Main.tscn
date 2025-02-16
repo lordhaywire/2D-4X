@@ -1,4 +1,4 @@
-[gd_scene load_steps=137 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=138 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" uid="uid://ctm4ah5pwyf7d" path="res://Scripts/Main.cs" id="1_62dun"]
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://World Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
@@ -129,6 +129,7 @@
 [ext_resource type="Texture2D" uid="uid://cs6gb8bpwt7xd" path="res://Graphics/yellow-crumpled-lined-paper-background-2022-12-16-00-47-47-utc-scaled.webp" id="76_xlxp7"]
 [ext_resource type="Script" uid="uid://bk012pwi1wh6t" path="res://Scripts/GameStart.cs" id="84_lusaj"]
 [ext_resource type="Texture2D" uid="uid://cyphf3703b4qa" path="res://Graphics/Icons/Top Bar/bolter-gun.svg" id="98_qs8v3"]
+[ext_resource type="Script" uid="uid://b2e7fmq2kh1qv" path="res://Scripts/UI/InventoryVBoxContainer.cs" id="116_bposm"]
 [ext_resource type="PackedScene" uid="uid://x448dpajwnx" path="res://UIScenes/CountyImprovementPanelContainer.tscn" id="119_kkhw7"]
 [ext_resource type="Script" uid="uid://cc6kc1k26qlew" path="res://Scripts/UI/RemoveCountyImprovementConfirmationPanelContainer.cs" id="122_hwg2s"]
 [ext_resource type="PackedScene" uid="uid://ctmeblm8t3ynu" path="res://UIScenes/ResearchPrerequisiteLabel.tscn" id="124_veo43"]
@@ -1302,7 +1303,8 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "WORD_CLOSE"
 
-[node name="Population Description Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("perksParent", "populationName", "leaderTitleButton", "aideTitleButton", "armyLeaderTitleButton", "physicalStrengthLabel", "agilityLabel", "enduranceLabel", "intelligenceLabel", "mentalStrengthLabel", "awarenessLabel", "charismaLabel", "looksLabel", "loyaltyAttributeLabel", "ageLabel", "sexLabel", "skillLabels", "interestLabel", "preferredWorkLabel", "currentActivityLabel", "aideRecruitButton", "armyLeaderRecruitButton", "heroRecruitmentConfirmPanel")]
+[node name="Population Description Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("perksParent", "populationName", "leaderTitleButton", "aideTitleButton", "armyLeaderTitleButton", "physicalStrengthLabel", "agilityLabel", "enduranceLabel", "intelligenceLabel", "mentalStrengthLabel", "awarenessLabel", "charismaLabel", "looksLabel", "loyaltyAttributeLabel", "ageLabel", "sexLabel", "skillLabels", "interestLabel", "preferredWorkLabel", "currentActivityLabel", "inventoryVBoxContainer", "aideRecruitButton", "armyLeaderRecruitButton", "heroRecruitmentConfirmPanel")]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1332,6 +1334,7 @@ skillLabels = [NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxCont
 interestLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Interest Label")
 preferredWorkLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Preferred Work Label")
 currentActivityLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Activity Label")
+inventoryVBoxContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/HBoxContainer/Inventory VBoxContainer")
 aideRecruitButton = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Recruit Aide Button")
 armyLeaderRecruitButton = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Recruit Army Button")
 heroRecruitmentConfirmPanel = NodePath("../Recuit Hero Confirmation PanelContainer")
@@ -1619,7 +1622,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 focus_mode = 0
-text = "PHRASE_RECRUITE_AS_ARMY_LEADER"
+text = "PHRASE_RECRUIT_AS_ARMY_LEADER"
 script = ExtResource("33_ec2f1")
 recruitHeroConfirmationPanelContainer = NodePath("../../../../../../../Recuit Hero Confirmation PanelContainer")
 
@@ -1630,7 +1633,7 @@ size_flags_horizontal = 3
 [node name="Right VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 25
+theme_override_constants/separation = 20
 
 [node name="Perks Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer"]
 layout_mode = 2
@@ -1775,45 +1778,163 @@ vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
 
-[node name="CheckBox" type="CheckBox" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/HBoxContainer"]
+[node name="Inventory VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/HBoxContainer" node_paths=PackedStringArray("equipment")]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+script = ExtResource("116_bposm")
+equipment = [NodePath("Reconnaissance Equipment Label"), NodePath("Medical Equipment Label"), NodePath("Defense Equipment Label"), NodePath("Offensive Equipment Label"), NodePath("Auxiliary Equipment Label")]
+
+[node name="Inventory Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/HBoxContainer/Inventory VBoxContainer"]
+layout_mode = 2
+text = "WORD_INVENTORY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Newest Equipment HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/HBoxContainer/Inventory VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Newest EquipmentLabel" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/HBoxContainer"]
+[node name="CheckBox" type="CheckBox" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/HBoxContainer/Inventory VBoxContainer/Newest Equipment HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Newest EquipmentLabel" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/HBoxContainer/Inventory VBoxContainer/Newest Equipment HBoxContainer"]
 layout_mode = 2
 text = "PHRASE_NEWEST_EQUIPMENT"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Scouting EquipmentLabel" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer"]
+[node name="Reconnaissance Equipment Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/HBoxContainer/Inventory VBoxContainer"]
 layout_mode = 2
-text = "Scouting Equipment"
+text = "PHRASE_RECONNAISSANCE_EQUIPMENT"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Medical EquipmentLabel2" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer"]
+[node name="Reconnaissance Equipment Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/HBoxContainer/Inventory VBoxContainer"]
 layout_mode = 2
-text = "Medical Equipment"
+text = "'Nocs"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Armor" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer"]
+[node name="Medical Equipment Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/HBoxContainer/Inventory VBoxContainer"]
 layout_mode = 2
-text = "Armor"
+text = "PHRASE_MEDICAL_EQUIPMENT"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Weapon" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer"]
+[node name="Medical Equipment Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/HBoxContainer/Inventory VBoxContainer"]
 layout_mode = 2
-text = "Weapon"
+text = "Blood Bag"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Auxiliary Equipment" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer"]
+[node name="Defense Equipment Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/HBoxContainer/Inventory VBoxContainer"]
 layout_mode = 2
-text = "Auxiliary Equipment"
+text = "PHRASE_DEFENSIVE_EQUIPMENT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Defense Equipment Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/HBoxContainer/Inventory VBoxContainer"]
+layout_mode = 2
+text = "Bark Armor"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Offensive Equipment Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/HBoxContainer/Inventory VBoxContainer"]
+layout_mode = 2
+text = "PHRASE_OFFENSIVE_EQUIPMENT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Offensive Equipment Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/HBoxContainer/Inventory VBoxContainer"]
+layout_mode = 2
+text = "Shotgun"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Auxiliary Equipment Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/HBoxContainer/Inventory VBoxContainer"]
+layout_mode = 2
+text = "PHRASE_AUXILIARY_EQUIPMENT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Auxiliary Equipment Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/HBoxContainer/Inventory VBoxContainer"]
+layout_mode = 2
+text = "RPG"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Subordinates VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Subordinates Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/HBoxContainer/Subordinates VBoxContainer"]
+layout_mode = 2
+text = "WORD_SUBORDINATES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/HBoxContainer/Subordinates VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/HBoxContainer/Subordinates VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/HBoxContainer/Subordinates VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Test Label"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/HBoxContainer/Subordinates VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Test Label"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/HBoxContainer/Subordinates VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Test Label"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label4" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/HBoxContainer/Subordinates VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Test Label"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label5" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/HBoxContainer/Subordinates VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Test Label"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label6" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/HBoxContainer/Subordinates VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Test Label"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label7" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/HBoxContainer/Subordinates VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Test Label"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label8" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/HBoxContainer/Subordinates VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Test Label"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label9" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/HBoxContainer/Subordinates VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Test Label"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1822,7 +1943,7 @@ custom_minimum_size = Vector2(75, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
-text = "PHRASE_RECRUITE_AS_AIDE"
+text = "PHRASE_RECRUIT_AS_AIDE"
 script = ExtResource("33_ec2f1")
 recruitHeroConfirmationPanelContainer = NodePath("../../../../../../../Recuit Hero Confirmation PanelContainer")
 

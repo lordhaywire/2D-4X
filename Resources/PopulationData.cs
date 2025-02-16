@@ -93,6 +93,12 @@ namespace PlayerSpace
 
         [ExportGroup("Work")]
         [Export] public AllEnums.Activities activity;
+
+        [ExportGroup("Inventory")]
+        [Export] public bool useNewestEquipment;
+        [Export] public GoodData[] equipment = new GoodData[5];
+
+        [ExportGroup("County Improvement")]
         [Export] public CountyImprovementData currentCountyImprovement; // Used for work and building.
 
         [Export] public ResearchItemData passiveResearchItemData;

@@ -135,8 +135,8 @@ PHRASE_POSSIBLE_IMPROVEMENTS,Possible Improvements,Posibles mejoras
 PHRASE_PREFERRED_WORK,Preferred Work,Trabajo preferido
 PHRASE_PRODUCE_AS_NEEDED,Produce as needed,Producir según sea necesario
 PHRASE_RECRUIT_HERO_CONFIRMATION,Are you sure you want to recruit,¿Estás seguro de que quieres reclutar?
-PHRASE_RECRUITE_AS_AIDE,Recruite as Aide,Recluta como ayudante
-PHRASE_RECRUITE_AS_ARMY_LEADER,Recruite as Army Leader,Recluta como líder del ejército
+PHRASE_RECRUIT_AS_AIDE,Recruit as Aide,Recluta como ayudante
+PHRASE_RECRUIT_AS_ARMY_LEADER,Recruit as Army Leader,Recluta como líder del ejército
 PHRASE_REMOVE_IMPROVEMENT,Remove Improvement,Eliminar mejora
 PHRASE_RESEARCH_COST,Research Cost,Coste de investigación
 PHRASE_RESEARCH_FOR,Research for,Investigación para
@@ -209,8 +209,10 @@ WORD_VISITORS,Visitors,Visitantes
 WORD_GOODS,Goods,Bienes
 PHRASE_THERE_IS_NEGATIVE_STORAGE,There is negative storage!,¡Hay almacenamiento negativo!
 PHRASE_NEWEST_EQUIPMENT,Newest Equipment?,¿Equipo más nuevo?
-PHRASE_SCOUTING_EQUIPMENT,Scouting Equipment,Equipo de exploración
 PHRASE_MEDICAL_EQUIPMENT,Medical Equipment,Equipos médicos
-WORD_ARMOR,Armor,Armadura
-WORD_WEAPON,Weapon,Arma
+PHRASE_DEFENSIVE_EQUIPMENT,Defensive Equipment,Equipo defensivo
+PHRASE_OFFENSIVE_EQUIPMENT,Offensive Equipment,Equipo ofensivo
 PHRASE_AUXILIARY_EQUIPMENT,Auxiliary Equipment,Equipos auxiliares
+PHRASE_RECONNAISSANCE_EQUIPMENT,Reconnaissance Equipment,Equipo de reconocimiento
+WORD_INVENTORY,Inventory,Inventario
+WORD_SUBORDINATES,Subordinates,Subordinados
