@@ -1,6 +1,8 @@
-PanelContainer
-Panel
 VBoxContainer
-HBoxContainer
-Button
+RichTextLabel
+PanelContainer
 Label
+HBoxContainer
+ScrollContainer
+Panel
+Button

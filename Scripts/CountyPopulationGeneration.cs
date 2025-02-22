@@ -71,7 +71,7 @@ namespace PlayerSpace
                         , GenerateSkillsList()
                         , preferredSkill
                         , GenerateInterest()
-                        , AllEnums.Activities.Idle, null, null, null, null)); // HeroToken is null.
+                        , AllEnums.Activities.Idle, false, new GoodData[5], null, null, null, null)); // HeroToken is null.
                 }
                 else
                 {
@@ -85,7 +85,7 @@ namespace PlayerSpace
                         , GenerateSkillsList()
                         , preferredSkill
                         , GenerateInterest()
-                        , AllEnums.Activities.Idle, null, null, null, null)); // HeroToken is null.
+                        , AllEnums.Activities.Idle, false, new GoodData[5], null, null, null, null)); // HeroToken is null.
 
                     // Add hero to allHeroesList
                     countyData.factionData.AddHeroToAllHeroesList(countyData.heroesInCountyList[0]);

@@ -92,6 +92,11 @@ public partial class PopulationData : Resource
 
     [ExportGroup("Work")]
     [Export] public AllEnums.Activities activity;
+
+    [ExportGroup("Inventory")]
+    [Export] public bool useNewestEquipment;
+    [Export] public GoodData[] equipment;
+
     [Export] public CountyImprovementData currentCountyImprovement; // Used for work and building.
 
     [Export] public ResearchItemData passiveResearchItemData;
@@ -230,7 +235,8 @@ public partial class PopulationData : Resource
         , Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> needs
         , Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes
         , Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills
-        , SkillData preferredSkill, InterestData interest, AllEnums.Activities activity
+        , SkillData preferredSkill, InterestData interestData, AllEnums.Activities activity
+        , bool useNewestEquipment, GoodData[] equipment
         , CountyImprovementData currentCountyImprovement
         , ResearchItemData passiveResearchItemData
         , ResearchItemData currentResearchItemData
@@ -263,12 +269,15 @@ public partial class PopulationData : Resource
 
         this.skills = skills;
         this.preferredSkill = preferredSkill;
-        this.interestData = interest;
+        this.interestData = interestData;
 
         this.activity = activity;
+        this.useNewestEquipment = useNewestEquipment;
+        this.equipment = equipment;
         this.currentCountyImprovement = currentCountyImprovement;
         this.passiveResearchItemData = passiveResearchItemData;
         this.currentResearchItemData = currentResearchItemData;
         this.heroToken = heroToken;
     }
+    
 }

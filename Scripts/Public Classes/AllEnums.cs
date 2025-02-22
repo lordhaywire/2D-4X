@@ -58,6 +58,15 @@ public class AllEnums
         Vegetables,
         Wood,
     }
+    public enum EquipmentType
+    {
+        None,
+        Reconnaissance,
+        Offensive,
+        Defensive,
+        Medical,
+        Auxiliary,
+    }
 
     // Scrap and wood should be combined into building materials.
     public enum FactionGoodType

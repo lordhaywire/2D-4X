@@ -33,6 +33,15 @@ public partial class County : Node2D
             Clock.Instance.DailyHourOne += EndOfDay;
             Clock.Instance.Weekly += Weekly;
             Clock.Instance.DailyHourThree += StartDay;
+            Clock.Instance.DailyHourFour += AfterStartDay;
+        }
+    }
+
+    private void AfterStartDay()
+    {
+        foreach (PopulationData populationData in countyData.heroesInCountyList)
+        {
+            Quartermaster.EquipHeroes(populationData);
         }
     }
 

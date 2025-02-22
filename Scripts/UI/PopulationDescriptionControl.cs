@@ -34,6 +34,8 @@ namespace PlayerSpace
         [Export] private Label preferredWorkLabel;
         [Export] private Label currentActivityLabel;
 
+        [Export] public VBoxContainer InventoryAndSubordinatesInventoryVBoxContainer;
+        [Export] public InventoryVBoxContainer inventoryVBoxContainer;
         [Export] private Button aideRecruitButton;
         [Export] private Button armyLeaderRecruitButton;
         [Export] private PanelContainer heroRecruitmentConfirmPanel;
@@ -80,6 +82,8 @@ namespace PlayerSpace
 
         public void UpdateDescriptionInfo()
         {
+            inventoryVBoxContainer.GenerateEquipment(populationData);
+
             CountyInfoControl.Instance.DisableSpawnHeroCheckButton(true);
             PlayerControls.Instance.AdjustPlayerControls(false); // This was probably happening too fast which is why it is here.
             County county = (County)Globals.Instance.countiesParent.GetChild(populationData.location);

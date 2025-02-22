@@ -1,0 +1,21 @@
+res://Resources/PopulationData.cs
+res://Scripts/CountyPopulationGeneration.cs
+res://Scenes/Main.tscn
+res://Resources/Goods/Storage Perishable.tres
+res://Resources/County Improvements/Converted Warehouse.tres
+res://Resources/Goods/Fish.tres
+res://Resources/Goods/Vegetables.tres
+res://Resources/Goods/Wood.tres
+res://Resources/County Improvements/FishersShed.tres
+res://Resources/Goods/Canned Food.tres
+res://Resources/County Improvements/Garden.tres
+res://Resources/Goods/Building Materials.tres
+res://Resources/Goods/Equipment.tres
+res://Resources/Goods/PrimitiveScoutingEquipment.tres
+res://Resources/County Improvements/ScoutingEquipmentWorkshop.tres
+res://Resources/Goods/Food.tres
+res://Resources/County Improvements/ResearchersOffice.tres
+res://Prefabs/HeroToken.tscn
+res://Scenes/MapEditor.tscn
+res://UIScenes/HeroListCheckBoxPanelContainer.tscn
+res://UIScenes/SpawnedTokenButton.tscn

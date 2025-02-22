@@ -135,13 +135,12 @@ PHRASE_POSSIBLE_IMPROVEMENTS,Possible Improvements,Posibles mejoras
 PHRASE_PREFERRED_WORK,Preferred Work,Trabajo preferido
 PHRASE_PRODUCE_AS_NEEDED,Produce as needed,Producir según sea necesario
 PHRASE_RECRUIT_HERO_CONFIRMATION,Are you sure you want to recruit,¿Estás seguro de que quieres reclutar?
-PHRASE_RECRUITE_AS_AIDE,Recruite as Aide,Recluta como ayudante
-PHRASE_RECRUITE_AS_ARMY_LEADER,Recruite as Army Leader,Recluta como líder del ejército
+PHRASE_RECRUIT_AS_AIDE,Recruit as Aide,Recluta como ayudante
+PHRASE_RECRUIT_AS_ARMY_LEADER,Recruit as Army Leader,Recluta como líder del ejército
 PHRASE_REMOVE_IMPROVEMENT,Remove Improvement,Eliminar mejora
 PHRASE_RESEARCH_COST,Research Cost,Coste de investigación
 PHRASE_RESEARCH_FOR,Research for,Investigación para
 PHRASE_RESEARCH_PROGRESS,Research Progress,Avances en la investigación
-PHRASE_THERE_IS_NEGATIVE_STORAGE,There is negative storage!,¡Hay almacenamiento negativo!
 PHRASE_UNDER_CONSTRUCTION,Under Construction,En obra
 PHRASE_USE_REMNANTS_FOR_CONSTRUCTION,Use Remnants for construction,Usar remanentes para la construcción
 RESEARCH_BASIC_PRODUCTION,Basic Production,Producción básica
@@ -182,9 +181,7 @@ WORD_CLOSE,Close,Cerrar
 WORD_CONSTRUCT,Construct,Construir
 WORD_CONSTRUCTION,Construction,Construcción
 WORD_DAY,Day:,Día
-WORD_EXPLORE,Explore,Explorar
 WORD_FEMALE,Female,Hembra
-WORD_GOODS,Goods,Bienes
 WORD_HELPFUL,Helpful,Útil
 WORD_HIRING,Hiring,Contratación
 WORD_IDLE,Idle,Ocioso
@@ -209,11 +206,14 @@ WORD_SPEED,Speed:,Velocidad
 WORD_TIME,Time:,Hora
 WORD_TITLES,Titles,Títulos
 WORD_VISITORS,Visitors,Visitantes
-WORD_WORK,Work,Trabajo
-WORD_SCAVENGE,Scavenge,Recoger la basura
-ACTIVITY_EXPLORE_NAME,Explore,Explorar
-ACTIVITY_EXPLORE_DESCRIPTION,Exploring a county,Explorando un condado
-ACTIVITY_EXPLORE_TOOLTIP,Exploring a county,Explorando un condado
-WORD_BUILD,Build,Construir
-WORD_TRAIN,Train,Entrenar
-WORD_MUSTER,Muster,Patrón
+WORD_GOODS,Goods,Bienes
+PHRASE_THERE_IS_NEGATIVE_STORAGE,There is negative storage!,¡Hay almacenamiento negativo!
+PHRASE_NEWEST_EQUIPMENT,Newest Equipment?,¿Equipo más nuevo?
+PHRASE_MEDICAL_EQUIPMENT,[u]Medical Equipment[/u],[u]Equipos médicos[/u]
+PHRASE_DEFENSIVE_EQUIPMENT,[u]Defensive Equipment[/u],[u]Equipo defensivo[/u]
+PHRASE_OFFENSIVE_EQUIPMENT,[u]Offensive Equipment[/u],[u]Equipo ofensivo[/u]
+PHRASE_AUXILIARY_EQUIPMENT,[u]Auxiliary Equipment[/u],[u]Equipos auxiliares[/u]
+PHRASE_RECONNAISSANCE_EQUIPMENT,[u]Reconnaissance Equipment[/u],[u]Equipo de reconocimiento[/u]
+WORD_INVENTORY,Inventory,Inventario
+WORD_SUBORDINATES,Subordinates,Subordinados
+PHRASE_INVENTORY_AND_SUBORDINATES,Inventory and Subordinates,Inventario y subordinados

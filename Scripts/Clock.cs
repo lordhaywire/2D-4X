@@ -10,12 +10,13 @@ public partial class Clock : Node
     public event Action DailyHourOne;
     public event Action DailyHourTwo;
     public event Action DailyHourThree;
+    public event Action DailyHourFour;
 
     public event Action Weekly;
     public event Action HourChanged; // This is currently used for battles.
 
     private int weeklyEvent = 7;
-    
+
     [Export] private Label dayLabel;
     [Export] private Label HourLabel;
     [Export] private Label currentSpeedLabel;
@@ -76,7 +77,7 @@ public partial class Clock : Node
                 DailyHourOne?.Invoke();
 
             }
-            if(hours == 2)
+            if (hours == 2)
             {
                 // This will happen on day zero as well.
                 if (days % weeklyEvent == 0)
@@ -85,9 +86,13 @@ public partial class Clock : Node
                 }
                 DailyHourTwo?.Invoke();
             }
-            if(hours == 3)
+            if (hours == 3)
             {
                 DailyHourThree?.Invoke();
+            }
+            if (hours == 4)
+            {
+                DailyHourFour?.Invoke();
             }
 
             HourChanged?.Invoke();
@@ -106,7 +111,7 @@ public partial class Clock : Node
         set
         {
             modifiedTimeScale = value;
-            
+
             currentSpeedLabel.Text = modifiedTimeScale.ToString();
 
             if (modifiedTimeScale == 0)
@@ -119,7 +124,7 @@ public partial class Clock : Node
                 pausedLabel.Hide();
                 Engine.TimeScale = value;
                 GetTree().Paused = false;
-            }           
+            }
         }
     }
 
@@ -129,7 +134,7 @@ public partial class Clock : Node
 
         ModifiedTimeScale = 1;
         oldTimeSpeed = 1;
-        
+
         if (Globals.Instance.startPaused == true)
         {
             PauseTime();
@@ -189,7 +194,7 @@ public partial class Clock : Node
 
     public void ChangeSpeed(int speed)
     {
-        if (speed > 0) 
+        if (speed > 0)
         {
             numberOfThingsPausing = 0;
         }
