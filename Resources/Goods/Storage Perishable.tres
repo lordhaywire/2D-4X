@@ -1,12 +1,6 @@
-[gd_resource type="Resource" script_class="GoodData" load_steps=4 format=3 uid="uid://c2g12b5fk6456"]
+[gd_resource type="Resource" script_class="GoodData" load_steps=2 format=3 uid="uid://c2g12b5fk6456"]
 
-[ext_resource type="Script" uid="uid://c87la23ufut0h" path="res://Resources/EquipmentData.cs" id="1_3ji86"]
 [ext_resource type="Script" uid="uid://cmfu3g7sbgyfx" path="res://Resources/GoodData.cs" id="1_u6enf"]
-
-[sub_resource type="Resource" id="Resource_si16a"]
-script = ExtResource("1_3ji86")
-equipmentType = 3
-equipmentTier = 2
 
 [resource]
 script = ExtResource("1_u6enf")
@@ -16,7 +10,6 @@ goodType = 0
 countyGoodType = 6
 factionGoodType = 0
 perishable = 0
-equipmentData = SubResource("Resource_si16a")
 failureRate = 0
 remnantSubstitutable = false
 useRemnants = false

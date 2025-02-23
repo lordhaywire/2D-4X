@@ -1,4 +1,3 @@
-
 namespace PlayerSpace;
 
 public class FactionAI

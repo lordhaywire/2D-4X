@@ -7,7 +7,7 @@ public partial class InventoryVBoxContainer : VBoxContainer
     [Export] public CheckBox newestEquipment;
     [Export] public Label[] equipment;
 
-    public void GenerateEquipment(PopulationData populationData)
+    public void PopulateEquipment(PopulationData populationData)
     {
         if (populationData.isHero)
         {
@@ -28,7 +28,15 @@ public partial class InventoryVBoxContainer : VBoxContainer
         else
         {
             PopulationDescriptionControl.Instance.InventoryAndSubordinatesInventoryVBoxContainer.Hide();
-
         }
+    }
+
+    private void NewestEquipmentCheckboxPressed()
+    {
+        PopulationData populationData = PopulationDescriptionControl.Instance.populationData;
+        GD.Print("Newest Equipment Checkbox has been pressed. " + newestEquipment.ButtonPressed);
+        populationData.useNewestEquipment = newestEquipment.ButtonPressed;
+        Quartermaster.EquipHeroes(populationData);
+        PopulateEquipment(populationData);
     }
 }

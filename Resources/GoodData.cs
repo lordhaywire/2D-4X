@@ -12,7 +12,7 @@ namespace PlayerSpace
         [Export] public AllEnums.CountyGoodType countyGoodType;
         [Export] public AllEnums.FactionGoodType factionGoodType;
         [Export] public AllEnums.Perishable perishable;
-        [Export] public EquipmentData equipmentData = new();
+        [Export] public EquipmentData equipmentData;
         [Export] public int failureRate; // Daily chance of the item to fail. This isn't used yet.
         [Export] public bool remnantSubstitutable;
         [Export] public bool useRemnants;

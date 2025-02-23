@@ -35,7 +35,7 @@
 [ext_resource type="Resource" uid="uid://bvsprrlr6rs15" path="res://Resources/Activities/Work.tres" id="16_er5gf"]
 [ext_resource type="Script" uid="uid://bvi0u5nh4c4p5" path="res://Scripts/CountyGeneration.cs" id="16_pxxn4"]
 [ext_resource type="Resource" uid="uid://cwkooap4yvn10" path="res://Resources/ResearchItems/Basic Storage.tres" id="16_qtbxl"]
-[ext_resource type="Script" uid="uid://w7efp2g0eih7" path="res://Scripts/CountyPopulationGeneration.cs" id="17_1215r"]
+[ext_resource type="Script" uid="uid://w7efp2g0eih7" path="res://Scripts/PopulationGeneration.cs" id="17_1215r"]
 [ext_resource type="Resource" uid="uid://drln8l4n4qtg7" path="res://Resources/Activities/Explore.tres" id="17_bposm"]
 [ext_resource type="Script" uid="uid://c6nd17mfkssti" path="res://Scripts/RandomFactionColor.cs" id="18_3aru6"]
 [ext_resource type="Script" uid="uid://dhynx3i0k61wi" path="res://Scripts/AllGoods.cs" id="18_wf5kh"]
@@ -1819,10 +1819,11 @@ vertical_alignment = 1
 [node name="Inventory and Subordinates HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer"]
 layout_mode = 2
 
-[node name="Inventory VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer" node_paths=PackedStringArray("equipment")]
+[node name="Inventory VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer" node_paths=PackedStringArray("newestEquipment", "equipment")]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("117_0j4c6")
+newestEquipment = NodePath("Newest Equipment CheckBox")
 equipment = [NodePath("Reconnaissance Label"), NodePath("Offensive Label"), NodePath("Defensive Label"), NodePath("Medical Label"), NodePath("Auxiliary Label")]
 
 [node name="Inventory Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
@@ -1830,6 +1831,12 @@ layout_mode = 2
 text = "WORD_INVENTORY"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Newest Equipment CheckBox" type="CheckBox" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+focus_mode = 0
+text = "PHRASE_NEWEST_EQUIPMENT"
 
 [node name="Reconnaissance Title RichTextLabel" type="RichTextLabel" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
 layout_mode = 2
@@ -2847,6 +2854,7 @@ process_mode = 3
 [connection signal="button_up" from="Player UI Canvas/Population List MarginContainer/Close Button" to="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer" method="CloseButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Population Description Control" to="Player UI Canvas/Population Description Control" method="OnPopulationDescriptionControlVisibilityChanged"]
 [connection signal="pressed" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Recruit Army Button" to="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Recruit Army Button" method="OpenConfirmationPanel" binds= [true]]
+[connection signal="pressed" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer/Newest Equipment CheckBox" to="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer" method="NewestEquipmentCheckboxPressed"]
 [connection signal="pressed" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Recruit Aide Button" to="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Recruit Aide Button" method="OpenConfirmationPanel" binds= [false]]
 [connection signal="button_up" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/Close Button" to="Player UI Canvas/Population Description Control" method="CloseButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Recuit Hero Confirmation PanelContainer" to="Player UI Canvas/Recuit Hero Confirmation PanelContainer" method="OnVisibilityChange"]

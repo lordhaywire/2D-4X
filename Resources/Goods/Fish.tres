@@ -3,10 +3,11 @@
 [ext_resource type="Script" uid="uid://c87la23ufut0h" path="res://Resources/EquipmentData.cs" id="1_4r0h8"]
 [ext_resource type="Script" uid="uid://cmfu3g7sbgyfx" path="res://Resources/GoodData.cs" id="1_4tpxq"]
 
-[sub_resource type="Resource" id="Resource_si16a"]
+[sub_resource type="Resource" id="Resource_4r0h8"]
 script = ExtResource("1_4r0h8")
-equipmentType = 3
-equipmentTier = 2
+equipmentType = 4
+equipmentTier = 5
+metadata/_custom_type_script = "uid://c87la23ufut0h"
 
 [resource]
 script = ExtResource("1_4tpxq")
@@ -16,7 +17,7 @@ goodType = 0
 countyGoodType = 2
 factionGoodType = 3
 perishable = 1
-equipmentData = SubResource("Resource_si16a")
+equipmentData = SubResource("Resource_4r0h8")
 failureRate = 0
 remnantSubstitutable = false
 useRemnants = false

@@ -1,12 +1,14 @@
 using Godot;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace PlayerSpace;
 
 public class CountyAI
 {
+    public void DecideIfHeroUsesNewestEquipment(County county)
+    {
+
+    }
+    // This needs to take into account the new HeroPersonalities.
     public void DecideBuildingCountyImprovements(County county)
     {
         if (county.countyData.factionData.isPlayer)
@@ -46,6 +48,7 @@ public class CountyAI
         }
     }
 
+    // I think this needs to be moved somewhere too.
     public void BuildImprovement(CountyData countyData, CountyImprovementData countyImprovementData)
     {
         countyImprovementData.status = AllEnums.CountyImprovementStatus.UnderConstruction;
@@ -55,6 +58,8 @@ public class CountyAI
         countyData.underConstructionCountyImprovementList.Add(countyImprovementData);
     }
     
+
+    // What does this do, and why is it here?
     private void NumberBuiltImprovement(CountyData countyData, CountyImprovementData countyImprovementData)
     {
         int underConstructionImprovements =  CountDuplicateImprovement(countyImprovementData, countyData.underConstructionCountyImprovementList);
@@ -66,6 +71,7 @@ public class CountyAI
         //GD.Print($"County Improvement Number Built: {countyImprovementData.numberBuilt}");
     }
 
+    // This probably needs to be moved to CountyImprovementData, or like the Banker or some shit.
     private static int CountDuplicateImprovement(CountyImprovementData originalCountyImprovementData
         , Godot.Collections.Array<CountyImprovementData> countyImprovementDatas)
     {
@@ -79,6 +85,8 @@ public class CountyAI
         }
         return number;
     }
+
+    // This probably needs to be moved to CountyImprovementData, or like the Banker or some shit.
     public static CountyImprovementData FindCountyImpovementOfType(County county
         , AllEnums.FactionGoodType factionResourceType)
     {

@@ -89,6 +89,15 @@ public class AllEnums
         Both,
     }
 
+    // These are just protype personalities.
+    // Player only should apply to the current factionLeader.
+    public enum HeroPersonality
+    {
+        Player,
+        Defensive,
+        Offensive,
+    }
+
     public enum HeroType
     {
         None,
@@ -123,7 +132,6 @@ public class AllEnums
         Perishable,
         Nonperishable,
     }
-
 
     public enum Perks
     {

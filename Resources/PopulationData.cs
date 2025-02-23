@@ -3,8 +3,10 @@ using System;
 
 namespace PlayerSpace;
 
+[GlobalClass]
 public partial class PopulationData : Resource
 {
+    public IHeroPersonalities iHeroPersonality; // I have fucked my future self.  This will not save with the resource saver.
     [Export] public FactionData factionData;
     [Export] public int location;
 
@@ -17,6 +19,7 @@ public partial class PopulationData : Resource
     [Export] public bool isMale;
     [Export] public int age;
 
+    [ExportGroup("Hero")]
     // Change this to an enum
     [Export] public bool isHero;
     [Export] public bool isWorker;
@@ -36,6 +39,7 @@ public partial class PopulationData : Resource
             }
         }
     }
+    [Export] public AllEnums.HeroPersonality heroPersonality;
 
     [ExportGroup("Perks")]
     [Export] public Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks;
@@ -193,7 +197,7 @@ public partial class PopulationData : Resource
     /// </summary>
     public void RemoveFromCountyImprovement()
     {
-        GD.Print($"{firstName} was removed from {currentCountyImprovement?.improvementName}");
+        //GD.Print($"{firstName} was removed from {currentCountyImprovement?.improvementName}");
 
         UpdateActivity(AllEnums.Activities.Idle);
         currentCountyImprovement?.populationAtImprovement.Remove(this);
@@ -227,8 +231,10 @@ public partial class PopulationData : Resource
 
     
     public PopulationData(
-        FactionData factionData, int location, int lastLocation, int destination, string firstName, string lastName
+        IHeroPersonalities iHeroPersonality
+        ,FactionData factionData, int location, int lastLocation, int destination, string firstName, string lastName
         , bool isMale, int age, bool isHero, bool isWorker, AllEnums.HeroType HeroType
+        , AllEnums.HeroPersonality heroPersonality
         , Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks, int hitpoints, int maxHitpoints
         , int moraleExpendable
         , int loyaltyBase, int LoyaltyAdjusted, int Happiness, int daysStarving
@@ -242,6 +248,7 @@ public partial class PopulationData : Resource
         , ResearchItemData currentResearchItemData
         , HeroToken heroToken)
     {
+        this.iHeroPersonality = iHeroPersonality;
         this.factionData = factionData;
         this.location = location;
         this.lastLocation = lastLocation;
@@ -254,6 +261,7 @@ public partial class PopulationData : Resource
         this.isHero = isHero;
         this.isWorker = isWorker;
         this.HeroType = HeroType;
+        this.heroPersonality = heroPersonality;
 
         this.perks = perks;
 
@@ -279,5 +287,4 @@ public partial class PopulationData : Resource
         this.currentResearchItemData = currentResearchItemData;
         this.heroToken = heroToken;
     }
-    
 }

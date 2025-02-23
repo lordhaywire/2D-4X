@@ -45,6 +45,9 @@ public partial class County : Node2D
         }
     }
 
+    /// <summary>
+    /// Fires once a week and on the first day of the game.
+    /// </summary>
     private void Weekly()
     {
         //GD.PrintRich($"[rainbow]County : Weekly!!!!!");
