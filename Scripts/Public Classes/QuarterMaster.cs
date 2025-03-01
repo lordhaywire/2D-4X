@@ -5,6 +5,10 @@ using System.Linq;
 namespace PlayerSpace;
 public class Quartermaster
 {
+    /// <summary>
+    /// I didn't take into account if the heroes are no in a friendly county.
+    /// </summary>
+    /// <param name="populationData"></param>
     public static void EquipHeroes(PopulationData populationData)
     {
         County county = (County)Globals.Instance.countiesParent.GetChild(populationData.location);

@@ -38,7 +38,7 @@ namespace PlayerSpace
         // Eventually this will assign other things, but currently we just need this here.
         private void AssignPlayerSpecificThings()
         {
-            Globals.Instance.playerFactionData.factionLeader.heroPersonality = AllEnums.HeroPersonality.Player;
+            Globals.Instance.playerFactionData.factionLeader.personality = AllEnums.Personality.Player;
         }
 
         public void CreateFactionLeaders()
@@ -58,15 +58,15 @@ namespace PlayerSpace
         }
 
         // This was written by ChatGPT.
-        private int GenerateHeroPersonalities()
+        private int GeneratePersonalities()
         {
             int randomPersonality;
             do
             {
-                randomPersonality = (int)AllEnums.GetRandomEnumValue<AllEnums.HeroPersonality>();
+                randomPersonality = (int)AllEnums.GetRandomEnumValue<AllEnums.Personality>();
             } while (randomPersonality == 0);
 
-            //GD.Print("Random Personality: " + randomPersonality);
+            GD.Print("Random Personality: " + randomPersonality);
             return randomPersonality;
         }
 
@@ -75,6 +75,7 @@ namespace PlayerSpace
             for (int i = 0; i < totalPopulation; i++)
             {
                 GenerateNameAndSex();  // This could probably be broken into two methods.
+                AllEnums.Personality personality = (AllEnums.Personality)GeneratePersonalities();
                 int loyaltyBase = random.Next(31, 101); // This is a temporary number.
                 int happiness = random.Next(31, 101); // This is a temporary number.
                 int daysStarving = 0;
@@ -82,9 +83,11 @@ namespace PlayerSpace
                 if (hero == false)
                 {
                     // This is for the standard population.
-                    countyData.populationDataList.Add(new PopulationData(new OffensivePersonality(), countyData.factionData, countyData.countyId
-                        , -1, -1, firstName, lastName, isMale, GenerateAge(), false, false, AllEnums.HeroType.None
-                        , (AllEnums.HeroPersonality)GenerateHeroPersonalities()
+                    countyData.populationDataList.Add(new PopulationData(countyData.factionData, countyData.countyId
+                        , -1, -1, firstName, lastName, isMale, GenerateAge()
+                        , personality
+                        , AllEnums.AssignPersonalityInterfaces(personality)
+                        , false, false, AllEnums.HeroType.None
                         , GeneratePopulationPerks(), Globals.Instance.startingHitPoints, maxHitpoints
                         , GenerateExpendables()
                         , loyaltyBase, loyaltyBase, happiness, daysStarving, GenerateNeeds()
@@ -97,9 +100,12 @@ namespace PlayerSpace
                 else
                 {
                     // Generates a hero that is a faction leader populationData.
-                    countyData.heroesInCountyList.Add(new PopulationData(new DefensivePersonality(), countyData.factionData, countyData.countyId
-                        , -1, -1, firstName, lastName, isMale, GenerateAge(), true, true, AllEnums.HeroType.FactionLeader
-                        , (AllEnums.HeroPersonality)GenerateHeroPersonalities()
+                    countyData.heroesInCountyList.Add(new PopulationData(countyData.factionData, countyData.countyId
+                        , -1, -1, firstName, lastName, isMale, GenerateAge()
+                        , personality
+                        , AllEnums.AssignPersonalityInterfaces(personality)
+                        , true, true
+                        , AllEnums.HeroType.FactionLeader
                         , GenerateLeaderPerks(), Globals.Instance.startingHitPoints, maxHitpoints
                         , GenerateExpendables()
                         , loyaltyBase, loyaltyBase, happiness, daysStarving, GenerateNeeds()
@@ -116,13 +122,11 @@ namespace PlayerSpace
             }
             foreach(PopulationData populationData in countyData.populationDataList)
             {
-                GD.Print("Hero Personality: ");
-                populationData.iHeroPersonality.EquipmentAssignment();
+                GD.Print($"{populationData.firstName} Hero Personality: {populationData.personality}");
             }
             foreach (PopulationData populationData in countyData.heroesInCountyList)
             {
-                GD.Print("Hero Personality: ");
-                populationData.iHeroPersonality.EquipmentAssignment();
+                GD.Print($"{populationData.firstName} Hero Personality: {populationData.personality}");
             }
         }
         private static InterestData GenerateInterest()

@@ -594,8 +594,8 @@ public partial class CountyData : Resource
         //GD.Print("Population List count: " + populationDataList.Count());
         if (populationDataList.Count < 1)
         {
-            GD.PrintRich($"[pulse freq=5.0 color=green]Population Eats Food: " +
-                $"A population list such as herolist or armylist is empty.[/pulse]");
+            //GD.PrintRich($"[pulse freq=5.0 color=green]Population Eats Food: " +
+            //    $"A population list such as herolist or armylist is empty.[/pulse]");
             return;
         }
         else

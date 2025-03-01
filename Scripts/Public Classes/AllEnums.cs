@@ -91,7 +91,7 @@ public class AllEnums
 
     // These are just protype personalities.
     // Player only should apply to the current factionLeader.
-    public enum HeroPersonality
+    public enum Personality
     {
         Player,
         Defensive,
@@ -177,6 +177,24 @@ public class AllEnums
         Ruin,
     }
 
+    /// <summary>
+    /// This will be used for loading from disk as well.
+    /// </summary>
+    /// <param name="personality"></param>
+    /// <returns></returns>
+    public static IPersonality AssignPersonalityInterfaces(Personality personality)
+    {
+        IPersonality iPersonality;
+        switch (personality)
+        {
+            case Personality.Defensive:
+                return iPersonality = new DefensivePersonality();
+            case Personality.Offensive:
+                return iPersonality = new OffensivePersonality();
+            default:
+                return null;
+        }
+    }
     public static T GetRandomEnumValue<T>() where T : Enum
     {
         Array values = Enum.GetValues(typeof(T));

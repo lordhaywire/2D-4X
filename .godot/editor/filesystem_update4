@@ -1,3 +1,4 @@
+res://Resources/PopulationData.cs
 res://Scenes/Main.tscn
 res://Resources/Goods/Storage Perishable.tres
 res://Resources/County Improvements/Converted Warehouse.tres
@@ -12,6 +13,7 @@ res://Resources/Goods/Equipment.tres
 res://Resources/Goods/PrimitiveScoutingEquipment.tres
 res://Resources/County Improvements/ScoutingEquipmentWorkshop.tres
 res://Resources/Goods/Food.tres
+res://Resources/Goods/Influence.tres
 res://Resources/County Improvements/ResearchersOffice.tres
 res://Prefabs/HeroToken.tscn
 res://Scenes/MapEditor.tscn
@@ -20,15 +22,14 @@ res://UIScenes/SpawnedTokenButton.tscn
 res://Resources/ActivityData.cs
 res://Scripts/UI/RemoveCountyImprovementConfirmationPanelContainer.cs
 res://Scripts/AllSkills.cs
-res://Scripts/MapEditorControl.cs
-res://Scripts/Map Editor/ChangeTillamookLineEdit.cs
+res://Scripts/PlayerControls.cs
+res://Scripts/Map Editor/CountyChecker.cs
 res://Resources/SkillData.cs
 res://Scripts/AllPerks.cs
-res://Resources/PopulationData.cs
 res://Resources/FactionData.cs
-res://Scripts/Map Editor/RootNode.cs
+res://Scripts/Map Editor/SaveCountiesButton.cs
 res://Scripts/AllAttributes.cs
-res://Scripts/CountyResourcesAutoLoad.cs
+res://Scripts/Faction.cs
 res://Scripts/CountyDictator.cs
 res://Scripts/UI/PopulationDescriptionControl.cs
 res://Scripts/UI/BuildConfirmationDialog.cs
@@ -37,9 +38,9 @@ res://Scripts/UI/TopBarControl.cs
 res://Scripts/UI/StoryEventControl.cs
 res://Scripts/UI/StorageHbox.cs
 res://Scripts/UI/ResearchItemButton.cs
+res://Scripts/Map Editor/LogControl.cs
 res://Scripts/Map Editor/FindNeighbors.cs
-res://Scripts/Map Editor/DeleteCountiesButton.cs
-res://Scripts/Hidder.cs
+res://Scripts/HidderNode.cs
 res://Scripts/UI/EventLogTextPanel.cs
 res://Scripts/UI/RecruitHeroButton.cs
 res://Resources/InterestData.cs
@@ -48,30 +49,30 @@ res://Scripts/UI/BattleLogControl.cs
 res://Resources/CountyData.cs
 res://Scripts/County.cs
 res://Scripts/UI/PlayerUICanvas.cs
-res://Scripts/Faction.cs
-res://Scripts/Map Editor/LogControl.cs
+res://Scripts/FactionGeneration.cs
+res://Scripts/Map Editor/MapEditorCameraCharacterBody2D.cs
 res://Scripts/UI/EventLog.cs
 res://Scripts/UI/CountyInfoControl.cs
 res://Scripts/TokenMovement.cs
 res://Scripts/UI/GoodPanelContainer.cs
 res://Scripts/UI/ResearchControl.cs
-res://Scripts/Globals.cs
-res://Scripts/Map Editor/MapEditorControls.cs
+res://Scripts/HeroToken.cs
+res://Scripts/Map Editor/MapEditorGlobals.cs
 res://Scripts/UI/PopulationListUIElement.cs
 res://Resources/GoodData.cs
-res://Scripts/PlayerControls.cs
+res://Scripts/PopulationGeneration.cs
 res://Scripts/Clock.cs
 res://Scripts/UI/CombatLogTextPanel.cs
-res://Scripts/FactionGeneration.cs
-res://Scripts/Map Editor/MapEditorGlobals.cs
+res://Scripts/Globals.cs
+res://Scripts/Map Editor/RootNode.cs
 res://Resources/HeroData.cs
-res://Scripts/Map Editor/SaveCountiesButton.cs
+res://Scripts/MapEditorControl.cs
 res://Scripts/CountyImprovementsControl.cs
 res://Scripts/UserFolderController.cs
 res://Resources/CountyImprovementData.cs
 res://Scripts/CountyLoader.cs
 res://Scripts/Camera.cs
-res://Scripts/Map Editor/MapEditorCameraCharacterBody2D.cs
+res://Scripts/Map Editor/MapEditorControls.cs
 res://Scripts/UI/InventoryVBoxContainer.cs
 res://Resources/ResearchItemData.cs
 res://Scripts/AllGoods.cs
@@ -85,29 +86,28 @@ res://Scripts/CameraControls.cs
 res://Scripts/UI/BattleControl.cs
 res://Scripts/UI/SpawnedTokenButton.cs
 res://Scripts/Public Classes/AllTokenTextures.cs
-res://Scripts/HidderNode.cs
+res://Scripts/LoadMaps.cs
 res://Scripts/UI/PopAndIdleButtons.cs
 res://Scripts/RandomFactionColor.cs
 res://Scripts/UI/CountryImprovementPanelContainer.cs
-res://Scripts/Map Editor/CountyCreator.cs
+res://Scripts/Map Editor/DeleteCountiesButton.cs
 res://Scripts/CountyGeneration.cs
 res://Resources/AttributeData.cs
 res://Scripts/AllResearch.cs
-res://Scripts/Map Editor/CountyChecker.cs
+res://Scripts/Map Editor/CountyCreator.cs
 res://Scripts/AllGraphics.cs
 res://Scripts/UI/AssignedResearcherHboxContainer.cs
 res://Scripts/UI/PopulationRowButton.cs
 res://Resources/EquipmentData.cs
-res://Scripts/CountyPopulationGeneration.cs
-res://Scripts/LoadMaps.cs
+res://Scripts/CountyResourcesAutoLoad.cs
+res://Scripts/Main.cs
 res://Scripts/UI/RecruitHeroConfirmationPanelContainer.cs
 res://Scripts/AllActivities.cs
-res://Scripts/Main.cs
+res://Scripts/Map Editor/ChangeTillamookLineEdit.cs
 res://Scripts/UI/ResearchDescriptionPanel.cs
-res://Scripts/HeroToken.cs
-res://Resources/Goods/Influence.tres
-res://Scripts/Public Classes/QuarterMaster.cs
+res://Scripts/Hidder.cs
+res://Properties/launchSettings.json
 res://Scripts/Public Classes/CountyAI.cs
 res://Scripts/Public Classes/FactionAI.cs
-res://Scripts/PopulationGeneration.cs
-res://Scripts/Interfaces/IHeroPersonalities.cs
+res://Resources/Factions/AIFaction3.tres
+res://Scripts/Public Classes/TokenSpawner.cs

@@ -183,7 +183,7 @@ namespace PlayerSpace
                 heroPrefab.heroListButton.Disabled = false;
                 heroPrefab.spawnHeroButton.Show();
 
-                //GD.Print("Hero Token: " + populationData.token);
+                GD.Print("County Info Control Hero Token: " + populationData.heroToken);
                 // This is only for the players tokens.
                 if (populationData.heroToken == null)
                 {

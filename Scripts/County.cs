@@ -37,13 +37,7 @@ public partial class County : Node2D
         }
     }
 
-    private void AfterStartDay()
-    {
-        foreach (PopulationData populationData in countyData.heroesInCountyList)
-        {
-            Quartermaster.EquipHeroes(populationData);
-        }
-    }
+
 
     /// <summary>
     /// Fires once a week and on the first day of the game.
@@ -180,6 +174,40 @@ public partial class County : Node2D
         // Counts the idle works and sets the idleWorkers variable in the County Data.
         // This is for the player UI mostly.
         countyData.CountIdleWorkers();
+    }
+
+    /// <summary>
+    /// This equips all of the heroes in 
+    /// </summary>
+    private void AfterStartDay()
+    {
+        EquipEachHero();
+    }
+
+    /// <summary>
+    /// Equips the heroes that are in friendly counties and that aren't moving.
+    /// This needs to be MoveToken != true because of the null check on heroToken.
+    /// </summary>
+    private void EquipEachHero()
+    {
+        if (countyData.heroesInCountyList == null)
+        {
+            return;
+        }
+
+        foreach (PopulationData populationData in countyData.heroesInCountyList)
+        {
+            if (countyData.factionData == populationData.factionData 
+                && populationData.heroToken?.tokenMovement.MoveToken != true)
+            {
+                Quartermaster.EquipHeroes(populationData);
+                GD.Print($"{populationData.firstName} has been equiped.");
+            }
+            else
+            {
+                GD.Print("Hero is in an unfriendly county so it needs to equip from supply, which isn't implemented yet.");
+            }
+        }
     }
 
     private void OnTreeExit()

@@ -1844,7 +1844,6 @@ bbcode_enabled = true
 text = "PHRASE_RECONNAISSANCE_EQUIPMENT"
 fit_content = true
 horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="Reconnaissance Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
 layout_mode = 2
@@ -1859,7 +1858,6 @@ bbcode_enabled = true
 text = "PHRASE_OFFENSIVE_EQUIPMENT"
 fit_content = true
 horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="Offensive Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
 layout_mode = 2
@@ -1874,7 +1872,6 @@ bbcode_enabled = true
 text = "PHRASE_DEFENSIVE_EQUIPMENT"
 fit_content = true
 horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="Defensive Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
 layout_mode = 2
@@ -1889,7 +1886,6 @@ bbcode_enabled = true
 text = "PHRASE_MEDICAL_EQUIPMENT"
 fit_content = true
 horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="Medical Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
 layout_mode = 2
@@ -1904,7 +1900,6 @@ bbcode_enabled = true
 text = "PHRASE_AUXILIARY_EQUIPMENT"
 fit_content = true
 horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="Auxiliary Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
 layout_mode = 2

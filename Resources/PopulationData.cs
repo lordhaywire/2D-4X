@@ -6,7 +6,8 @@ namespace PlayerSpace;
 [GlobalClass]
 public partial class PopulationData : Resource
 {
-    public IHeroPersonalities iHeroPersonality; // I have fucked my future self.  This will not save with the resource saver.
+    
+
     [Export] public FactionData factionData;
     [Export] public int location;
 
@@ -18,6 +19,10 @@ public partial class PopulationData : Resource
     [Export] public string lastName;
     [Export] public bool isMale;
     [Export] public int age;
+
+    [ExportGroup("Personality")]
+    [Export] public AllEnums.Personality personality;
+    public IPersonality iPersonality; // I have fucked my future self.  This will not save with the resource saver.
 
     [ExportGroup("Hero")]
     // Change this to an enum
@@ -39,7 +44,6 @@ public partial class PopulationData : Resource
             }
         }
     }
-    [Export] public AllEnums.HeroPersonality heroPersonality;
 
     [ExportGroup("Perks")]
     [Export] public Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks;
@@ -231,10 +235,11 @@ public partial class PopulationData : Resource
 
     
     public PopulationData(
-        IHeroPersonalities iHeroPersonality
-        ,FactionData factionData, int location, int lastLocation, int destination, string firstName, string lastName
-        , bool isMale, int age, bool isHero, bool isWorker, AllEnums.HeroType HeroType
-        , AllEnums.HeroPersonality heroPersonality
+        FactionData factionData, int location, int lastLocation, int destination, string firstName, string lastName
+        , bool isMale, int age
+        , AllEnums.Personality personality
+        , IPersonality iPersonality
+        , bool isHero, bool isWorker, AllEnums.HeroType HeroType
         , Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks, int hitpoints, int maxHitpoints
         , int moraleExpendable
         , int loyaltyBase, int LoyaltyAdjusted, int Happiness, int daysStarving
@@ -248,7 +253,6 @@ public partial class PopulationData : Resource
         , ResearchItemData currentResearchItemData
         , HeroToken heroToken)
     {
-        this.iHeroPersonality = iHeroPersonality;
         this.factionData = factionData;
         this.location = location;
         this.lastLocation = lastLocation;
@@ -258,10 +262,12 @@ public partial class PopulationData : Resource
         this.isMale = isMale;
         this.age = age;
 
+        this.personality = personality;
+        this.iPersonality = iPersonality;
+
         this.isHero = isHero;
         this.isWorker = isWorker;
         this.HeroType = HeroType;
-        this.heroPersonality = heroPersonality;
 
         this.perks = perks;
 

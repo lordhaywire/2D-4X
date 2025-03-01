@@ -17,6 +17,7 @@ public partial class HeroToken : CharacterBody2D
 
     [Export] public TokenMovement tokenMovement;
 
+    // Change this to an enum.
     [Export] public bool isRetreating;
     [Export] private bool inCombat;
 

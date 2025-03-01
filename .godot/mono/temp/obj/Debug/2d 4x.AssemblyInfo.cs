@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("2d 4x")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ae3162ea4f78464996af2a6d3a5c34d4ce8df397")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c4b2c4672c78d30499f3beeaccce25c99cd62894")]
 [assembly: System.Reflection.AssemblyProductAttribute("2d 4x")]
 [assembly: System.Reflection.AssemblyTitleAttribute("2d 4x")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

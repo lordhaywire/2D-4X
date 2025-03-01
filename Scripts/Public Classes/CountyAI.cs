@@ -4,10 +4,6 @@ namespace PlayerSpace;
 
 public class CountyAI
 {
-    public void DecideIfHeroUsesNewestEquipment(County county)
-    {
-
-    }
     // This needs to take into account the new HeroPersonalities.
     public void DecideBuildingCountyImprovements(County county)
     {

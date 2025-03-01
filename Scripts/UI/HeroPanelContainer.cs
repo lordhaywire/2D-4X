@@ -46,7 +46,7 @@ public partial class HeroPanelContainer : PanelContainer
     {
         GD.Print("Spawned Hero Check Button Global Token: " + Globals.Instance.heroToken);
 
-        if (spawnHeroButton.ButtonPressed)// == true && populationData.IsHeroSpawned() == false)
+        if (spawnHeroButton.ButtonPressed == true && populationData.IsHeroSpawned() == false)
         {
             // Assign to Currently Selected Hero so it is ready to be moved.
             Globals.Instance.SelectedCountyPopulation

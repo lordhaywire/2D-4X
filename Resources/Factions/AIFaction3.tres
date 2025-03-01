@@ -1,6 +1,10 @@
-[gd_resource type="Resource" script_class="FactionData" load_steps=2 format=3 uid="uid://ck62f32unfibo"]
+[gd_resource type="Resource" script_class="FactionData" load_steps=6 format=3 uid="uid://ck62f32unfibo"]
 
+[ext_resource type="Script" uid="uid://blu41dxinr54t" path="res://Resources/CountyImprovementData.cs" id="1_a4nvc"]
 [ext_resource type="Script" uid="uid://6vty5uir2otq" path="res://Resources/FactionData.cs" id="1_fvued"]
+[ext_resource type="Script" uid="uid://bvkux0mhx52u8" path="res://Resources/PopulationData.cs" id="2_vhklp"]
+[ext_resource type="Script" uid="uid://cmfu3g7sbgyfx" path="res://Resources/GoodData.cs" id="3_atti6"]
+[ext_resource type="Script" uid="uid://4nhd1im4255h" path="res://Resources/CountyData.cs" id="4_swwbh"]
 
 [resource]
 script = ExtResource("1_fvued")
@@ -11,11 +15,11 @@ factionColor = Color(0, 0, 0, 0)
 factionCapitalCounty = 6
 researchItems = []
 researchableResearch = []
-countiesFactionOwns = []
-allHeroesList = []
-allCountyImprovements = []
-researchOffices = []
-factionGoods = {}
-yesterdaysFactionGoods = {}
-amountUsedFactionGoods = {}
-factionWarDictionary = {}
+countiesFactionOwns = Array[ExtResource("4_swwbh")]([])
+allHeroesList = Array[ExtResource("2_vhklp")]([])
+allCountyImprovements = Array[ExtResource("1_a4nvc")]([])
+researchOffices = Array[ExtResource("1_a4nvc")]([])
+factionGoods = Dictionary[int, ExtResource("3_atti6")]({})
+yesterdaysFactionGoods = Dictionary[int, ExtResource("3_atti6")]({})
+amountUsedFactionGoods = Dictionary[int, ExtResource("3_atti6")]({})
+factionWarDictionary = Dictionary[String, bool]({})
