@@ -72,8 +72,10 @@ namespace PlayerSpace
                             }
 
                             // Right Click on County
-                            if (eventMouseButton.ButtonIndex == MouseButton.Right && eventMouseButton.Pressed == false
-                                && Globals.Instance.SelectedCountyPopulation != null)
+                            if (eventMouseButton.ButtonIndex == MouseButton.Right 
+                                && eventMouseButton.Pressed == false
+                                && Globals.Instance.SelectedCountyPopulation != null 
+                                && Globals.Instance.SelectedCountyPopulation.heroToken != null)
                             {
                                 //GD.Print("You are moving to a place you right clicked, dude! " + county.countyData.countyName);
                                 if (Globals.Instance.SelectedCountyPopulation.destination == -1)

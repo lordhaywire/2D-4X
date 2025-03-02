@@ -5,6 +5,7 @@ public interface IPersonality
 {
     public void EquipmentAssignment(PopulationData populationData);
 }
+
 public partial class DefensivePersonality : IPersonality
 {
     /// Assign oldest equipment.

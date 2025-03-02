@@ -21,7 +21,6 @@ namespace PlayerSpace
         public override void _Ready()
         {
             Instance = this;
-
         }
 
         public override void _PhysicsProcess(double delta)
@@ -36,6 +35,7 @@ namespace PlayerSpace
             {
                 Vector2 inputDirection = Input.GetVector("camera_move_left", "camera_move_right", "camera_move_up", "camera_move_down");
                 Velocity = inputDirection * Speed / Math.Max((int)Engine.TimeScale, 1);
+                //GD.Print(Velocity);
             }
         }
         public override void _Input(InputEvent @event)

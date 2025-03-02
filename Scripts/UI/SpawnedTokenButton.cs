@@ -5,6 +5,7 @@ namespace PlayerSpace
 {
     public partial class SpawnedTokenButton : Button
     {
+        
         public PopulationData populationData;
         private HeroToken heroToken;
         public TextureRect tokenIconTextureRect;
@@ -67,6 +68,7 @@ namespace PlayerSpace
         {
             PlayerControls.Instance.stopClickThrough = false;
         }
-
+        
     }
+    
 }

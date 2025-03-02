@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,21 +14,11 @@ public class Quartermaster
     {
         County county = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
         CountyData countyData = county.countyData;
-        List<GoodData> equipmentList = [];
+        List<GoodData> equipmentList = GenerateEquipmentList(countyData);
 
         for (int i = 1; i <= populationData.equipment.Length; i++)
         {
-
-            foreach (KeyValuePair<AllEnums.CountyGoodType, GoodData> keyValuePair in countyData.goods)
-            {
-                if (keyValuePair.Value.equipmentData?.equipmentType == (AllEnums.EquipmentType)i)
-                {
-                    equipmentList.Add(keyValuePair.Value);
-                }
-            }
-
-            // Sorts the list by ascending order.
-            equipmentList = equipmentList.OrderBy(e => e.equipmentData.equipmentTier).ToList();
+            
 
             // If the newest equipment is set to false, then it picks the lowest level of equipment,
             // otherwise it picks the highest level of equipment.
@@ -46,5 +37,23 @@ public class Quartermaster
             }
             equipmentList.Clear();
         }
+    }
+
+    private static List<GoodData> GenerateEquipmentList(CountyData countyData)
+    {
+        List<GoodData> equipmentList = [];
+
+        foreach (KeyValuePair<AllEnums.CountyGoodType, GoodData> keyValuePair in countyData.goods)
+        {
+            /*
+            if (keyValuePair.Value.equipmentData?.equipmentType == (AllEnums.EquipmentType)i)
+            {
+                equipmentList.Add(keyValuePair.Value);
+            }
+            */
+        }
+
+        // Sorts the list by ascending order.
+        return equipmentList = equipmentList.OrderBy(e => e.equipmentData.equipmentTier).ToList();
     }
 }

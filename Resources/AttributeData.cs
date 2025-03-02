@@ -63,6 +63,9 @@ namespace PlayerSpace
             return bonus;
         }
 
+
+
+
         public static Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> NewCopy()
         {
             Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> newAttributes = [];

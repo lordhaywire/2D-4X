@@ -162,6 +162,7 @@ public partial class PopulationData : Resource
     public string GetActivityName()
     {
         string name = TranslationServer.Translate(AllActivities.Instance.allActivityData[(int)activity].name);
+
         return name;
     }
 

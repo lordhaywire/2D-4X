@@ -1,6 +1,8 @@
 using Godot;
 using System;
 
+using PlayerSpace;
+
 namespace MapEditorSpace
 {
     public partial class MapEditorCameraCharacterBody2D : CharacterBody2D
@@ -25,13 +27,12 @@ namespace MapEditorSpace
 
 
             Velocity = inputDirection * Speed / Math.Max((int)Engine.TimeScale, 1);
-            //GD.Print("Velocity: " + Velocity);
-            //GD.Print($"Engine Timescale: {Engine.TimeScale} & {Clock.Instance.ModifiedTimeScale}");
+            GD.Print("Velocity: " + Velocity);
         }
 
         public override void _PhysicsProcess(double delta)
         {
-            //GD.Print("Velocity: " + Velocity);
+            GD.Print("Velocity: " + Velocity);
 
             GetInput();
             MoveAndSlide();
@@ -54,7 +55,7 @@ namespace MapEditorSpace
         private void ZoomIn()
         {
             Vector2 newZoom = camera.Zoom + zoomSpeed;
-            //GD.Print("Zoom In: " + newZoom);
+            GD.Print("Zoom In: " + newZoom);
 
             camera.Zoom = newZoom.Clamp(minZoom, maxZoom);
         }
@@ -62,7 +63,7 @@ namespace MapEditorSpace
         private void ZoomOut()
         {
             Vector2 newZoom = camera.Zoom - zoomSpeed;
-            //GD.Print("Zoom Out: " + newZoom);
+            GD.Print("Zoom Out: " + newZoom);
             camera.Zoom = newZoom.Clamp(minZoom, maxZoom);
         }
     }

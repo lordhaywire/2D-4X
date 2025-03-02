@@ -1,4 +1,4 @@
-[gd_scene load_steps=143 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=142 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" uid="uid://ctm4ah5pwyf7d" path="res://Scripts/Main.cs" id="1_62dun"]
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://World Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://7jvylb78h24w" path="res://Graphics/Tokens/HornedGuyUnselected.png" id="4_pxob5"]
 [ext_resource type="Script" uid="uid://bk83rlc3sdl8r" path="res://Scripts/HeroToken.cs" id="6_0j4c6"]
 [ext_resource type="Script" uid="uid://clpo80c2m3pbo" path="res://Scripts/AllGraphics.cs" id="6_48s64"]
-[ext_resource type="Script" uid="uid://dg83vbn4mppht" path="res://Scripts/Public Classes/AllTokenTextures.cs" id="7_7iyml"]
+[ext_resource type="Script" uid="uid://dg83vbn4mppht" path="res://Scripts/AllTokenTextures.cs" id="7_7iyml"]
 [ext_resource type="Script" uid="uid://dhv0nhm25qjt5" path="res://Scripts/UI/SpawnedTokenButton.cs" id="7_bposm"]
 [ext_resource type="Script" uid="uid://bpj8qnqg0d8d" path="res://Scripts/UserFolderController.cs" id="7_fr5hn"]
 [ext_resource type="Texture2D" uid="uid://du76vrdfhckkd" path="res://Graphics/Icons/Population/resized faction leader icon.png" id="7_g78s2"]
@@ -19,32 +19,32 @@
 [ext_resource type="Script" uid="uid://8nqlrujpaio1" path="res://Scripts/AllActivities.cs" id="9_bq1ko"]
 [ext_resource type="Texture2D" uid="uid://cbpah1j3xx4f2" path="res://Graphics/Icons/Population/resized army icon.png" id="9_ft7d6"]
 [ext_resource type="Texture2D" uid="uid://cvc31dbpf0ptl" path="res://Graphics/Icons/Army Token Unselected.png" id="10_0wqfi"]
-[ext_resource type="Resource" uid="uid://bxvneetx5vawp" path="res://Resources/Activities/Build.tres" id="10_6i1wp"]
 [ext_resource type="Texture2D" uid="uid://bnau4cacldl0t" path="res://Graphics/Icons/Army Token Selected.png" id="11_e5ayq"]
 [ext_resource type="Script" uid="uid://bumyrywwkfvin" path="res://Scripts/FactionGeneration.cs" id="11_ivpku"]
-[ext_resource type="Resource" uid="uid://kyks3jywqan4" path="res://Resources/Activities/Combat.tres" id="11_pouup"]
+[ext_resource type="Resource" uid="uid://bxvneetx5vawp" path="res://Resources/Activities/Build.tres" id="12_0j4c6"]
 [ext_resource type="Script" uid="uid://e541emm3oiuj" path="res://Scripts/AllResearch.cs" id="12_hmucs"]
 [ext_resource type="Script" uid="uid://dlq7cjj83joxf" path="res://Scripts/StoryEventList.cs" id="12_q0wdt"]
 [ext_resource type="PackedScene" uid="uid://cjgb8g7l3340p" path="res://Scenes/FactionNode.tscn" id="12_r0ltm"]
-[ext_resource type="Resource" uid="uid://lhdb8c25eymt" path="res://Resources/Activities/Idle.tres" id="12_rh1yq"]
 [ext_resource type="Script" uid="uid://dmto35ej5sjd4" path="res://Scripts/PlayerControls.cs" id="12_vfu86"]
 [ext_resource type="Resource" uid="uid://b4qv7wmpei808" path="res://Resources/Story Events/FoundFood.tres" id="13_6edvn"]
-[ext_resource type="Resource" uid="uid://iakdlh7d4160" path="res://Resources/Activities/Move.tres" id="13_fv5u6"]
-[ext_resource type="Resource" uid="uid://dpu273ogyv7pf" path="res://Resources/Activities/Research.tres" id="14_e28rg"]
-[ext_resource type="Resource" uid="uid://ml2vlmwrtlgp" path="res://Resources/Activities/Scavenge.tres" id="15_k2peh"]
-[ext_resource type="Resource" uid="uid://bvsprrlr6rs15" path="res://Resources/Activities/Work.tres" id="16_er5gf"]
+[ext_resource type="Resource" uid="uid://kyks3jywqan4" path="res://Resources/Activities/Combat.tres" id="13_qmo2n"]
+[ext_resource type="Resource" uid="uid://drln8l4n4qtg7" path="res://Resources/Activities/Explore.tres" id="14_mjyee"]
+[ext_resource type="Resource" uid="uid://lhdb8c25eymt" path="res://Resources/Activities/Idle.tres" id="15_fend5"]
 [ext_resource type="Script" uid="uid://bvi0u5nh4c4p5" path="res://Scripts/CountyGeneration.cs" id="16_pxxn4"]
 [ext_resource type="Resource" uid="uid://cwkooap4yvn10" path="res://Resources/ResearchItems/Basic Storage.tres" id="16_qtbxl"]
+[ext_resource type="Resource" uid="uid://iakdlh7d4160" path="res://Resources/Activities/Move.tres" id="16_qxwff"]
 [ext_resource type="Script" uid="uid://w7efp2g0eih7" path="res://Scripts/PopulationGeneration.cs" id="17_1215r"]
-[ext_resource type="Resource" uid="uid://drln8l4n4qtg7" path="res://Resources/Activities/Explore.tres" id="17_bposm"]
+[ext_resource type="Resource" uid="uid://dpu273ogyv7pf" path="res://Resources/Activities/Research.tres" id="17_dwns0"]
+[ext_resource type="Resource" uid="uid://dy4bltm86q63n" path="res://Resources/Attributes/Intelligence.tres" id="17_y7h6l"]
 [ext_resource type="Script" uid="uid://c6nd17mfkssti" path="res://Scripts/RandomFactionColor.cs" id="18_3aru6"]
+[ext_resource type="Resource" uid="uid://ml2vlmwrtlgp" path="res://Resources/Activities/Scavenge.tres" id="18_ghvh6"]
 [ext_resource type="Script" uid="uid://dhynx3i0k61wi" path="res://Scripts/AllGoods.cs" id="18_wf5kh"]
 [ext_resource type="Resource" uid="uid://c55q8uucl7cqe" path="res://Resources/Goods/Fish.tres" id="19_1e80i"]
 [ext_resource type="Script" uid="uid://dq7hcwrq41ub" path="res://Scripts/Clock.cs" id="19_dn5gi"]
+[ext_resource type="Resource" uid="uid://bvsprrlr6rs15" path="res://Resources/Activities/Work.tres" id="19_ogxyq"]
 [ext_resource type="Script" uid="uid://cjkl8rag6oe66" path="res://Scripts/Map Editor/FindNeighbors.cs" id="20_0i5kb"]
 [ext_resource type="Resource" uid="uid://bhmwj5yptebic" path="res://Resources/Goods/Remnants.tres" id="20_k67vp"]
 [ext_resource type="Resource" uid="uid://dpddpnnbjvql" path="res://Resources/Goods/Vegetables.tres" id="21_r83qp"]
-[ext_resource type="Script" uid="uid://dusppl80txnnn" path="res://Resources/AttributeData.cs" id="22_0b0as"]
 [ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/Goods/Wood.tres" id="22_leslc"]
 [ext_resource type="Resource" uid="uid://bljrvhrjka1hs" path="res://Resources/ResearchItems/Basic Production.tres" id="22_ugyvd"]
 [ext_resource type="Script" uid="uid://bwjophygkh7hw" path="res://Scripts/AllPerks.cs" id="23_8jwco"]
@@ -166,14 +166,6 @@ _bundled = {
 "version": 3
 }
 
-[sub_resource type="Resource" id="Resource_6tiru"]
-script = ExtResource("22_0b0as")
-attribute = 4
-attributeAbbreviation = "IN"
-attributeName = "Intelligence"
-attributeDescription = ""
-attributeLevel = 0
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_co2vr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1crxt"]
@@ -210,13 +202,13 @@ camera = NodePath("Camera2D")
 [node name="Camera2D" type="Camera2D" parent="Camera CharacterBody2D"]
 position = Vector2(494, 479)
 
-[node name="Maps" type="Node" parent="Camera CharacterBody2D"]
+[node name="Maps" type="Node" parent="."]
 script = ExtResource("2_nda5i")
 
-[node name="Color Coded Map Sprite2D" type="Sprite2D" parent="Camera CharacterBody2D/Maps"]
+[node name="Color Coded Map Sprite2D" type="Sprite2D" parent="Maps"]
 centered = false
 
-[node name="Map Sprite2D" type="Sprite2D" parent="Camera CharacterBody2D/Maps"]
+[node name="Map Sprite2D" type="Sprite2D" parent="Maps"]
 centered = false
 
 [node name="Game Controller Node" type="Node" parent="."]
@@ -245,11 +237,11 @@ script = ExtResource("7_fr5hn")
 
 [node name="All Activities" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("9_bq1ko")
-allActivityData = Array[Object]([ExtResource("10_6i1wp"), ExtResource("11_pouup"), ExtResource("17_bposm"), ExtResource("12_rh1yq"), ExtResource("13_fv5u6"), ExtResource("14_e28rg"), ExtResource("15_k2peh"), ExtResource("16_er5gf")])
+allActivityData = Array[Object]([ExtResource("12_0j4c6"), ExtResource("13_qmo2n"), ExtResource("14_mjyee"), ExtResource("15_fend5"), ExtResource("16_qxwff"), ExtResource("17_dwns0"), ExtResource("18_ghvh6"), ExtResource("19_ogxyq")])
 
 [node name="All Attributes" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("23_ucd0c")
-allAttributes = Array[Object]([ExtResource("24_kqay3"), ExtResource("25_arsfn"), ExtResource("26_eof2h"), ExtResource("27_fmdgm"), SubResource("Resource_6tiru"), ExtResource("29_xoqji"), ExtResource("30_lqs38"), ExtResource("31_odxrg")])
+allAttributes = Array[Object]([ExtResource("24_kqay3"), ExtResource("25_arsfn"), ExtResource("26_eof2h"), ExtResource("27_fmdgm"), ExtResource("17_y7h6l"), ExtResource("29_xoqji"), ExtResource("30_lqs38"), ExtResource("31_odxrg")])
 
 [node name="All Perks" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("23_8jwco")
@@ -302,7 +294,7 @@ collisionRectangleShape = SubResource("RectangleShape2D_co2vr")
 [node name="Faction Generation" type="Node" parent="Game Controller Node"]
 script = ExtResource("11_ivpku")
 factionNodePackedScene = ExtResource("12_r0ltm")
-countyImprovementData = []
+countyImprovementData = Array[Object]([])
 
 [node name="County Generation" type="Node" parent="Game Controller Node"]
 script = ExtResource("16_pxxn4")
@@ -951,7 +943,7 @@ aideTextureRect = NodePath("HBoxContainer/Aide TextureRect")
 armyLeaderTextureRect = NodePath("HBoxContainer/Army TextureRect")
 heroNameLabel = NodePath("Hero Name Label")
 heroListButton = NodePath("Hero List Button")
-heroCheckBoxes = []
+heroCheckBoxes = Array[Object]([])
 
 [node name="Hero Name Label" type="Label" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Select Hero PanelContainer"]
 layout_mode = 2
@@ -1323,7 +1315,7 @@ vertical_alignment = 1
 
 [node name="Population Row Button" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer" node_paths=PackedStringArray("skillLabels") instance=ExtResource("30_bhu5o")]
 layout_mode = 2
-skillLabels = []
+skillLabels = Array[Object]([])
 
 [node name="Close Button" type="Button" parent="Player UI Canvas/Population List MarginContainer"]
 custom_minimum_size = Vector2(75, 50)
