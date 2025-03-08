@@ -67,7 +67,7 @@ public class PopulationWorkEnd
                     CountyImprovementData countyImprovementData = populationData.currentCountyImprovement;
 
                     // Check if there are enough input goods to proceed with work.
-                    bool hasEnoughInputGoods = Haulmaster.CheckEnoughGoods(countyImprovementData, populationData);
+                    bool hasEnoughInputGoods = Haulmaster.CheckEnoughGoods(countyImprovementData);
 
                     if (hasEnoughInputGoods)
                     {
@@ -229,7 +229,7 @@ public class PopulationWorkEnd
                     GD.Print($"{countyData.countyName} {countyImprovementData.improvementName} todays goods " +
                         $"generated: {keyValuePair.Value.todaysGoodsAmountGenerated}");
 
-                    Banker.AddCountyResource(countyData, keyValuePair.Key.countyGoodType, keyValuePair.Value.todaysGoodsAmountGenerated);
+                    Haulmaster.AdjustCountyGoodAmount(countyData, keyValuePair.Key.countyGoodType, keyValuePair.Value.todaysGoodsAmountGenerated);
                 }
                 // Reset all the county improvement work so that the next day it will generate with new skill checks.
                 countyImprovementData.allDailyWorkAmountAtImprovementCompleted = 0;

@@ -263,7 +263,7 @@ public partial class CountyImprovementData : Resource
             inputGoods = countyImprovementData.inputGoods,
             countyStockpiledGoods = countyImprovementData.CopyStockpiledGoods(),
             status = countyImprovementData.status,
-            populationAtImprovement = new Godot.Collections.Array<PopulationData>(countyImprovementData.populationAtImprovement),
+            populationAtImprovement = [.. countyImprovementData.populationAtImprovement],
         };
         return newCountyImprovementData;
     }
@@ -274,7 +274,7 @@ public partial class CountyImprovementData : Resource
 
         foreach (KeyValuePair<GoodData, int> keyValuePair in inputGoods) 
         {
-            copiedDictionary.Add(keyValuePair.Key.NewCopy(keyValuePair.Key), keyValuePair.Value);
+            copiedDictionary.Add(GoodData.NewCopy(keyValuePair.Key), keyValuePair.Value);
         }
         return copiedDictionary;
     }

@@ -18,7 +18,6 @@ res://Prefabs/HeroToken.tscn
 res://Scenes/MapEditor.tscn
 res://UIScenes/HeroListCheckBoxPanelContainer.tscn
 res://UIScenes/SpawnedTokenButton.tscn
-res://Resources/PopulationData.cs
 res://Resources/ActivityData.cs
 res://Scripts/UI/RemoveCountyImprovementConfirmationPanelContainer.cs
 res://Scripts/AllSkills.cs
@@ -26,6 +25,7 @@ res://Scripts/MapEditorControl.cs
 res://Scripts/Map Editor/ChangeTillamookLineEdit.cs
 res://Resources/SkillData.cs
 res://Scripts/AllPerks.cs
+res://Resources/PopulationData.cs
 res://Resources/FactionData.cs
 res://Scripts/Map Editor/RootNode.cs
 res://Scripts/AllAttributes.cs
@@ -106,3 +106,6 @@ res://Scripts/AllActivities.cs
 res://Scripts/Main.cs
 res://Scripts/UI/ResearchDescriptionPanel.cs
 res://Scripts/HeroToken.cs
+res://Scripts/Public Classes/Banker.cs
+res://Scripts/Public Classes/PopulationWorkEnd.cs
+res://Properties/launchSettings.json

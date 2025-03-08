@@ -52,7 +52,7 @@ namespace PlayerSpace
             }
         }
 
-        public GoodData NewCopy(GoodData goodData)
+        public static GoodData NewCopy(GoodData goodData)
         {
             GoodData newGoodData = new()
             {

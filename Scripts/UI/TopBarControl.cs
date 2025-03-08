@@ -31,7 +31,7 @@ public partial class TopBarControl : Control
 
     public void UpdateTopBarGoodLabels()
     {
-        //GD.Print("Top Bar expendables have been updated, motherfucker!");
+        GD.Print("Top Bar expendables have been updated, motherfucker!");
         UpdateInfluenceMoneyLabels();
         UpdateUsedInfluenceMoneyLabels();
 

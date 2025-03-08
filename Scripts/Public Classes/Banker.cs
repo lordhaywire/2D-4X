@@ -28,7 +28,7 @@ public class Banker
             int amountGenerated = GenerateScavengedResourceWithSkillCheck(populationData);
             int amount = Mathf.Min(amountGenerated, countyData.scavengableCannedFood);
             GD.Print($"{populationData.firstName} {populationData.lastName} is generating scavenged food: {amount}");
-            AddCountyResource(countyData, AllEnums.CountyGoodType.CannedFood, amount);
+            Haulmaster.AdjustCountyGoodAmount(countyData, AllEnums.CountyGoodType.CannedFood, amount);
             countyData.RemoveResourceFromAvailableCountyTotals(AllEnums.CountyGoodType.CannedFood, amount);
         }
         else
@@ -40,7 +40,7 @@ public class Banker
             int amountGenerated = GenerateScavengedResourceWithSkillCheck(populationData);
             int amount = Mathf.Min(amountGenerated, countyData.scavengableRemnants);
             GD.Print($"{populationData.firstName} {populationData.lastName} is generating scavenged remnants: {amount}");
-            AddCountyResource(countyData, AllEnums.CountyGoodType.Remnants, amount);
+            Haulmaster.AdjustCountyGoodAmount(countyData, AllEnums.CountyGoodType.Remnants, amount);
             countyData.RemoveResourceFromAvailableCountyTotals(AllEnums.CountyGoodType.Remnants, amount);
         }
     }
@@ -144,10 +144,7 @@ public class Banker
         //// GD.Print($"Amount of Research Done: {populationData.CurrentResearchItemData.AmountOfResearchDone}");
     }
 
-    public static void AddCountyResource(CountyData countyData, AllEnums.CountyGoodType countyResourceType, int amount)
-    {
-        countyData.goods[countyResourceType].Amount += amount;
-    }
+
 
     public static void ChargeForHero(FactionData factionData)
     {

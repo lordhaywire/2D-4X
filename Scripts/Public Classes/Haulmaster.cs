@@ -5,6 +5,11 @@ using System.Collections.Generic;
 namespace PlayerSpace;
 public class Haulmaster
 {
+    public static void AdjustCountyGoodAmount(CountyData countyData, AllEnums.CountyGoodType countyResourceType, int amount)
+    {
+        countyData.goods[countyResourceType].Amount += amount;
+    }
+
     public static void ReturnHalfOfConstructionCost(CountyData countyData, CountyImprovementData countyImprovementData)
     {
         foreach (KeyValuePair<GoodData, int> keyValuePair in countyImprovementData.goodsConstructionCost)
@@ -97,7 +102,7 @@ public class Haulmaster
                 goodData.MaxAmount = countyData.nonperishableStorage
                     / Globals.Instance.numberOfNonperishableGoods;
             }
-            //GD.Print($"AssignMaxStorageToGoods: {countyData.countyName} : {goodData.goodName}: {goodData.MaxAmount}");
+            GD.Print($"AssignMaxStorageToGoods: {countyData.countyName} : {goodData.goodName}: {goodData.MaxAmount}");
         }
     }
 
@@ -199,7 +204,7 @@ public class Haulmaster
         }
     }
 
-    public static bool CheckEnoughGoods(CountyImprovementData countyImprovementData, PopulationData populationData)
+    public static bool CheckEnoughGoods(CountyImprovementData countyImprovementData)
     {
         bool hasEnoughInputGoods = true;
 

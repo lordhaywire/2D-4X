@@ -177,6 +177,11 @@ public class AllEnums
         Ruin,
     }
 
+    public static int GetCorrectEquipmentSlot(AllEnums.EquipmentType equipmentType)
+    {
+        int equipmentSlot = (int)equipmentType - 1;
+        return equipmentSlot;
+    }
     /// <summary>
     /// This will be used for loading from disk as well.
     /// </summary>
@@ -188,9 +193,14 @@ public class AllEnums
         switch (personality)
         {
             case Personality.Defensive:
-                return iPersonality = new DefensivePersonality();
+                iPersonality = new DefensivePersonality();
+                return iPersonality;
             case Personality.Offensive:
-                return iPersonality = new OffensivePersonality();
+                iPersonality = new OffensivePersonality();
+                return iPersonality;
+            case Personality.Player:
+                iPersonality = new PlayerPersonality();
+                return iPersonality;
             default:
                 return null;
         }

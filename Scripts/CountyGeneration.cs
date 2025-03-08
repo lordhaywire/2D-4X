@@ -13,22 +13,28 @@ public partial class CountyGeneration : Node
         AssignFactionDataToCountyData();
         AssignCountyDataToFaction();
         UpdateGoods();
-        PrebuildCountyImprovements(); // Currently Empty.
+        //PrebuildCountyImprovements(); // Currently Empty.
         foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
         {
             Haulmaster.CountCountyMaxStorage(county.countyData);
             Haulmaster.AssignMaxStorageToGoods(county.countyData);
-            //Haulmaster.AssignStorageToCountyStorage(county.countyData);
-}
+        }
+        AssignStartingGoodsToCounty();
+
     }
 
-    /// <summary>
-    /// This is going to be for when there is a checkbox or randomly generated starting county improvements.
-    /// This has to be above the CountCountyTotalStorage because it will count completed buildings.
-    /// </summary>
-    private void PrebuildCountyImprovements()
+    private void AssignStartingGoodsToCounty()
     {
-        
+        // This is just for testing.  Sets all resources to a starting amount.
+        // This has to be after the initial storage is set.
+        foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
+        {
+            CountyData countyData = county.countyData;
+            foreach (KeyValuePair<AllEnums.CountyGoodType, GoodData> keyValuePair in countyData.goods)
+            {
+                keyValuePair.Value.Amount = Globals.Instance.startingAmountOfEachGood;
+            }
+        }
     }
 
     private static void UpdateGoods()
@@ -57,13 +63,6 @@ public partial class CountyGeneration : Node
                 countyData.yesterdaysGoods.Add(goodData.countyGoodType, (GoodData)goodData.Duplicate());
                 countyData.amountOfGoodsUsed.Add(goodData.countyGoodType, (GoodData)goodData.Duplicate());
             }
-        }
-
-        // This is just for testing.  Sets all resources to a starting amount.
-        // This has to be after the initial storage is set.
-        foreach (KeyValuePair<AllEnums.CountyGoodType, GoodData> keyValuePair in countyData.goods)
-        {
-            keyValuePair.Value.Amount = Globals.Instance.startingAmountOfEachGood;
         }
     }
 
@@ -105,5 +104,5 @@ public partial class CountyGeneration : Node
         }
     }
 
-    
+
 }

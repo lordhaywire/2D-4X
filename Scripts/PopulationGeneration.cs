@@ -36,7 +36,7 @@ namespace PlayerSpace
         }
 
         // Eventually this will assign other things, but currently we just need this here.
-        private void AssignPlayerSpecificThings()
+        private static void AssignPlayerSpecificThings()
         {
             Globals.Instance.playerFactionData.factionLeader.personality = AllEnums.Personality.Player;
         }
@@ -58,7 +58,7 @@ namespace PlayerSpace
         }
 
         // This was written by ChatGPT.
-        private int GeneratePersonalities()
+        private static int GeneratePersonalities()
         {
             int randomPersonality;
             do
@@ -66,7 +66,7 @@ namespace PlayerSpace
                 randomPersonality = (int)AllEnums.GetRandomEnumValue<AllEnums.Personality>();
             } while (randomPersonality == 0);
 
-            GD.Print("Random Personality: " + randomPersonality);
+            //GD.Print("Random Personality: " + randomPersonality);
             return randomPersonality;
         }
 
@@ -120,6 +120,7 @@ namespace PlayerSpace
                 }
                 
             }
+            /*
             foreach(PopulationData populationData in countyData.populationDataList)
             {
                 GD.Print($"{populationData.firstName} Hero Personality: {populationData.personality}");
@@ -128,6 +129,7 @@ namespace PlayerSpace
             {
                 GD.Print($"{populationData.firstName} Hero Personality: {populationData.personality}");
             }
+            */
         }
         private static InterestData GenerateInterest()
         {
@@ -157,10 +159,9 @@ namespace PlayerSpace
             if (rolls.Attribute(newAttributes[AllEnums.Attributes.Intelligence]) == false)
             {
                 // Create a list of non-combat skills for random selection
-                List<AllEnums.Skills> nonCombatSkills = skills
+                List<AllEnums.Skills> nonCombatSkills = [.. skills
                     .Where(keyValue => !keyValue.Value.isCombatSkill)
-                    .Select(keyValue => keyValue.Key)
-                    .ToList();
+                    .Select(keyValue => keyValue.Key)];
 
                 if (nonCombatSkills.Count > 0)
                 {

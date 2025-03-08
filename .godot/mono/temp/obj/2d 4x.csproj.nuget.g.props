@@ -15,6 +15,6 @@
     <SourceRoot Include="C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages\" />
   </ItemGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <Import Project="$(NuGetPackageRoot)godot.sourcegenerators\4.4.0-rc.3\build\Godot.SourceGenerators.props" Condition="Exists('$(NuGetPackageRoot)godot.sourcegenerators\4.4.0-rc.3\build\Godot.SourceGenerators.props')" />
+    <Import Project="$(NuGetPackageRoot)godot.sourcegenerators\4.4.0\build\Godot.SourceGenerators.props" Condition="Exists('$(NuGetPackageRoot)godot.sourcegenerators\4.4.0\build\Godot.SourceGenerators.props')" />
   </ImportGroup>
 </Project>
