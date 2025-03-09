@@ -66,6 +66,8 @@ namespace PlayerSpace
                                 Globals.Instance.selectedCountyId = county.countyData.countyId;
                                 Globals.Instance.SelectedLeftClickCounty = county;
 
+                                // These things need to be on click because you might be clicking through different
+                                // counties and the county info panel would be open the whole time.
                                 TopBarControl.Instance.UpdateTopBarGoodLabels();
                                 CountyInfoControl.Instance.UpdateEverything();
                                 CountyInfoControl.Instance.countyInfoControl.Show(); // This has to be last.

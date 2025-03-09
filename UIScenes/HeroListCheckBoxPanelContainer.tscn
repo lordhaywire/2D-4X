@@ -22,14 +22,21 @@ factionLeaderTextureRect = NodePath("VBoxContainer/Icon HBoxContainer/Leader Tex
 aideTextureRect = NodePath("VBoxContainer/Icon HBoxContainer/Aide TextureRect")
 armyLeaderTextureRect = NodePath("VBoxContainer/Icon HBoxContainer/Army TextureRect")
 heroNameLabel = NodePath("VBoxContainer/Hero Name Label")
-heroListButton = NodePath("Buttons HBoxContainer/Hero List Button")
-spawnHeroButton = NodePath("Buttons HBoxContainer/Spawn CheckButton")
+heroListButton = NodePath("Hero List Button")
+spawnHeroButton = NodePath("Spawn CheckButton")
 aideActivitiesHboxContainer = NodePath("VBoxContainer/Aide Activites HBoxContainer")
 armyActivitiesHboxContainer = NodePath("VBoxContainer/Army Activites HBoxContainer")
 heroCheckBoxes = [NodePath("VBoxContainer/Aide Activites HBoxContainer/Scavenge CheckBox"), NodePath("VBoxContainer/Aide Activites HBoxContainer/Build CheckBox"), NodePath("VBoxContainer/Aide Activites HBoxContainer/Work CheckBox"), NodePath("VBoxContainer/Aide Activites HBoxContainer/Research CheckBox"), NodePath("VBoxContainer/Aide Activites HBoxContainer/Explore CheckBox")]
 
+[node name="Hero List Button" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Hero Name Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
@@ -70,6 +77,7 @@ stretch_mode = 2
 
 [node name="Aide Activites HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Scavenge CheckBox" type="CheckBox" parent="VBoxContainer/Aide Activites HBoxContainer"]
 layout_mode = 2
@@ -110,6 +118,7 @@ icon = ExtResource("7_18qnw")
 
 [node name="Army Activites HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Muster CheckBox" type="CheckBox" parent="VBoxContainer/Army Activites HBoxContainer"]
 layout_mode = 2
@@ -125,24 +134,15 @@ tooltip_text = "WORD_TRAIN"
 focus_mode = 0
 icon = ExtResource("10_m61kt")
 
-[node name="Buttons HBoxContainer" type="HBoxContainer" parent="."]
-custom_minimum_size = Vector2(0, 66)
-layout_mode = 2
-size_flags_vertical = 0
-mouse_filter = 2
-
-[node name="Hero List Button" type="Button" parent="Buttons HBoxContainer"]
-self_modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Spawn CheckButton" type="CheckButton" parent="Buttons HBoxContainer"]
+[node name="Spawn CheckButton" type="CheckButton" parent="."]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 focus_mode = 0
 
+[connection signal="mouse_entered" from="Hero List Button" to="." method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="Hero List Button" to="." method="OnMouseExitedUI"]
+[connection signal="pressed" from="Hero List Button" to="." method="HeroButtonOnPressed"]
 [connection signal="mouse_entered" from="VBoxContainer/Aide Activites HBoxContainer/Scavenge CheckBox" to="." method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="VBoxContainer/Aide Activites HBoxContainer/Scavenge CheckBox" to="." method="OnMouseExitedUI"]
 [connection signal="pressed" from="VBoxContainer/Aide Activites HBoxContainer/Scavenge CheckBox" to="." method="HeroActivitiesCheckBoxPressed" binds= [0]]
@@ -162,9 +162,6 @@ focus_mode = 0
 [connection signal="mouse_exited" from="VBoxContainer/Army Activites HBoxContainer/Muster CheckBox" to="." method="OnMouseExitedUI"]
 [connection signal="mouse_entered" from="VBoxContainer/Army Activites HBoxContainer/Train CheckBox" to="." method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="VBoxContainer/Army Activites HBoxContainer/Train CheckBox" to="." method="OnMouseExitedUI"]
-[connection signal="mouse_entered" from="Buttons HBoxContainer/Hero List Button" to="." method="OnMouseEnteredUI"]
-[connection signal="mouse_exited" from="Buttons HBoxContainer/Hero List Button" to="." method="OnMouseExitedUI"]
-[connection signal="pressed" from="Buttons HBoxContainer/Hero List Button" to="." method="HeroButtonOnPressed"]
-[connection signal="mouse_entered" from="Buttons HBoxContainer/Spawn CheckButton" to="." method="OnMouseEnteredUI"]
-[connection signal="mouse_exited" from="Buttons HBoxContainer/Spawn CheckButton" to="." method="OnMouseExitedUI"]
-[connection signal="pressed" from="Buttons HBoxContainer/Spawn CheckButton" to="." method="SpawnHeroCheckButton"]
+[connection signal="mouse_entered" from="Spawn CheckButton" to="." method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="Spawn CheckButton" to="." method="OnMouseExitedUI"]
+[connection signal="pressed" from="Spawn CheckButton" to="." method="SpawnHeroCheckButton"]

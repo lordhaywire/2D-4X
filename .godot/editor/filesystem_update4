@@ -1,3 +1,4 @@
+res://Resources/CountyData.cs
 res://Scenes/Main.tscn
 res://Resources/Goods/Storage Perishable.tres
 res://Resources/County Improvements/Converted Warehouse.tres
@@ -46,7 +47,6 @@ res://Scripts/UI/RecruitHeroButton.cs
 res://Resources/InterestData.cs
 res://Scripts/UI/DeclareWarControl.cs
 res://Scripts/UI/BattleLogControl.cs
-res://Resources/CountyData.cs
 res://Scripts/Clock.cs
 res://Scripts/UI/PlayerUICanvas.cs
 res://Scripts/Faction.cs
@@ -106,6 +106,5 @@ res://Scripts/AllActivities.cs
 res://Scripts/Main.cs
 res://Scripts/UI/ResearchDescriptionPanel.cs
 res://Scripts/HeroToken.cs
-res://Scripts/Public Classes/Banker.cs
-res://Scripts/Public Classes/PopulationWorkEnd.cs
-res://Properties/launchSettings.json
+res://Localization/2D 4X Main Text.en.translation
+res://Localization/2D 4X Main Text.es.translation

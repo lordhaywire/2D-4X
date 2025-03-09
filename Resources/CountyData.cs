@@ -161,13 +161,18 @@ public partial class CountyData : Resource
         CountyInfoControl.Instance.UpdateEverything();
     }
 
-    public void RemoveResourceFromAvailableCountyTotals(AllEnums.CountyGoodType resourceType, int amount)
+    /// <summary>
+    /// This removes goods from county scavegable goods.
+    /// </summary>
+    /// <param name="goodType"></param>
+    /// <param name="amount"></param>
+    public void RemoveGoodsFromAvailableCountyTotals(AllEnums.CountyGoodType goodType, int amount)
     {
-        if (resourceType == AllEnums.CountyGoodType.CannedFood)
+        if (goodType == AllEnums.CountyGoodType.CannedFood)
         {
             scavengableCannedFood -= amount;
         }
-        else if (resourceType == AllEnums.CountyGoodType.Remnants)
+        else if (goodType == AllEnums.CountyGoodType.Remnants)
         {
             scavengableRemnants -= amount;
         }
@@ -470,12 +475,12 @@ public partial class CountyData : Resource
 
     public void OccationalNeeds()
     {
-        PossiblyUseResources(heroesInCountyList);
-        PossiblyUseResources(armiesInCountyList);
-        PossiblyUseResources(populationDataList);
+        PossiblyUseResources(this, heroesInCountyList);
+        PossiblyUseResources(this, armiesInCountyList);
+        PossiblyUseResources(this, populationDataList);
     }
 
-    private void PossiblyUseResources(Godot.Collections.Array<PopulationData> peopleUsingResourcesList)
+    private void PossiblyUseResources(CountyData countyData, Godot.Collections.Array<PopulationData> peopleUsingResourcesList)
     {
         foreach (PopulationData populationData in peopleUsingResourcesList)
         {
@@ -491,8 +496,9 @@ public partial class CountyData : Resource
                     if (CheckEnoughOfResource(keyValuePair.Key) == true)
                     {
                         //GD.Print("There are enough resources for the needs of a person.");
-                        // Use resource.
-                        RemoveResourceFromCounty(keyValuePair.Key, Globals.Instance.occationalResourceUsageAmount);
+                        // Use good, which is why this is negative.
+                        Haulmaster.AdjustCountyGoodAmount(countyData, keyValuePair.Key
+                            , -Globals.Instance.occationalResourceUsageAmount);
 
                         // Add happiness.
                         populationData.AddRandomHappiness(1);
@@ -515,16 +521,6 @@ public partial class CountyData : Resource
                     //GD.Print($"Needs Checks: Failed: " + populationData.needs[keyValuePair.Key]);
                 }
             }
-        }
-    }
-    public void RemoveResourceFromCounty(AllEnums.CountyGoodType countyResourceType, int amount)
-    {
-        goods[countyResourceType].Amount -= amount;
-
-        // Update the top bar if the player has a county selected.
-        if (Globals.Instance.SelectedLeftClickCounty == countyNode)
-        {
-            TopBarControl.Instance.UpdateTopBarGoodLabels();
         }
     }
 

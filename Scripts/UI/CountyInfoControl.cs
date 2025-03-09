@@ -46,7 +46,6 @@ namespace PlayerSpace
             if (Visible)
             {
                 Globals.Instance.SelectedLeftClickCounty.countyData.CountIdleWorkers();
-                //TopBarControl.Instance.UpdateResourceLabels();
             }
             else
             {
@@ -162,11 +161,26 @@ namespace PlayerSpace
                 CountyData locationCountyData = Globals.Instance.GetCountyDataFromLocationID(populationData.location);
 
                 PopulateActivityHboxes(populationData, heroPrefab);
-                if (Globals.Instance.CheckIfPlayerFaction(populationData.factionData) == false
-                    || Globals.Instance.CheckIfPlayerFaction(locationCountyData.factionData) == false)
+
+                // This needs to be up here because we are fucking with the spawnHeroButton below.
+                SetDefaultUI(heroPrefab);
+
+                // Check if the hero is not player owned.
+                if (Globals.Instance.CheckIfPlayerFaction(populationData.factionData) == false)
+                    //|| Globals.Instance.CheckIfPlayerFaction(locationCountyData.factionData) == false)
                 {
                     heroPrefab.heroListButton.Disabled = true;
                     heroPrefab.spawnHeroButton.Hide();
+                    heroPrefab.aideActivitiesHboxContainer.Hide();
+                    heroPrefab.armyActivitiesHboxContainer.Hide();
+                    continue;
+                }
+                // This checks if the location of the hero is in a nonplayer owned county.
+                if(Globals.Instance.CheckIfPlayerFaction(populationData.factionData) == true &&
+                    Globals.Instance.CheckIfPlayerFaction(locationCountyData.factionData) == false)
+                {
+                    heroPrefab.spawnHeroButton.Disabled = true;
+                    heroPrefab.heroListButton.Disabled = false;
                     heroPrefab.aideActivitiesHboxContainer.Hide();
                     heroPrefab.armyActivitiesHboxContainer.Hide();
                     continue;
@@ -195,6 +209,13 @@ namespace PlayerSpace
                     heroPrefab.spawnHeroButton.ButtonPressed = true;
                 }
             }
+        }
+
+        private static void SetDefaultUI(HeroPanelContainer heroPrefab)
+        {
+            heroPrefab.spawnHeroButton.Disabled = false;
+            heroPrefab.armyActivitiesHboxContainer.Hide();
+            heroPrefab.aideActivitiesHboxContainer.Hide();
         }
 
         private void CheckForAvailableActivities(HeroPanelContainer heroPrefab)
@@ -310,6 +331,7 @@ namespace PlayerSpace
                 resourcesButton.Disabled = false;
             }
         }
+
         public void UpdateCountyPopulationLabel()
         {
 

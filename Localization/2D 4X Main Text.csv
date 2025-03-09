@@ -102,6 +102,7 @@ PERK_NAME_UNHELPFUL,Unhelpful,Inútil
 PHRASE_ASSIGN_RESEARCHER,Assign Researcher,Asignar investigador
 PHRASE_ASSIGN_RESEARCHER_IN_RESEARCH_PANEL,Assign researcher in research panel.,Asignar investigador en el panel de investigación.
 PHRASE_ASSIGNED_RESEARCHERS,Assigned Researchers,Investigadores asignados
+PHRASE_AUXILIARY_EQUIPMENT,[u]Auxiliary Equipment[/u],[u]Equipos auxiliares[/u]
 PHRASE_BUILD_IMPROVEMENT_CONFIRM,Are you sure you want to build a,¿Estás seguro de que quieres construir un
 PHRASE_CONSTRUCTION_COST,Construction Cost,Costo de construcción
 PHRASE_CONSTRUCTION_GOODS,Construction Goods,Bienes de construcción
@@ -112,6 +113,7 @@ PHRASE_CURRENT_ADJUSTED_MAX_BUILDERS,Current/Adjusted (Max) Builders,Constructor
 PHRASE_CURRENT_ADJUSTED_MAX_WORKERS,Current/Adjusted (Max) Workers,Trabajadores actuales/ajustados (máx.)
 PHRASE_CURRENT_IMPROVEMENTS,Current Improvements,Mejoras actuales
 PHRASE_DECLARE_WAR_CONFIRMATION,Do you want to declare war on,¿Quieres declararle la guerra?
+PHRASE_DEFENSIVE_EQUIPMENT,[u]Defensive Equipment[/u],[u]Equipo defensivo[/u]
 PHRASE_FAILED_COOL_ROLL,has failed their cool roll,ha fracasado en su racha de calma
 PHRASE_GOODS_PRODUCED,Goods Produced,Bienes producidos
 PHRASE_GOODS_PRODUCED_PER_DAY,Goods Produced Per Day,Bienes producidos por día
@@ -121,6 +123,7 @@ PHRASE_HAS_BEEN_COMPLETED,has been completed,se ha completado
 PHRASE_HAS_DECLARED_WAR,has declared war on,ha declarado la guerra a
 PHRASE_HAS_HIT,has hit,ha golpeado
 PHRASE_INPUT_GOODS,Input Goods,Bienes de entrada
+PHRASE_INVENTORY_AND_SUBORDINATES,Inventory and Subordinates,Inventario y subordinados
 PHRASE_IS_NOW_RESEARCHING,is now researching,ahora está investigando
 PHRASE_IS_RESEARCHING,is researching,está investigando
 PHRASE_IS_RETREATING,is retreating,se está retirando
@@ -129,18 +132,23 @@ PHRASE_LOST_BATTLE,has lost the battle,ha perdido la batalla
 PHRASE_MAX_NONPERISHABLE_STORAGE_AVAILABLE,Max Nonperishable Storage Available:,Almacenamiento máximo no perecedero disponible:
 PHRASE_MAX_PERISHABLE_STORAGE_AVAILABLE,Max Perishable Storage Available:,Almacenamiento máximo de productos perecederos disponible:
 PHRASE_MAX_WORKERS,Max Workers,Máximo de trabajadores
+PHRASE_MEDICAL_EQUIPMENT,[u]Medical Equipment[/u],[u]Equipos médicos[/u]
 PHRASE_MORALE_LOST,Morale lost,Pérdida de moral
+PHRASE_NEWEST_EQUIPMENT,Newest Equipment?,¿Equipo más nuevo?
+PHRASE_OFFENSIVE_EQUIPMENT,[u]Offensive Equipment[/u],[u]Equipo ofensivo[/u]
 PHRASE_ONLY_PRODUCE,Only Produce,Solo producir
 PHRASE_POSSIBLE_IMPROVEMENTS,Possible Improvements,Posibles mejoras
 PHRASE_PREFERRED_WORK,Preferred Work,Trabajo preferido
 PHRASE_PRODUCE_AS_NEEDED,Produce as needed,Producir según sea necesario
-PHRASE_RECRUIT_HERO_CONFIRMATION,Are you sure you want to recruit,¿Estás seguro de que quieres reclutar?
+PHRASE_RECONNAISSANCE_EQUIPMENT,[u]Reconnaissance Equipment[/u],[u]Equipo de reconocimiento[/u]
 PHRASE_RECRUIT_AS_AIDE,Recruit as Aide,Recluta como ayudante
 PHRASE_RECRUIT_AS_ARMY_LEADER,Recruit as Army Leader,Recluta como líder del ejército
+PHRASE_RECRUIT_HERO_CONFIRMATION,Are you sure you want to recruit,¿Estás seguro de que quieres reclutar?
 PHRASE_REMOVE_IMPROVEMENT,Remove Improvement,Eliminar mejora
 PHRASE_RESEARCH_COST,Research Cost,Coste de investigación
 PHRASE_RESEARCH_FOR,Research for,Investigación para
 PHRASE_RESEARCH_PROGRESS,Research Progress,Avances en la investigación
+PHRASE_THERE_IS_NEGATIVE_STORAGE,There is negative storage!,¡Hay almacenamiento negativo!
 PHRASE_UNDER_CONSTRUCTION,Under Construction,En obra
 PHRASE_USE_REMNANTS_FOR_CONSTRUCTION,Use Remnants for construction,Usar remanentes para la construcción
 RESEARCH_BASIC_PRODUCTION,Basic Production,Producción básica
@@ -182,14 +190,17 @@ WORD_CONSTRUCT,Construct,Construir
 WORD_CONSTRUCTION,Construction,Construcción
 WORD_DAY,Day:,Día
 WORD_FEMALE,Female,Hembra
+WORD_GOODS,Goods,Bienes
 WORD_HELPFUL,Helpful,Útil
 WORD_HIRING,Hiring,Contratación
 WORD_IDLE,Idle,Ocioso
 WORD_INTEREST,Interest,Interés
+WORD_INVENTORY,Inventory,Inventario
 WORD_LEARNED,learned,docto
 WORD_LOYALTY,Loyalty,Lealtad
 WORD_MALE,Male,Masculino
 WORD_MISSED,missed,Perdido
+WORD_MUSTER,Muster,Patrón
 WORD_NAME,Name,Nombre
 WORD_NONE,None,Ninguno
 WORD_NONPERISHABLE,Nonperishable,No perecedero
@@ -203,17 +214,12 @@ WORD_RESEARCH,Research,Investigación
 WORD_SEX,Sex,Sexo
 WORD_SKILLS,Skills,Habilidades
 WORD_SPEED,Speed:,Velocidad
+WORD_SUBORDINATES,Subordinates,Subordinados
 WORD_TIME,Time:,Hora
 WORD_TITLES,Titles,Títulos
+WORD_TRAIN,Train,Tren
 WORD_VISITORS,Visitors,Visitantes
-WORD_GOODS,Goods,Bienes
-PHRASE_THERE_IS_NEGATIVE_STORAGE,There is negative storage!,¡Hay almacenamiento negativo!
-PHRASE_NEWEST_EQUIPMENT,Newest Equipment?,¿Equipo más nuevo?
-PHRASE_MEDICAL_EQUIPMENT,[u]Medical Equipment[/u],[u]Equipos médicos[/u]
-PHRASE_DEFENSIVE_EQUIPMENT,[u]Defensive Equipment[/u],[u]Equipo defensivo[/u]
-PHRASE_OFFENSIVE_EQUIPMENT,[u]Offensive Equipment[/u],[u]Equipo ofensivo[/u]
-PHRASE_AUXILIARY_EQUIPMENT,[u]Auxiliary Equipment[/u],[u]Equipos auxiliares[/u]
-PHRASE_RECONNAISSANCE_EQUIPMENT,[u]Reconnaissance Equipment[/u],[u]Equipo de reconocimiento[/u]
-WORD_INVENTORY,Inventory,Inventario
-WORD_SUBORDINATES,Subordinates,Subordinados
-PHRASE_INVENTORY_AND_SUBORDINATES,Inventory and Subordinates,Inventario y subordinados
+WORD_EXPLORE,Explore,Explorar
+WORD_WORK,Work,Trabajo
+WORD_BUILD,Build,Construir
+WORD_SCAVENGE,Scavenge,Recoger la basura

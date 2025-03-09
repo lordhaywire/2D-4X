@@ -5,9 +5,15 @@ using System.Collections.Generic;
 namespace PlayerSpace;
 public class Haulmaster
 {
-    public static void AdjustCountyGoodAmount(CountyData countyData, AllEnums.CountyGoodType countyResourceType, int amount)
+    public static void AdjustCountyGoodAmount(CountyData countyData, AllEnums.CountyGoodType countyGoodType, int amount)
     {
-        countyData.goods[countyResourceType].Amount += amount;
+        countyData.goods[countyGoodType].Amount += amount;
+
+        // Update the top bar if the player has a county selected.
+        if (Globals.Instance.SelectedLeftClickCounty == countyData.countyNode)
+        {
+            TopBarControl.Instance.UpdateTopBarGoodLabels();
+        }
     }
 
     public static void ReturnHalfOfConstructionCost(CountyData countyData, CountyImprovementData countyImprovementData)

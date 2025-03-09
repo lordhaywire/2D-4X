@@ -34,9 +34,15 @@ public partial class InventoryVBoxContainer : VBoxContainer
     private void NewestEquipmentCheckboxPressed()
     {
         PopulationData populationData = PopulationDescriptionControl.Instance.populationData;
+        CountyData locationCountyData = Globals.Instance.GetCountyDataFromLocationID(populationData.location);
+
         GD.Print("Newest Equipment Checkbox has been pressed. " + newestEquipment.ButtonPressed);
         populationData.useNewestEquipment = newestEquipment.ButtonPressed;
-        Quartermaster.EquipHeroes(populationData);
-        PopulateEquipment(populationData);
+        if (Globals.Instance.CheckIfPlayerFaction(locationCountyData.factionData) == true)
+        {
+            Quartermaster.EquipHeroes(populationData);
+            PopulateEquipment(populationData);
+        }
+
     }
 }

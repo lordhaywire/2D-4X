@@ -29,7 +29,7 @@ public class Banker
             int amount = Mathf.Min(amountGenerated, countyData.scavengableCannedFood);
             GD.Print($"{populationData.firstName} {populationData.lastName} is generating scavenged food: {amount}");
             Haulmaster.AdjustCountyGoodAmount(countyData, AllEnums.CountyGoodType.CannedFood, amount);
-            countyData.RemoveResourceFromAvailableCountyTotals(AllEnums.CountyGoodType.CannedFood, amount);
+            countyData.RemoveGoodsFromAvailableCountyTotals(AllEnums.CountyGoodType.CannedFood, amount);
         }
         else
         {
@@ -41,7 +41,7 @@ public class Banker
             int amount = Mathf.Min(amountGenerated, countyData.scavengableRemnants);
             GD.Print($"{populationData.firstName} {populationData.lastName} is generating scavenged remnants: {amount}");
             Haulmaster.AdjustCountyGoodAmount(countyData, AllEnums.CountyGoodType.Remnants, amount);
-            countyData.RemoveResourceFromAvailableCountyTotals(AllEnums.CountyGoodType.Remnants, amount);
+            countyData.RemoveGoodsFromAvailableCountyTotals(AllEnums.CountyGoodType.Remnants, amount);
         }
     }
 
