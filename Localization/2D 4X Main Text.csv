@@ -223,3 +223,9 @@ WORD_EXPLORE,Explore,Explorar
 WORD_WORK,Work,Trabajo
 WORD_BUILD,Build,Construir
 WORD_SCAVENGE,Scavenge,Recoger la basura
+SKILL_NAME_LEADERSHIP,Leadership,Liderazgo
+SKILL_DESCRIPTION_LEADERSHIP,The ability to organize and lead people.,La capacidad de organizar y liderar a las personas.
+PHRASE_NUMBER_OF_SUBORDINATES,Number of Subordinates,Número de subordinados
+ACTIVITY_RECRUIT_NAME,Recruit,Reclutar
+ACTIVITY_RECRUIT_DESCRIPTION,Enlisting someone to serve a leader.,Reclutar a alguien para que sirva a un líder.
+ACTIVITY_RECRUIT_TOOLTIP,Enlisting someone to serve a leader.,Reclutar a alguien para que sirva a un líder.

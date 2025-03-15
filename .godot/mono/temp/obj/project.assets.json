@@ -95,11 +95,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Godot\\Projects\\2D 4X\\2d 4x.csproj",
+      "projectUniqueName": "E:\\GODOT\\PROJECTS\\2D 4X\\2d 4x.csproj",
       "projectName": "2d 4x",
-      "projectPath": "E:\\Godot\\Projects\\2D 4X\\2d 4x.csproj",
+      "projectPath": "E:\\GODOT\\PROJECTS\\2D 4X\\2d 4x.csproj",
       "packagesPath": "C:\\Users\\lordhaywire\\.nuget\\packages\\",
-      "outputPath": "E:\\Godot\\Projects\\2D 4X\\.godot\\mono\\temp\\obj\\",
+      "outputPath": "E:\\GODOT\\PROJECTS\\2D 4X\\.godot\\mono\\temp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Users\\lordhaywire\\AppData\\Roaming\\Godot\\mono\\GodotNuGetFallbackFolder",
@@ -170,7 +170,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

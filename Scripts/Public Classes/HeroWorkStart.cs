@@ -45,7 +45,7 @@ public class HeroWorkStart
         // Assign Heroes to improvement.
         int availableBuilderSlots = Math.Min(countyData.prioritizedHeroBuildersList.Count
             , remainingWorkerSlots);
-        foreach (PopulationData populationData in countyData.prioritizedHeroBuildersList.Slice(0, availableBuilderSlots))
+        foreach (PopulationData populationData in countyData.prioritizedHeroBuildersList[..availableBuilderSlots])
         {
             populationData.RemoveFromCountyImprovement(); // This is just in case they are already at a county improvement.
             populationData.UpdateActivity(AllEnums.Activities.Build);
@@ -72,7 +72,7 @@ public class HeroWorkStart
         int availableWorkerSlots = Math.Min(countyData.prioritizedHeroWorkersList.Count
             , remainingWorkerSlots);
 
-        foreach (PopulationData populationData in countyData.prioritizedHeroWorkersList.Slice(0, availableWorkerSlots))
+        foreach (PopulationData populationData in countyData.prioritizedHeroWorkersList[..availableWorkerSlots])
         {
             populationData.RemoveFromCountyImprovement(); // This is just in case they are already at a county improvement.
             populationData.UpdateActivity(AllEnums.Activities.Work);

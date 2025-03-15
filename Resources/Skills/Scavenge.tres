@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3 uid="uid://pmphig2vnrjx"]
 
-[ext_resource type="Script" path="res://Resources/SkillData.cs" id="1_k5jbl"]
+[ext_resource type="Script" uid="uid://c5t3dmu2hl1b0" path="res://Resources/SkillData.cs" id="1_k5jbl"]
 
 [resource]
 script = ExtResource("1_k5jbl")
-skill = 9
+skill = 10
 skillName = "SKILL_NAME_SCAVENGE"
 skillDescription = "SKILL_DESCRIPTION_SCAVENGE"
 skillLevel = 0

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bif5f4i17oc2p"]
 
-[ext_resource type="Script" path="res://Scripts/UI/StorageHbox.cs" id="1_j0r4g"]
+[ext_resource type="Script" uid="uid://befbuwp71sjh8" path="res://Scripts/UI/StorageHbox.cs" id="1_j0r4g"]
 
 [node name="Storage HBoxContainer" type="HBoxContainer" node_paths=PackedStringArray("resourceNameLabel", "resourceAmountLabel", "maxAmountSpinBox")]
 custom_minimum_size = Vector2(50, 0)

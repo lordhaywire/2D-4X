@@ -1,7 +1,10 @@
-[gd_resource type="Resource" script_class="CountyData" load_steps=3 format=3 uid="uid://dv4rq1xjdfnlw"]
+[gd_resource type="Resource" script_class="CountyData" load_steps=6 format=3 uid="uid://dv4rq1xjdfnlw"]
 
+[ext_resource type="Script" uid="uid://cmfu3g7sbgyfx" path="res://Resources/GoodData.cs" id="1_nf06q"]
 [ext_resource type="Resource" uid="uid://bxcc4eq3er03d" path="res://Resources/Factions/AIFaction2.tres" id="1_rx8pd"]
-[ext_resource type="Script" path="res://Resources/CountyData.cs" id="2_y85qm"]
+[ext_resource type="Script" uid="uid://bvkux0mhx52u8" path="res://Resources/PopulationData.cs" id="2_2asot"]
+[ext_resource type="Script" uid="uid://4nhd1im4255h" path="res://Resources/CountyData.cs" id="2_y85qm"]
+[ext_resource type="Script" uid="uid://blu41dxinr54t" path="res://Resources/CountyImprovementData.cs" id="3_bwv8i"]
 
 [resource]
 script = ExtResource("2_y85qm")
@@ -16,10 +19,29 @@ province = 0
 biomePrimary = 0
 biomeSecondary = 3
 biomeTertiary = 4
+populationDataList = Array[ExtResource("2_2asot")]([])
+heroesInCountyList = Array[ExtResource("2_2asot")]([])
+armiesInCountyList = Array[ExtResource("2_2asot")]([])
+visitingHeroList = Array[ExtResource("2_2asot")]([])
+visitingArmyList = Array[ExtResource("2_2asot")]([])
+deadPeopleList = Array[ExtResource("2_2asot")]([])
+heroBuildersList = Array[ExtResource("2_2asot")]([])
+heroWorkersList = Array[ExtResource("2_2asot")]([])
+workersList = Array[ExtResource("2_2asot")]([])
+prioritizedHeroBuildersList = Array[ExtResource("2_2asot")]([])
+prioritizedHeroWorkersList = Array[ExtResource("2_2asot")]([])
+prioritizedBuildersList = Array[ExtResource("2_2asot")]([])
+prioritizedWorkersList = Array[ExtResource("2_2asot")]([])
+scavengingHeroesList = Array[ExtResource("2_2asot")]([])
+workersToRemoveFromLists = Array[ExtResource("2_2asot")]([])
+prioritizedConstructionImprovementList = Array[ExtResource("3_bwv8i")]([])
+prioritizedWorkImprovementList = Array[ExtResource("3_bwv8i")]([])
+underConstructionCountyImprovementList = Array[ExtResource("3_bwv8i")]([])
+completedCountyImprovementList = Array[ExtResource("3_bwv8i")]([])
 perishableStorage = 0
 nonperishableStorage = 0
 scavengableRemnants = 0
 scavengableCannedFood = 0
-countyResources = {}
-yesterdaysCountyResources = {}
-amountUsedCountyResources = {}
+goods = Dictionary[int, ExtResource("1_nf06q")]({})
+yesterdaysGoods = Dictionary[int, ExtResource("1_nf06q")]({})
+amountOfGoodsUsed = Dictionary[int, ExtResource("1_nf06q")]({})

@@ -8,7 +8,6 @@ namespace PlayerSpace;
 public partial class Globals : Node
 {
     public static Globals Instance { get; private set; }
-
     public Random random = new();
     //[ExportGroup("Test BS")]
 

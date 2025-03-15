@@ -1,4 +1,4 @@
-[gd_scene load_steps=142 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=145 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" uid="uid://ctm4ah5pwyf7d" path="res://Scripts/Main.cs" id="1_62dun"]
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://World Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
@@ -35,6 +35,7 @@
 [ext_resource type="Resource" uid="uid://iakdlh7d4160" path="res://Resources/Activities/Move.tres" id="16_qxwff"]
 [ext_resource type="Script" uid="uid://w7efp2g0eih7" path="res://Scripts/PopulationGeneration.cs" id="17_1215r"]
 [ext_resource type="Resource" uid="uid://dpu273ogyv7pf" path="res://Resources/Activities/Research.tres" id="17_dwns0"]
+[ext_resource type="Resource" uid="uid://bwuq72rkyfvaq" path="res://Resources/Activities/Recruit.tres" id="17_fend5"]
 [ext_resource type="Resource" uid="uid://dy4bltm86q63n" path="res://Resources/Attributes/Intelligence.tres" id="17_y7h6l"]
 [ext_resource type="Script" uid="uid://c6nd17mfkssti" path="res://Scripts/RandomFactionColor.cs" id="18_3aru6"]
 [ext_resource type="Resource" uid="uid://ml2vlmwrtlgp" path="res://Resources/Activities/Scavenge.tres" id="18_ghvh6"]
@@ -126,12 +127,14 @@
 [ext_resource type="Resource" uid="uid://caa1jed0r8nly" path="res://Resources/Skills/Production.tres" id="63_514fr"]
 [ext_resource type="Texture2D" uid="uid://dmeg24s68kkig" path="res://Graphics/Research/uncertainty.svg" id="65_b6pum"]
 [ext_resource type="Script" uid="uid://bg2dtkgmt0rfq" path="res://Scripts/MapEditorControl.cs" id="65_uqmnr"]
+[ext_resource type="Resource" uid="uid://dq525753wnhi5" path="res://Resources/Skills/Leadership.tres" id="66_qmo2n"]
 [ext_resource type="PackedScene" uid="uid://iur3kq10dikl" path="res://Scenes/MapEditor.tscn" id="66_sq6pt"]
 [ext_resource type="PackedScene" uid="uid://bhgbnf6lykhb6" path="res://UIScenes/PerkLabel.tscn" id="68_6cv3c"]
 [ext_resource type="Texture2D" uid="uid://cs6gb8bpwt7xd" path="res://Graphics/yellow-crumpled-lined-paper-background-2022-12-16-00-47-47-utc-scaled.webp" id="76_xlxp7"]
 [ext_resource type="Texture2D" uid="uid://cyphf3703b4qa" path="res://Graphics/Icons/Top Bar/bolter-gun.svg" id="98_qs8v3"]
 [ext_resource type="Script" uid="uid://b0xy2tg5uv2gh" path="res://Scripts/UI/InventoryVBoxContainer.cs" id="117_0j4c6"]
 [ext_resource type="PackedScene" uid="uid://x448dpajwnx" path="res://UIScenes/CountyImprovementPanelContainer.tscn" id="119_kkhw7"]
+[ext_resource type="Script" uid="uid://bjbqgqmxofv05" path="res://Scripts/UI/SubordinatesVBoxContainer.cs" id="119_mjyee"]
 [ext_resource type="Script" uid="uid://cc6kc1k26qlew" path="res://Scripts/UI/RemoveCountyImprovementConfirmationPanelContainer.cs" id="122_hwg2s"]
 [ext_resource type="PackedScene" uid="uid://ctmeblm8t3ynu" path="res://UIScenes/ResearchPrerequisiteLabel.tscn" id="124_veo43"]
 
@@ -225,6 +228,9 @@ minimumCountyPop = 5
 maximumCountyPop = 10
 factionsParent = NodePath("../../Factions")
 minimumFood = 100
+startingPerishableStorage = 1000
+startingNonperishableStorage = 1000
+startingAmountOfEachGood = 1
 heroToken = SubResource("PackedScene_mjyee")
 spawnedTokenButton = SubResource("PackedScene_0j4c6")
 movementSpeed = 1
@@ -237,7 +243,7 @@ script = ExtResource("7_fr5hn")
 
 [node name="All Activities" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("9_bq1ko")
-allActivityData = Array[Object]([ExtResource("12_0j4c6"), ExtResource("13_qmo2n"), ExtResource("14_mjyee"), ExtResource("15_fend5"), ExtResource("16_qxwff"), ExtResource("17_dwns0"), ExtResource("18_ghvh6"), ExtResource("19_ogxyq")])
+allActivityData = Array[Object]([ExtResource("12_0j4c6"), ExtResource("13_qmo2n"), ExtResource("14_mjyee"), ExtResource("15_fend5"), ExtResource("16_qxwff"), ExtResource("17_fend5"), ExtResource("17_dwns0"), ExtResource("18_ghvh6"), ExtResource("19_ogxyq")])
 
 [node name="All Attributes" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("23_ucd0c")
@@ -261,7 +267,7 @@ interests = Array[Object]([ExtResource("46_m2cvk"), ExtResource("47_sru0x"), Ext
 
 [node name="All Skills" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("23_jme5x")
-allSkills = Array[Object]([ExtResource("24_8xnmt"), ExtResource("25_xv245"), ExtResource("26_dr7ub"), ExtResource("27_gvn1c"), ExtResource("37_c2oha"), ExtResource("28_1iuk7"), ExtResource("63_514fr"), ExtResource("29_8u7ma"), ExtResource("30_d528s"), ExtResource("31_0vaa8")])
+allSkills = Array[Object]([ExtResource("24_8xnmt"), ExtResource("25_xv245"), ExtResource("26_dr7ub"), ExtResource("27_gvn1c"), ExtResource("37_c2oha"), ExtResource("66_qmo2n"), ExtResource("28_1iuk7"), ExtResource("63_514fr"), ExtResource("29_8u7ma"), ExtResource("30_d528s"), ExtResource("31_0vaa8")])
 
 [node name="All Token Textures" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("7_7iyml")
@@ -270,7 +276,7 @@ selectedHeroTexture = ExtResource("3_r5dcu")
 unselectedArmyTexture = ExtResource("10_0wqfi")
 selectedArmyTexture = ExtResource("11_e5ayq")
 
-[node name="Story Event List" type="Node" parent="Game Controller Node"]
+[node name="Story Event List" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("12_q0wdt")
 storyEventDatas = Array[Object]([ExtResource("13_6edvn")])
 
@@ -1198,6 +1204,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Unhelpful Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(100, 23)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1256,6 +1263,15 @@ custom_minimum_size = Vector2(100, 23)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "SKILL_NAME_LABOR"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Leadership Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 23)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SKILL_NAME_LEADERSHIP"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
@@ -1324,7 +1340,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "WORD_CLOSE"
 
-[node name="Population Description Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("perksParent", "populationName", "leaderTitleButton", "aideTitleButton", "armyLeaderTitleButton", "physicalStrengthLabel", "agilityLabel", "enduranceLabel", "intelligenceLabel", "mentalStrengthLabel", "awarenessLabel", "charismaLabel", "looksLabel", "loyaltyAttributeLabel", "ageLabel", "sexLabel", "skillLabels", "interestLabel", "preferredWorkLabel", "currentActivityLabel", "InventoryAndSubordinatesInventoryVBoxContainer", "inventoryVBoxContainer", "aideRecruitButton", "armyLeaderRecruitButton", "heroRecruitmentConfirmPanel")]
+[node name="Population Description Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("perksParent", "populationName", "leaderTitleButton", "aideTitleButton", "armyLeaderTitleButton", "physicalStrengthLabel", "agilityLabel", "enduranceLabel", "intelligenceLabel", "mentalStrengthLabel", "awarenessLabel", "charismaLabel", "looksLabel", "loyaltyAttributeLabel", "ageLabel", "sexLabel", "skillLabels", "interestLabel", "preferredWorkLabel", "currentActivityLabel", "InventoryAndSubordinatesInventoryVBoxContainer", "inventoryVBoxContainer", "subordinatesVBoxContainer", "aideRecruitButton", "armyLeaderRecruitButton", "heroRecruitmentConfirmPanel")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -1351,12 +1367,13 @@ looksLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContai
 loyaltyAttributeLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Loyalty Label")
 ageLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Age Label")
 sexLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Sex Label")
-skillLabels = [NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Construction Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Cool Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Farm Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Fish Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Labor Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Lumberjack Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Production Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Research Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Rifle Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Scavenge Skill Label")]
+skillLabels = [NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Construction Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Cool Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Farm Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Fish Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Labor Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Leadership Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Lumberjack Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Production Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Research Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Rifle Skill Label"), NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer/Scavenge Skill Label")]
 interestLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Interest Label")
 preferredWorkLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Preferred Work Label")
 currentActivityLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Activity Label")
 InventoryAndSubordinatesInventoryVBoxContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer")
 inventoryVBoxContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer")
+subordinatesVBoxContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer")
 aideRecruitButton = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Recruit Aide Button")
 armyLeaderRecruitButton = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Recruit Army Button")
 heroRecruitmentConfirmPanel = NodePath("../Recuit Hero Confirmation PanelContainer")
@@ -1716,6 +1733,13 @@ text = "Labor 100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Leadership Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Leadership 100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Lumberjack Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1900,15 +1924,29 @@ text = "Aux"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Subordinates VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer"]
+[node name="Subordinates VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer" node_paths=PackedStringArray("numberOfSubordinatesSpinbox")]
 layout_mode = 2
 size_flags_horizontal = 3
+script = ExtResource("119_mjyee")
+numberOfSubordinatesSpinbox = NodePath("Subordinates HBoxContainer/Number of Subordinates SpinBox")
 
 [node name="Subordinates Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer"]
 layout_mode = 2
 text = "WORD_SUBORDINATES"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Subordinates HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Number of Subordinates Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer/Subordinates HBoxContainer"]
+layout_mode = 2
+text = "PHRASE_NUMBER_OF_SUBORDINATES"
+
+[node name="Number of Subordinates SpinBox" type="SpinBox" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer/Subordinates HBoxContainer"]
+layout_mode = 2
+alignment = 1
 
 [node name="Subordinates ScrollContainer" type="ScrollContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer"]
 custom_minimum_size = Vector2(0, 250)
@@ -2842,6 +2880,7 @@ process_mode = 3
 [connection signal="visibility_changed" from="Player UI Canvas/Population Description Control" to="Player UI Canvas/Population Description Control" method="OnPopulationDescriptionControlVisibilityChanged"]
 [connection signal="pressed" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Recruit Army Button" to="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Recruit Army Button" method="OpenConfirmationPanel" binds= [true]]
 [connection signal="pressed" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer/Newest Equipment CheckBox" to="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer" method="NewestEquipmentCheckboxPressed"]
+[connection signal="value_changed" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer/Subordinates HBoxContainer/Number of Subordinates SpinBox" to="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer" method="NumberOfSubordinatesValueChanged"]
 [connection signal="pressed" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Recruit Aide Button" to="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Recruit Aide Button" method="OpenConfirmationPanel" binds= [false]]
 [connection signal="button_up" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/Close Button" to="Player UI Canvas/Population Description Control" method="CloseButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Recuit Hero Confirmation PanelContainer" to="Player UI Canvas/Recuit Hero Confirmation PanelContainer" method="OnVisibilityChange"]

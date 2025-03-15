@@ -36,6 +36,7 @@ namespace PlayerSpace
 
         [Export] public VBoxContainer InventoryAndSubordinatesInventoryVBoxContainer;
         [Export] public InventoryVBoxContainer inventoryVBoxContainer;
+        [Export] public SubordinatesVBoxContainer subordinatesVBoxContainer;
         [Export] private Button aideRecruitButton;
         [Export] private Button armyLeaderRecruitButton;
         [Export] private PanelContainer heroRecruitmentConfirmPanel;
@@ -53,7 +54,7 @@ namespace PlayerSpace
         {
             if (Visible)
             {
-                CallDeferred("UpdateDescriptionInfo");
+                CallDeferred(nameof(UpdateDescriptionInfo));
                 Clock.Instance.PauseTime();
                 CountyInfoControl.Instance.countyImprovementsPanelControl.Hide();
                 CountyInfoControl.Instance.populationListMarginContainer.Hide();
@@ -83,6 +84,7 @@ namespace PlayerSpace
         public void UpdateDescriptionInfo()
         {
             inventoryVBoxContainer.PopulateEquipment(populationData);
+            subordinatesVBoxContainer.UpdateNumberOfSubordinates(populationData);
 
             CountyInfoControl.Instance.DisableSpawnHeroCheckButton(true);
             PlayerControls.Instance.AdjustPlayerControls(false); // This was probably happening too fast which is why it is here.

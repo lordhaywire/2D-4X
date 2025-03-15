@@ -62,15 +62,16 @@ public class Banker
         return amount;
     }
 
-    public void AddStoryEventCountyResource(StoryEventData storyEventData)
+    public static void AddStoryEventCountyGood(StoryEventData storyEventData)
     {
-        //// GD.Print($"Faction: {storyEventData.eventCounty.countyData.factionData.factionName} is adding " +
-        //   $"{storyEventData.resourceAmount} {storyEventData.resource.name}");
-        if (storyEventData.good.perishable == AllEnums.Perishable.Perishable)
-        {
-            storyEventData.eventCounty.countyData.goods[storyEventData.good.countyGoodType].Amount
-                += storyEventData.resourceAmount;
-        }
+        GD.Print($"Reward Faction: {storyEventData.eventCounty.countyData.factionData.factionName} is adding " +
+            $"{storyEventData.rewardAmount} {storyEventData.rewardCountyGoodType}");
+
+        storyEventData.eventCounty.countyData.goods[storyEventData.rewardCountyGoodType].Amount
+            += storyEventData.rewardAmount;
+
+        GD.Print($"Reward Faction: {storyEventData.eventCounty.countyData.factionData.factionName} " +
+            $"{storyEventData.eventCounty.countyData.goods[storyEventData.rewardCountyGoodType].Amount}");
         TopBarControl.Instance.UpdateTopBarGoodLabels();
     }
 
@@ -108,7 +109,7 @@ public class Banker
         IncreaseResearcherResearch(populationData, passedCheck);
     }
 
-    
+
     /*
     private static void StopHeroResearcherFromResearching(PopulationData populationData)
     {
@@ -131,10 +132,10 @@ public class Banker
         int researchAmount = Globals.Instance.researcherResearchIncrease + bonusResearchIncrease;
         //if (populationData.factionData == Globals.Instance.playerFactionData)
         //{
-            EventLog.Instance.AddLog($"{populationData.location} " +
-                $"{populationData.firstName} - {populationData.interestData.name} " +
-                $"{TranslationServer.Translate(populationData.currentResearchItemData.researchName)}" +
-                $": {researchAmount}");
+        EventLog.Instance.AddLog($"{populationData.location} " +
+            $"{populationData.firstName} - {populationData.interestData.name} " +
+            $"{TranslationServer.Translate(populationData.currentResearchItemData.researchName)}" +
+            $": {researchAmount}");
         //}
         //// GD.Print($"Amount of research {populationData.firstName} did: {researchAmount}");
         // This will trigger the getter setting and mark the research as complete if the Amount is
@@ -214,7 +215,7 @@ public class Banker
                 {
                     countyData.factionData.factionGoods[factionResourceType].Amount -= keyValuePair.Value;
                 }
-                
+
                 /* GD.Print($"{countyImprovementData.improvementName} costs " +
                     $"{countyImprovementData.countyResourceConstructionCost[keyValuePair.Key]} and" +
                 $" was charged to {countyData.countyName} those cost was : {countyData.countyResources[resourceType].name} {keyValuePair.Value}");

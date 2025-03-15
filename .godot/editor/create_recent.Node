@@ -1,9 +1,10 @@
+Label
+HBoxContainer
+SpinBox
 CheckBox
 VBoxContainer
 RichTextLabel
 PanelContainer
-Label
-HBoxContainer
 ScrollContainer
 Panel
 Button

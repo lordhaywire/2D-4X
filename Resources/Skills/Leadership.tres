@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3 uid="uid://dq525753wnhi5"]
+
+[ext_resource type="Script" uid="uid://c5t3dmu2hl1b0" path="res://Resources/SkillData.cs" id="1_7gjta"]
+
+[resource]
+script = ExtResource("1_7gjta")
+skill = 5
+skillName = "SKILL_NAME_LEADERSHIP"
+skillDescription = "SKILL_DESCRIPTION_LEADERSHIP"
+skillLevel = 0
+amountUntilLearned = 0
+isCombatSkill = false
+attribute = 6
+metadata/_custom_type_script = "uid://c5t3dmu2hl1b0"

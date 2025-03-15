@@ -107,6 +107,8 @@ public partial class County : Node2D
     private void StartDay()
     {
         //GD.PrintRich($"[rainbow]County : StartOfDay!!!!!");
+        // Check each hero to see if they need recruit subordinates.
+        Recruiter.CheckForRecruitment(countyData);
 
         // Prioritized County Improvements needs to go first.
         // County Improvements gather goods for their stockpile.

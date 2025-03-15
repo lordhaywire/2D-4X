@@ -6,6 +6,7 @@
 script = ExtResource("1_13g2d")
 storyEventTitle = "Found Food"
 storyEventDescription = "Your people have stumbled across a bunch of food.  If you decide to keep it, then you will get 500 food."
-resourceType = 0
-resourceAmount = 500
+rewardCountyGoodType = 2
+rewardFactionGoodType = 0
+rewardAmount = 500
 choices = PackedStringArray("I want this shit!", "I don\'t need this shit.")

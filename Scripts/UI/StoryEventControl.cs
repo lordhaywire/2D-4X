@@ -80,8 +80,7 @@ namespace PlayerSpace
         }
         private void AcceptButtonPressed()
         {
-            Banker banker = new();
-            banker.AddStoryEventCountyResource(currentStoryEventData);
+            Banker.AddStoryEventCountyGood(currentStoryEventData);
             Hide();
             GD.Print("Accept Button has been pressed.");
         }

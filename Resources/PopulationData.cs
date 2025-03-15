@@ -6,8 +6,6 @@ namespace PlayerSpace;
 [GlobalClass]
 public partial class PopulationData : Resource
 {
-    
-
     [Export] public FactionData factionData;
     [Export] public int location;
 
@@ -44,6 +42,9 @@ public partial class PopulationData : Resource
             }
         }
     }
+
+    [Export] public int numberOfSubordinates;
+    [Export] public Godot.Collections.Array<PopulationData> heroSubordinates = [];
 
     [ExportGroup("Perks")]
     [Export] public Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks;

@@ -11,6 +11,7 @@ public class AllEnums
         Explore,
         Idle,
         Move,
+        Recruit,
         Research,
         Scavenge,
         Work,
@@ -159,6 +160,7 @@ public class AllEnums
         Farm,
         Fish,
         Labor, // Possibly make two skills, one of them hauling.
+        Leadership,
         Lumberjack,
         Production,
         Research,

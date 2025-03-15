@@ -5,7 +5,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~M:PlayerSpace.Banker.AddStoryEventCountyResource(PlayerSpace.StoryEventData)")]
+[assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~M:PlayerSpace.Banker.AddStoryEventCountyGood(PlayerSpace.StoryEventData)")]
 [assembly: SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>", Scope = "member", Target = "~M:PlayerSpace.StorageHbox.ValueChanged(System.Single)")]
 [assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~M:PlayerSpace.Diplomacy.DeclareWar(PlayerSpace.War)")]
 [assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>", Scope = "member", Target = "~M:PlayerSpace.Diplomacy.DeclareWarConfirmation(PlayerSpace.CountyData)")]

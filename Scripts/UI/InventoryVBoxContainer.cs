@@ -37,7 +37,12 @@ public partial class InventoryVBoxContainer : VBoxContainer
         CountyData locationCountyData = Globals.Instance.GetCountyDataFromLocationID(populationData.location);
 
         GD.Print("Newest Equipment Checkbox has been pressed. " + newestEquipment.ButtonPressed);
-        populationData.useNewestEquipment = newestEquipment.ButtonPressed;
+        GD.Print("Token Movement - MoveToken: " + populationData.heroToken.tokenMovement.MoveToken);
+        if(populationData.heroToken.tokenMovement.MoveToken == true)
+        {
+            populationData.useNewestEquipment = newestEquipment.ButtonPressed;
+            return;
+        }
         if (Globals.Instance.CheckIfPlayerFaction(locationCountyData.factionData) == true)
         {
             Quartermaster.EquipHeroes(populationData);
