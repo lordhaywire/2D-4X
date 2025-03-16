@@ -14,6 +14,7 @@ public class AllEnums
         Recruit,
         Research,
         Scavenge,
+        Service,
         Work,
     }
 

@@ -229,3 +229,6 @@ PHRASE_NUMBER_OF_SUBORDINATES,Number of Subordinates,Número de subordinados
 ACTIVITY_RECRUIT_NAME,Recruit,Reclutar
 ACTIVITY_RECRUIT_DESCRIPTION,Enlisting someone to serve a leader.,Reclutar a alguien para que sirva a un líder.
 ACTIVITY_RECRUIT_TOOLTIP,Enlisting someone to serve a leader.,Reclutar a alguien para que sirva a un líder.
+ACTIVITY_SERVICE_NAME,Service,Servicio
+ACTIVITY_SERVICE_DESCRIPTION,Following a leader as a subordinate.,Seguir a un líder como subordinado.
+ACITIVITY_SERVICE_TOOLTIP,Following a leader as a subordinate.,Seguir a un líder como subordinado.

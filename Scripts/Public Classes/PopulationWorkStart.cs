@@ -103,7 +103,7 @@ public class PopulationWorkStart
         , CountyImprovementData countyImprovementData, Godot.Collections.Array<PopulationData> improvementBuildersList)
     {
         // We are not sorting the list till here, because the heroes are at the top of the list to start with.
-        List<PopulationData> sortedList = improvementBuildersList.ToList();
+        List<PopulationData> sortedList = [.. improvementBuildersList];
 
         // We should probably test that this is sorting correctly.
         // Sort population list by highest construction skill.
@@ -138,7 +138,7 @@ public class PopulationWorkStart
         )
     {
         // We are not sorting the list till here, because the heroes are at the top of the list to start with.
-        List<PopulationData> sortedList = countyData.prioritizedWorkersList.ToList();
+        List<PopulationData> sortedList = [.. countyData.prioritizedWorkersList];
 
         // We should probably test that this is sorting correctly.
         // Sort population list by highest construction skill.

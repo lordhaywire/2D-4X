@@ -22,8 +22,8 @@ public class HeroWorkStart
                     countyData.AddHeroToPrioritizedHeroWorkersList(populationData);
                     GD.Print($"{populationData.firstName} is a hero and has been added to the possible & prioritized workers list.");
                     break;
-                case AllEnums.Activities.Scavenge:
-                    GD.Print($"{populationData.firstName} is scavenging.");
+                default:
+                    GD.Print($"{populationData.firstName} is {populationData.GetActivityName()}");
                     break;
             }
         }

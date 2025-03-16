@@ -90,7 +90,7 @@ namespace PlayerSpace
                         , false, false, AllEnums.HeroType.None
                         , GeneratePopulationPerks(), Globals.Instance.startingHitPoints, maxHitpoints
                         , GenerateExpendables()
-                        , loyaltyBase, loyaltyBase, happiness, daysStarving, GenerateNeeds()
+                        , loyaltyBase, loyaltyBase, happiness, daysStarving, -1, GenerateNeeds()
                         , GenerateAttributes()
                         , GenerateSkillsList()
                         , preferredSkill
@@ -108,7 +108,7 @@ namespace PlayerSpace
                         , AllEnums.HeroType.FactionLeader
                         , GenerateLeaderPerks(), Globals.Instance.startingHitPoints, maxHitpoints
                         , GenerateExpendables()
-                        , loyaltyBase, loyaltyBase, happiness, daysStarving, GenerateNeeds()
+                        , loyaltyBase, loyaltyBase, happiness, daysStarving, -1, GenerateNeeds()
                         , GenerateAttributes()
                         , GenerateSkillsList()
                         , preferredSkill

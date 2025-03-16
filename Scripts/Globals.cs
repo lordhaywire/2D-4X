@@ -119,6 +119,7 @@ public partial class Globals : Node
     [Export] public int loyaltyCheckNumber = 50; // Battle loyalty
     [Export] public int willWorkLoyalty = 20; // The loyalty a population needs to be willing to work.
                                               // 50 is too high for testing, but might work well for the real game.
+    [Export] public int willFightLoyalty = 30; // Loyalty required for a population to be able to be hired as a subordinate.
     [Export] public int startingHitPoints = 10;
     [Export] public int fastLearningNeeded = 10;
     [Export] public int mediumLearningNeeded = 50;
@@ -133,6 +134,7 @@ public partial class Globals : Node
     [Export] public int passiveResearchIncrease = 2;
     [Export] public int passiveResearchBonus = 1;
     [Export] public int daysUntilDamageFromStarvation = 15;
+    [Export] public int maxDaysUntilServiceStarts = 8; // One above max.
     [Export] public int foodBeforeScavenge = 500; // Less then this amount will make people scavenge.
     [Export] public int remnantsBeforeScavenge = 500; // Less then this amount will make people scavenge.
 

@@ -109,7 +109,6 @@ public class Banker
         IncreaseResearcherResearch(populationData, passedCheck);
     }
 
-
     /*
     private static void StopHeroResearcherFromResearching(PopulationData populationData)
     {

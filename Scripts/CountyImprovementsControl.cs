@@ -64,11 +64,9 @@ public partial class CountyImprovementsControl : Control
         //GD.Print("List of County Improvements Count: " + listOfCountyImprovements.Count);
         // Sort using LINQ and convert back to Godot.Collections.Array
         Godot.Collections.Array<CountyImprovementData> listOfCountyImprovements =
-            new(
-                disorderedListOfCountyImprovements
+            [.. disorderedListOfCountyImprovements
                     .ToList()
-                    .OrderBy(countyImprovementData => countyImprovementData.improvementName)
-            );
+                    .OrderBy(countyImprovementData => countyImprovementData.improvementName)];
 
         foreach (CountyImprovementData countyImprovementData in listOfCountyImprovements)
         {

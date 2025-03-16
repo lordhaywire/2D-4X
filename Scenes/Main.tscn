@@ -1,4 +1,4 @@
-[gd_scene load_steps=145 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=146 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Script" uid="uid://ctm4ah5pwyf7d" path="res://Scripts/Main.cs" id="1_62dun"]
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://World Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
@@ -43,6 +43,7 @@
 [ext_resource type="Resource" uid="uid://c55q8uucl7cqe" path="res://Resources/Goods/Fish.tres" id="19_1e80i"]
 [ext_resource type="Script" uid="uid://dq7hcwrq41ub" path="res://Scripts/Clock.cs" id="19_dn5gi"]
 [ext_resource type="Resource" uid="uid://bvsprrlr6rs15" path="res://Resources/Activities/Work.tres" id="19_ogxyq"]
+[ext_resource type="Resource" uid="uid://ddubsffm4r5ri" path="res://Resources/Activities/Service.tres" id="19_qxwff"]
 [ext_resource type="Script" uid="uid://cjkl8rag6oe66" path="res://Scripts/Map Editor/FindNeighbors.cs" id="20_0i5kb"]
 [ext_resource type="Resource" uid="uid://bhmwj5yptebic" path="res://Resources/Goods/Remnants.tres" id="20_k67vp"]
 [ext_resource type="Resource" uid="uid://dpddpnnbjvql" path="res://Resources/Goods/Vegetables.tres" id="21_r83qp"]
@@ -243,7 +244,7 @@ script = ExtResource("7_fr5hn")
 
 [node name="All Activities" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("9_bq1ko")
-allActivityData = Array[Object]([ExtResource("12_0j4c6"), ExtResource("13_qmo2n"), ExtResource("14_mjyee"), ExtResource("15_fend5"), ExtResource("16_qxwff"), ExtResource("17_fend5"), ExtResource("17_dwns0"), ExtResource("18_ghvh6"), ExtResource("19_ogxyq")])
+allActivityData = Array[Object]([ExtResource("12_0j4c6"), ExtResource("13_qmo2n"), ExtResource("14_mjyee"), ExtResource("15_fend5"), ExtResource("16_qxwff"), ExtResource("17_fend5"), ExtResource("17_dwns0"), ExtResource("18_ghvh6"), ExtResource("19_qxwff"), ExtResource("19_ogxyq")])
 
 [node name="All Attributes" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("23_ucd0c")

@@ -160,9 +160,7 @@ namespace PlayerSpace
 
         private static County FindFactionOwnedNeighborCounty(List<County> countyNeighbors, PopulationData populationData)
         {
-            List<County> eligibleCounties = countyNeighbors
-                .Where(c => c.countyData.factionData == populationData.factionData)
-                .ToList();
+            List<County> eligibleCounties = [.. countyNeighbors.Where(c => c.countyData.factionData == populationData.factionData)];
 
             if (eligibleCounties.Count > 0)
             {
@@ -222,10 +220,10 @@ namespace PlayerSpace
             }
 
             // Check if rifle experience is learned by the attacker.
-            SkillData.CheckLearning(shootingCountyPopulation, false);
+            SkillData.LearningCheck(shootingCountyPopulation, false);
 
             // Check if the defenders cool skill learns anything.
-            SkillData.CheckLearning(gettingShotAtCountyPopulation, true);
+            SkillData.LearningCheck(gettingShotAtCountyPopulation, true);
         }
         private static void ButtonUp()
         {

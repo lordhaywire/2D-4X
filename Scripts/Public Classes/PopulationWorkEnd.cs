@@ -41,7 +41,7 @@ public class PopulationWorkEnd
 
                     // Learning skillcheck.
                     // Just for testing it is set to fast.  The bool doesn't matter for this skill.
-                    SkillData.CheckLearning(populationData, true);
+                    SkillData.LearningCheck(populationData, true);
 
                     if (populationData.isHero != true)
                     {
@@ -54,7 +54,7 @@ public class PopulationWorkEnd
 
                     // Check for Skill Learning.
                     // The bool doesn't matter for this skill.
-                    SkillData.CheckLearning(populationData, true);
+                    SkillData.LearningCheck(populationData, true);
                     break;
                 case AllEnums.Activities.Work:
 
@@ -77,7 +77,7 @@ public class PopulationWorkEnd
                         ApplyWorkPerPerson(populationData);
 
                         // Skill learning.
-                        SkillData.CheckLearning(populationData, true);
+                        SkillData.LearningCheck(populationData, true);
                     }
                     else
                     {

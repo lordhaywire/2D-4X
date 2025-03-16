@@ -87,6 +87,7 @@ public partial class PopulationData : Resource
     [Export] public int daysEmployed;
     [Export] public int daysEmployedButIdle;
     [Export] public int daysStarving;
+    [Export] public int daysUntilServiceStarts;
 
     // Resource needs, currently there is just 1 need, Remnants.
     [Export] public Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> needs;
@@ -245,6 +246,7 @@ public partial class PopulationData : Resource
         , Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks, int hitpoints, int maxHitpoints
         , int moraleExpendable
         , int loyaltyBase, int LoyaltyAdjusted, int Happiness, int daysStarving
+        , int daysUntilServiceStarts
         , Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> needs
         , Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes
         , Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills
@@ -280,6 +282,7 @@ public partial class PopulationData : Resource
         this.LoyaltyAdjusted = LoyaltyAdjusted;
         this.Happiness = Happiness;
         this.daysStarving = daysStarving;
+        this.daysUntilServiceStarts = daysUntilServiceStarts;
         this.needs = needs;
         this.attributes = attributes;
 

@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
 
 namespace PlayerSpace;
 
@@ -49,9 +50,10 @@ public partial class SkillData : Resource
         }
     }
 
+
     // ChatGPT refactored this.
     // The defending combat bool is temporary until we rewrite how combat works.
-    public static void CheckLearning(PopulationData populationData, bool defendingCombat)
+    public static void LearningCheck(PopulationData populationData, bool defendingCombat)
     {
         AllEnums.LearningSpeed learningSpeed;
         SkillData skillData;

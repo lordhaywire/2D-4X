@@ -9,7 +9,10 @@ namespace PlayerSpace
 
         public override void _Ready()
         {
-            CallDeferred(nameof(SubscribeToEvents));
+            // This was CallDeferred, but it should be happening before County so I changed it.  It could cause issues
+            // in the future.
+            //CallDeferred(nameof(SubscribeToEvents));
+            SubscribeToEvents();
         }
 
         private void SubscribeToEvents()
