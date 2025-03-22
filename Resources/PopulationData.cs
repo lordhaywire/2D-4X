@@ -79,7 +79,7 @@ public partial class PopulationData : Resource
             // This is checking happiness as if it was an attribute and adjusting the loyalty by
             // the attribute bonus.  So if the happiness gets really low, the loyal will only ever get a negative 20,
             // or if the happiness is really high it will only get a +20.
-            LoyaltyAdjusted = loyaltyBase + AttributeData.ApplyAttributeBonuses(value, false, false);
+            LoyaltyAdjusted = loyaltyBase + AttributeData.GetAttributeBonus(value, false, false);
             //GD.Print($"{firstName} {lastName} loyalty adjusted: {LoyaltyAdjusted}");
         }
     }

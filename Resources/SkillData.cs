@@ -18,34 +18,35 @@ public partial class SkillData : Resource
     [Export] public AllEnums.Attributes attribute;
 
     /// <summary>
+    /// int attributeBonus 
+    ///        = AttributeData.ApplyAttributeBonuses(populationData.attributes[attribute].attributeLevel
+    ///        , false, negativeBonus);
     /// This does a skill check with an attribute bonus already added.
+    /// The reason why we aren't passing in the actual skill is because sometimes we are testing just some random 1-100 number.
     /// Since an attribute bonus is checked in this method, we are passing in an attribute, and if the bonus is a negative.
+    /// An additional bonus can be added.
+    /// TODO: We also need to add any perk bonuses.
     /// </summary>
-    /// <param name="populationData"></param>
-    /// <param name="skillAmount"></param>
-    /// <param name="attribute"></param>
-    /// <param name="negativeBonus"></param>
+    /// <param name="skillLevel"></param>
+    /// <param name="attributeBonus"></param>
+    /// <param name="additionalBonus"></param>
+    /// <param name="perkBonus"></param>
     /// <returns></returns>
-    public static bool Check(PopulationData populationData, int skillAmount
-        , AllEnums.Attributes attribute, bool negativeBonus)
+    public static bool CheckWithBonuses(int skillLevel, int attributeBonus, int additionalBonus, int perkBonus)
     {
         int skillCheckRoll = Globals.Instance.random.Next(1, 101);
-        //GD.PrintRich("[rainbow]Attribute: " + attribute);
-        int attributeBonus 
-            = AttributeData.ApplyAttributeBonuses(populationData.attributes[attribute].attributeLevel
-            , false, negativeBonus);
-        //GD.PrintRich($"[color=yellow]Attribute Bonus: {attributeBonus}[/color]");
+        GD.PrintRich($"[rainbow]Skill Check Roll: " + skillCheckRoll);
         // Make sure the skill level with the attribute bonus is not below 1.
-        int finalSkillAmount = Math.Max(skillAmount + attributeBonus, 1);
+        int finalSkillAmount = Math.Max(skillLevel + attributeBonus + additionalBonus + perkBonus, 1);
         // Rolling a 1 is always a success.
         if (skillCheckRoll <= finalSkillAmount)
         {
-            //GD.Print($"Skill Checks: rolled a {skillCheckRoll} which is less then or equal {skillAmount}");
+            GD.Print($"Skill Checks: rolled a {skillCheckRoll} which is less then or equal {finalSkillAmount}");
             return (true);
         }
         else
         {
-            //GD.Print($"Skill Checks: rolled a {skillCheckRoll} which is greater then {skillAmount}");
+            GD.Print($"Skill Checks: rolled a {skillCheckRoll} which is greater then {finalSkillAmount}");
             return (false);
         }
     }
@@ -117,7 +118,7 @@ public partial class SkillData : Resource
             {
                 int experienceLearnedRandom = Globals.Instance.random.Next(1, Globals.Instance.maxXPRoll);
                 int experienceLearned = Mathf.Max(1, experienceLearnedRandom +
-                    AttributeData.ApplyAttributeBonuses(populationData.attributes[AllEnums.Attributes.Intelligence].attributeLevel, true, false));
+                    AttributeData.GetAttributeBonus(populationData.attributes[AllEnums.Attributes.Intelligence].attributeLevel, true, false));
 
                 skillData.skillLevel += experienceLearned;
 

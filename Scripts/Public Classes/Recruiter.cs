@@ -18,7 +18,7 @@ public class Recruiter
                 populationData.UpdateActivity(AllEnums.Activities.Recruit);
                 int numberOfSubordinatesToHire = populationData.numberOfSubordinates - populationData.heroSubordinates.Count;
 
-                HireSubordinates(populationData, numberOfSubordinatesToHire);
+                RecruitSubordinates(populationData, numberOfSubordinatesToHire);
             }
             else if (populationData.heroSubordinates.Count > populationData.numberOfSubordinates)
             {
@@ -34,7 +34,7 @@ public class Recruiter
         }
     }
 
-    private static void HireSubordinates(PopulationData populationData, int numberOfSubordinatesToHire)
+    private static void RecruitSubordinates(PopulationData populationData, int numberOfSubordinatesToHire)
     {
         County county = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
         CountyData countyData = county.countyData;
@@ -48,13 +48,24 @@ public class Recruiter
                 .Take(numberOfSubordinatesToHire)];
 
         PopulationData recruitee = eligibleSubordinates.FirstOrDefault();
+        GD.PrintRich($"Recruitee: " + recruitee.firstName);
+        int attributeLevel = populationData.attributes[populationData.skills[AllEnums.Skills.Leadership].attribute].attributeLevel;
+        GD.PrintRich($"[rainbow]Attribute Level: " + attributeLevel);
+        int attributeBonus = AttributeData.GetAttributeBonus(attributeLevel, false, false);
+        GD.PrintRich($"[rainbow]Attribute Bonus: " + attributeBonus);
+        int additionalBonus = AttributeData.GetAttributeBonus(recruitee.LoyaltyAdjusted, false, false);
+        GD.PrintRich($"[rainbow]Addtional Bonus: " + additionalBonus);
+        GD.PrintRich($"[rainbow]Leader of People Perk bonus: " + populationData.perks[AllEnums.Perks.LeaderOfPeople].perkBonus);
         // Hero needs to do a leadership roll with an attribute bonus of the recruitee's loyalty bonus.
-        bool skillCheck = SkillData.Check(populationData, populationData.skills[AllEnums.Skills.Leadership].skillLevel
-            , populationData.skills[AllEnums.Skills.Leadership].attribute, false);
-
+        bool skillCheck = SkillData.CheckWithBonuses(populationData.skills[AllEnums.Skills.Leadership].skillLevel
+            , attributeBonus
+            , additionalBonus
+            , populationData.perks[AllEnums.Perks.LeaderOfPeople].perkBonus);
+        GD.PrintRich($"[rainbow]Recruit Skill Check: " + skillCheck);
         // Person has been recruited. Random number of days before service starts will be generated.
         if (skillCheck)
         {
+            GD.PrintRich($"[rainbow]Recruitee added: " + recruitee.firstName);
             recruitee.daysUntilServiceStarts = Globals.Instance.random.Next(1, Globals.Instance.maxDaysUntilServiceStarts);
             populationData.heroSubordinates.Add(recruitee);
         }

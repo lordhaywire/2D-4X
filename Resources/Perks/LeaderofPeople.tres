@@ -1,8 +1,9 @@
 [gd_resource type="Resource" script_class="PerkData" load_steps=2 format=3 uid="uid://d00kar3t6pno1"]
 
-[ext_resource type="Script" path="res://Resources/PerkData.cs" id="1_mfqwl"]
+[ext_resource type="Script" uid="uid://cjisosf0wkubl" path="res://Resources/PerkData.cs" id="1_mfqwl"]
 
 [resource]
 script = ExtResource("1_mfqwl")
 perkName = "PERK_NAME_LEADEROFPEOPLE"
-perkDescription = "This person is skillPERK_DESCRIPTION_LEADEROFPEOPLEed at leading people."
+perkDescription = "PERK_DESCRIPTION_LEADEROFPEOPLEed at leading people."
+perkBonus = 10

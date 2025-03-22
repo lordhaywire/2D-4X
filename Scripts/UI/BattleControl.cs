@@ -188,42 +188,48 @@ namespace PlayerSpace
         }
 
         // This is confusing.  Needs a fucking rewrite.
-        private void Attack(PopulationData gettingShotAtCountyPopulation, PopulationData shootingCountyPopulation, bool isAttacker)
+        private void Attack(PopulationData gettingShotAtPopulation, PopulationData shootingPopulation, bool isAttacker)
         {
-            if (SkillData.Check(shootingCountyPopulation, shootingCountyPopulation.skills[AllEnums.Skills.Rifle].skillLevel
-                , shootingCountyPopulation.skills[AllEnums.Skills.Rifle].attribute, false) == true)
+            int skillLevel = shootingPopulation.skills[AllEnums.Skills.Rifle].skillLevel;
+            int attributeLevel = shootingPopulation.attributes[shootingPopulation.skills[AllEnums.Skills.Rifle].attribute].attributeLevel;
+            int attributeBonus = AttributeData.GetAttributeBonus(attributeLevel, false, false);
+
+            if (SkillData.CheckWithBonuses(skillLevel, attributeLevel, 0, 0) == true) // TODO: Perk Bonus
             {
+                int gettingShotAtSkillLevel = gettingShotAtPopulation.skills[AllEnums.Skills.Cool].skillLevel;
+                int gettingShotAtAttributeLevel = gettingShotAtPopulation.attributes[gettingShotAtPopulation.skills[AllEnums.Skills.Cool].attribute].attributeLevel;
+                int gettingShotAtAttributeBonus = AttributeData.GetAttributeBonus(attributeLevel, false, false);
                 BattleLogControl.Instance.AddLog
-                    ($"{shootingCountyPopulation.firstName} {shootingCountyPopulation.lastName} {Tr("PHRASE_HAS_HIT")}.", isAttacker);
-                if (SkillData.Check(gettingShotAtCountyPopulation, gettingShotAtCountyPopulation.skills[AllEnums.Skills.Cool].skillLevel
-                    , gettingShotAtCountyPopulation.skills[AllEnums.Skills.Cool].attribute, false) == false)
+                    ($"{shootingPopulation.firstName} {shootingPopulation.lastName} {Tr("PHRASE_HAS_HIT")}.", isAttacker);
+                if (SkillData.CheckWithBonuses(gettingShotAtSkillLevel, gettingShotAtAttributeBonus, 0, 0) == false)
+                    // TODO: Perk Bonus
                 {
                     int moraleDamage = random.Next(Globals.Instance.moraleDamageMin, Globals.Instance.moraleDamageMax);
-                    gettingShotAtCountyPopulation.moraleExpendable
-                        = Math.Max(gettingShotAtCountyPopulation.moraleExpendable - moraleDamage, 0);
-                    BattleLogControl.Instance.AddLog($"{gettingShotAtCountyPopulation.firstName} " +
-                        $"{gettingShotAtCountyPopulation.lastName} {Tr("PHRASE_FAILED_COOL_ROLL")}.  " +
+                    gettingShotAtPopulation.moraleExpendable
+                        = Math.Max(gettingShotAtPopulation.moraleExpendable - moraleDamage, 0);
+                    BattleLogControl.Instance.AddLog($"{gettingShotAtPopulation.firstName} " +
+                        $"{gettingShotAtPopulation.lastName} {Tr("PHRASE_FAILED_COOL_ROLL")}.  " +
                         $"{Tr("PHRASE_MORALE_LOST")} {moraleDamage}.", !isAttacker);
                 }
                 else
                 {
-                    BattleLogControl.Instance.AddLog($"{gettingShotAtCountyPopulation.firstName} " +
-                        $"{gettingShotAtCountyPopulation.lastName} {Tr("PHRASE_ISNT_SCARED")}.", !isAttacker);
+                    BattleLogControl.Instance.AddLog($"{gettingShotAtPopulation.firstName} " +
+                        $"{gettingShotAtPopulation.lastName} {Tr("PHRASE_ISNT_SCARED")}.", !isAttacker);
                 }
                 attackerMoraleLabel.Text = countyAttackerSelectToken.populationData.moraleExpendable.ToString();
                 defenderMoraleLabel.Text = countyDefendersSelectToken.populationData.moraleExpendable.ToString();
             }
             else
             {
-                BattleLogControl.Instance.AddLog($"{shootingCountyPopulation.firstName} " +
-                    $"{shootingCountyPopulation.lastName} {Tr("WORD_MISSED")}.", isAttacker);
+                BattleLogControl.Instance.AddLog($"{shootingPopulation.firstName} " +
+                    $"{shootingPopulation.lastName} {Tr("WORD_MISSED")}.", isAttacker);
             }
 
             // Check if rifle experience is learned by the attacker.
-            SkillData.LearningCheck(shootingCountyPopulation, false);
+            SkillData.LearningCheck(shootingPopulation, false);
 
             // Check if the defenders cool skill learns anything.
-            SkillData.LearningCheck(gettingShotAtCountyPopulation, true);
+            SkillData.LearningCheck(gettingShotAtPopulation, true);
         }
         private static void ButtonUp()
         {

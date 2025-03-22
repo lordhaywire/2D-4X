@@ -254,10 +254,12 @@ namespace PlayerSpace
                     return;
                 }
 
-                if (SkillData.Check(populationData
-                    , populationData.skills[populationData.passiveResearchItemData.skill].skillLevel
-                    , populationData.skills[populationData.passiveResearchItemData.skill].attribute
-                    , false) == true)
+                int skillLevel = populationData.skills[populationData.passiveResearchItemData.skill].skillLevel;
+                int attributeLevel = populationData.attributes[populationData.skills[populationData.passiveResearchItemData.skill].attribute].attributeLevel;
+                int attributeBonus = AttributeData.GetAttributeBonus(attributeLevel, false, false);
+                
+                // If the skill check is passed then they researcher gets a research bonus.
+                if (SkillData.CheckWithBonuses(skillLevel, attributeBonus, 0 , 0) == true) // TODO: Perk Bonus
                 {
                     populationData.passiveResearchItemData.AmountOfResearchDone
                         += Globals.Instance.passiveResearchIncrease + Globals.Instance.passiveResearchBonus;

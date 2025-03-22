@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 
 namespace PlayerSpace;
@@ -49,9 +50,11 @@ public class Banker
     public static int GenerateScavengedResourceWithSkillCheck(PopulationData populationData)
     {
         int skillLevel = populationData.skills[AllEnums.Skills.Scavenge].skillLevel;
+        int attributeLevel = populationData.attributes[populationData.skills[AllEnums.Skills.Scavenge].attribute].attributeLevel;
+        int attributeBonus = AttributeData.GetAttributeBonus(attributeLevel, false, false);
         int amount;
-        if (SkillData.Check(populationData, skillLevel
-            , populationData.skills[AllEnums.Skills.Scavenge].attribute, false) == true)
+        if (SkillData.CheckWithBonuses(skillLevel, attributeBonus, 0, 0)) // TODO: Add perk bonus.
+
         {
             amount = Globals.Instance.dailyScavengedAmount + Globals.Instance.dailyScavengedAmountBonus;
         }
@@ -101,9 +104,13 @@ public class Banker
     /// <param name="populationData"></param>
     public static void AddResearchForOfficeResearch(PopulationData populationData)
     {
+        int attributeLevel = populationData.attributes[populationData.skills[AllEnums.Skills.Research].attribute].attributeLevel;
+        int attributeBonus = AttributeData.GetAttributeBonus(attributeLevel, false, false);
         // Perform the research skill check.
-        bool passedCheck = SkillData.Check(populationData, populationData.skills[AllEnums.Skills.Research].skillLevel,
-            populationData.skills[AllEnums.Skills.Research].attribute, false);
+        bool passedCheck = SkillData.CheckWithBonuses(populationData.skills[AllEnums.Skills.Research].skillLevel
+            , attributeBonus
+            , 0
+            , 0); // TODO: Add perk bonus
 
         // Increase research progress and check learning.
         IncreaseResearcherResearch(populationData, passedCheck);

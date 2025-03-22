@@ -122,7 +122,9 @@ public class PopulationAI
     // what catagory Loyalty is.  For example, it isn't a skill, or a perk.
     private static bool CheckLoyaltyWithSkillCheck(PopulationData populationData)
     {
-        if (SkillData.Check(populationData, populationData.LoyaltyAdjusted, AllEnums.Attributes.MentalStrength, false))
+        int attributeLevel = populationData.attributes[AllEnums.Attributes.MentalStrength].attributeLevel;
+        int attributeBonus = AttributeData.GetAttributeBonus(attributeLevel, false, false);
+        if (SkillData.CheckWithBonuses(populationData.LoyaltyAdjusted, attributeBonus, 0, 0)) // TODO: Perk Bonus
         {
             return true;
         }

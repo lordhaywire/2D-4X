@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 namespace PlayerSpace;
 
-
 [GlobalClass]
 public partial class CountyData : Resource
 {
@@ -488,9 +487,13 @@ public partial class CountyData : Resource
             // , they use the resource that is needed.
             foreach (KeyValuePair<AllEnums.CountyGoodType, int> keyValuePair in populationData.needs)
             {
+                int attributeLevel = populationData.attributes[AllEnums.Attributes.MentalStrength].attributeLevel;
+                // This is a negative bonus because we want the person to fail it, thus not needing stuff.
+                int attributeBonus
+                    = AttributeData.GetAttributeBonus(attributeLevel, false, true);
                 // Check to see if they want the resource.
-                if (SkillData.Check(populationData, keyValuePair.Value
-                    , AllEnums.Attributes.MentalStrength, true) == true)
+                if (SkillData.CheckWithBonuses(keyValuePair.Value
+                    , attributeBonus, 0, 0) == true) // TODO: Perk bonus
                 {
                     //GD.Print($"Needs Checks: Passed.");
                     if (CheckEnoughOfResource(keyValuePair.Key) == true)

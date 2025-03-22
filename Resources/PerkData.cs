@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 namespace PlayerSpace
 {
@@ -8,5 +7,6 @@ namespace PlayerSpace
     {
         [Export] public string perkName;
         [Export] public string perkDescription;
+        [Export] public int perkBonus;
     }
 }

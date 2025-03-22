@@ -170,10 +170,11 @@ public class PopulationWorkEnd
     {
         //CountyImprovementData countyImprovementData = populationData.currentCountyImprovement;
         int skillLevel = populationData.skills[populationData.currentCountyImprovement.workSkill].skillLevel;
+        int attributeLevel = populationData.attributes[populationData.skills[populationData.currentCountyImprovement.workSkill].attribute].attributeLevel;
+        int attributeBonus = AttributeData.GetAttributeBonus(attributeLevel, false, false);
+
         int workAmount;
-        if (SkillData.Check(populationData, skillLevel
-            , populationData.skills[populationData.currentCountyImprovement.workSkill].attribute
-            , false) == true)
+        if (SkillData.CheckWithBonuses(skillLevel, attributeBonus, 0, 0) == true) // TODO: Perk Bonus
         {
             workAmount = Globals.Instance.dailyWorkAmount + Globals.Instance.dailyWorkAmountBonus;
             return workAmount;
@@ -183,7 +184,6 @@ public class PopulationWorkEnd
             workAmount = Globals.Instance.dailyWorkAmount;
             return workAmount;
         }
-
     }
     /// <summary>
     /// This should go through the list of completed county improvements and does the math
