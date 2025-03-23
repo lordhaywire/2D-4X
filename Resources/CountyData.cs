@@ -418,7 +418,7 @@ public partial class CountyData : Resource
             if (CheckIfImprovementTypeNeedsWorkers(countyImprovementData) == false
                 || countyImprovementData.CheckIfStatusLowStockpiledGoods() == true)
             {
-                GD.Print("Low Stockpiled Goods, or the improvement is storage or research.");
+                //GD.Print("Low Stockpiled Goods, or the improvement is storage or research.");
                 continue;
             }
             if (prioritizedHeroWorkersList.Count > 0)

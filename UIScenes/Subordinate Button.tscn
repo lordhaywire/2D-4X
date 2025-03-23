@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://c5i5kenx6xcam"]
+
+[node name="Subordinate Button" type="Button"]
+focus_mode = 0
+text = "Gibberissh"

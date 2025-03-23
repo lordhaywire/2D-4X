@@ -1,4 +1,5 @@
 ﻿,en,es
+ACITIVITY_SERVICE_TOOLTIP,Following a leader as a subordinate.,Seguir a un líder como subordinado.
 ACTIVITY_BUILD_DESCRIPTION,This is the description for build.,Esta es la descripción de la compilación.
 ACTIVITY_BUILD_NAME,Build,Construir
 ACTIVITY_BUILD_TOOLTIP,This is the tooltip for build.,Esta es la información sobre herramientas para la compilación.
@@ -11,12 +12,17 @@ ACTIVITY_IDLE_TOOLTIP,This is the tooltip for idle.,Esta es la información sobr
 ACTIVITY_MOVE_DESCRIPTION,This is the description for move.,Esta es la descripción de move.
 ACTIVITY_MOVE_NAME,Move,Mover
 ACTIVITY_MOVE_TOOLTIP,This is the tooltip for move.,Esta es la información sobre herramientas para moverse.
+ACTIVITY_RECRUIT_DESCRIPTION,Enlisting someone to serve a leader.,Reclutar a alguien para que sirva a un líder.
+ACTIVITY_RECRUIT_NAME,Recruit,Reclutar
+ACTIVITY_RECRUIT_TOOLTIP,Enlisting someone to serve a leader.,Reclutar a alguien para que sirva a un líder.
 ACTIVITY_RESEARCH_DESCRIPTION,This is the description for research.,Esta es la descripción de la investigación.
 ACTIVITY_RESEARCH_NAME,Research,Investigación
 ACTIVITY_RESEARCH_TOOLTIP,This is the tooltip for research.,Esta es la información sobre herramientas para la investigación.
 ACTIVITY_SCAVENGE_DESCRIPTION,This is the description for scavenge.,Esta es la descripción de scavenge.
 ACTIVITY_SCAVENGE_NAME,Scavenge,Recoger la basura
 ACTIVITY_SCAVENGE_TOOLTIP,This is the tooltip for scavenge.,Esta es la descripción emergente de la búsqueda.
+ACTIVITY_SERVICE_DESCRIPTION,Following a leader as a subordinate.,Seguir a un líder como subordinado.
+ACTIVITY_SERVICE_NAME,Service,Servicio
 ACTIVITY_WORK_DESCRIPTION,This is the description for work.,Esta es la descripción del trabajo.
 ACTIVITY_WORK_NAME,Work,Trabajo
 ACTIVITY_WORK_TOOLTIP,This is the tooltip for work.,Esta es la información sobre herramientas para el trabajo.
@@ -135,6 +141,7 @@ PHRASE_MAX_WORKERS,Max Workers,Máximo de trabajadores
 PHRASE_MEDICAL_EQUIPMENT,[u]Medical Equipment[/u],[u]Equipos médicos[/u]
 PHRASE_MORALE_LOST,Morale lost,Pérdida de moral
 PHRASE_NEWEST_EQUIPMENT,Newest Equipment?,¿Equipo más nuevo?
+PHRASE_NUMBER_OF_SUBORDINATES,Number of Subordinates,Número de subordinados
 PHRASE_OFFENSIVE_EQUIPMENT,[u]Offensive Equipment[/u],[u]Equipo ofensivo[/u]
 PHRASE_ONLY_PRODUCE,Only Produce,Solo producir
 PHRASE_POSSIBLE_IMPROVEMENTS,Possible Improvements,Posibles mejoras
@@ -151,6 +158,7 @@ PHRASE_RESEARCH_PROGRESS,Research Progress,Avances en la investigación
 PHRASE_THERE_IS_NEGATIVE_STORAGE,There is negative storage!,¡Hay almacenamiento negativo!
 PHRASE_UNDER_CONSTRUCTION,Under Construction,En obra
 PHRASE_USE_REMNANTS_FOR_CONSTRUCTION,Use Remnants for construction,Usar remanentes para la construcción
+,,
 RESEARCH_BASIC_PRODUCTION,Basic Production,Producción básica
 RESEARCH_BASIC_RESEARCHING,Basic Researching,Investigación Básica
 RESEARCH_BASIC_STORAGE,Basic Storage,Almacenamiento básico
@@ -164,6 +172,7 @@ SKILL_DESCRIPTION_COOL,Not written.,No está escrito.
 SKILL_DESCRIPTION_FARM,Not written.,No está escrito.
 SKILL_DESCRIPTION_FISH,Not written.,No está escrito.
 SKILL_DESCRIPTION_LABOR,Not written.,No está escrito.
+SKILL_DESCRIPTION_LEADERSHIP,The ability to organize and lead people.,La capacidad de organizar y liderar a las personas.
 SKILL_DESCRIPTION_LUMBERJACK,Not written.,No está escrito.
 SKILL_DESCRIPTION_PRODUCTION,Not written.,No está escrito.
 SKILL_DESCRIPTION_RESEARCH,Not written.,No está escrito.
@@ -174,6 +183,7 @@ SKILL_NAME_COOL,Cool,Fresco
 SKILL_NAME_FARM,Farm,Granja
 SKILL_NAME_FISH,Fish,Pescado
 SKILL_NAME_LABOR,Labor,Trabajo
+SKILL_NAME_LEADERSHIP,Leadership,Liderazgo
 SKILL_NAME_LUMBERJACK,Lumberjack,Leñador
 SKILL_NAME_PRODUCTION,Production,Producción
 SKILL_NAME_RESEARCH,Research,Investigación
@@ -185,10 +195,12 @@ TITLE_FACTION_LEADER,Faction Leader,Líder de facción
 WORD_ACTIVITY,Activity,Actividad
 WORD_AGE,Age,Edad
 WORD_ATTRIBUTES,Attributes,Atributos
+WORD_BUILD,Build,Construir
 WORD_CLOSE,Close,Cerrar
 WORD_CONSTRUCT,Construct,Construir
 WORD_CONSTRUCTION,Construction,Construcción
 WORD_DAY,Day:,Día
+WORD_EXPLORE,Explore,Explorar
 WORD_FEMALE,Female,Hembra
 WORD_GOODS,Goods,Bienes
 WORD_HELPFUL,Helpful,Útil
@@ -211,6 +223,7 @@ WORD_POPULATION,Population,Población
 WORD_PREREQUISITES,Prerequisites,Prerrequisitos
 WORD_PRIORITIZE,Prioritize,Priorizar
 WORD_RESEARCH,Research,Investigación
+WORD_SCAVENGE,Scavenge,Recoger la basura
 WORD_SEX,Sex,Sexo
 WORD_SKILLS,Skills,Habilidades
 WORD_SPEED,Speed:,Velocidad
@@ -219,16 +232,6 @@ WORD_TIME,Time:,Hora
 WORD_TITLES,Titles,Títulos
 WORD_TRAIN,Train,Tren
 WORD_VISITORS,Visitors,Visitantes
-WORD_EXPLORE,Explore,Explorar
 WORD_WORK,Work,Trabajo
-WORD_BUILD,Build,Construir
-WORD_SCAVENGE,Scavenge,Recoger la basura
-SKILL_NAME_LEADERSHIP,Leadership,Liderazgo
-SKILL_DESCRIPTION_LEADERSHIP,The ability to organize and lead people.,La capacidad de organizar y liderar a las personas.
-PHRASE_NUMBER_OF_SUBORDINATES,Number of Subordinates,Número de subordinados
-ACTIVITY_RECRUIT_NAME,Recruit,Reclutar
-ACTIVITY_RECRUIT_DESCRIPTION,Enlisting someone to serve a leader.,Reclutar a alguien para que sirva a un líder.
-ACTIVITY_RECRUIT_TOOLTIP,Enlisting someone to serve a leader.,Reclutar a alguien para que sirva a un líder.
-ACTIVITY_SERVICE_NAME,Service,Servicio
-ACTIVITY_SERVICE_DESCRIPTION,Following a leader as a subordinate.,Seguir a un líder como subordinado.
-ACITIVITY_SERVICE_TOOLTIP,Following a leader as a subordinate.,Seguir a un líder como subordinado.
+WORD_RECRUITED,Recruited,Reclutado
+PHRASE_NO_MORE_PEOPLE_TO_RECRUIT,No more people to recruit.,No hay más gente para reclutar.

@@ -35,18 +35,18 @@ public partial class SkillData : Resource
     public static bool CheckWithBonuses(int skillLevel, int attributeBonus, int additionalBonus, int perkBonus)
     {
         int skillCheckRoll = Globals.Instance.random.Next(1, 101);
-        GD.PrintRich($"[rainbow]Skill Check Roll: " + skillCheckRoll);
+        //GD.PrintRich($"[rainbow]Skill Check Roll: " + skillCheckRoll);
         // Make sure the skill level with the attribute bonus is not below 1.
         int finalSkillAmount = Math.Max(skillLevel + attributeBonus + additionalBonus + perkBonus, 1);
         // Rolling a 1 is always a success.
         if (skillCheckRoll <= finalSkillAmount)
         {
-            GD.Print($"Skill Checks: rolled a {skillCheckRoll} which is less then or equal {finalSkillAmount}");
+            //GD.Print($"Skill Checks: rolled a {skillCheckRoll} which is less then or equal {finalSkillAmount}");
             return (true);
         }
         else
         {
-            GD.Print($"Skill Checks: rolled a {skillCheckRoll} which is greater then {finalSkillAmount}");
+            //GD.Print($"Skill Checks: rolled a {skillCheckRoll} which is greater then {finalSkillAmount}");
             return (false);
         }
     }

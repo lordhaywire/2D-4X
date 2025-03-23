@@ -26,18 +26,18 @@ public class Quartermaster
                 : equipmentList.FirstOrDefault();
             if (goodToEquip != null)
             {
-                GD.Print("Good to equip: " + goodToEquip.goodName);
+                //GD.Print("Good to equip: " + goodToEquip.goodName);
                 CheckForAlreadyEquipedAndAdjustCountyGoods(countyData, goodToEquip, populationData);
             }
             else
             {
-                GD.Print("Good to equip is null.");
+                //GD.Print("Good to equip is null.");
             }
 
             // This is just for testing.
             foreach (GoodData goodData in equipmentList)
             {
-                GD.Print("GoodData in Equipment List: " + goodData.goodName + i);
+                //GD.Print("GoodData in Equipment List: " + goodData.goodName + i);
             }
             equipmentList.Clear();
         }

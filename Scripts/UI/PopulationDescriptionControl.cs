@@ -85,6 +85,7 @@ namespace PlayerSpace
         {
             inventoryVBoxContainer.PopulateEquipment(populationData);
             subordinatesVBoxContainer.UpdateNumberOfSubordinates(populationData);
+            subordinatesVBoxContainer.UpdateSubordinates(populationData.heroSubordinates);
 
             CountyInfoControl.Instance.DisableSpawnHeroCheckButton(true);
             PlayerControls.Instance.AdjustPlayerControls(false); // This was probably happening too fast which is why it is here.

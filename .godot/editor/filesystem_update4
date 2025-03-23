@@ -1,3 +1,24 @@
+res://Scenes/Main.tscn
+res://Resources/Story Events/FoundFood.tres
+res://Resources/Goods/Storage Perishable.tres
+res://Resources/County Improvements/Converted Warehouse.tres
+res://Resources/Goods/Fish.tres
+res://Resources/Goods/Vegetables.tres
+res://Resources/Goods/Wood.tres
+res://Resources/County Improvements/FishersShed.tres
+res://Resources/Goods/Canned Food.tres
+res://Resources/County Improvements/Garden.tres
+res://Resources/Goods/Building Materials.tres
+res://Resources/Goods/Equipment.tres
+res://Resources/Goods/PrimitiveScoutingEquipment.tres
+res://Resources/County Improvements/ScoutingEquipmentWorkshop.tres
+res://Resources/Goods/Food.tres
+res://Resources/Goods/Influence.tres
+res://Resources/County Improvements/ResearchersOffice.tres
+res://Prefabs/HeroToken.tscn
+res://Scenes/MapEditor.tscn
+res://UIScenes/StorageHbox.tscn
+res://UIScenes/HeroListCheckBoxPanelContainer.tscn
 res://Resources/ActivityData.cs
 res://Scripts/UI/ResearchControl.cs
 res://Scripts/AllSkills.cs
@@ -87,25 +108,9 @@ res://Scripts/Main.cs
 res://Scripts/UI/ResearchItemButton.cs
 res://Scripts/HeroToken.cs
 res://Scripts/RandomFactionColor.cs
-res://Scenes/Main.tscn
-res://Resources/Story Events/FoundFood.tres
-res://Resources/Goods/Storage Perishable.tres
-res://Resources/County Improvements/Converted Warehouse.tres
-res://Resources/Goods/Fish.tres
-res://Resources/Goods/Vegetables.tres
-res://Resources/Goods/Wood.tres
-res://Resources/County Improvements/FishersShed.tres
-res://Resources/Goods/Canned Food.tres
-res://Resources/County Improvements/Garden.tres
-res://Resources/Goods/Building Materials.tres
-res://Resources/Goods/Equipment.tres
-res://Resources/Goods/PrimitiveScoutingEquipment.tres
-res://Resources/County Improvements/ScoutingEquipmentWorkshop.tres
-res://Resources/Goods/Food.tres
-res://Resources/Goods/Influence.tres
-res://Resources/County Improvements/ResearchersOffice.tres
-res://Prefabs/HeroToken.tscn
-res://Scenes/MapEditor.tscn
-res://UIScenes/StorageHbox.tscn
-res://UIScenes/HeroListCheckBoxPanelContainer.tscn
-res://Resources/Perks/LeaderofPeople.tres
+res://Resources/Factions/PlayerFaction.tres
+res://Scripts/UI/SubordinateButton.cs
+res://UIScenes/Subordinate Button.tscn
+res://Scripts/Public Classes/Recruiter.cs
+res://Localization/2D 4X Main Text.en.translation
+res://Localization/2D 4X Main Text.es.translation

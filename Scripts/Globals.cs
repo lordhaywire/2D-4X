@@ -74,7 +74,7 @@ public partial class Globals : Node
     [ExportGroup("Population Generation")]
     [Export] public Node2D countiesParent; // Used for Population generation and random color.  I think we are going to change how the colors are distubuted.
     //[Export] public int heroPopulation = 1;
-    [Export] public int totalCapitolPop = 8;
+    [Export] public int totalCapitolPop = 20;
     [Export] public int minimumCountyPop = 1;
     [Export] public int maximumCountyPop = 4;
 

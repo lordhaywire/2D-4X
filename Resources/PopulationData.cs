@@ -236,6 +236,11 @@ public partial class PopulationData : Resource
         ResearchControl.Instance.assignedResearchers.Remove(this);
     }
 
+    public string GetFullName()
+    {
+        string fullName = $"{firstName} {lastName}";
+        return fullName;
+    }
     
     public PopulationData(
         FactionData factionData, int location, int lastLocation, int destination, string firstName, string lastName
