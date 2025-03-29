@@ -172,7 +172,7 @@ namespace PlayerSpace
                     heroPrefab.heroListButton.Disabled = true;
                     heroPrefab.spawnHeroButton.Hide();
                     heroPrefab.aideActivitiesHboxContainer.Hide();
-                    heroPrefab.armyActivitiesHboxContainer.Hide();
+                    heroPrefab.secondaryActivitiesHboxContainer.Hide();
                     continue;
                 }
                 // This checks if the location of the hero is in a nonplayer owned county.
@@ -182,13 +182,13 @@ namespace PlayerSpace
                     heroPrefab.spawnHeroButton.Disabled = true;
                     heroPrefab.heroListButton.Disabled = false;
                     heroPrefab.aideActivitiesHboxContainer.Hide();
-                    heroPrefab.armyActivitiesHboxContainer.Hide();
+                    heroPrefab.secondaryActivitiesHboxContainer.Hide();
                     continue;
                 }
 
                 if (populationData.IsThisAnArmy())
                 {
-                    heroPrefab.armyActivitiesHboxContainer.Show();
+                    heroPrefab.secondaryActivitiesHboxContainer.Show();
                 }
                 else
                 {
@@ -214,7 +214,7 @@ namespace PlayerSpace
         private static void SetDefaultUI(HeroPanelContainer heroPrefab)
         {
             heroPrefab.spawnHeroButton.Disabled = false;
-            heroPrefab.armyActivitiesHboxContainer.Hide();
+            heroPrefab.secondaryActivitiesHboxContainer.Hide();
             heroPrefab.aideActivitiesHboxContainer.Hide();
         }
 

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 26 26"
+   version="1.1"
+   id="svg8"
+   sodipodi:docname="Black Flag Recruiting 26x26.svg"
+   width="26"
+   height="26"
+   inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs12" />
+  <sodipodi:namedview
+     id="namedview10"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="5.6171875"
+     inkscape:cx="-15.043115"
+     inkscape:cy="45.752434"
+     inkscape:window-width="2560"
+     inkscape:window-height="1377"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg8" />
+  <path
+     d="M 0,0 H 26 V 26 H 0 Z"
+     fill="#000000"
+     fill-opacity="1"
+     id="path2"
+     style="stroke-width:1" />
+  <g
+     class=""
+     id="g6"
+     style="stroke-width:19.6923"
+     transform="scale(0.05078125)">
+    <path
+       d="m 256,22.438 c -130.314,0 -235.97,105.654 -235.97,235.968 0,130.315 105.656,235.938 235.97,235.938 1.483,0 2.96,-0.004 4.438,-0.03 l 80.75,-202.94 C 144.107,203.56 256.543,420.788 38.906,313.5 48.208,273.127 70.111,182.325 90.063,152.03 310.688,260.792 195.268,38.095 403.875,135.78 c 3.196,-4.52 7.158,-7.076 10.875,-7.905 7.96,-1.777 14.27,4.87 9.938,17.53 l -137.75,346.908 c 115.697,-15.15 205,-114.077 205,-233.907 C 491.938,128.092 386.314,22.436 256,22.436 Z m 139.625,132.03 c -36.11,16.943 -57.968,83.92 -47.28,118.845 l 47.28,-118.844 z"
+       fill="#ffffff"
+       fill-opacity="1"
+       id="path4"
+       style="stroke-width:87.3866" />
+  </g>
+</svg>

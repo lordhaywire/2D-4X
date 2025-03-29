@@ -2,13 +2,13 @@
   "version": 3,
   "targets": {
     "net8.0": {
-      "Godot.SourceGenerators/4.4.0": {
+      "Godot.SourceGenerators/4.4.1": {
         "type": "package",
         "build": {
           "build/Godot.SourceGenerators.props": {}
         }
       },
-      "GodotSharp/4.4.0": {
+      "GodotSharp/4.4.1": {
         "type": "package",
         "compile": {
           "lib/net8.0/GodotSharp.dll": {
@@ -21,10 +21,10 @@
           }
         }
       },
-      "GodotSharpEditor/4.4.0": {
+      "GodotSharpEditor/4.4.1": {
         "type": "package",
         "dependencies": {
-          "GodotSharp": "4.4.0"
+          "GodotSharp": "4.4.1"
         },
         "compile": {
           "lib/net8.0/GodotSharpEditor.dll": {
@@ -40,40 +40,40 @@
     }
   },
   "libraries": {
-    "Godot.SourceGenerators/4.4.0": {
-      "sha512": "eoC+ccuHNDvOqb+8AKsAAOhVYfk+/zZwUhTYazMOfZoHdQnx8eWI6iHECBPVwxtR9sSsp68ovLoJAIv4xYOKpA==",
+    "Godot.SourceGenerators/4.4.1": {
+      "sha512": "V/cuX41BxippWGD79zrP2bhqfXkuyiy9OFuCkTu3flo7I6STSJca637TL2phe7rzROIFre0vQR1+PAMdsjO3zg==",
       "type": "package",
-      "path": "godot.sourcegenerators/4.4.0",
+      "path": "godot.sourcegenerators/4.4.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "analyzers/dotnet/cs/Godot.SourceGenerators.dll",
         "build/Godot.SourceGenerators.props",
-        "godot.sourcegenerators.4.4.0.nupkg.sha512",
+        "godot.sourcegenerators.4.4.1.nupkg.sha512",
         "godot.sourcegenerators.nuspec"
       ]
     },
-    "GodotSharp/4.4.0": {
-      "sha512": "4CQWLbgUVXU/yQjKafkIs204kVd3R4D6qnYcwC9HHv33xfAninl3j0AcPQgFU2eVmGYNEHnIXUZtrZh7WU5tig==",
+    "GodotSharp/4.4.1": {
+      "sha512": "ghnQEo5LikQPfbCYcVxje8epffNCiyNG4zvGWUDRZRC1O+653+yqG3wdxk3+5RZsA3jaRuGKRavsGcnhLKe12g==",
       "type": "package",
-      "path": "godotsharp/4.4.0",
+      "path": "godotsharp/4.4.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "godotsharp.4.4.0.nupkg.sha512",
+        "godotsharp.4.4.1.nupkg.sha512",
         "godotsharp.nuspec",
         "lib/net8.0/GodotSharp.dll",
         "lib/net8.0/GodotSharp.xml"
       ]
     },
-    "GodotSharpEditor/4.4.0": {
-      "sha512": "vX6aagWM2VsKYd1QqyqY+Cz1rkA5Dq0tgnxl0VYMolpQoOsdtz71yGQxoE1pdqOqatardg9e951GXK5Zz6nnbg==",
+    "GodotSharpEditor/4.4.1": {
+      "sha512": "cc3nA24r/sjW8KxrNqfSQk4CQMQYcg/kYk5935R88IhGBdRuTH4miaBXPlzR/td5GR8i1oGtCMWyW8axpQ0DxA==",
       "type": "package",
-      "path": "godotsharpeditor/4.4.0",
+      "path": "godotsharpeditor/4.4.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "godotsharpeditor.4.4.0.nupkg.sha512",
+        "godotsharpeditor.4.4.1.nupkg.sha512",
         "godotsharpeditor.nuspec",
         "lib/net8.0/GodotSharpEditor.dll",
         "lib/net8.0/GodotSharpEditor.xml"
@@ -82,9 +82,9 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "Godot.SourceGenerators >= 4.4.0",
-      "GodotSharp >= 4.4.0",
-      "GodotSharpEditor >= 4.4.0"
+      "Godot.SourceGenerators >= 4.4.1",
+      "GodotSharp >= 4.4.1",
+      "GodotSharpEditor >= 4.4.1"
     ]
   },
   "packageFolders": {
@@ -95,11 +95,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\GODOT\\PROJECTS\\2D 4X\\2d 4x.csproj",
+      "projectUniqueName": "E:\\Godot\\Projects\\2D 4X\\2d 4x.csproj",
       "projectName": "2d 4x",
-      "projectPath": "E:\\GODOT\\PROJECTS\\2D 4X\\2d 4x.csproj",
+      "projectPath": "E:\\Godot\\Projects\\2D 4X\\2d 4x.csproj",
       "packagesPath": "C:\\Users\\lordhaywire\\.nuget\\packages\\",
-      "outputPath": "E:\\GODOT\\PROJECTS\\2D 4X\\.godot\\mono\\temp\\obj\\",
+      "outputPath": "E:\\Godot\\Projects\\2D 4X\\.godot\\mono\\temp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Users\\lordhaywire\\AppData\\Roaming\\Godot\\mono\\GodotNuGetFallbackFolder",
@@ -143,15 +143,15 @@
         "dependencies": {
           "Godot.SourceGenerators": {
             "target": "Package",
-            "version": "[4.4.0, )"
+            "version": "[4.4.1, )"
           },
           "GodotSharp": {
             "target": "Package",
-            "version": "[4.4.0, )"
+            "version": "[4.4.1, )"
           },
           "GodotSharpEditor": {
             "target": "Package",
-            "version": "[4.4.0, )"
+            "version": "[4.4.1, )"
           }
         },
         "imports": [

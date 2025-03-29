@@ -14,7 +14,7 @@ public partial class HeroPanelContainer : PanelContainer
     [Export] public Button heroListButton;
     [Export] public CheckButton spawnHeroButton;
     [Export] public HBoxContainer aideActivitiesHboxContainer;
-    [Export] public HBoxContainer armyActivitiesHboxContainer;
+    [Export] public HBoxContainer secondaryActivitiesHboxContainer;
     [Export] public CheckBox[] heroCheckBoxes;
     private void HeroButtonOnPressed()
     {

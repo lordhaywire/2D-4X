@@ -19,6 +19,7 @@ res://Prefabs/HeroToken.tscn
 res://Scenes/MapEditor.tscn
 res://UIScenes/StorageHbox.tscn
 res://UIScenes/HeroListCheckBoxPanelContainer.tscn
+res://UIScenes/Subordinate Button.tscn
 res://Resources/ActivityData.cs
 res://Scripts/UI/ResearchControl.cs
 res://Scripts/AllSkills.cs
@@ -108,9 +109,6 @@ res://Scripts/Main.cs
 res://Scripts/UI/ResearchItemButton.cs
 res://Scripts/HeroToken.cs
 res://Scripts/RandomFactionColor.cs
-res://Resources/Factions/PlayerFaction.tres
 res://Scripts/UI/SubordinateButton.cs
-res://UIScenes/Subordinate Button.tscn
-res://Scripts/Public Classes/Recruiter.cs
 res://Localization/2D 4X Main Text.en.translation
 res://Localization/2D 4X Main Text.es.translation

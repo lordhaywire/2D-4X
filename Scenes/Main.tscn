@@ -630,7 +630,7 @@ layout_mode = 2
 focus_mode = 0
 mouse_filter = 1
 theme_override_styles/normal = SubResource("StyleBoxFlat_1crxt")
-text = "WORD_RESEARCH"
+text = "ACTIVITY_RESEARCH_NAME"
 
 [node name="Speed Panel" type="PanelContainer" parent="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox"]
 custom_minimum_size = Vector2(75, 0)
@@ -1374,9 +1374,9 @@ skillLabels = [NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxCont
 interestLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Interest Label")
 preferredWorkLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Preferred Work Label")
 currentActivityLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Activity Label")
-InventoryAndSubordinatesInventoryVBoxContainer = NodePath("")
-inventoryVBoxContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer")
-subordinatesVBoxContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer")
+InventoryAndSubordinatesInventoryVBoxContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer")
+inventoryVBoxContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer")
+subordinatesVBoxContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer")
 aideRecruitButton = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Recruit Aide Button")
 armyLeaderRecruitButton = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Recruit Army Button")
 heroRecruitmentConfirmPanel = NodePath("../Recuit Hero Confirmation PanelContainer")
@@ -1824,167 +1824,171 @@ text = "Activity"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Inventory and Subordinates Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer"]
+[node name="Inventory and Subordinates VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer"]
+layout_mode = 2
+
+[node name="Inventory and Subordinates Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "PHRASE_INVENTORY_AND_SUBORDINATES"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Inventory and Subordinates HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer"]
+[node name="Inventory and Subordinates HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer"]
 layout_mode = 2
 
-[node name="Inventory VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer" node_paths=PackedStringArray("newestEquipment", "equipment")]
+[node name="Inventory VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer" node_paths=PackedStringArray("newestEquipment", "equipment")]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("117_0j4c6")
 newestEquipment = NodePath("Newest Equipment CheckBox")
 equipment = [NodePath("Reconnaissance Label"), NodePath("Offensive Label"), NodePath("Defensive Label"), NodePath("Medical Label"), NodePath("Auxiliary Label")]
 
-[node name="Inventory Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
+[node name="Inventory Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
 layout_mode = 2
 text = "WORD_INVENTORY"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Newest Equipment CheckBox" type="CheckBox" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
+[node name="Newest Equipment CheckBox" type="CheckBox" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 focus_mode = 0
 text = "PHRASE_NEWEST_EQUIPMENT"
 
-[node name="Reconnaissance Title RichTextLabel" type="RichTextLabel" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
+[node name="Reconnaissance Title RichTextLabel" type="RichTextLabel" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
 text = "PHRASE_RECONNAISSANCE_EQUIPMENT"
 fit_content = true
 horizontal_alignment = 1
 
-[node name="Reconnaissance Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
+[node name="Reconnaissance Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "Eye glasses"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Offensive Equipment RichTextLabel4" type="RichTextLabel" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
+[node name="Offensive Equipment RichTextLabel4" type="RichTextLabel" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
 text = "PHRASE_OFFENSIVE_EQUIPMENT"
 fit_content = true
 horizontal_alignment = 1
 
-[node name="Offensive Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
+[node name="Offensive Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "Pew pew laser"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Defensive Equipment RichTextLabel3" type="RichTextLabel" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
+[node name="Defensive Equipment RichTextLabel3" type="RichTextLabel" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
 text = "PHRASE_DEFENSIVE_EQUIPMENT"
 fit_content = true
 horizontal_alignment = 1
 
-[node name="Defensive Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
+[node name="Defensive Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "Bark Armor"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Medical Equipment RichTextLabel2" type="RichTextLabel" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
+[node name="Medical Equipment RichTextLabel2" type="RichTextLabel" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
 text = "PHRASE_MEDICAL_EQUIPMENT"
 fit_content = true
 horizontal_alignment = 1
 
-[node name="Medical Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
+[node name="Medical Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "Blood Bag"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Auxiliary Equipment RichTextLabel5" type="RichTextLabel" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
+[node name="Auxiliary Equipment RichTextLabel5" type="RichTextLabel" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
 text = "PHRASE_AUXILIARY_EQUIPMENT"
 fit_content = true
 horizontal_alignment = 1
 
-[node name="Auxiliary Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
+[node name="Auxiliary Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "Aux"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Subordinates VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer" node_paths=PackedStringArray("numberOfSubordinatesSpinbox", "subordinatesListVBoxContainer")]
+[node name="Subordinates VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer" node_paths=PackedStringArray("numberOfSubordinatesLabel", "numberOfSubordinatesSpinbox", "subordinatesListVBoxContainer")]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("119_mjyee")
+numberOfSubordinatesLabel = NodePath("Subordinates HBoxContainer/Number of Subordinates Label")
 numberOfSubordinatesSpinbox = NodePath("Subordinates HBoxContainer/Number of Subordinates SpinBox")
 subordinatesListVBoxContainer = NodePath("Subordinates ScrollContainer/Subordinate VBoxContainer")
 subordinateButtonPackedScene = ExtResource("122_dwns0")
 
-[node name="Subordinates Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer"]
+[node name="Subordinates Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer"]
 layout_mode = 2
 text = "WORD_SUBORDINATES"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Subordinates HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer"]
+[node name="Subordinates HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Number of Subordinates Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer/Subordinates HBoxContainer"]
+[node name="Number of Subordinates Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer/Subordinates HBoxContainer"]
 layout_mode = 2
 text = "PHRASE_NUMBER_OF_SUBORDINATES"
 
-[node name="Number of Subordinates SpinBox" type="SpinBox" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer/Subordinates HBoxContainer"]
+[node name="Number of Subordinates SpinBox" type="SpinBox" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer/Subordinates HBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Subordinates ScrollContainer" type="ScrollContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer"]
+[node name="Subordinates ScrollContainer" type="ScrollContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Subordinate VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer/Subordinates ScrollContainer"]
+[node name="Subordinate VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer/Subordinates ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Subordinate Button" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer/Subordinates ScrollContainer/Subordinate VBoxContainer" instance=ExtResource("122_dwns0")]
+[node name="Subordinate Button" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer/Subordinates ScrollContainer/Subordinate VBoxContainer" instance=ExtResource("122_dwns0")]
 layout_mode = 2
 
-[node name="Subordinate Button2" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer/Subordinates ScrollContainer/Subordinate VBoxContainer" instance=ExtResource("122_dwns0")]
-layout_mode = 2
-focus_mode = 2
-
-[node name="Subordinate Button3" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer/Subordinates ScrollContainer/Subordinate VBoxContainer" instance=ExtResource("122_dwns0")]
+[node name="Subordinate Button2" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer/Subordinates ScrollContainer/Subordinate VBoxContainer" instance=ExtResource("122_dwns0")]
 layout_mode = 2
 focus_mode = 2
 
-[node name="Subordinate Button4" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer/Subordinates ScrollContainer/Subordinate VBoxContainer" instance=ExtResource("122_dwns0")]
+[node name="Subordinate Button3" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer/Subordinates ScrollContainer/Subordinate VBoxContainer" instance=ExtResource("122_dwns0")]
 layout_mode = 2
 focus_mode = 2
 
-[node name="Subordinate Button5" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer/Subordinates ScrollContainer/Subordinate VBoxContainer" instance=ExtResource("122_dwns0")]
+[node name="Subordinate Button4" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer/Subordinates ScrollContainer/Subordinate VBoxContainer" instance=ExtResource("122_dwns0")]
 layout_mode = 2
 focus_mode = 2
 
-[node name="Subordinate Button6" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer/Subordinates ScrollContainer/Subordinate VBoxContainer" instance=ExtResource("122_dwns0")]
+[node name="Subordinate Button5" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer/Subordinates ScrollContainer/Subordinate VBoxContainer" instance=ExtResource("122_dwns0")]
 layout_mode = 2
 focus_mode = 2
 
-[node name="Subordinate Button7" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer/Subordinates ScrollContainer/Subordinate VBoxContainer" instance=ExtResource("122_dwns0")]
+[node name="Subordinate Button6" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer/Subordinates ScrollContainer/Subordinate VBoxContainer" instance=ExtResource("122_dwns0")]
 layout_mode = 2
 focus_mode = 2
 
-[node name="Subordinate Button8" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer/Subordinates ScrollContainer/Subordinate VBoxContainer" instance=ExtResource("122_dwns0")]
+[node name="Subordinate Button7" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer/Subordinates ScrollContainer/Subordinate VBoxContainer" instance=ExtResource("122_dwns0")]
+layout_mode = 2
+focus_mode = 2
+
+[node name="Subordinate Button8" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer/Subordinates ScrollContainer/Subordinate VBoxContainer" instance=ExtResource("122_dwns0")]
 layout_mode = 2
 focus_mode = 2
 
@@ -2826,8 +2830,8 @@ process_mode = 3
 [connection signal="button_up" from="Player UI Canvas/Population List MarginContainer/Close Button" to="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer" method="CloseButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Population Description Control" to="Player UI Canvas/Population Description Control" method="OnPopulationDescriptionControlVisibilityChanged"]
 [connection signal="pressed" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Recruit Army Button" to="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Recruit Army Button" method="OpenConfirmationPanel" binds= [true]]
-[connection signal="pressed" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer/Newest Equipment CheckBox" to="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer" method="NewestEquipmentCheckboxPressed"]
-[connection signal="value_changed" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer/Subordinates HBoxContainer/Number of Subordinates SpinBox" to="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer" method="NumberOfSubordinatesValueChanged"]
+[connection signal="pressed" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer/Newest Equipment CheckBox" to="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer" method="NewestEquipmentCheckboxPressed"]
+[connection signal="value_changed" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer/Subordinates HBoxContainer/Number of Subordinates SpinBox" to="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer" method="NumberOfSubordinatesValueChanged"]
 [connection signal="pressed" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Recruit Aide Button" to="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Recruit Aide Button" method="OpenConfirmationPanel" binds= [false]]
 [connection signal="button_up" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/Close Button" to="Player UI Canvas/Population Description Control" method="CloseButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Recuit Hero Confirmation PanelContainer" to="Player UI Canvas/Recuit Hero Confirmation PanelContainer" method="OnVisibilityChange"]

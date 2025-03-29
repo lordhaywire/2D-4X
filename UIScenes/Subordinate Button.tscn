@@ -1,5 +1,8 @@
-[gd_scene format=3 uid="uid://c5i5kenx6xcam"]
+[gd_scene load_steps=2 format=3 uid="uid://c5i5kenx6xcam"]
+
+[ext_resource type="Script" uid="uid://xqdbtx6170g3" path="res://Scripts/UI/SubordinateButton.cs" id="1_hmryo"]
 
 [node name="Subordinate Button" type="Button"]
 focus_mode = 0
 text = "Gibberissh"
+script = ExtResource("1_hmryo")
