@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://cbhysuf8k32i5" path="res://Graphics/Heroes/Black Flag Recruiting 26x26.svg" id="10_gyu1m"]
 [ext_resource type="Texture2D" uid="uid://toeud0ofktrk" path="res://Graphics/Heroes/Army Box Train 26x26.svg" id="10_m61kt"]
 
-[node name="Hero PanelContainer" type="PanelContainer" node_paths=PackedStringArray("factionLeaderTextureRect", "aideTextureRect", "armyLeaderTextureRect", "heroNameLabel", "heroListButton", "spawnHeroButton", "aideActivitiesHboxContainer", "secondaryActivitiesHboxContainer", "heroCheckBoxes")]
+[node name="Hero PanelContainer" type="PanelContainer" node_paths=PackedStringArray("factionLeaderTextureRect", "aideTextureRect", "armyLeaderTextureRect", "heroNameLabel", "heroListButton", "spawnHeroButton", "aideActivitiesHboxContainer", "secondaryActivitiesHboxContainer")]
 custom_minimum_size = Vector2(300, 50)
 offset_right = 300.0
 offset_bottom = 100.0
@@ -28,7 +28,6 @@ heroListButton = NodePath("Hero List Button")
 spawnHeroButton = NodePath("Spawn CheckButton")
 aideActivitiesHboxContainer = NodePath("VBoxContainer/Aide Activites HBoxContainer")
 secondaryActivitiesHboxContainer = NodePath("VBoxContainer/Secondary Activites HBoxContainer")
-heroCheckBoxes = [NodePath("VBoxContainer/Aide Activites HBoxContainer/Scavenge CheckBox"), NodePath("VBoxContainer/Aide Activites HBoxContainer/Build CheckBox"), NodePath("VBoxContainer/Aide Activites HBoxContainer/Work CheckBox"), NodePath("VBoxContainer/Aide Activites HBoxContainer/Research CheckBox"), NodePath("VBoxContainer/Aide Activites HBoxContainer/Explore CheckBox")]
 
 [node name="Hero List Button" type="Button" parent="."]
 self_modulate = Color(1, 1, 1, 0)
@@ -159,19 +158,14 @@ focus_mode = 0
 [connection signal="pressed" from="Hero List Button" to="." method="HeroButtonOnPressed"]
 [connection signal="mouse_entered" from="VBoxContainer/Aide Activites HBoxContainer/Scavenge CheckBox" to="." method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="VBoxContainer/Aide Activites HBoxContainer/Scavenge CheckBox" to="." method="OnMouseExitedUI"]
-[connection signal="pressed" from="VBoxContainer/Aide Activites HBoxContainer/Scavenge CheckBox" to="." method="HeroActivitiesCheckBoxPressed" binds= [0]]
 [connection signal="mouse_entered" from="VBoxContainer/Aide Activites HBoxContainer/Build CheckBox" to="." method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="VBoxContainer/Aide Activites HBoxContainer/Build CheckBox" to="." method="OnMouseExitedUI"]
-[connection signal="pressed" from="VBoxContainer/Aide Activites HBoxContainer/Build CheckBox" to="." method="HeroActivitiesCheckBoxPressed" binds= [1]]
 [connection signal="mouse_entered" from="VBoxContainer/Aide Activites HBoxContainer/Work CheckBox" to="." method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="VBoxContainer/Aide Activites HBoxContainer/Work CheckBox" to="." method="OnMouseExitedUI"]
-[connection signal="pressed" from="VBoxContainer/Aide Activites HBoxContainer/Work CheckBox" to="." method="HeroActivitiesCheckBoxPressed" binds= [2]]
 [connection signal="mouse_entered" from="VBoxContainer/Aide Activites HBoxContainer/Research CheckBox" to="." method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="VBoxContainer/Aide Activites HBoxContainer/Research CheckBox" to="." method="OnMouseExitedUI"]
-[connection signal="pressed" from="VBoxContainer/Aide Activites HBoxContainer/Research CheckBox" to="." method="HeroActivitiesCheckBoxPressed" binds= [3]]
 [connection signal="mouse_entered" from="VBoxContainer/Aide Activites HBoxContainer/Explore CheckBox" to="." method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="VBoxContainer/Aide Activites HBoxContainer/Explore CheckBox" to="." method="OnMouseExitedUI"]
-[connection signal="pressed" from="VBoxContainer/Aide Activites HBoxContainer/Explore CheckBox" to="." method="HeroActivitiesCheckBoxPressed" binds= [4]]
 [connection signal="mouse_entered" from="VBoxContainer/Secondary Activites HBoxContainer/Recruit CheckBox" to="." method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="VBoxContainer/Secondary Activites HBoxContainer/Recruit CheckBox" to="." method="OnMouseExitedUI"]
 [connection signal="mouse_entered" from="VBoxContainer/Secondary Activites HBoxContainer/Muster CheckBox" to="." method="OnMouseEnteredUI"]

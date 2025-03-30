@@ -43,6 +43,19 @@ public partial class Clock : Node
         }
     }
 
+    public override void _Ready()
+    {
+        Instance = this;
+
+        ModifiedTimeScale = 1;
+        oldTimeSpeed = 1;
+
+        if (Globals.Instance.startPaused == true)
+        {
+            PauseTime();
+        }
+    }
+
     public void PauseTime()
     {
         //GD.Print("Pause Time!");
@@ -128,18 +141,6 @@ public partial class Clock : Node
         }
     }
 
-    public override void _Ready()
-    {
-        Instance = this;
-
-        ModifiedTimeScale = 1;
-        oldTimeSpeed = 1;
-
-        if (Globals.Instance.startPaused == true)
-        {
-            PauseTime();
-        }
-    }
 
     // Should this be _PhysicsProcess or just _Process?
     public override void _PhysicsProcess(double delta)

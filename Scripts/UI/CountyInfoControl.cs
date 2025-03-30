@@ -225,13 +225,13 @@ namespace PlayerSpace
                 if (countyImprovementData.maxWorkers > 0
                     && countyImprovementData.factionResourceType != AllEnums.FactionGoodType.Research)
                 {
-                    heroPrefab.heroCheckBoxes[2].Disabled = false;
+                    heroPrefab.heroCheckBoxesList[2].Disabled = false;
                 }
             }
             // Build
             if (countyData.underConstructionCountyImprovementList.Count > 0)
             {
-                heroPrefab.heroCheckBoxes[1].Disabled = false;
+                heroPrefab.heroCheckBoxesList[1].Disabled = false;
             }
         }
 
@@ -242,11 +242,11 @@ namespace PlayerSpace
         /// <param name="heroPrefab"></param>
         private void DisableMostActivityCheckboxes(HeroPanelContainer heroPrefab)
         {
-            foreach (CheckBox checkBox in heroPrefab.heroCheckBoxes)
+            foreach (CheckBox checkBox in heroPrefab.heroCheckBoxesList)
             {
-                if (checkBox != heroPrefab.heroCheckBoxes[0]
-                    && checkBox != heroPrefab.heroCheckBoxes[3]
-                    && checkBox != heroPrefab.heroCheckBoxes[4])
+                if (checkBox != heroPrefab.heroCheckBoxesList[0]
+                    && checkBox != heroPrefab.heroCheckBoxesList[3]
+                    && checkBox != heroPrefab.heroCheckBoxesList[4])
                 {
                     checkBox.Disabled = true;
                 }
@@ -259,19 +259,19 @@ namespace PlayerSpace
             switch (populationData.activity)
             {
                 case AllEnums.Activities.Scavenge:
-                    heroPrefab.heroCheckBoxes[0].ButtonPressed = true;
+                    heroPrefab.heroCheckBoxesList[0].ButtonPressed = true;
                     return;
                 case AllEnums.Activities.Build:
-                    heroPrefab.heroCheckBoxes[1].ButtonPressed = true;
+                    heroPrefab.heroCheckBoxesList[1].ButtonPressed = true;
                     return;
                 case AllEnums.Activities.Work:
-                    heroPrefab.heroCheckBoxes[2].ButtonPressed = true;
+                    heroPrefab.heroCheckBoxesList[2].ButtonPressed = true;
                     return;
                 case AllEnums.Activities.Research:
-                    heroPrefab.heroCheckBoxes[3].ButtonPressed = true;
+                    heroPrefab.heroCheckBoxesList[3].ButtonPressed = true;
                     return;
                 case AllEnums.Activities.Explore:
-                    heroPrefab.heroCheckBoxes[4].ButtonPressed = true;
+                    heroPrefab.heroCheckBoxesList[4].ButtonPressed = true;
                     return;
             }
         }

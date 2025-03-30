@@ -31,7 +31,7 @@ namespace PlayerSpace
                 else
                 {
                     populationListTitle.Text = $"{Globals.Instance.SelectedLeftClickCounty.countyData.countyName} " +
-                        $"{Tr("WORD_VISITORS")}";
+                        Tr("WORD_VISITORS");
                     GeneratePopulationRows(Globals.Instance.SelectedLeftClickCounty.countyData.visitingHeroList);
                 }
             }

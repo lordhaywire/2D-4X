@@ -19,6 +19,11 @@ public partial class TopBarControl : Control
     [Export] private Label equipmentAmountUsed;
     [Export] private Label foodLabel;
     [Export] private Label foodAmountUsed;
+    [Export] private Button x0Button;
+    [Export] private Button x1Button;
+    [Export] private Button x2Button;
+    [Export] private Button x4Button;
+    [Export] private Button x8Button;
 
     FactionData factionData;
 
@@ -27,6 +32,16 @@ public partial class TopBarControl : Control
         Instance = this;
         factionData = Globals.Instance.playerFactionData;
         UpdateTopBarGoodLabels();
+        CreateSignalsForTimeButtons();
+    }
+
+    private void CreateSignalsForTimeButtons()
+    {
+        x0Button.Pressed += () => Clock.Instance.ChangeSpeed(0);
+        x1Button.Pressed += () => Clock.Instance.ChangeSpeed(1);
+        x2Button.Pressed += () => Clock.Instance.ChangeSpeed(2);
+        x4Button.Pressed += () => Clock.Instance.ChangeSpeed(4);
+        x8Button.Pressed += () => Clock.Instance.ChangeSpeed(8);
     }
 
     public void UpdateTopBarGoodLabels()
@@ -57,16 +72,19 @@ public partial class TopBarControl : Control
 
         foodLabel.Text = $"{countyData.CountFactionResourceOfType(AllEnums.FactionGoodType.Food)}";
         remnantsLabel.Text = $"{countyData.CountFactionResourceOfType(AllEnums.FactionGoodType.Remnants)}";
-        buildingMaterialsLabel.Text = $"{countyData.CountFactionResourceOfType(AllEnums.FactionGoodType.BuildingMaterial)}";
+        buildingMaterialsLabel.Text =
+            $"{countyData.CountFactionResourceOfType(AllEnums.FactionGoodType.BuildingMaterial)}";
         equipmentLabel.Text = $"{countyData.CountFactionResourceOfType(AllEnums.FactionGoodType.Equipment)}";
     }
+
     private void UpdateLabelWithCountyUsedAmount()
     {
         CountyData countyData = Globals.Instance.SelectedLeftClickCounty.countyData;
 
         foodAmountUsed.Text = $"({countyData.CountUsedFactionResourceOfType(AllEnums.FactionGoodType.Food)})";
         remnantsAmountUsed.Text = $"({countyData.CountUsedFactionResourceOfType(AllEnums.FactionGoodType.Remnants)})";
-        buildingMaterialsAmountUsed.Text = $"({countyData.CountUsedFactionResourceOfType(AllEnums.FactionGoodType.BuildingMaterial)})";
+        buildingMaterialsAmountUsed.Text =
+            $"({countyData.CountUsedFactionResourceOfType(AllEnums.FactionGoodType.BuildingMaterial)})";
         equipmentAmountUsed.Text = $"({countyData.CountUsedFactionResourceOfType(AllEnums.FactionGoodType.Equipment)})";
     }
 
@@ -75,6 +93,7 @@ public partial class TopBarControl : Control
         influenceLabel.Text = factionData.factionGoods[AllEnums.FactionGoodType.Influence].Amount.ToString();
         moneyLabel.Text = factionData.factionGoods[AllEnums.FactionGoodType.Money].Amount.ToString();
     }
+
     private void UpdateUsedInfluenceMoneyLabels()
     {
         influenceAmountUsed.Text
@@ -100,7 +119,8 @@ public partial class TopBarControl : Control
     {
         foodAmountUsed.Text = $"({factionData.amountUsedFactionGoods[AllEnums.FactionGoodType.Food].Amount})";
         remnantsAmountUsed.Text = $"({factionData.amountUsedFactionGoods[AllEnums.FactionGoodType.Remnants].Amount})";
-        buildingMaterialsAmountUsed.Text = $"({factionData.amountUsedFactionGoods[AllEnums.FactionGoodType.BuildingMaterial].Amount})";
+        buildingMaterialsAmountUsed.Text =
+            $"({factionData.amountUsedFactionGoods[AllEnums.FactionGoodType.BuildingMaterial].Amount})";
         equipmentAmountUsed.Text = $"({factionData.amountUsedFactionGoods[AllEnums.FactionGoodType.Equipment].Amount})";
     }
 
@@ -108,7 +128,8 @@ public partial class TopBarControl : Control
     {
         foodLabel.Text = factionData.factionGoods[AllEnums.FactionGoodType.Food].Amount.ToString();
         remnantsLabel.Text = factionData.factionGoods[AllEnums.FactionGoodType.Remnants].Amount.ToString();
-        buildingMaterialsLabel.Text = factionData.factionGoods[AllEnums.FactionGoodType.BuildingMaterial].Amount.ToString();
+        buildingMaterialsLabel.Text =
+            factionData.factionGoods[AllEnums.FactionGoodType.BuildingMaterial].Amount.ToString();
         equipmentLabel.Text = factionData.factionGoods[AllEnums.FactionGoodType.Equipment].Amount.ToString();
     }
 

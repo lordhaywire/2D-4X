@@ -1,2 +1,0 @@
-ActivityData
-SkillData

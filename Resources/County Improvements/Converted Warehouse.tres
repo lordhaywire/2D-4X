@@ -40,7 +40,7 @@ improvementName = "IMPROVEMENT_CONVERTED_WAREHOUSE"
 improvementDescription = "IMPROVEMENT_DESCRIPTION_CONVERTED_WAREHOUSE"
 workSkill = 4
 interestData = ExtResource("2_cl8dw")
-goodsConstructionCost = Dictionary[ExtResource("1_pwja6"), int]({})
+goodsConstructionCost = {}
 CurrentAmountOfConstruction = 0
 maxAmountOfConstruction = 50
 maxBuilders = 5
@@ -54,8 +54,8 @@ ExtResource("3_ouxf7"): SubResource("Resource_kdctx"),
 ExtResource("5_pwja6"): SubResource("Resource_mvq14")
 })
 allDailyWorkAmountAtImprovementCompleted = 0
-uniqueInputGoods = Dictionary[ExtResource("1_pwja6"), int]({})
-inputGoods = Dictionary[ExtResource("1_pwja6"), int]({})
+uniqueInputGoods = {}
+inputGoods = {}
 countyStockpiledGoods = Dictionary[int, int]({})
 status = 0
 populationAtImprovement = Array[ExtResource("7_kdctx")]([])

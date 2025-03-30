@@ -48,7 +48,7 @@ outputGoods = Dictionary[ExtResource("1_sp5ji"), ExtResource("5_e0wa3")]({
 ExtResource("4_sycl5"): SubResource("Resource_urcy4")
 })
 allDailyWorkAmountAtImprovementCompleted = 0
-uniqueInputGoods = Dictionary[ExtResource("1_sp5ji"), int]({})
+uniqueInputGoods = {}
 inputGoods = Dictionary[ExtResource("1_sp5ji"), int]({
 ExtResource("2_40yu6"): 100,
 ExtResource("1_urcy4"): 1

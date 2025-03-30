@@ -1,15 +1,13 @@
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
+// ReSharper disable SuggestVarOrType_SimpleTypes
 
 namespace PlayerSpace
 {
     public partial class PopulationDescriptionControl : Control
     {
         public static PopulationDescriptionControl Instance { get; private set; }
-
-        [Export] private HBoxContainer perksParent;
-        [Export] private PackedScene perkLabel;
 
         [Export] private Label populationName;
         [Export] private Button leaderTitleButton;
@@ -26,8 +24,11 @@ namespace PlayerSpace
         [Export] private Label loyaltyAttributeLabel;
         [Export] private Label ageLabel;
         [Export] private Label sexLabel;
-        [Export] private Label[] skillLabels;
-
+        
+        [Export] private HBoxContainer perksParent;
+        [Export] private PackedScene perkLabel;
+        [Export] private GridContainer skillsGridContainer;
+        
         [Export] private Label interestLabel;
         [Export] private Label preferredWorkLabel;
         [Export] private Label currentActivityLabel;
@@ -37,8 +38,9 @@ namespace PlayerSpace
         [Export] public SubordinatesVBoxContainer subordinatesVBoxContainer;
         [Export] private Button aideRecruitButton;
         [Export] private Button armyLeaderRecruitButton;
-        [Export] private PanelContainer heroRecruitmentConfirmPanel;
+        [Export] private RecruitHeroConfirmationPanelContainer heroRecruitmentConfirmPanel;
 
+        private List<Label> skillLabelsList = [];
         public PopulationData populationData;
 
         public bool heroButtonClicked; // If the player has clicked a hero from the list below the countyinfo panel.
@@ -46,6 +48,28 @@ namespace PlayerSpace
         public override void _Ready()
         {
             Instance = this;
+            GetSkillLabels();
+            ConnectRecruitmentButtonsSignals();
+        }
+
+        private void ConnectRecruitmentButtonsSignals()
+        {
+            aideRecruitButton.Pressed += () => OpenConfirmationPanel(false); 
+            armyLeaderRecruitButton.Pressed += () => OpenConfirmationPanel(true); 
+        }
+        
+        private void OpenConfirmationPanel(bool armyLeaderRecruited)
+        {
+            heroRecruitmentConfirmPanel.Show();
+            heroRecruitmentConfirmPanel.armyLeaderRecruited = armyLeaderRecruited;
+        }
+
+        private void GetSkillLabels()
+        {
+            foreach (Label label in skillsGridContainer.GetChildren().Cast<Label>())
+            {
+                skillLabelsList.Add(label);
+            }
         }
 
         private void OnPopulationDescriptionControlVisibilityChanged()
@@ -267,7 +291,7 @@ namespace PlayerSpace
             for (int i = 0; i < populationData.skills.Count; i++)
             {
                 AllEnums.Skills skillNumber = (AllEnums.Skills)i;
-                skillLabels[i].Text = $"{Tr(populationData.skills[skillNumber].skillName)} {populationData.skills[skillNumber].skillLevel}";
+                skillLabelsList[i].Text = $"{Tr(populationData.skills[skillNumber].skillName)} {populationData.skills[skillNumber].skillLevel}";
             }
         }
 

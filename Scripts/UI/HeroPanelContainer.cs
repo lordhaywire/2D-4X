@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PlayerSpace;
 
@@ -15,7 +17,22 @@ public partial class HeroPanelContainer : PanelContainer
     [Export] public CheckButton spawnHeroButton;
     [Export] public HBoxContainer aideActivitiesHboxContainer;
     [Export] public HBoxContainer secondaryActivitiesHboxContainer;
-    [Export] public CheckBox[] heroCheckBoxes;
+    public List<CheckBox> heroCheckBoxesList = [];
+
+
+    public override void _Ready()
+    {
+        if (aideActivitiesHboxContainer == null)
+        {
+            return;
+        }
+
+        foreach (CheckBox checkBox in aideActivitiesHboxContainer.GetChildren().Cast<CheckBox>())
+        {
+            heroCheckBoxesList.Add(checkBox);
+        }
+    }
+
     private void HeroButtonOnPressed()
     {
         PopulationDescriptionControl.Instance.populationData = populationData;
@@ -24,15 +41,16 @@ public partial class HeroPanelContainer : PanelContainer
         {
             PopulationDescriptionControl.Instance.UpdateDescriptionInfo();
         }
+
         CountyInfoControl.Instance.populationListMarginContainer.Hide();
         PopulationDescriptionControl.Instance.heroButtonClicked = true;
     }
 
     private void DeselectAllOtherCheckBoxes(int numberOfCheckBox)
     {
-        foreach (CheckBox checkBox in heroCheckBoxes)
+        foreach (CheckBox checkBox in heroCheckBoxesList)
         {
-            if (checkBox == heroCheckBoxes[numberOfCheckBox])
+            if (checkBox == heroCheckBoxesList[numberOfCheckBox])
             {
                 continue;
             }
@@ -50,7 +68,7 @@ public partial class HeroPanelContainer : PanelContainer
         {
             // Assign to Currently Selected Hero so it is ready to be moved.
             Globals.Instance.SelectedCountyPopulation
-            = TokenSpawner.Spawn(Globals.Instance.SelectedLeftClickCounty, populationData);
+                = TokenSpawner.Spawn(Globals.Instance.SelectedLeftClickCounty, populationData);
             GD.Print("Spawn Hero Check Box " + Globals.Instance.SelectedCountyPopulation.firstName);
             GD.Print($"{populationData.firstName} token is: {populationData.heroToken}");
             CountyInfoControl.Instance.UpdateEverything();
@@ -70,7 +88,7 @@ public partial class HeroPanelContainer : PanelContainer
     /// <param name="numberOfCheckBox"></param>
     private void HeroActivitiesCheckBoxPressed(int numberOfCheckBox)
     {
-        if (heroCheckBoxes[numberOfCheckBox].ButtonPressed == false)
+        if (heroCheckBoxesList[numberOfCheckBox].ButtonPressed == false)
         {
             populationData.UpdateActivity(AllEnums.Activities.Idle);
             populationData.currentCountyImprovement?.RemovePopulationFromPopulationAtImprovementList(populationData);
