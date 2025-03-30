@@ -184,6 +184,7 @@ public partial class County : Node2D
     private void AfterStartDay()
     {
         EquipEachHero();
+        CountyInfoControl.Instance.UpdateEverything();
     }
 
     /// <summary>

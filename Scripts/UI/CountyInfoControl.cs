@@ -1,7 +1,4 @@
 using Godot;
-using System;
-using System.Linq;
-
 
 namespace PlayerSpace
 {
@@ -65,6 +62,7 @@ namespace PlayerSpace
         }
 
         // This update everything needs to be looked at.
+        // When you click on a county it does this method.
         public void UpdateEverything()
         {
             countyData = Globals.Instance.SelectedLeftClickCounty?.countyData;
@@ -148,7 +146,7 @@ namespace PlayerSpace
 
                 heroPrefab.populationData = populationData;
 
-                UpdateHeroInfo(heroPrefab);
+                UpdateHeroNameAndIcons(heroPrefab);
 
                 // Change color of panel to the faction color.
                 heroPrefab.SelfModulate = populationData.factionData.factionColor;
@@ -186,7 +184,7 @@ namespace PlayerSpace
                     continue;
                 }
 
-                if (populationData.IsThisAnArmy())
+                if (populationData.IsThisAnArmy() || populationData.activity == AllEnums.Activities.Recruit)
                 {
                     heroPrefab.secondaryActivitiesHboxContainer.Show();
                 }
@@ -278,12 +276,11 @@ namespace PlayerSpace
             }
         }
 
-        public static void UpdateHeroInfo(HeroPanelContainer heroPrefab)
+        public static void UpdateHeroNameAndIcons(HeroPanelContainer heroPrefab)
         {
             heroPrefab.heroNameLabel.Text = $"{heroPrefab.populationData.firstName} {heroPrefab.populationData.lastName}";
 
-            // Check for hero activities
-
+            // Update the icons for each hero.
             switch (heroPrefab.populationData)
             {
                 case { HeroType: AllEnums.HeroType.FactionLeader }: // FactionLeader
@@ -309,7 +306,6 @@ namespace PlayerSpace
                     heroPrefab.aideTextureRect.Hide();
                     heroPrefab.armyLeaderTextureRect.Show();
                     break;
-
                 default:
                     // Handle any other cases if needed
                     break;

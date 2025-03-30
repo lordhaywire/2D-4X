@@ -17,6 +17,7 @@
 custom_minimum_size = Vector2(300, 50)
 offset_right = 300.0
 offset_bottom = 100.0
+size_flags_vertical = 0
 mouse_filter = 2
 script = ExtResource("1_u8h0k")
 factionLeaderTextureRect = NodePath("VBoxContainer/Icon HBoxContainer/Leader TextureRect")
@@ -37,6 +38,7 @@ size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
+size_flags_vertical = 0
 mouse_filter = 2
 
 [node name="Hero Name Label" type="Label" parent="VBoxContainer"]
@@ -48,7 +50,7 @@ vertical_alignment = 1
 
 [node name="Icon HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 0
 mouse_filter = 2
 
 [node name="Leader TextureRect" type="TextureRect" parent="VBoxContainer/Icon HBoxContainer"]
@@ -77,6 +79,7 @@ texture = ExtResource("3_qqxdl")
 stretch_mode = 2
 
 [node name="Aide Activites HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+visible = false
 layout_mode = 2
 mouse_filter = 2
 
@@ -119,6 +122,7 @@ icon = ExtResource("7_18qnw")
 
 [node name="Secondary Activites HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 0
 mouse_filter = 2
 
 [node name="Recruit CheckBox" type="CheckBox" parent="VBoxContainer/Secondary Activites HBoxContainer"]
