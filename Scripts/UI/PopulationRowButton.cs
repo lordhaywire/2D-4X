@@ -1,26 +1,49 @@
+using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
-namespace PlayerSpace
-{
-    public partial class PopulationRowButton : Button
-    {
-        public PopulationData populationData;
-        [Export] public Label populationNameLabel;
-        [Export] public Label ageLabel;
-        [Export] public Label sexLabel;
-        [Export] public Label UnhelpfulLabel;
-        [Export] public Label loyaltyAttributeLabel;
-        [Export] public Label[] skillLabels;
+namespace PlayerSpace;
 
-        [Export] public Label currentActivityLabel;
-        //[Export] public Label currentWhereLabel;
-        //[Export] public Label nextActivityLabel;
-        //[Export] public Label nextWhereLabel;
-        private void OnButtonClick()
+public partial class PopulationRowButton : Button
+{
+    public PopulationData populationData;
+    [Export] public Label populationNameLabel;
+    [Export] public Label ageLabel;
+    [Export] public Label sexLabel;
+    [Export] public Label unhelpfulLabel;
+    [Export] public Label loyaltyAttributeLabel;
+    public List<Label> skillLabels = [];
+
+    [Export] public Label currentActivityLabel;
+
+    public override void _Ready()
+    {
+        GetAllSkillLabels();
+    }
+
+    /// <summary>
+    /// This is setup this way so that it skills the first 5 labels and the last label.
+    /// </summary>
+    private void GetAllSkillLabels()
+    {
+        skillLabels = GetChild(0).GetChildren().Skip(5).Cast<Label>().ToList();
+        skillLabels.RemoveAt(skillLabels.Count - 1);
+    }
+
+    /*
+    private void GetAllSkillLabels()
+    {
+        foreach(Label label in GetChild(0).GetChildren().Skip(5).Cast<Label>())
         {
-            CountyInfoControl.Instance.populationDescriptionControl.Show();
-            CountyInfoControl.Instance.populationListMarginContainer.Hide();
-            PopulationDescriptionControl.Instance.populationData = populationData;
+            skillLabels.Add(label);
         }
+    }
+    */
+
+    private void OnButtonClick()
+    {
+        CountyInfoControl.Instance.populationDescriptionControl.Show();
+        CountyInfoControl.Instance.populationListMarginContainer.Hide();
+        PopulationDescriptionControl.Instance.populationData = populationData;
     }
 }

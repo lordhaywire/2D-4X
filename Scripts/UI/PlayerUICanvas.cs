@@ -8,7 +8,7 @@ namespace PlayerSpace
         public static PlayerUICanvas Instance { get; private set; }
 
         [Export] public Control BattleLogControl; // This probably should be BattleLog thing, not a control.
-        [Export] public PopulationListUIElement populationListUIElement;
+        [Export] public PopulationListUiElement populationListUIElement;
         [Export] public HeroPanelContainer selectedHeroPanelContainer;
         [Export] public PanelContainer resourcesPanelContainer;
 

@@ -155,7 +155,7 @@ namespace PlayerSpace
 
                 // Check to see if the hero is part of the player's faction to determine what to show.
                 // Once we add the ability for heroes to do things in enemy faction counties we will change this.
-                // Currently we are just making it so that the heroes Activities boxes are hidden.
+                // Currently, we are just making it so that the heroes Activities boxes are hidden.
                 CountyData locationCountyData = Globals.Instance.GetCountyDataFromLocationID(populationData.location);
 
                 PopulateActivityHboxes(populationData, heroPrefab);
@@ -169,8 +169,8 @@ namespace PlayerSpace
                 {
                     heroPrefab.heroListButton.Disabled = true;
                     heroPrefab.spawnHeroButton.Hide();
-                    heroPrefab.aideActivitiesHboxContainer.Hide();
-                    heroPrefab.secondaryActivitiesHboxContainer.Hide();
+                    heroPrefab.aideActivitiesHBoxContainer.Hide();
+                    heroPrefab.secondaryActivitiesHBoxContainer.Hide();
                     continue;
                 }
                 // This checks if the location of the hero is in a nonplayer owned county.
@@ -179,18 +179,18 @@ namespace PlayerSpace
                 {
                     heroPrefab.spawnHeroButton.Disabled = true;
                     heroPrefab.heroListButton.Disabled = false;
-                    heroPrefab.aideActivitiesHboxContainer.Hide();
-                    heroPrefab.secondaryActivitiesHboxContainer.Hide();
+                    heroPrefab.aideActivitiesHBoxContainer.Hide();
+                    heroPrefab.secondaryActivitiesHBoxContainer.Hide();
                     continue;
                 }
 
                 if (populationData.IsThisAnArmy() || populationData.activity == AllEnums.Activities.Recruit)
                 {
-                    heroPrefab.secondaryActivitiesHboxContainer.Show();
+                    heroPrefab.secondaryActivitiesHBoxContainer.Show();
                 }
                 else
                 {
-                    heroPrefab.aideActivitiesHboxContainer.Show();
+                    heroPrefab.aideActivitiesHBoxContainer.Show();
                 }
                 heroPrefab.heroListButton.Disabled = false;
                 heroPrefab.spawnHeroButton.Show();
@@ -212,8 +212,8 @@ namespace PlayerSpace
         private static void SetDefaultUI(HeroPanelContainer heroPrefab)
         {
             heroPrefab.spawnHeroButton.Disabled = false;
-            heroPrefab.secondaryActivitiesHboxContainer.Hide();
-            heroPrefab.aideActivitiesHboxContainer.Hide();
+            heroPrefab.secondaryActivitiesHBoxContainer.Hide();
+            heroPrefab.aideActivitiesHBoxContainer.Hide();
         }
 
         private void CheckForAvailableActivities(HeroPanelContainer heroPrefab)

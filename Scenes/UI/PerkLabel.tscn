@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bhgbnf6lykhb6"]
+
+[node name="Perk Label" type="Label"]
+size_flags_horizontal = 3
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "WORD_NONE"
+horizontal_alignment = 1
+vertical_alignment = 1

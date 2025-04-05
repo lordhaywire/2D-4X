@@ -62,16 +62,16 @@
 [ext_resource type="Script" uid="uid://i3iuln0enakh" path="res://Scripts/UI/CountyInfoControl.cs" id="26_8qp8l"]
 [ext_resource type="Resource" uid="uid://bdji8r13qaily" path="res://Resources/Skills/Farm.tres" id="26_dr7ub"]
 [ext_resource type="Resource" uid="uid://cis6df0tnolhg" path="res://Resources/Attributes/Charisma.tres" id="26_eof2h"]
-[ext_resource type="PackedScene" uid="uid://d4i6w8w8jld3d" path="res://UIScenes/HeroListCheckBoxPanelContainer.tscn" id="27_03q5w"]
+[ext_resource type="PackedScene" uid="uid://d4i6w8w8jld3d" path="res://Scenes/UI/HeroPanelContainer.tscn" id="27_03q5w"]
 [ext_resource type="Resource" uid="uid://brpboms0hfwgq" path="res://Resources/Attributes/Endurance.tres" id="27_fmdgm"]
 [ext_resource type="Resource" uid="uid://cyqbb45ma7w6w" path="res://Resources/Skills/Fish.tres" id="27_gvn1c"]
 [ext_resource type="Resource" uid="uid://bg3pq5mc2ukh6" path="res://Resources/Skills/Lumberjack.tres" id="28_1iuk7"]
 [ext_resource type="Script" uid="uid://cv0yvwdbhg5f" path="res://Scripts/UI/PopAndIdleButtons.cs" id="28_celvx"]
 [ext_resource type="Script" uid="uid://bw5d3f13w26s5" path="res://Scripts/CountyDictator.cs" id="28_qe8u4"]
 [ext_resource type="Resource" uid="uid://b25ofn4b1igjp" path="res://Resources/Skills/Research.tres" id="29_8u7ma"]
-[ext_resource type="Script" uid="uid://dwh5sadg6dkdl" path="res://Scripts/UI/PopulationListUIElement.cs" id="29_ts64q"]
+[ext_resource type="Script" uid="uid://dwh5sadg6dkdl" path="res://Scripts/UI/PopulationListUiElement.cs" id="29_ts64q"]
 [ext_resource type="Resource" uid="uid://bkqqewiydjtb2" path="res://Resources/Attributes/Looks.tres" id="29_xoqji"]
-[ext_resource type="PackedScene" uid="uid://djph5cv7o4atl" path="res://UIScenes/PopulationRowButton.tscn" id="30_bhu5o"]
+[ext_resource type="PackedScene" uid="uid://djph5cv7o4atl" path="res://Scenes/UI/PopulationRowButton.tscn" id="30_bhu5o"]
 [ext_resource type="Resource" uid="uid://dfbunjvsc63da" path="res://Resources/Skills/Rifle.tres" id="30_d528s"]
 [ext_resource type="Resource" uid="uid://dqsfduf2ukjae" path="res://Resources/Attributes/Mental Strength.tres" id="30_lqs38"]
 [ext_resource type="Resource" uid="uid://pmphig2vnrjx" path="res://Resources/Skills/Scavenge.tres" id="31_0vaa8"]
@@ -105,8 +105,8 @@
 [ext_resource type="Resource" uid="uid://c2g12b5fk6456" path="res://Resources/Goods/Storage Perishable.tres" id="42_dwns0"]
 [ext_resource type="Script" uid="uid://soiwiq8ymdp7" path="res://Scripts/UI/DeclareWarControl.cs" id="42_g5xi4"]
 [ext_resource type="Script" uid="uid://dau2q6n6oubso" path="res://Scripts/UI/EventLog.cs" id="43_w0p1n"]
-[ext_resource type="PackedScene" uid="uid://bjgv6c8xhn4lo" path="res://UIScenes/Event Log Text Panel.tscn" id="44_du832"]
-[ext_resource type="PackedScene" uid="uid://x41vmtlrl1cx" path="res://UIScenes/CombatLogTextPanel.tscn" id="44_qsgen"]
+[ext_resource type="PackedScene" uid="uid://bjgv6c8xhn4lo" path="res://Scenes/UI/Event Log Text Panel.tscn" id="44_du832"]
+[ext_resource type="PackedScene" uid="uid://x41vmtlrl1cx" path="res://Scenes/UI/CombatLogTextPanel.tscn" id="44_qsgen"]
 [ext_resource type="Script" uid="uid://bmq7wm2mj40gj" path="res://Scripts/AllInterests.cs" id="45_vjt1m"]
 [ext_resource type="Resource" uid="uid://bojgmxcwswihv" path="res://Resources/Interests/Biology.tres" id="46_m2cvk"]
 [ext_resource type="Resource" uid="uid://ftsx8rr0uriv" path="res://Resources/Interests/Botany.tres" id="47_sru0x"]
@@ -118,9 +118,9 @@
 [ext_resource type="Resource" uid="uid://cm8m7c4m1xp8k" path="res://Resources/Interests/Politics.tres" id="51_6355g"]
 [ext_resource type="Texture2D" uid="uid://buiql8w31bmgq" path="res://Graphics/Icons/Top Bar/Building Materials concrete-bag.svg" id="52_5fb6h"]
 [ext_resource type="Resource" uid="uid://deym3plaxo5wl" path="res://Resources/Interests/Warfare.tres" id="52_ie7mt"]
-[ext_resource type="PackedScene" uid="uid://bif5f4i17oc2p" path="res://UIScenes/StorageHbox.tscn" id="53_xnh1n"]
+[ext_resource type="PackedScene" uid="uid://bif5f4i17oc2p" path="res://Scenes/UI/StorageHbox.tscn" id="53_xnh1n"]
 [ext_resource type="Script" uid="uid://cvdjp0n1wtfi5" path="res://Scripts/UI/GoodsPanelContainer.cs" id="54_ia1o5"]
-[ext_resource type="PackedScene" uid="uid://4t2ve1w4uvww" path="res://UIScenes/AssignedResearcherHBoxContainer.tscn" id="62_dhpbg"]
+[ext_resource type="PackedScene" uid="uid://4t2ve1w4uvww" path="res://Scenes/UI/AssignedResearcherHBoxContainer.tscn" id="62_dhpbg"]
 [ext_resource type="PackedScene" uid="uid://dbh44f2eysibn" path="res://ResearchItemButton.tscn" id="62_nohy5"]
 [ext_resource type="Script" uid="uid://c8wh1vjtb6kne" path="res://Scripts/UI/StoryEventControl.cs" id="62_onxgq"]
 [ext_resource type="Resource" uid="uid://ceq8jssovq84m" path="res://Resources/ResearchItems/Basic Researching.tres" id="62_ujbl5"]
@@ -129,15 +129,15 @@
 [ext_resource type="Script" uid="uid://bg2dtkgmt0rfq" path="res://Scripts/MapEditorControl.cs" id="65_uqmnr"]
 [ext_resource type="Resource" uid="uid://dq525753wnhi5" path="res://Resources/Skills/Leadership.tres" id="66_qmo2n"]
 [ext_resource type="PackedScene" uid="uid://iur3kq10dikl" path="res://Scenes/MapEditor.tscn" id="66_sq6pt"]
-[ext_resource type="PackedScene" uid="uid://bhgbnf6lykhb6" path="res://UIScenes/PerkLabel.tscn" id="68_6cv3c"]
+[ext_resource type="PackedScene" uid="uid://bhgbnf6lykhb6" path="res://Scenes/UI/PerkLabel.tscn" id="68_6cv3c"]
 [ext_resource type="Texture2D" uid="uid://cs6gb8bpwt7xd" path="res://Graphics/yellow-crumpled-lined-paper-background-2022-12-16-00-47-47-utc-scaled.webp" id="76_xlxp7"]
 [ext_resource type="Texture2D" uid="uid://cyphf3703b4qa" path="res://Graphics/Icons/Top Bar/bolter-gun.svg" id="98_qs8v3"]
 [ext_resource type="Script" uid="uid://b0xy2tg5uv2gh" path="res://Scripts/UI/InventoryVBoxContainer.cs" id="117_0j4c6"]
-[ext_resource type="PackedScene" uid="uid://x448dpajwnx" path="res://UIScenes/CountyImprovementPanelContainer.tscn" id="119_kkhw7"]
+[ext_resource type="PackedScene" uid="uid://x448dpajwnx" path="res://Scenes/UI/CountyImprovementPanelContainer.tscn" id="119_kkhw7"]
 [ext_resource type="Script" uid="uid://bjbqgqmxofv05" path="res://Scripts/UI/SubordinatesVBoxContainer.cs" id="119_mjyee"]
-[ext_resource type="PackedScene" uid="uid://c5i5kenx6xcam" path="res://UIScenes/Subordinate Button.tscn" id="122_dwns0"]
+[ext_resource type="PackedScene" uid="uid://c5i5kenx6xcam" path="res://Scenes/UI/Subordinate Button.tscn" id="122_dwns0"]
 [ext_resource type="Script" uid="uid://cc6kc1k26qlew" path="res://Scripts/UI/RemoveCountyImprovementConfirmationPanelContainer.cs" id="122_hwg2s"]
-[ext_resource type="PackedScene" uid="uid://ctmeblm8t3ynu" path="res://UIScenes/ResearchPrerequisiteLabel.tscn" id="124_veo43"]
+[ext_resource type="PackedScene" uid="uid://ctmeblm8t3ynu" path="res://Scenes/UI/ResearchPrerequisiteLabel.tscn" id="124_veo43"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kukrp"]
 size = Vector2(45, 45)
@@ -1337,9 +1337,8 @@ text = "WORD_ACTIVITY"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Population Row Button" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer" node_paths=PackedStringArray("skillLabels") instance=ExtResource("30_bhu5o")]
+[node name="Population Row Button" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer" instance=ExtResource("30_bhu5o")]
 layout_mode = 2
-skillLabels = Array[Object]([])
 
 [node name="Close Button" type="Button" parent="Player UI Canvas/Population List MarginContainer"]
 custom_minimum_size = Vector2(75, 50)
@@ -1840,12 +1839,11 @@ vertical_alignment = 1
 [node name="Inventory and Subordinates HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer"]
 layout_mode = 2
 
-[node name="Inventory VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer" node_paths=PackedStringArray("newestEquipment", "equipment")]
+[node name="Inventory VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer" node_paths=PackedStringArray("newestEquipment")]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("117_0j4c6")
 newestEquipment = NodePath("Newest Equipment CheckBox")
-equipment = Array[Object]([])
 
 [node name="Inventory Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer"]
 layout_mode = 2
@@ -2612,7 +2610,7 @@ size_flags_horizontal = 3
 tooltip_text = "You are a piece of shit!"
 text = "Yes"
 
-[node name="Story Event Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("storyEventTitle", "storyEventDescription", "storyEventLocation", "choiceButtons")]
+[node name="Story Event Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("storyEventTitle", "storyEventDescription", "storyEventLocation")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -2626,7 +2624,6 @@ script = ExtResource("62_onxgq")
 storyEventTitle = NodePath("PanelContainer/VBoxContainer/Story Event Title Label")
 storyEventDescription = NodePath("PanelContainer/VBoxContainer/Story Event Description Label")
 storyEventLocation = NodePath("PanelContainer/VBoxContainer/Story Event Location Label")
-choiceButtons = Array[Object]([])
 
 [node name="PanelContainer" type="PanelContainer" parent="Player UI Canvas/Story Event Control"]
 layout_mode = 1

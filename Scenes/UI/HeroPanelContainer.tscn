@@ -1,0 +1,177 @@
+[gd_scene load_steps=13 format=3 uid="uid://d4i6w8w8jld3d"]
+
+[ext_resource type="Script" uid="uid://cb81oehioy1sr" path="res://Scripts/UI/HeroPanelContainer.cs" id="1_u8h0k"]
+[ext_resource type="Texture2D" uid="uid://du76vrdfhckkd" path="res://Graphics/Icons/Population/resized faction leader icon.png" id="2_kbo0x"]
+[ext_resource type="Texture2D" uid="uid://b67d6nynwdq3o" path="res://Graphics/Icons/Population/resized faction aide.png" id="3_hrfe5"]
+[ext_resource type="Texture2D" uid="uid://cbpah1j3xx4f2" path="res://Graphics/Icons/Population/resized army icon.png" id="3_qqxdl"]
+[ext_resource type="Texture2D" uid="uid://ptgt05xnjvvc" path="res://Graphics/Heroes/Aide Box Research 26x26.svg" id="5_uce2n"]
+[ext_resource type="Texture2D" uid="uid://d11kxklcymkx8" path="res://Graphics/Heroes/Aide Box Scavenge 26x26.svg" id="5_w17qn"]
+[ext_resource type="Texture2D" uid="uid://f2mjv4an23g7" path="res://Graphics/Heroes/Aide Box Work 26x26.svg" id="6_18qnw"]
+[ext_resource type="Texture2D" uid="uid://bsis4q8s0yeye" path="res://Graphics/Heroes/Aide Box Explore 26x26.svg" id="7_18qnw"]
+[ext_resource type="Texture2D" uid="uid://cie0xxbcq8aqu" path="res://Graphics/Heroes/Aide Box Build 26x26.svg" id="7_m61kt"]
+[ext_resource type="Texture2D" uid="uid://be0fr5imc4ox5" path="res://Graphics/Heroes/Army Box Muster 26x26.svg" id="9_nlplk"]
+[ext_resource type="Texture2D" uid="uid://cbhysuf8k32i5" path="res://Graphics/Heroes/Black Flag Recruiting 26x26.svg" id="10_gyu1m"]
+[ext_resource type="Texture2D" uid="uid://toeud0ofktrk" path="res://Graphics/Heroes/Army Box Train 26x26.svg" id="10_m61kt"]
+
+[node name="Hero PanelContainer" type="PanelContainer" node_paths=PackedStringArray("factionLeaderTextureRect", "aideTextureRect", "armyLeaderTextureRect", "heroNameLabel", "heroListButton", "spawnHeroButton", "aideActivitiesHBoxContainer", "secondaryActivitiesHBoxContainer")]
+custom_minimum_size = Vector2(300, 50)
+offset_right = 300.0
+offset_bottom = 100.0
+size_flags_vertical = 0
+mouse_filter = 2
+script = ExtResource("1_u8h0k")
+factionLeaderTextureRect = NodePath("VBoxContainer/Icon HBoxContainer/Leader TextureRect")
+aideTextureRect = NodePath("VBoxContainer/Icon HBoxContainer/Aide TextureRect")
+armyLeaderTextureRect = NodePath("VBoxContainer/Icon HBoxContainer/Army TextureRect")
+heroNameLabel = NodePath("VBoxContainer/Hero Name Label")
+heroListButton = NodePath("Hero List Button")
+spawnHeroButton = NodePath("Spawn CheckButton")
+aideActivitiesHBoxContainer = NodePath("VBoxContainer/Aide Activites HBoxContainer")
+secondaryActivitiesHBoxContainer = NodePath("VBoxContainer/Secondary Activites HBoxContainer")
+
+[node name="Hero List Button" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+
+[node name="Hero Name Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 2
+text = "Whatevers"
+vertical_alignment = 1
+
+[node name="Icon HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+
+[node name="Leader TextureRect" type="TextureRect" parent="VBoxContainer/Icon HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("2_kbo0x")
+stretch_mode = 2
+
+[node name="Aide TextureRect" type="TextureRect" parent="VBoxContainer/Icon HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("3_hrfe5")
+stretch_mode = 2
+
+[node name="Army TextureRect" type="TextureRect" parent="VBoxContainer/Icon HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("3_qqxdl")
+stretch_mode = 2
+
+[node name="Aide Activites HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Scavenge CheckBox" type="CheckBox" parent="VBoxContainer/Aide Activites HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+tooltip_text = "ACTIVITY_SCAVENGE_NAME"
+focus_mode = 0
+mouse_force_pass_scroll_events = false
+icon = ExtResource("5_w17qn")
+icon_alignment = 1
+
+[node name="Build CheckBox" type="CheckBox" parent="VBoxContainer/Aide Activites HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+tooltip_text = "ACTIVITY_BUILD_NAME"
+focus_mode = 0
+icon = ExtResource("7_m61kt")
+
+[node name="Work CheckBox" type="CheckBox" parent="VBoxContainer/Aide Activites HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+tooltip_text = "ACTIVITY_WORK_NAME"
+focus_mode = 0
+icon = ExtResource("6_18qnw")
+
+[node name="Research CheckBox" type="CheckBox" parent="VBoxContainer/Aide Activites HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+tooltip_text = "ACTIVITY_RESEARCH_NAME"
+focus_mode = 0
+icon = ExtResource("5_uce2n")
+
+[node name="Explore CheckBox" type="CheckBox" parent="VBoxContainer/Aide Activites HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+tooltip_text = "ACTIVITY_EXPLORE_NAME"
+focus_mode = 0
+icon = ExtResource("7_18qnw")
+
+[node name="Secondary Activites HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+
+[node name="Recruit CheckBox" type="CheckBox" parent="VBoxContainer/Secondary Activites HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+tooltip_text = "ACTIVITY_RECRUIT_NAME"
+focus_mode = 0
+icon = ExtResource("10_gyu1m")
+
+[node name="Muster CheckBox" type="CheckBox" parent="VBoxContainer/Secondary Activites HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+tooltip_text = "ACTIVITY_MUSTER_NAME"
+focus_mode = 0
+icon = ExtResource("9_nlplk")
+
+[node name="Train CheckBox" type="CheckBox" parent="VBoxContainer/Secondary Activites HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+tooltip_text = "WORD_TRAIN"
+focus_mode = 0
+icon = ExtResource("10_m61kt")
+
+[node name="Spawn CheckButton" type="CheckButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+focus_mode = 0
+
+[connection signal="mouse_entered" from="Hero List Button" to="." method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="Hero List Button" to="." method="OnMouseExitedUI"]
+[connection signal="pressed" from="Hero List Button" to="." method="HeroButtonOnPressed"]
+[connection signal="mouse_entered" from="VBoxContainer/Aide Activites HBoxContainer/Scavenge CheckBox" to="." method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="VBoxContainer/Aide Activites HBoxContainer/Scavenge CheckBox" to="." method="OnMouseExitedUI"]
+[connection signal="mouse_entered" from="VBoxContainer/Aide Activites HBoxContainer/Build CheckBox" to="." method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="VBoxContainer/Aide Activites HBoxContainer/Build CheckBox" to="." method="OnMouseExitedUI"]
+[connection signal="mouse_entered" from="VBoxContainer/Aide Activites HBoxContainer/Work CheckBox" to="." method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="VBoxContainer/Aide Activites HBoxContainer/Work CheckBox" to="." method="OnMouseExitedUI"]
+[connection signal="mouse_entered" from="VBoxContainer/Aide Activites HBoxContainer/Research CheckBox" to="." method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="VBoxContainer/Aide Activites HBoxContainer/Research CheckBox" to="." method="OnMouseExitedUI"]
+[connection signal="mouse_entered" from="VBoxContainer/Aide Activites HBoxContainer/Explore CheckBox" to="." method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="VBoxContainer/Aide Activites HBoxContainer/Explore CheckBox" to="." method="OnMouseExitedUI"]
+[connection signal="mouse_entered" from="VBoxContainer/Secondary Activites HBoxContainer/Recruit CheckBox" to="." method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="VBoxContainer/Secondary Activites HBoxContainer/Recruit CheckBox" to="." method="OnMouseExitedUI"]
+[connection signal="mouse_entered" from="VBoxContainer/Secondary Activites HBoxContainer/Muster CheckBox" to="." method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="VBoxContainer/Secondary Activites HBoxContainer/Muster CheckBox" to="." method="OnMouseExitedUI"]
+[connection signal="mouse_entered" from="VBoxContainer/Secondary Activites HBoxContainer/Train CheckBox" to="." method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="VBoxContainer/Secondary Activites HBoxContainer/Train CheckBox" to="." method="OnMouseExitedUI"]
+[connection signal="mouse_entered" from="Spawn CheckButton" to="." method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="Spawn CheckButton" to="." method="OnMouseExitedUI"]
+[connection signal="pressed" from="Spawn CheckButton" to="." method="SpawnHeroCheckButton"]

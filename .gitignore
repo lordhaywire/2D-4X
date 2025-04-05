@@ -2,3 +2,5 @@
 .vs/
 Compiled/
 Properties/
+.godot/
+.idea/

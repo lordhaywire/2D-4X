@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://de0pjvu76chc"]
+
+[node name="Influence Cost Label" type="Label"]
+custom_minimum_size = Vector2(0, 30)
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = " Influence Cost"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,19 +14,19 @@ public partial class HeroPanelContainer : PanelContainer
     [Export] public Label heroNameLabel;
     [Export] public Button heroListButton;
     [Export] public CheckButton spawnHeroButton;
-    [Export] public HBoxContainer aideActivitiesHboxContainer;
-    [Export] public HBoxContainer secondaryActivitiesHboxContainer;
-    public List<CheckBox> heroCheckBoxesList = [];
+    [Export] public HBoxContainer aideActivitiesHBoxContainer;
+    [Export] public HBoxContainer secondaryActivitiesHBoxContainer;
+    public readonly List<CheckBox> heroCheckBoxesList = [];
 
 
     public override void _Ready()
     {
-        if (aideActivitiesHboxContainer == null)
+        if (aideActivitiesHBoxContainer == null)
         {
             return;
         }
 
-        foreach (CheckBox checkBox in aideActivitiesHboxContainer.GetChildren().Cast<CheckBox>())
+        foreach (CheckBox checkBox in aideActivitiesHBoxContainer.GetChildren().Cast<CheckBox>())
         {
             heroCheckBoxesList.Add(checkBox);
         }

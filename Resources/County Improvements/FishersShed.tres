@@ -30,7 +30,7 @@ improvementName = "IMPROVEMENT_FISHERS_SHED"
 improvementDescription = "IMPROVEMENT_DESCRIPTION_FISHERS_SHED"
 workSkill = 3
 interestData = ExtResource("2_h1ekr")
-goodsConstructionCost = {}
+goodsConstructionCost = Dictionary[ExtResource("1_q1pav"), int]({})
 CurrentAmountOfConstruction = 0
 maxAmountOfConstruction = 100
 maxBuilders = 5
@@ -43,7 +43,7 @@ outputGoods = Dictionary[ExtResource("1_q1pav"), ExtResource("6_q1pav")]({
 ExtResource("5_rxp18"): SubResource("Resource_gpo3t")
 })
 allDailyWorkAmountAtImprovementCompleted = 0
-uniqueInputGoods = {}
+uniqueInputGoods = Dictionary[ExtResource("1_q1pav"), int]({})
 inputGoods = Dictionary[ExtResource("1_q1pav"), int]({
 ExtResource("1_1yts0"): 1
 })

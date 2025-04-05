@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ctmeblm8t3ynu"]
+
+[node name="Research Prerequisite Label" type="Label"]
+text = "Whatevs"
+horizontal_alignment = 1
+vertical_alignment = 1

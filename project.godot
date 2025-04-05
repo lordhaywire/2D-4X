@@ -78,7 +78,6 @@ quit={
 [internationalization]
 
 locale/translations=PackedStringArray("res://Localization/2D 4X Main Text.en.translation", "res://Localization/2D 4X Main Text.es.translation")
-locale/test="es"
 
 [physics]
 

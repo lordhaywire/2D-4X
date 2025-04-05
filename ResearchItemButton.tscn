@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dbh44f2eysibn"]
 
-[ext_resource type="Script" path="res://Scripts/UI/ResearchItemButton.cs" id="1_6bpef"]
-[ext_resource type="PackedScene" uid="uid://ctmeblm8t3ynu" path="res://UIScenes/ResearchPrerequisiteLabel.tscn" id="2_12rja"]
+[ext_resource type="Script" uid="uid://dmorq20kbbr63" path="res://Scripts/UI/ResearchItemButton.cs" id="1_6bpef"]
+[ext_resource type="PackedScene" uid="uid://ctmeblm8t3ynu" path="res://Scenes/UI/ResearchPrerequisiteLabel.tscn" id="2_12rja"]
 [ext_resource type="Texture2D" uid="uid://dmeg24s68kkig" path="res://Graphics/Research/uncertainty.svg" id="2_uk2ix"]
 
 [node name="Research Item Button" type="PanelContainer" node_paths=PackedStringArray("researchNameLabel", "researchPrerequisitesTitleLabel", "researchIconTextureRect", "prerequisitesParent", "researchButton", "researchProgressBar")]

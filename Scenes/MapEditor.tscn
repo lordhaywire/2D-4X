@@ -19,6 +19,7 @@
 script = ExtResource("1_gkfx5")
 
 [node name="Camara CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("camera")]
+physics_interpolation_mode = 2
 position = Vector2(1011, 980)
 script = ExtResource("2_exseq")
 camera = NodePath("Camera2D")

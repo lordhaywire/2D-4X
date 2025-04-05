@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PlayerSpace
 {
@@ -10,11 +12,20 @@ namespace PlayerSpace
         [Export] private Label storyEventDescription;
         [Export] private Label storyEventLocation;
 
-        [Export] private Button[] choiceButtons;
+        private readonly List<Button> choiceButtons = [];
 
         public override void _Ready()
         {
             Clock.Instance.HourChanged += CheckForEvent;
+            GetChoiceButtons();
+        }
+
+        private void GetChoiceButtons()
+        {
+            foreach (Button button in GetChild(0).GetChild(0).GetChildren().Skip(3).Cast<Button>())
+            {
+                choiceButtons.Add(button);
+            }
         }
 
         private void CheckForEvent()

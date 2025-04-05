@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 namespace PlayerSpace;
@@ -5,7 +7,23 @@ namespace PlayerSpace;
 public partial class InventoryVBoxContainer : VBoxContainer
 {
     [Export] public CheckBox newestEquipment;
-    [Export] public Label[] equipment;
+    private readonly List<Label> equipment = [];
+
+    public override void _Ready()
+    {
+        GetEquipmentLables();
+    }
+
+    private void GetEquipmentLables()
+    {
+        foreach (Node node in GetChildren().Skip(2))
+        {
+            if (node is Label)
+            {
+                equipment.Add(node as Label);
+            }
+        }
+    }
 
     public void PopulateEquipment(PopulationData populationData)
     {
@@ -13,7 +31,7 @@ public partial class InventoryVBoxContainer : VBoxContainer
         {
             PopulationDescriptionControl.Instance.InventoryAndSubordinatesInventoryVBoxContainer.Show();
 
-            for (int i = 0; i < equipment.Length; i++)
+            for (int i = 0; i < equipment.Count; i++)
             {
                 if (populationData.equipment[i] != null)
                 {
@@ -37,8 +55,8 @@ public partial class InventoryVBoxContainer : VBoxContainer
         CountyData locationCountyData = Globals.Instance.GetCountyDataFromLocationID(populationData.location);
 
         GD.Print("Newest Equipment Checkbox has been pressed. " + newestEquipment.ButtonPressed);
-        GD.Print("Token Movement - MoveToken: " + populationData.heroToken.tokenMovement.MoveToken);
-        if(populationData.heroToken.tokenMovement.MoveToken == true)
+        GD.Print("Token Movement - MoveToken: " + populationData.heroToken?.tokenMovement.MoveToken);
+        if(populationData.heroToken?.tokenMovement.MoveToken == true)
         {
             populationData.useNewestEquipment = newestEquipment.ButtonPressed;
             return;
@@ -48,6 +66,5 @@ public partial class InventoryVBoxContainer : VBoxContainer
             Quartermaster.EquipHeroes(populationData);
             PopulateEquipment(populationData);
         }
-
     }
 }
