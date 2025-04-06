@@ -43,7 +43,7 @@ public partial class PopulationData : Resource
         }
     }
 
-    [Export] public int numberOfSubordinates;
+    [Export] public int numberOfSubordinatesWanted;
     [Export] public Godot.Collections.Array<PopulationData> heroSubordinates = [];
 
     [ExportGroup("Perks")]

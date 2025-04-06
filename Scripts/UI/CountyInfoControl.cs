@@ -6,9 +6,8 @@ namespace PlayerSpace
     {
         public static CountyInfoControl Instance { get; private set; }
 
-        [ExportGroup("County Info")]
-        [Export] public Control countyInfoControl;
-        [Export] public Label factionNamelabel;
+        [ExportGroup("County Info")] [Export] public Control countyInfoControl;
+        [Export] public Label factionNameLabel;
         [Export] public Label countyNameLabel;
         [Export] private Label countyFoodLabel;
         [Export] private Label countyScrapLabel;
@@ -17,15 +16,15 @@ namespace PlayerSpace
         [Export] private Label visitorsLabel;
         private CountyData countyData;
 
-        [ExportGroup("Containers and shit")]
-        [Export] public MarginContainer populationListMarginContainer;
+        [ExportGroup("Containers and shit")] [Export]
+        public MarginContainer populationListMarginContainer;
+
         [Export] public Control populationDescriptionControl;
         [Export] public Control countyImprovementsPanelControl;
         [Export] private VBoxContainer heroListParent;
         [Export] private VBoxContainer heroSpawnCheckButtonParent;
 
-        [ExportGroup("Buttons")]
-        [Export] private Button populationListButton;
+        [ExportGroup("Buttons")] [Export] private Button populationListButton;
         [Export] private Button visitorsListButton;
         [Export] private Button countyImprovementsButton;
         [Export] private Button resourcesButton;
@@ -66,10 +65,11 @@ namespace PlayerSpace
         public void UpdateEverything()
         {
             countyData = Globals.Instance.SelectedLeftClickCounty?.countyData;
-            if(countyData == null)
+            if (countyData == null)
             {
                 return;
             }
+
             CheckForOwnership();
             UpdateNameLabels();
             UpdateCountyAvailableResources();
@@ -89,14 +89,8 @@ namespace PlayerSpace
         {
             visitorsLabel.Text
                 = Globals.Instance.SelectedLeftClickCounty.countyData.visitingHeroList.Count.ToString();
-            if (Globals.Instance.SelectedLeftClickCounty.countyData.visitingHeroList.Count == 0)
-            {
-                visitorsListButton.Disabled = true;
-            }
-            else
-            {
-                visitorsListButton.Disabled = false;
-            }
+            visitorsListButton.Disabled
+                = Globals.Instance.SelectedLeftClickCounty.countyData.visitingHeroList.Count == 0;
         }
 
         public void DisableSpawnHeroCheckButton(bool value)
@@ -113,9 +107,10 @@ namespace PlayerSpace
 
         public void UpdateNameLabels()
         {
-            factionNamelabel.Text = Globals.Instance.SelectedLeftClickCounty.countyData.factionData.factionName;
+            factionNameLabel.Text = Globals.Instance.SelectedLeftClickCounty.countyData.factionData.factionName;
             countyNameLabel.Text = Globals.Instance.SelectedLeftClickCounty.countyData.countyName;
         }
+
         public void GenerateHeroesPanelList()
         {
             ClearHeroList();
@@ -123,7 +118,6 @@ namespace PlayerSpace
             GenerateHeroes(countyData.armiesInCountyList);
             GenerateHeroes(countyData.visitingHeroList);
             GenerateHeroes(countyData.visitingArmyList);
-
         }
 
         private void ClearHeroList()
@@ -153,34 +147,33 @@ namespace PlayerSpace
 
                 CheckForAvailableActivities(heroPrefab);
 
+                PopulateActivityHBoxes(populationData, heroPrefab);
+                
                 // Check to see if the hero is part of the player's faction to determine what to show.
                 // Once we add the ability for heroes to do things in enemy faction counties we will change this.
                 // Currently, we are just making it so that the heroes Activities boxes are hidden.
                 CountyData locationCountyData = Globals.Instance.GetCountyDataFromLocationID(populationData.location);
 
-                PopulateActivityHboxes(populationData, heroPrefab);
-
                 // This needs to be up here because we are fucking with the spawnHeroButton below.
-                SetDefaultUI(heroPrefab);
+                SetDefaultUi(heroPrefab);
 
                 // Check if the hero is not player owned.
                 if (Globals.Instance.CheckIfPlayerFaction(populationData.factionData) == false)
                     //|| Globals.Instance.CheckIfPlayerFaction(locationCountyData.factionData) == false)
+                    // At some point we need to delete this ^
                 {
-                    heroPrefab.heroListButton.Disabled = true;
+                    heroPrefab.heroDescriptionButton.Disabled = true;
                     heroPrefab.spawnHeroButton.Hide();
-                    heroPrefab.aideActivitiesHBoxContainer.Hide();
-                    heroPrefab.secondaryActivitiesHBoxContainer.Hide();
                     continue;
                 }
-                // This checks if the location of the hero is in a nonplayer owned county.
-                if(Globals.Instance.CheckIfPlayerFaction(populationData.factionData) == true &&
+
+                // This checks if the location of the hero is in a non-player owned county.
+                // If this is a player hero, but in an enemy county they can't currently do anything.
+                if (Globals.Instance.CheckIfPlayerFaction(populationData.factionData) == true &&
                     Globals.Instance.CheckIfPlayerFaction(locationCountyData.factionData) == false)
                 {
                     heroPrefab.spawnHeroButton.Disabled = true;
-                    heroPrefab.heroListButton.Disabled = false;
-                    heroPrefab.aideActivitiesHBoxContainer.Hide();
-                    heroPrefab.secondaryActivitiesHBoxContainer.Hide();
+                    heroPrefab.heroDescriptionButton.Disabled = false;
                     continue;
                 }
 
@@ -190,9 +183,10 @@ namespace PlayerSpace
                 }
                 else
                 {
-                    heroPrefab.aideActivitiesHBoxContainer.Show();
+                    heroPrefab.primaryActivitiesHBoxContainer.Show();
                 }
-                heroPrefab.heroListButton.Disabled = false;
+
+                heroPrefab.heroDescriptionButton.Disabled = false;
                 heroPrefab.spawnHeroButton.Show();
 
                 GD.Print("County Info Control Hero Token: " + populationData.heroToken);
@@ -200,7 +194,6 @@ namespace PlayerSpace
                 if (populationData.heroToken == null)
                 {
                     heroPrefab.spawnHeroButton.ButtonPressed = false;
-                    continue;
                 }
                 else
                 {
@@ -209,11 +202,12 @@ namespace PlayerSpace
             }
         }
 
-        private static void SetDefaultUI(HeroPanelContainer heroPrefab)
+        private static void SetDefaultUi(HeroPanelContainer heroPrefab)
         {
             heroPrefab.spawnHeroButton.Disabled = false;
+            heroPrefab.primaryActivitiesHBoxContainer.Hide();
             heroPrefab.secondaryActivitiesHBoxContainer.Hide();
-            heroPrefab.aideActivitiesHBoxContainer.Hide();
+            heroPrefab.movementActivityHBoxContainer.Hide();
         }
 
         private void CheckForAvailableActivities(HeroPanelContainer heroPrefab)
@@ -228,6 +222,7 @@ namespace PlayerSpace
                     heroPrefab.heroCheckBoxesList[2].Disabled = false;
                 }
             }
+
             // Build
             if (countyData.underConstructionCountyImprovementList.Count > 0)
             {
@@ -253,32 +248,42 @@ namespace PlayerSpace
             }
         }
 
-        // This is dumb too.
-        private void PopulateActivityHboxes(PopulationData populationData, HeroPanelContainer heroPrefab)
+        private static void PopulateActivityHBoxes(PopulationData populationData, HeroPanelContainer heroPrefab)
         {
             switch (populationData.activity)
             {
                 case AllEnums.Activities.Scavenge:
                     heroPrefab.heroCheckBoxesList[0].ButtonPressed = true;
-                    return;
+                    break;
                 case AllEnums.Activities.Build:
                     heroPrefab.heroCheckBoxesList[1].ButtonPressed = true;
-                    return;
+                    break;
                 case AllEnums.Activities.Work:
                     heroPrefab.heroCheckBoxesList[2].ButtonPressed = true;
-                    return;
+                    break;
                 case AllEnums.Activities.Research:
                     heroPrefab.heroCheckBoxesList[3].ButtonPressed = true;
-                    return;
+                    break;
                 case AllEnums.Activities.Explore:
                     heroPrefab.heroCheckBoxesList[4].ButtonPressed = true;
-                    return;
+                    break;
+                case AllEnums.Activities.Recruit:
+                    heroPrefab.secondaryCheckBoxesList[0].ButtonPressed = true;
+                    heroPrefab.secondaryCheckBoxesList[0].Disabled = false;
+                    break;
+                case AllEnums.Activities.Move:
+                    heroPrefab.ShowMovementActivityHBoxContainer();
+                    break;
+                default:
+                    GD.Print("PopulateActivitiesHBox is missing an activity.");
+                    break;
             }
         }
 
         public static void UpdateHeroNameAndIcons(HeroPanelContainer heroPrefab)
         {
-            heroPrefab.heroNameLabel.Text = $"{heroPrefab.populationData.firstName} {heroPrefab.populationData.lastName}";
+            heroPrefab.heroNameLabel.Text =
+                $"{heroPrefab.populationData.firstName} {heroPrefab.populationData.lastName}";
 
             // Update the icons for each hero.
             switch (heroPrefab.populationData)
@@ -306,9 +311,6 @@ namespace PlayerSpace
                     heroPrefab.aideTextureRect.Hide();
                     heroPrefab.armyLeaderTextureRect.Show();
                     break;
-                default:
-                    // Handle any other cases if needed
-                    break;
             }
         }
 
@@ -330,9 +332,8 @@ namespace PlayerSpace
 
         public void UpdateCountyPopulationLabel()
         {
-
             int population = Globals.Instance.SelectedLeftClickCounty.countyData.populationDataList.Count
-                + Globals.Instance.SelectedLeftClickCounty.countyData.heroesInCountyList.Count;
+                             + Globals.Instance.SelectedLeftClickCounty.countyData.heroesInCountyList.Count;
             populationDataNumberLabel.Text = population.ToString();
         }
 
@@ -347,6 +348,7 @@ namespace PlayerSpace
         {
             PlayerUICanvas.Instance.resourcesPanelContainer.Show();
         }
+
         private void CountyImprovementsButton()
         {
             //GD.Print("Buildings Button has been pressed.");

@@ -8,7 +8,7 @@ namespace PlayerSpace;
 public partial class FactionData : Resource
 {
     [ExportGroup("Faction Info")]
-    [Export] public int factionID;
+    [Export] public int factionId;
     [Export] public bool isPlayer;
     [Export] public string factionName;
     [Export] public Color factionColor;

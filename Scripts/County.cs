@@ -37,8 +37,6 @@ public partial class County : Node2D
         }
     }
 
-
-
     /// <summary>
     /// Fires once a week and on the first day of the game.
     /// </summary>
@@ -53,7 +51,7 @@ public partial class County : Node2D
     {
         //GD.PrintRich($"[rainbow]County : EndOfDay!!!!!");
 
-        CountyAI countyAI = new();
+        CountyAI countyAi = new();
 
         // GD.Print("County Hour One.");
         // Subtract county resources yesterday from today.
@@ -67,8 +65,8 @@ public partial class County : Node2D
         CountyData.CheckForHealing(countyData.heroesInCountyList);
         CountyData.CheckForHealing(countyData.armiesInCountyList);
 
-        // It checks this at end of day, so that at day start all of the employment etc hits.
-        countyAI.DecideBuildingCountyImprovements(this);
+        // It checks this at end of day, so that at day start all the employment etc. hits.
+        countyAi.DecideBuildingCountyImprovements(this);
 
         // Goes through each hero just like if they were a normal county population and
         // generates their work amount/research.
@@ -78,7 +76,7 @@ public partial class County : Node2D
         // Generates the daily amount of work amount/building for each county improvement per person.
         PopulationWorkEnd.WorkDayOverForPopulation(countyData, countyData.populationDataList);
 
-        // Converts the totaly daily amount of work into goods and construction.
+        // Converts the totally daily amount of work into goods and construction.
         // Possibly scavenging and research eventually.
         PopulationWorkEnd.CalculateWorkToGoodsProduction(countyData);
 

@@ -46,7 +46,7 @@ namespace PlayerSpace
 
             Globals.Instance.deadFactions.Add(county.countyData.factionData);
             Globals.Instance.factionDatas.Remove(county.countyData.factionData);
-            Globals.Instance.factionsParent.GetChild(county.countyData.factionData.factionID).QueueFree();
+            Globals.Instance.factionsParent.GetChild(county.countyData.factionData.factionId).QueueFree();
         }
 
         // Maybe move to a Faction Dictator script.

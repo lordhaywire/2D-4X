@@ -40,7 +40,7 @@ namespace PlayerSpace
         [Export] private Button armyLeaderRecruitButton;
         [Export] private RecruitHeroConfirmationPanelContainer heroRecruitmentConfirmPanel;
 
-        private List<Label> skillLabelsList = [];
+        private readonly List<Label> skillLabelsList = [];
         public PopulationData populationData;
 
         public bool heroButtonClicked; // If the player has clicked a hero from the list below the countyinfo panel.
@@ -87,7 +87,6 @@ namespace PlayerSpace
                 {
                     CountyInfoControl.Instance.DisableSpawnHeroCheckButton(false);
                     heroRecruitmentConfirmPanel.Hide();
-                    //PlayerUICanvas.Instance.populationListUIElement.Show();
                     PlayerControls.Instance.AdjustPlayerControls(true);
                     Clock.Instance.UnpauseTime();
                 }
@@ -96,11 +95,11 @@ namespace PlayerSpace
                     CountyInfoControl.Instance.DisableSpawnHeroCheckButton(false);
                     heroRecruitmentConfirmPanel.Hide();
                     PlayerUICanvas.Instance.populationListUIElement.Show();
-                    //PlayerControls.Instance.AdjustPlayerControls(true);
                     Clock.Instance.UnpauseTime();
                 }
                 heroButtonClicked = false;
             }
+            CountyInfoControl.Instance.UpdateEverything();
         }
 
         public void UpdateDescriptionInfo()
@@ -117,7 +116,7 @@ namespace PlayerSpace
             //GD.Print("It goes to the update description: " + person.firstName);
             populationName.Text = $"{populationData.firstName} {populationData.lastName}";
 
-            DisableUIElements();
+            DisableUiElements();
 
             // If the token is moving and doesn't belong to the player's faction disable the ability to turn
             // it into an Army.
@@ -138,7 +137,7 @@ namespace PlayerSpace
             {
                 sexLabel.Text = "WORD_FEMALE";
             }
-
+            
             UpdatePerks();
             UpdateInterest();
             UpdatePreferredWork();
@@ -264,21 +263,21 @@ namespace PlayerSpace
         }
 
 
-        private void UpdateAttributes(PopulationData populationData)
+        private void UpdateAttributes(PopulationData population)
         {
-            physicalStrengthLabel.Text = populationData.attributes[AllEnums.Attributes.PhysicalStrength].attributeLevel.ToString();
-            agilityLabel.Text = populationData.attributes[AllEnums.Attributes.Agility].attributeLevel.ToString();
-            enduranceLabel.Text = populationData.attributes[AllEnums.Attributes.Endurance].attributeLevel.ToString();
-            intelligenceLabel.Text = populationData.attributes[AllEnums.Attributes.Intelligence].attributeLevel.ToString();
-            mentalStrengthLabel.Text = populationData.attributes[AllEnums.Attributes.MentalStrength].attributeLevel.ToString();
-            awarenessLabel.Text = populationData.attributes[AllEnums.Attributes.Awareness].attributeLevel.ToString();
-            charismaLabel.Text = populationData.attributes[AllEnums.Attributes.Charisma].attributeLevel.ToString();
-            looksLabel.Text = populationData.attributes[AllEnums.Attributes.Looks].attributeLevel.ToString();
+            physicalStrengthLabel.Text = population.attributes[AllEnums.Attributes.PhysicalStrength].attributeLevel.ToString();
+            agilityLabel.Text = population.attributes[AllEnums.Attributes.Agility].attributeLevel.ToString();
+            enduranceLabel.Text = population.attributes[AllEnums.Attributes.Endurance].attributeLevel.ToString();
+            intelligenceLabel.Text = population.attributes[AllEnums.Attributes.Intelligence].attributeLevel.ToString();
+            mentalStrengthLabel.Text = population.attributes[AllEnums.Attributes.MentalStrength].attributeLevel.ToString();
+            awarenessLabel.Text = population.attributes[AllEnums.Attributes.Awareness].attributeLevel.ToString();
+            charismaLabel.Text = population.attributes[AllEnums.Attributes.Charisma].attributeLevel.ToString();
+            looksLabel.Text = population.attributes[AllEnums.Attributes.Looks].attributeLevel.ToString();
 
-            loyaltyAttributeLabel.Text = populationData.LoyaltyAdjusted.ToString();
+            loyaltyAttributeLabel.Text = population.LoyaltyAdjusted.ToString();
         }
 
-        private void DisableUIElements()
+        private void DisableUiElements()
         {
             leaderTitleButton.Disabled = true;
             aideTitleButton.Disabled = true;

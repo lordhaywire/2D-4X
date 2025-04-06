@@ -11,7 +11,7 @@ namespace PlayerSpace
 
         public bool MoveToken
         {
-            get { return moveToken; }
+            get => moveToken;
             set
             {
                 moveToken = value;
@@ -31,13 +31,13 @@ namespace PlayerSpace
             }
         }
 
-        public void StartMove(int destinationCountyID) // Let's move this to token movement.
+        public void StartMove(int destinationCountyId)
         {
             GD.Print($"{token.populationData.firstName} has location of {token.populationData.location}");
             destinationCounty
-                = (County)Globals.Instance.countiesParent.GetChild(destinationCountyID);
+                = (County)Globals.Instance.countiesParent.GetChild(destinationCountyId);
 
-            token.populationData.destination = destinationCountyID;
+            token.populationData.destination = destinationCountyId;
 
             // Remove hero from research
             token.RemoveFromResearch();
@@ -76,7 +76,7 @@ namespace PlayerSpace
         private bool DefenderOnTheWay()
         {
             // Get the All Heroes List in the desination county for that county's faction and see if any of that
-            // factions heros are on the way to it.
+            // factions heroes are on the way to it.
             //GD.Print("Seeing if someone is on the way.");
             foreach (PopulationData populationData in destinationCounty.countyData.factionData.allHeroesList)
             {
@@ -117,17 +117,16 @@ namespace PlayerSpace
             GD.Print("Token Destination: " + token.populationData.destination);
             destinationCounty = (County)Globals.Instance.countiesParent.GetChild(token.populationData.destination);
             GD.Print("Faction of Destination County: " + destinationCounty.countyData.factionData.factionName);
+            // Checking to see if the hero is in a friendly county.
             if (destinationCounty.countyData.factionData == token.populationData.factionData)
             {
                 if (token.populationData.IsThisAnArmy() == false)
                 {
                     HeroReachedCounty();
-                    token.populationData.UpdateActivity(AllEnums.Activities.Idle);
                 }
                 else
                 {
                     ArmyReachedCounty();
-                    token.populationData.UpdateActivity(AllEnums.Activities.Idle);
                 }
             }
             else
@@ -197,13 +196,16 @@ namespace PlayerSpace
         {
             token.spawnedTokenButton.Reparent(destinationCounty.heroesHBox);
             destinationCounty.countyData.heroesInCountyList.Add(token.populationData);
+            Recruiter.CheckForRecruitingActivity(token.populationData);
         }
 
         private void ArmyReachedCounty()
         {
             token.spawnedTokenButton.Reparent(destinationCounty.armiesHBox);
             destinationCounty.countyData.armiesInCountyList.Add(token.populationData);
+            Recruiter.CheckForRecruitingActivity(token.populationData);
         }
+        
         private void HeroVisitingCounty()
         {
             token.spawnedTokenButton.Reparent(destinationCounty.heroesHBox);

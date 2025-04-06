@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using System.Linq;
 
 namespace PlayerSpace;
@@ -8,41 +7,43 @@ public partial class SubordinatesVBoxContainer : VBoxContainer
 {
     private PopulationData populationData;
     [Export] private Label numberOfSubordinatesLabel;
-    [Export] private SpinBox numberOfSubordinatesSpinbox;
+    [Export] private SpinBox numberOfSubordinatesSpinBox;
     [Export] private VBoxContainer subordinatesListVBoxContainer;
     [Export] private PackedScene subordinateButtonPackedScene;
 
-    public void UpdateNumberOfSubordinates(PopulationData populationData)
+    public void UpdateNumberOfSubordinates(PopulationData population)
     {
-        // When the population descrition control is visible it runs this method which sets the populationData
+        // When the population description control is visible it runs this method which sets the populationData
         // in this script.
-        this.populationData = populationData;
-        numberOfSubordinatesLabel.Text = $"{Tr("PHRASE_NUMBER_OF_SUBORDINATES")}: {populationData.heroSubordinates.Count} /";
-        numberOfSubordinatesSpinbox.Value = populationData.numberOfSubordinates;
+        this.populationData = population;
+        numberOfSubordinatesLabel.Text = $"{Tr("PHRASE_NUMBER_OF_SUBORDINATES")}: {population.heroSubordinates.Count} /";
+        numberOfSubordinatesSpinBox.Value = population.numberOfSubordinatesWanted;
     }
 
-    public void NumberOfSubordinatesValueChanged(float value)
+    private void NumberOfSubordinatesValueChanged(float value)
     {
-        populationData.numberOfSubordinates = (int)value;
-        GD.Print("Number of Subordinates: " + populationData.numberOfSubordinates);
+        populationData.numberOfSubordinatesWanted = (int)value;
+        GD.Print("Number of Subordinates: " + populationData.numberOfSubordinatesWanted);
+        Recruiter.CheckForRecruitingActivity(populationData);
+        PopulationDescriptionControl.Instance.UpdateDescriptionInfo();
     }
 
     public void UpdateSubordinates(Godot.Collections.Array<PopulationData> heroSubordinates)
     {
         ClearSubordinateButtons();
-        foreach (PopulationData populationData in heroSubordinates) 
+        foreach (PopulationData population in heroSubordinates) 
         {
             SubordinateButton subordinateButton = (SubordinateButton)subordinateButtonPackedScene.Instantiate();
             subordinatesListVBoxContainer.AddChild(subordinateButton);
-            subordinateButton.Text = populationData.GetFullName();
-            subordinateButton.populationData = populationData;
-            subordinateButton.Pressed += () => OpenSubordinateDescriptionPanel(populationData);
+            subordinateButton.Text = population.GetFullName();
+            subordinateButton.populationData = population;
+            subordinateButton.Pressed += () => OpenSubordinateDescriptionPanel(population);
         }
     }
 
-    private void OpenSubordinateDescriptionPanel(PopulationData populationData)
+    private void OpenSubordinateDescriptionPanel(PopulationData population)
     {
-        PopulationDescriptionControl.Instance.populationData = populationData;
+        PopulationDescriptionControl.Instance.populationData = population;
         PopulationDescriptionControl.Instance.UpdateDescriptionInfo();
     }
 

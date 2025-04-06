@@ -33,19 +33,19 @@ public class AllEnums
     public enum CountyImprovementStatus
     {
         None,
-        AwaitingPlayerAssignment, // I think this will go away.  This for research and we won't do research this way.
+        AwaitingPlayerAssignment, // I think this will go away.  This for research, and we won't do research this way.
         Producing,
         Researching,
         LowStockpiledGoods,
         UnderConstruction,
-        InResearchPanel, // I think this will go away.  This for research and we won't do research this way.
+        InResearchPanel, // I think this will go away.  This for research, and we won't do research this way.
     }
 
     public enum CountyImprovementType
     {
         Standard,
         Research,
-        Storage, // I am not sure this will end up being used.  It is getting used, but not in a good way.
+        Storage, // I am not sure if this will end up being used.  It is getting used, but not in a good way.
     }
 
     public enum CountyGoodType
@@ -53,7 +53,7 @@ public class AllEnums
         None,
         CannedFood,
         Fish,
-        PrimativeScoutingEquipment,
+        PrimitiveScoutingEquipment,
         Remnants,
         StorageNonperishable,
         StoragePerishable,
@@ -91,7 +91,7 @@ public class AllEnums
         Both,
     }
 
-    // These are just protype personalities.
+    // These are just prototype personalities.
     // Player only should apply to the current factionLeader.
     public enum Personality
     {
@@ -180,7 +180,7 @@ public class AllEnums
         Ruin,
     }
 
-    public static int GetCorrectEquipmentSlot(AllEnums.EquipmentType equipmentType)
+    public static int GetCorrectEquipmentSlot(EquipmentType equipmentType)
     {
         int equipmentSlot = (int)equipmentType - 1;
         return equipmentSlot;

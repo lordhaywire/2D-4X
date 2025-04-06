@@ -24,16 +24,10 @@ public partial class RecruitHeroConfirmationPanelContainer : PanelContainer
         PopulationData populationData = PopulationDescriptionControl.Instance.populationData;
         CountyData countyData = Globals.Instance.GetCountyDataFromLocationID(populationData.location);
 
-        if (populationData.isHero == false)
-        {
-            Banker.ChargeForHero(Globals.Instance.playerFactionData);
-        }
+        // If the population isn't a hero already then it removes it from the population list and the player gets
+        // charged for the hero.
+        CheckIfPopulationIsHero(countyData, populationData);
 
-        // If the population isn't a hero already then it removes it from the population list.
-        if (populationData.isHero != true)
-        {
-            countyData.populationDataList.Remove(populationData);
-        }
         if (armyLeaderRecruited == false)
         {
             populationData.isHero = true;
@@ -43,7 +37,6 @@ public partial class RecruitHeroConfirmationPanelContainer : PanelContainer
         }
         else
         {
-            populationData.isHero = true;
             if (populationData.HeroType == AllEnums.HeroType.FactionLeader)
             {
                 populationData.HeroType = AllEnums.HeroType.FactionLeaderArmyLeader;
@@ -73,6 +66,14 @@ public partial class RecruitHeroConfirmationPanelContainer : PanelContainer
 
         TopBarControl.Instance.UpdateTopBarGoodLabels();
         Hide();
+    }
+
+    private void CheckIfPopulationIsHero(CountyData countyData, PopulationData populationData)
+    {
+        if (populationData.isHero != false) return;
+        Banker.ChargeForHero(Globals.Instance.playerFactionData);
+        countyData.populationDataList.Remove(populationData);
+        populationData.isHero = true;
     }
 
     private void MakePopulationIdle(PopulationData populationData)

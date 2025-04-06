@@ -37,7 +37,7 @@ namespace PlayerSpace
                         = (FactionData)ResourceLoader.Load<FactionData>(factionDataPath + fileNames[i]).Duplicate();
                     Globals.Instance.factionDatas.Add(factionData); // We should probably get rid of this.  We already
                     // have it in the FactioNode children.
-                    factionData.factionID = i;
+                    factionData.factionId = i;
 
                     if (Globals.Instance.factionDatas[i].isPlayer == true)
                     {
@@ -71,7 +71,7 @@ namespace PlayerSpace
             foreach (ResearchItemData researchItemData in AllResearch.Instance.allResearchItemDatas)
             {
                 //GD.Print("Faction ID that is getting assigned: " + factionData.factionID);
-                researchItemData.factionID = factionData.factionID;
+                researchItemData.factionID = factionData.factionId;
                 //GD.PrintRich($"[rainbow]{FactionData.GetFactionDataFromID(researchItemData.factionID).factionName}: {researchItemData.researchName}");
 
                 ResearchItemData researchItemDataCopy = researchItemData.NewCopy(researchItemData); //(ResearchItemData)researchItemData.Duplicate(true); //

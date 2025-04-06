@@ -9,22 +9,23 @@ public class Recruiter
     public static void CheckForRecruitment(CountyData countyData)
     {
         // If the hero isn't moving then recruit.
-        foreach (PopulationData populationData in countyData.heroesInCountyList
+        // Adds the army list to the end of the hero list and then checks both of them.
+        foreach (PopulationData populationData in countyData.heroesInCountyList.Concat(countyData.armiesInCountyList)
             .Where(populationData => populationData.activity != AllEnums.Activities.Move))
         {
             // Not enough recruits, so start recruiting.
-            if (populationData.heroSubordinates.Count < populationData.numberOfSubordinates)
+            if (populationData.heroSubordinates.Count < populationData.numberOfSubordinatesWanted)
             {
                 GD.Print("Number of subordinates is less then the number wanted, so recruiting has started.");
                 populationData.UpdateActivity(AllEnums.Activities.Recruit);
-                int numberOfSubordinatesToHire = populationData.numberOfSubordinates - populationData.heroSubordinates.Count;
+                int numberOfSubordinatesToHire = populationData.numberOfSubordinatesWanted - populationData.heroSubordinates.Count;
 
                 RecruitSubordinates(populationData, numberOfSubordinatesToHire);
             }
-            else if (populationData.heroSubordinates.Count > populationData.numberOfSubordinates)
+            else if (populationData.heroSubordinates.Count > populationData.numberOfSubordinatesWanted)
             {
                 GD.Print("Number of subordinates is greater then the number wanted, so firing has started.");
-                int numberOfSubordinatesToFire = populationData.heroSubordinates.Count - populationData.numberOfSubordinates;
+                int numberOfSubordinatesToFire = populationData.heroSubordinates.Count - populationData.numberOfSubordinatesWanted;
                 FireSubordinates(populationData, numberOfSubordinatesToFire);
                 GD.Print("Number of Subordinates in the Hero Suborbinates list: " + populationData.heroSubordinates.Count);
             }
@@ -84,18 +85,25 @@ public class Recruiter
 
         // Change recruitee's activity to Service once the numberofdaystoservicestarts is done.
 
-        // If the hero is unsuccussful then they try again the next day.  They try 3 times before they move on to the next person.
+        // If the hero is unsuccessful then they try again the next day.  They try 3 times before they move on to the next person.
         // Maybe have some sort of loyalty reduction on each try.
     }
-    
 
+    public static void CheckForRecruitingActivity(PopulationData populationData)
+    {
+        GD.Print($"Hero Subordinate Count: {populationData.heroSubordinates.Count} vs {populationData.numberOfSubordinatesWanted}");
+
+        populationData.UpdateActivity(populationData.heroSubordinates.Count < populationData.numberOfSubordinatesWanted
+            ? AllEnums.Activities.Recruit
+            : AllEnums.Activities.Idle);
+    }
     /// <summary>
     /// We currently could get the numberToFire from the populationData, but I bet we can use this
     /// method at other times.
     /// </summary>
     /// <param name="populationData"></param>
     /// <param name="numberToFire"></param>
-    public static void FireSubordinates(PopulationData populationData, int numberToFire)
+    private static void FireSubordinates(PopulationData populationData, int numberToFire)
     {
         Godot.Collections.Array<PopulationData> peopleToFireSorted
             = [.. populationData.heroSubordinates.ToList().OrderBy(populationData

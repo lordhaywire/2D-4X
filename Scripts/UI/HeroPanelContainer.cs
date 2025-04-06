@@ -12,23 +12,71 @@ public partial class HeroPanelContainer : PanelContainer
     [Export] public TextureRect aideTextureRect;
     [Export] public TextureRect armyLeaderTextureRect;
     [Export] public Label heroNameLabel;
-    [Export] public Button heroListButton;
+    [Export] public Button heroDescriptionButton;
     [Export] public CheckButton spawnHeroButton;
-    [Export] public HBoxContainer aideActivitiesHBoxContainer;
+    [Export] public HBoxContainer primaryActivitiesHBoxContainer;
     [Export] public HBoxContainer secondaryActivitiesHBoxContainer;
+    [Export] public HBoxContainer movementActivityHBoxContainer;
     public readonly List<CheckBox> heroCheckBoxesList = [];
-
+    public readonly List<CheckBox> secondaryCheckBoxesList = [];
 
     public override void _Ready()
     {
-        if (aideActivitiesHBoxContainer == null)
+        if (primaryActivitiesHBoxContainer == null)
         {
             return;
         }
 
-        foreach (CheckBox checkBox in aideActivitiesHBoxContainer.GetChildren().Cast<CheckBox>())
+        foreach (CheckBox checkBox in primaryActivitiesHBoxContainer.GetChildren().Cast<CheckBox>())
         {
             heroCheckBoxesList.Add(checkBox);
+        }
+        GetSecondaryCheckboxes();
+        ConnectButtonSignals();
+    }
+
+    private void ConnectButtonSignals()
+    {
+        secondaryCheckBoxesList[0].Pressed += OnRecruitingCheckBoxPressed;
+    }
+
+    private void OnRecruitingCheckBoxPressed()
+    {
+        if (secondaryCheckBoxesList[0].ButtonPressed != true)
+        {
+            populationData.numberOfSubordinatesWanted = populationData.heroSubordinates.Count;
+            secondaryCheckBoxesList[0].Disabled = true;
+        }
+    }
+
+    public void HidePrimaryActivitiesHBoxContainer()
+    {
+        primaryActivitiesHBoxContainer.Hide();
+    }
+
+    public void HideSecondaryActivitiesHBoxContainer()
+    {
+        secondaryActivitiesHBoxContainer.Hide();
+    }
+
+    public void HideMovementActivityHBoxContainer()
+    {
+        movementActivityHBoxContainer.Hide();
+    }
+
+    public void ShowMovementActivityHBoxContainer()
+    {
+        Label movementLabel = (Label)movementActivityHBoxContainer.GetChild(0);
+        CountyData currentLocationCountyData = Globals.Instance.GetCountyDataFromLocationID(populationData.location);
+        CountyData destinationLocationCountyData = Globals.Instance.GetCountyDataFromLocationID(populationData.destination);
+        movementLabel.Text = $"{currentLocationCountyData.countyName} -> {destinationLocationCountyData.countyName}";
+        movementActivityHBoxContainer.Show();
+    }
+    private void GetSecondaryCheckboxes()
+    {
+        foreach (CheckBox checkBox in secondaryActivitiesHBoxContainer.GetChildren().Cast<CheckBox>())
+        {
+            secondaryCheckBoxesList.Add(checkBox);
         }
     }
 
@@ -82,7 +130,7 @@ public partial class HeroPanelContainer : PanelContainer
     }
 
     /// <summary>
-    /// The int bound in the signal is the equvilent to the enum in the case.
+    /// The int bound in the signal is the equivalent to the enum in the case.
     /// </summary>
     /// <param name="numberOfCheckBox"></param>
     private void HeroActivitiesCheckBoxPressed(int numberOfCheckBox)
@@ -102,8 +150,6 @@ public partial class HeroPanelContainer : PanelContainer
             // Scavenge
             case 0:
                 populationData.UpdateActivity(AllEnums.Activities.Scavenge);
-                //populationData.currentCountyImprovement?.RemovePopulationFromPopulationAtImprovementList(populationData);
-                //populationData.currentCountyImprovement = null;
                 GD.Print("Scavenge has been pressed.");
                 return;
             // Build
@@ -148,13 +194,13 @@ public partial class HeroPanelContainer : PanelContainer
     }
 
     // This needs to be on this script because this is also instantiated.
-    public static void OnMouseEnteredUI()
+    private static void OnMouseEnteredUI()
     {
         PlayerControls.Instance.stopClickThrough = true;
         //GD.Print("Mouse Over UI: " + PlayerControls.Instance.stopClickThrough);
     }
 
-    public static void OnMouseExitedUI()
+    private static void OnMouseExitedUI()
     {
         PlayerControls.Instance.stopClickThrough = false;
         //GD.Print("Mouse Over UI: " + PlayerControls.Instance.stopClickThrough);

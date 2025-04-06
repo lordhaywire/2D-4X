@@ -709,7 +709,7 @@ text = "WORD_PAUSED"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="County Info Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("countyInfoControl", "factionNamelabel", "countyNameLabel", "countyFoodLabel", "countyScrapLabel", "populationDataNumberLabel", "countyIdleWorkersLabel", "visitorsLabel", "populationListMarginContainer", "populationDescriptionControl", "countyImprovementsPanelControl", "heroListParent", "heroSpawnCheckButtonParent", "populationListButton", "visitorsListButton", "countyImprovementsButton", "resourcesButton")]
+[node name="County Info Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("countyInfoControl", "factionNameLabel", "countyNameLabel", "countyFoodLabel", "countyScrapLabel", "populationDataNumberLabel", "countyIdleWorkersLabel", "visitorsLabel", "populationListMarginContainer", "populationDescriptionControl", "countyImprovementsPanelControl", "heroListParent", "heroSpawnCheckButtonParent", "populationListButton", "visitorsListButton", "countyImprovementsButton", "resourcesButton")]
 visible = false
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 3
@@ -721,7 +721,7 @@ size_flags_vertical = 0
 mouse_filter = 2
 script = ExtResource("26_8qp8l")
 countyInfoControl = NodePath(".")
-factionNamelabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer/Faction Name Label")
+factionNameLabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer/Faction Name Label")
 countyNameLabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer/County Name Label")
 countyFoodLabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer/Scavengable Resources PanelContainer/Scavengable Resources VBoxContainer/HBoxContainer/County Food")
 countyScrapLabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer/Scavengable Resources PanelContainer/Scavengable Resources VBoxContainer/HBoxContainer/County Scrap")
@@ -945,7 +945,7 @@ text = "County Improvements"
 layout_mode = 2
 mouse_filter = 0
 
-[node name="Selected Hero PanelContainer" type="PanelContainer" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer" node_paths=PackedStringArray("factionLeaderTextureRect", "aideTextureRect", "armyLeaderTextureRect", "heroNameLabel", "heroListButton")]
+[node name="Selected Hero PanelContainer" type="PanelContainer" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer" node_paths=PackedStringArray("factionLeaderTextureRect", "aideTextureRect", "armyLeaderTextureRect", "heroNameLabel")]
 visible = false
 custom_minimum_size = Vector2(300, 50)
 layout_mode = 2
@@ -957,7 +957,6 @@ factionLeaderTextureRect = NodePath("HBoxContainer/Leader TextureRect")
 aideTextureRect = NodePath("HBoxContainer/Aide TextureRect")
 armyLeaderTextureRect = NodePath("HBoxContainer/Army TextureRect")
 heroNameLabel = NodePath("Hero Name Label")
-heroListButton = NodePath("Hero List Button")
 
 [node name="Hero Name Label" type="Label" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Selected Hero PanelContainer"]
 layout_mode = 2
@@ -1927,12 +1926,12 @@ text = "Aux"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Subordinates VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer" node_paths=PackedStringArray("numberOfSubordinatesLabel", "numberOfSubordinatesSpinbox", "subordinatesListVBoxContainer")]
+[node name="Subordinates VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer" node_paths=PackedStringArray("numberOfSubordinatesLabel", "numberOfSubordinatesSpinBox", "subordinatesListVBoxContainer")]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("119_mjyee")
 numberOfSubordinatesLabel = NodePath("Subordinates HBoxContainer/Number of Subordinates Label")
-numberOfSubordinatesSpinbox = NodePath("Subordinates HBoxContainer/Number of Subordinates SpinBox")
+numberOfSubordinatesSpinBox = NodePath("Subordinates HBoxContainer/Number of Subordinates SpinBox")
 subordinatesListVBoxContainer = NodePath("Subordinates ScrollContainer/Subordinate VBoxContainer")
 subordinateButtonPackedScene = ExtResource("122_dwns0")
 
@@ -2010,16 +2009,16 @@ layout_mode = 2
 size_flags_vertical = 8
 alignment = 1
 
+[node name="No Button" type="Button" parent="Player UI Canvas/Recuit Hero Confirmation PanelContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "No"
+
 [node name="Yes Button" type="Button" parent="Player UI Canvas/Recuit Hero Confirmation PanelContainer/PanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "You are a piece of shit!"
 text = "Yes"
-
-[node name="No Button" type="Button" parent="Player UI Canvas/Recuit Hero Confirmation PanelContainer/PanelContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "No"
 
 [node name="Battle Log Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("battleLogControlTitle", "defenderVboxContainer", "attackerVboxContainer")]
 visible = false
@@ -2134,51 +2133,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "Close"
-
-[node name="Recuit Hero Confirmation PanelContainer" type="PanelContainer" parent="Player UI Canvas/Battle Log Control" node_paths=PackedStringArray("titleLabel")]
-visible = false
-custom_minimum_size = Vector2(400, 200)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -100.0
-offset_right = 200.0
-offset_bottom = 100.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-script = ExtResource("34_mgqam")
-titleLabel = NodePath("../../Recuit Hero Confirmation PanelContainer/PanelContainer/Title Label")
-
-[node name="Title Label" type="Label" parent="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer"]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_font_sizes/font_size = 16
-text = "Do you want to recruit bill smill for realz?"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer"]
-layout_mode = 2
-size_flags_vertical = 8
-alignment = 1
-
-[node name="No Button" type="Button" parent="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "No"
-
-[node name="Yes Button" type="Button" parent="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "You are a piece of shit!"
-text = "Yes"
 
 [node name="County Improvements Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("possibleImprovementsScrollContainerParent", "currentImprovementsScrollContainerParent", "buildConfirmationDialog", "removeCountyImprovementConfirmationPanelContainer")]
 process_mode = 3
@@ -2793,17 +2747,14 @@ process_mode = 3
 [connection signal="value_changed" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer/Subordinates HBoxContainer/Number of Subordinates SpinBox" to="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer" method="NumberOfSubordinatesValueChanged"]
 [connection signal="button_up" from="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/Close Button" to="Player UI Canvas/Population Description Control" method="CloseButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Recuit Hero Confirmation PanelContainer" to="Player UI Canvas/Recuit Hero Confirmation PanelContainer" method="OnVisibilityChange"]
-[connection signal="button_up" from="Player UI Canvas/Recuit Hero Confirmation PanelContainer/PanelContainer/HBoxContainer/Yes Button" to="Player UI Canvas/Recuit Hero Confirmation PanelContainer" method="YesButton"]
 [connection signal="button_up" from="Player UI Canvas/Recuit Hero Confirmation PanelContainer/PanelContainer/HBoxContainer/No Button" to="Player UI Canvas/Recuit Hero Confirmation PanelContainer" method="NoButton"]
+[connection signal="button_up" from="Player UI Canvas/Recuit Hero Confirmation PanelContainer/PanelContainer/HBoxContainer/Yes Button" to="Player UI Canvas/Recuit Hero Confirmation PanelContainer" method="YesButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Battle Log Control" to="Player UI Canvas/Battle Log Control" method="OnBattleLogControlVisibilityChanged"]
 [connection signal="mouse_entered" from="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer" to="Player UI Canvas" method="OnMouseEnterUI"]
 [connection signal="mouse_exited" from="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer" to="Player UI Canvas" method="OnMouseExitUI"]
 [connection signal="button_up" from="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/Close Button" to="Player UI Canvas/Battle Log Control" method="CloseButton"]
 [connection signal="mouse_entered" from="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/Close Button" to="Player UI Canvas" method="OnMouseEnterUI"]
 [connection signal="mouse_exited" from="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/Close Button" to="Player UI Canvas" method="OnMouseExitUI"]
-[connection signal="visibility_changed" from="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer" to="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer" method="OnVisibilityChange"]
-[connection signal="button_up" from="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer/HBoxContainer/No Button" to="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer" method="NoButton"]
-[connection signal="button_up" from="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer/HBoxContainer/Yes Button" to="Player UI Canvas/Battle Log Control/Recuit Hero Confirmation PanelContainer" method="YesButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/County Improvements Control" to="Player UI Canvas/County Improvements Control" method="OnCountyImprovementControlVisibilityChanged"]
 [connection signal="visibility_changed" from="Player UI Canvas/County Improvements Control/County Improvements MarginContainer" to="Player UI Canvas/County Improvements Control/County Improvements MarginContainer" method="OnVisibilityChange"]
 [connection signal="button_up" from="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/Close Button" to="Player UI Canvas/County Improvements Control" method="CloseButton"]

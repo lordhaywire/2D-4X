@@ -1,6 +1,4 @@
 using Godot;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace PlayerSpace
@@ -175,7 +173,6 @@ namespace PlayerSpace
                 }
             }
             CountyInfoControl.Instance.UpdateEverything();
-
         }
 
         public void SelectedChanged(County county, bool selected)

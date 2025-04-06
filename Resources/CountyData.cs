@@ -773,7 +773,7 @@ public partial class CountyData : Resource
         */
     }
 
-    public static void CheckForHealing(Godot.Collections.Array<PopulationData> possibleHurtPopulationList)
+    public static void CheckForHealing(IEnumerable<PopulationData> possibleHurtPopulationList)
     {
         foreach (PopulationData populationData in possibleHurtPopulationList)
         {
