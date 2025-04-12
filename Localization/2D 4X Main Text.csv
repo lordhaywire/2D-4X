@@ -243,3 +243,7 @@ ACTIVITY_MUSTER_TOOLTIP,The process of gather subordinates.,El proceso de reunir
 ACTIVITY_TRAIN_DESCRIPTION,Making the heroes subordinates improve their skills.,Hacer que los subordinados de los héroes mejoren sus habilidades.
 ACTIVITY_TRAIN_NAME,Train,Tren
 ACTIVITY_TRAIN_TOOLTIP,Making the heroes subordinates improve their skills.,Hacer que los subordinados de los héroes mejoren sus habilidades.
+PHRASE_RETURNING_TO,Returning to,Volviendo a
+ACTIVITY_RECRUITED_NAME,Recruited,Reclutado
+ACTIVITY_RECRUITED_DESCRIPTION,This person is gathering their belongings to begin work for a leader.,Esta persona está reuniendo sus pertenencias para comenzar a trabajar para un líder.
+ACTIVITY_RECRUITED_TOOLTIP,This person is gathering their belongings to begin work for a leader.,Esta persona está reuniendo sus pertenencias para comenzar a trabajar para un líder.

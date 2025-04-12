@@ -156,7 +156,7 @@ layout_mode = 2
 size_flags_vertical = 0
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/Movement Activity HBoxContainer"]
+[node name="Movement Label" type="Label" parent="VBoxContainer/Movement Activity HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Moving from to whatever"

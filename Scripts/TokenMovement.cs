@@ -19,6 +19,18 @@ namespace PlayerSpace
                 {
                     token.populationData.lastLocation = token.populationData.location;
                     token.Show();
+                    if (Globals.Instance.playerFactionData != token.populationData.factionData)
+                    {
+                        return;
+                    }
+
+                    CountyInfoControl.Instance.UpdateEverything();
+
+                }
+                
+                if (PlayerUICanvas.Instance.selectedHeroPanelContainer.populationData.heroToken == token)
+                {
+                    CountyInfoControl.UpdateSelectedHero();
                 }
             }
         }
@@ -61,11 +73,11 @@ namespace PlayerSpace
             County selectCounty = (County)Globals.Instance.countiesParent.GetChild(token.populationData.destination);
 
             if (token.populationData.factionData.factionWarDictionary
-                [selectCounty.countyData.factionData.factionName] == true && DefenderOnTheWay() == false)
+                    [selectCounty.countyData.factionData.factionName] == true && DefenderOnTheWay() == false)
             {
                 selectCounty.countyData.factionData.diplomacy.DefenderSpawnArmies(destinationCounty);
                 EventLog.Instance.AddLog($"{selectCounty.countyData.factionData.factionName}" +
-                        $" is raising armies at {selectCounty.countyData.countyName}!");
+                                         $" is raising armies at {selectCounty.countyData.countyName}!");
             }
             else
             {
@@ -86,6 +98,7 @@ namespace PlayerSpace
                     return true;
                 }
             }
+
             return false;
         }
 
@@ -100,6 +113,7 @@ namespace PlayerSpace
                 selectCounty.battleControl.EndBattle();
             }
         }
+
         private void Move()
         {
             float speed = Globals.Instance.movementSpeed * Clock.Instance.ModifiedTimeScale;
@@ -143,8 +157,8 @@ namespace PlayerSpace
                     ArmyAttackingCounty();
                     token.populationData.UpdateActivity(AllEnums.Activities.Combat);
                 }
-
             }
+
             RemoveFromStartingCounty();
             AddToDestinationCounty();
             CountyInfoControl.Instance.UpdateEverything();
@@ -165,7 +179,8 @@ namespace PlayerSpace
             }
             else
             {
-                CountyDictator.Instance.CaptureCounty(token.populationData.destination, token.populationData.factionData);
+                CountyDictator.Instance.CaptureCounty(token.populationData.destination,
+                    token.populationData.factionData);
             }
         }
 
@@ -175,6 +190,7 @@ namespace PlayerSpace
             token.populationData.location = destinationCounty.countyData.countyId;
             destinationCounty.countyData.spawnedTokenButtons.Add(token.spawnedTokenButton);
         }
+
         private void RemoveFromStartingCounty()
         {
             //GD.Print($"Removed token from Starting County {token.populationData.firstName} {token.populationData.location}");
@@ -205,7 +221,7 @@ namespace PlayerSpace
             destinationCounty.countyData.armiesInCountyList.Add(token.populationData);
             Recruiter.CheckForRecruitingActivity(token.populationData);
         }
-        
+
         private void HeroVisitingCounty()
         {
             token.spawnedTokenButton.Reparent(destinationCounty.heroesHBox);

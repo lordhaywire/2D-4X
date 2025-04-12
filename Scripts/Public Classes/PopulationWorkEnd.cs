@@ -119,7 +119,7 @@ public class PopulationWorkEnd
     private static void KeepWorkingAtCountyImprovement(PopulationData populationData)
     {
         populationData.daysEmployed++;
-        if (populationData.daysEmployed > Globals.Instance.daysEmpoyedBeforeLoyaltyCheck)
+        if (populationData.daysEmployed > Globals.Instance.daysEmployedBeforeLoyaltyCheck)
         {
             PopulationAI.LoyaltyCheckToKeepWorkingAtCountyImprovement(populationData);
             populationData.daysEmployed = 0;

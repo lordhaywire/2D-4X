@@ -21,7 +21,7 @@ public partial class County : Node2D
 
     private HeroToken selectToken;
 
-    public List<County> neighborCounties = [];
+    public readonly List<County> neighborCounties = [];
 
     public override void _Ready()
     {
@@ -82,9 +82,9 @@ public partial class County : Node2D
 
         PopulationAI.IsThereEnoughFood(countyData); // This is a terrible name for this method.
 
-        // This is a check for Occational needs.
+        // This is a check for Occasional needs.
         // Population uses other resources besides food.
-        countyData.OccationalNeeds();
+        countyData.OccasionalNeeds();
 
         // See if we can combine this into something else.
         GD.Print("County: " + countyData.countyName);
@@ -135,7 +135,7 @@ public partial class County : Node2D
             countyData.prioritizedConstructionImprovementList.Clear();
         }
 
-        // We don't need the priortized builders list anymore, because we generate the idlePopulationList after this.
+        // We don't need the prioritized builders list anymore, because we generate the idlePopulationList after this.
         PopulationWorkStart.ClearPrioritizedBuildersList(countyData);
 
         // Check for prioritized work improvements.
@@ -152,8 +152,8 @@ public partial class County : Node2D
             countyData.prioritizedWorkImprovementList.Clear();
         }
 
-        // Clear the priortized workers lists.
-        // We don't need the priortized workers list anymore, because we generate the idlePopulationList after this.
+        // Clear the prioritized workers lists.
+        // We don't need the prioritized workers list anymore, because we generate the idlePopulationList after this.
         PopulationWorkStart.ClearPrioritizedWorkersList(countyData);
 
         // Gets all the idle people and puts them in a list for the next methods.
@@ -177,7 +177,7 @@ public partial class County : Node2D
     }
 
     /// <summary>
-    /// This equips all of the heroes in 
+    /// This equips all the heroes in 
     /// </summary>
     private void AfterStartDay()
     {
@@ -202,7 +202,7 @@ public partial class County : Node2D
                 && populationData.heroToken?.tokenMovement.MoveToken != true)
             {
                 Quartermaster.EquipHeroes(populationData);
-                GD.Print($"{populationData.firstName} has been equiped.");
+                GD.Print($"{populationData.firstName} has been equipped.");
             }
             else
             {

@@ -17,22 +17,197 @@ public partial class HeroPanelContainer : PanelContainer
     [Export] public HBoxContainer primaryActivitiesHBoxContainer;
     [Export] public HBoxContainer secondaryActivitiesHBoxContainer;
     [Export] public HBoxContainer movementActivityHBoxContainer;
-    public readonly List<CheckBox> heroCheckBoxesList = [];
-    public readonly List<CheckBox> secondaryCheckBoxesList = [];
+    private readonly List<CheckBox> heroCheckBoxesList = [];
+    private readonly List<CheckBox> secondaryCheckBoxesList = [];
 
     public override void _Ready()
     {
+        // Skips all this stuff if it is the Selected Hero Panel.
         if (primaryActivitiesHBoxContainer == null)
         {
             return;
         }
 
-        foreach (CheckBox checkBox in primaryActivitiesHBoxContainer.GetChildren().Cast<CheckBox>())
-        {
-            heroCheckBoxesList.Add(checkBox);
-        }
-        GetSecondaryCheckboxes();
+        GetPrimaryActivityCheckboxes();
+        GetSecondaryActivityCheckboxes();
         ConnectButtonSignals();
+        PopulateHeroPanel();
+    }
+
+
+    private void PopulateHeroPanel()
+    {
+        CountyData locationCountyData = Globals.Instance.GetCountyDataFromLocationId(populationData.location);
+
+        // This needs to be up here because we are fucking with the spawnHeroButton below.
+        SetDefaultUi();
+
+        UpdateHeroNameAndIcons();
+
+        // Change color of panel to the faction color.
+        SelfModulate = populationData.factionData.factionColor;
+
+        CheckForAvailableActivities(locationCountyData);
+
+        PopulateActivityHBoxes();
+
+        // Check to see if the hero is part of the player's faction to determine what to show.
+        // Once we add the ability for heroes to do things in enemy faction counties we will change this.
+        // Currently, we are just making it so that the heroes Activities boxes are hidden.
+        // Check if the hero is not player owned.
+        if (Globals.Instance.CheckIfPlayerFaction(populationData.factionData) == false)
+        {
+            heroDescriptionButton.Disabled = true;
+            spawnHeroButton.Hide();
+            return; // TODO This used to be inside a loop.
+        }
+
+        // This checks if the location of the hero is in a non-player owned county.
+        // If this is a player hero, but in an enemy county they can't currently do anything.
+        if (Globals.Instance.CheckIfPlayerFaction(populationData.factionData) == true &&
+            Globals.Instance.CheckIfPlayerFaction(locationCountyData.factionData) == false)
+        {
+            spawnHeroButton.Disabled = true;
+            heroDescriptionButton.Disabled = false;
+            return; // TODO Test this return.
+        }
+
+        if (populationData.IsThisAnArmy() || populationData.activity == AllEnums.Activities.Recruit)
+        {
+            secondaryActivitiesHBoxContainer.Show();
+        }
+        else if (populationData.activity != AllEnums.Activities.Move)
+        {
+            primaryActivitiesHBoxContainer.Show();
+        }
+
+        heroDescriptionButton.Disabled = false;
+        spawnHeroButton.Show();
+
+        GD.Print("County Info Control Hero Token: " + populationData.heroToken);
+        // This is only for the players tokens.
+        if (populationData.heroToken == null)
+        {
+            spawnHeroButton.ButtonPressed = false;
+        }
+        else
+        {
+            spawnHeroButton.ButtonPressed = true;
+        }
+    }
+
+    public void UpdateHeroNameAndIcons()
+    {
+        heroNameLabel.Text =
+            $"{populationData.firstName} {populationData.lastName}";
+
+        // Update the icons for each hero.
+        switch (populationData)
+        {
+            case { HeroType: AllEnums.HeroType.FactionLeader }: // FactionLeader
+                factionLeaderTextureRect.Show();
+                aideTextureRect.Hide();
+                armyLeaderTextureRect.Hide();
+                break;
+
+            case { HeroType: AllEnums.HeroType.FactionLeaderArmyLeader }: // FactionArmyLeader
+                factionLeaderTextureRect.Show();
+                aideTextureRect.Hide();
+                armyLeaderTextureRect.Show();
+                break;
+
+            case { HeroType: AllEnums.HeroType.Aide }: // Aide
+                factionLeaderTextureRect.Hide();
+                aideTextureRect.Show();
+                armyLeaderTextureRect.Hide();
+                break;
+
+            case { HeroType: AllEnums.HeroType.ArmyLeader }: // ArmyLeader
+                factionLeaderTextureRect.Hide();
+                aideTextureRect.Hide();
+                armyLeaderTextureRect.Show();
+                break;
+        }
+    }
+
+    private void CheckForAvailableActivities(CountyData countyData)
+    {
+        DisableMostActivityCheckboxes();
+        foreach (CountyImprovementData countyImprovementData in countyData.completedCountyImprovementList)
+        {
+            // Work
+            if (countyImprovementData.maxWorkers > 0
+                && countyImprovementData.factionResourceType != AllEnums.FactionGoodType.Research)
+            {
+                heroCheckBoxesList[2].Disabled = false;
+            }
+        }
+
+        // Build
+        if (countyData.underConstructionCountyImprovementList.Count > 0)
+        {
+            heroCheckBoxesList[1].Disabled = false;
+        }
+    }
+
+    private void PopulateActivityHBoxes()
+    {
+        switch (populationData.activity)
+        {
+            case AllEnums.Activities.Scavenge:
+                heroCheckBoxesList[0].ButtonPressed = true;
+                break;
+            case AllEnums.Activities.Build:
+                heroCheckBoxesList[1].ButtonPressed = true;
+                break;
+            case AllEnums.Activities.Work:
+                heroCheckBoxesList[2].ButtonPressed = true;
+                break;
+            case AllEnums.Activities.Research:
+                heroCheckBoxesList[3].ButtonPressed = true;
+                break;
+            case AllEnums.Activities.Explore:
+                heroCheckBoxesList[4].ButtonPressed = true;
+                break;
+            case AllEnums.Activities.Recruit:
+                secondaryCheckBoxesList[0].ButtonPressed = true;
+                secondaryCheckBoxesList[0].Disabled = false;
+                break;
+            case AllEnums.Activities.Move:
+                ShowMovementActivityHBoxContainer();
+                break;
+            case AllEnums.Activities.Combat:
+            case AllEnums.Activities.Idle:
+            case AllEnums.Activities.Service:
+            default:
+                GD.Print("PopulateActivitiesHBox has unwritten activities.");
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Disables all checkboxes except scavenge.
+    /// This is dumb.
+    /// </summary>
+    private void DisableMostActivityCheckboxes()
+    {
+        foreach (CheckBox checkBox in heroCheckBoxesList)
+        {
+            if (checkBox != heroCheckBoxesList[0]
+                && checkBox != heroCheckBoxesList[3]
+                && checkBox != heroCheckBoxesList[4])
+            {
+                checkBox.Disabled = true;
+            }
+        }
+    }
+
+    private void SetDefaultUi()
+    {
+        spawnHeroButton.Disabled = false;
+        primaryActivitiesHBoxContainer.Hide();
+        secondaryActivitiesHBoxContainer.Hide();
+        movementActivityHBoxContainer.Hide();
     }
 
     private void ConnectButtonSignals()
@@ -49,35 +224,55 @@ public partial class HeroPanelContainer : PanelContainer
         }
     }
 
-    public void HidePrimaryActivitiesHBoxContainer()
+    private void HidePrimaryActivitiesHBoxContainer()
     {
         primaryActivitiesHBoxContainer.Hide();
     }
 
-    public void HideSecondaryActivitiesHBoxContainer()
+    private void HideSecondaryActivitiesHBoxContainer()
     {
         secondaryActivitiesHBoxContainer.Hide();
     }
 
-    public void HideMovementActivityHBoxContainer()
+    private void HideMovementActivityHBoxContainer()
     {
         movementActivityHBoxContainer.Hide();
     }
 
-    public void ShowMovementActivityHBoxContainer()
+    private void GetPrimaryActivityCheckboxes()
     {
-        Label movementLabel = (Label)movementActivityHBoxContainer.GetChild(0);
-        CountyData currentLocationCountyData = Globals.Instance.GetCountyDataFromLocationID(populationData.location);
-        CountyData destinationLocationCountyData = Globals.Instance.GetCountyDataFromLocationID(populationData.destination);
-        movementLabel.Text = $"{currentLocationCountyData.countyName} -> {destinationLocationCountyData.countyName}";
-        movementActivityHBoxContainer.Show();
+        foreach (CheckBox checkBox in primaryActivitiesHBoxContainer.GetChildren().Cast<CheckBox>())
+        {
+            heroCheckBoxesList.Add(checkBox);
+        }
     }
-    private void GetSecondaryCheckboxes()
+
+    private void GetSecondaryActivityCheckboxes()
     {
         foreach (CheckBox checkBox in secondaryActivitiesHBoxContainer.GetChildren().Cast<CheckBox>())
         {
             secondaryCheckBoxesList.Add(checkBox);
         }
+    }
+
+    public void ShowMovementActivityHBoxContainer()
+    {
+        Label movementLabel = (Label)movementActivityHBoxContainer.GetChild(0);
+        CountyData currentLocationCountyData = Globals.Instance.GetCountyDataFromLocationId(populationData.location);
+        CountyData destinationLocationCountyData =
+            Globals.Instance.GetCountyDataFromLocationId(populationData.destination);
+        if (currentLocationCountyData != destinationLocationCountyData)
+        {
+            movementLabel.Text =
+                $"{currentLocationCountyData.countyName} -> {destinationLocationCountyData.countyName}";
+        }
+        else
+        {
+            movementLabel.Text =
+                $"{Tr("PHRASE_RETURNING_TO")} -> {destinationLocationCountyData.countyName}";
+        }
+
+        movementActivityHBoxContainer.Show();
     }
 
     private void HeroButtonOnPressed()

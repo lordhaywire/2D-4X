@@ -52,7 +52,7 @@ public partial class InventoryVBoxContainer : VBoxContainer
     private void NewestEquipmentCheckboxPressed()
     {
         PopulationData populationData = PopulationDescriptionControl.Instance.populationData;
-        CountyData locationCountyData = Globals.Instance.GetCountyDataFromLocationID(populationData.location);
+        CountyData locationCountyData = Globals.Instance.GetCountyDataFromLocationId(populationData.location);
 
         GD.Print("Newest Equipment Checkbox has been pressed. " + newestEquipment.ButtonPressed);
         GD.Print("Token Movement - MoveToken: " + populationData.heroToken?.tokenMovement.MoveToken);

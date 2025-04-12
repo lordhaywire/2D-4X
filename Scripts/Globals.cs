@@ -8,8 +8,7 @@ namespace PlayerSpace;
 public partial class Globals : Node
 {
     public static Globals Instance { get; private set; }
-    public Random random = new();
-    //[ExportGroup("Test BS")]
+    public readonly Random random = new();
 
     [ExportGroup("Player Faction BS")]
     [Export] public FactionData playerFactionData;
@@ -26,11 +25,11 @@ public partial class Globals : Node
 
     [ExportGroup("Selected Items")]
     [Export] public int selectedCountyId = -1;
-    [Export] County selectedLeftClickCounty;
+    [Export] private County selectedLeftClickCounty;
 
     public County SelectedLeftClickCounty
     {
-        get { return selectedLeftClickCounty; }
+        get => selectedLeftClickCounty;
         set
         {
             if (selectedLeftClickCounty != null)
@@ -48,7 +47,7 @@ public partial class Globals : Node
     private PopulationData selectedCountyPopulation;
     public PopulationData SelectedCountyPopulation
     {
-        get { return selectedCountyPopulation; }
+        get => selectedCountyPopulation;
         set
         {
             selectedCountyPopulation = value;
@@ -58,7 +57,7 @@ public partial class Globals : Node
             }
             else
             {
-                CallDeferred(nameof(UpdateSelectedHero));
+                CountyInfoControl.UpdateSelectedHero();
                 PlayerUICanvas.Instance.selectedHeroPanelContainer.Show();
             }
         }
@@ -86,8 +85,8 @@ public partial class Globals : Node
     // These two are populated from AllResources at Ready.
     [Export] public int numberOfPerishableGoods; // Total perishable goods
     [Export] public int numberOfNonperishableGoods; // Total nonperishable goods
-    [Export] public int maxScavengableScrap = 10000;
-    [Export] public int maxScavengableFood = 10000;
+    [Export] public int maxScavengeableScrap = 10000;
+    [Export] public int maxScavengeableFood = 10000;
     [Export] public int startingPerishableStorage = 500;
     [Export] public int startingNonperishableStorage = 500;
     [Export] public int startingAmountOfEachGood = 100;
@@ -104,9 +103,9 @@ public partial class Globals : Node
     [Export] public int foodToGainHappiness = 3;
     [Export] public int foodToGainNothing = 2;
     [Export] public int foodToLoseHappiness = 1;
-    [Export] public int occationalResourceUsageAmount = 1;
-    [Export] public int occationalNeedIncreaseAmount = 5;
-    [Export] public int daysEmpoyedBeforeLoyaltyCheck = 7;
+    [Export] public int occasionalResourceUsageAmount = 1;
+    [Export] public int occasionalNeedIncreaseAmount = 5;
+    [Export] public int daysEmployedBeforeLoyaltyCheck = 7;
     [Export] public int daysEmployedIdleBeforeLookingForNewWork = 7;
 
     [ExportGroup("Population Shit")]
@@ -124,7 +123,7 @@ public partial class Globals : Node
     [Export] public int fastLearningNeeded = 10;
     [Export] public int mediumLearningNeeded = 50;
     [Export] public int slowLearningNeeded = 100;
-    [Export] public int maxXPRoll = 5; // One above max.
+    [Export] public int maxXpRoll = 5; // One above max.
     [Export] public int moraleDamageMin = 1;
     [Export] public int moraleDamageMax = 21; // One above max.
     [Export] public int moraleRecoveryMin = 1;
@@ -135,19 +134,19 @@ public partial class Globals : Node
     [Export] public int passiveResearchBonus = 1;
     [Export] public int daysUntilDamageFromStarvation = 15;
     [Export] public int maxDaysUntilServiceStarts = 8; // One above max.
-    [Export] public int foodBeforeScavenge = 500; // Less then this amount will make people scavenge.
-    [Export] public int remnantsBeforeScavenge = 500; // Less then this amount will make people scavenge.
+    [Export] public int foodBeforeScavenge = 500; // Less than this amount will make people scavenge.
+    [Export] public int remnantsBeforeScavenge = 500; // Less than this amount will make people scavenge.
 
-    public int researchClicked; // This is so the Research description panel knows which research was clicked.
+    private int researchClicked; // This is so the Research description panel knows which research was clicked.
 
-    string listsPath = "Lists/";
-    string maleNamesPath = "MaleNames.txt";
-    string femaleNamesPath = "FemaleNames.txt";
-    string lastNamesPath = "LastNames.txt";
+    private string listsPath = "Lists/";
+    private string maleNamesPath = "MaleNames.txt";
+    private string femaleNamesPath = "FemaleNames.txt";
+    private string lastNamesPath = "LastNames.txt";
 
-    public List<string> maleNames = [];
-    public List<string> femaleNames = [];
-    public List<string> lastNames = [];
+    public readonly List<string> maleNames = [];
+    public readonly List<string> femaleNames = [];
+    public readonly List<string> lastNames = [];
 
     [ExportGroup("This is some bullshit.")]
     [Export] public bool isInsideToken;
@@ -167,13 +166,8 @@ public partial class Globals : Node
             await ToSignal(GetTree(), "process_frame");
         }
     }
-    public void UpdateSelectedHero()
-    {
-        PlayerUICanvas.Instance.selectedHeroPanelContainer.populationData = selectedCountyPopulation;
-        CountyInfoControl.UpdateHeroNameAndIcons(PlayerUICanvas.Instance.selectedHeroPanelContainer);
-    }
 
-    public CountyData GetCountyDataFromLocationID(int location)
+    public CountyData GetCountyDataFromLocationId(int location)
     {
         County county = (County)countiesParent.GetChild(location);
         return county.countyData;

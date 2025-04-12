@@ -116,7 +116,7 @@ public partial class SkillData : Resource
 
             if (failRoll > skillData.skillLevel)
             {
-                int experienceLearnedRandom = Globals.Instance.random.Next(1, Globals.Instance.maxXPRoll);
+                int experienceLearnedRandom = Globals.Instance.random.Next(1, Globals.Instance.maxXpRoll);
                 int experienceLearned = Mathf.Max(1, experienceLearnedRandom +
                     AttributeData.GetAttributeBonus(populationData.attributes[AllEnums.Attributes.Intelligence].attributeLevel, true, false));
 

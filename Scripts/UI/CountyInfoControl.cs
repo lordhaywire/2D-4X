@@ -6,7 +6,8 @@ namespace PlayerSpace
     {
         public static CountyInfoControl Instance { get; private set; }
 
-        [ExportGroup("County Info")] [Export] public Control countyInfoControl;
+        [ExportGroup("County Info")] 
+        [Export] public Control countyInfoControl;
         [Export] public Label factionNameLabel;
         [Export] public Label countyNameLabel;
         [Export] private Label countyFoodLabel;
@@ -16,15 +17,16 @@ namespace PlayerSpace
         [Export] private Label visitorsLabel;
         private CountyData countyData;
 
-        [ExportGroup("Containers and shit")] [Export]
-        public MarginContainer populationListMarginContainer;
+        [ExportGroup("Containers and shit")] 
+        [Export] public MarginContainer populationListMarginContainer;
 
         [Export] public Control populationDescriptionControl;
         [Export] public Control countyImprovementsPanelControl;
         [Export] private VBoxContainer heroListParent;
         [Export] private VBoxContainer heroSpawnCheckButtonParent;
 
-        [ExportGroup("Buttons")] [Export] private Button populationListButton;
+        [ExportGroup("Buttons")] 
+        [Export] private Button populationListButton;
         [Export] private Button visitorsListButton;
         [Export] private Button countyImprovementsButton;
         [Export] private Button resourcesButton;
@@ -50,12 +52,26 @@ namespace PlayerSpace
             }
         }
 
-        public static void OnMouseEntered()
+        public static void UpdateSelectedHero()
+        {
+            PlayerUICanvas.Instance.selectedHeroPanelContainer.populationData = Globals.Instance.SelectedCountyPopulation;
+            PlayerUICanvas.Instance.selectedHeroPanelContainer.UpdateHeroNameAndIcons();
+        
+            if (PlayerUICanvas.Instance.selectedHeroPanelContainer.populationData.heroToken?.tokenMovement.MoveToken == true)
+            {
+                PlayerUICanvas.Instance.selectedHeroPanelContainer.ShowMovementActivityHBoxContainer();
+            }
+            else
+            {
+                PlayerUICanvas.Instance.selectedHeroPanelContainer.movementActivityHBoxContainer.Hide();
+            }
+        }
+        private static void OnMouseEntered()
         {
             PlayerControls.Instance.stopClickThrough = true;
         }
 
-        public static void OnMouseExited()
+        private static void OnMouseExited()
         {
             PlayerControls.Instance.stopClickThrough = false;
         }
@@ -105,7 +121,7 @@ namespace PlayerSpace
             }
         }
 
-        public void UpdateNameLabels()
+        private void UpdateNameLabels()
         {
             factionNameLabel.Text = Globals.Instance.SelectedLeftClickCounty.countyData.factionData.factionName;
             countyNameLabel.Text = Globals.Instance.SelectedLeftClickCounty.countyData.countyName;
@@ -136,181 +152,10 @@ namespace PlayerSpace
             foreach (PopulationData populationData in heroCountyPopulationList)
             {
                 HeroPanelContainer heroPrefab = (HeroPanelContainer)heroListPrefab.Instantiate();
-                heroListParent.AddChild(heroPrefab);
-
-                heroPrefab.populationData = populationData;
-
-                UpdateHeroNameAndIcons(heroPrefab);
-
-                // Change color of panel to the faction color.
-                heroPrefab.SelfModulate = populationData.factionData.factionColor;
-
-                CheckForAvailableActivities(heroPrefab);
-
-                PopulateActivityHBoxes(populationData, heroPrefab);
                 
-                // Check to see if the hero is part of the player's faction to determine what to show.
-                // Once we add the ability for heroes to do things in enemy faction counties we will change this.
-                // Currently, we are just making it so that the heroes Activities boxes are hidden.
-                CountyData locationCountyData = Globals.Instance.GetCountyDataFromLocationID(populationData.location);
-
-                // This needs to be up here because we are fucking with the spawnHeroButton below.
-                SetDefaultUi(heroPrefab);
-
-                // Check if the hero is not player owned.
-                if (Globals.Instance.CheckIfPlayerFaction(populationData.factionData) == false)
-                    //|| Globals.Instance.CheckIfPlayerFaction(locationCountyData.factionData) == false)
-                    // At some point we need to delete this ^
-                {
-                    heroPrefab.heroDescriptionButton.Disabled = true;
-                    heroPrefab.spawnHeroButton.Hide();
-                    continue;
-                }
-
-                // This checks if the location of the hero is in a non-player owned county.
-                // If this is a player hero, but in an enemy county they can't currently do anything.
-                if (Globals.Instance.CheckIfPlayerFaction(populationData.factionData) == true &&
-                    Globals.Instance.CheckIfPlayerFaction(locationCountyData.factionData) == false)
-                {
-                    heroPrefab.spawnHeroButton.Disabled = true;
-                    heroPrefab.heroDescriptionButton.Disabled = false;
-                    continue;
-                }
-
-                if (populationData.IsThisAnArmy() || populationData.activity == AllEnums.Activities.Recruit)
-                {
-                    heroPrefab.secondaryActivitiesHBoxContainer.Show();
-                }
-                else
-                {
-                    heroPrefab.primaryActivitiesHBoxContainer.Show();
-                }
-
-                heroPrefab.heroDescriptionButton.Disabled = false;
-                heroPrefab.spawnHeroButton.Show();
-
-                GD.Print("County Info Control Hero Token: " + populationData.heroToken);
-                // This is only for the players tokens.
-                if (populationData.heroToken == null)
-                {
-                    heroPrefab.spawnHeroButton.ButtonPressed = false;
-                }
-                else
-                {
-                    heroPrefab.spawnHeroButton.ButtonPressed = true;
-                }
-            }
-        }
-
-        private static void SetDefaultUi(HeroPanelContainer heroPrefab)
-        {
-            heroPrefab.spawnHeroButton.Disabled = false;
-            heroPrefab.primaryActivitiesHBoxContainer.Hide();
-            heroPrefab.secondaryActivitiesHBoxContainer.Hide();
-            heroPrefab.movementActivityHBoxContainer.Hide();
-        }
-
-        private void CheckForAvailableActivities(HeroPanelContainer heroPrefab)
-        {
-            DisableMostActivityCheckboxes(heroPrefab);
-            foreach (CountyImprovementData countyImprovementData in countyData.completedCountyImprovementList)
-            {
-                // Work
-                if (countyImprovementData.maxWorkers > 0
-                    && countyImprovementData.factionResourceType != AllEnums.FactionGoodType.Research)
-                {
-                    heroPrefab.heroCheckBoxesList[2].Disabled = false;
-                }
-            }
-
-            // Build
-            if (countyData.underConstructionCountyImprovementList.Count > 0)
-            {
-                heroPrefab.heroCheckBoxesList[1].Disabled = false;
-            }
-        }
-
-        /// <summary>
-        /// Disables all checkboxes except scavenge.
-        /// This is dumb.
-        /// </summary>
-        /// <param name="heroPrefab"></param>
-        private void DisableMostActivityCheckboxes(HeroPanelContainer heroPrefab)
-        {
-            foreach (CheckBox checkBox in heroPrefab.heroCheckBoxesList)
-            {
-                if (checkBox != heroPrefab.heroCheckBoxesList[0]
-                    && checkBox != heroPrefab.heroCheckBoxesList[3]
-                    && checkBox != heroPrefab.heroCheckBoxesList[4])
-                {
-                    checkBox.Disabled = true;
-                }
-            }
-        }
-
-        private static void PopulateActivityHBoxes(PopulationData populationData, HeroPanelContainer heroPrefab)
-        {
-            switch (populationData.activity)
-            {
-                case AllEnums.Activities.Scavenge:
-                    heroPrefab.heroCheckBoxesList[0].ButtonPressed = true;
-                    break;
-                case AllEnums.Activities.Build:
-                    heroPrefab.heroCheckBoxesList[1].ButtonPressed = true;
-                    break;
-                case AllEnums.Activities.Work:
-                    heroPrefab.heroCheckBoxesList[2].ButtonPressed = true;
-                    break;
-                case AllEnums.Activities.Research:
-                    heroPrefab.heroCheckBoxesList[3].ButtonPressed = true;
-                    break;
-                case AllEnums.Activities.Explore:
-                    heroPrefab.heroCheckBoxesList[4].ButtonPressed = true;
-                    break;
-                case AllEnums.Activities.Recruit:
-                    heroPrefab.secondaryCheckBoxesList[0].ButtonPressed = true;
-                    heroPrefab.secondaryCheckBoxesList[0].Disabled = false;
-                    break;
-                case AllEnums.Activities.Move:
-                    heroPrefab.ShowMovementActivityHBoxContainer();
-                    break;
-                default:
-                    GD.Print("PopulateActivitiesHBox is missing an activity.");
-                    break;
-            }
-        }
-
-        public static void UpdateHeroNameAndIcons(HeroPanelContainer heroPrefab)
-        {
-            heroPrefab.heroNameLabel.Text =
-                $"{heroPrefab.populationData.firstName} {heroPrefab.populationData.lastName}";
-
-            // Update the icons for each hero.
-            switch (heroPrefab.populationData)
-            {
-                case { HeroType: AllEnums.HeroType.FactionLeader }: // FactionLeader
-                    heroPrefab.factionLeaderTextureRect.Show();
-                    heroPrefab.aideTextureRect.Hide();
-                    heroPrefab.armyLeaderTextureRect.Hide();
-                    break;
-
-                case { HeroType: AllEnums.HeroType.FactionLeaderArmyLeader }: // FactionArmyLeader
-                    heroPrefab.factionLeaderTextureRect.Show();
-                    heroPrefab.aideTextureRect.Hide();
-                    heroPrefab.armyLeaderTextureRect.Show();
-                    break;
-
-                case { HeroType: AllEnums.HeroType.Aide }: // Aide
-                    heroPrefab.factionLeaderTextureRect.Hide();
-                    heroPrefab.aideTextureRect.Show();
-                    heroPrefab.armyLeaderTextureRect.Hide();
-                    break;
-
-                case { HeroType: AllEnums.HeroType.ArmyLeader }: // ArmyLeader
-                    heroPrefab.factionLeaderTextureRect.Hide();
-                    heroPrefab.aideTextureRect.Hide();
-                    heroPrefab.armyLeaderTextureRect.Show();
-                    break;
+                heroPrefab.populationData = populationData;
+                
+                heroListParent.AddChild(heroPrefab);
             }
         }
 
@@ -330,7 +175,7 @@ namespace PlayerSpace
             }
         }
 
-        public void UpdateCountyPopulationLabel()
+        private void UpdateCountyPopulationLabel()
         {
             int population = Globals.Instance.SelectedLeftClickCounty.countyData.populationDataList.Count
                              + Globals.Instance.SelectedLeftClickCounty.countyData.heroesInCountyList.Count;

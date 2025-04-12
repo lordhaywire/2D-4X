@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace PlayerSpace;
 
-public class Recruiter
+public static class Recruiter
 {
     public static void CheckForRecruitment(CountyData countyData)
     {
@@ -27,7 +27,7 @@ public class Recruiter
                 GD.Print("Number of subordinates is greater then the number wanted, so firing has started.");
                 int numberOfSubordinatesToFire = populationData.heroSubordinates.Count - populationData.numberOfSubordinatesWanted;
                 FireSubordinates(populationData, numberOfSubordinatesToFire);
-                GD.Print("Number of Subordinates in the Hero Suborbinates list: " + populationData.heroSubordinates.Count);
+                GD.Print("Number of Subordinates in the Hero Subordinates list: " + populationData.heroSubordinates.Count);
             }
             else
             {
@@ -49,7 +49,6 @@ public class Recruiter
                 && !populationData.heroSubordinates.Contains(person))
                 .OrderByDescending(person => person.LoyaltyAdjusted)
                 .Take(numberOfSubordinatesToHire)];
-
         PopulationData recruitee = eligibleSubordinates.FirstOrDefault();
         GD.PrintRich($"Recruitee: " + recruitee?.firstName);
         if (recruitee != null)
@@ -59,7 +58,7 @@ public class Recruiter
             int attributeBonus = AttributeData.GetAttributeBonus(attributeLevel, false, false);
             GD.PrintRich($"[rainbow]Attribute Bonus: " + attributeBonus);
             int additionalBonus = AttributeData.GetAttributeBonus(recruitee.LoyaltyAdjusted, false, false);
-            GD.PrintRich($"[rainbow]Addtional Bonus: " + additionalBonus);
+            GD.PrintRich($"[rainbow]Additional Bonus: " + additionalBonus);
             GD.PrintRich($"[rainbow]Leader of People Perk bonus: " + populationData.perks[AllEnums.Perks.LeaderOfPeople].perkBonus);
             // Hero needs to do a leadership roll with an attribute bonus of the recruitee's loyalty bonus.
             bool skillCheck = SkillData.CheckWithBonuses(populationData.skills[AllEnums.Skills.Leadership].skillLevel
@@ -79,11 +78,11 @@ public class Recruiter
         }
         else
         {
-            // Recruiter needs to stop recruiting when there are no more people avaible for recruitment.
+            // Recruiter needs to stop recruiting when there are no more people available for recruitment.
             EventLog.Instance.AddLog($"{countyData.countyName}: {TranslationServer.Translate("PHRASE_NO_MORE_PEOPLE_TO_RECRUIT")}");
         }
 
-        // Change recruitee's activity to Service once the numberofdaystoservicestarts is done.
+        // Change recruitee's activity to Service once the number of days to service starts is done.
 
         // If the hero is unsuccessful then they try again the next day.  They try 3 times before they move on to the next person.
         // Maybe have some sort of loyalty reduction on each try.
@@ -106,8 +105,8 @@ public class Recruiter
     private static void FireSubordinates(PopulationData populationData, int numberToFire)
     {
         Godot.Collections.Array<PopulationData> peopleToFireSorted
-            = [.. populationData.heroSubordinates.ToList().OrderBy(populationData
-            => populationData.LoyaltyAdjusted).Skip(numberToFire)];
+            = [.. populationData.heroSubordinates.ToList().OrderBy(personData
+            => personData.LoyaltyAdjusted).Skip(numberToFire)];
         populationData.heroSubordinates = peopleToFireSorted;
     }
 }

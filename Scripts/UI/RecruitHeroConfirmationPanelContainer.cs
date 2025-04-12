@@ -22,7 +22,7 @@ public partial class RecruitHeroConfirmationPanelContainer : PanelContainer
     private void YesButton()
     {
         PopulationData populationData = PopulationDescriptionControl.Instance.populationData;
-        CountyData countyData = Globals.Instance.GetCountyDataFromLocationID(populationData.location);
+        CountyData countyData = Globals.Instance.GetCountyDataFromLocationId(populationData.location);
 
         // If the population isn't a hero already then it removes it from the population list and the player gets
         // charged for the hero.

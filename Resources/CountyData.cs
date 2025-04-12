@@ -472,7 +472,7 @@ public partial class CountyData : Resource
         */
     }
 
-    public void OccationalNeeds()
+    public void OccasionalNeeds()
     {
         PossiblyUseResources(this, heroesInCountyList);
         PossiblyUseResources(this, armiesInCountyList);
@@ -501,7 +501,7 @@ public partial class CountyData : Resource
                         //GD.Print("There are enough resources for the needs of a person.");
                         // Use good, which is why this is negative.
                         Haulmaster.AdjustCountyGoodAmount(countyData, keyValuePair.Key
-                            , -Globals.Instance.occationalResourceUsageAmount);
+                            , -Globals.Instance.occasionalResourceUsageAmount);
 
                         // Add happiness.
                         populationData.AddRandomHappiness(1);
@@ -519,7 +519,7 @@ public partial class CountyData : Resource
                 {
                     // Gain 1d4 amount to the need for the next day.
                     Random random = new();
-                    int needIncrease = random.Next(1, Globals.Instance.occationalNeedIncreaseAmount);
+                    int needIncrease = random.Next(1, Globals.Instance.occasionalNeedIncreaseAmount);
                     populationData.needs[keyValuePair.Key] += needIncrease;
                     //GD.Print($"Needs Checks: Failed: " + populationData.needs[keyValuePair.Key]);
                 }
@@ -541,7 +541,7 @@ public partial class CountyData : Resource
     private bool CheckEnoughOfResource(AllEnums.CountyGoodType resourceType)
     {
         bool enoughResource;
-        if (goods[resourceType].Amount >= Globals.Instance.occationalResourceUsageAmount)
+        if (goods[resourceType].Amount >= Globals.Instance.occasionalResourceUsageAmount)
         {
             enoughResource = true;
         }

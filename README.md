@@ -9,6 +9,12 @@ The old Unity version is here: [2D-4X Unity](https://github.com/lordhaywire/2D-4
 
 ### These are notes for myself.
 
+#### Adding an Activity
+
+1. Create an enum in the Activities enums.
+
+2. Create an activity resource in the Activity resource folder.
+
 #### Adding a county good
 
 1. Create a good type enum.
@@ -16,8 +22,6 @@ The old Unity version is here: [2D-4X Unity](https://github.com/lordhaywire/2D-4
 2. Create a good in the County Resource folder.
 
 3. Assign enums on the good, and fix all other good enums.
-
-4. Add the good to the AllCountyResources array, and alphabetize them.
 
 #### Construction Good for County Improvement
 

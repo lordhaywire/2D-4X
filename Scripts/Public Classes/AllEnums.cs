@@ -12,6 +12,7 @@ public class AllEnums
         Idle,
         Move,
         Recruit,
+        Recruited,
         Research,
         Scavenge,
         Service,

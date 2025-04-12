@@ -49,8 +49,8 @@ public partial class CountyGeneration : Node
 
     private static void UpdateScavengableResources(County county)
     {
-        county.countyData.scavengableCannedFood = Globals.Instance.maxScavengableFood;
-        county.countyData.scavengableRemnants = Globals.Instance.maxScavengableScrap;
+        county.countyData.scavengableCannedFood = Globals.Instance.maxScavengeableFood;
+        county.countyData.scavengableRemnants = Globals.Instance.maxScavengeableScrap;
     }
 
     private static void CopyAndAssignGoods(CountyData countyData, GoodData[] AllGoods)

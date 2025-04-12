@@ -38,7 +38,8 @@ namespace PlayerSpace
             collisionRectangleShape.Size = new Vector2(mapWidth, mapHeight);
 
             // First check to make sure it is inside the map (a tiny bit more (a tiny bit less?) then the size of the map.)
-            if (x > 0 && y > 0 && x < mapWidth - 5 && y < mapHeight - 5 && playerControlsEnabled == true && stopClickThrough == false)
+            if (x > 0 && y > 0 && x < mapWidth - 5 && y < mapHeight - 5 && playerControlsEnabled == true &&
+                stopClickThrough == false)
             {
                 Color countyColor = mapImage.GetPixel(x, y);
 
@@ -57,7 +58,7 @@ namespace PlayerSpace
                         {
                             // Left Click on County
                             if (eventMouseButton.ButtonIndex == MouseButton.Left && eventMouseButton.Pressed == false)
-                            //&& Globals.Instance.isInsideToken == false)
+                                //&& Globals.Instance.isInsideToken == false)
                             {
                                 //EventLog.Instance.AddLog($"{county.countyData.countyName} was clicked on.");
 
@@ -72,9 +73,9 @@ namespace PlayerSpace
                             }
 
                             // Right Click on County
-                            if (eventMouseButton.ButtonIndex == MouseButton.Right 
+                            if (eventMouseButton.ButtonIndex == MouseButton.Right
                                 && eventMouseButton.Pressed == false
-                                && Globals.Instance.SelectedCountyPopulation != null 
+                                && Globals.Instance.SelectedCountyPopulation != null
                                 && Globals.Instance.SelectedCountyPopulation.heroToken != null)
                             {
                                 //GD.Print("You are moving to a place you right clicked, dude! " + county.countyData.countyName);
@@ -82,14 +83,16 @@ namespace PlayerSpace
                                 {
                                     MoveSelectedToken(county.countyData);
                                 }
-                                else if (Globals.Instance.SelectedCountyPopulation.destination == county.countyData.countyId)
+                                else if (Globals.Instance.SelectedCountyPopulation.destination ==
+                                         county.countyData.countyId)
                                 {
                                     MoveSelectedToken(county.countyData);
                                 }
                                 else
                                 {
                                     County moveToSelectCounty
-                                        = (County)Globals.Instance.countiesParent.GetChild(Globals.Instance.SelectedCountyPopulation.location);
+                                        = (County)Globals.Instance.countiesParent.GetChild(Globals.Instance
+                                            .SelectedCountyPopulation.location);
                                     //GD.PrintRich("[rainbow]Are we ever even hitting this?" + moveToSelectCounty.countyData.countyId);
                                     MoveSelectedToken(moveToSelectCounty.countyData);
                                 }
@@ -125,7 +128,7 @@ namespace PlayerSpace
         {
             Globals.Instance.selectedRightClickCounty = moveTargetCountyData.countyNode;
             //GD.Print($"Move Target County: {moveTargetCountyData.countyName}" +
-             //   $" {moveTargetCountyData.countyId}");
+            //   $" {moveTargetCountyData.countyId}");
             PopulationData populationData = Globals.Instance.SelectedCountyPopulation;
             HeroToken selectToken = Globals.Instance.SelectedCountyPopulation.heroToken;
 
@@ -146,7 +149,8 @@ namespace PlayerSpace
                     else
                     {
                         //GD.Print("You are about to declare war, because you are an army.");
-                        if (Globals.Instance.playerFactionData.factionWarDictionary[Globals.Instance.selectedRightClickCounty.countyData.factionData.factionName]
+                        if (Globals.Instance.playerFactionData.factionWarDictionary[
+                                Globals.Instance.selectedRightClickCounty.countyData.factionData.factionName]
                             != true)
                         {
                             Globals.Instance.playerFactionData.diplomacy.DeclareWarConfirmation(moveTargetCountyData);
@@ -155,24 +159,24 @@ namespace PlayerSpace
                         {
                             selectToken.tokenMovement.StartMove(moveTargetCountyData.countyId);
                         }
-
                     }
                 }
             }
             else
             {
-                if(selectToken.isRetreating == false)
+                if (selectToken.isRetreating == false)
                 {
                     selectToken.tokenMovement.StartMove(moveTargetCountyData.countyId);
                 }
                 else
                 {
                     EventLog.Instance.AddLog($"{selectToken.populationData.firstName} " +
-                        $"{selectToken.populationData.lastName} " +
-                        $"{TranslationServer.Translate("PHRASE_IS_RETREATING")}.");
+                                             $"{selectToken.populationData.lastName} " +
+                                             $"{TranslationServer.Translate("PHRASE_IS_RETREATING")}.");
                 }
+
+                CountyInfoControl.Instance.UpdateEverything();
             }
-            CountyInfoControl.Instance.UpdateEverything();
         }
 
         public void SelectedChanged(County county, bool selected)
@@ -188,6 +192,7 @@ namespace PlayerSpace
                 ((ShaderMaterial)county.maskSprite.Material).SetShaderParameter("fill_color", fillColor.A * 0.5f);
             }
         }
+
         public void AdjustPlayerControls(bool controls)
         {
             playerControlsEnabled = controls;

@@ -945,7 +945,7 @@ text = "County Improvements"
 layout_mode = 2
 mouse_filter = 0
 
-[node name="Selected Hero PanelContainer" type="PanelContainer" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer" node_paths=PackedStringArray("factionLeaderTextureRect", "aideTextureRect", "armyLeaderTextureRect", "heroNameLabel")]
+[node name="Selected Hero PanelContainer" type="PanelContainer" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer" node_paths=PackedStringArray("factionLeaderTextureRect", "aideTextureRect", "armyLeaderTextureRect", "heroNameLabel", "movementActivityHBoxContainer")]
 visible = false
 custom_minimum_size = Vector2(300, 50)
 layout_mode = 2
@@ -953,23 +953,27 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 mouse_filter = 2
 script = ExtResource("34_8wj68")
-factionLeaderTextureRect = NodePath("HBoxContainer/Leader TextureRect")
-aideTextureRect = NodePath("HBoxContainer/Aide TextureRect")
-armyLeaderTextureRect = NodePath("HBoxContainer/Army TextureRect")
-heroNameLabel = NodePath("Hero Name Label")
+factionLeaderTextureRect = NodePath("VBoxContainer/HBoxContainer/Leader TextureRect")
+aideTextureRect = NodePath("VBoxContainer/HBoxContainer/Aide TextureRect")
+armyLeaderTextureRect = NodePath("VBoxContainer/HBoxContainer/Army TextureRect")
+heroNameLabel = NodePath("VBoxContainer/Hero Name Label")
+movementActivityHBoxContainer = NodePath("VBoxContainer/Movement Activity HBoxContainer")
 
-[node name="Hero Name Label" type="Label" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Selected Hero PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Selected Hero PanelContainer"]
+layout_mode = 2
+
+[node name="Hero Name Label" type="Label" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Selected Hero PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "Whatevers"
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Selected Hero PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Selected Hero PanelContainer/VBoxContainer"]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Leader TextureRect" type="TextureRect" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Selected Hero PanelContainer/HBoxContainer"]
+[node name="Leader TextureRect" type="TextureRect" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Selected Hero PanelContainer/VBoxContainer/HBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_vertical = 8
@@ -977,7 +981,7 @@ mouse_filter = 2
 texture = ExtResource("7_g78s2")
 stretch_mode = 2
 
-[node name="Aide TextureRect" type="TextureRect" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Selected Hero PanelContainer/HBoxContainer"]
+[node name="Aide TextureRect" type="TextureRect" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Selected Hero PanelContainer/VBoxContainer/HBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_vertical = 8
@@ -985,13 +989,26 @@ mouse_filter = 2
 texture = ExtResource("8_rm8kv")
 stretch_mode = 2
 
-[node name="Army TextureRect" type="TextureRect" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Selected Hero PanelContainer/HBoxContainer"]
+[node name="Army TextureRect" type="TextureRect" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Selected Hero PanelContainer/VBoxContainer/HBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_vertical = 8
 mouse_filter = 2
 texture = ExtResource("9_ft7d6")
 stretch_mode = 2
+
+[node name="Movement Activity HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Selected Hero PanelContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+
+[node name="Movement Label" type="Label" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Selected Hero PanelContainer/VBoxContainer/Movement Activity HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Moving from to whatever"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Hero List Button" type="Button" parent="Player UI Canvas/County Info Control/MarginContainer/County Info and Selected Hero HBoxContainer/Selected Hero PanelContainer"]
 self_modulate = Color(1, 1, 1, 0)
