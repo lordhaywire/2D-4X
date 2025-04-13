@@ -178,11 +178,7 @@ public partial class CountyImprovementData : Resource
 
     public bool CheckIfStatusLowStockpiledGoods()
     {
-        if (status == AllEnums.CountyImprovementStatus.LowStockpiledGoods)
-        {
-            return true;
-        }
-        return false;
+        return status == AllEnums.CountyImprovementStatus.LowStockpiledGoods;
     }
     public void AddPopulationToPopulationAtImprovementList(PopulationData populationData)
     {

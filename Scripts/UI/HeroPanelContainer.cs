@@ -17,7 +17,7 @@ public partial class HeroPanelContainer : PanelContainer
     [Export] public HBoxContainer primaryActivitiesHBoxContainer;
     [Export] public HBoxContainer secondaryActivitiesHBoxContainer;
     [Export] public HBoxContainer movementActivityHBoxContainer;
-    private readonly List<CheckBox> heroCheckBoxesList = [];
+    private readonly List<CheckBox> primaryCheckBoxesList = [];
     private readonly List<CheckBox> secondaryCheckBoxesList = [];
 
     public override void _Ready()
@@ -64,7 +64,7 @@ public partial class HeroPanelContainer : PanelContainer
 
         // This checks if the location of the hero is in a non-player owned county.
         // If this is a player hero, but in an enemy county they can't currently do anything.
-        if (Globals.Instance.CheckIfPlayerFaction(populationData.factionData) == true &&
+        if (Globals.Instance.CheckIfPlayerFaction(populationData.factionData) &&
             Globals.Instance.CheckIfPlayerFaction(locationCountyData.factionData) == false)
         {
             spawnHeroButton.Disabled = true;
@@ -86,14 +86,7 @@ public partial class HeroPanelContainer : PanelContainer
 
         GD.Print("County Info Control Hero Token: " + populationData.heroToken);
         // This is only for the players tokens.
-        if (populationData.heroToken == null)
-        {
-            spawnHeroButton.ButtonPressed = false;
-        }
-        else
-        {
-            spawnHeroButton.ButtonPressed = true;
-        }
+        spawnHeroButton.ButtonPressed = populationData.heroToken != null;
     }
 
     public void UpdateHeroNameAndIcons()
@@ -139,14 +132,15 @@ public partial class HeroPanelContainer : PanelContainer
             if (countyImprovementData.maxWorkers > 0
                 && countyImprovementData.factionResourceType != AllEnums.FactionGoodType.Research)
             {
-                heroCheckBoxesList[2].Disabled = false;
+                primaryCheckBoxesList[2].Disabled = false;
             }
+            primaryCheckBoxesList[2].Disabled = countyImprovementData.CheckIfStatusLowStockpiledGoods();
         }
 
         // Build
         if (countyData.underConstructionCountyImprovementList.Count > 0)
         {
-            heroCheckBoxesList[1].Disabled = false;
+            primaryCheckBoxesList[1].Disabled = false;
         }
     }
 
@@ -155,19 +149,19 @@ public partial class HeroPanelContainer : PanelContainer
         switch (populationData.activity)
         {
             case AllEnums.Activities.Scavenge:
-                heroCheckBoxesList[0].ButtonPressed = true;
+                primaryCheckBoxesList[0].ButtonPressed = true;
                 break;
             case AllEnums.Activities.Build:
-                heroCheckBoxesList[1].ButtonPressed = true;
+                primaryCheckBoxesList[1].ButtonPressed = true;
                 break;
             case AllEnums.Activities.Work:
-                heroCheckBoxesList[2].ButtonPressed = true;
+                primaryCheckBoxesList[2].ButtonPressed = true;
                 break;
             case AllEnums.Activities.Research:
-                heroCheckBoxesList[3].ButtonPressed = true;
+                primaryCheckBoxesList[3].ButtonPressed = true;
                 break;
             case AllEnums.Activities.Explore:
-                heroCheckBoxesList[4].ButtonPressed = true;
+                primaryCheckBoxesList[4].ButtonPressed = true;
                 break;
             case AllEnums.Activities.Recruit:
                 secondaryCheckBoxesList[0].ButtonPressed = true;
@@ -180,7 +174,7 @@ public partial class HeroPanelContainer : PanelContainer
             case AllEnums.Activities.Idle:
             case AllEnums.Activities.Service:
             default:
-                GD.Print("PopulateActivitiesHBox has unwritten activities.");
+                //GD.Print("PopulateActivitiesHBox has unwritten activities.");
                 break;
         }
     }
@@ -191,14 +185,11 @@ public partial class HeroPanelContainer : PanelContainer
     /// </summary>
     private void DisableMostActivityCheckboxes()
     {
-        foreach (CheckBox checkBox in heroCheckBoxesList)
+        foreach (CheckBox checkBox in primaryCheckBoxesList.Where(checkBox => checkBox != primaryCheckBoxesList[0]
+                                                                              && checkBox != primaryCheckBoxesList[3]
+                                                                              && checkBox != primaryCheckBoxesList[4]))
         {
-            if (checkBox != heroCheckBoxesList[0]
-                && checkBox != heroCheckBoxesList[3]
-                && checkBox != heroCheckBoxesList[4])
-            {
-                checkBox.Disabled = true;
-            }
+            checkBox.Disabled = true;
         }
     }
 
@@ -212,16 +203,17 @@ public partial class HeroPanelContainer : PanelContainer
 
     private void ConnectButtonSignals()
     {
+        primaryCheckBoxesList[0].Pressed += () => PrimaryActivitiesCheckBoxPressed(0);
+        primaryCheckBoxesList[1].Pressed += () => PrimaryActivitiesCheckBoxPressed(1);
+        primaryCheckBoxesList[2].Pressed += () => PrimaryActivitiesCheckBoxPressed(2);
         secondaryCheckBoxesList[0].Pressed += OnRecruitingCheckBoxPressed;
     }
 
     private void OnRecruitingCheckBoxPressed()
     {
-        if (secondaryCheckBoxesList[0].ButtonPressed != true)
-        {
-            populationData.numberOfSubordinatesWanted = populationData.heroSubordinates.Count;
-            secondaryCheckBoxesList[0].Disabled = true;
-        }
+        if (secondaryCheckBoxesList[0].ButtonPressed) return;
+        populationData.numberOfSubordinatesWanted = populationData.heroSubordinates.Count;
+        secondaryCheckBoxesList[0].Disabled = true;
     }
 
     private void HidePrimaryActivitiesHBoxContainer()
@@ -243,7 +235,7 @@ public partial class HeroPanelContainer : PanelContainer
     {
         foreach (CheckBox checkBox in primaryActivitiesHBoxContainer.GetChildren().Cast<CheckBox>())
         {
-            heroCheckBoxesList.Add(checkBox);
+            primaryCheckBoxesList.Add(checkBox);
         }
     }
 
@@ -261,16 +253,9 @@ public partial class HeroPanelContainer : PanelContainer
         CountyData currentLocationCountyData = Globals.Instance.GetCountyDataFromLocationId(populationData.location);
         CountyData destinationLocationCountyData =
             Globals.Instance.GetCountyDataFromLocationId(populationData.destination);
-        if (currentLocationCountyData != destinationLocationCountyData)
-        {
-            movementLabel.Text =
-                $"{currentLocationCountyData.countyName} -> {destinationLocationCountyData.countyName}";
-        }
-        else
-        {
-            movementLabel.Text =
-                $"{Tr("PHRASE_RETURNING_TO")} -> {destinationLocationCountyData.countyName}";
-        }
+        movementLabel.Text = currentLocationCountyData != destinationLocationCountyData
+            ? $"{currentLocationCountyData.countyName} -> {destinationLocationCountyData.countyName}"
+            : $"{Tr("PHRASE_RETURNING_TO")} -> {destinationLocationCountyData.countyName}";
 
         movementActivityHBoxContainer.Show();
     }
@@ -279,7 +264,7 @@ public partial class HeroPanelContainer : PanelContainer
     {
         PopulationDescriptionControl.Instance.populationData = populationData;
         CountyInfoControl.Instance.populationDescriptionControl.Show();
-        if (CountyInfoControl.Instance.populationDescriptionControl.Visible == true)
+        if (CountyInfoControl.Instance.populationDescriptionControl.Visible)
         {
             PopulationDescriptionControl.Instance.UpdateDescriptionInfo();
         }
@@ -290,9 +275,9 @@ public partial class HeroPanelContainer : PanelContainer
 
     private void DeselectAllOtherCheckBoxes(int numberOfCheckBox)
     {
-        foreach (CheckBox checkBox in heroCheckBoxesList)
+        foreach (CheckBox checkBox in primaryCheckBoxesList)
         {
-            if (checkBox == heroCheckBoxesList[numberOfCheckBox])
+            if (checkBox == primaryCheckBoxesList[numberOfCheckBox])
             {
                 continue;
             }
@@ -306,7 +291,7 @@ public partial class HeroPanelContainer : PanelContainer
     {
         GD.Print("Spawned Hero Check Button Global Token: " + Globals.Instance.heroToken);
 
-        if (spawnHeroButton.ButtonPressed == true && populationData.IsHeroSpawned() == false)
+        if (spawnHeroButton.ButtonPressed && populationData.IsHeroSpawned() == false)
         {
             // Assign to Currently Selected Hero so it is ready to be moved.
             Globals.Instance.SelectedCountyPopulation
@@ -328,13 +313,12 @@ public partial class HeroPanelContainer : PanelContainer
     /// The int bound in the signal is the equivalent to the enum in the case.
     /// </summary>
     /// <param name="numberOfCheckBox"></param>
-    private void HeroActivitiesCheckBoxPressed(int numberOfCheckBox)
+    private void PrimaryActivitiesCheckBoxPressed(int numberOfCheckBox)
     {
-        if (heroCheckBoxesList[numberOfCheckBox].ButtonPressed == false)
+        if (primaryCheckBoxesList[numberOfCheckBox].ButtonPressed == false)
         {
             populationData.UpdateActivity(AllEnums.Activities.Idle);
             populationData.currentCountyImprovement?.RemovePopulationFromPopulationAtImprovementList(populationData);
-            GD.Print("Scavenge has been unpressed.");
             return;
         }
 

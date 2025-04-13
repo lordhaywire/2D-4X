@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace PlayerSpace;
-public class PopulationWorkStart
+public abstract class PopulationWorkStart
 {
-
     /// <summary>
     /// Get all the people who are helpful and loyal for prioritized construction and work.
     /// The heroes should already be assigned to this list.
@@ -17,7 +16,7 @@ public class PopulationWorkStart
         foreach (PopulationData populationData in countyData.populationDataList)
         {
             // Go through everyone and if they are helpful and loyal add them to the prioritizedWorkers list.
-            if (populationData.CheckWillWorkLoyalty() == true
+            if (populationData.CheckWillWorkLoyalty()
                 && populationData.CheckForPerk(AllEnums.Perks.Unhelpful) == false)
             {
                 //GD.Print($"Prioritized: {countyData.countyName}: {populationData.firstName} is loyal and is helpful.");
@@ -38,7 +37,7 @@ public class PopulationWorkStart
         foreach (PopulationData populationData in countyData.populationDataList)
         {
             // Go through everyone and if they are helpful and loyal add them to the prioritizedWorkers list.
-            if (populationData.CheckWillWorkLoyalty() == true
+            if (populationData.CheckWillWorkLoyalty()
                 && populationData.CheckForPerk(AllEnums.Perks.Unhelpful) == false)
             {
                 countyData.AddPopulationDataToPrioritizedWorkersList(populationData);
@@ -56,7 +55,7 @@ public class PopulationWorkStart
     {
         foreach (CountyImprovementData countyImprovementData in countyData.underConstructionCountyImprovementList)
         {
-            if (countyImprovementData.prioritize == true)
+            if (countyImprovementData.prioritize)
             {
                 countyData.AddImprovementToPrioritizedConstructionImprovementList(countyImprovementData);
             }
@@ -72,7 +71,7 @@ public class PopulationWorkStart
         foreach (CountyImprovementData countyImprovementData in countyData.completedCountyImprovementList)
         {
             // If there are low goods stockpiled then don't assign workers.
-            if (countyImprovementData.prioritize == true &&
+            if (countyImprovementData.prioritize &&
             countyImprovementData.CheckIfStatusLowStockpiledGoods() == false)
             {
                 countyData.AddImprovementToPrioritizedWorkImprovementList(countyImprovementData);
@@ -99,6 +98,7 @@ public class PopulationWorkStart
     /// </summary>
     /// <param name="countyData"></param>
     /// <param name="countyImprovementData"></param>
+    /// <param name="improvementBuildersList"></param>
     public static void AssignPopulationToBuildImprovement(CountyData countyData
         , CountyImprovementData countyImprovementData, Godot.Collections.Array<PopulationData> improvementBuildersList)
     {
@@ -134,7 +134,7 @@ public class PopulationWorkStart
     /// </summary>
     /// <param name="countyData"></param>
     /// <param name="countyImprovementData"></param>
-    public static void AssignPopulationToWorkImprovement(CountyData countyData, CountyImprovementData countyImprovementData
+    private static void AssignPopulationToWorkImprovement(CountyData countyData, CountyImprovementData countyImprovementData
         )
     {
         // We are not sorting the list till here, because the heroes are at the top of the list to start with.

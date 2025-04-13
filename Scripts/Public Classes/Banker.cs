@@ -22,24 +22,24 @@ public class Banker
 
         if (randomResourceNumber == 0)
         {
-            if (countyData.CheckEnoughCountyScavengables(AllEnums.CountyGoodType.CannedFood) == false)
+            if (countyData.CheckEnoughCountyScavengeables(AllEnums.CountyGoodType.CannedFood) == false)
             {
                 return;
             }
             int amountGenerated = GenerateScavengedResourceWithSkillCheck(populationData);
-            int amount = Mathf.Min(amountGenerated, countyData.scavengableCannedFood);
+            int amount = Mathf.Min(amountGenerated, countyData.scavengeableCannedFood);
             GD.Print($"{populationData.firstName} {populationData.lastName} is generating scavenged food: {amount}");
             Haulmaster.AdjustCountyGoodAmount(countyData, AllEnums.CountyGoodType.CannedFood, amount);
             countyData.RemoveGoodsFromAvailableCountyTotals(AllEnums.CountyGoodType.CannedFood, amount);
         }
         else
         {
-            if (countyData.CheckEnoughCountyScavengables(AllEnums.CountyGoodType.Remnants) == false)
+            if (countyData.CheckEnoughCountyScavengeables(AllEnums.CountyGoodType.Remnants) == false)
             {
                 return;
             }
             int amountGenerated = GenerateScavengedResourceWithSkillCheck(populationData);
-            int amount = Mathf.Min(amountGenerated, countyData.scavengableRemnants);
+            int amount = Mathf.Min(amountGenerated, countyData.scavengeableRemnants);
             GD.Print($"{populationData.firstName} {populationData.lastName} is generating scavenged remnants: {amount}");
             Haulmaster.AdjustCountyGoodAmount(countyData, AllEnums.CountyGoodType.Remnants, amount);
             countyData.RemoveGoodsFromAvailableCountyTotals(AllEnums.CountyGoodType.Remnants, amount);

@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 namespace PlayerSpace;
-public class HeroWorkStart
+public abstract class HeroWorkStart
 {
     /// <summary>
     /// Assigns Heroes to both the possibleWorkers list, and the prioritizedWorkers list.
@@ -10,18 +10,31 @@ public class HeroWorkStart
     /// <param name="countyData"></param>
     public static void AssignWorkingHeroesToPrioritizedLists(CountyData countyData)
     {
+        GD.Print($"Assign Working Heroes To Prioritized Lists in {countyData.countyName} : HeroesInCountyList Count: {countyData.heroesInCountyList.Count}");
         foreach (PopulationData populationData in countyData.heroesInCountyList)
         {
+            GD.Print($"{countyData.countyName}:{populationData.firstName} is {populationData.activity}");
             switch (populationData.activity)
             {
                 case AllEnums.Activities.Build when populationData.currentCountyImprovement == null:
                     countyData.AddHeroToPrioritizedHeroBuildersList(populationData);
-                    GD.Print($"{populationData.firstName} is a hero and has been added to the possible & prioritized builders list.");
+                    GD.Print($"{populationData.firstName} is a hero and has been added to the prioritized builders list.");
                     break;
                 case AllEnums.Activities.Work when populationData.currentCountyImprovement == null:
                     countyData.AddHeroToPrioritizedHeroWorkersList(populationData);
-                    GD.Print($"{populationData.firstName} is a hero and has been added to the possible & prioritized workers list.");
+                    GD.Print($"{populationData.firstName} is a hero and has been added to the prioritized workers list.");
                     break;
+                case AllEnums.Activities.Combat:
+                case AllEnums.Activities.Explore:
+                case AllEnums.Activities.Idle:
+                    GD.Print($"{populationData.firstName} is IDLE!!!!!!!!");
+                    break;
+                case AllEnums.Activities.Move:
+                case AllEnums.Activities.Recruit:
+                case AllEnums.Activities.Recruited:
+                case AllEnums.Activities.Research:
+                case AllEnums.Activities.Scavenge:
+                case AllEnums.Activities.Service:
                 default:
                     GD.Print($"{populationData.firstName} is {populationData.GetActivityName()}");
                     break;

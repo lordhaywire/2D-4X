@@ -270,7 +270,7 @@ namespace PlayerSpace
                 //GD.PrintRich("[rainbow]County ID: " + countyData.countyID);
 
                 // Generate the general population for the player and AI Capitals.
-                if (countyData.isPlayerCapital == true || countyData.isAICapital)
+                if (countyData.isPlayerCapital == true || countyData.isAiCapital)
                 {
                     // Generate Normal Population
                     GeneratePopulation(false, Globals.Instance.totalCapitolPop);

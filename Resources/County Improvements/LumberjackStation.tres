@@ -1,9 +1,12 @@
-[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=5 format=3 uid="uid://cpmbf5setweth"]
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=8 format=3 uid="uid://cpmbf5setweth"]
 
 [ext_resource type="Resource" uid="uid://rs4bgxx8ctc8" path="res://Resources/Goods/Canned Food.tres" id="1_3dqef"]
+[ext_resource type="Script" uid="uid://cmfu3g7sbgyfx" path="res://Resources/GoodData.cs" id="1_bu3tf"]
 [ext_resource type="Texture2D" uid="uid://mhuco6bk8l6y" path="res://Graphics/County Improvements/axe-in-log.svg" id="1_fohtd"]
 [ext_resource type="Script" uid="uid://blu41dxinr54t" path="res://Resources/CountyImprovementData.cs" id="2_26moa"]
 [ext_resource type="Resource" uid="uid://ftsx8rr0uriv" path="res://Resources/Interests/Botany.tres" id="3_3dqef"]
+[ext_resource type="Script" uid="uid://b6u77qyvyfqm4" path="res://Resources/ProductionData.cs" id="5_5joa7"]
+[ext_resource type="Script" uid="uid://bvkux0mhx52u8" path="res://Resources/PopulationData.cs" id="5_qfuk6"]
 
 [resource]
 script = ExtResource("2_26moa")
@@ -16,9 +19,9 @@ improvementName = "IMPROVEMENT_LUMBERJACK_STATION"
 improvementDescription = "IMPROVEMENT_DESCRIPTION_LUMBERJACK_STATION"
 workSkill = 5
 interestData = ExtResource("3_3dqef")
-goodsConstructionCost = {
+goodsConstructionCost = Dictionary[ExtResource("1_bu3tf"), int]({
 ExtResource("1_3dqef"): 10000
-}
+})
 CurrentAmountOfConstruction = 0
 maxAmountOfConstruction = 500
 maxBuilders = 2
@@ -27,10 +30,10 @@ maxWorkers = 3
 adjustedMaxWorkers = 0
 countyResourceType = 8
 factionResourceType = 1
-outputGoods = {}
+outputGoods = Dictionary[ExtResource("1_bu3tf"), ExtResource("5_5joa7")]({})
 allDailyWorkAmountAtImprovementCompleted = 0
-uniqueInputGoods = {}
-inputGoods = {}
-countyStockpiledGoods = {}
+uniqueInputGoods = Dictionary[ExtResource("1_bu3tf"), int]({})
+inputGoods = Dictionary[ExtResource("1_bu3tf"), int]({})
+countyStockpiledGoods = Dictionary[int, int]({})
 status = 0
-populationAtImprovement = []
+populationAtImprovement = Array[ExtResource("5_qfuk6")]([])

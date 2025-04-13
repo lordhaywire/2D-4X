@@ -1,6 +1,5 @@
-[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=10 format=3 uid="uid://bads4woc5toep"]
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=9 format=3 uid="uid://bads4woc5toep"]
 
-[ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/Goods/Wood.tres" id="1_1yts0"]
 [ext_resource type="Texture2D" uid="uid://d38i5xsjnfnfq" path="res://Graphics/County Improvements/fishing-pole.svg" id="1_3xigu"]
 [ext_resource type="Script" uid="uid://cmfu3g7sbgyfx" path="res://Resources/GoodData.cs" id="1_q1pav"]
 [ext_resource type="Resource" uid="uid://bojgmxcwswihv" path="res://Resources/Interests/Biology.tres" id="2_h1ekr"]
@@ -44,9 +43,7 @@ ExtResource("5_rxp18"): SubResource("Resource_gpo3t")
 })
 allDailyWorkAmountAtImprovementCompleted = 0
 uniqueInputGoods = Dictionary[ExtResource("1_q1pav"), int]({})
-inputGoods = Dictionary[ExtResource("1_q1pav"), int]({
-ExtResource("1_1yts0"): 1
-})
+inputGoods = Dictionary[ExtResource("1_q1pav"), int]({})
 countyStockpiledGoods = Dictionary[int, int]({})
 status = 0
 populationAtImprovement = Array[ExtResource("7_gpo3t")]([])

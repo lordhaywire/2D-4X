@@ -1,7 +1,10 @@
-[gd_resource type="Resource" script_class="CountyData" load_steps=3 format=3 uid="uid://bwkrcckgmgmn1"]
+[gd_resource type="Resource" script_class="CountyData" load_steps=6 format=3 uid="uid://bwkrcckgmgmn1"]
 
+[ext_resource type="Script" uid="uid://cmfu3g7sbgyfx" path="res://Resources/GoodData.cs" id="1_3rtd6"]
 [ext_resource type="Resource" uid="uid://b0hrfplmtylyr" path="res://Resources/Factions/PlayerFaction.tres" id="1_7tnvd"]
 [ext_resource type="Script" uid="uid://4nhd1im4255h" path="res://Resources/CountyData.cs" id="2_e8w8c"]
+[ext_resource type="Script" uid="uid://bvkux0mhx52u8" path="res://Resources/PopulationData.cs" id="2_lp6y2"]
+[ext_resource type="Script" uid="uid://blu41dxinr54t" path="res://Resources/CountyImprovementData.cs" id="3_vax14"]
 
 [resource]
 script = ExtResource("2_e8w8c")
@@ -10,24 +13,35 @@ countyOverlayLocalPosition = Vector2i(0, 0)
 countyId = 0
 countyName = "Portland"
 isPlayerCapital = true
-isAICapital = false
+isAiCapital = false
 factionData = ExtResource("1_7tnvd")
 province = 0
 biomePrimary = 6
 biomeSecondary = 5
 biomeTertiary = 4
-countyPopulationList = []
-heroesInCountyList = []
-armiesInCountyList = []
-visitingHeroList = []
-visitingArmyList = []
-deadPeopleList = []
-underConstructionCountyImprovements = []
-completedCountyImprovements = []
+populationDataList = Array[ExtResource("2_lp6y2")]([])
+heroesInCountyList = Array[ExtResource("2_lp6y2")]([])
+armiesInCountyList = Array[ExtResource("2_lp6y2")]([])
+visitingHeroList = Array[ExtResource("2_lp6y2")]([])
+visitingArmyList = Array[ExtResource("2_lp6y2")]([])
+deadPeopleList = Array[ExtResource("2_lp6y2")]([])
+heroBuildersList = Array[ExtResource("2_lp6y2")]([])
+heroWorkersList = Array[ExtResource("2_lp6y2")]([])
+workersList = Array[ExtResource("2_lp6y2")]([])
+prioritizedHeroBuildersList = Array[ExtResource("2_lp6y2")]([])
+prioritizedHeroWorkersList = Array[ExtResource("2_lp6y2")]([])
+prioritizedBuildersList = Array[ExtResource("2_lp6y2")]([])
+prioritizedWorkersList = Array[ExtResource("2_lp6y2")]([])
+scavengingHeroesList = Array[ExtResource("2_lp6y2")]([])
+workersToRemoveFromLists = Array[ExtResource("2_lp6y2")]([])
+prioritizedConstructionImprovementList = Array[ExtResource("3_vax14")]([])
+prioritizedWorkImprovementList = Array[ExtResource("3_vax14")]([])
+underConstructionCountyImprovementList = Array[ExtResource("3_vax14")]([])
+completedCountyImprovementList = Array[ExtResource("3_vax14")]([])
 perishableStorage = 0
 nonperishableStorage = 0
-scavengableRemnants = 0
-scavengableCannedFood = 0
-goods = {}
-yesterdaysGoods = {}
-amountOfGoodsUsed = {}
+scavengeableRemnants = 0
+scavengeableCannedFood = 0
+goods = Dictionary[int, ExtResource("1_3rtd6")]({})
+yesterdaysGoods = Dictionary[int, ExtResource("1_3rtd6")]({})
+amountOfGoodsUsed = Dictionary[int, ExtResource("1_3rtd6")]({})

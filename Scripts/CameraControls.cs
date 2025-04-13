@@ -26,6 +26,7 @@ namespace PlayerSpace
         {
             GetInput();
             MoveAndSlide();
+            //GD.Print("Hero Activity: " + Globals.Instance.playerFactionData.factionLeader.activity);
         }
 
         public void GetInput()

@@ -104,7 +104,7 @@ public partial class County : Node2D
 
     private void StartDay()
     {
-        //GD.PrintRich($"[rainbow]County : StartOfDay!!!!!");
+        GD.PrintRich($"[rainbow]{countyData.countyName} : StartOfDay!!!!!");
         // Check each hero to see if they need recruit subordinates.
         Recruiter.CheckForRecruitment(countyData);
 
@@ -117,7 +117,7 @@ public partial class County : Node2D
             Haulmaster.GatherStockpileGoods(countyData, countyImprovementData);
         }
 
-        // Add heroes to both prioritized workers and possible worker lists.
+        // Add heroes to both prioritized hero builders and prioritized hero worker lists.
         // We are doing this first because there aren't that many heroes that should be working, or building.
         HeroWorkStart.AssignWorkingHeroesToPrioritizedLists(countyData);
 

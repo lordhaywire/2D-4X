@@ -6,7 +6,7 @@ namespace PlayerSpace
     public class Research
     {
         /// <summary>
-        /// Create a faction level list of researable research.
+        /// Create a faction level list of researchable research.
         /// </summary>
         public static void CreateResearchableResearchList(FactionData factionData)
         {
@@ -15,7 +15,7 @@ namespace PlayerSpace
             foreach (ResearchItemData researchItemData in factionData.researchItems)
             {
                 if (researchItemData.CheckIfResearchDone() == false
-                    && researchItemData.CheckIfPrerequisitesAreDone() == true)
+                    && researchItemData.CheckIfPrerequisitesAreDone())
                 {
                     factionData.researchableResearch.Add(researchItemData);
                 }
@@ -40,10 +40,10 @@ namespace PlayerSpace
         /// 
         /// They can get passive research on the research item they are assigned to.
         /// 
-        /// Assign by Interest then by activity and if it can't find any research then assign a 
+        /// Assign by Interest then by activity and if it can't find any research then assign 
         /// random passive research. This includes idle and moving.
         /// </summary>
-        /// <param name="factionData"></param>
+        /// <param name="populationDataList"></param>
         public static void AssignPassiveResearch(Godot.Collections.Array<PopulationData> populationDataList)
         {
             foreach (PopulationData populationData in populationDataList)
@@ -60,7 +60,7 @@ namespace PlayerSpace
         }
 
         /// <summary>
-        /// It assigns the first item in the researable research list that matches the county population
+        /// It assigns the first item in the researchable research list that matches the county population
         /// interest.
         /// </summary>
         /// <param name="populationData"></param>
@@ -106,6 +106,8 @@ namespace PlayerSpace
                     , populationData.currentResearchItemData.interestData.interestType);
                     break;
                 case AllEnums.Activities.Work:
+                    GD.Print("Hero Faction Data: " + populationData.factionData.factionName);
+                    GD.Print("Hero Current County Improvement/Interest Type: " + populationData.currentCountyImprovement.interestData.interestType);
                     whatPopulationIsResearching
                     = GetRandomResearchByInterestType(populationData.factionData
                     , populationData.currentCountyImprovement.interestData.interestType);
@@ -259,7 +261,7 @@ namespace PlayerSpace
                 int attributeBonus = AttributeData.GetAttributeBonus(attributeLevel, false, false);
                 
                 // If the skill check is passed then they researcher gets a research bonus.
-                if (SkillData.CheckWithBonuses(skillLevel, attributeBonus, 0 , 0) == true) // TODO: Perk Bonus
+                if (SkillData.CheckWithBonuses(skillLevel, attributeBonus, 0 , 0)) // TODO: Perk Bonus
                 {
                     populationData.passiveResearchItemData.AmountOfResearchDone
                         += Globals.Instance.passiveResearchIncrease + Globals.Instance.passiveResearchBonus;

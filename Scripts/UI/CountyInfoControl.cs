@@ -97,8 +97,8 @@ namespace PlayerSpace
 
         public void UpdateCountyAvailableResources()
         {
-            countyFoodLabel.Text = $"Food: {countyData.scavengableCannedFood}";
-            countyScrapLabel.Text = $"Remnants: {countyData.scavengableRemnants}";
+            countyFoodLabel.Text = $"Food: {countyData.scavengeableCannedFood}";
+            countyScrapLabel.Text = $"Remnants: {countyData.scavengeableRemnants}";
         }
 
         private void UpdateVisitorsPopulationLabel()

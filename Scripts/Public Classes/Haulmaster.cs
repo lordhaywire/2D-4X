@@ -259,7 +259,7 @@ public class Haulmaster
         else
         {
             GD.Print($"It already has {value}" +
-                $" remnants in the countyStockedpiledGoods at {countyImprovementData.improvementName}");
+                $" remnants in the countyStockpiledGoods at {countyImprovementData.improvementName}");
         }
     }
 }
