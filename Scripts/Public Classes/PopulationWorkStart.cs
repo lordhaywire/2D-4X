@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace PlayerSpace;
+
 public abstract class PopulationWorkStart
 {
     /// <summary>
@@ -72,7 +73,7 @@ public abstract class PopulationWorkStart
         {
             // If there are low goods stockpiled then don't assign workers.
             if (countyImprovementData.prioritize &&
-            countyImprovementData.CheckIfStatusLowStockpiledGoods() == false)
+                countyImprovementData.CheckIfStatusLowStockpiledGoods() == false)
             {
                 countyData.AddImprovementToPrioritizedWorkImprovementList(countyImprovementData);
             }
@@ -111,7 +112,8 @@ public abstract class PopulationWorkStart
             .CompareTo(a.skills[AllEnums.Skills.Construction].skillLevel));
 
         // Update the remaining workers slots number.
-        int remainingWorkerSlots = countyImprovementData.adjustedMaxBuilders - countyImprovementData.populationAtImprovement.Count;
+        int remainingWorkerSlots = countyImprovementData.adjustedMaxBuilders -
+                                   countyImprovementData.populationAtImprovement.Count;
         int availableBuilderSlots = Math.Min(improvementBuildersList.Count
             , remainingWorkerSlots);
 
@@ -134,8 +136,9 @@ public abstract class PopulationWorkStart
     /// </summary>
     /// <param name="countyData"></param>
     /// <param name="countyImprovementData"></param>
-    private static void AssignPopulationToWorkImprovement(CountyData countyData, CountyImprovementData countyImprovementData
-        )
+    private static void AssignPopulationToWorkImprovement(CountyData countyData,
+        CountyImprovementData countyImprovementData
+    )
     {
         // We are not sorting the list till here, because the heroes are at the top of the list to start with.
         List<PopulationData> sortedList = [.. countyData.prioritizedWorkersList];
@@ -147,7 +150,7 @@ public abstract class PopulationWorkStart
 
         // Update the remaining workers slots number.
         int remainingWorkerSlots = countyImprovementData.adjustedMaxWorkers
-            - countyImprovementData.populationAtImprovement.Count;
+                                   - countyImprovementData.populationAtImprovement.Count;
         int availableWorkersSlots = Math.Min(countyData.prioritizedWorkersList.Count
             , remainingWorkerSlots);
 
@@ -171,7 +174,7 @@ public abstract class PopulationWorkStart
     public static void AssignWorkersToImprovement(CountyData countyData)
     {
         foreach (CountyImprovementData countyImprovementData
-            in countyData.prioritizedWorkImprovementList)
+                 in countyData.prioritizedWorkImprovementList)
         {
             if (countyData.prioritizedHeroWorkersList.Count > 0)
             {

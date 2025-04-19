@@ -139,14 +139,14 @@ public partial class PopulationData : Resource
         selectCounty.countyData.armiesInCountyList.Add(this);
         selectCounty.countyData.heroesInCountyList.Remove(this);
     }
-    public void UpdateActivity(AllEnums.Activities activity)
+    public void UpdateActivity(AllEnums.Activities newActivity)
     {
-        this.activity = activity;
+        this.activity = newActivity;
     }
 
-    public void UpdateDestination(int destination)
+    public void UpdateDestination(int newDestination)
     {
-        this.destination = destination;
+        this.destination = newDestination;
     }
     public void UpdateCurrentCountyImprovement(CountyImprovementData countyImprovementData)
     {

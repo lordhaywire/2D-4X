@@ -81,8 +81,9 @@ namespace PlayerSpace
 
             Research.CreateResearchableResearchList(factionData);
 
+            
             // Assign to all heroes passive research
-            Research.AssignPassiveResearch(factionData.allHeroesList);
+            //Research.AssignPassiveResearch(factionData.allHeroesList);
 
             // Assign Passive research for each county population, not including heroes.
             foreach (CountyData countyData in factionData.countiesFactionOwns)
