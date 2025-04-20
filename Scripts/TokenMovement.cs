@@ -12,10 +12,10 @@ namespace PlayerSpace
         public bool MoveToken
         {
             get => moveToken;
-            set
+            private set
             {
                 moveToken = value;
-                if (moveToken == true)
+                if (moveToken)
                 {
                     token.populationData.lastLocation = token.populationData.location;
                     token.Show();
@@ -37,7 +37,7 @@ namespace PlayerSpace
 
         public override void _PhysicsProcess(double delta)
         {
-            if (MoveToken == true)
+            if (MoveToken)
             {
                 Move();
             }
@@ -51,7 +51,7 @@ namespace PlayerSpace
 
             token.populationData.destination = destinationCountyId;
 
-            // Remove hero from research
+            // Remove a hero from research
             token.RemoveFromResearch();
 
             // Remove the hero's current county improvement.
@@ -60,8 +60,6 @@ namespace PlayerSpace
 
             //GD.Print("Destination Global Position: " + destinationCounty.heroSpawn.GlobalPosition);
             target = destinationCounty.heroSpawn.GlobalPosition;
-            //GD.Print("Target Global Position: " + target);
-            //GD.Print("Token Global Position: " + token.GlobalPosition);
             CheckForDefenders();
             CheckIfRetreating();
 
@@ -73,7 +71,7 @@ namespace PlayerSpace
             County selectCounty = (County)Globals.Instance.countiesParent.GetChild(token.populationData.destination);
 
             if (token.populationData.factionData.factionWarDictionary
-                    [selectCounty.countyData.factionData.factionName] == true && DefenderOnTheWay() == false)
+                    [selectCounty.countyData.factionData.factionName] && DefenderOnTheWay() == false)
             {
                 selectCounty.countyData.factionData.diplomacy.DefenderSpawnArmies(destinationCounty);
                 EventLog.Instance.AddLog($"{selectCounty.countyData.factionData.factionName}" +
@@ -87,8 +85,8 @@ namespace PlayerSpace
 
         private bool DefenderOnTheWay()
         {
-            // Get the All Heroes List in the desination county for that county's faction and see if any of that
-            // factions heroes are on the way to it.
+            // Get the All Heroes List in the destination county for that county's faction and see if any of that
+            // faction heroes are on the way to it.
             //GD.Print("Seeing if someone is on the way.");
             foreach (PopulationData populationData in destinationCounty.countyData.factionData.allHeroesList)
             {
@@ -116,7 +114,7 @@ namespace PlayerSpace
 
         private void Move()
         {
-            float speed = Globals.Instance.movementSpeed * Clock.Instance.ModifiedTimeScale;
+            float speed = Globals.Instance.movementSpeed * Clock.Instance.TimeMultiplier;
             token.GlobalPosition = GlobalPosition.MoveToward(target, speed);
             if (token.GlobalPosition.IsEqualApprox(target))
             {
@@ -149,7 +147,7 @@ namespace PlayerSpace
                 {
                     HeroVisitingCounty();
                     // We will probably need to change this to what the token occupation does.
-                    // For example, if the token is a diplomat, then the activity will be diplmating.
+                    // For example, if the token is a diplomat, then the activity will be diplomacy.
                     token.populationData.UpdateActivity(AllEnums.Activities.Idle);
                 }
                 else
@@ -199,7 +197,7 @@ namespace PlayerSpace
             County startingCounty = (County)Globals.Instance.countiesParent.GetChild(token.populationData.location);
 
             // We don't need to check which list the hero is in because C# doesn't give a shit if the hero isn't in the list.
-            // So we just try to remove it from both and it will remove it from the correct one.
+            // So we just try to remove it from both, and it will remove it from the correct one.
             startingCounty.countyData.heroesInCountyList.Remove(token.populationData);
             startingCounty.countyData.armiesInCountyList.Remove(token.populationData);
             startingCounty.countyData.visitingHeroList.Remove(token.populationData);

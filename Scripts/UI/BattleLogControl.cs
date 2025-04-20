@@ -47,9 +47,8 @@ namespace PlayerSpace
                 defenderVboxContainer.MoveChild(textPanel, 0);
                 textPanel.logText.AddThemeColorOverride("font_color", Colors.DodgerBlue);
             }
-
-            textPanel.logText.Text = $"Day: {Clock.Instance.days} " 
-                + string.Format("{0:00}:{1:00}", Clock.Instance.Hours, Clock.Instance.minutes) + " - " + newLog;
+            // TODO Test that the time stamp works.
+            textPanel.logText.Text = $"{Clock.Instance.GetDateAndTime()} -  + {newLog}";
             //GD.Print($"Attacker: {attackerVboxContainer.GetChildCount()} vs {maxLines}");
             if (attackerVboxContainer.GetChildCount() > maxLines) 
             {

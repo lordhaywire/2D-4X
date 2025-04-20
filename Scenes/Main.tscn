@@ -212,7 +212,6 @@ centered = false
 script = ExtResource("2_yf7pt")
 dailyInfluenceGain = 5
 leaderOfPeopleInfluenceBonus = 5
-startPaused = true
 turnOffStoryEvents = true
 mapColorCoded = ExtResource("2_h1vmt")
 countiesParent = NodePath("../../Counties")
@@ -302,13 +301,8 @@ script = ExtResource("17_1215r")
 [node name="Random Faction Colors" type="Node" parent="Game Controller Node"]
 script = ExtResource("18_3aru6")
 
-[node name="Clock" type="Node" parent="Game Controller Node" node_paths=PackedStringArray("dayLabel", "HourLabel", "currentSpeedLabel", "pausedLabel")]
+[node name="Clock" type="Node" parent="Game Controller Node"]
 script = ExtResource("19_dn5gi")
-dayLabel = NodePath("../../Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Day Panel/Hbox/Day Numbers Label")
-HourLabel = NodePath("../../Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Time Panel/Hbox/Hours Numbers Label")
-currentSpeedLabel = NodePath("../../Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/Speed Panel/Speed Number Label")
-pausedLabel = NodePath("../../Player UI Canvas/Pause Control/Pause Label")
-ticks = 100
 
 [node name="County Dictator" type="Node" parent="Game Controller Node"]
 script = ExtResource("28_qe8u4")
@@ -343,7 +337,7 @@ size_flags_vertical = 10
 mouse_filter = 0
 theme_override_constants/separation = 1
 
-[node name="Top Bar Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("clock", "influenceLabel", "influenceAmountUsed", "moneyLabel", "moneyAmountUsed", "remnantsLabel", "remnantsAmountUsed", "buildingMaterialsLabel", "buildingMaterialsAmountUsed", "equipmentLabel", "equipmentAmountUsed", "foodLabel", "foodAmountUsed", "x0Button", "x1Button", "x2Button", "x4Button", "x8Button")]
+[node name="Top Bar Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("clock", "dayLabel", "hourLabel", "timeMultiplierLabel", "pausedLabel", "influenceLabel", "influenceAmountUsed", "moneyLabel", "moneyAmountUsed", "remnantsLabel", "remnantsAmountUsed", "buildingMaterialsLabel", "buildingMaterialsAmountUsed", "equipmentLabel", "equipmentAmountUsed", "foodLabel", "foodAmountUsed", "x0Button", "xHalfButton", "x1Button", "x2Button", "x4Button", "x8Button", "x16Button")]
 custom_minimum_size = Vector2(0, 31)
 layout_mode = 3
 anchors_preset = 10
@@ -354,6 +348,10 @@ mouse_filter = 2
 theme = ExtResource("34_e2d2b")
 script = ExtResource("35_ecv6a")
 clock = NodePath("../../Game Controller Node/Clock")
+dayLabel = NodePath("PanelContainer/Top Bar HBox/Day Panel/Hbox/Day Numbers Label")
+hourLabel = NodePath("PanelContainer/Top Bar HBox/Time Panel/Hbox/Hours Numbers Label")
+timeMultiplierLabel = NodePath("PanelContainer/Time and Research Buttons HBox/Speed Panel/Time Multiplier Number Label")
+pausedLabel = NodePath("../Pause Control/Pause Label")
 influenceLabel = NodePath("PanelContainer/Top Bar HBox/Influence Panel Container/Influence Number")
 influenceAmountUsed = NodePath("PanelContainer/Top Bar HBox/Influence Amount Used Panel Container/Influence Amount Used Label")
 moneyLabel = NodePath("PanelContainer/Top Bar HBox/Money Panel Container/Money Number")
@@ -367,10 +365,12 @@ equipmentAmountUsed = NodePath("PanelContainer/Top Bar HBox/Equipment Amount Use
 foodLabel = NodePath("PanelContainer/Top Bar HBox/Food Panel Container/Food Number")
 foodAmountUsed = NodePath("PanelContainer/Top Bar HBox/Food Amount Used Panel Container/Food Amount Used Label")
 x0Button = NodePath("PanelContainer/Time and Research Buttons HBox/x0 Button")
+xHalfButton = NodePath("PanelContainer/Time and Research Buttons HBox/xHalf Button")
 x1Button = NodePath("PanelContainer/Time and Research Buttons HBox/x1 Button")
 x2Button = NodePath("PanelContainer/Time and Research Buttons HBox/x2 Button")
 x4Button = NodePath("PanelContainer/Time and Research Buttons HBox/x4 Button")
 x8Button = NodePath("PanelContainer/Time and Research Buttons HBox/x8 Button")
+x16Button = NodePath("PanelContainer/Time and Research Buttons HBox/x16 Button")
 
 [node name="PanelContainer" type="PanelContainer" parent="Player UI Canvas/Top Bar Control"]
 layout_mode = 1
@@ -635,7 +635,7 @@ custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 text = "WORD_SPEED"
 
-[node name="Speed Number Label" type="Label" parent="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/Speed Panel"]
+[node name="Time Multiplier Number Label" type="Label" parent="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/Speed Panel"]
 custom_minimum_size = Vector2(15, 0)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -646,6 +646,12 @@ layout_mode = 2
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_1crxt")
 text = "x0"
+
+[node name="xHalf Button" type="Button" parent="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox"]
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_1crxt")
+text = "x.5"
 
 [node name="x1 Button" type="Button" parent="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox"]
 layout_mode = 2
@@ -670,6 +676,12 @@ layout_mode = 2
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_1crxt")
 text = "x8"
+
+[node name="x16 Button" type="Button" parent="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox"]
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_1crxt")
+text = "x16"
 
 [node name="Pause Control" type="Control" parent="Player UI Canvas"]
 custom_minimum_size = Vector2(0, 31)
@@ -2722,6 +2734,8 @@ process_mode = 3
 [connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/Speed Panel" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
 [connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x0 Button" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x0 Button" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
+[connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/xHalf Button" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/xHalf Button" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
 [connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x1 Button" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x1 Button" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
 [connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x2 Button" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
@@ -2730,6 +2744,8 @@ process_mode = 3
 [connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x4 Button" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
 [connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x8 Button" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x8 Button" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
+[connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x16 Button" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x16 Button" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
 [connection signal="mouse_entered" from="Player UI Canvas/Pause Control" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="Player UI Canvas/Pause Control" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
 [connection signal="visibility_changed" from="Player UI Canvas/County Info Control" to="Player UI Canvas/County Info Control" method="OnVisibilityChanged"]

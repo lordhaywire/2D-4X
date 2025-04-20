@@ -8,7 +8,7 @@ namespace PlayerSpace
         public static PlayerControls Instance { get; private set; }
 
         public bool playerControlsEnabled = true;
-        public bool stopClickThrough = false;
+        public bool stopClickThrough;
 
         private Image mapImage;
         [Export] private RectangleShape2D collisionRectangleShape;
@@ -38,13 +38,13 @@ namespace PlayerSpace
             collisionRectangleShape.Size = new Vector2(mapWidth, mapHeight);
 
             // First check to make sure it is inside the map (a tiny bit more (a tiny bit less?) then the size of the map.)
-            if (x > 0 && y > 0 && x < mapWidth - 5 && y < mapHeight - 5 && playerControlsEnabled == true &&
+            if (x > 0 && y > 0 && x < mapWidth - 5 && y < mapHeight - 5 && playerControlsEnabled &&
                 stopClickThrough == false)
             {
                 Color countyColor = mapImage.GetPixel(x, y);
 
-                // Check every countyData to find the color it finds.  If it finds that color then it turns on the 
-                // grey overlay.
+                // Check every countyData to find the color it finds.  If it finds that color, then it turns on the 
+                // gray overlay.
                 foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
                 {
                     Sprite2D maskSprite = county.maskSprite;
@@ -78,7 +78,7 @@ namespace PlayerSpace
                                 && Globals.Instance.SelectedCountyPopulation != null
                                 && Globals.Instance.SelectedCountyPopulation.heroToken != null)
                             {
-                                //GD.Print("You are moving to a place you right clicked, dude! " + county.countyData.countyName);
+                                //GD.Print("You are moving to a place you right-clicked, dude! " + county.countyData.countyName);
                                 if (Globals.Instance.SelectedCountyPopulation.destination == -1)
                                 {
                                     MoveSelectedToken(county.countyData);
@@ -109,17 +109,11 @@ namespace PlayerSpace
                 }
             }
 
-            if (@event is InputEventKey keyEvent && keyEvent.Pressed == false)
+            if (playerControlsEnabled)
             {
-                if (playerControlsEnabled == true)
+                if (@event.IsActionPressed("pause_time"))
                 {
-                    //GD.Print($"{keyEvent.Keycode}");
-                    switch (keyEvent.Keycode)
-                    {
-                        case Key.Space:
-                            Clock.Instance.PauseandUnpause();
-                            break;
-                    }
+                    Clock.Instance.PauseAndUnpause();
                 }
             }
         }
@@ -179,7 +173,7 @@ namespace PlayerSpace
             }
         }
 
-        public void SelectedChanged(County county, bool selected)
+        private void SelectedChanged(County county, bool selected)
         {
             if (selected)
             {

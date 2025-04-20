@@ -1,3 +1,4 @@
+using System.Globalization;
 using Godot;
 
 namespace PlayerSpace;
@@ -6,7 +7,14 @@ public partial class TopBarControl : Control
 {
     public static TopBarControl Instance { get; private set; }
 
+    [ExportGroup("Clock")]
     [Export] private Clock clock;
+    [Export] private Label dayLabel;
+    [Export] private Label hourLabel;
+    [Export] private Label timeMultiplierLabel;
+    [Export] private Label pausedLabel;
+    
+    [ExportGroup("Good Labels")]
     [Export] private Label influenceLabel;
     [Export] private Label influenceAmountUsed;
     [Export] private Label moneyLabel;
@@ -19,13 +27,17 @@ public partial class TopBarControl : Control
     [Export] private Label equipmentAmountUsed;
     [Export] private Label foodLabel;
     [Export] private Label foodAmountUsed;
+
+    [ExportGroup("Time Buttons")]
     [Export] private Button x0Button;
+    [Export] private Button xHalfButton;
     [Export] private Button x1Button;
     [Export] private Button x2Button;
     [Export] private Button x4Button;
     [Export] private Button x8Button;
+    [Export] private Button x16Button;
 
-    FactionData factionData;
+    private FactionData factionData;
 
     public override void _Ready()
     {
@@ -33,17 +45,44 @@ public partial class TopBarControl : Control
         factionData = Globals.Instance.playerFactionData;
         UpdateTopBarGoodLabels();
         CreateSignalsForTimeButtons();
+        if (Globals.Instance.startPaused)
+        {
+            Clock.Instance.UpdateTimeMultiplier(0);
+        }
     }
 
     private void CreateSignalsForTimeButtons()
     {
-        x0Button.Pressed += () => Clock.Instance.ChangeSpeed(0);
-        x1Button.Pressed += () => Clock.Instance.ChangeSpeed(1);
-        x2Button.Pressed += () => Clock.Instance.ChangeSpeed(2);
-        x4Button.Pressed += () => Clock.Instance.ChangeSpeed(4);
-        x8Button.Pressed += () => Clock.Instance.ChangeSpeed(8);
+        x0Button.Pressed += () => TimeChangeButtonOnPressed(0);
+        xHalfButton.Pressed += () => TimeChangeButtonOnPressed(.5f);
+        x1Button.Pressed += () => TimeChangeButtonOnPressed(1);
+        x2Button.Pressed += () => TimeChangeButtonOnPressed(2);
+        x4Button.Pressed += () => TimeChangeButtonOnPressed(4);
+        x8Button.Pressed += () => TimeChangeButtonOnPressed(8);
+        x16Button.Pressed += () => TimeChangeButtonOnPressed(16);
     }
 
+    public void PopulateTimeLabels(int days, int hours, int minutes)
+    {
+        dayLabel.Text = days.ToString();
+        hourLabel.Text = $"{hours:00}:{minutes:00}";
+    }
+    public void UpdateTimeMultiplierLabel(float timeMultiplier)
+    {
+        timeMultiplierLabel.Text = timeMultiplier.ToString(CultureInfo.CurrentCulture);
+    }
+
+    public void UpdatePauseLabel(bool paused)
+    {
+        if (paused)
+        {
+            pausedLabel.Show();
+        }
+        else
+        {
+            pausedLabel.Hide();
+        }
+    }
     public void UpdateTopBarGoodLabels()
     {
         //GD.Print("Top Bar expendables have been updated, motherfucker!");
@@ -108,7 +147,7 @@ public partial class TopBarControl : Control
         factionData.CountAllCountyFactionResources();
         factionData.CountAllCountyFactionUsedResources();
 
-        // Update all of the faction labels
+        // Update all the faction labels
         UpdateLabelsWithFactionAmounts();
 
         // Update the used resource amount.
@@ -133,8 +172,9 @@ public partial class TopBarControl : Control
         equipmentLabel.Text = factionData.factionGoods[AllEnums.FactionGoodType.Equipment].Amount.ToString();
     }
 
-    public void ChangeSpeed(int speed)
+    private void TimeChangeButtonOnPressed(float timeMultiplier)
     {
-        clock.ChangeSpeed(speed);
+        Clock.Instance.UpdateTimeMultiplier(timeMultiplier);
+        UpdateTimeMultiplierLabel(timeMultiplier);
     }
 }

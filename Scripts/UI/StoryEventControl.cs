@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -30,7 +29,7 @@ namespace PlayerSpace
 
         private void CheckForEvent()
         {
-            if (Clock.Instance.days == 0 && Clock.Instance.Hours == 3 && Globals.Instance.turnOffStoryEvents == false)
+            if (Clock.Instance.Days == 0 && Clock.Instance.Hours == 3 && Globals.Instance.turnOffStoryEvents == false)
             {
                 Show();
             }
@@ -38,16 +37,16 @@ namespace PlayerSpace
 
         private void OnVisibilityChanged()
         {
-            if (Visible == true)
+            if (Visible)
             {
-                Clock.Instance.PauseandUnpause();
+                Clock.Instance.PauseAndUnpause();
                 PlayerControls.Instance.AdjustPlayerControls(false);
                 UpdateEventInfo();
             }
             else
             {
                 PlayerControls.Instance.AdjustPlayerControls(true);
-                Clock.Instance.PauseandUnpause();
+                Clock.Instance.PauseAndUnpause();
             }
         }
 
@@ -64,8 +63,8 @@ namespace PlayerSpace
             storyEventDescription.Text = currentStoryEventData.storyEventDescription;
             storyEventLocation.Text = $"County: {currentStoryEventData.eventCounty.countyData.countyName}";
 
-            // The top button and the bottom button are accept and decline, and the first string and second string
-            // choices are accept and decline;
+            // The top button and the bottom button are accepted and decline, and the first string and second string
+            // choices are accepted and decline;
             switch (currentStoryEventData.choices.Length)
             {
                 case 3:

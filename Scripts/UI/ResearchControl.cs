@@ -9,7 +9,7 @@ namespace PlayerSpace
     {
         public static ResearchControl Instance { get; private set; }
 
-        [Export] PackedScene researchItemButton;
+        [Export] private PackedScene researchItemButton;
 
         [Export] public Label assignedResearchersTitleLabel;
         [Export] public VBoxContainer tierOneResearchItemParent;
@@ -18,23 +18,23 @@ namespace PlayerSpace
         [Export] private PackedScene assignedResearchersButton;
         [Export] private GridContainer assignedResearchersParent;
 
-        public ResearchItemData researchItemData;
+        private ResearchItemData researchItemData;
 
         public event Action ResearchVisible;
 
-        public List<PopulationData> assignedResearchers = [];
+        public readonly List<PopulationData> assignedResearchers = [];
 
         public override void _Ready()
         {
             Instance = this;
-            AddPlayerResearchToUI();
+            AddPlayerResearchToUi();
         }
         private void OnVisibilityChange()
         {
             if (Visible)
             {
                 PlayerControls.Instance.AdjustPlayerControls(false);
-                Clock.Instance.PauseTime();
+                Clock.Instance.PauseAndUnpause();
                 ResearchVisible?.Invoke();
 
                 GenerateAssignedResearchers();
@@ -43,11 +43,11 @@ namespace PlayerSpace
             else
             {
                 PlayerControls.Instance.AdjustPlayerControls(true);
-                Clock.Instance.UnpauseTime();
+                Clock.Instance.PauseAndUnpause();
             }
         }
 
-        public void CheckForResearchers()
+        private void CheckForResearchers()
         {
             //GD.PrintRich($"[rainbow]Assigned Researchers Count: " + assignedResearchers.Count);
             if (assignedResearchers.Count == 0)
@@ -70,7 +70,7 @@ namespace PlayerSpace
                 researcherButton.assignedResearcherButton.Text
                     = $"{populationData.firstName} {populationData.lastName}: {Tr(populationData.currentResearchItemData.researchName)}";
                 researcherButton.populationData = populationData;
-                // If the county population is working at an research office, then their button is disabled, so they can't be
+                // If the county population is working at a research office, then their button is disabled, so they can't be
                 // removed from the research.
                 /*
                 if(researcherButton.populationData.isHero == false)
@@ -84,23 +84,23 @@ namespace PlayerSpace
 
         private void ClearResearcherHBoxContainers()
         {
-            foreach (AssignedResearcherHboxContainer assignedResearcherHboxContainer in
+            foreach (AssignedResearcherHboxContainer assignedResearcherHBoxContainer in
                 assignedResearchersParent.GetChildren().Cast<AssignedResearcherHboxContainer>())
             {
-                assignedResearcherHboxContainer.QueueFree();
+                assignedResearcherHBoxContainer.QueueFree();
             }
         }
 
-        public void ShowResearchPanel()
+        private void ShowResearchPanel()
         {
             //GD.Print("Show the research panel!");
             Show();
             PlayerControls.Instance.AdjustPlayerControls(false);
         }
 
-        public void CloseButton()
+        private void CloseButton()
         {
-            if (ResearchDescriptionPanel.Instance.Visible == true)
+            if (ResearchDescriptionPanel.Instance.Visible)
             {
                 ResearchDescriptionPanel.Instance.Hide();
             }
@@ -112,28 +112,28 @@ namespace PlayerSpace
         }
 
         /// <summary>
-        /// This overwrites the dragged and dropped researchItemDatas in the UI.
+        /// This overwrites the dragged and dropped researchItemData in the UI.
         /// </summary>
-        private void AddPlayerResearchToUI()
+        private void AddPlayerResearchToUi()
         {
-            foreach(ResearchItemData researchItemData in Globals.Instance.playerFactionData.researchItems)
+            foreach(ResearchItemData currentResearchItemData in Globals.Instance.playerFactionData.researchItems)
             {
                 //GD.Print($"Research Item Data Tier: " + researchItemData.tier);
-                switch (researchItemData.tier)
+                switch (currentResearchItemData.tier)
                 {
                     case AllEnums.ResearchTiers.One:
                         ResearchItemButton tierOneResearchItemButton = (ResearchItemButton)researchItemButton.Instantiate();
-                        tierOneResearchItemButton.researchItemData = researchItemData;
+                        tierOneResearchItemButton.researchItemData = currentResearchItemData;
                         tierOneResearchItemParent.AddChild(tierOneResearchItemButton);
                         break;
                     case AllEnums.ResearchTiers.Two:
                         ResearchItemButton tierTwoResearchItemButton = (ResearchItemButton)researchItemButton.Instantiate();
-                        tierTwoResearchItemButton.researchItemData = researchItemData;
+                        tierTwoResearchItemButton.researchItemData = currentResearchItemData;
                         tierTwoResearchItemParent.AddChild(tierTwoResearchItemButton);
                         break;
                     case AllEnums.ResearchTiers.Three:
                         ResearchItemButton tierThreeResearchItemButton = (ResearchItemButton)researchItemButton.Instantiate();
-                        tierThreeResearchItemButton.researchItemData = researchItemData;
+                        tierThreeResearchItemButton.researchItemData = currentResearchItemData;
                         tierThreeResearchItemParent.AddChild(tierThreeResearchItemButton);
                         break;
                 }
