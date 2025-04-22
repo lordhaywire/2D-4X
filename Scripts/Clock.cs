@@ -111,7 +111,7 @@ public partial class Clock : Node
     private void DoTick()
     {
         Minutes += 15;
-        GD.Print(Minutes);
+        //GD.Print(Minutes);
         if (Minutes >= 60) // 60 min = 1 hr
         {
             Minutes = 0;
@@ -143,19 +143,14 @@ public partial class Clock : Node
             TimeMultiplier = 0;
         }
 
-        //NumberOfThingsPausing++;
+        numberOfThingsPausing++;
     }
 
     public void UnpauseTime()
     {
         //GD.Print("Unpause Time!");
-        //NumberOfThingsPausing--;
+        numberOfThingsPausing--;
         TimeMultiplier = oldTimeMultiplier;
-        /*
-        if (NumberOfThingsPausing == 0)
-        {
-        }
-        */
     }
 
     public string GetDateAndTime()
@@ -164,9 +159,14 @@ public partial class Clock : Node
         return dateAndTime;
     }
 
+    public void SpaceBarPause()
+    {
+        PauseAndUnpause();
+    }
     public void PauseAndUnpause()
     {
         GD.Print("Pause and Unpause has been fired!");
+
         if (TimeMultiplier > 0)
         {
             oldTimeMultiplier = TimeMultiplier;
@@ -175,15 +175,10 @@ public partial class Clock : Node
         }
         else
         {
-            if (numberOfThingsPausing > 0)
-            {
-                
-            }
-            if (numberOfThingsPausing < 1)
+            if (numberOfThingsPausing <= 1)
             {
                 (TimeMultiplier, oldTimeMultiplier) = (oldTimeMultiplier, TimeMultiplier);
             }
-
             numberOfThingsPausing--;
         }
         //GD.Print($"Modified Time: {ModifiedTimeScale} and Old Time Speed: {oldTimeSpeed}.");

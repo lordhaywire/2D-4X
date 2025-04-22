@@ -113,7 +113,7 @@ namespace PlayerSpace
             {
                 if (@event.IsActionPressed("pause_time"))
                 {
-                    Clock.Instance.PauseAndUnpause();
+                    Clock.Instance.SpaceBarPause();
                 }
             }
         }

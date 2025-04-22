@@ -34,7 +34,7 @@ namespace PlayerSpace
             if (Visible)
             {
                 PlayerControls.Instance.AdjustPlayerControls(false);
-                Clock.Instance.PauseAndUnpause();
+                Clock.Instance.PauseTime();
                 ResearchVisible?.Invoke();
 
                 GenerateAssignedResearchers();
@@ -43,7 +43,7 @@ namespace PlayerSpace
             else
             {
                 PlayerControls.Instance.AdjustPlayerControls(true);
-                Clock.Instance.PauseAndUnpause();
+                Clock.Instance.UnpauseTime();
             }
         }
 
