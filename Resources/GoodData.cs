@@ -1,76 +1,75 @@
 using Godot;
 using System;
 
-namespace PlayerSpace
+namespace PlayerSpace;
+
+[GlobalClass]
+public partial class GoodData : Resource
 {
-    [GlobalClass]
-    public partial class GoodData : Resource
+    [Export] public string goodName;
+    [Export] public string description;
+    [Export] public AllEnums.GoodType goodType;
+    [Export] public AllEnums.CountyGoodType countyGoodType;
+    [Export] public AllEnums.FactionGoodType factionGoodType;
+    [Export] public AllEnums.Perishable perishable;
+    [Export] public EquipmentData equipmentData;
+    [Export] public int failureRate; // Daily chance of the item to fail. This isn't used yet.
+    [Export] public bool remnantSubstitutable;
+    [Export] public bool useRemnants;
+    [Export] private int amount; // The amount of good.
+
+    [Export]
+    public int Amount
     {
-        [Export] public string goodName;
-        [Export] public string description;
-        [Export] public AllEnums.GoodType goodType;
-        [Export] public AllEnums.CountyGoodType countyGoodType;
-        [Export] public AllEnums.FactionGoodType factionGoodType;
-        [Export] public AllEnums.Perishable perishable;
-        [Export] public EquipmentData equipmentData;
-        [Export] public int failureRate; // Daily chance of the item to fail. This isn't used yet.
-        [Export] public bool remnantSubstitutable;
-        [Export] public bool useRemnants;
-        [Export] private int amount; // The amount of good.
-
-        [Export]
-        public int Amount
+        get { return amount; }
+        set
         {
-            get { return amount; }
-            set
-            {
-                // Make the amount never got above MaxAmount.
-                amount = Math.Min(value, MaxAmount);
-                //GD.Print($"Resource Amount: {goodName} has been set to {amount}");
+            // Make the amount never got above MaxAmount.
+            amount = Math.Min(value, MaxAmount);
+            //GD.Print($"Resource Amount: {goodName} has been set to {amount}");
 
+        }
+    }
+
+    [Export] private int maxAmount; // This is the max amount that can be stored.
+
+    [Export]
+    public int MaxAmount
+    {
+        get { return maxAmount; }
+        set
+        {
+            if (goodType == AllEnums.GoodType.FactionGood)
+            {
+                maxAmount = int.MaxValue;
+                //GD.PrintRich($"Faction Good Max Amount: {goodName} {maxAmount}");
+                return;
             }
+
+            maxAmount = value;
+            Amount = Math.Min(Amount, maxAmount);
+            //GD.Print($"Good Max Amount: {goodName} {maxAmount}");
         }
+    }
 
-        [Export] private int maxAmount; // This is the max amount that can be stored.
-
-        [Export]
-        public int MaxAmount
+    public static GoodData NewCopy(GoodData goodData)
+    {
+        GoodData newGoodData = new()
         {
-            get { return maxAmount; }
-            set
-            {
-                if (goodType == AllEnums.GoodType.FactionGood)
-                {
-                    maxAmount = int.MaxValue;
-                    //GD.PrintRich($"Faction Good Max Amount: {goodName} {maxAmount}");
-                    return;
-                }
-
-                maxAmount = value;
-                Amount = Math.Min(Amount, maxAmount);
-                //GD.Print($"Good Max Amount: {goodName} {maxAmount}");
-            }
-        }
-
-        public static GoodData NewCopy(GoodData goodData)
-        {
-            GoodData newGoodData = new()
-            {
-                goodName = goodData.goodName,
-                description = goodData.description,
-                goodType = goodData.goodType,
-                countyGoodType = goodData.countyGoodType,
-                factionGoodType = goodData.factionGoodType,
-                perishable = goodData.perishable,
-                failureRate = goodData.failureRate,
-                remnantSubstitutable = goodData.remnantSubstitutable,
-                useRemnants = goodData.useRemnants,
-                amount = goodData.amount,
-                Amount = goodData.Amount,
-                maxAmount = goodData.maxAmount,
-                MaxAmount = goodData.MaxAmount,
-            };
-            return newGoodData;
-        }
+            goodName = goodData.goodName,
+            description = goodData.description,
+            goodType = goodData.goodType,
+            countyGoodType = goodData.countyGoodType,
+            factionGoodType = goodData.factionGoodType,
+            perishable = goodData.perishable,
+            failureRate = goodData.failureRate,
+            remnantSubstitutable = goodData.remnantSubstitutable,
+            useRemnants = goodData.useRemnants,
+            amount = goodData.amount,
+            Amount = goodData.Amount,
+            maxAmount = goodData.maxAmount,
+            MaxAmount = goodData.MaxAmount,
+        };
+        return newGoodData;
     }
 }

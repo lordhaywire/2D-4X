@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -72,26 +71,26 @@ public partial class CountyGeneration : Node
         // Cowlitz
         County selectCounty = (County)Globals.Instance.countiesParent.GetChild(0);
         //GD.Print("Assigning Faction data: " + Globals.Instance.factionDatas[0].factionName);
-        selectCounty.countyData.factionData = Globals.Instance.factionDatas[0];
+        selectCounty.countyData.factionData = Globals.Instance.allFactionData[0];
         //GD.Print("Assigned Faction Data: " + selectCounty.countyData.factionData.factionName);
         // Tillamook
         selectCounty = (County)Globals.Instance.countiesParent.GetChild(1);
-        selectCounty.countyData.factionData = Globals.Instance.factionDatas[1];
+        selectCounty.countyData.factionData = Globals.Instance.allFactionData[1];
         // Douglas
         selectCounty = (County)Globals.Instance.countiesParent.GetChild(2);
-        selectCounty.countyData.factionData = Globals.Instance.factionDatas[1];
+        selectCounty.countyData.factionData = Globals.Instance.allFactionData[1];
         // Portland
         selectCounty = (County)Globals.Instance.countiesParent.GetChild(3);
-        selectCounty.countyData.factionData = Globals.Instance.factionDatas[3];
+        selectCounty.countyData.factionData = Globals.Instance.allFactionData[3];
         // Wasco
         selectCounty = (County)Globals.Instance.countiesParent.GetChild(4);
-        selectCounty.countyData.factionData = Globals.Instance.factionDatas[3];
+        selectCounty.countyData.factionData = Globals.Instance.allFactionData[3];
         // Harney
         selectCounty = (County)Globals.Instance.countiesParent.GetChild(5);
-        selectCounty.countyData.factionData = Globals.Instance.factionDatas[1];
+        selectCounty.countyData.factionData = Globals.Instance.allFactionData[1];
         // Umatilla
         selectCounty = (County)Globals.Instance.countiesParent.GetChild(6);
-        selectCounty.countyData.factionData = Globals.Instance.factionDatas[2];
+        selectCounty.countyData.factionData = Globals.Instance.allFactionData[2];
     }
 
     private static void AssignCountyDataToFaction()

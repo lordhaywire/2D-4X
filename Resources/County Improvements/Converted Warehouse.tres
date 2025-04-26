@@ -31,7 +31,7 @@ AverageDailyGoodsAmountGenerated = 0.0
 
 [resource]
 script = ExtResource("3_nbppr")
-currentAmountOfCounstruction = 0
+currentAmountOfConstruction = 0
 numberBuilt = 0
 countyImprovementType = 2
 prioritize = false

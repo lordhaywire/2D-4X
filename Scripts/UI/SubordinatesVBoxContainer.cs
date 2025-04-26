@@ -15,7 +15,7 @@ public partial class SubordinatesVBoxContainer : VBoxContainer
     {
         // When the population description control is visible it runs this method which sets the populationData
         // in this script.
-        this.populationData = population;
+        populationData = population;
         numberOfSubordinatesLabel.Text = $"{Tr("PHRASE_NUMBER_OF_SUBORDINATES")}: {population.heroSubordinates.Count} /";
         numberOfSubordinatesSpinBox.Value = population.numberOfSubordinatesWanted;
     }

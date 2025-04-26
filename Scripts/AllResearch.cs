@@ -1,17 +1,15 @@
 using Godot;
-using System;
 
-namespace PlayerSpace
+namespace PlayerSpace;
+
+public partial class AllResearch : Node
 {
-    public partial class AllResearch : Node
+    public static AllResearch Instance { get; private set; }
+
+    [Export] public ResearchItemData[] allResearchItemDatas;
+
+    public override void _Ready()
     {
-        public static AllResearch Instance { get; private set; }
-
-        [Export] public ResearchItemData[] allResearchItemDatas;
-
-        public override void _Ready()
-        {
-            Instance = this;
-        }
+        Instance = this;
     }
 }

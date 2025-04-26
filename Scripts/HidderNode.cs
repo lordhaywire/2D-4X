@@ -1,21 +1,18 @@
 using Godot;
-using System;
 
-namespace PlayerSpace
+namespace PlayerSpace;
+
+public partial class HidderNode : Node
 {
-
-    public partial class HidderNode : Node
+    [Export] Control[] nodesToHide;
+    public override void _Ready()
     {
-        [Export] Control[] nodesToHide;
-        public override void _Ready()
+        //GD.Print("Hidder Node!");
+        foreach(Control control in nodesToHide)
         {
-            //GD.Print("Hidder Node!");
-            foreach(Control control in nodesToHide)
-            {
-                control.Hide();
-            }
+            control.Hide();
         }
-
-
     }
+
+
 }

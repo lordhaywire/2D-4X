@@ -13,7 +13,7 @@ public partial class Globals : Node
     [ExportGroup("Player Faction BS")]
     [Export] public FactionData playerFactionData;
 
-    [Export] public Godot.Collections.Array<FactionData> factionDatas = [];
+    [Export] public Godot.Collections.Array<FactionData> allFactionData;// = [];
 
     [ExportGroup("Faction Variables")]
     [Export] public int dailyInfluenceGain;
@@ -21,7 +21,7 @@ public partial class Globals : Node
 
     [ExportGroup("Game Settings")]
     [Export] public bool startPaused;
-    [Export] public bool turnOffStoryEvents = false;
+    [Export] public bool turnOffStoryEvents;
 
     [ExportGroup("Selected Items")]
     [Export] public int selectedCountyId = -1;
@@ -34,12 +34,12 @@ public partial class Globals : Node
         {
             if (selectedLeftClickCounty != null)
             {
-                selectedLeftClickCounty.maskSprite.SelfModulate = new Color(1, 1, 1, 1f);
+                selectedLeftClickCounty.maskSprite.SelfModulate = new Color(1, 1, 1);
             }
             selectedLeftClickCounty = value;
             if (selectedLeftClickCounty != null)
             {
-                selectedLeftClickCounty.maskSprite.SelfModulate = new Color(0, 0, 0, 1f);
+                selectedLeftClickCounty.maskSprite.SelfModulate = new Color(0, 0, 0);
             }
         }
     }
@@ -71,7 +71,7 @@ public partial class Globals : Node
     [Export] public Texture2D mapColorCoded;
 
     [ExportGroup("Population Generation")]
-    [Export] public Node2D countiesParent; // Used for Population generation and random color.  I think we are going to change how the colors are distubuted.
+    [Export] public Node2D countiesParent; // Used for Population generation and random color.  I think we are going to change how the colors are distributed.
     //[Export] public int heroPopulation = 1;
     [Export] public int totalCapitolPop = 20;
     [Export] public int minimumCountyPop = 1;
@@ -92,7 +92,7 @@ public partial class Globals : Node
     [Export] public int startingAmountOfEachGood = 100;
 
     [ExportGroup("County Improvement Stuff")]
-    [Export] public int minDaysStockpile = 2; // The amount of input goods (days) a improvement tries to hold.
+    [Export] public int minDaysStockpile = 2; // The amount of input goods (days) an improvement tries to hold.
     [Export] public int maxDaysStockpile = 7; // The max amount (in days) of goods a county improvement will try to stockpile
     
     [ExportGroup("Population Work")]
@@ -151,11 +151,13 @@ public partial class Globals : Node
     [ExportGroup("This is some bullshit.")]
     [Export] public bool isInsideToken;
 
-    public List<FactionData> deadFactions = [];
+    // ReSharper disable once CollectionNeverQueried.Global
+    public readonly List<FactionData> deadFactions = [];
 
     public override void _Ready()
     {
         Instance = this;
+        allFactionData = [];
         LoadNames();
     }
 
@@ -185,20 +187,12 @@ public partial class Globals : Node
     {
         // Load all the names from disk.
 
-        //string listDirectory = "";
-        // I think the variable can be used, if we open up the root directory first.
-        // Right now this code is doing nothing, except the GD.Print stuff.
-        if (OS.HasFeature("editor"))
-        {
-            GD.Print("Is in the editor!!!");
-            //listDirectory = ProjectSettings.LocalizePath(listsPath); 
-        }
-        else
-        {
-            GD.Print("Is not in the editor!");
-            //listDirectory = ProjectSettings.LocalizePath(listsPath);
-        }
+        // I think the variable can be used if we open up the root directory first.
+        // Right now this code is doing nothing except the GD.Print stuff.
+        //listDirectory = ProjectSettings.LocalizePath(listsPath); 
+        GD.Print(OS.HasFeature("editor") ? "Is in the editor!!!" : "Is not in the editor!");
 
+        //listDirectory = ProjectSettings.LocalizePath(listsPath);
         DirAccess directory = DirAccess.Open("res://");
         if (directory.DirExists("res://Lists/"))
         {
@@ -228,84 +222,13 @@ public partial class Globals : Node
 
     }
 
-    /*
-    public class ListWithNotify<T> : IEnumerable<T> where T : class
-    {
-        readonly List<T> list = [];
-
-        public delegate void ItemAddedEventHandler(object sender, T item);
-
-        public event ItemAddedEventHandler ItemAdded;
-        // This makes this function like a normal list.
-        public T this[int i]
-        {
-            get
-            {
-                if (list.Count > 0)
-                {
-                    return list[i];
-                }
-                else
-                {
-                    Console.WriteLine("Default: " + default(T));
-                    return null;
-                }
-            }
-            set { list[i] = value; }
-        }
-
-        // These makes the normal list actions work correctly. If we need to do other things to the list we need to add them here.
-        public int Count() // This is not a normal list so when using it, it will need ().
-        {
-            return list.Count;
-        }
-        public void Add(T item)
-        {
-            list.Add(item);
-            OnItemAdded(item);
-        }
-
-        public void Insert(int i, T item)
-        {
-            list.Insert(i, item);
-            OnItemAdded(item);
-        }
-
-        public void Remove(T item)
-        {
-            list.Remove(item);
-        }
-
-        public void RemoveAt(int i)
-        {
-            list.RemoveAt(i);
-        }
-
-        protected virtual void OnItemAdded(T item)
-        {
-            ItemAdded?.Invoke(this, item);
-        }
-
-        // Implementing IEnumerable<T> interface to enable foreach
-        public IEnumerator<T> GetEnumerator()
-        {
-            return list.GetEnumerator();
-        }
-
-        // Implementing IEnumerable interface
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-    }
-    */
-    public static void OnMouseEnteredUI()
+    private static void OnMouseEnteredUI()
     {
         PlayerControls.Instance.stopClickThrough = true;
         //GD.Print("Mouse Over UI: " + PlayerControls.Instance.stopClickThrough);
     }
 
-    public static void OnMouseExitedUI()
+    private static void OnMouseExitedUI()
     {
         PlayerControls.Instance.stopClickThrough = false;
         //GD.Print("Mouse Over UI: " + PlayerControls.Instance.stopClickThrough);

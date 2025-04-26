@@ -11,7 +11,7 @@ namespace MapEditorSpace
         private int startCountyHeight;
         private int countyWidth;
         private int countyHeight;
-        int countyID;
+        private int countyId;
 
         public async void GenerateAll()
         {
@@ -27,7 +27,7 @@ namespace MapEditorSpace
         }
         private async Task GenerateMasks()
         {
-            countyID = 0; // Reset the county ID.
+            countyId = 0; // Reset the county ID.
             Image colorCodedMapImage = MapEditorGlobals.Instance.mapColorCoded.GetImage();
             Image mapImage = MapEditorGlobals.Instance.map.GetImage();
             Vector2I mapSize = (Vector2I)MapEditorGlobals.Instance.mapColorCoded.GetSize();
@@ -40,8 +40,8 @@ namespace MapEditorSpace
                 Image countyMapImage = (Image)mapImage.Duplicate(); // This has to be down here because it needs a new copy every for each county.
                 countyMapImage.Convert(Image.Format.Rgba8); // Convert the format so that it works with Blit Rect.
 
-                countyData.countyId = countyID;
-                countyID++;
+                countyData.countyId = countyId;
+                countyId++;
 
                 //GD.Print(countyMapImage.GetFormat());
                 //GD.Print("Mask format: " + countyMaskImage.GetFormat());

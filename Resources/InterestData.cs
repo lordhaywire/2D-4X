@@ -1,12 +1,11 @@
 using Godot;
 
-namespace PlayerSpace
+namespace PlayerSpace;
+
+[GlobalClass]
+public partial class InterestData : Resource
 {
-    [GlobalClass]
-    public partial class InterestData : Resource
-    {
-        [Export] public AllEnums.InterestType interestType;
-        [Export] public string name;
-        [Export] public string description;
-    }
+    [Export] public AllEnums.InterestType interestType;
+    [Export] public string name;
+    [Export] public string description;
 }

@@ -1,47 +1,46 @@
 using System.Collections.Generic;
 using Godot;
 
-namespace PlayerSpace
+namespace PlayerSpace;
+
+public partial class AllActivities : Node
 {
-    public partial class AllActivities : Node
+    public static AllActivities Instance { get; private set; }
+
+    private string activitiesDirectory = "res://Resources/Activities/";
+    public readonly List<ActivityData> allActivityData = [];
+
+    public override void _Ready()
     {
-        public static AllActivities Instance { get; private set; }
+        Instance = this;
 
-        private string activitiesDirectory = "res://Resources/Activities/";
-        public readonly List<ActivityData> allActivityData = [];
+        ReadAllActivitiesFromDisk(activitiesDirectory);
+    }
 
-        public override void _Ready()
+    private void ReadAllActivitiesFromDisk(string path)
+    {
+        DirAccess dirAccess = DirAccess.Open(path);
+
+        if (dirAccess != null && dirAccess.ListDirBegin() == Error.Ok)
         {
-            Instance = this;
+            string fileName;
 
-            ReadAllActivitiesFromDisk(activitiesDirectory);
+            while ((fileName = dirAccess.GetNext()) != "")
+            {
+                if (dirAccess.CurrentIsDir() || (!fileName.EndsWith(".tres") && !fileName.EndsWith(".res")))
+                    continue;
+
+                string filePath = path + fileName;
+                ActivityData activityData = (ActivityData)ResourceLoader.Load(filePath);
+                GD.Print($"Loaded Activities: {filePath}");
+                allActivityData.Add(activityData);
+            }
+
+            dirAccess.ListDirEnd(); // Always close the directory listing
         }
-
-        private void ReadAllActivitiesFromDisk(string path)
+        else
         {
-            DirAccess dirAccess = DirAccess.Open(path);
-
-            if (dirAccess != null && dirAccess.ListDirBegin() == Error.Ok)
-            {
-                string fileName;
-
-                while ((fileName = dirAccess.GetNext()) != "")
-                {
-                    if (dirAccess.CurrentIsDir() || (!fileName.EndsWith(".tres") && !fileName.EndsWith(".res")))
-                        continue;
-
-                    string filePath = path + fileName;
-                    ActivityData activityData = (ActivityData)ResourceLoader.Load(filePath);
-                    GD.Print($"Loaded Activities: {filePath}");
-                    allActivityData.Add(activityData);
-                }
-
-                dirAccess.ListDirEnd(); // Always close the directory listing
-            }
-            else
-            {
-                GD.PrintErr("Failed to open directory: " + path);
-            }
+            GD.PrintErr("Failed to open directory: " + path);
         }
     }
 }

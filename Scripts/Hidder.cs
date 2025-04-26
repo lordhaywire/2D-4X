@@ -1,17 +1,15 @@
 using Godot;
-using System;
 
-namespace PlayerSpace
+namespace PlayerSpace;
+
+public partial class Hidder : Node
 {
-	public partial class Hidder : Node
+	[Export] Control[] nodesThatNeedClosing;
+	public override void _Ready()
 	{
-		[Export] Control[] nodesThatNeedClosing;
-		public override void _Ready()
+		foreach(Control node in nodesThatNeedClosing)
 		{
-			foreach(Control node in nodesThatNeedClosing)
-			{
-				node.Hide();
-			}
+			node.Hide();
 		}
 	}
 }

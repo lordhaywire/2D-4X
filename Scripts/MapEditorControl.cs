@@ -1,13 +1,12 @@
 using Godot;
 
-namespace PlayerSpace
+namespace PlayerSpace;
+
+public partial class MapEditorControl : Control
 {
-    public partial class MapEditorControl : Control
+    [Export] private PackedScene mapEditorScene;
+    private void ButtonPressed()
     {
-        [Export] private PackedScene mapEditorScene;
-        private void ButtonPressed()
-        {
-            GetTree().ChangeSceneToFile("res://Scenes/MapEditor.tscn");
-        }
+        GetTree().ChangeSceneToFile("res://Scenes/MapEditor.tscn");
     }
 }

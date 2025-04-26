@@ -1,6 +1,5 @@
-[gd_scene load_steps=136 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=135 format=3 uid="uid://dcycrof2uq8gd"]
 
-[ext_resource type="Script" uid="uid://ctm4ah5pwyf7d" path="res://Scripts/Main.cs" id="1_62dun"]
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://World Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
 [ext_resource type="Script" uid="uid://bl7hn0hgb5876" path="res://Scripts/LoadMaps.cs" id="2_nda5i"]
 [ext_resource type="Script" uid="uid://b2ga6cfedp6xn" path="res://Scripts/Globals.cs" id="2_yf7pt"]
@@ -185,7 +184,6 @@ expand_margin_right = 5.0
 expand_margin_bottom = 5.0
 
 [node name="Root Node" type="Node"]
-script = ExtResource("1_62dun")
 
 [node name="Camera CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("camera")]
 process_mode = 3
@@ -212,6 +210,7 @@ centered = false
 script = ExtResource("2_yf7pt")
 dailyInfluenceGain = 5
 leaderOfPeopleInfluenceBonus = 5
+startPaused = true
 turnOffStoryEvents = true
 mapColorCoded = ExtResource("2_h1vmt")
 countiesParent = NodePath("../../Counties")

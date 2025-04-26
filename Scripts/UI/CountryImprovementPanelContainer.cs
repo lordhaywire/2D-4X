@@ -7,9 +7,9 @@ public partial class CountryImprovementPanelContainer : PanelContainer
 {
     [Export] public CountyImprovementData countyImprovementData;
 
-    [Export] PackedScene goodPanelContainerPackedScene;
+    [Export] private PackedScene goodPanelContainerPackedScene;
 
-    [Export] Label researchAssignedLabel;
+    [Export] private Label researchAssignedLabel;
     [ExportGroup("Progress")]
     [Export] public PanelContainer progressPanelContainer;
     [Export] public Label progressTitle;
@@ -18,16 +18,16 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     [Export] public Label maxWorkersLabel;
 
     [ExportGroup("Prioritize")]
-    [Export] HBoxContainer prioritizeHBox;
+    [Export] private HBoxContainer prioritizeHBox;
     [Export] public CheckBox prioritizeCheckBox;
 
     [ExportGroup("Improvement Info")]
     [Export] public Label improvementNameLabel;
-    [Export] Label improvementDescriptionLabel;
-    [Export] TextureRect improvementTextureRect;
+    [Export] private Label improvementDescriptionLabel;
+    [Export] private TextureRect improvementTextureRect;
 
     [ExportGroup("Workers")]
-    [Export] PanelContainer workersPanelContainer; // This had the worker amounts and minus/plus buttons inside it.
+    [Export] private PanelContainer workersPanelContainer; // This had the worker amounts and minus/plus buttons inside it.
     [Export] public CheckBox produceAsNeededCheckBox;
     [Export] public Label currentWorkersNumberLabel;
     [Export] public Label adjustedWorkersNumberLabel;
@@ -35,14 +35,14 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     [Export] public Button minusWorkerButton;
     [Export] public Button plusWorkerButton;
     [Export] public Label goodsProducedPerDayTitleLabel;
-    [Export] GridContainer outputsGridContainer;
-    [Export] GridContainer inputsGridContainer;
+    [Export] private GridContainer outputsGridContainer;
+    [Export] private GridContainer inputsGridContainer;
     [Export] public Label nontangibleProductionLabel;
 
     [ExportGroup("Construction")]
-    [Export] PanelContainer constructionPanelContainer;
-    [Export] Label constructionTitleLabel;
-    [Export] GridContainer constructionMaterialCostGridContainer;
+    [Export] private PanelContainer constructionPanelContainer;
+    [Export] private Label constructionTitleLabel;
+    [Export] private GridContainer constructionMaterialCostGridContainer;
     //[Export] public CheckBox remnantsForContructionCheckBox;
     [Export] public HBoxContainer adjustMaxBuildersHbox;
     [Export] public Label currentBuildersNumberLabel;
@@ -50,13 +50,13 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     [Export] public Label maxBuildersNumberLabel;
     [Export] public Button minusBuilderButton;
     [Export] public Button plusBuilderButton;
-    [Export] Button constructButton;
+    [Export] private Button constructButton;
     //[Export] private Label hiringLabel;
 
     [ExportGroup("Research")]
-    [Export] Label assignResearcherInPanelLabel;
+    [Export] private Label assignResearcherInPanelLabel;
     [Export] public Label underContructionLabel;
-    [Export] Button removeImprovementButton;
+    [Export] private Button removeImprovementButton;
 
     public override void _Ready()
     {

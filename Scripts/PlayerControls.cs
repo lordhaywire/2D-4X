@@ -1,200 +1,199 @@
 using Godot;
 using System.Linq;
 
-namespace PlayerSpace
+namespace PlayerSpace;
+
+public partial class PlayerControls : StaticBody2D
 {
-    public partial class PlayerControls : StaticBody2D
+    public static PlayerControls Instance { get; private set; }
+
+    public bool playerControlsEnabled = true;
+    public bool stopClickThrough;
+
+    private Image mapImage;
+    [Export] private RectangleShape2D collisionRectangleShape;
+    private Color backgroundColor = new(220, 220, 220);
+    private Color outlineColor = new(0, 0, 0, 0.7f);
+    private Color fillColor = new(1, 1, 1, 0.35f);
+
+    private int mapWidth;
+    private int mapHeight;
+
+    public override void _Ready()
     {
-        public static PlayerControls Instance { get; private set; }
+        Instance = this;
 
-        public bool playerControlsEnabled = true;
-        public bool stopClickThrough;
+        mapImage = Globals.Instance.mapColorCoded.GetImage();
 
-        private Image mapImage;
-        [Export] private RectangleShape2D collisionRectangleShape;
-        private Color backgroundColor = new(220, 220, 220);
-        private Color outlineColor = new(0, 0, 0, 0.7f);
-        private Color fillColor = new(1, 1, 1, 0.35f);
+        mapWidth = mapImage.GetWidth();
+        mapHeight = mapImage.GetHeight();
+    }
 
-        private int mapWidth;
-        private int mapHeight;
+    // I think I need to change this to unhandled input.
+    public override void _Input(InputEvent @event)
+    {
+        int x = (int)GetGlobalMousePosition().X;
+        int y = (int)GetGlobalMousePosition().Y;
 
-        public override void _Ready()
+        collisionRectangleShape.Size = new Vector2(mapWidth, mapHeight);
+
+        // First check to make sure it is inside the map (a tiny bit more (a tiny bit less?) then the size of the map.)
+        if (x > 0 && y > 0 && x < mapWidth - 5 && y < mapHeight - 5 && playerControlsEnabled &&
+            stopClickThrough == false)
         {
-            Instance = this;
+            Color countyColor = mapImage.GetPixel(x, y);
 
-            mapImage = Globals.Instance.mapColorCoded.GetImage();
-
-            mapWidth = mapImage.GetWidth();
-            mapHeight = mapImage.GetHeight();
-        }
-
-        // I think I need to change this to unhandled input.
-        public override void _Input(InputEvent @event)
-        {
-            int x = (int)GetGlobalMousePosition().X;
-            int y = (int)GetGlobalMousePosition().Y;
-
-            collisionRectangleShape.Size = new Vector2(mapWidth, mapHeight);
-
-            // First check to make sure it is inside the map (a tiny bit more (a tiny bit less?) then the size of the map.)
-            if (x > 0 && y > 0 && x < mapWidth - 5 && y < mapHeight - 5 && playerControlsEnabled &&
-                stopClickThrough == false)
+            // Check every countyData to find the color it finds.  If it finds that color, then it turns on the 
+            // gray overlay.
+            foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
             {
-                Color countyColor = mapImage.GetPixel(x, y);
+                Sprite2D maskSprite = county.maskSprite;
 
-                // Check every countyData to find the color it finds.  If it finds that color, then it turns on the 
-                // gray overlay.
-                foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
+                if (county.countyData.color.IsEqualApprox(countyColor))
                 {
-                    Sprite2D maskSprite = county.maskSprite;
+                    maskSprite.Show();
 
-                    if (county.countyData.color.IsEqualApprox(countyColor))
+                    // Mouse Click
+                    if (@event is InputEventMouseButton eventMouseButton)
                     {
-                        maskSprite.Show();
-
-                        // Mouse Click
-                        if (@event is InputEventMouseButton eventMouseButton)
+                        // Left Click on County
+                        if (eventMouseButton.ButtonIndex == MouseButton.Left && eventMouseButton.Pressed == false)
+                            //&& Globals.Instance.isInsideToken == false)
                         {
-                            // Left Click on County
-                            if (eventMouseButton.ButtonIndex == MouseButton.Left && eventMouseButton.Pressed == false)
-                                //&& Globals.Instance.isInsideToken == false)
-                            {
-                                //EventLog.Instance.AddLog($"{county.countyData.countyName} was clicked on.");
+                            //EventLog.Instance.AddLog($"{county.countyData.countyName} was clicked on.");
 
-                                Globals.Instance.selectedCountyId = county.countyData.countyId;
-                                Globals.Instance.SelectedLeftClickCounty = county;
+                            Globals.Instance.selectedCountyId = county.countyData.countyId;
+                            Globals.Instance.SelectedLeftClickCounty = county;
 
-                                // These things need to be on click because you might be clicking through different
-                                // counties and the county info panel would be open the whole time.
-                                TopBarControl.Instance.UpdateTopBarGoodLabels();
-                                CountyInfoControl.Instance.UpdateEverything();
-                                CountyInfoControl.Instance.countyInfoControl.Show(); // This has to be last.
-                            }
-
-                            // Right Click on County
-                            if (eventMouseButton.ButtonIndex == MouseButton.Right
-                                && eventMouseButton.Pressed == false
-                                && Globals.Instance.SelectedCountyPopulation != null
-                                && Globals.Instance.SelectedCountyPopulation.heroToken != null)
-                            {
-                                //GD.Print("You are moving to a place you right-clicked, dude! " + county.countyData.countyName);
-                                if (Globals.Instance.SelectedCountyPopulation.destination == -1)
-                                {
-                                    MoveSelectedToken(county.countyData);
-                                }
-                                else if (Globals.Instance.SelectedCountyPopulation.destination ==
-                                         county.countyData.countyId)
-                                {
-                                    MoveSelectedToken(county.countyData);
-                                }
-                                else
-                                {
-                                    County moveToSelectCounty
-                                        = (County)Globals.Instance.countiesParent.GetChild(Globals.Instance
-                                            .SelectedCountyPopulation.location);
-                                    //GD.PrintRich("[rainbow]Are we ever even hitting this?" + moveToSelectCounty.countyData.countyId);
-                                    MoveSelectedToken(moveToSelectCounty.countyData);
-                                }
-                            }
+                            // These things need to be on click because you might be clicking through different
+                            // counties and the county info panel would be open the whole time.
+                            TopBarControl.Instance.UpdateTopBarGoodLabels();
+                            CountyInfoControl.Instance.UpdateEverything();
+                            CountyInfoControl.Instance.countyInfoControl.Show(); // This has to be last.
                         }
-                    }
-                    else
-                    {
-                        if (Globals.Instance.selectedCountyId != county.countyData.countyId)
+
+                        // Right Click on County
+                        if (eventMouseButton.ButtonIndex == MouseButton.Right
+                            && eventMouseButton.Pressed == false
+                            && Globals.Instance.SelectedCountyPopulation != null
+                            && Globals.Instance.SelectedCountyPopulation.heroToken != null)
                         {
-                            maskSprite.Hide();
+                            //GD.Print("You are moving to a place you right-clicked, dude! " + county.countyData.countyName);
+                            if (Globals.Instance.SelectedCountyPopulation.destination == -1)
+                            {
+                                MoveSelectedToken(county.countyData);
+                            }
+                            else if (Globals.Instance.SelectedCountyPopulation.destination ==
+                                     county.countyData.countyId)
+                            {
+                                MoveSelectedToken(county.countyData);
+                            }
+                            else
+                            {
+                                County moveToSelectCounty
+                                    = (County)Globals.Instance.countiesParent.GetChild(Globals.Instance
+                                        .SelectedCountyPopulation.location);
+                                //GD.PrintRich("[rainbow]Are we ever even hitting this?" + moveToSelectCounty.countyData.countyId);
+                                MoveSelectedToken(moveToSelectCounty.countyData);
+                            }
                         }
                     }
                 }
-            }
-
-            if (playerControlsEnabled)
-            {
-                if (@event.IsActionPressed("pause_time"))
+                else
                 {
-                    Clock.Instance.SpaceBarPause();
+                    if (Globals.Instance.selectedCountyId != county.countyData.countyId)
+                    {
+                        maskSprite.Hide();
+                    }
                 }
             }
         }
 
-        private static void MoveSelectedToken(CountyData moveTargetCountyData)
+        if (playerControlsEnabled)
         {
-            Globals.Instance.selectedRightClickCounty = moveTargetCountyData.countyNode;
-            //GD.Print($"Move Target County: {moveTargetCountyData.countyName}" +
-            //   $" {moveTargetCountyData.countyId}");
-            PopulationData populationData = Globals.Instance.SelectedCountyPopulation;
-            HeroToken selectToken = Globals.Instance.SelectedCountyPopulation.heroToken;
-
-            selectToken.Show();
-
-            if (selectToken.tokenMovement.MoveToken != true)
+            if (@event.IsActionPressed("pause_time"))
             {
-                if (populationData.IsThisAnArmy() == false)
+                Clock.Instance.SpaceBarPause();
+            }
+        }
+    }
+
+    private static void MoveSelectedToken(CountyData moveTargetCountyData)
+    {
+        Globals.Instance.selectedRightClickCounty = moveTargetCountyData.countyNode;
+        //GD.Print($"Move Target County: {moveTargetCountyData.countyName}" +
+        //   $" {moveTargetCountyData.countyId}");
+        PopulationData populationData = Globals.Instance.SelectedCountyPopulation;
+        HeroToken selectToken = Globals.Instance.SelectedCountyPopulation.heroToken;
+
+        selectToken.Show();
+
+        if (selectToken.tokenMovement.MoveToken != true)
+        {
+            if (populationData.IsThisAnArmy() == false)
+            {
+                selectToken.tokenMovement.StartMove(moveTargetCountyData.countyId);
+            }
+            else
+            {
+                if (Globals.Instance.playerFactionData == moveTargetCountyData.factionData)
                 {
                     selectToken.tokenMovement.StartMove(moveTargetCountyData.countyId);
                 }
                 else
                 {
-                    if (Globals.Instance.playerFactionData == moveTargetCountyData.factionData)
+                    //GD.Print("You are about to declare war, because you are an army.");
+                    if (Globals.Instance.playerFactionData.factionWarDictionary[
+                            Globals.Instance.selectedRightClickCounty.countyData.factionData.factionName]
+                        != true)
+                    {
+                        Globals.Instance.playerFactionData.diplomacy.DeclareWarConfirmation(moveTargetCountyData);
+                    }
+                    else
                     {
                         selectToken.tokenMovement.StartMove(moveTargetCountyData.countyId);
                     }
-                    else
-                    {
-                        //GD.Print("You are about to declare war, because you are an army.");
-                        if (Globals.Instance.playerFactionData.factionWarDictionary[
-                                Globals.Instance.selectedRightClickCounty.countyData.factionData.factionName]
-                            != true)
-                        {
-                            Globals.Instance.playerFactionData.diplomacy.DeclareWarConfirmation(moveTargetCountyData);
-                        }
-                        else
-                        {
-                            selectToken.tokenMovement.StartMove(moveTargetCountyData.countyId);
-                        }
-                    }
                 }
+            }
+        }
+        else
+        {
+            if (selectToken.isRetreating == false)
+            {
+                selectToken.tokenMovement.StartMove(moveTargetCountyData.countyId);
             }
             else
             {
-                if (selectToken.isRetreating == false)
-                {
-                    selectToken.tokenMovement.StartMove(moveTargetCountyData.countyId);
-                }
-                else
-                {
-                    EventLog.Instance.AddLog($"{selectToken.populationData.firstName} " +
-                                             $"{selectToken.populationData.lastName} " +
-                                             $"{TranslationServer.Translate("PHRASE_IS_RETREATING")}.");
-                }
-
-                CountyInfoControl.Instance.UpdateEverything();
+                EventLog.Instance.AddLog($"{selectToken.populationData.firstName} " +
+                                         $"{selectToken.populationData.lastName} " +
+                                         $"{TranslationServer.Translate("PHRASE_IS_RETREATING")}.");
             }
-        }
 
-        private void SelectedChanged(County county, bool selected)
-        {
-            if (selected)
-            {
-                ((ShaderMaterial)county.maskSprite.Material).SetShaderParameter("outline_color", outlineColor);
-                ((ShaderMaterial)county.maskSprite.Material).SetShaderParameter("fill_color", fillColor);
-            }
-            else
-            {
-                ((ShaderMaterial)county.maskSprite.Material).SetShaderParameter("outline_color", outlineColor.A * 0.5f);
-                ((ShaderMaterial)county.maskSprite.Material).SetShaderParameter("fill_color", fillColor.A * 0.5f);
-            }
+            CountyInfoControl.Instance.UpdateEverything();
         }
+    }
 
-        public void AdjustPlayerControls(bool controls)
+    private void SelectedChanged(County county, bool selected)
+    {
+        if (selected)
         {
-            playerControlsEnabled = controls;
+            ((ShaderMaterial)county.maskSprite.Material).SetShaderParameter("outline_color", outlineColor);
+            ((ShaderMaterial)county.maskSprite.Material).SetShaderParameter("fill_color", fillColor);
         }
+        else
+        {
+            ((ShaderMaterial)county.maskSprite.Material).SetShaderParameter("outline_color", outlineColor.A * 0.5f);
+            ((ShaderMaterial)county.maskSprite.Material).SetShaderParameter("fill_color", fillColor.A * 0.5f);
+        }
+    }
 
-        public void AdjustClickThrough()
-        {
-            stopClickThrough = !stopClickThrough;
-        }
+    public void AdjustPlayerControls(bool controls)
+    {
+        playerControlsEnabled = controls;
+    }
+
+    public void AdjustClickThrough()
+    {
+        stopClickThrough = !stopClickThrough;
     }
 }

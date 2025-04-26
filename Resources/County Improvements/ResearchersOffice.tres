@@ -9,7 +9,7 @@
 
 [resource]
 script = ExtResource("1_ga7gf")
-currentAmountOfCounstruction = 0
+currentAmountOfConstruction = 0
 numberBuilt = 0
 countyImprovementType = 1
 prioritize = false

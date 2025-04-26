@@ -1,28 +1,27 @@
 using Godot;
 
-namespace PlayerSpace
+namespace PlayerSpace;
+
+public partial class PopAndIdleButtons : VBoxContainer
 {
-    public partial class PopAndIdleButtons : VBoxContainer
+    [Export] private MarginContainer populationListMarginContainer;
+    [Export] private Button populationListButton;
+    [Export] private Button visitorListButton;
+
+    public override void _Ready()
     {
-        [Export] private MarginContainer populationListMarginContainer;
-        [Export] private Button populationListButton;
-        [Export] private Button visitorListButton;
+        populationListButton.Pressed += () => PopAndIdleOnButtonPressed(false);
+        visitorListButton.Pressed += () => PopAndIdleOnButtonPressed(true);
+    }
 
-        public override void _Ready()
-        {
-            populationListButton.Pressed += () => PopAndIdleOnButtonPressed(false);
-            visitorListButton.Pressed += () => PopAndIdleOnButtonPressed(true);
-        }
+    private void PopAndIdleOnButtonPressed(bool isVisitorList)
+    {
+        Globals.Instance.isVisitorList = isVisitorList;
+        populationListMarginContainer.Show();
+    }
 
-        private void PopAndIdleOnButtonPressed(bool isVisitorList)
-        {
-            Globals.Instance.isVisitorList = isVisitorList;
-            populationListMarginContainer.Show();
-        }
-
-        private void CloseButton()
-        {
-            populationListMarginContainer.Hide();
-        }
+    private void CloseButton()
+    {
+        populationListMarginContainer.Hide();
     }
 }

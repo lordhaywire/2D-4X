@@ -1,8 +1,7 @@
 
-namespace PlayerSpace
+namespace PlayerSpace;
+
+public class Battle(CountyData battleLocation)
 {
-    public class Battle(CountyData battleLocation)
-    {
-        public CountyData battleLocation = battleLocation;
-    }
+    public CountyData battleLocation = battleLocation;
 }

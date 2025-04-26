@@ -14,31 +14,31 @@ public partial class FactionData : Resource
     [Export] public Color factionColor;
     [Export] public int factionCapitalCounty;
 
-    [Export] public Godot.Collections.Array<ResearchItemData> researchItems = [];
-    [Export] public Godot.Collections.Array<ResearchItemData> researchableResearch = [];
+    [Export] public Godot.Collections.Array<ResearchItemData> researchItems;// = [];
+    [Export] public Godot.Collections.Array<ResearchItemData> researchableResearch;// = [];
 
-    [Export] public Godot.Collections.Array<CountyData> countiesFactionOwns = [];
-    [Export] public Godot.Collections.Array<PopulationData> allHeroesList = [];
+    [Export] public Godot.Collections.Array<CountyData> countiesFactionOwns;// = [];
+    [Export] public Godot.Collections.Array<PopulationData> allHeroesList;// = [];
     [Export] public PopulationData factionLeader;
 
     public Diplomacy diplomacy = new();
 
-    [Export] public Godot.Collections.Array<CountyImprovementData> allCountyImprovements = []; // This includes all county improvements, even possible ones.
+    [Export] public Godot.Collections.Array<CountyImprovementData> allCountyImprovements;// = []; // This includes all county improvements, even possible ones.
 
     // All Faction Research Offices.
-    [Export] public Godot.Collections.Array<CountyImprovementData> researchOffices = [];
+    [Export] public Godot.Collections.Array<CountyImprovementData> researchOffices;// = [];
 
     // Goods.
     [ExportGroup("Goods")]
-    [Export] public Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData> factionGoods = [];
-    [Export] public Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData> yesterdaysFactionGoods = [];
-    [Export] public Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData> amountUsedFactionGoods = [];
+    [Export] public Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData> factionGoods;// = [];
+    [Export] public Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData> yesterdaysFactionGoods;// = [];
+    [Export] public Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData> amountUsedFactionGoods;// = [];
 
     [ExportGroup("Diplomatic Incidences")]
     public List<War> wars = [];
 
     [ExportGroup("Diplomatic Matrix")]
-    [Export] public Godot.Collections.Dictionary<string, bool> factionWarDictionary = [];
+    [Export] public Godot.Collections.Dictionary<string, bool> factionWarDictionary;// = [];
 
     public static FactionData GetFactionDataFromID(int id)
     {

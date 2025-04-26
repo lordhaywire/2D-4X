@@ -30,10 +30,10 @@ public partial class County : Node2D
         // This is here so that it doesn't subscribe to the clock when the Map Editor is running.
         if (GetTree().CurrentScene.SceneFilePath == "res://Scenes/Main.tscn")
         {
-            Clock.Instance.DailyHourOne += EndOfDay;
+            Clock.Instance.DailyHourZeroFirstQuarter += EndOfDay;
+            Clock.Instance.DailyHourZeroSecondQuarter += StartDay;
+            Clock.Instance.DailyHourZeroFourthQuarter += AfterStartDay;
             Clock.Instance.Weekly += Weekly;
-            Clock.Instance.DailyHourThree += StartDay;
-            Clock.Instance.DailyHourFour += AfterStartDay;
         }
     }
 
@@ -58,7 +58,7 @@ public partial class County : Node2D
         countyData.SubtractCountyResources();
 
         // Copy the county resources to yesterday.
-        countyData.CopyCountyResourcesToYesterday(); // We will use this data to update the numbers on the top bar all day.
+        countyData.CopyCountyGoodsToYesterday(); // We will use this data to update the numbers on the top bar all day.
 
         // Check to see if any population needs healing from starvation or whatever.
         CountyData.CheckForHealing(countyData.populationDataList);
@@ -213,8 +213,8 @@ public partial class County : Node2D
 
     private void OnTreeExit()
     {
-        Clock.Instance.DailyHourOne -= EndOfDay;
-        Clock.Instance.DailyHourOne -= StartDay;
+        Clock.Instance.DailyHourZeroFirstQuarter -= EndOfDay;
+        Clock.Instance.DailyHourZeroFirstQuarter -= StartDay;
     }
 }
 

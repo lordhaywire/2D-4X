@@ -3,288 +3,289 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PlayerSpace
+namespace PlayerSpace;
+
+public partial class PopulationGeneration : Node
 {
-    public partial class PopulationGeneration : Node
+    private readonly Random random = new();
+
+    public Node2D countiesParent;
+    private County county;
+    private CountyData countyData;
+
+    private string firstName;
+    private string lastName;
+    private bool isMale;
+
+    [ExportGroup("For Population Generation")]
+    [Export] private int startingAttributeMin = 21;
+    [Export] private int startingAttributeMax = 81; // One above max.
+    [Export] private int startingSkillMin = 1;
+    [Export] private int startingSkillMax = 51; // One above max.
+    [Export] private int chanceOfBeingUnhelpful = 11; // One above max.
+
+    // This has to be up here so the other methods can access it for Preferred Skill.
+    private Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> newAttributes = [];
+    private SkillData preferredSkill;
+
+    public override void _Ready()
     {
-        private readonly Random random = new();
+        CreateFactionLeaders();
+        CreatePopulation();
+        AssignPlayerSpecificThings();
+    }
 
-        public Node2D countiesParent;
-        private County county;
-        private CountyData countyData;
+    // Eventually this will assign other things, but currently we just need this here.
+    private static void AssignPlayerSpecificThings()
+    {
+        Globals.Instance.playerFactionData.factionLeader.personality = AllEnums.Personality.Player;
+    }
 
-        private string firstName;
-        private string lastName;
-        private bool isMale;
-
-        [ExportGroup("For Population Generation")]
-        [Export] private int startingAttributeMin = 21;
-        [Export] private int startingAttributeMax = 81; // One above max.
-        [Export] private int startingSkillMin = 1;
-        [Export] private int startingSkillMax = 51; // One above max.
-        [Export] private int chanceOfBeingUnhelpful = 11; // One above max.
-
-        // This has to be up here so the other methods can access it for Preferred Skill.
-        Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> newAttributes = [];
-        private SkillData preferredSkill;
-
-        public override void _Ready()
+    public void CreateFactionLeaders()
+    {
+        foreach (FactionData factionData in Globals.Instance.allFactionData)
         {
-            CreateFactionLeaders();
-            CreatePopulation();
-            AssignPlayerSpecificThings();
+            countiesParent = Globals.Instance.countiesParent;
+            // Generate Faction Leader County Population
+            //GD.Print($"{factionData.factionName} Capital ID: {factionData.factionCapitalCounty}");
+            county = (County)countiesParent.GetChild(factionData.factionCapitalCounty);
+            countyData = county.countyData;
+            GeneratePopulation(true, 1); // There is never going to be more then 1 faction leader.
+
+            factionData.factionLeader = county.countyData.heroesInCountyList[0];
+            countyData.population += countyData.heroesInCountyList.Count;
         }
+    }
 
-        // Eventually this will assign other things, but currently we just need this here.
-        private static void AssignPlayerSpecificThings()
+    // This was written by ChatGPT.
+    private static int GeneratePersonalities()
+    {
+        int randomPersonality;
+        do
         {
-            Globals.Instance.playerFactionData.factionLeader.personality = AllEnums.Personality.Player;
-        }
+            randomPersonality = (int)AllEnums.GetRandomEnumValue<AllEnums.Personality>();
+        } while (randomPersonality == 0);
 
-        public void CreateFactionLeaders()
+        //GD.Print("Random Personality: " + randomPersonality);
+        return randomPersonality;
+    }
+
+    private void GeneratePopulation(bool hero, int totalPopulation)
+    {
+        for (int i = 0; i < totalPopulation; i++)
         {
-            foreach (FactionData factionData in Globals.Instance.factionDatas)
+            GenerateNameAndSex();  // This could probably be broken into two methods.
+            AllEnums.Personality personality = (AllEnums.Personality)GeneratePersonalities();
+            int loyaltyBase = random.Next(31, 101); // This is a temporary number.
+            int happiness = random.Next(31, 101); // This is a temporary number.
+            int daysStarving = 0;
+            int maxHitpoints = Globals.Instance.startingHitPoints;
+            if (hero == false)
             {
-                countiesParent = Globals.Instance.countiesParent;
-                // Generate Faction Leader County Population
-                //GD.Print($"{factionData.factionName} Capital ID: {factionData.factionCapitalCounty}");
-                county = (County)countiesParent.GetChild(factionData.factionCapitalCounty);
-                countyData = county.countyData;
-                GeneratePopulation(true, 1); // There is never going to be more then 1 faction leader.
-
-                factionData.factionLeader = county.countyData.heroesInCountyList[0];
-                countyData.population += countyData.heroesInCountyList.Count;
-            }
-        }
-
-        // This was written by ChatGPT.
-        private static int GeneratePersonalities()
-        {
-            int randomPersonality;
-            do
-            {
-                randomPersonality = (int)AllEnums.GetRandomEnumValue<AllEnums.Personality>();
-            } while (randomPersonality == 0);
-
-            //GD.Print("Random Personality: " + randomPersonality);
-            return randomPersonality;
-        }
-
-        private void GeneratePopulation(bool hero, int totalPopulation)
-        {
-            for (int i = 0; i < totalPopulation; i++)
-            {
-                GenerateNameAndSex();  // This could probably be broken into two methods.
-                AllEnums.Personality personality = (AllEnums.Personality)GeneratePersonalities();
-                int loyaltyBase = random.Next(31, 101); // This is a temporary number.
-                int happiness = random.Next(31, 101); // This is a temporary number.
-                int daysStarving = 0;
-                int maxHitpoints = Globals.Instance.startingHitPoints;
-                if (hero == false)
-                {
-                    // This is for the standard population.
-                    countyData.populationDataList.Add(new PopulationData(countyData.factionData, countyData.countyId
-                        , -1, -1, firstName, lastName, isMale, GenerateAge()
-                        , personality
-                        , AllEnums.AssignPersonalityInterfaces(personality)
-                        , false, false, AllEnums.HeroType.None
-                        , GeneratePopulationPerks(), Globals.Instance.startingHitPoints, maxHitpoints
-                        , GenerateExpendables()
-                        , loyaltyBase, loyaltyBase, happiness, daysStarving, -1, GenerateNeeds()
-                        , GenerateAttributes()
-                        , GenerateSkillsList()
-                        , preferredSkill
-                        , GenerateInterest()
-                        , AllEnums.Activities.Idle, false, new GoodData[5], null, null, null, null)); // HeroToken is null.
-                }
-                else
-                {
-                    // Generates a hero that is a faction leader populationData.
-                    countyData.heroesInCountyList.Add(new PopulationData(countyData.factionData, countyData.countyId
-                        , -1, -1, firstName, lastName, isMale, GenerateAge()
-                        , personality
-                        , AllEnums.AssignPersonalityInterfaces(personality)
-                        , true, true
-                        , AllEnums.HeroType.FactionLeader
-                        , GenerateLeaderPerks(), Globals.Instance.startingHitPoints, maxHitpoints
-                        , GenerateExpendables()
-                        , loyaltyBase, loyaltyBase, happiness, daysStarving, -1, GenerateNeeds()
-                        , GenerateAttributes()
-                        , GenerateSkillsList()
-                        , preferredSkill
-                        , GenerateInterest()
-                        , AllEnums.Activities.Idle, false, new GoodData[5], null, null, null, null)); // HeroToken is null.
-
-                    // Add hero to allHeroesList
-                    countyData.factionData.AddHeroToAllHeroesList(countyData.heroesInCountyList[0]);
-                }
-                
-            }
-            /*
-            foreach(PopulationData populationData in countyData.populationDataList)
-            {
-                GD.Print($"{populationData.firstName} Hero Personality: {populationData.personality}");
-            }
-            foreach (PopulationData populationData in countyData.heroesInCountyList)
-            {
-                GD.Print($"{populationData.firstName} Hero Personality: {populationData.personality}");
-            }
-            */
-        }
-        private static InterestData GenerateInterest()
-        {
-            InterestData interest = AllInterests.Instance.GetRandomInterest();
-            //GD.Print("Interest: " + interest.name);
-            return interest;
-        }
-        private static Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> GenerateNeeds()
-        {
-            Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> needs = [];
-            needs.Add(AllEnums.CountyGoodType.Remnants, 75);
-            return needs;
-        }
-
-        private void GeneratePreferredWork(Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills)
-        {
-            Rolls rolls = new();
-            IEnumerable<KeyValuePair<AllEnums.Skills, SkillData>> sortedSkills
-                = skills.Where(keyValue => !keyValue.Value.isCombatSkill).OrderByDescending(keyValue => keyValue.Value.skillLevel);
-
-            // Get the skill with the highest skill level
-            SkillData possiblePreferredSkill = sortedSkills.First().Value;
-            preferredSkill = possiblePreferredSkill;
-
-            // Roll an Intelligence check and if it passes then the top skill is the preferred skill.
-            // If the intelligence check fails, it is ok if the random roll randomly assigns the same preferred skill.
-            if (rolls.Attribute(newAttributes[AllEnums.Attributes.Intelligence]) == false)
-            {
-                // Create a list of non-combat skills for random selection
-                List<AllEnums.Skills> nonCombatSkills = [.. skills
-                    .Where(keyValue => !keyValue.Value.isCombatSkill)
-                    .Select(keyValue => keyValue.Key)];
-
-                if (nonCombatSkills.Count > 0)
-                {
-                    int randomIndex = random.Next(0, nonCombatSkills.Count);
-                    AllEnums.Skills randomSkill = nonCombatSkills[randomIndex];
-                    preferredSkill = skills[randomSkill];
-                }
-            }
-        }
-
-        /// <summary>
-        /// This also generates prefered work.
-        /// </summary>
-        /// <returns></returns>
-        private Godot.Collections.Dictionary<AllEnums.Skills, SkillData> GenerateSkillsList()
-        {
-            Godot.Collections.Dictionary<AllEnums.Skills, SkillData> newSkills = [];
-
-            foreach (SkillData skillData in AllSkills.Instance.allSkills)
-            {
-                newSkills.Add(skillData.skill, (SkillData)skillData.Duplicate());
-                newSkills[skillData.skill].skillLevel = random.Next(startingSkillMin, startingSkillMax);
-            }
-            GeneratePreferredWork(newSkills);
-            return newSkills;
-        }
-
-        private Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> GenerateAttributes()
-        {
-            newAttributes = new(AttributeData.NewCopy());
-            foreach (KeyValuePair<AllEnums.Attributes, AttributeData> keyValuePair in newAttributes)
-            {
-                newAttributes[keyValuePair.Key].attributeLevel = random.Next(startingAttributeMin, startingAttributeMax);
-            }
-            //GD.PrintRich($"[rainbow]Intelligence: {newAttributes[AllEnums.Attributes.Intelligence].attributeLevel}");
-            return newAttributes;
-        }
-
-        // This doesn't seem that useful.
-        private static int GenerateExpendables()
-        {
-            int moraleExpendable = 100;
-            return moraleExpendable;
-        }
-
-        private int GenerateAge()
-        {
-            // Determine the person's age.
-            int age = random.Next(18, 61);
-            return age;
-        }
-
-        private void GenerateNameAndSex()
-        {
-            // Generates Persons Last Name
-            List<string> lastNames = Globals.Instance.lastNames;
-            List<string> femaleNames = Globals.Instance.femaleNames;
-            List<string> maleNames = Globals.Instance.maleNames;
-
-            int randomLastNameNumber = random.Next(0, lastNames.Count);
-            lastName = lastNames[randomLastNameNumber];
-
-            // Determine the persons sex and first name
-            int randomSexNumber = random.Next(0, 2);
-            int randomFemaleNameNumber = random.Next(0, femaleNames.Count);
-            int randomMaleNameNumber = random.Next(0, maleNames.Count);
-
-            if (randomSexNumber == 0)
-            {
-                isMale = true;
-                firstName = maleNames[randomMaleNameNumber];
+                // This is for the standard population.
+                countyData.populationDataList.Add(new PopulationData(countyData.factionData, countyData.countyId
+                    , -1, -1, firstName, lastName, isMale, GenerateAge()
+                    , personality
+                    , AllEnums.AssignPersonalityInterfaces(personality)
+                    , false, false, AllEnums.HeroType.None
+                    , new()
+                    , GeneratePopulationPerks(), Globals.Instance.startingHitPoints, maxHitpoints
+                    , GenerateExpendables()
+                    , loyaltyBase, loyaltyBase, happiness, daysStarving, -1, GenerateNeeds()
+                    , GenerateAttributes()
+                    , GenerateSkillsList()
+                    , preferredSkill
+                    , GenerateInterest()
+                    , AllEnums.Activities.Idle, false, new GoodData[5], null, null, null, null)); // HeroToken is null.
             }
             else
             {
-                isMale = false;
-                firstName = femaleNames[randomFemaleNameNumber];
+                // Generates a hero that is a faction leader populationData.
+                countyData.heroesInCountyList.Add(new PopulationData(countyData.factionData, countyData.countyId
+                    , -1, -1, firstName, lastName, isMale, GenerateAge()
+                    , personality
+                    , AllEnums.AssignPersonalityInterfaces(personality)
+                    , true, true
+                    , AllEnums.HeroType.FactionLeader
+                    , new()
+                    , GenerateLeaderPerks(), Globals.Instance.startingHitPoints, maxHitpoints
+                    , GenerateExpendables()
+                    , loyaltyBase, loyaltyBase, happiness, daysStarving, -1, GenerateNeeds()
+                    , GenerateAttributes()
+                    , GenerateSkillsList()
+                    , preferredSkill
+                    , GenerateInterest()
+                    , AllEnums.Activities.Idle, false, new GoodData[5], null, null, null, null)); // HeroToken is null.
+
+                // Add hero to allHeroesList
+                countyData.factionData.AddHeroToAllHeroesList(countyData.heroesInCountyList[0]);
+            }
+                
+        }
+        /*
+        foreach(PopulationData populationData in countyData.populationDataList)
+        {
+            GD.Print($"{populationData.firstName} Hero Personality: {populationData.personality}");
+        }
+        foreach (PopulationData populationData in countyData.heroesInCountyList)
+        {
+            GD.Print($"{populationData.firstName} Hero Personality: {populationData.personality}");
+        }
+        */
+    }
+    private static InterestData GenerateInterest()
+    {
+        InterestData interest = AllInterests.Instance.GetRandomInterest();
+        //GD.Print("Interest: " + interest.name);
+        return interest;
+    }
+    private static Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> GenerateNeeds()
+    {
+        Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> needs = [];
+        needs.Add(AllEnums.CountyGoodType.Remnants, 75);
+        return needs;
+    }
+
+    private void GeneratePreferredWork(Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills)
+    {
+        Rolls rolls = new();
+        IEnumerable<KeyValuePair<AllEnums.Skills, SkillData>> sortedSkills
+            = skills.Where(keyValue => !keyValue.Value.isCombatSkill).OrderByDescending(keyValue => keyValue.Value.skillLevel);
+
+        // Get the skill with the highest skill level
+        SkillData possiblePreferredSkill = sortedSkills.First().Value;
+        preferredSkill = possiblePreferredSkill;
+
+        // Roll an Intelligence check and if it passes then the top skill is the preferred skill.
+        // If the intelligence check fails, it is ok if the random roll randomly assigns the same preferred skill.
+        if (rolls.Attribute(newAttributes[AllEnums.Attributes.Intelligence]) == false)
+        {
+            // Create a list of non-combat skills for random selection
+            List<AllEnums.Skills> nonCombatSkills = [.. skills
+                .Where(keyValue => !keyValue.Value.isCombatSkill)
+                .Select(keyValue => keyValue.Key)];
+
+            if (nonCombatSkills.Count > 0)
+            {
+                int randomIndex = random.Next(0, nonCombatSkills.Count);
+                AllEnums.Skills randomSkill = nonCombatSkills[randomIndex];
+                preferredSkill = skills[randomSkill];
             }
         }
+    }
 
-        private static Godot.Collections.Dictionary<AllEnums.Perks, PerkData> GenerateLeaderPerks()
+    /// <summary>
+    /// This also generates prefered work.
+    /// </summary>
+    /// <returns></returns>
+    private Godot.Collections.Dictionary<AllEnums.Skills, SkillData> GenerateSkillsList()
+    {
+        Godot.Collections.Dictionary<AllEnums.Skills, SkillData> newSkills = [];
+
+        foreach (SkillData skillData in AllSkills.Instance.allSkills)
         {
-            Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks = [];
-            perks.Add(AllEnums.Perks.LeaderOfPeople, AllPerks.Instance.allPerks[(int)AllEnums.Perks.LeaderOfPeople]);
-            return perks;
+            newSkills.Add(skillData.skill, (SkillData)skillData.Duplicate());
+            newSkills[skillData.skill].skillLevel = random.Next(startingSkillMin, startingSkillMax);
         }
-        private Godot.Collections.Dictionary<AllEnums.Perks, PerkData> GeneratePopulationPerks()
+        GeneratePreferredWork(newSkills);
+        return newSkills;
+    }
+
+    private Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> GenerateAttributes()
+    {
+        newAttributes = new(AttributeData.NewCopy());
+        foreach (KeyValuePair<AllEnums.Attributes, AttributeData> keyValuePair in newAttributes)
         {
-            Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks = [];
-            int unhelpfulRoll = random.Next(1, 101);
-            if (unhelpfulRoll < chanceOfBeingUnhelpful)
+            newAttributes[keyValuePair.Key].attributeLevel = random.Next(startingAttributeMin, startingAttributeMax);
+        }
+        //GD.PrintRich($"[rainbow]Intelligence: {newAttributes[AllEnums.Attributes.Intelligence].attributeLevel}");
+        return newAttributes;
+    }
+
+    // This doesn't seem that useful.
+    private static int GenerateExpendables()
+    {
+        int moraleExpendable = 100;
+        return moraleExpendable;
+    }
+
+    private int GenerateAge()
+    {
+        // Determine the person's age.
+        int age = random.Next(18, 61);
+        return age;
+    }
+
+    private void GenerateNameAndSex()
+    {
+        // Generates Persons Last Name
+        List<string> lastNames = Globals.Instance.lastNames;
+        List<string> femaleNames = Globals.Instance.femaleNames;
+        List<string> maleNames = Globals.Instance.maleNames;
+
+        int randomLastNameNumber = random.Next(0, lastNames.Count);
+        lastName = lastNames[randomLastNameNumber];
+
+        // Determine the persons sex and first name
+        int randomSexNumber = random.Next(0, 2);
+        int randomFemaleNameNumber = random.Next(0, femaleNames.Count);
+        int randomMaleNameNumber = random.Next(0, maleNames.Count);
+
+        if (randomSexNumber == 0)
+        {
+            isMale = true;
+            firstName = maleNames[randomMaleNameNumber];
+        }
+        else
+        {
+            isMale = false;
+            firstName = femaleNames[randomFemaleNameNumber];
+        }
+    }
+
+    private static Godot.Collections.Dictionary<AllEnums.Perks, PerkData> GenerateLeaderPerks()
+    {
+        Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks = [];
+        perks.Add(AllEnums.Perks.LeaderOfPeople, AllPerks.Instance.allPerks[(int)AllEnums.Perks.LeaderOfPeople]);
+        return perks;
+    }
+    private Godot.Collections.Dictionary<AllEnums.Perks, PerkData> GeneratePopulationPerks()
+    {
+        Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks = [];
+        int unhelpfulRoll = random.Next(1, 101);
+        if (unhelpfulRoll < chanceOfBeingUnhelpful)
+        {
+            perks.Add(AllEnums.Perks.Unhelpful, AllPerks.Instance.allPerks[(int)AllEnums.Perks.Unhelpful]);
+        }
+        return perks;
+    }
+
+    private void CreatePopulation()
+    {
+        countiesParent = Globals.Instance.countiesParent;
+        // Create various county specific data.
+        for (int i = 0; i < countiesParent.GetChildCount(); i++)
+        {
+            county = (County)countiesParent.GetChild(i);
+            countyData = county.countyData;
+            countyData.countyId = i; // Generate countyID.
+            //GD.PrintRich("[rainbow]County ID: " + countyData.countyID);
+
+            // Generate the general population for the player and AI Capitals.
+            if (countyData.isPlayerCapital == true || countyData.isAiCapital)
             {
-                perks.Add(AllEnums.Perks.Unhelpful, AllPerks.Instance.allPerks[(int)AllEnums.Perks.Unhelpful]);
+                // Generate Normal Population
+                GeneratePopulation(false, Globals.Instance.totalCapitolPop);
+                countyData.population += countyData.populationDataList.Count;
+                countyData.IdleWorkers = countyData.population -= countyData.heroesInCountyList.Count;
             }
-            return perks;
-        }
-
-        private void CreatePopulation()
-        {
-            countiesParent = Globals.Instance.countiesParent;
-            // Create various county specific data.
-            for (int i = 0; i < countiesParent.GetChildCount(); i++)
+            else
             {
-                county = (County)countiesParent.GetChild(i);
-                countyData = county.countyData;
-                countyData.countyId = i; // Generate countyID.
-                //GD.PrintRich("[rainbow]County ID: " + countyData.countyID);
-
-                // Generate the general population for the player and AI Capitals.
-                if (countyData.isPlayerCapital == true || countyData.isAiCapital)
-                {
-                    // Generate Normal Population
-                    GeneratePopulation(false, Globals.Instance.totalCapitolPop);
-                    countyData.population += countyData.populationDataList.Count;
-                    countyData.IdleWorkers = countyData.population -= countyData.heroesInCountyList.Count;
-                }
-                else
-                {
-                    // Generate Normal Population
-                    int normalPopulation = random.Next(Globals.Instance.minimumCountyPop, Globals.Instance.maximumCountyPop);
-                    GeneratePopulation(false, normalPopulation);
-                    countyData.population += countyData.populationDataList.Count;
-                    countyData.IdleWorkers = countyData.population -= countyData.heroesInCountyList.Count;
-                }
+                // Generate Normal Population
+                int normalPopulation = random.Next(Globals.Instance.minimumCountyPop, Globals.Instance.maximumCountyPop);
+                GeneratePopulation(false, normalPopulation);
+                countyData.population += countyData.populationDataList.Count;
+                countyData.IdleWorkers = countyData.population -= countyData.heroesInCountyList.Count;
             }
         }
     }

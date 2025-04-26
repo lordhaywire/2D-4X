@@ -9,7 +9,7 @@ namespace PlayerSpace;
 public partial class CountyImprovementData : Resource
 {
     [ExportGroup("Not For Inspector")]
-    [Export] private int currentAmountOfCounstruction;
+    [Export] private int currentAmountOfConstruction;
     [Export] public int numberBuilt; // This is used to number the improvement name in the County Improvement Panel.
 
     [ExportGroup("Improvement Info")]
@@ -25,15 +25,15 @@ public partial class CountyImprovementData : Resource
     [Export] public InterestData interestData;
 
     [ExportGroup("Construction Costs")]
-    [Export] public Godot.Collections.Dictionary<GoodData, int> goodsConstructionCost = [];
+    [Export] public Godot.Collections.Dictionary<GoodData, int> goodsConstructionCost;// = [];
 
     [Export]
     public int CurrentAmountOfConstruction
     {
-        get { return currentAmountOfCounstruction; }
+        get { return currentAmountOfConstruction; }
         set
         {
-            currentAmountOfCounstruction = Math.Min(value, maxAmountOfConstruction);
+            currentAmountOfConstruction = Math.Min(value, maxAmountOfConstruction);
         }
     }
     [Export] public int maxAmountOfConstruction;
@@ -47,19 +47,19 @@ public partial class CountyImprovementData : Resource
     [Export] public AllEnums.FactionGoodType factionResourceType;
 
     [ExportGroup("Outputs")]
-    [Export] public Godot.Collections.Dictionary<GoodData, ProductionData> outputGoods = [];
+    [Export] public Godot.Collections.Dictionary<GoodData, ProductionData> outputGoods;// = [];
     [Export] public int allDailyWorkAmountAtImprovementCompleted;
 
     // All input goods that are need to create the finished good.
     [ExportGroup("Inputs")]
     // Unqiue input goods are needed for the county improvement container so that the GoodData can remember
     // changes such as Use Remnants that the player or AI does.
-    [Export] public Godot.Collections.Dictionary<GoodData, int> uniqueInputGoods = [];
-    [Export] public Godot.Collections.Dictionary<GoodData, int> inputGoods = [];
-    [Export] public Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> countyStockpiledGoods = [];
+    [Export] public Godot.Collections.Dictionary<GoodData, int> uniqueInputGoods;// = [];
+    [Export] public Godot.Collections.Dictionary<GoodData, int> inputGoods;// = [];
+    [Export] public Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> countyStockpiledGoods;// = [];
 
     [Export] public AllEnums.CountyImprovementStatus status;
-    [Export] public Godot.Collections.Array<PopulationData> populationAtImprovement = [];
+    [Export] public Godot.Collections.Array<PopulationData> populationAtImprovement;// = [];
 
     public void AdjustNumberOfBuilders(int adjustment)
     {
@@ -246,7 +246,7 @@ public partial class CountyImprovementData : Resource
             outputGoods = countyImprovementData.CopyOutputGoods(),
             allDailyWorkAmountAtImprovementCompleted = countyImprovementData.allDailyWorkAmountAtImprovementCompleted,
             goodsConstructionCost = countyImprovementData.goodsConstructionCost,
-            currentAmountOfCounstruction = countyImprovementData.currentAmountOfCounstruction,
+            currentAmountOfConstruction = countyImprovementData.currentAmountOfConstruction,
             CurrentAmountOfConstruction = countyImprovementData.CurrentAmountOfConstruction,
             maxAmountOfConstruction = countyImprovementData.maxAmountOfConstruction,
             maxBuilders = countyImprovementData.maxBuilders,

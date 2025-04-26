@@ -8,17 +8,17 @@ namespace PlayerSpace;
 public partial class CountyData : Resource
 {
     [ExportGroup("MapEditor")] public County countyNode; // See if we can get rid of this somehow.
+    
     [Export] public Color color;
-    public Vector2I startMaskPosition; // I think this is the local position....
+    public Vector2I startMaskPosition; // I think this is the local position...
     [Export] public Vector2I countyOverlayLocalPosition;
 
-    [ExportGroup("County other somethings")] [Export]
-    public int countyId; // This is used all over the place.
+    [ExportGroup("County other somethings")] 
+    [Export] public int countyId; // This is used all over the place.
 
     [Export] public string countyName;
 
-    [Export]
-    public bool
+    [Export] public bool
         isPlayerCapital; // We need to differentiate between player chosen capitals and AI capitals for generation after player creation.
 
     [Export] public bool isAiCapital;
@@ -31,53 +31,47 @@ public partial class CountyData : Resource
     [Export] public AllEnums.Terrain biomeSecondary;
     [Export] public AllEnums.Terrain biomeTertiary;
 
-    [ExportGroup("Population Lists")] [Export]
-    public Godot.Collections.Array<PopulationData> populationDataList = [];
+    [ExportGroup("Population Lists")]
+    [Export] public Godot.Collections.Array<PopulationData> populationDataList;// = [];
+    [Export] public Godot.Collections.Array<PopulationData> heroesInCountyList;// = [];
+    [Export] public Godot.Collections.Array<PopulationData> armiesInCountyList;// = [];
+    [Export] public Godot.Collections.Array<PopulationData> visitingHeroList;// = [];
+    [Export] public Godot.Collections.Array<PopulationData> visitingArmyList;// = [];
+    [Export] public Godot.Collections.Array<PopulationData> deadPeopleList;// = [];
 
-    [Export] public Godot.Collections.Array<PopulationData> heroesInCountyList = [];
-    [Export] public Godot.Collections.Array<PopulationData> armiesInCountyList = [];
-    [Export] public Godot.Collections.Array<PopulationData> visitingHeroList = [];
-    [Export] public Godot.Collections.Array<PopulationData> visitingArmyList = [];
-    [Export] public Godot.Collections.Array<PopulationData> deadPeopleList = [];
+    [ExportGroup("Construction and Work Lists")] 
+    [Export] public Godot.Collections.Array<PopulationData> heroBuildersList;// = [];
+    [Export] public Godot.Collections.Array<PopulationData> heroWorkersList;// = [];
+    [Export] public Godot.Collections.Array<PopulationData>
+        workersList;// = []; // List of all the idle, helpful and loyal workers for that day.
 
-    [ExportGroup("Construction and Work Lists")] [Export]
-    public Godot.Collections.Array<PopulationData> heroBuildersList = [];
-
-    [Export] public Godot.Collections.Array<PopulationData> heroWorkersList = [];
-
-    [Export]
-    public Godot.Collections.Array<PopulationData>
-        workersList = []; // List of all the idle, helpful and loyal workers for that day.
-
-    [Export] public Godot.Collections.Array<PopulationData> prioritizedHeroBuildersList = [];
-    [Export] public Godot.Collections.Array<PopulationData> prioritizedHeroWorkersList = [];
-    [Export] public Godot.Collections.Array<PopulationData> prioritizedBuildersList = [];
-    [Export] public Godot.Collections.Array<PopulationData> prioritizedWorkersList = [];
-    [Export] public Godot.Collections.Array<PopulationData> scavengingHeroesList = []; // We don't need this list.
+    [Export] public Godot.Collections.Array<PopulationData> prioritizedHeroBuildersList;// = [];
+    [Export] public Godot.Collections.Array<PopulationData> prioritizedHeroWorkersList;// = [];
+    [Export] public Godot.Collections.Array<PopulationData> prioritizedBuildersList;// = [];
+    [Export] public Godot.Collections.Array<PopulationData> prioritizedWorkersList;// = [];
 
     [Export]
     public Godot.Collections.Array<PopulationData>
-        workersToRemoveFromLists = []; // List to collect county populations to be removed from the possibleWorkers.
+        workersToRemoveFromLists;// = []; // List to collect county populations to be removed from the possibleWorkers.
 
-    [Export] public Godot.Collections.Array<CountyImprovementData> prioritizedConstructionImprovementList = [];
-    [Export] public Godot.Collections.Array<CountyImprovementData> prioritizedWorkImprovementList = [];
+    [Export] public Godot.Collections.Array<CountyImprovementData> prioritizedConstructionImprovementList;// = [];
+    [Export] public Godot.Collections.Array<CountyImprovementData> prioritizedWorkImprovementList;// = [];
 
     public readonly List<Button> spawnedTokenButtons = [];
 
-    [Export] public Godot.Collections.Array<CountyImprovementData> underConstructionCountyImprovementList = [];
-    [Export] public Godot.Collections.Array<CountyImprovementData> completedCountyImprovementList = [];
+    [Export] public Godot.Collections.Array<CountyImprovementData> underConstructionCountyImprovementList;// = [];
+    [Export] public Godot.Collections.Array<CountyImprovementData> completedCountyImprovementList;// = [];
     public readonly List<Battle> battles = [];
 
     public int population = 0;
     [Export] public int perishableStorage;
     [Export] public int nonperishableStorage;
-
     [Export] public int scavengeableRemnants; // This the total a county has available to scavenge.
     [Export] public int scavengeableCannedFood; // This the total a county has available to scavenge.
 
-    [Export] public Godot.Collections.Dictionary<AllEnums.CountyGoodType, GoodData> goods = [];
-    [Export] public Godot.Collections.Dictionary<AllEnums.CountyGoodType, GoodData> yesterdaysGoods = [];
-    [Export] public Godot.Collections.Dictionary<AllEnums.CountyGoodType, GoodData> amountOfGoodsUsed = [];
+    [Export] public Godot.Collections.Dictionary<AllEnums.CountyGoodType, GoodData> goods;// = [];
+    [Export] public Godot.Collections.Dictionary<AllEnums.CountyGoodType, GoodData> yesterdaysGoods;// = [];
+    [Export] public Godot.Collections.Dictionary<AllEnums.CountyGoodType, GoodData> amountOfGoodsUsed;// = [];
 
     // These are used just to pass some data around.  Probably I should find a better way to do this.
     public Texture2D maskTexture;
@@ -151,14 +145,14 @@ public partial class CountyData : Resource
                 countyImprovementData.populationAtImprovement.Clear();
                 completedImprovements.Add(countyImprovementData);
 
-                // Check to only print the event logs of the players county improvements.
+                // Check to only print the event logs of the player's county improvements.
                 if (factionData == Globals.Instance.playerFactionData)
                 {
                     EventLog.Instance.AddLog(
                         $"{Tr(countyImprovementData.GetCountyImprovementName())} {Tr("PHRASE_HAS_BEEN_COMPLETED")}.");
                 }
 
-                //GD.Print($"Under Construction Improvements - Checking if done : " +
+                //GD.Print($"Under Construction Improvements - Checking if done: " +
                 //    $"{countyImprovementData.improvementName} : {countyImprovementData.status}");
             }
         }
@@ -205,13 +199,13 @@ public partial class CountyData : Resource
     }
 
     /// <summary>
-    /// If there isn't enough food then have the idle people start scavenging & if there is enough
+    /// If there isn't enough food, then have the idle people start scavenging and if there is enough
     /// scavengeables in this county. It is set to zero because that is easy.  Don't worry about it.
     /// It also checks to see if there already is enough stored in the county.
     /// </summary>
     public void CheckForScavengingFood()
     {
-        // Population won't scavenge if the storage is full, or if the county is out of scavengeables.
+        // People won't scavenge if the storage is full, or if the county is out of scavengeables.
         if (!CheckEnoughCountyScavengeables(AllEnums.CountyGoodType.CannedFood)
             || CheckGoodStorageFull(goods[AllEnums.CountyGoodType.CannedFood]))
         {
@@ -232,13 +226,13 @@ public partial class CountyData : Resource
     }
 
     /// <summary>
-    /// If there isn't enough remnants then have the idle people start scavenging & if there is enough
+    /// If there aren't enough remnants, then have the idle people start scavenging and if there is enough
     /// scavengeables in this county. It is set to zero because that is easy.  Don't worry about it.
     /// It also checks to see if there already is enough stored in the county.
     /// </summary>
     public void CheckForScavengingRemnants()
     {
-        // Population won't scavenge if the storage is full, or if the county is out of scavengeables.
+        // People won't scavenge if the storage is full, or if the county is out of scavengeables.
         if (!CheckEnoughCountyScavengeables(AllEnums.CountyGoodType.Remnants)
             || CheckGoodStorageFull(goods[AllEnums.CountyGoodType.Remnants]))
         {
@@ -354,7 +348,7 @@ public partial class CountyData : Resource
         // Go through each person in the county.
         foreach (PopulationData populationData in populationDataList)
         {
-            // Go through everyone and if they are idle, helpful and loyal add them to the workers list.
+            // Go through everyone and if they are idle, helpful and loyal, add them to the worker's list.
             if (populationData.activity == AllEnums.Activities.Idle
                 && populationData.CheckWillWorkLoyalty()
                 && populationData.CheckForPerk(AllEnums.Perks.Unhelpful) == false)
@@ -486,7 +480,7 @@ public partial class CountyData : Resource
 
     public void SubtractCountyResources()
     {
-        // Do the math for amount used. Subtract yesterdays from today's and that is how much we have used.
+        // Do the math for amount used. Subtract yesterday's goods from today's goods. That is how much we have used.
         foreach (KeyValuePair<AllEnums.CountyGoodType, GoodData> keyValuePair in goods)
         {
             amountOfGoodsUsed[keyValuePair.Key].Amount = goods[keyValuePair.Key].Amount -
@@ -513,8 +507,8 @@ public partial class CountyData : Resource
     {
         foreach (PopulationData populationData in peopleUsingResourcesList)
         {
-            // Go through all of their needs and skill check against it and if they pass
-            // , they use the resource that is needed.
+            // Go through all of their needs and skill check against it, and if they pass,
+            // they use the resource that is needed.
             foreach (KeyValuePair<AllEnums.CountyGoodType, int> keyValuePair in populationData.needs)
             {
                 int attributeLevel = populationData.attributes[AllEnums.Attributes.MentalStrength].attributeLevel;
@@ -582,7 +576,6 @@ public partial class CountyData : Resource
         List<GoodData> nonperishableFoodList = [];
         foreach (GoodData goodData in goods.Values)
         {
-            // Is food, and there is some food.
             if (goodData.factionGoodType == AllEnums.FactionGoodType.Food
                 && goodData.perishable == AllEnums.Perishable.Perishable && goodData.Amount > 0)
             {
@@ -660,7 +653,7 @@ public partial class CountyData : Resource
                 }
                 else
                 {
-                    // There is no food so this person starves.
+                    // There is no food, so this person starves.
                     GD.PrintRich($"[color=red]People Eat Food - Perishable: Starvation![/color]");
                     Starvation(populationData, amount);
                 }
@@ -669,7 +662,7 @@ public partial class CountyData : Resource
             {
                 foodLists.nonperishableFoodList.Sort((x, y) => y.Amount.CompareTo(x.Amount));
 
-                // If the amount of food left is greater than zero they eat something.
+                // If the amount of food left is greater than zero, they eat something.
                 if (foodLists.nonperishableFoodList[0].Amount > amount)
                 {
                     // The County Population eats nonperishable food.
@@ -689,7 +682,7 @@ public partial class CountyData : Resource
                 }
                 else
                 {
-                    // There is no food so this person starves.
+                    // There is no food, so this person starves.
                     Starvation(populationData, amount);
                     GD.PrintRich($"[color=red]People Eat Food - Nonperishable: Starvation![/color]");
                 }
@@ -772,7 +765,7 @@ public partial class CountyData : Resource
         }
     }
 
-    public void CopyCountyResourcesToYesterday()
+    public void CopyCountyGoodsToYesterday()
     {
         // Creating a deep copy of the dictionary
         yesterdaysGoods = [];
@@ -823,12 +816,6 @@ public partial class CountyData : Resource
     {
         prioritizedBuildersList.Add(populationData);
     }
-    /*
-    public void AddPopulationBuildersList(PopulationData populationData)
-    {
-        buildersList.Add(populationData);
-    }
-    */
 
     private void AddPopulationWorkersList(PopulationData populationData)
     {

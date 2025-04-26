@@ -1,10 +1,8 @@
 using Godot;
-using System;
 
-namespace PlayerSpace
+namespace PlayerSpace;
+
+public partial class CombatLogTextPanel : Panel
 {
-    public partial class CombatLogTextPanel : Panel
-    {
-        [Export] public Label logText;
-    }
+    [Export] public Label logText;
 }

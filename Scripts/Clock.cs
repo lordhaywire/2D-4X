@@ -7,10 +7,10 @@ public partial class Clock : Node
 {
     public static Clock Instance { get; private set; }
 
-    public event Action DailyHourOne;
-    public event Action DailyHourTwo;
-    public event Action DailyHourThree;
-    public event Action DailyHourFour;
+    public event Action DailyHourZeroFirstQuarter;
+    public event Action DailyHourZeroSecondQuarter;
+    public event Action DailyHourZeroThirdQuarter;
+    public event Action DailyHourZeroFourthQuarter;
 
     public event Action Weekly;
     public event Action HourChanged; // This is currently used for battles.
@@ -23,15 +23,15 @@ public partial class Clock : Node
     private float tickTimer;
 
     private float timeMultiplier = 1;
-    private int numberOfThingsPausing;
+    private int numberOfThingsPausing = 1;
 
     public float TimeMultiplier
     {
         get => timeMultiplier;
         private set
         {
-            //NumberOfThingsPausing = value > 0? 0: 1;
-            //oldTimeMultiplier = timeMultiplier;
+            numberOfThingsPausing = value > 0 ? 0 : 1;
+            oldTimeMultiplier = timeMultiplier;
             timeMultiplier = value;
 
             TopBarControl.Instance.UpdateTimeMultiplierLabel(value);
@@ -40,7 +40,35 @@ public partial class Clock : Node
         }
     }
 
-    private int Minutes { get; set; }
+    private int minutes;
+
+    private int Minutes
+    {
+        get => minutes;
+        set
+        {
+            minutes = value;
+            if (hours == 0)
+            {
+                switch (minutes)
+                {
+                    case 15:
+                        DailyHourZeroFirstQuarter?.Invoke();
+                        break;
+                    case 30:
+                        DailyHourZeroSecondQuarter?.Invoke();
+                        break;
+                    case 45:
+                        DailyHourZeroThirdQuarter?.Invoke();
+                        break;
+                    case 60:
+                        DailyHourZeroFourthQuarter?.Invoke();
+                        break;
+                }
+            }
+        }
+    }
+
 
     private int hours;
 
@@ -50,13 +78,7 @@ public partial class Clock : Node
         private set
         {
             hours = value;
-            // This will not trigger on day zero.
             if (hours == 1)
-            {
-                DailyHourOne?.Invoke();
-            }
-
-            if (hours == 2)
             {
                 // This will happen on day zero as well.
                 if (Days % weeklyEvent == 0)
@@ -64,17 +86,7 @@ public partial class Clock : Node
                     Weekly?.Invoke();
                 }
 
-                DailyHourTwo?.Invoke();
-            }
-
-            if (hours == 3)
-            {
-                DailyHourThree?.Invoke();
-            }
-
-            if (hours == 4)
-            {
-                DailyHourFour?.Invoke();
+                // DailyHourTwo?.Invoke();
             }
 
             HourChanged?.Invoke();
@@ -148,7 +160,7 @@ public partial class Clock : Node
 
     public void UnpauseTime()
     {
-        //GD.Print("Unpause Time!");
+        GD.Print("Unpause Time!");
         numberOfThingsPausing--;
         TimeMultiplier = oldTimeMultiplier;
     }
@@ -163,6 +175,7 @@ public partial class Clock : Node
     {
         PauseAndUnpause();
     }
+
     public void PauseAndUnpause()
     {
         GD.Print("Pause and Unpause has been fired!");
@@ -179,8 +192,14 @@ public partial class Clock : Node
             {
                 (TimeMultiplier, oldTimeMultiplier) = (oldTimeMultiplier, TimeMultiplier);
             }
+
             numberOfThingsPausing--;
         }
         //GD.Print($"Modified Time: {ModifiedTimeScale} and Old Time Speed: {oldTimeSpeed}.");
+    }
+
+    protected virtual void OnDailyHourZeroSecondQuarter()
+    {
+        DailyHourZeroSecondQuarter?.Invoke();
     }
 }

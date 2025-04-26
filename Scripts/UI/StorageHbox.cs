@@ -1,21 +1,20 @@
 using Godot;
 
-namespace PlayerSpace
+namespace PlayerSpace;
+
+public partial class StorageHbox : HBoxContainer
 {
-    public partial class StorageHbox : HBoxContainer
+    [Export] public GoodData goodData;
+    [Export] public Label resourceNameLabel;
+    [Export] public Label resourceAmountLabel;
+    [Export] public Label resourceMaxAmountLabel;
+
+    [Export] public SpinBox maxAmountSpinBox;
+
+    private static void ValueChanged(float value)
     {
-        [Export] public GoodData goodData;
-        [Export] public Label resourceNameLabel;
-        [Export] public Label resourceAmountLabel;
-        [Export] public Label resourceMaxAmountLabel;
-
-        [Export] public SpinBox maxAmountSpinBox;
-
-        private static void ValueChanged(float value)
-        {
-            GD.Print("Value Changed:" + value);
-            GoodsPanelContainer.Instance.UpdateCountyAvailableStorageLabels();
-            GoodsPanelContainer.Instance.UpdateSpinBoxMaxValuePlusLabel();
-        }
+        GD.Print("Value Changed:" + value);
+        GoodsPanelContainer.Instance.UpdateCountyAvailableStorageLabels();
+        GoodsPanelContainer.Instance.UpdateSpinBoxMaxValuePlusLabel();
     }
 }

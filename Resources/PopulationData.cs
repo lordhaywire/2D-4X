@@ -44,7 +44,7 @@ public partial class PopulationData : Resource
     }
 
     [Export] public int numberOfSubordinatesWanted;
-    [Export] public Godot.Collections.Array<PopulationData> heroSubordinates = [];
+    [Export] public Godot.Collections.Array<PopulationData> heroSubordinates;// = [];
 
     [ExportGroup("Perks")]
     [Export] public Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks;
@@ -93,10 +93,10 @@ public partial class PopulationData : Resource
     [Export] public Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> needs;
 
     [ExportGroup("Attributes")]
-    [Export] public Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes = [];
+    [Export] public Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes;// = [];
 
     [ExportGroup("Skills")]
-    [Export] public Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills = [];
+    [Export] public Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills;// = [];
     [Export] public SkillData preferredSkill;
     [Export] public InterestData interestData;
 
@@ -248,6 +248,7 @@ public partial class PopulationData : Resource
         , AllEnums.Personality personality
         , IPersonality iPersonality
         , bool isHero, bool isWorker, AllEnums.HeroType HeroType
+        , Godot.Collections.Array<PopulationData> heroSubordinates
         , Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks, int hitpoints, int maxHitpoints
         , int moraleExpendable
         , int loyaltyBase, int LoyaltyAdjusted, int Happiness, int daysStarving
@@ -278,6 +279,7 @@ public partial class PopulationData : Resource
         this.isWorker = isWorker;
         this.HeroType = HeroType;
 
+        this.heroSubordinates = heroSubordinates;
         this.perks = perks;
 
         this.hitpoints = hitpoints;
