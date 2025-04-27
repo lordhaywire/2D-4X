@@ -707,9 +707,9 @@ public partial class CountyData : Resource
         AdjustPopulationHappiness(amount, populationData);
         if (populationData.daysStarving >= Globals.Instance.daysUntilDamageFromStarvation)
         {
-            populationData.hitpoints--;
+            populationData.hitPoints--;
             // This should be its own method in populationData that kills the population.
-            if (populationData.hitpoints < 1)
+            if (populationData.hitPoints < 1)
             {
                 peopleWhoNeedToDie.Add(populationData);
             }
@@ -795,9 +795,9 @@ public partial class CountyData : Resource
     {
         foreach (PopulationData populationData in possibleHurtPopulationList)
         {
-            if (populationData.hitpoints < populationData.maxHitpoints && populationData.daysStarving < 1)
+            if (populationData.hitPoints < populationData.maxHitPoints && populationData.daysStarving < 1)
             {
-                populationData.hitpoints++;
+                populationData.hitPoints++;
             }
         }
     }

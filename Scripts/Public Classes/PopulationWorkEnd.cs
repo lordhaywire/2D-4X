@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using System.Collections.Generic;
 
@@ -104,6 +105,21 @@ public class PopulationWorkEnd
                     // Give idle people their bonus happiness, this includes heroes that are idle.
                     populationData.AddRandomHappiness(5);
                     break;
+                case AllEnums.Activities.Combat:
+                    break;
+                case AllEnums.Activities.Explore:
+                    break;
+                case AllEnums.Activities.Move:
+                    break;
+                case AllEnums.Activities.Recruit:
+                    break;
+                case AllEnums.Activities.Recruited:
+                    GD.Print($"{populationData.firstName} is currently recruited.");
+                    break;
+                case AllEnums.Activities.Service:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
         //// GD.PrintRich($"[rainbow]{countyData.countyName}: Work Day Over For Population.");

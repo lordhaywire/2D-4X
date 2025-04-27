@@ -8,8 +8,8 @@ public static class Recruiter
 {
     public static void CheckForRecruitment(CountyData countyData)
     {
-        // If the hero isn't moving then recruit.
-        // Adds the army list to the end of the hero list and then checks both of them.
+        // If the hero isn't moving, then recruit.
+        // Adds the army list to the end of the hero list and then check both of them.
         foreach (PopulationData populationData in countyData.heroesInCountyList.Concat(countyData.armiesInCountyList)
             .Where(populationData => populationData.activity != AllEnums.Activities.Move))
         {
@@ -18,7 +18,8 @@ public static class Recruiter
             {
                 GD.Print("Number of subordinates is less then the number wanted, so recruiting has started.");
                 populationData.UpdateActivity(AllEnums.Activities.Recruit);
-                int numberOfSubordinatesToHire = populationData.numberOfSubordinatesWanted - populationData.heroSubordinates.Count;
+                // Each day the hero should try to recruit only one person.
+                int numberOfSubordinatesToHire = 1; //populationData.numberOfSubordinatesWanted - populationData.heroSubordinates.Count;
 
                 RecruitSubordinates(populationData, numberOfSubordinatesToHire);
             }
@@ -41,7 +42,7 @@ public static class Recruiter
         County county = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
         CountyData countyData = county.countyData;
 
-        // Filter out those with LoyaltyAdjusted below the threshold, if they are already in the list,
+        // Filter out those with LoyaltyAdjusted below the threshold if they are already in the list,
         // and those who have the "Unhelpful" perk.
         List<PopulationData> eligibleSubordinates = [.. countyData.populationDataList
             .Where(person => person.LoyaltyAdjusted >= Globals.Instance.willFightLoyalty
@@ -67,14 +68,13 @@ public static class Recruiter
                 , populationData.perks[AllEnums.Perks.LeaderOfPeople].perkBonus);
             GD.PrintRich($"[rainbow]Recruit Skill Check: " + skillCheck);
             // Person has been recruited. Random number of days before service starts will be generated.
-            if (skillCheck)
-            {
-                GD.PrintRich($"[rainbow]Recruitee added: " + recruitee.firstName);
-                recruitee.daysUntilServiceStarts = Globals.Instance.random.Next(1, Globals.Instance.maxDaysUntilServiceStarts);
-                populationData.heroSubordinates.Add(recruitee);
-                EventLog.Instance.AddLog($"{countyData.countyName}: {populationData.GetFullName()} " +
-                    $"{TranslationServer.Translate("WORD_RECRUITED")} {recruitee.GetFullName()}.");
-            }
+            if (!skillCheck) return;
+            GD.PrintRich($"[rainbow]Recruitee added: " + recruitee.firstName);
+            recruitee.daysUntilServiceStarts = Globals.Instance.random.Next(1, Globals.Instance.maxDaysUntilServiceStarts);
+            recruitee.UpdateActivity(AllEnums.Activities.Recruited);
+            populationData.heroSubordinates.Add(recruitee);
+            EventLog.Instance.AddLog($"{countyData.countyName}: {populationData.GetFullName()} " +
+                                     $"{TranslationServer.Translate("WORD_RECRUITED")} {recruitee.GetFullName()}.");
         }
         else
         {
@@ -84,7 +84,7 @@ public static class Recruiter
 
         // Change recruitee's activity to Service once the number of days to service starts is done.
 
-        // If the hero is unsuccessful then they try again the next day.  They try 3 times before they move on to the next person.
+        // If the hero is unsuccessful, then they try again the next day.  They try 3 times before they move on to the next person.
         // Maybe have some sort of loyalty reduction on each try.
     }
 

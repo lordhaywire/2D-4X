@@ -9,7 +9,7 @@ public partial class PopulationGeneration : Node
 {
     private readonly Random random = new();
 
-    public Node2D countiesParent;
+    private Node2D countiesParent;
     private County county;
     private CountyData countyData;
 
@@ -24,7 +24,7 @@ public partial class PopulationGeneration : Node
     [Export] private int startingSkillMax = 51; // One above max.
     [Export] private int chanceOfBeingUnhelpful = 11; // One above max.
 
-    // This has to be up here so the other methods can access it for Preferred Skill.
+    // This has to be up here, so the other methods can access it for Preferred Skill.
     private Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> newAttributes = [];
     private SkillData preferredSkill;
 
@@ -41,7 +41,7 @@ public partial class PopulationGeneration : Node
         Globals.Instance.playerFactionData.factionLeader.personality = AllEnums.Personality.Player;
     }
 
-    public void CreateFactionLeaders()
+    private void CreateFactionLeaders()
     {
         foreach (FactionData factionData in Globals.Instance.allFactionData)
         {
@@ -50,14 +50,14 @@ public partial class PopulationGeneration : Node
             //GD.Print($"{factionData.factionName} Capital ID: {factionData.factionCapitalCounty}");
             county = (County)countiesParent.GetChild(factionData.factionCapitalCounty);
             countyData = county.countyData;
-            GeneratePopulation(true, 1); // There is never going to be more then 1 faction leader.
+            GeneratePopulation(true, 1); // There is never going to be more than 1 faction leader.
 
             factionData.factionLeader = county.countyData.heroesInCountyList[0];
             countyData.population += countyData.heroesInCountyList.Count;
         }
     }
 
-    // This was written by ChatGPT.
+    // ChatGPT wrote this.
     private static int GeneratePersonalities()
     {
         int randomPersonality;
@@ -75,63 +75,109 @@ public partial class PopulationGeneration : Node
         for (int i = 0; i < totalPopulation; i++)
         {
             GenerateNameAndSex();  // This could probably be broken into two methods.
-            AllEnums.Personality personality = (AllEnums.Personality)GeneratePersonalities();
+            // This needs to be up here because the personality is needed for iPersonality.
+            AllEnums.Personality newPersonality = (AllEnums.Personality)GeneratePersonalities();
             int loyaltyBase = random.Next(31, 101); // This is a temporary number.
-            int happiness = random.Next(31, 101); // This is a temporary number.
-            int daysStarving = 0;
-            int maxHitpoints = Globals.Instance.startingHitPoints;
+            
             if (hero == false)
             {
                 // This is for the standard population.
-                countyData.populationDataList.Add(new PopulationData(countyData.factionData, countyData.countyId
-                    , -1, -1, firstName, lastName, isMale, GenerateAge()
-                    , personality
-                    , AllEnums.AssignPersonalityInterfaces(personality)
-                    , false, false, AllEnums.HeroType.None
-                    , new()
-                    , GeneratePopulationPerks(), Globals.Instance.startingHitPoints, maxHitpoints
-                    , GenerateExpendables()
-                    , loyaltyBase, loyaltyBase, happiness, daysStarving, -1, GenerateNeeds()
-                    , GenerateAttributes()
-                    , GenerateSkillsList()
-                    , preferredSkill
-                    , GenerateInterest()
-                    , AllEnums.Activities.Idle, false, new GoodData[5], null, null, null, null)); // HeroToken is null.
+                PopulationData newPopulationData = new()
+                {
+                    factionData = countyData.factionData,
+                    location = countyData.countyId,
+                    lastLocation = -1,
+                    destination = -1,
+                    firstName = firstName,
+                    lastName = lastName,
+                    isMale = isMale,
+                    age = GenerateAge(),
+                    personality = newPersonality,
+                    iPersonality = AllEnums.AssignPersonalityInterfaces(newPersonality),
+                    isHero = false,
+                    isWorker = false,
+                    HeroType = AllEnums.HeroType.None,
+                    heroSubordinates = [],
+                    perks = GeneratePopulationPerks(),
+                    hitPoints = Globals.Instance.startingHitPoints,
+                    maxHitPoints = Globals.Instance.startingHitPoints,
+                    moraleExpendable = GenerateExpendables(),
+                    loyaltyBase = loyaltyBase,
+                    LoyaltyAdjusted = loyaltyBase,
+                    happiness = random.Next(31, 101),
+                    daysStarving = 0,
+                    daysUntilServiceStarts = -1,
+                    needs = GenerateNeeds(),
+                    attributes = GenerateAttributes(),
+                    skills = GenerateSkillsList(),
+                    preferredSkill = preferredSkill,
+                    interestData = GenerateInterest(),
+                    activity = AllEnums.Activities.Idle,
+                    useNewestEquipment = false,
+                    equipment = new GoodData[5],
+                    currentCountyImprovement = null,
+                    passiveResearchItemData = null,
+                    currentResearchItemData = null,
+                    heroToken = null,
+                };
+                countyData.populationDataList.Add(newPopulationData);
             }
             else
             {
-                // Generates a hero that is a faction leader populationData.
-                countyData.heroesInCountyList.Add(new PopulationData(countyData.factionData, countyData.countyId
-                    , -1, -1, firstName, lastName, isMale, GenerateAge()
-                    , personality
-                    , AllEnums.AssignPersonalityInterfaces(personality)
-                    , true, true
-                    , AllEnums.HeroType.FactionLeader
-                    , new()
-                    , GenerateLeaderPerks(), Globals.Instance.startingHitPoints, maxHitpoints
-                    , GenerateExpendables()
-                    , loyaltyBase, loyaltyBase, happiness, daysStarving, -1, GenerateNeeds()
-                    , GenerateAttributes()
-                    , GenerateSkillsList()
-                    , preferredSkill
-                    , GenerateInterest()
-                    , AllEnums.Activities.Idle, false, new GoodData[5], null, null, null, null)); // HeroToken is null.
-
-                // Add hero to allHeroesList
-                countyData.factionData.AddHeroToAllHeroesList(countyData.heroesInCountyList[0]);
+                PopulationData newPopulationData = new()
+                {
+                    ResourceLocalToScene = false,
+                    ResourcePath = null,
+                    ResourceName = null,
+                    ResourceSceneUniqueId = null,
+                    factionData = countyData.factionData,
+                    location = countyData.countyId,
+                    lastLocation = -1,
+                    destination = -1,
+                    firstName = firstName,
+                    lastName = lastName,
+                    isMale = isMale,
+                    age = GenerateAge(),
+                    personality = newPersonality,
+                    iPersonality = AllEnums.AssignPersonalityInterfaces(newPersonality),
+                    isHero = true,
+                    isWorker = false,
+                    HeroType = AllEnums.HeroType.None,
+                    numberOfSubordinatesWanted = 0,
+                    heroSubordinates = new(),
+                    perks = GenerateLeaderPerks(),
+                    hitPoints = Globals.Instance.startingHitPoints,
+                    maxHitPoints = Globals.Instance.startingHitPoints,
+                    moraleExpendable = GenerateExpendables(),
+                    loyaltyBase = loyaltyBase,
+                    LoyaltyAdjusted = loyaltyBase,
+                    happiness = random.Next(31,
+                        101),
+                    Happiness = 0,
+                    daysEmployed = 0,
+                    daysEmployedButIdle = 0,
+                    daysStarving = 0,
+                    daysUntilServiceStarts = -1,
+                    needs = GenerateNeeds(),
+                    attributes = GenerateAttributes(),
+                    skills = GenerateSkillsList(),
+                    preferredSkill = preferredSkill,
+                    interestData = GenerateInterest(),
+                    activity = AllEnums.Activities.Idle,
+                    useNewestEquipment = false,
+                    equipment = new GoodData[5],
+                    currentCountyImprovement = null,
+                    passiveResearchItemData = null,
+                    currentResearchItemData = null,
+                    heroToken = null,
+                };
+                // Add the hero to the county hero's list.
+                countyData.heroesInCountyList.Add(newPopulationData);
+                // Add the hero to allHeroesList
+                countyData.factionData.AddHeroToAllHeroesList(newPopulationData);
             }
                 
         }
-        /*
-        foreach(PopulationData populationData in countyData.populationDataList)
-        {
-            GD.Print($"{populationData.firstName} Hero Personality: {populationData.personality}");
-        }
-        foreach (PopulationData populationData in countyData.heroesInCountyList)
-        {
-            GD.Print($"{populationData.firstName} Hero Personality: {populationData.personality}");
-        }
-        */
     }
     private static InterestData GenerateInterest()
     {
@@ -156,26 +202,24 @@ public partial class PopulationGeneration : Node
         SkillData possiblePreferredSkill = sortedSkills.First().Value;
         preferredSkill = possiblePreferredSkill;
 
-        // Roll an Intelligence check and if it passes then the top skill is the preferred skill.
+        // Roll an Intelligence check, and if it passes, then the top skill is the preferred skill.
         // If the intelligence check fails, it is ok if the random roll randomly assigns the same preferred skill.
-        if (rolls.Attribute(newAttributes[AllEnums.Attributes.Intelligence]) == false)
+        if (rolls.Attribute(newAttributes[AllEnums.Attributes.Intelligence])) return;
         {
             // Create a list of non-combat skills for random selection
             List<AllEnums.Skills> nonCombatSkills = [.. skills
                 .Where(keyValue => !keyValue.Value.isCombatSkill)
                 .Select(keyValue => keyValue.Key)];
 
-            if (nonCombatSkills.Count > 0)
-            {
-                int randomIndex = random.Next(0, nonCombatSkills.Count);
-                AllEnums.Skills randomSkill = nonCombatSkills[randomIndex];
-                preferredSkill = skills[randomSkill];
-            }
+            if (nonCombatSkills.Count <= 0) return;
+            int randomIndex = random.Next(0, nonCombatSkills.Count);
+            AllEnums.Skills randomSkill = nonCombatSkills[randomIndex];
+            preferredSkill = skills[randomSkill];
         }
     }
 
     /// <summary>
-    /// This also generates prefered work.
+    /// This also generates preferred work.
     /// </summary>
     /// <returns></returns>
     private Godot.Collections.Dictionary<AllEnums.Skills, SkillData> GenerateSkillsList()
@@ -272,7 +316,7 @@ public partial class PopulationGeneration : Node
             //GD.PrintRich("[rainbow]County ID: " + countyData.countyID);
 
             // Generate the general population for the player and AI Capitals.
-            if (countyData.isPlayerCapital == true || countyData.isAiCapital)
+            if (countyData.isPlayerCapital || countyData.isAiCapital)
             {
                 // Generate Normal Population
                 GeneratePopulation(false, Globals.Instance.totalCapitolPop);

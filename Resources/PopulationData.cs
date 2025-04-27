@@ -31,7 +31,7 @@ public partial class PopulationData : Resource
     [Export]
     public AllEnums.HeroType HeroType
     {
-        get { return heroType; }
+        get => heroType;
         set
         {
             heroType = value;
@@ -44,34 +44,32 @@ public partial class PopulationData : Resource
     }
 
     [Export] public int numberOfSubordinatesWanted;
-    [Export] public Godot.Collections.Array<PopulationData> heroSubordinates;// = [];
+    [Export] public Godot.Collections.Array<PopulationData> heroSubordinates;//=[];
 
     [ExportGroup("Perks")]
     [Export] public Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks;
 
     [ExportGroup("Expendables")]
-    [Export] public int hitpoints;
-    [Export] public int maxHitpoints;
+    [Export] public int hitPoints;
+    [Export] public int maxHitPoints;
 
     [Export] public int moraleExpendable; // I think we are going to have to have this as leader morale or army morale or some shit.
-    [Export] private int loyaltyBase;
+    [Export] public int loyaltyBase;
     [Export] private int loyaltyAdjusted;
     [Export]
     public int LoyaltyAdjusted
     {
-        get { return loyaltyAdjusted; }
-        set
-        {
+        get => loyaltyAdjusted;
+        set =>
             // Make it so that loyaltyAdjusted can't go above 100.
             loyaltyAdjusted = Math.Min(value, 100);
-        }
     }
-    [Export] private int happiness;
+    [Export] public int happiness;
 
     [Export]
     public int Happiness
     {
-        get { return happiness; }
+        get => happiness;
         set
         {
             happiness = Math.Min(value, 100);
@@ -144,7 +142,7 @@ public partial class PopulationData : Resource
         this.activity = newActivity;
     }
 
-    public void UpdateDestination(int newDestination)
+    private void UpdateDestination(int newDestination)
     {
         this.destination = newDestination;
     }
@@ -153,7 +151,6 @@ public partial class PopulationData : Resource
         currentCountyImprovement = countyImprovementData;
     }
 
-    
     public void AddRandomHappiness(int maxHappiness)
     {
         Random random = new();
@@ -204,7 +201,7 @@ public partial class PopulationData : Resource
     /// </summary>
     public void RemoveFromCountyImprovement()
     {
-        //GD.Print($"{firstName} was removed from {currentCountyImprovement?.improvementName}");
+        GD.Print($"{firstName} was removed from {currentCountyImprovement?.improvementName}");
 
         UpdateActivity(AllEnums.Activities.Idle);
         currentCountyImprovement?.populationAtImprovement.Remove(this);
@@ -241,7 +238,7 @@ public partial class PopulationData : Resource
         string fullName = $"{firstName} {lastName}";
         return fullName;
     }
-    
+    /*
     public PopulationData(
         FactionData factionData, int location, int lastLocation, int destination, string firstName, string lastName
         , bool isMale, int age
@@ -249,7 +246,7 @@ public partial class PopulationData : Resource
         , IPersonality iPersonality
         , bool isHero, bool isWorker, AllEnums.HeroType HeroType
         , Godot.Collections.Array<PopulationData> heroSubordinates
-        , Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks, int hitpoints, int maxHitpoints
+        , Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks, int hitPoints, int maxHitPoints
         , int moraleExpendable
         , int loyaltyBase, int LoyaltyAdjusted, int Happiness, int daysStarving
         , int daysUntilServiceStarts
@@ -282,8 +279,8 @@ public partial class PopulationData : Resource
         this.heroSubordinates = heroSubordinates;
         this.perks = perks;
 
-        this.hitpoints = hitpoints;
-        this.maxHitpoints = maxHitpoints;
+        this.hitPoints = hitPoints;
+        this.maxHitPoints = maxHitPoints;
         this.moraleExpendable = moraleExpendable;
         this.loyaltyBase = loyaltyBase;
         this.LoyaltyAdjusted = LoyaltyAdjusted;
@@ -305,4 +302,5 @@ public partial class PopulationData : Resource
         this.currentResearchItemData = currentResearchItemData;
         this.heroToken = heroToken;
     }
+    */
 }

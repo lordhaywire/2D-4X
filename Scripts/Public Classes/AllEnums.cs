@@ -46,7 +46,7 @@ public class AllEnums
     {
         Standard,
         Research,
-        Storage, // I am not sure if this will end up being used.  It is getting used, but not in a good way.
+        Storage, // I am not sure if this will end up being used.  It is getting used, but not well.
     }
 
     public enum CountyGoodType

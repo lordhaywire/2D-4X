@@ -112,8 +112,9 @@ public class Research
                     = GetRandomResearchByInterestType(populationData.factionData
                         , populationData.currentCountyImprovement.interestData.interestType);
                 break;
-            // If they are idle, scavenging, exploring or moving they get random research.
+            // If they are idle, scavenging, exploring or moving, they get random research.
             case AllEnums.Activities.Recruit: // We probably eventually want this to research something to do with leadership.
+            case AllEnums.Activities.Recruited:    
             case AllEnums.Activities.Explore:
             case AllEnums.Activities.Scavenge:
             case AllEnums.Activities.Idle:

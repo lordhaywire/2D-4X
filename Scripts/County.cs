@@ -54,7 +54,7 @@ public partial class County : Node2D
         CountyAI countyAi = new();
 
         // GD.Print("County Hour One.");
-        // Subtract county resources yesterday from today.
+        // Subtracted county resources yesterday from today.
         countyData.SubtractCountyResources();
 
         // Copy the county resources to yesterday.
@@ -159,7 +159,7 @@ public partial class County : Node2D
         // Gets all the idle people and puts them in a list for the next methods.
         countyData.FindIdlePopulation();
 
-        // Currently construction is first to everything gets built first.
+        // Currently, construction is first to everything gets built first.
         // Heroes work, or building depends on the player.
         countyData.AssignEveryoneToConstruction();
 

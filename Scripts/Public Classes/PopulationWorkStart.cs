@@ -18,7 +18,8 @@ public abstract class PopulationWorkStart
         {
             // Go through everyone and if they are helpful and loyal add them to the prioritizedWorkers list.
             if (populationData.CheckWillWorkLoyalty()
-                && populationData.CheckForPerk(AllEnums.Perks.Unhelpful) == false)
+                && populationData.CheckForPerk(AllEnums.Perks.Unhelpful) == false
+                && populationData.activity != AllEnums.Activities.Recruited)
             {
                 //GD.Print($"Prioritized: {countyData.countyName}: {populationData.firstName} is loyal and is helpful.");
                 countyData.AddPopulationDataToPrioritizedBuildersList(populationData);
@@ -39,7 +40,8 @@ public abstract class PopulationWorkStart
         {
             // Go through everyone and if they are helpful and loyal add them to the prioritizedWorkers list.
             if (populationData.CheckWillWorkLoyalty()
-                && populationData.CheckForPerk(AllEnums.Perks.Unhelpful) == false)
+                && populationData.CheckForPerk(AllEnums.Perks.Unhelpful) == false
+                && populationData.activity != AllEnums.Activities.Recruited)
             {
                 countyData.AddPopulationDataToPrioritizedWorkersList(populationData);
 

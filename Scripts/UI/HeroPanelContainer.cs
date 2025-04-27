@@ -44,7 +44,7 @@ public partial class HeroPanelContainer : PanelContainer
 
         UpdateHeroNameAndIcons();
 
-        // Change color of panel to the faction color.
+        // Change color of the panel to the faction color.
         SelfModulate = populationData.factionData.factionColor;
 
         CheckForAvailableActivities(locationCountyData);
@@ -52,7 +52,7 @@ public partial class HeroPanelContainer : PanelContainer
         PopulateActivityHBoxes();
 
         // Check to see if the hero is part of the player's faction to determine what to show.
-        // Once we add the ability for heroes to do things in enemy faction counties we will change this.
+        // Once we add the ability for heroes to do things in enemy faction counties, we will change this.
         // Currently, we are just making it so that the heroes Activities boxes are hidden.
         // Check if the hero is not player owned.
         if (Globals.Instance.CheckIfPlayerFaction(populationData.factionData) == false)
@@ -63,7 +63,7 @@ public partial class HeroPanelContainer : PanelContainer
         }
 
         // This checks if the location of the hero is in a non-player owned county.
-        // If this is a player hero, but in an enemy county they can't currently do anything.
+        // If this is a player hero, but in an enemy's county they can't currently do anything.
         if (Globals.Instance.CheckIfPlayerFaction(populationData.factionData) &&
             Globals.Instance.CheckIfPlayerFaction(locationCountyData.factionData) == false)
         {
@@ -85,7 +85,7 @@ public partial class HeroPanelContainer : PanelContainer
         spawnHeroButton.Show();
 
         GD.Print("County Info Control Hero Token: " + populationData.heroToken);
-        // This is only for the players tokens.
+        // This is only for the player's tokens.
         spawnHeroButton.ButtonPressed = populationData.heroToken != null;
     }
 
@@ -134,6 +134,7 @@ public partial class HeroPanelContainer : PanelContainer
             {
                 primaryCheckBoxesList[2].Disabled = false;
             }
+
             primaryCheckBoxesList[2].Disabled = countyImprovementData.CheckIfStatusLowStockpiledGoods();
         }
 
@@ -357,7 +358,7 @@ public partial class HeroPanelContainer : PanelContainer
     {
         County county = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
         CountyData countyData = county.countyData;
-        // Add hero to possible workers list.
+        // Add the hero to the possible workers list.
         countyData.AddPopulationDataToPossibleWorkersList(populationData);
     }
 
