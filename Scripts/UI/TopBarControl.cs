@@ -45,10 +45,7 @@ public partial class TopBarControl : Control
         factionData = Globals.Instance.playerFactionData;
         UpdateTopBarGoodLabels();
         CreateSignalsForTimeButtons();
-        if (Globals.Instance.startPaused)
-        {
-            Clock.Instance.UpdateTimeMultiplier(0);
-        }
+
     }
 
     private void CreateSignalsForTimeButtons()
@@ -72,7 +69,7 @@ public partial class TopBarControl : Control
         timeMultiplierLabel.Text = timeMultiplier.ToString(CultureInfo.CurrentCulture);
     }
 
-    public void UpdatePauseLabel(bool paused)
+    public void ShowPauseLabel(bool paused)
     {
         if (paused)
         {
@@ -176,5 +173,16 @@ public partial class TopBarControl : Control
     {
         Clock.Instance.UpdateTimeMultiplier(timeMultiplier);
         UpdateTimeMultiplierLabel(timeMultiplier);
+        
+        if (timeMultiplier > 0)
+        {
+            Clock.Instance.numberOfThingsPausing = 0;
+        }
+        else
+        {
+            Clock.Instance.numberOfThingsPausing = 1;
+        }
+        Clock.Instance.oldTimeMultiplier = Clock.Instance.TimeMultiplier;
+        Clock.Instance.TimeMultiplier = timeMultiplier;
     }
 }

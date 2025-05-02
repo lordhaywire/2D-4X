@@ -300,9 +300,6 @@ script = ExtResource("17_1215r")
 [node name="Random Faction Colors" type="Node" parent="Game Controller Node"]
 script = ExtResource("18_3aru6")
 
-[node name="Clock" type="Node" parent="Game Controller Node"]
-script = ExtResource("19_dn5gi")
-
 [node name="County Dictator" type="Node" parent="Game Controller Node"]
 script = ExtResource("28_qe8u4")
 
@@ -346,7 +343,7 @@ grow_horizontal = 2
 mouse_filter = 2
 theme = ExtResource("34_e2d2b")
 script = ExtResource("35_ecv6a")
-clock = NodePath("../../Game Controller Node/Clock")
+clock = NodePath("../Clock")
 dayLabel = NodePath("PanelContainer/Top Bar HBox/Day Panel/Hbox/Day Numbers Label")
 hourLabel = NodePath("PanelContainer/Top Bar HBox/Time Panel/Hbox/Hours Numbers Label")
 timeMultiplierLabel = NodePath("PanelContainer/Time and Research Buttons HBox/Speed Panel/Time Multiplier Number Label")
@@ -681,6 +678,9 @@ layout_mode = 2
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_1crxt")
 text = "x16"
+
+[node name="Clock" type="Node" parent="Player UI Canvas"]
+script = ExtResource("19_dn5gi")
 
 [node name="Pause Control" type="Control" parent="Player UI Canvas"]
 custom_minimum_size = Vector2(0, 31)

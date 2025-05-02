@@ -23,20 +23,23 @@ public partial class Clock : Node
     private float tickTimer;
 
     private float timeMultiplier = 1;
-    private int numberOfThingsPausing = 1;
+    public int numberOfThingsPausing = 0;
 
     public float TimeMultiplier
     {
         get => timeMultiplier;
-        private set
+        set
         {
-            numberOfThingsPausing = value > 0 ? 0 : 1;
-            oldTimeMultiplier = timeMultiplier;
             timeMultiplier = value;
-
             TopBarControl.Instance.UpdateTimeMultiplierLabel(value);
-
-            TopBarControl.Instance.UpdatePauseLabel(timeMultiplier == 0);
+            if (timeMultiplier == 0)
+            {
+                TopBarControl.Instance.ShowPauseLabel(true);
+            }
+            else
+            {
+                TopBarControl.Instance.ShowPauseLabel(false);
+            }
         }
     }
 
@@ -101,13 +104,20 @@ public partial class Clock : Node
     public override void _Ready()
     {
         Instance = this;
-
+        TimeMultiplier = 1;
         oldTimeMultiplier = 1;
+        
+        if (Globals.Instance.startPaused)
+        {
+            PauseTime();
+        }
     }
 
     public override void _Process(double delta)
     {
         Ticker(delta);
+        //GD.Print("Number of things Paused: " + numberOfThingsPausing);
+
     }
 
     private void Ticker(double delta)
@@ -148,21 +158,25 @@ public partial class Clock : Node
     public void PauseTime()
     {
         GD.Print("Pause Time!");
-
+        GD.Print($"Modified Time: {TimeMultiplier} and Old Time Speed: {oldTimeMultiplier}.");
         if (TimeMultiplier > 0)
         {
             oldTimeMultiplier = TimeMultiplier;
             TimeMultiplier = 0;
         }
-
         numberOfThingsPausing++;
+        GD.Print($"Modified Time: {TimeMultiplier} and Old Time Speed: {oldTimeMultiplier}.");
     }
 
     public void UnpauseTime()
     {
         GD.Print("Unpause Time!");
+        GD.Print($"Modified Time: {TimeMultiplier} and Old Time Speed: {oldTimeMultiplier}.");
         numberOfThingsPausing--;
-        TimeMultiplier = oldTimeMultiplier;
+         if (numberOfThingsPausing == 0)
+        {
+            TimeMultiplier = oldTimeMultiplier;
+        }
     }
 
     public string GetDateAndTime()
@@ -182,20 +196,16 @@ public partial class Clock : Node
 
         if (TimeMultiplier > 0)
         {
+            numberOfThingsPausing++;
             oldTimeMultiplier = TimeMultiplier;
             TimeMultiplier = 0;
-            numberOfThingsPausing++;
         }
         else
         {
-            if (numberOfThingsPausing <= 1)
-            {
-                (TimeMultiplier, oldTimeMultiplier) = (oldTimeMultiplier, TimeMultiplier);
-            }
-
+            (TimeMultiplier, oldTimeMultiplier) = (oldTimeMultiplier, TimeMultiplier);
             numberOfThingsPausing--;
         }
-        //GD.Print($"Modified Time: {ModifiedTimeScale} and Old Time Speed: {oldTimeSpeed}.");
+        GD.Print($"Modified Time: {TimeMultiplier} and Old Time Speed: {oldTimeMultiplier}.");
     }
 
     protected virtual void OnDailyHourZeroSecondQuarter()
