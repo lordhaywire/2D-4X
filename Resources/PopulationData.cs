@@ -12,22 +12,23 @@ public partial class PopulationData : Resource
     [Export] public int lastLocation;
     [Export] public int destination;
 
-    [ExportGroup("Info")]
-    [Export] public string firstName;
+    [ExportGroup("Info")] [Export] public string firstName;
     [Export] public string lastName;
     [Export] public bool isMale;
     [Export] public int age;
 
-    [ExportGroup("Personality")]
-    [Export] public AllEnums.Personality personality;
+    [ExportGroup("Personality")] [Export] public AllEnums.Personality personality;
     public IPersonality iPersonality; // I have fucked my future self.  This will not save with the resource saver.
 
     [ExportGroup("Hero")]
     // Change this to an enum
-    [Export] public bool isHero;
+    [Export]
+    public bool isHero;
+
     [Export] public bool isWorker;
 
     [Export] private AllEnums.HeroType heroType;
+
     [Export]
     public AllEnums.HeroType HeroType
     {
@@ -44,18 +45,20 @@ public partial class PopulationData : Resource
     }
 
     [Export] public int numberOfSubordinatesWanted;
-    [Export] public Godot.Collections.Array<PopulationData> heroSubordinates;//=[];
+    [Export] public Godot.Collections.Array<PopulationData> heroSubordinates; //=[];
 
-    [ExportGroup("Perks")]
-    [Export] public Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks;
+    [ExportGroup("Perks")] [Export] public Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks;
 
-    [ExportGroup("Expendables")]
-    [Export] public int hitPoints;
+    [ExportGroup("Expendables")] [Export] public int hitPoints;
     [Export] public int maxHitPoints;
 
-    [Export] public int moraleExpendable; // I think we are going to have to have this as leader morale or army morale or some shit.
+    [Export]
+    public int
+        moraleExpendable; // I think we are going to have this as leader morale or army morale or some shit.
+
     [Export] public int loyaltyBase;
     [Export] private int loyaltyAdjusted;
+
     [Export]
     public int LoyaltyAdjusted
     {
@@ -64,6 +67,7 @@ public partial class PopulationData : Resource
             // Make it so that loyaltyAdjusted can't go above 100.
             loyaltyAdjusted = Math.Min(value, 100);
     }
+
     [Export] public int happiness;
 
     [Export]
@@ -76,7 +80,7 @@ public partial class PopulationData : Resource
 
             // This is checking happiness as if it was an attribute and adjusting the loyalty by
             // the attribute bonus.  So if the happiness gets really low, the loyal will only ever get a negative 20,
-            // or if the happiness is really high it will only get a +20.
+            // or if the happiness is really high, it will only get a +20.
             LoyaltyAdjusted = loyaltyBase + AttributeData.GetAttributeBonus(value, false, false);
             //GD.Print($"{firstName} {lastName} loyalty adjusted: {LoyaltyAdjusted}");
         }
@@ -85,24 +89,22 @@ public partial class PopulationData : Resource
     [Export] public int daysEmployed;
     [Export] public int daysEmployedButIdle;
     [Export] public int daysStarving;
+    [Export] public int daysRecruited;
     [Export] public int daysUntilServiceStarts;
 
     // Resource needs, currently there is just 1 need, Remnants.
     [Export] public Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> needs;
 
-    [ExportGroup("Attributes")]
-    [Export] public Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes;// = [];
+    [ExportGroup("Attributes")] [Export]
+    public Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes; // = [];
 
-    [ExportGroup("Skills")]
-    [Export] public Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills;// = [];
+    [ExportGroup("Skills")] [Export] public Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills; // = [];
     [Export] public SkillData preferredSkill;
     [Export] public InterestData interestData;
 
-    [ExportGroup("Work")]
-    [Export] public AllEnums.Activities activity;
+    [ExportGroup("Work")] [Export] public AllEnums.Activities activity;
 
-    [ExportGroup("Inventory")]
-    [Export] public bool useNewestEquipment;
+    [ExportGroup("Inventory")] [Export] public bool useNewestEquipment;
     [Export] public GoodData[] equipment;
 
     [Export] public CountyImprovementData currentCountyImprovement; // Used for work and building.
@@ -118,6 +120,7 @@ public partial class PopulationData : Resource
         {
             return true;
         }
+
         return false;
     }
 
@@ -125,27 +128,32 @@ public partial class PopulationData : Resource
     public void ChangeToArmy()
     {
         isHero = true;
-        if (HeroType == AllEnums.HeroType.FactionLeader)
-        {
-            HeroType = AllEnums.HeroType.FactionLeaderArmyLeader;
-        }
-        else
-        {
-            HeroType = AllEnums.HeroType.ArmyLeader;
-        }
+        HeroType = HeroType == AllEnums.HeroType.FactionLeader ? AllEnums.HeroType.FactionLeaderArmyLeader : AllEnums.HeroType.ArmyLeader;
+
         County selectCounty = (County)Globals.Instance.countiesParent.GetChild(location);
         selectCounty.countyData.armiesInCountyList.Add(this);
         selectCounty.countyData.heroesInCountyList.Remove(this);
     }
+
     public void UpdateActivity(AllEnums.Activities newActivity)
     {
-        this.activity = newActivity;
+        activity = newActivity;
+        if (newActivity == AllEnums.Activities.Idle && factionData.isPlayer)
+        {
+            GD.Print($"{GetFullName()} is set to idle!");
+        }
+
+        if (newActivity == AllEnums.Activities.Recruited && factionData.isPlayer)
+        {
+            GD.Print($"{GetFullName()} is set to recruited!");
+        }
     }
 
     private void UpdateDestination(int newDestination)
     {
-        this.destination = newDestination;
+        destination = newDestination;
     }
+
     public void UpdateCurrentCountyImprovement(CountyImprovementData countyImprovementData)
     {
         currentCountyImprovement = countyImprovementData;
@@ -185,14 +193,15 @@ public partial class PopulationData : Resource
     }
 
     /// <summary>
-    /// Checks to see if the token has been instantiated and if it has then the hero is considered spawned.
+    /// Checks to see if the token has been instantiated, and if it has, then the hero is considered spawned.
     /// </summary>
     public bool IsHeroSpawned()
     {
-        if(heroToken != null)
+        if (heroToken != null)
         {
             return true;
         }
+
         return false;
     }
 
@@ -201,8 +210,8 @@ public partial class PopulationData : Resource
     /// </summary>
     public void RemoveFromCountyImprovement()
     {
+        if (currentCountyImprovement == null) return;
         GD.Print($"{firstName} was removed from {currentCountyImprovement?.improvementName}");
-
         UpdateActivity(AllEnums.Activities.Idle);
         currentCountyImprovement?.populationAtImprovement.Remove(this);
         currentCountyImprovement = null;
@@ -220,8 +229,10 @@ public partial class PopulationData : Resource
         {
             return true;
         }
+
         return false;
     }
+
     /// <summary>
     /// Removes the populations research Item Data and sets their activity to Work.
     /// </summary>
@@ -229,7 +240,7 @@ public partial class PopulationData : Resource
     {
         currentResearchItemData = null;
         UpdateActivity(AllEnums.Activities.Work);
-        // When the AI removes people from research it is going to try and do this.  I am not sure we care.
+        // When the AI removes people from research, it is going to try and do this.  I am not sure if we care.
         ResearchControl.Instance.assignedResearchers.Remove(this);
     }
 
@@ -238,69 +249,4 @@ public partial class PopulationData : Resource
         string fullName = $"{firstName} {lastName}";
         return fullName;
     }
-    /*
-    public PopulationData(
-        FactionData factionData, int location, int lastLocation, int destination, string firstName, string lastName
-        , bool isMale, int age
-        , AllEnums.Personality personality
-        , IPersonality iPersonality
-        , bool isHero, bool isWorker, AllEnums.HeroType HeroType
-        , Godot.Collections.Array<PopulationData> heroSubordinates
-        , Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks, int hitPoints, int maxHitPoints
-        , int moraleExpendable
-        , int loyaltyBase, int LoyaltyAdjusted, int Happiness, int daysStarving
-        , int daysUntilServiceStarts
-        , Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> needs
-        , Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes
-        , Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills
-        , SkillData preferredSkill, InterestData interestData, AllEnums.Activities activity
-        , bool useNewestEquipment, GoodData[] equipment
-        , CountyImprovementData currentCountyImprovement
-        , ResearchItemData passiveResearchItemData
-        , ResearchItemData currentResearchItemData
-        , HeroToken heroToken)
-    {
-        this.factionData = factionData;
-        this.location = location;
-        this.lastLocation = lastLocation;
-        this.destination = destination;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.isMale = isMale;
-        this.age = age;
-
-        this.personality = personality;
-        this.iPersonality = iPersonality;
-
-        this.isHero = isHero;
-        this.isWorker = isWorker;
-        this.HeroType = HeroType;
-
-        this.heroSubordinates = heroSubordinates;
-        this.perks = perks;
-
-        this.hitPoints = hitPoints;
-        this.maxHitPoints = maxHitPoints;
-        this.moraleExpendable = moraleExpendable;
-        this.loyaltyBase = loyaltyBase;
-        this.LoyaltyAdjusted = LoyaltyAdjusted;
-        this.Happiness = Happiness;
-        this.daysStarving = daysStarving;
-        this.daysUntilServiceStarts = daysUntilServiceStarts;
-        this.needs = needs;
-        this.attributes = attributes;
-
-        this.skills = skills;
-        this.preferredSkill = preferredSkill;
-        this.interestData = interestData;
-
-        this.activity = activity;
-        this.useNewestEquipment = useNewestEquipment;
-        this.equipment = equipment;
-        this.currentCountyImprovement = currentCountyImprovement;
-        this.passiveResearchItemData = passiveResearchItemData;
-        this.currentResearchItemData = currentResearchItemData;
-        this.heroToken = heroToken;
-    }
-    */
 }

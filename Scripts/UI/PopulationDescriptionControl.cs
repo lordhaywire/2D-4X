@@ -1,6 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
+
 // ReSharper disable SuggestVarOrType_SimpleTypes
 
 namespace PlayerSpace;
@@ -24,16 +25,16 @@ public partial class PopulationDescriptionControl : Control
     [Export] private Label loyaltyAttributeLabel;
     [Export] private Label ageLabel;
     [Export] private Label sexLabel;
-        
+
     [Export] private HBoxContainer perksParent;
     [Export] private PackedScene perkLabel;
     [Export] private GridContainer skillsGridContainer;
-        
+
     [Export] private Label interestLabel;
     [Export] private Label preferredWorkLabel;
     [Export] private Label currentActivityLabel;
 
-    [Export] public VBoxContainer InventoryAndSubordinatesInventoryVBoxContainer;
+    [Export] public VBoxContainer inventoryAndSubordinatesInventoryVBoxContainer;
     [Export] public InventoryVBoxContainer inventoryVBoxContainer;
     [Export] public SubordinatesVBoxContainer subordinatesVBoxContainer;
     [Export] private Button aideRecruitButton;
@@ -43,7 +44,7 @@ public partial class PopulationDescriptionControl : Control
     private readonly List<Label> skillLabelsList = [];
     public PopulationData populationData;
 
-    public bool heroButtonClicked; // If the player has clicked a hero from the list below the countyinfo panel.
+    public bool heroButtonClicked; // If the player has clicked a hero from the list below the county info panel.
 
     public override void _Ready()
     {
@@ -54,10 +55,10 @@ public partial class PopulationDescriptionControl : Control
 
     private void ConnectRecruitmentButtonsSignals()
     {
-        aideRecruitButton.Pressed += () => OpenConfirmationPanel(false); 
-        armyLeaderRecruitButton.Pressed += () => OpenConfirmationPanel(true); 
+        aideRecruitButton.Pressed += () => OpenConfirmationPanel(false);
+        armyLeaderRecruitButton.Pressed += () => OpenConfirmationPanel(true);
     }
-        
+
     private void OpenConfirmationPanel(bool armyLeaderRecruited)
     {
         heroRecruitmentConfirmPanel.Show();
@@ -97,8 +98,10 @@ public partial class PopulationDescriptionControl : Control
                 PlayerUICanvas.Instance.populationListUIElement.Show();
                 Clock.Instance.UnpauseTime();
             }
+
             heroButtonClicked = false;
         }
+
         CountyInfoControl.Instance.UpdateEverything();
     }
 
@@ -107,9 +110,10 @@ public partial class PopulationDescriptionControl : Control
         inventoryVBoxContainer.PopulateEquipment(populationData);
         subordinatesVBoxContainer.UpdateNumberOfSubordinates(populationData);
         subordinatesVBoxContainer.UpdateSubordinates(populationData.heroSubordinates);
-
+        ShowDefaultUiElements();
         CountyInfoControl.Instance.DisableSpawnHeroCheckButton(true);
-        PlayerControls.Instance.AdjustPlayerControls(false); // This was probably happening too fast which is why it is here.
+        PlayerControls.Instance
+            .AdjustPlayerControls(false); // This was probably happening too fast, which is why it is here.
         County county = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
         //GD.Print("Select County Location: " + populationData.location);
 
@@ -118,7 +122,7 @@ public partial class PopulationDescriptionControl : Control
 
         DisableUiElements();
 
-        // If the token is moving and doesn't belong to the player's faction disable the ability to turn
+        // If the token is moving and doesn't belong to the player's faction, disable the ability to turn
         // it into an Army.
         CheckForArmyRecruitmentButton(county);
         CheckForAideRecruitmentButton();
@@ -129,15 +133,8 @@ public partial class PopulationDescriptionControl : Control
 
         ageLabel.Text = populationData.age.ToString();
 
-        if (populationData.isMale)
-        {
-            sexLabel.Text = "WORD_MALE";
-        }
-        else
-        {
-            sexLabel.Text = "WORD_FEMALE";
-        }
-            
+        sexLabel.Text = populationData.isMale ? "WORD_MALE" : "WORD_FEMALE";
+
         UpdatePerks();
         UpdateInterest();
         UpdatePreferredWork();
@@ -152,6 +149,21 @@ public partial class PopulationDescriptionControl : Control
         {
             currentActivityLabel.Text = $"{Tr(populationData.GetActivityName())}";
         }
+
+        UpdateHeroRecruitmentButtons();
+    }
+
+    private void ShowDefaultUiElements()
+    {
+        aideRecruitButton.Show();
+        armyLeaderRecruitButton.Show();
+    }
+
+    private void UpdateHeroRecruitmentButtons()
+    {
+        if (populationData.activity != AllEnums.Activities.Recruited) return;
+        aideRecruitButton.Hide();
+        armyLeaderRecruitButton.Hide();
     }
 
     // This was a simplification written by ChatGPT.
@@ -165,7 +177,7 @@ public partial class PopulationDescriptionControl : Control
         if (county.countyData.factionData == Globals.Instance.playerFactionData)
         {
             // If this is just a normal population
-            if (populationData.HeroType == AllEnums.HeroType.None 
+            if (populationData.HeroType == AllEnums.HeroType.None
                 && Globals.Instance.playerFactionData.factionGoods[AllEnums.FactionGoodType.Influence].Amount
                 < Globals.Instance.costOfHero)
             {
@@ -173,30 +185,27 @@ public partial class PopulationDescriptionControl : Control
                 return;
             }
 
-            // If the token is moving then it can't become an army.
+            // If the token is moving, then it can't become an army.
             if (populationData.heroToken?.tokenMovement.MoveToken == true)
             {
                 return;
             }
 
-            // If the population is already an Aide the player has already paid for the aide
+            // If the population is already an Aide, the player has already paid for the aide,
             // and they can make it an army leader.
-            if (populationData.IsThisAnArmy() == false)
-            {
-                armyLeaderRecruitButton.Disabled = false;
-                return;
-            }
+            if (populationData.IsThisAnArmy()) return;
+            armyLeaderRecruitButton.Disabled = false;
         }
     }
 
     /// <summary>
-    /// If the the player's faction doesn't have enough influence or the population is already a hero
+    /// If the player's faction doesn't have enough influence or the population is already a hero,
     /// the button is disabled.
     /// </summary>
     private void CheckForAideRecruitmentButton()
     {
         if (Globals.Instance.playerFactionData.factionGoods[AllEnums.FactionGoodType.Influence].Amount
-            < Globals.Instance.costOfHero || populationData.isHero == true)
+            < Globals.Instance.costOfHero || populationData.isHero)
         {
             aideRecruitButton.Disabled = true;
         }
@@ -265,7 +274,8 @@ public partial class PopulationDescriptionControl : Control
 
     private void UpdateAttributes(PopulationData population)
     {
-        physicalStrengthLabel.Text = population.attributes[AllEnums.Attributes.PhysicalStrength].attributeLevel.ToString();
+        physicalStrengthLabel.Text =
+            population.attributes[AllEnums.Attributes.PhysicalStrength].attributeLevel.ToString();
         agilityLabel.Text = population.attributes[AllEnums.Attributes.Agility].attributeLevel.ToString();
         enduranceLabel.Text = population.attributes[AllEnums.Attributes.Endurance].attributeLevel.ToString();
         intelligenceLabel.Text = population.attributes[AllEnums.Attributes.Intelligence].attributeLevel.ToString();
@@ -290,7 +300,8 @@ public partial class PopulationDescriptionControl : Control
         for (int i = 0; i < populationData.skills.Count; i++)
         {
             AllEnums.Skills skillNumber = (AllEnums.Skills)i;
-            skillLabelsList[i].Text = $"{Tr(populationData.skills[skillNumber].skillName)} {populationData.skills[skillNumber].skillLevel}";
+            skillLabelsList[i].Text =
+                $"{Tr(populationData.skills[skillNumber].skillName)} {populationData.skills[skillNumber].skillLevel}";
         }
     }
 

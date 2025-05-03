@@ -29,7 +29,7 @@ public partial class InventoryVBoxContainer : VBoxContainer
     {
         if (populationData.isHero)
         {
-            PopulationDescriptionControl.Instance.InventoryAndSubordinatesInventoryVBoxContainer.Show();
+            PopulationDescriptionControl.Instance.inventoryAndSubordinatesInventoryVBoxContainer.Show();
 
             for (int i = 0; i < equipment.Count; i++)
             {
@@ -45,7 +45,7 @@ public partial class InventoryVBoxContainer : VBoxContainer
         }
         else
         {
-            PopulationDescriptionControl.Instance.InventoryAndSubordinatesInventoryVBoxContainer.Hide();
+            PopulationDescriptionControl.Instance.inventoryAndSubordinatesInventoryVBoxContainer.Hide();
         }
     }
 

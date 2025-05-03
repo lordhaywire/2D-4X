@@ -73,7 +73,7 @@ public class Quartermaster
                 // Equip the new goodToEquip on the populationData.
                 populationData.equipment[AllEnums.GetCorrectEquipmentSlot(goodToEquip.equipmentData.equipmentType)] 
                     = goodToEquip;
-                GD.Print($"{goodToEquip.goodName} is different then currently equiped.");
+                //GD.Print($"{goodToEquip.goodName} is different then currently equiped.");
             }
         }
     }

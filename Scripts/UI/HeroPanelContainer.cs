@@ -84,7 +84,7 @@ public partial class HeroPanelContainer : PanelContainer
         heroDescriptionButton.Disabled = false;
         spawnHeroButton.Show();
 
-        GD.Print("County Info Control Hero Token: " + populationData.heroToken);
+        //GD.Print("County Info Control Hero Token: " + populationData.heroToken);
         // This is only for the player's tokens.
         spawnHeroButton.ButtonPressed = populationData.heroToken != null;
     }

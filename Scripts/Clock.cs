@@ -157,21 +157,21 @@ public partial class Clock : Node
 
     public void PauseTime()
     {
-        GD.Print("Pause Time!");
-        GD.Print($"Modified Time: {TimeMultiplier} and Old Time Speed: {oldTimeMultiplier}.");
+        //GD.Print("Pause Time!");
+        //GD.Print($"Modified Time: {TimeMultiplier} and Old Time Speed: {oldTimeMultiplier}.");
         if (TimeMultiplier > 0)
         {
             oldTimeMultiplier = TimeMultiplier;
             TimeMultiplier = 0;
         }
         numberOfThingsPausing++;
-        GD.Print($"Modified Time: {TimeMultiplier} and Old Time Speed: {oldTimeMultiplier}.");
+        //GD.Print($"Modified Time: {TimeMultiplier} and Old Time Speed: {oldTimeMultiplier}.");
     }
 
     public void UnpauseTime()
     {
-        GD.Print("Unpause Time!");
-        GD.Print($"Modified Time: {TimeMultiplier} and Old Time Speed: {oldTimeMultiplier}.");
+        //GD.Print("Unpause Time!");
+        //GD.Print($"Modified Time: {TimeMultiplier} and Old Time Speed: {oldTimeMultiplier}.");
         numberOfThingsPausing--;
          if (numberOfThingsPausing == 0)
         {
@@ -192,7 +192,7 @@ public partial class Clock : Node
 
     public void PauseAndUnpause()
     {
-        GD.Print("Pause and Unpause has been fired!");
+        //GD.Print("Pause and Unpause has been fired!");
 
         if (TimeMultiplier > 0)
         {
@@ -205,7 +205,7 @@ public partial class Clock : Node
             (TimeMultiplier, oldTimeMultiplier) = (oldTimeMultiplier, TimeMultiplier);
             numberOfThingsPausing--;
         }
-        GD.Print($"Modified Time: {TimeMultiplier} and Old Time Speed: {oldTimeMultiplier}.");
+        //GD.Print($"Modified Time: {TimeMultiplier} and Old Time Speed: {oldTimeMultiplier}.");
     }
 
     protected virtual void OnDailyHourZeroSecondQuarter()

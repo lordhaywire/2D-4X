@@ -22,13 +22,7 @@ public partial class Faction : Node
         Clock.Instance.Weekly += Weekly;
     }
 
-    private void AfterDayStart()
-    {
-        if (factionData != Globals.Instance.playerFactionData)
-        {
-            FactionAI.DecideIfHeroUsesNewestEquipment(this);
-        }
-    }
+
 
     private void Weekly()
     {
@@ -100,6 +94,13 @@ public partial class Faction : Node
         */
     }
 
+    private void AfterDayStart()
+    {
+        if (factionData != Globals.Instance.playerFactionData)
+        {
+            FactionAI.DecideIfHeroUsesNewestEquipment(this);
+        }
+    }
     private void OnTreeExit()
     {
         Clock.Instance.DailyHourZeroFirstQuarter -= EndOfDay;

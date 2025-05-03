@@ -133,6 +133,7 @@ public partial class Globals : Node
     [Export] public int passiveResearchIncrease = 2;
     [Export] public int passiveResearchBonus = 1;
     [Export] public int daysUntilDamageFromStarvation = 15;
+    [Export] public int minDaysUntilServiceStarts = 1;
     [Export] public int maxDaysUntilServiceStarts = 8; // One above max.
     [Export] public int foodBeforeScavenge = 500; // Less than this amount will make people scavenge.
     [Export] public int remnantsBeforeScavenge = 500; // Less than this amount will make people scavenge.

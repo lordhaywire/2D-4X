@@ -40,7 +40,7 @@ public class Research
     /// 
     /// They can get passive research on the research item they are assigned to.
     /// 
-    /// Assign by Interest then by activity and if it can't find any research then assign 
+    /// Assign by Interest then by activity, and if it can't find any research, then assign 
     /// random passive research. This includes idle and moving.
     /// </summary>
     /// <param name="populationDataList"></param>
@@ -70,15 +70,10 @@ public class Research
         ResearchItemData researchItemData
             = GetRandomResearchByInterestType(populationData.factionData
                 , populationData.interestData.interestType);
-        /*
-        GD.Print($"{populationData.firstName} {populationData.interestData.name} " +
-            $"is having them research {researchItemData?.researchName}" +
-           $" : if this is blank then their interest doesn't match.");
-        */
         return researchItemData;
     }
 
-    // I think this needs to get changed to find a random research by interest type.
+    // I think this needs to get changed to find random research by interest type.
     /// <summary>
     /// I can't decide if I want the county population/heroes to research depending on what they are doing,
     /// or if they should just get random research after it assigns their interest research.
@@ -106,17 +101,17 @@ public class Research
                         , populationData.currentResearchItemData.interestData.interestType);
                 break;
             case AllEnums.Activities.Work:
-                GD.Print("Hero Faction Data: " + populationData.factionData.factionName);
-                GD.Print("Hero Current County Improvement/Interest Type: " + populationData.currentCountyImprovement.interestData.interestType);
                 whatPopulationIsResearching
                     = GetRandomResearchByInterestType(populationData.factionData
                         , populationData.currentCountyImprovement.interestData.interestType);
                 break;
             // If they are idle, scavenging, exploring or moving, they get random research.
-            case AllEnums.Activities.Recruit: // We probably eventually want this to research something to do with leadership.
-            case AllEnums.Activities.Recruited:    
+            case AllEnums.Activities.Recruit
+                : // We probably eventually want this to research something to do with leadership.
+            case AllEnums.Activities.Recruited:
             case AllEnums.Activities.Explore:
             case AllEnums.Activities.Scavenge:
+            case AllEnums.Activities.Service:
             case AllEnums.Activities.Idle:
             case AllEnums.Activities.Move:
                 whatPopulationIsResearching = GetLowestTierRandomResearch(populationData.factionData);
@@ -128,24 +123,25 @@ public class Research
             default:
                 throw new NotImplementedException("Josh says, No case in AssignResearchByActivity!");
         }
+
         return whatPopulationIsResearching;
     }
 
 
     /// <summary>
     /// Check to see if there is a research office that isn't getting used by a hero.
-    /// If a normal county population is using the research office it will show as available
+    /// If a normal county population is using the research office, it will show as available
     /// because the hero can replace them.
     /// </summary>
     /// <returns></returns>
-    public static Godot.Collections.Array<CountyImprovementData> 
+    public static Godot.Collections.Array<CountyImprovementData>
         GetListOfAvailableResearchOffices(FactionData factionData)
     {
         Godot.Collections.Array<CountyImprovementData> availableOffices = [];
         foreach (CountyImprovementData countyImprovementData in factionData.researchOffices)
         {
             // There can only be 1 person working at a research office currently.
-            if(countyImprovementData.populationAtImprovement.Count < 1)
+            if (countyImprovementData.populationAtImprovement.Count < 1)
             {
                 availableOffices.Add(countyImprovementData);
             }
@@ -158,7 +154,8 @@ public class Research
                 }
             }
         }
-        return availableOffices;    
+
+        return availableOffices;
     }
 
     public static Godot.Collections.Array<PopulationData>
@@ -176,8 +173,10 @@ public class Research
                 }
             }
         }
+
         return availableResearchers;
     }
+
     private static ResearchItemData GetLowestTierRandomResearch(FactionData factionData)
     {
         Random random = new();
@@ -199,10 +198,11 @@ public class Research
 
             randomResearchItemData = researchByLowestTier[random.Next(0, researchByLowestTier.Count)];
         }
+
         return randomResearchItemData;
     }
 
-    // I think this needs to get changed to find a random research by interest type.
+    // I think this needs to get changed to find random research by interest type.
     private static ResearchItemData GetRandomResearchByInterestType(FactionData factionData
         , AllEnums.InterestType interestType)
     {
@@ -217,11 +217,13 @@ public class Research
                 researchByInterestList.Add(researchItemData);
             }
         }
-        // This will return a random research by interest if the list is not null.
+
+        // This will return random research by interest if the list is not null.
         if (researchByInterestList.Count > 0)
         {
             researchItemDataByInterest = researchByInterestList[random.Next(0, researchByInterestList.Count)];
         }
+
         /*
         else
         {
@@ -237,7 +239,7 @@ public class Research
     {
         ResearchControl.Instance.assignedResearchers.Remove(populationData);
         populationData.currentResearchItemData = null;
-        // If the population isn't a hero then they must be working at a research office,
+        // If the population isn't a hero, then they must be working at a research office;
         // thus we need to make their activity be work.
         if (populationData.isHero == false)
         {
@@ -258,11 +260,13 @@ public class Research
             }
 
             int skillLevel = populationData.skills[populationData.passiveResearchItemData.skill].skillLevel;
-            int attributeLevel = populationData.attributes[populationData.skills[populationData.passiveResearchItemData.skill].attribute].attributeLevel;
+            int attributeLevel = populationData
+                .attributes[populationData.skills[populationData.passiveResearchItemData.skill].attribute]
+                .attributeLevel;
             int attributeBonus = AttributeData.GetAttributeBonus(attributeLevel, false, false);
-                
-            // If the skill check is passed then they researcher gets a research bonus.
-            if (SkillData.CheckWithBonuses(skillLevel, attributeBonus, 0 , 0)) // TODO: Perk Bonus
+
+            // If the skill check is passed, then they researcher gets a research bonus.
+            if (SkillData.CheckWithBonuses(skillLevel, attributeBonus, 0, 0)) // TODO: Perk Bonus
             {
                 populationData.passiveResearchItemData.AmountOfResearchDone
                     += Globals.Instance.passiveResearchIncrease + Globals.Instance.passiveResearchBonus;
@@ -277,9 +281,6 @@ public class Research
                 $" {populationData.passiveResearchItemData.researchName}: " +
                 $"{populationData.passiveResearchItemData.AmountOfResearchDone}");
             */
-
         }
     }
-
-
 }

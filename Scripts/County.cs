@@ -83,9 +83,12 @@ public partial class County : Node2D
         PopulationAI.IsThereEnoughFood(countyData); // This is a terrible name for this method.
 
         // This is a check for Occasional needs.
-        // Population uses other resources besides food.
+        // The Population uses other resources besides food.
         countyData.OccasionalNeeds();
 
+        // Check to see how long each recruit has been recruited before they enter service for real.
+        Recruiter.CheckForDaysRecruited(countyData);
+        
         // See if we can combine this into something else.
         GD.Print("County: " + countyData.countyName);
         countyData.CheckIfCountyImprovementsAreDone();
@@ -118,13 +121,13 @@ public partial class County : Node2D
         }
 
         // Add heroes to both prioritized hero builders and prioritized hero worker lists.
-        // We are doing this first because there aren't that many heroes that should be working, or building.
+        // We are doing this first because there aren't that many heroes that should be working or building.
         HeroWorkStart.AssignWorkingHeroesToPrioritizedLists(countyData);
 
         // If there is no prioritized construction or building, skip making the list.
         // Check for prioritized under construction improvements
         PopulationWorkStart.GeneratePrioritizedConstructionImprovementList(countyData);
-
+        GD.Print($"{countyData.countyName} : Prioritized Construction Improvement List Count: " + countyData.prioritizedConstructionImprovementList.Count);
         if (countyData.prioritizedConstructionImprovementList.Count > 0)
         {
             PopulationWorkStart.GeneratePrioritizedBuildersList(countyData);
@@ -138,10 +141,11 @@ public partial class County : Node2D
         // We don't need the prioritized builders list anymore, because we generate the idlePopulationList after this.
         PopulationWorkStart.ClearPrioritizedBuildersList(countyData);
 
-        // Check for prioritized work improvements.
+        // Create a list of prioritized working improvement.
         PopulationWorkStart.GeneratePrioritizedWorkImprovementList(countyData);
 
         // Assign people to the prioritized work improvements.
+        GD.Print($"{countyData.countyName} : Prioritized Work Improvement List Count: " + countyData.prioritizedWorkImprovementList.Count);
         if (countyData.prioritizedWorkImprovementList.Count > 0)
         {
             PopulationWorkStart.GeneratePrioritizedWorkersList(countyData);
