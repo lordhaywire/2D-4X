@@ -25,7 +25,7 @@ public partial class PopulationData : Resource
     [Export]
     public bool isHero;
 
-    [Export] public bool isWorker;
+    //[Export] public bool isWorker;
 
     [Export] private AllEnums.HeroType heroType;
 

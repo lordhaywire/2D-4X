@@ -52,7 +52,7 @@ public partial class ResearchItemData : Resource
         {
             foreach (CountyImprovementData countyImprovementData in countyImprovementDatas)
             {
-                FactionData factionData = FactionData.GetFactionDataFromID(factionID);
+                FactionData factionData = FactionData.GetFactionDataFromId(factionID);
                 //GD.Print($"This is where it breaks: {factionData.factionName} {countyImprovementData.improvementName}");
 
                 // This is to set the starting adjusted max builders and workers.

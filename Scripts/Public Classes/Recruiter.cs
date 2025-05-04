@@ -83,7 +83,7 @@ public static class Recruiter
             bool skillCheck = SkillData.CheckWithBonuses(populationData.skills[AllEnums.Skills.Leadership].skillLevel
                 , attributeBonus
                 , additionalBonus
-                , populationData.perks[AllEnums.Perks.LeaderOfPeople].perkBonus);
+                , PerkData.GetPerkBonus(populationData, AllEnums.Perks.LeaderOfPeople));
             // Person has been recruited. Random number of days before service starts will be generated.
             if (!skillCheck) return;
             recruitee.daysUntilServiceStarts = Globals.Instance.random.Next(Globals.Instance.minDaysUntilServiceStarts,
@@ -166,6 +166,16 @@ public static class Recruiter
                     recruitee.daysRecruited++;
                 }
             }
+        }
+    }
+
+    public static void FireSubordinatesInRecruitedActivity(PopulationData populationData)
+    {
+        foreach (PopulationData subordinate in populationData.heroSubordinates)
+        {
+            if (subordinate.activity != AllEnums.Activities.Recruited) continue;
+            populationData.heroSubordinates.Remove(subordinate);
+            subordinate.UpdateActivity(AllEnums.Activities.Idle);
         }
     }
 }

@@ -30,7 +30,7 @@ public partial class AllTokenTextures : Node
             return;
         }
         */
-        // We don't actually have 4 different textures, but we will at some point, which is why this is this way.
+        // We don't have 4 different textures, but we will at some point, which is why this is this way.
         switch (heroToken.populationData.HeroType)
         {
             case AllEnums.HeroType.Aide:

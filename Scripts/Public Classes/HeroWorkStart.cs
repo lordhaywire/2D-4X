@@ -10,7 +10,7 @@ public abstract class HeroWorkStart
     /// <param name="countyData"></param>
     public static void AssignWorkingHeroesToPrioritizedLists(CountyData countyData)
     {
-        GD.Print($"Assign Working Heroes To Prioritized Lists in {countyData.countyName} : HeroesInCountyList Count: {countyData.heroesInCountyList.Count}");
+        //GD.Print($"Assign Working Heroes To Prioritized Lists in {countyData.countyName} : HeroesInCountyList Count: {countyData.heroesInCountyList.Count}");
         foreach (PopulationData populationData in countyData.heroesInCountyList)
         {
             GD.Print($"{countyData.countyName}:{populationData.firstName} is {populationData.activity}");

@@ -108,7 +108,7 @@ public class Haulmaster
                 goodData.MaxAmount = countyData.nonperishableStorage
                     / Globals.Instance.numberOfNonperishableGoods;
             }
-            GD.Print($"AssignMaxStorageToGoods: {countyData.countyName} : {goodData.goodName}: {goodData.MaxAmount}");
+            //GD.Print($"AssignMaxStorageToGoods: {countyData.countyName} : {goodData.goodName}: {goodData.MaxAmount}");
         }
     }
 

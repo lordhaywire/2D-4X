@@ -95,7 +95,7 @@ public partial class PopulationGeneration : Node
                     personality = newPersonality,
                     iPersonality = AllEnums.AssignPersonalityInterfaces(newPersonality),
                     isHero = false,
-                    isWorker = false,
+                    //isWorker = false,
                     HeroType = AllEnums.HeroType.None,
                     heroSubordinates = [],
                     perks = GeneratePopulationPerks(),
@@ -126,10 +126,6 @@ public partial class PopulationGeneration : Node
             {
                 PopulationData newPopulationData = new()
                 {
-                    ResourceLocalToScene = false,
-                    ResourcePath = null,
-                    ResourceName = null,
-                    ResourceSceneUniqueId = null,
                     factionData = countyData.factionData,
                     location = countyData.countyId,
                     lastLocation = -1,
@@ -141,18 +137,17 @@ public partial class PopulationGeneration : Node
                     personality = newPersonality,
                     iPersonality = AllEnums.AssignPersonalityInterfaces(newPersonality),
                     isHero = true,
-                    isWorker = false,
-                    HeroType = AllEnums.HeroType.None,
+                    //isWorker = false, // Why is this true?
+                    HeroType = AllEnums.HeroType.FactionLeader,
                     numberOfSubordinatesWanted = 0,
-                    heroSubordinates = new(),
+                    heroSubordinates = [],
                     perks = GenerateLeaderPerks(),
                     hitPoints = Globals.Instance.startingHitPoints,
                     maxHitPoints = Globals.Instance.startingHitPoints,
                     moraleExpendable = GenerateExpendables(),
                     loyaltyBase = loyaltyBase,
                     LoyaltyAdjusted = loyaltyBase,
-                    happiness = random.Next(31,
-                        101),
+                    happiness = random.Next(31, 101), // Our leaders can be unhappy?
                     Happiness = 0,
                     daysEmployed = 0,
                     daysEmployedButIdle = 0,

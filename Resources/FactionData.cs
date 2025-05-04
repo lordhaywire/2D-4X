@@ -21,7 +21,7 @@ public partial class FactionData : Resource
     [Export] public Godot.Collections.Array<PopulationData> allHeroesList;// = [];
     [Export] public PopulationData factionLeader;
 
-    public Diplomacy diplomacy = new();
+    public readonly Diplomacy diplomacy = new();
 
     [Export] public Godot.Collections.Array<CountyImprovementData> allCountyImprovements;// = []; // This includes all county improvements, even possible ones.
 
@@ -34,15 +34,14 @@ public partial class FactionData : Resource
     [Export] public Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData> yesterdaysFactionGoods;// = [];
     [Export] public Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData> amountUsedFactionGoods;// = [];
 
-    [ExportGroup("Diplomatic Incidences")]
-    public List<War> wars = [];
+    public readonly List<War> wars = [];
 
     [ExportGroup("Diplomatic Matrix")]
     [Export] public Godot.Collections.Dictionary<string, bool> factionWarDictionary;// = [];
 
-    public static FactionData GetFactionDataFromID(int id)
+    public static FactionData GetFactionDataFromId(int id)
     {
-        //GD.Print("Faction ID that is trying to be used: " + id);
+        GD.Print("Faction ID that is trying to be used: " + id);
         Faction faction = (Faction)Globals.Instance.factionsParent.GetChild(id);
         return faction.factionData;
     }
@@ -51,7 +50,7 @@ public partial class FactionData : Resource
     // to see if the hero is already in the list.
     public void AddHeroToAllHeroesList(PopulationData populationData)
     {
-        // We need to double check that the hero isn't already in the list.
+        // We need to double-check that the hero isn't already in the list.
         if (!allHeroesList.Contains(populationData))
         {
             populationData.factionData.allHeroesList.Add(populationData);
@@ -102,7 +101,7 @@ public partial class FactionData : Resource
     }
     // Zero resources that are summed from each county.
     // Why not foreach this and skip the first two?
-    public void ZeroFactionCountyResources()
+    private void ZeroFactionCountyResources()
     {
         factionGoods[AllEnums.FactionGoodType.Food].Amount = 0;
         factionGoods[AllEnums.FactionGoodType.Remnants].Amount = 0;
@@ -153,7 +152,7 @@ public partial class FactionData : Resource
 
     public void SubtractFactionResources()
     {
-        // Do the math for amount used. Subtract yesterdays from todays and that is how much we have used.
+        // Do the math for amount used. Subtracted yesterday from today, and that is how much we have used.
         foreach (KeyValuePair<AllEnums.FactionGoodType, GoodData> keyValuePair in factionGoods)
         {
             amountUsedFactionGoods[keyValuePair.Key].Amount = factionGoods[keyValuePair.Key].Amount -
@@ -161,7 +160,7 @@ public partial class FactionData : Resource
         }
         if (isPlayer)
         {
-            //GD.Print("After subtraction yesterdays influence is: " + yesterdaysFactionResources[AllEnums.FactionResourceType.Influence].amount);
+            //GD.Print("After subtraction yesterday's influence is: " + yesterdaysFactionResources[AllEnums.FactionResourceType.Influence].amount);
         }
     }
 }

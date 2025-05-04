@@ -77,7 +77,7 @@ public partial class CountyInfoControl : Control
     }
 
     // This update everything needs to be looked at.
-    // When you click on a county it does this method.
+    // When you click on a county, it does this method.
     public void UpdateEverything()
     {
         countyData = Globals.Instance.SelectedLeftClickCounty?.countyData;
