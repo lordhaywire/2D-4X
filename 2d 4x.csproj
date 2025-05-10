@@ -4,4 +4,7 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>2d4x</RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Include="Scripts\UI\PopulationListUIElement.cs.uid" />
+  </ItemGroup>
 </Project>
