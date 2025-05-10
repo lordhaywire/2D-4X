@@ -22,6 +22,7 @@ public partial class Globals : Node
     [ExportGroup("Game Settings")]
     [Export] public bool startPaused;
     [Export] public bool turnOffStoryEvents;
+    [Export] public bool winAllBattles;
 
     [ExportGroup("Selected Items")]
     [Export] public int selectedCountyId = -1;

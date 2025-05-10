@@ -110,6 +110,7 @@ public partial class PopulationDescriptionControl : Control
         inventoryVBoxContainer.PopulateEquipment(populationData);
         subordinatesVBoxContainer.UpdateNumberOfSubordinates(populationData);
         subordinatesVBoxContainer.UpdateSubordinates(populationData.heroSubordinates);
+        subordinatesVBoxContainer.UpdateMaxSubordinates();
         ShowDefaultUiElements();
         CountyInfoControl.Instance.DisableSpawnHeroCheckButton(true);
         PlayerControls.Instance
@@ -161,7 +162,7 @@ public partial class PopulationDescriptionControl : Control
 
     private void UpdateHeroRecruitmentButtons()
     {
-        if (populationData.activity != AllEnums.Activities.Recruited) return;
+        if (populationData.activity != AllEnums.Activities.Recruited && populationData.activity != AllEnums.Activities.Service) return;
         aideRecruitButton.Hide();
         armyLeaderRecruitButton.Hide();
     }

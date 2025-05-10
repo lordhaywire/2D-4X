@@ -8,7 +8,6 @@ public partial class PopulationData : Resource
 {
     [Export] public FactionData factionData;
     [Export] public int location;
-
     [Export] public int lastLocation;
     [Export] public int destination;
 

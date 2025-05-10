@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
@@ -142,9 +143,9 @@ public static class Recruiter
                 .OrderBy(personData => personData.LoyaltyAdjusted)
                 .Take(numberToFire)
         ];
-        
+
         populationData.heroSubordinates = peopleToKeepSorted;
-        
+
         foreach (PopulationData peopleToFire in peopleToFireSorted)
         {
             peopleToFire.UpdateActivity(AllEnums.Activities.Idle);
@@ -171,11 +172,35 @@ public static class Recruiter
 
     public static void FireSubordinatesInRecruitedActivity(PopulationData populationData)
     {
+        List<PopulationData> peopleToRemove = [];
         foreach (PopulationData subordinate in populationData.heroSubordinates)
         {
             if (subordinate.activity != AllEnums.Activities.Recruited) continue;
-            populationData.heroSubordinates.Remove(subordinate);
+            peopleToRemove.Add(subordinate);
+        }
+        
+        RemovePeopleFromSubordinateList(peopleToRemove, populationData);
+    }
+
+    private static void RemovePeopleFromSubordinateList(List<PopulationData> peopleToRemove, PopulationData hero)
+    {
+        foreach (PopulationData subordinate in peopleToRemove)
+        {
+            hero.heroSubordinates.Remove(subordinate);
             subordinate.UpdateActivity(AllEnums.Activities.Idle);
         }
+    }
+
+    public static int GetMaxNumberOfRecruits(PopulationData populationData)
+    {
+         int charismaBonus = AttributeData.GetAttributeBonus(populationData.attributes[AllEnums.Attributes.Charisma].attributeLevel,
+                true, false);
+         int leadershipBonus = AttributeData.GetAttributeBonus(populationData.skills[AllEnums.Skills.Leadership].skillLevel,
+             true, false);
+         int leaderOfPeopleBonus = PerkData.GetPerkBonus(populationData, AllEnums.Perks.LeaderOfPeople);
+
+         int maxNumberOfRecruits = Math.Max(0, charismaBonus + leadershipBonus + leaderOfPeopleBonus);
+         
+         return maxNumberOfRecruits;
     }
 }

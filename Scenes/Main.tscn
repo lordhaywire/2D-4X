@@ -1943,12 +1943,13 @@ text = "Aux"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Subordinates VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer" node_paths=PackedStringArray("numberOfSubordinatesLabel", "numberOfSubordinatesSpinBox", "subordinatesListVBoxContainer")]
+[node name="Subordinates VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer" node_paths=PackedStringArray("numberOfSubordinatesLabel", "numberOfSubordinatesSpinBox", "maxSubordinatesLabel", "subordinatesListVBoxContainer")]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("119_mjyee")
 numberOfSubordinatesLabel = NodePath("Subordinates HBoxContainer/Number of Subordinates Label")
 numberOfSubordinatesSpinBox = NodePath("Subordinates HBoxContainer/Number of Subordinates SpinBox")
+maxSubordinatesLabel = NodePath("Subordinates HBoxContainer/Max Number of Subordinates")
 subordinatesListVBoxContainer = NodePath("Subordinates ScrollContainer/Subordinate VBoxContainer")
 subordinateButtonPackedScene = ExtResource("122_dwns0")
 
@@ -1969,6 +1970,10 @@ text = "PHRASE_NUMBER_OF_SUBORDINATES"
 [node name="Number of Subordinates SpinBox" type="SpinBox" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer/Subordinates HBoxContainer"]
 layout_mode = 2
 alignment = 1
+
+[node name="Max Number of Subordinates" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer/Subordinates HBoxContainer"]
+layout_mode = 2
+text = "/ 69"
 
 [node name="Subordinates ScrollContainer" type="ScrollContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer"]
 layout_mode = 2

@@ -14,13 +14,13 @@ public partial class AttributeData : Resource
     [Export] public int attributeLevel;
 
     /// <summary>
-    /// If a -1 is put in the attribute value then there is no bonus given.
+    /// If a -1 is put in the attribute value, then there is no bonus given.
     /// Return an int that is an attribute bonus.  It can return a negative, 10, or 1.
     /// The negative bool is there so that the bonuses are reversed, thus a good bonus would be a bad
-    /// bonus.  This is used for such things like needs where a high mental strength would give a
+    /// bonus.  This is used for such things like needs where high mental strength would give a
     /// bonus which needs to be a resistance.
     /// 
-    /// When the game runs loyalty is set which applies the attribute bonus to the check.
+    /// When the game runs, loyalty is set which applies the attribute bonus to the check.
     /// </summary>
     /// <param name="attributeLevel"></param>
     /// <param name="ones"></param>
@@ -32,7 +32,7 @@ public partial class AttributeData : Resource
         {
             return 0;
         }
-        // List of all of the ranges for attribute bonuses.
+        // List of all the ranges for attribute bonuses.
         List<(int min, int max, int bonus)> attributeBonuses =
         [
             (1, 10, -20),
@@ -46,7 +46,7 @@ public partial class AttributeData : Resource
             (91, 100, 20)
         ];
         int bonus = 0;
-        // If the number is between the min and the max it gets the bonus.
+        // If the number is between the min and the max, it gets the bonus.
         foreach ((int min, int max, int bonusValue) in attributeBonuses)
         {
             if (attributeLevel >= min && attributeLevel <= max)
@@ -55,12 +55,12 @@ public partial class AttributeData : Resource
                 break;
             }
         }
-        if(ones == true)
+        if(ones)
         {
             bonus /= 5;
         }
         // We are making the number negative if the passed in bool negative is true.
-        if (negative == true)
+        if (negative)
         {
             bonus *= -1;
         }

@@ -8,12 +8,10 @@ namespace PlayerSpace;
 public partial class BattleControl : Control
 {
     private readonly Random random = new();
-    [ExportGroup("Tokens")]
-    [Export] public Separator heroSeparator;
+    [ExportGroup("Tokens")] [Export] public Separator heroSeparator;
     [Export] public Separator armySeparator;
 
-    [ExportGroup("War")]
-    [Export] private TextureRect defenderTokenTextureRect;
+    [ExportGroup("War")] [Export] private TextureRect defenderTokenTextureRect;
     [Export] private TextureRect attackerTokenTextureRect;
 
     [Export] private Label defenderMoraleLabel;
@@ -32,11 +30,12 @@ public partial class BattleControl : Control
         CountyDictator.Instance.CaptureCounty(countyDefendersSelectToken.populationData.location
             , countyAttackerSelectToken.populationData.factionData);
     }
-    public void StartBattle(Battle currentbattle)
+
+    public void StartBattle(Battle currentBattle)
     {
         //GD.Print("Start Battle.");
 
-        battle = currentbattle;
+        battle = currentBattle;
         County selectCounty = (County)GetParent().GetParent();
 
         // How could any of the token's ever be equal to null?
@@ -67,6 +66,7 @@ public partial class BattleControl : Control
                 break;
             }
         }
+
         Show();
         SubscribeToHourChange();
     }
@@ -75,6 +75,7 @@ public partial class BattleControl : Control
     {
         Clock.Instance.HourChanged += HourlyBattleInCounty;
     }
+
     private void HourlyBattleInCounty()
     {
         //GD.Print("Hourly Battle.");
@@ -82,7 +83,10 @@ public partial class BattleControl : Control
         Attack(countyAttackerSelectToken.populationData, countyDefendersSelectToken.populationData, false);
 
         // County attacker attacks county defender.
-        countyAttackerSelectToken.populationData.moraleExpendable = 100; // This is just for testing.
+        if (Globals.Instance.winAllBattles)
+        {
+            countyAttackerSelectToken.populationData.moraleExpendable = 100; // This is just for testing. Cheat!
+        }
         Attack(countyDefendersSelectToken.populationData, countyAttackerSelectToken.populationData, true);
 
         ContinueBattleCheck();
@@ -99,6 +103,7 @@ public partial class BattleControl : Control
                                      $"{countyAttackerSelectToken.populationData.lastName} " +
                                      $"{Tr("PHRASE_LOST_BATTLE")}");
         }
+
         // Attacker has zero morale.
         if (countyAttackerSelectToken.populationData.moraleExpendable == 0)
         {
@@ -107,6 +112,7 @@ public partial class BattleControl : Control
                                      $"{countyAttackerSelectToken.populationData.lastName} " +
                                      $"{Tr("PHRASE_LOST_BATTLE")}");
         }
+
         // Defender has zero morale.
         if (countyDefendersSelectToken.populationData.moraleExpendable == 0)
         {
@@ -123,7 +129,6 @@ public partial class BattleControl : Control
         if (populationData.lastLocation == -1)
         {
             RandomNeighborMove(populationData);
-            return;
         }
         else
         {
@@ -142,7 +147,7 @@ public partial class BattleControl : Control
 
     private void RandomNeighborMove(PopulationData populationData)
     {
-        //GD.Print("Random Neighors Move!");
+        //GD.Print("Random Neighbors Move!");
         County selectCounty = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
         List<County> countyNeighbors = selectCounty.neighborCounties;
         County destinationCounty = FindFactionOwnedNeighborCounty(countyNeighbors, populationData);
@@ -160,7 +165,8 @@ public partial class BattleControl : Control
 
     private static County FindFactionOwnedNeighborCounty(List<County> countyNeighbors, PopulationData populationData)
     {
-        List<County> eligibleCounties = [.. countyNeighbors.Where(c => c.countyData.factionData == populationData.factionData)];
+        List<County> eligibleCounties =
+            [.. countyNeighbors.Where(c => c.countyData.factionData == populationData.factionData)];
 
         if (eligibleCounties.Count > 0)
         {
@@ -191,13 +197,15 @@ public partial class BattleControl : Control
     private void Attack(PopulationData gettingShotAtPopulation, PopulationData shootingPopulation, bool isAttacker)
     {
         int skillLevel = shootingPopulation.skills[AllEnums.Skills.Rifle].skillLevel;
-        int attributeLevel = shootingPopulation.attributes[shootingPopulation.skills[AllEnums.Skills.Rifle].attribute].attributeLevel;
+        int attributeLevel = shootingPopulation.attributes[shootingPopulation.skills[AllEnums.Skills.Rifle].attribute]
+            .attributeLevel;
         int attributeBonus = AttributeData.GetAttributeBonus(attributeLevel, false, false);
 
-        if (SkillData.CheckWithBonuses(skillLevel, attributeLevel, 0, 0) == true) // TODO: Perk Bonus
+        if (SkillData.CheckWithBonuses(skillLevel, attributeLevel, 0, 0)) // TODO: Perk Bonus
         {
             int gettingShotAtSkillLevel = gettingShotAtPopulation.skills[AllEnums.Skills.Cool].skillLevel;
-            int gettingShotAtAttributeLevel = gettingShotAtPopulation.attributes[gettingShotAtPopulation.skills[AllEnums.Skills.Cool].attribute].attributeLevel;
+            int gettingShotAtAttributeLevel = gettingShotAtPopulation
+                .attributes[gettingShotAtPopulation.skills[AllEnums.Skills.Cool].attribute].attributeLevel;
             int gettingShotAtAttributeBonus = AttributeData.GetAttributeBonus(attributeLevel, false, false);
             BattleLogControl.Instance.AddLog
                 ($"{shootingPopulation.firstName} {shootingPopulation.lastName} {Tr("PHRASE_HAS_HIT")}.", isAttacker);
@@ -214,8 +222,10 @@ public partial class BattleControl : Control
             else
             {
                 BattleLogControl.Instance.AddLog($"{gettingShotAtPopulation.firstName} " +
-                                                 $"{gettingShotAtPopulation.lastName} {Tr("PHRASE_ISNT_SCARED")}.", !isAttacker);
+                                                 $"{gettingShotAtPopulation.lastName} {Tr("PHRASE_ISNT_SCARED")}.",
+                    !isAttacker);
             }
+
             attackerMoraleLabel.Text = countyAttackerSelectToken.populationData.moraleExpendable.ToString();
             defenderMoraleLabel.Text = countyDefendersSelectToken.populationData.moraleExpendable.ToString();
         }
@@ -225,12 +235,13 @@ public partial class BattleControl : Control
                                              $"{shootingPopulation.lastName} {Tr("WORD_MISSED")}.", isAttacker);
         }
 
-        // Check if rifle experience is learned by the attacker.
+        // Check if the attacker learns rifle experience.
         SkillData.LearningCheck(shootingPopulation, false);
 
-        // Check if the defenders cool skill learns anything.
+        // Check if the defender's cool skill learns anything.
         SkillData.LearningCheck(gettingShotAtPopulation, true);
     }
+
     private static void ButtonUp()
     {
         //GD.Print("Battle Log Control Clicked.");

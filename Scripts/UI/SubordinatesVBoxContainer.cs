@@ -8,12 +8,13 @@ public partial class SubordinatesVBoxContainer : VBoxContainer
     private PopulationData populationData;
     [Export] private Label numberOfSubordinatesLabel;
     [Export] private SpinBox numberOfSubordinatesSpinBox;
+    [Export] private Label maxSubordinatesLabel;
     [Export] private VBoxContainer subordinatesListVBoxContainer;
     [Export] private PackedScene subordinateButtonPackedScene;
 
     public void UpdateNumberOfSubordinates(PopulationData population)
     {
-        // When the population description control is visible it runs this method which sets the populationData
+        // When the population description control is visible, it runs this method which sets the populationData
         // in this script.
         populationData = population;
         numberOfSubordinatesLabel.Text = $"{Tr("PHRASE_NUMBER_OF_SUBORDINATES")}: {population.heroSubordinates.Count} /";
@@ -28,6 +29,12 @@ public partial class SubordinatesVBoxContainer : VBoxContainer
         PopulationDescriptionControl.Instance.UpdateDescriptionInfo();
     }
 
+    public void UpdateMaxSubordinates()
+    {
+        int maxNumberOfRecruits = Recruiter.GetMaxNumberOfRecruits(populationData);
+        maxSubordinatesLabel.Text = $" / {maxNumberOfRecruits}";
+        numberOfSubordinatesSpinBox.MaxValue = maxNumberOfRecruits;
+    }
     public void UpdateSubordinates(Godot.Collections.Array<PopulationData> heroSubordinates)
     {
         ClearSubordinateButtons();
