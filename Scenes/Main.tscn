@@ -58,7 +58,7 @@
 [ext_resource type="Script" uid="uid://cv0yvwdbhg5f" path="res://Scripts/UI/PopAndIdleButtons.cs" id="28_celvx"]
 [ext_resource type="Script" uid="uid://bw5d3f13w26s5" path="res://Scripts/CountyDictator.cs" id="28_qe8u4"]
 [ext_resource type="Resource" uid="uid://b25ofn4b1igjp" path="res://Resources/Skills/Research.tres" id="29_8u7ma"]
-[ext_resource type="Script" uid="uid://dwh5sadg6dkdl" path="res://Scripts/UI/PopulationListUiElement.cs" id="29_ts64q"]
+[ext_resource type="Script" path="res://Scripts/UI/PopulationListUiElement.cs" id="29_ts64q"]
 [ext_resource type="Resource" uid="uid://bkqqewiydjtb2" path="res://Resources/Attributes/Looks.tres" id="29_xoqji"]
 [ext_resource type="PackedScene" uid="uid://djph5cv7o4atl" path="res://Scenes/UI/PopulationRowButton.tscn" id="30_bhu5o"]
 [ext_resource type="Resource" uid="uid://dfbunjvsc63da" path="res://Resources/Skills/Rifle.tres" id="30_d528s"]
@@ -213,10 +213,8 @@ leaderOfPeopleInfluenceBonus = 5
 startPaused = true
 turnOffStoryEvents = true
 mapColorCoded = ExtResource("2_h1vmt")
-countiesParent = NodePath("../../Counties")
 minimumCountyPop = 5
 maximumCountyPop = 10
-factionsParent = NodePath("../../Factions")
 minimumFood = 100
 startingPerishableStorage = 1000
 startingNonperishableStorage = 1000
@@ -225,6 +223,8 @@ heroToken = SubResource("PackedScene_mjyee")
 spawnedTokenButton = SubResource("PackedScene_0j4c6")
 movementSpeed = 1
 costOfHero = 500
+countiesParent = NodePath("../../Counties")
+factionsParent = NodePath("../../Factions")
 
 [node name="User Folder Controller" type="Node" parent="Game Controller Node"]
 script = ExtResource("7_fr5hn")
@@ -322,9 +322,9 @@ offset_right = 1920.0
 grow_vertical = 0
 vertical_scroll_mode = 2
 script = ExtResource("43_w0p1n")
+eventLogPanel = ExtResource("44_du832")
 eventLogScrollContainer = NodePath(".")
 eventLogVBoxContainer = NodePath("VBoxContainer")
-eventLogPanel = ExtResource("44_du832")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Event Log ScrollContainer"]
 layout_mode = 2
@@ -720,6 +720,7 @@ size_flags_horizontal = 2
 size_flags_vertical = 0
 mouse_filter = 2
 script = ExtResource("26_8qp8l")
+heroListPrefab = ExtResource("27_03q5w")
 countyInfoControl = NodePath(".")
 factionNameLabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer/Faction Name Label")
 countyNameLabel = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Faction and County Title VBoxContainer/County Name Label")
@@ -737,7 +738,6 @@ populationListButton = NodePath("MarginContainer/County Info and Selected Hero H
 visitorsListButton = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Pop and Idle Workers VBoxContainer/Visitors List Button")
 countyImprovementsButton = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/County Improvements Button")
 resourcesButton = NodePath("MarginContainer/County Info and Selected Hero HBoxContainer/County and Heroes VBoxContainer/County Info Panel/County Title MarginContainer/VBoxContainer2/Goods Button")
-heroListPrefab = ExtResource("27_03q5w")
 
 [node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/County Info Control"]
 layout_mode = 1
@@ -1035,13 +1035,13 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("50_5cg3n")
 script = ExtResource("54_ia1o5")
+storageHBoxPackedScene = ExtResource("53_xnh1n")
 negativeStoragePanelContainer = NodePath("Negative Storage PanelContainer")
 countyNameTitleLabel = NodePath("VBoxContainer/County Name Title Label")
 currentPerishableAvailableLabel = NodePath("VBoxContainer/Available Storage HBoxContainer/Current Perishable Amount Available Label")
 maxPerishableAmountAvailableLabel = NodePath("VBoxContainer/Available Storage HBoxContainer/Max Perishable Max Amount Available Label")
 currentNonperishableAvailableLabel = NodePath("VBoxContainer/Available Storage HBoxContainer/Current Nonperishable Amount Available Label")
 maxNonperisableAmountAvailableLabel = NodePath("VBoxContainer/Available Storage HBoxContainer/Max Nonperishable Max Amount Available Label")
-storageHBoxPackedScene = ExtResource("53_xnh1n")
 perishableVboxParent = NodePath("MarginContainer/All Resources VBoxContainer/Perishable VBoxContainer")
 nonperishableVboxParent = NodePath("MarginContainer/All Resources VBoxContainer/Nonperishable VBoxContainer")
 
@@ -1175,8 +1175,8 @@ size_flags_horizontal = 8
 mouse_filter = 0
 theme = ExtResource("50_5cg3n")
 script = ExtResource("29_ts64q")
-populationListParent = NodePath("Population List PanelContainer/Population VBoxContainer")
 populationRowButtonPackedScene = ExtResource("30_bhu5o")
+populationListParent = NodePath("Population List PanelContainer/Population VBoxContainer")
 populationListTitle = NodePath("Population List PanelContainer/Population VBoxContainer/Population Title Label")
 
 [node name="Population List PanelContainer" type="PanelContainer" parent="Player UI Canvas/Population List MarginContainer"]
@@ -1373,6 +1373,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("50_5cg3n")
 script = ExtResource("31_hwyyh")
+perkLabel = ExtResource("68_6cv3c")
 populationName = NodePath("MarginContainer/PanelContainer/Population Name Label")
 leaderTitleButton = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Titles HBoxContainer/Faction Leader Title Button")
 aideTitleButton = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Titles HBoxContainer/Aide Title Button")
@@ -1389,7 +1390,6 @@ loyaltyAttributeLabel = NodePath("MarginContainer/PanelContainer/MarginContainer
 ageLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Age Label")
 sexLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Left VBoxContainer/Sex Label")
 perksParent = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Perks HBoxContainer")
-perkLabel = ExtResource("68_6cv3c")
 skillsGridContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer")
 interestLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Interest Label")
 preferredWorkLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Preferred Work Label")
@@ -1947,11 +1947,11 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("119_mjyee")
+subordinateButtonPackedScene = ExtResource("122_dwns0")
 numberOfSubordinatesLabel = NodePath("Subordinates HBoxContainer/Number of Subordinates Label")
 numberOfSubordinatesSpinBox = NodePath("Subordinates HBoxContainer/Number of Subordinates SpinBox")
 maxSubordinatesLabel = NodePath("Subordinates HBoxContainer/Max Number of Subordinates")
 subordinatesListVBoxContainer = NodePath("Subordinates ScrollContainer/Subordinate VBoxContainer")
-subordinateButtonPackedScene = ExtResource("122_dwns0")
 
 [node name="Subordinates Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer"]
 layout_mode = 2
@@ -2053,10 +2053,10 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("35_10y8n")
 combatLogScene = ExtResource("44_qsgen")
+maxLines = 50
 battleLogControlTitle = NodePath("MarginContainer/PanelContainer/Battle Log Title Label")
 defenderVboxContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/MarginContainer/ScrollContainer/Defender VBoxContainer")
 attackerVboxContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/MarginContainer/ScrollContainer/Attacker VBoxContainer")
-maxLines = 50
 
 [node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Battle Log Control"]
 layout_mode = 1
@@ -2167,11 +2167,11 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("37_rkirm")
+countyImprovementPanelContainerPackedScene = ExtResource("119_kkhw7")
 possibleImprovementsScrollContainerParent = NodePath("County Improvements MarginContainer/County Improvements PanelContainer/MarginContainer/HBoxContainer/Possible Improvement Title VBoxContainer/Possible Building ScrollContainer/Possible Buildings VBoxContainer")
 currentImprovementsScrollContainerParent = NodePath("County Improvements MarginContainer/County Improvements PanelContainer/MarginContainer/HBoxContainer/Current Improvement Title VBoxContainer/Current Building ScrollContainer/Current Buildings VBoxContainer")
 buildConfirmationDialog = NodePath("County Improvements MarginContainer/Build ConfirmationDialog")
 removeCountyImprovementConfirmationPanelContainer = NodePath("County Improvements MarginContainer/Remove County Improvement Confirmation PanelContainer")
-countyImprovementPanelContainerPackedScene = ExtResource("119_kkhw7")
 
 [node name="Background ColorRect" type="ColorRect" parent="Player UI Canvas/County Improvements Control"]
 layout_mode = 1
@@ -2318,11 +2318,11 @@ mouse_filter = 1
 theme = ExtResource("50_5cg3n")
 script = ExtResource("40_t5amt")
 researchItemButton = ExtResource("62_nohy5")
+assignedResearchersButton = ExtResource("62_dhpbg")
 assignedResearchersTitleLabel = NodePath("Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/Assigned Researchers Title Label")
 tierOneResearchItemParent = NodePath("Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 1 Research Items VBoxContainer")
 tierTwoResearchItemParent = NodePath("Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 2 Research Items VBoxContainer")
 tierThreeResearchItemParent = NodePath("Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Tier 3 Research Items VBoxContainer")
-assignedResearchersButton = ExtResource("62_dhpbg")
 assignedResearchersParent = NodePath("Research MarginContainer/Research PanelContainer/MarginContainer/VBoxContainer/Assigned Researcher GridContainer")
 
 [node name="Research MarginContainer" type="MarginContainer" parent="Player UI Canvas/Research Control"]
@@ -2414,16 +2414,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("41_77kvj")
+researchPrerequisiteLabelPackedScene = ExtResource("124_veo43")
+countyImprovementResearchPackedScene = ExtResource("119_kkhw7")
 researchName = NodePath("MarginContainer/HBoxContainer/Research Panel/VBoxContainer/Research Name")
 researchTextureRect = NodePath("MarginContainer/HBoxContainer/Research Panel/VBoxContainer/Research TextureRect")
 researchDescription = NodePath("MarginContainer/HBoxContainer/Research Panel/VBoxContainer/Research Description Label")
 researchProgressBar = NodePath("MarginContainer/HBoxContainer/Research Panel/VBoxContainer/Research ProgressBar")
 researchPrerequisitesTitleLabel = NodePath("MarginContainer/HBoxContainer/Research Panel/VBoxContainer/Research Prerequisites Title Label")
-researchPrerequisiteLabelPackedScene = ExtResource("124_veo43")
 prerequisitesParent = NodePath("MarginContainer/HBoxContainer/Research Panel/VBoxContainer/Prerequisites VBoxContainer")
 costOfResearchLabel = NodePath("MarginContainer/HBoxContainer/Research Panel/VBoxContainer/Total Cost of Research Label")
 countyImprovementsInResearchParent = NodePath("MarginContainer/HBoxContainer/County Improvement VBoxContainer/ScrollContainer/County Improvement In Research Parent VBoxContainer")
-countyImprovementResearchPackedScene = ExtResource("119_kkhw7")
 assignResearcherMenuButton = NodePath("MarginContainer/HBoxContainer/Research Panel/VBoxContainer/Assign Research MenuButton")
 
 [node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Research Description PanelContainer"]
