@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=10 format=3 uid="uid://bkakbc8lqeex4"]
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=10 format=3 uid="uid://bkakbc8lqeex4"]
 
 [ext_resource type="Texture2D" uid="uid://bpj5td645dmvi" path="res://Graphics/County Improvements/spade.svg" id="1_b2i5i"]
 [ext_resource type="Resource" uid="uid://bhmwj5yptebic" path="res://Resources/Goods/Remnants.tres" id="1_urcy4"]

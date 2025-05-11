@@ -1,20 +1,28 @@
 ﻿,en,es
-ACTIVITY_SERVICE_TOOLTIP,Following a leader as a subordinate.,Seguir a un líder como subordinado.
 ACTIVITY_BUILD_DESCRIPTION,This is the description for build.,Esta es la descripción de la compilación.
 ACTIVITY_BUILD_NAME,Build,Construir
 ACTIVITY_BUILD_TOOLTIP,This is the tooltip for build.,Esta es la información sobre herramientas para la compilación.
 ACTIVITY_COMBAT_DESCRIPTION,This is the description for combat.,Esta es la descripción para el combate.
 ACTIVITY_COMBAT_NAME,Combat,Combate
 ACTIVITY_COMBAT_TOOLTIP,This is the tooltip for combat.,Esta es la descripción del combate.
+ACTIVITY_EXPLORE_DESCRIPTION,The act of discovering new areas.,El acto de descubrir nuevas áreas.
+ACTIVITY_EXPLORE_NAME,Explore,Explorar
+ACTIVITY_EXPLORE_TOOLTIP,The act of discovering new areas.,El acto de descubrir nuevas áreas.
 ACTIVITY_IDLE_DESCRIPTION,This is the description for idle.,Esta es la descripción de inactivo.
 ACTIVITY_IDLE_NAME,Idle,Ocioso
 ACTIVITY_IDLE_TOOLTIP,This is the tooltip for idle.,Esta es la información sobre herramientas para inactivo.
 ACTIVITY_MOVE_DESCRIPTION,This is the description for move.,Esta es la descripción de move.
 ACTIVITY_MOVE_NAME,Move,Mover
 ACTIVITY_MOVE_TOOLTIP,This is the tooltip for move.,Esta es la información sobre herramientas para moverse.
+ACTIVITY_MUSTER_DESCRIPTION,The process of gather subordinates.,El proceso de reunir a los subordinados.
+ACTIVITY_MUSTER_NAME,Muster,Reunir
+ACTIVITY_MUSTER_TOOLTIP,The process of gather subordinates.,El proceso de reunir a los subordinados.
 ACTIVITY_RECRUIT_DESCRIPTION,Enlisting someone to serve a leader.,Reclutar a alguien para que sirva a un líder.
 ACTIVITY_RECRUIT_NAME,Recruit,Reclutar
 ACTIVITY_RECRUIT_TOOLTIP,Enlisting someone to serve a leader.,Reclutar a alguien para que sirva a un líder.
+ACTIVITY_RECRUITED_DESCRIPTION,This person is gathering their belongings to begin work for a leader.,Esta persona está reuniendo sus pertenencias para comenzar a trabajar para un líder.
+ACTIVITY_RECRUITED_NAME,Recruited,Reclutado
+ACTIVITY_RECRUITED_TOOLTIP,This person is gathering their belongings to begin work for a leader.,Esta persona está reuniendo sus pertenencias para comenzar a trabajar para un líder.
 ACTIVITY_RESEARCH_DESCRIPTION,This is the description for research.,Esta es la descripción de la investigación.
 ACTIVITY_RESEARCH_NAME,Research,Investigación
 ACTIVITY_RESEARCH_TOOLTIP,This is the tooltip for research.,Esta es la información sobre herramientas para la investigación.
@@ -23,6 +31,10 @@ ACTIVITY_SCAVENGE_NAME,Scavenge,Recoger la basura
 ACTIVITY_SCAVENGE_TOOLTIP,This is the tooltip for scavenge.,Esta es la descripción emergente de la búsqueda.
 ACTIVITY_SERVICE_DESCRIPTION,Following a leader as a subordinate.,Seguir a un líder como subordinado.
 ACTIVITY_SERVICE_NAME,Service,Servicio
+ACTIVITY_SERVICE_TOOLTIP,Following a leader as a subordinate.,Seguir a un líder como subordinado.
+ACTIVITY_TRAIN_DESCRIPTION,Making the heroes subordinates improve their skills.,Hacer que los subordinados de los héroes mejoren sus habilidades.
+ACTIVITY_TRAIN_NAME,Train,Tren
+ACTIVITY_TRAIN_TOOLTIP,Making the heroes subordinates improve their skills.,Hacer que los subordinados de los héroes mejoren sus habilidades.
 ACTIVITY_WORK_DESCRIPTION,This is the description for work.,Esta es la descripción del trabajo.
 ACTIVITY_WORK_NAME,Work,Trabajo
 ACTIVITY_WORK_TOOLTIP,This is the tooltip for work.,Esta es la información sobre herramientas para el trabajo.
@@ -156,6 +168,7 @@ PHRASE_REMOVE_IMPROVEMENT,Remove Improvement,Eliminar mejora
 PHRASE_RESEARCH_COST,Research Cost,Coste de investigación
 PHRASE_RESEARCH_FOR,Research for,Investigación para
 PHRASE_RESEARCH_PROGRESS,Research Progress,Avances en la investigación
+PHRASE_RETURNING_TO,Returning to,Volviendo a
 PHRASE_THERE_IS_NEGATIVE_STORAGE,There is negative storage!,¡Hay almacenamiento negativo!
 PHRASE_UNDER_CONSTRUCTION,Under Construction,En obra
 PHRASE_USE_REMNANTS_FOR_CONSTRUCTION,Use Remnants for construction,Usar remanentes para la construcción
@@ -234,16 +247,15 @@ WORD_TITLES,Titles,Títulos
 WORD_TRAIN,Train - THIS IS AN ACTIVITY,Tren
 WORD_VISITORS,Visitors,Visitantes
 WORD_WORK,Work- THIS IS AN ACTIVITY,Trabajo
-ACTIVITY_EXPLORE_DESCRIPTION,The act of discovering new areas.,El acto de descubrir nuevas áreas.
-ACTIVITY_EXPLORE_NAME,Explore,Explorar
-ACTIVITY_EXPLORE_TOOLTIP,The act of discovering new areas.,El acto de descubrir nuevas áreas.
-ACTIVITY_MUSTER_DESCRIPTION,The process of gather subordinates.,El proceso de reunir a los subordinados.
-ACTIVITY_MUSTER_NAME,Muster,Reunir
-ACTIVITY_MUSTER_TOOLTIP,The process of gather subordinates.,El proceso de reunir a los subordinados.
-ACTIVITY_TRAIN_DESCRIPTION,Making the heroes subordinates improve their skills.,Hacer que los subordinados de los héroes mejoren sus habilidades.
-ACTIVITY_TRAIN_NAME,Train,Tren
-ACTIVITY_TRAIN_TOOLTIP,Making the heroes subordinates improve their skills.,Hacer que los subordinados de los héroes mejoren sus habilidades.
-PHRASE_RETURNING_TO,Returning to,Volviendo a
-ACTIVITY_RECRUITED_NAME,Recruited,Reclutado
-ACTIVITY_RECRUITED_DESCRIPTION,This person is gathering their belongings to begin work for a leader.,Esta persona está reuniendo sus pertenencias para comenzar a trabajar para un líder.
-ACTIVITY_RECRUITED_TOOLTIP,This person is gathering their belongings to begin work for a leader.,Esta persona está reuniendo sus pertenencias para comenzar a trabajar para un líder.
+WORD_EXPLORED,Explored,Explorado
+PHRASE_SCAVENGEABLE_GOODS,Scavengeable Goods,Bienes recuperables
+PHRASE_IDLE_WORKERS,Idle Workers,Trabajadores inactivos
+TERRAIN_NAME_COAST,Coast,Costa
+TERRAIN_NAME_DESERT,Desert,Desierto
+TERRAIN_NAME_FOREST,Forest,Bosque
+TERRAIN_NAME_MOUNTAIN,Mountain,Montaña
+TERRAIN_NAME_PLAIN,Plain,Llanura
+TERRAIN_NAME_RIVER,River,Río
+TERRAIN_NAME_RUIN,Ruin,Ruina
+TERRAIN_NAME_SWAMP,Swamp,Pantano
+PHRASE_PERCENTAGE_EXPLORED,Percentage Explore,Porcentaje de exploración

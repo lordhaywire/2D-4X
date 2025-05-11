@@ -19,7 +19,9 @@ public partial class CountyGeneration : Node
             Haulmaster.AssignMaxStorageToGoods(county.countyData);
         }
         AssignStartingGoodsToCounty();
-
+        
+        // Test reading ruin story events from disk.
+        StoryEventList.Instance.GetExplorationEventsFromDisk();
     }
 
     private void AssignStartingGoodsToCounty()
@@ -42,19 +44,19 @@ public partial class CountyGeneration : Node
         foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
         {
             CopyAndAssignGoods(county.countyData, AllGoods.Instance.allGoods);
-            UpdateScavengableResources(county);
+            UpdateScavengeableResources(county);
         }
     }
 
-    private static void UpdateScavengableResources(County county)
+    private static void UpdateScavengeableResources(County county)
     {
         county.countyData.scavengeableCannedFood = Globals.Instance.maxScavengeableFood;
         county.countyData.scavengeableRemnants = Globals.Instance.maxScavengeableScrap;
     }
 
-    private static void CopyAndAssignGoods(CountyData countyData, GoodData[] AllGoods)
+    private static void CopyAndAssignGoods(CountyData countyData, GoodData[] allGoods)
     {
-        foreach (GoodData goodData in AllGoods)
+        foreach (GoodData goodData in allGoods)
         {
             if (goodData.countyGoodType != AllEnums.CountyGoodType.None)
             {
@@ -70,9 +72,7 @@ public partial class CountyGeneration : Node
     {
         // Cowlitz
         County selectCounty = (County)Globals.Instance.countiesParent.GetChild(0);
-        //GD.Print("Assigning Faction data: " + Globals.Instance.factionDatas[0].factionName);
         selectCounty.countyData.factionData = Globals.Instance.allFactionData[0];
-        //GD.Print("Assigned Faction Data: " + selectCounty.countyData.factionData.factionName);
         // Tillamook
         selectCounty = (County)Globals.Instance.countiesParent.GetChild(1);
         selectCounty.countyData.factionData = Globals.Instance.allFactionData[1];
@@ -95,13 +95,11 @@ public partial class CountyGeneration : Node
 
     private static void AssignCountyDataToFaction()
     {
-        // This goes through every county and adds itself to the faction data that is already assigned to the county.
+        // This goes through every county and adds itself to the faction data already assigned to the county.
         foreach (County selectCounty in Globals.Instance.countiesParent.GetChildren().Cast<County>())
         {
             selectCounty.countyData.factionData.countiesFactionOwns.Add(selectCounty.countyData);
             //GD.Print($"Faction: {selectCounty.countyData.factionData.factionName} {selectCounty.countyData.countyName}");
         }
     }
-
-
 }

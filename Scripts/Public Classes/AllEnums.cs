@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Godot;
 
 namespace PlayerSpace;
 
@@ -179,8 +181,27 @@ public class AllEnums
         Plain,
         River,
         Ruin,
+        Swamp,
     }
 
+    public static string GetTerrainName(Terrain terrain)
+    {
+        List<String> terrainStrings =
+        [
+            $"{TranslationServer.Translate("TERRAIN_NAME_COAST")}",
+            $"{TranslationServer.Translate("TERRAIN_NAME_DESERT")}",
+            $"{TranslationServer.Translate("TERRAIN_NAME_FOREST")}",
+            $"{TranslationServer.Translate("TERRAIN_NAME_MOUNTAIN")}",
+            $"{TranslationServer.Translate("TERRAIN_NAME_PLAIN")}",
+            $"{TranslationServer.Translate("TERRAIN_NAME_RIVER")}",
+            $"{TranslationServer.Translate("TERRAIN_NAME_RUIN")}",
+            $"{TranslationServer.Translate("TERRAIN_NAME_SWAMP")}",
+            
+            
+            
+        ];
+        return terrainStrings[(int)terrain];
+    }
     public static int GetCorrectEquipmentSlot(EquipmentType equipmentType)
     {
         int equipmentSlot = (int)equipmentType - 1;

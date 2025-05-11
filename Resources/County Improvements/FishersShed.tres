@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=7 format=3 uid="uid://bads4woc5toep"]
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=7 format=3 uid="uid://bads4woc5toep"]
 
 [ext_resource type="Texture2D" uid="uid://d38i5xsjnfnfq" path="res://Graphics/County Improvements/fishing-pole.svg" id="1_3xigu"]
 [ext_resource type="Resource" uid="uid://bojgmxcwswihv" path="res://Resources/Interests/Biology.tres" id="2_h1ekr"]

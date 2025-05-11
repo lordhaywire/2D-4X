@@ -10,6 +10,10 @@ public partial class CountyInfoControl : Control
     [Export] public Control countyInfoControl;
     [Export] public Label factionNameLabel;
     [Export] public Label countyNameLabel;
+    [Export] private Label percentageExploredLabel;
+    [Export] private Label primaryTerrainLabel;
+    [Export] private Label secondaryTerrainLabel;
+    [Export] private Label tertiaryTerrainLabel;
     [Export] private Label countyFoodLabel;
     [Export] private Label countyScrapLabel;
     [Export] private Label populationDataNumberLabel;
@@ -40,7 +44,7 @@ public partial class CountyInfoControl : Control
 
     private void OnVisibilityChanged()
     {
-        // Idle workers changes if we change who is building stuff etc.
+        // Idle workers changes if we change who is building stuff, etc.
         if (Visible)
         {
             Globals.Instance.SelectedLeftClickCounty.countyData.CountIdleWorkers();
@@ -88,6 +92,8 @@ public partial class CountyInfoControl : Control
 
         CheckForOwnership();
         UpdateNameLabels();
+        UpdatePercentageExplored();
+        UpdateTerrain();
         UpdateCountyAvailableResources();
         UpdateCountyPopulationLabel();
         UpdateVisitorsPopulationLabel();
@@ -95,10 +101,25 @@ public partial class CountyInfoControl : Control
         GenerateHeroesPanelList();
     }
 
+    private void UpdateTerrain()
+    {
+        primaryTerrainLabel.Text = AllEnums.GetTerrainName(countyData.primaryTerrain);
+        secondaryTerrainLabel.Text = AllEnums.GetTerrainName(countyData.secondaryTerrain);
+        tertiaryTerrainLabel.Text = AllEnums.GetTerrainName(countyData.tertiaryTerrain);
+    }
+
+    /// <summary>
+    /// Temporary fake number just to see if it is working.
+    /// </summary>
+    private void UpdatePercentageExplored()
+    {
+        percentageExploredLabel.Text = $"42 {Tr("PHRASE_PERCENTAGE_EXPLORED")}";
+    }
+
     public void UpdateCountyAvailableResources()
     {
-        countyFoodLabel.Text = $"Food: {countyData.scavengeableCannedFood}";
-        countyScrapLabel.Text = $"Remnants: {countyData.scavengeableRemnants}";
+        countyFoodLabel.Text = $"{Tr("GOOD_FOOD")}: {countyData.scavengeableCannedFood}";
+        countyScrapLabel.Text = $"{Tr("GOOD_REMNANTS")}: {countyData.scavengeableRemnants}";
     }
 
     private void UpdateVisitorsPopulationLabel()

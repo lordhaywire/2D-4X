@@ -25,12 +25,14 @@ public partial class CountyData : Resource
 
     //[Export] public AllEnums.Factions faction;
     [Export] public FactionData factionData;
-
     [Export] public AllEnums.Province province;
-    [Export] public AllEnums.Terrain biomePrimary;
-    [Export] public AllEnums.Terrain biomeSecondary;
-    [Export] public AllEnums.Terrain biomeTertiary;
 
+    [ExportGroup("Terrain and Exploration")]
+    [Export] public AllEnums.Terrain primaryTerrain;
+    [Export] public AllEnums.Terrain secondaryTerrain;
+    [Export] public AllEnums.Terrain tertiaryTerrain;
+    [Export] public Godot.Collections.Array<StoryEventData> explorationEvents = [];
+    
     [ExportGroup("Population Lists")]
     [Export] public Godot.Collections.Array<PopulationData> populationDataList;// = [];
     [Export] public Godot.Collections.Array<PopulationData> heroesInCountyList;// = [];
@@ -42,8 +44,7 @@ public partial class CountyData : Resource
     [ExportGroup("Construction and Work Lists")] 
     [Export] public Godot.Collections.Array<PopulationData> heroBuildersList;// = [];
     [Export] public Godot.Collections.Array<PopulationData> heroWorkersList;// = [];
-    [Export] public Godot.Collections.Array<PopulationData>
-        workersList;// = []; // List of all the idle, helpful and loyal workers for that day.
+    [Export] public Godot.Collections.Array<PopulationData> workersList;// = []; // List of all the idle, helpful and loyal workers for that day.
 
     [Export] public Godot.Collections.Array<PopulationData> prioritizedHeroBuildersList;// = [];
     [Export] public Godot.Collections.Array<PopulationData> prioritizedHeroWorkersList;// = [];

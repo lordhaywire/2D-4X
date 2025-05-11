@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=4 format=3 uid="uid://c55q8uucl7cqe"]
+[gd_resource type="Resource" script_class="GoodData" load_steps=4 format=3 uid="uid://c55q8uucl7cqe"]
 
 [ext_resource type="Script" uid="uid://c87la23ufut0h" path="res://Resources/EquipmentData.cs" id="1_4r0h8"]
 [ext_resource type="Script" uid="uid://cmfu3g7sbgyfx" path="res://Resources/GoodData.cs" id="1_4tpxq"]

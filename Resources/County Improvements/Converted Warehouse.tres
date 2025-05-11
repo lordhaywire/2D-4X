@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=9 format=3 uid="uid://cxh2tykxlu76b"]
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=9 format=3 uid="uid://cxh2tykxlu76b"]
 
 [ext_resource type="Texture2D" uid="uid://duyyhx30r6vow" path="res://Graphics/County Improvements/Warehouse wooden-crate.svg" id="1_wn83v"]
 [ext_resource type="Resource" uid="uid://dqjlx4jv1pgfi" path="res://Resources/Interests/Engineering.tres" id="2_cl8dw"]

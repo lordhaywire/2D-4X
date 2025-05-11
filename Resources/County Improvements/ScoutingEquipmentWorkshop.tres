@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=9 format=3 uid="uid://chufschxvhcsh"]
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=9 format=3 uid="uid://chufschxvhcsh"]
 
 [ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/Goods/Wood.tres" id="1_2r2el"]
 [ext_resource type="Texture2D" uid="uid://5ya3dlibok7" path="res://Graphics/County Improvements/Scouting Equipment Workshop tarot-00-the-fool.svg" id="1_231ft"]

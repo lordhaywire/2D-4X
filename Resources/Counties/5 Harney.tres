@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="CountyData" load_steps=3 format=3 uid="uid://cjjdpxp4qy8em"]
 
 [ext_resource type="Resource" uid="uid://ck62f32unfibo" path="res://Resources/Factions/AIFaction3.tres" id="1_t6t7y"]
-[ext_resource type="Script" path="res://Resources/CountyData.cs" id="2_jwt4y"]
+[ext_resource type="Script" uid="uid://4nhd1im4255h" path="res://Resources/CountyData.cs" id="2_jwt4y"]
 
 [resource]
 script = ExtResource("2_jwt4y")
@@ -10,16 +10,34 @@ countyOverlayLocalPosition = Vector2i(0, 0)
 countyId = 0
 countyName = "Harney"
 isPlayerCapital = false
-isAICapital = false
+isAiCapital = false
 factionData = ExtResource("1_t6t7y")
 province = 0
-biomePrimary = 1
-biomeSecondary = 1
-biomeTertiary = 4
+primaryTerrain = 1
+secondaryTerrain = 4
+tertiaryTerrain = 6
+populationDataList = null
+heroesInCountyList = null
+armiesInCountyList = null
+visitingHeroList = null
+visitingArmyList = null
+deadPeopleList = null
+heroBuildersList = null
+heroWorkersList = null
+workersList = null
+prioritizedHeroBuildersList = null
+prioritizedHeroWorkersList = null
+prioritizedBuildersList = null
+prioritizedWorkersList = null
+workersToRemoveFromLists = null
+prioritizedConstructionImprovementList = null
+prioritizedWorkImprovementList = null
+underConstructionCountyImprovementList = null
+completedCountyImprovementList = null
 perishableStorage = 0
 nonperishableStorage = 0
-scavengableRemnants = 0
-scavengableCannedFood = 0
-countyResources = {}
-yesterdaysCountyResources = {}
-amountUsedCountyResources = {}
+scavengeableRemnants = 0
+scavengeableCannedFood = 0
+goods = null
+yesterdaysGoods = null
+amountOfGoodsUsed = null

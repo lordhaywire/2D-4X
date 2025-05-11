@@ -56,7 +56,7 @@ public partial class StoryEventControl : Control
         HideButtons();
 
         // This is some hard coded bullshit just for the test fish event.
-        currentStoryEventData = StoryEventList.Instance.storyEventDatas[0];
+        currentStoryEventData = StoryEventList.Instance.storyEventData[0];
         currentStoryEventData.eventCounty = (County)Globals.Instance.countiesParent.GetChild(3);
 
         storyEventTitle.Text = currentStoryEventData.storyEventTitle;
