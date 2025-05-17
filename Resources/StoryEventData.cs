@@ -7,6 +7,7 @@ namespace PlayerSpace
     {
         [Export] public string storyEventTitle;
         [Export] public string storyEventDescription;
+        [Export] public AllEnums.Terrain storyEventTerrainType;
 
         [ExportGroup("Event Rewards")]
         [Export] public AllEnums.CountyGoodType rewardCountyGoodType;

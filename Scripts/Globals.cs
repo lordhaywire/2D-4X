@@ -84,6 +84,9 @@ public partial class Globals : Node
 
     [ExportGroup("County Stuff")]
     // These two are populated from AllResources at Ready.
+    [Export] public int numberOfPrimaryTerrainEvents = 10;
+    [Export] public int numberOfSecondaryTerrainEvents = 6;
+    [Export] public int numberOfTertiaryTerrainEvents = 3;
     [Export] public int numberOfPerishableGoods; // Total perishable goods
     [Export] public int numberOfNonperishableGoods; // Total nonperishable goods
     [Export] public int maxScavengeableScrap = 10000;

@@ -113,8 +113,16 @@ public partial class CountyInfoControl : Control
     /// </summary>
     private void UpdatePercentageExplored()
     {
-        percentageExploredLabel.Text = $"42 {Tr("PHRASE_PERCENTAGE_EXPLORED")}";
+        int total = Globals.Instance.numberOfPrimaryTerrainEvents 
+                    + Globals.Instance.numberOfSecondaryTerrainEvents 
+                    + Globals.Instance.numberOfTertiaryTerrainEvents;
+
+        int completed = total - countyData.explorationEvents.Count;
+        int percentage = total > 0 ? (int)((float)completed / total * 100f) : 0;
+
+        percentageExploredLabel.Text = $"{percentage} {Tr("PHRASE_PERCENT_EXPLORED")}";
     }
+
 
     public void UpdateCountyAvailableResources()
     {

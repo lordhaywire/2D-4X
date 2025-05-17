@@ -196,9 +196,6 @@ public class AllEnums
             $"{TranslationServer.Translate("TERRAIN_NAME_RIVER")}",
             $"{TranslationServer.Translate("TERRAIN_NAME_RUIN")}",
             $"{TranslationServer.Translate("TERRAIN_NAME_SWAMP")}",
-            
-            
-            
         ];
         return terrainStrings[(int)terrain];
     }

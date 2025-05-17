@@ -18,10 +18,65 @@ public partial class CountyGeneration : Node
             Haulmaster.CountCountyMaxStorage(county.countyData);
             Haulmaster.AssignMaxStorageToGoods(county.countyData);
         }
+
         AssignStartingGoodsToCounty();
-        
-        // Test reading ruin story events from disk.
-        StoryEventList.Instance.GetExplorationEventsFromDisk();
+
+        AssignTerrainToTerrainList();
+        GenerateExplorationEvents();
+    }
+
+    private void AssignTerrainToTerrainList()
+    {
+        // Add all the human set terrains to a Godot Collection for later use.
+        foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
+        {
+            county.countyData.allTerrains.Add(county.countyData.primaryTerrain);
+            county.countyData.allTerrains.Add(county.countyData.secondaryTerrain);
+            county.countyData.allTerrains.Add(county.countyData.tertiaryTerrain);
+        }
+    }
+
+    private void GenerateExplorationEvents()
+    {
+        foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
+        {
+            List<StoryEventData> allEvents = [];
+
+            for (int i = 0; i < county.countyData.allTerrains.Count; i++)
+            {
+                AllEnums.Terrain terrain = county.countyData.allTerrains[i];
+
+                if (!StoryEventList.Instance.eventsByTerrainDictionary.TryGetValue(terrain,
+                        out List<StoryEventData> terrainEvents))
+                    continue;
+
+                int numberOfEvents = i == 0 ? Globals.Instance.numberOfPrimaryTerrainEvents : i == 1 ? Globals.Instance.numberOfSecondaryTerrainEvents : Globals.Instance.numberOfTertiaryTerrainEvents;
+
+                List<StoryEventData> selectedEvents = new List<StoryEventData>();
+                for (int j = 0; j < terrainEvents.Count && selectedEvents.Count < numberOfEvents; j++)
+                {
+                    int randIndex = (int)(GD.Randi() % (ulong)(j + 1));
+                    selectedEvents.Insert(randIndex, terrainEvents[j]);
+                }
+
+                allEvents.AddRange(selectedEvents);
+            }
+
+            // Shuffle combined events
+            for (int i = allEvents.Count - 1; i > 0; i--)
+            {
+                int randIndex = (int)(GD.Randi() % (ulong)(i + 1));
+                (allEvents[i], allEvents[randIndex]) = (allEvents[randIndex], allEvents[i]);
+            }
+
+            // Convert to Godot.Collections.Array and assign
+            county.countyData.explorationEvents = new Godot.Collections.Array<StoryEventData>(allEvents);
+
+            foreach (StoryEventData testEventData in county.countyData.explorationEvents)
+            {
+                GD.Print($"{county.countyData.countyName} {testEventData.storyEventTitle}");
+            }
+        }
     }
 
     private void AssignStartingGoodsToCounty()

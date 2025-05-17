@@ -72,7 +72,7 @@ public class Haulmaster
     {
         countyData.nonperishableStorage = Globals.Instance.startingNonperishableStorage;
         countyData.perishableStorage = Globals.Instance.startingPerishableStorage;
-        GD.Print("Initial County Storage: " + countyData.nonperishableStorage);
+        //GD.Print("Initial County Storage: " + countyData.nonperishableStorage);
         foreach (CountyImprovementData countyImprovementData in countyData.completedCountyImprovementList)
         {
             if(countyImprovementData.countyImprovementType == AllEnums.CountyImprovementType.Storage)
