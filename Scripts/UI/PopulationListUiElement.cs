@@ -58,14 +58,7 @@ public partial class PopulationListUiElement : MarginContainer
 
             populationRow.populationNameLabel.Text = $"{person.firstName} {person.lastName}";
             populationRow.ageLabel.Text = person.age.ToString();
-            if (person.isMale == true)
-            {
-                populationRow.sexLabel.Text = "WORD_MALE";
-            }
-            else
-            {
-                populationRow.sexLabel.Text = "WORD_FEMALE";
-            }
+            populationRow.sexLabel.Text = person.isMale ? "WORD_MALE" : "WORD_FEMALE";
             UpdateUnHelpfulPerk(populationRow, person);
             UpdateAttributes(populationRow, person);
             CallDeferred(nameof(UpdateSkills), populationRow, person);
@@ -78,12 +71,12 @@ public partial class PopulationListUiElement : MarginContainer
     }
 
 
-    // This are all broken.  This are all seems to be working?
-    // This is where we would us a method to return the name.
+    // This is all broken.  These all seem to be working?
+    // This is where we would use a method to return the name.
     private static void UpdateActivities(PopulationRowButton populationRow, PopulationData populationData)
     {
-        // This sets their current activity then checks to see if Building, Work, or Research is null and if it isn't
-        // then it adds where to the end of the label.  If they are all null then it puts nothing.
+        // This sets their current activity then checks to see if Building, Work, or Research is null, and if it isn't,
+        // then it adds where to the end of the label.  If they are all null, then it puts nothing.
         populationRow.currentActivityLabel.Text = populationData.GetActivityName();
         string currentWhere = populationData.currentCountyImprovement?.GetCountyImprovementName()
                               ?? TranslationServer.Translate(populationData.currentResearchItemData?.researchName)
@@ -96,15 +89,9 @@ public partial class PopulationListUiElement : MarginContainer
     // This should be not equal to null.
     private void UpdateUnHelpfulPerk(PopulationRowButton populationRow, PopulationData populationData)
     {
-        if (populationData.CheckForPerk(AllEnums.Perks.Unhelpful) == true)
-        {
-            populationRow.unhelpfulLabel.Text = $"{Tr(populationData.perks[AllEnums.Perks.Unhelpful].perkName)}";
-
-        }
-        else
-        {
-            populationRow.unhelpfulLabel.Text = $"{Tr("WORD_HELPFUL")}";
-        }
+        populationRow.unhelpfulLabel.Text 
+            = populationData.CheckForPerk(AllEnums.Perks.Unhelpful) ? $"{Tr(populationData.perks[AllEnums.Perks.Unhelpful].perkName)}" 
+                : $"{Tr("WORD_HELPFUL")}";
     }
 
 

@@ -207,14 +207,22 @@ public partial class HeroPanelContainer : PanelContainer
         primaryCheckBoxesList[0].Pressed += () => PrimaryActivitiesCheckBoxPressed(0);
         primaryCheckBoxesList[1].Pressed += () => PrimaryActivitiesCheckBoxPressed(1);
         primaryCheckBoxesList[2].Pressed += () => PrimaryActivitiesCheckBoxPressed(2);
+        primaryCheckBoxesList[3].Pressed += () => PrimaryActivitiesCheckBoxPressed(3);
+        primaryCheckBoxesList[4].Pressed += () => PrimaryActivitiesCheckBoxPressed(4);
         secondaryCheckBoxesList[0].Pressed += OnRecruitingCheckBoxPressed;
     }
 
     private void OnRecruitingCheckBoxPressed()
     {
-        if (secondaryCheckBoxesList[0].ButtonPressed) return;
+        if (secondaryCheckBoxesList[0].ButtonPressed)
+        {
+            return;
+        };
+        secondaryActivitiesHBoxContainer.Hide();
+        primaryActivitiesHBoxContainer.Show();
         populationData.numberOfSubordinatesWanted = populationData.heroSubordinates.Count;
         secondaryCheckBoxesList[0].Disabled = true;
+        populationData.UpdateActivity(AllEnums.Activities.Idle);
     }
 
     private void HidePrimaryActivitiesHBoxContainer()

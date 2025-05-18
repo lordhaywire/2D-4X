@@ -84,9 +84,6 @@ public partial class Globals : Node
 
     [ExportGroup("County Stuff")]
     // These two are populated from AllResources at Ready.
-    [Export] public int numberOfPrimaryTerrainEvents = 10;
-    [Export] public int numberOfSecondaryTerrainEvents = 6;
-    [Export] public int numberOfTertiaryTerrainEvents = 3;
     [Export] public int numberOfPerishableGoods; // Total perishable goods
     [Export] public int numberOfNonperishableGoods; // Total nonperishable goods
     [Export] public int maxScavengeableScrap = 10000;
@@ -94,7 +91,14 @@ public partial class Globals : Node
     [Export] public int startingPerishableStorage = 500;
     [Export] public int startingNonperishableStorage = 500;
     [Export] public int startingAmountOfEachGood = 100;
-
+    
+    [ExportGroup("Exploration Variables")]
+    [Export] public int numberOfPrimaryTerrainEvents = 10;
+    [Export] public int numberOfSecondaryTerrainEvents = 6;
+    [Export] public int numberOfTertiaryTerrainEvents = 3;
+    [Export] public int explorationCost = 10;
+    [Export] public int subordinateExplorationBonus = 5;
+    
     [ExportGroup("County Improvement Stuff")]
     [Export] public int minDaysStockpile = 2; // The amount of input goods (days) an improvement tries to hold.
     [Export] public int maxDaysStockpile = 7; // The max amount (in days) of goods a county improvement will try to stockpile
@@ -227,6 +231,35 @@ public partial class Globals : Node
 
     }
 
+    public List<Resource> ReadResourcesFromDisk(string path)
+    {
+        List<Resource> resources = [];
+        DirAccess dirAccess = DirAccess.Open(path);
+
+        if (dirAccess != null && dirAccess.ListDirBegin() == Error.Ok)
+        {
+            string fileName;
+
+            while ((fileName = dirAccess.GetNext()) != "")
+            {
+                if (dirAccess.CurrentIsDir() || (!fileName.EndsWith(".tres") && !fileName.EndsWith(".res")))
+                    continue;
+
+                string filePath = path + fileName;
+                Resource readResource = ResourceLoader.Load(filePath);
+                GD.Print($"Loaded Resource: {filePath}");
+                resources.Add(readResource);
+            }
+
+            dirAccess.ListDirEnd(); // Always close the directory listing
+        }
+        else
+        {
+            GD.PrintErr("Failed to open directory: " + path);
+        }
+        return resources;
+    }
+    
     private static void OnMouseEnteredUI()
     {
         PlayerControls.Instance.stopClickThrough = true;

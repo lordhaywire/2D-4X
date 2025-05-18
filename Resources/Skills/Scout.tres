@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3 uid="uid://bsks3id85l7wo"]
+
+[ext_resource type="Script" uid="uid://c5t3dmu2hl1b0" path="res://Resources/SkillData.cs" id="1_bj216"]
+
+[resource]
+script = ExtResource("1_bj216")
+skill = 11
+skillName = "SKILL_NAME_SCOUT"
+skillDescription = "SKILL_DESCRIPTION_SCOUT"
+skillLevel = 0
+amountUntilLearned = 0
+isCombatSkill = false
+attribute = 1
+metadata/_custom_type_script = "uid://c5t3dmu2hl1b0"

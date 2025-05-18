@@ -71,10 +71,12 @@ public partial class CountyGeneration : Node
 
             // Convert to Godot.Collections.Array and assign
             county.countyData.explorationEvents = new Godot.Collections.Array<StoryEventData>(allEvents);
-
-            foreach (StoryEventData testEventData in county.countyData.explorationEvents)
+            
+            // Assign the county to each story event so the story event knows where it is happening.
+            foreach (StoryEventData storyEventData in county.countyData.explorationEvents)
             {
-                GD.Print($"{county.countyData.countyName} {testEventData.storyEventTitle}");
+                storyEventData.eventCounty = county;
+                GD.Print($"{county.countyData.countyName} {storyEventData.storyEventTitle}");
             }
         }
     }

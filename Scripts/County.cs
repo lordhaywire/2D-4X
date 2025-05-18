@@ -53,6 +53,9 @@ public partial class County : Node2D
 
         CountyAI countyAi = new();
 
+        // Check each hero to see if they need recruit subordinates.  I moved this from StartOfDay on 5/18/25
+        Recruiter.CheckForRecruitment(countyData);
+        
         // GD.Print("County Hour One.");
         // Subtracted county resources yesterday from today.
         countyData.SubtractCountyResources();
@@ -68,10 +71,12 @@ public partial class County : Node2D
         // It checks this at end of day, so that at day start all the employment etc. hits.
         countyAi.DecideBuildingCountyImprovements(this);
 
+        // Hero
         // Goes through each hero just like if they were a normal county population and
         // generates their work amount/research.
         PopulationWorkEnd.WorkDayOverForPopulation(countyData, countyData.heroesInCountyList);
 
+        // Population
         // Generates resources through work, scavenging, building, and research.
         // Generates the daily amount of work amount/building for each county improvement per person.
         PopulationWorkEnd.WorkDayOverForPopulation(countyData, countyData.populationDataList);
@@ -108,8 +113,9 @@ public partial class County : Node2D
     private void StartDay()
     {
         GD.PrintRich($"[rainbow]{countyData.countyName} : StartOfDay!!!!!");
-        // Check each hero to see if they need recruit subordinates.
-        Recruiter.CheckForRecruitment(countyData);
+
+        
+        
 
         // Prioritized County Improvements needs to go first.
         // County Improvements gather goods for their stockpile.

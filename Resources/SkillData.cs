@@ -41,12 +41,10 @@ public partial class SkillData : Resource
         // Rolling a 1 is always a success.
         if (skillCheckRoll <= finalSkillAmount)
         {
-            //GD.Print($"Skill Checks: rolled a {skillCheckRoll} which is less then or equal {finalSkillAmount}");
             return (true);
         }
         else
         {
-            //GD.Print($"Skill Checks: rolled a {skillCheckRoll} which is greater then {finalSkillAmount}");
             return (false);
         }
     }

@@ -7,6 +7,11 @@ namespace PlayerSpace;
 
 public static class Recruiter
 {
+    /// <summary>
+    /// This should probably be in the switch PopulationWorkEnd.WorkDayOverForPopulation() because when the player makes the hero recruit, it changes
+    /// the heroes activity to Recruit.
+    /// </summary>
+    /// <param name="countyData"></param>
     public static void CheckForRecruitment(CountyData countyData)
     {
         // If the hero isn't moving, then recruit.

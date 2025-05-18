@@ -6,7 +6,9 @@ namespace PlayerSpace;
 
 public partial class StoryEventControl : Control
 {
-    private StoryEventData currentStoryEventData;
+    public static StoryEventControl Instance { get; private set; }
+    
+    public StoryEventData currentStoryEventData;
     [Export] private Label storyEventTitle;
     [Export] private Label storyEventDescription;
     [Export] private Label storyEventLocation;
@@ -15,6 +17,8 @@ public partial class StoryEventControl : Control
 
     public override void _Ready()
     {
+        Instance = this;
+        
         Clock.Instance.HourChanged += CheckForEvent;
         GetChoiceButtons();
     }
@@ -29,24 +33,26 @@ public partial class StoryEventControl : Control
 
     private void CheckForEvent()
     {
+        
         if (Clock.Instance.Days == 0 && Clock.Instance.Hours == 3 && Globals.Instance.turnOffStoryEvents == false)
         {
             Show();
         }
+        
     }
 
     private void OnVisibilityChanged()
     {
         if (Visible)
         {
-            Clock.Instance.PauseAndUnpause();
+            Clock.Instance.PauseTime();
             PlayerControls.Instance.AdjustPlayerControls(false);
             UpdateEventInfo();
         }
         else
         {
             PlayerControls.Instance.AdjustPlayerControls(true);
-            Clock.Instance.PauseAndUnpause();
+            Clock.Instance.UnpauseTime();
         }
     }
 
@@ -55,8 +61,6 @@ public partial class StoryEventControl : Control
         // Hide the middle 2 buttons just in case they were shown before.
         HideButtons();
 
-        // This is some hard coded bullshit just for the test fish event.
-        currentStoryEventData = StoryEventList.Instance.storyEventData[0];
         currentStoryEventData.eventCounty = (County)Globals.Instance.countiesParent.GetChild(3);
 
         storyEventTitle.Text = currentStoryEventData.storyEventTitle;

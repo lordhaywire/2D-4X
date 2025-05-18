@@ -1,4 +1,4 @@
-[gd_scene load_steps=134 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=123 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://World Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
 [ext_resource type="Script" uid="uid://bl7hn0hgb5876" path="res://Scripts/LoadMaps.cs" id="2_nda5i"]
@@ -40,29 +40,21 @@
 [ext_resource type="Script" uid="uid://bwjophygkh7hw" path="res://Scripts/AllPerks.cs" id="23_8jwco"]
 [ext_resource type="Script" uid="uid://bn3fvsw7u2ufw" path="res://Scripts/AllSkills.cs" id="23_jme5x"]
 [ext_resource type="Script" uid="uid://4hqo6ob017yd" path="res://Scripts/AllAttributes.cs" id="23_ucd0c"]
-[ext_resource type="Resource" uid="uid://cccdqp8m65auf" path="res://Resources/Skills/Construction.tres" id="24_8xnmt"]
 [ext_resource type="Resource" uid="uid://d00kar3t6pno1" path="res://Resources/Perks/LeaderofPeople.tres" id="24_edv5e"]
 [ext_resource type="Resource" uid="uid://dbydedpcih0ai" path="res://Resources/Attributes/Agility.tres" id="24_kqay3"]
 [ext_resource type="Script" uid="uid://bm5yey7s0ixuj" path="res://Scripts/UI/PlayerUICanvas.cs" id="24_s3wh2"]
 [ext_resource type="Resource" uid="uid://dhai1v7kfto40" path="res://Resources/Perks/Unhelpful.tres" id="25_626s1"]
 [ext_resource type="Resource" uid="uid://fth3n71c5xi3" path="res://Resources/Attributes/Awareness.tres" id="25_arsfn"]
-[ext_resource type="Resource" uid="uid://2v8mmbcoopy3" path="res://Resources/Skills/Cool.tres" id="25_xv245"]
 [ext_resource type="Script" uid="uid://i3iuln0enakh" path="res://Scripts/UI/CountyInfoControl.cs" id="26_8qp8l"]
-[ext_resource type="Resource" uid="uid://bdji8r13qaily" path="res://Resources/Skills/Farm.tres" id="26_dr7ub"]
 [ext_resource type="Resource" uid="uid://cis6df0tnolhg" path="res://Resources/Attributes/Charisma.tres" id="26_eof2h"]
 [ext_resource type="PackedScene" uid="uid://d4i6w8w8jld3d" path="res://Scenes/UI/HeroPanelContainer.tscn" id="27_03q5w"]
 [ext_resource type="Resource" uid="uid://brpboms0hfwgq" path="res://Resources/Attributes/Endurance.tres" id="27_fmdgm"]
-[ext_resource type="Resource" uid="uid://cyqbb45ma7w6w" path="res://Resources/Skills/Fish.tres" id="27_gvn1c"]
-[ext_resource type="Resource" uid="uid://bg3pq5mc2ukh6" path="res://Resources/Skills/Lumberjack.tres" id="28_1iuk7"]
 [ext_resource type="Script" uid="uid://cv0yvwdbhg5f" path="res://Scripts/UI/PopAndIdleButtons.cs" id="28_celvx"]
 [ext_resource type="Script" uid="uid://bw5d3f13w26s5" path="res://Scripts/CountyDictator.cs" id="28_qe8u4"]
-[ext_resource type="Resource" uid="uid://b25ofn4b1igjp" path="res://Resources/Skills/Research.tres" id="29_8u7ma"]
 [ext_resource type="Script" path="res://Scripts/UI/PopulationListUiElement.cs" id="29_ts64q"]
 [ext_resource type="Resource" uid="uid://bkqqewiydjtb2" path="res://Resources/Attributes/Looks.tres" id="29_xoqji"]
 [ext_resource type="PackedScene" uid="uid://djph5cv7o4atl" path="res://Scenes/UI/PopulationRowButton.tscn" id="30_bhu5o"]
-[ext_resource type="Resource" uid="uid://dfbunjvsc63da" path="res://Resources/Skills/Rifle.tres" id="30_d528s"]
 [ext_resource type="Resource" uid="uid://dqsfduf2ukjae" path="res://Resources/Attributes/Mental Strength.tres" id="30_lqs38"]
-[ext_resource type="Resource" uid="uid://pmphig2vnrjx" path="res://Resources/Skills/Scavenge.tres" id="31_0vaa8"]
 [ext_resource type="Resource" uid="uid://khlm5miw0ik3" path="res://Resources/Goods/Building Materials.tres" id="31_hwg2s"]
 [ext_resource type="Script" uid="uid://cdm2i82r44cjc" path="res://Scripts/UI/PopulationDescriptionControl.cs" id="31_hwyyh"]
 [ext_resource type="Resource" uid="uid://dc6rsi4v4mw1g" path="res://Resources/Attributes/Physical Strength.tres" id="31_odxrg"]
@@ -79,7 +71,6 @@
 [ext_resource type="Texture2D" uid="uid://ddb0p4x0erycl" path="res://Graphics/Icons/Top Bar/Influence.png" id="36_fqvec"]
 [ext_resource type="Resource" uid="uid://iyqqtyef01mo" path="res://Resources/Goods/Influence.tres" id="36_qmo2n"]
 [ext_resource type="Texture2D" uid="uid://tqexbc3d8yy8" path="res://Graphics/Icons/Top Bar/Money.png" id="37_16y4w"]
-[ext_resource type="Resource" uid="uid://48te5c2ywvyh" path="res://Resources/Skills/Labor.tres" id="37_c2oha"]
 [ext_resource type="Resource" uid="uid://dx87ykrfpioxm" path="res://Resources/Goods/Money.tres" id="37_mjyee"]
 [ext_resource type="Script" uid="uid://cfy6ob5n6nyrd" path="res://Scripts/CountyImprovementsControl.cs" id="37_rkirm"]
 [ext_resource type="Resource" uid="uid://cium8f0spbwdp" path="res://Resources/Goods/PrimitiveScoutingEquipment.tres" id="37_w4428"]
@@ -112,10 +103,8 @@
 [ext_resource type="PackedScene" uid="uid://dbh44f2eysibn" path="res://ResearchItemButton.tscn" id="62_nohy5"]
 [ext_resource type="Script" uid="uid://c8wh1vjtb6kne" path="res://Scripts/UI/StoryEventControl.cs" id="62_onxgq"]
 [ext_resource type="Resource" uid="uid://ceq8jssovq84m" path="res://Resources/ResearchItems/Basic Researching.tres" id="62_ujbl5"]
-[ext_resource type="Resource" uid="uid://caa1jed0r8nly" path="res://Resources/Skills/Production.tres" id="63_514fr"]
 [ext_resource type="Texture2D" uid="uid://dmeg24s68kkig" path="res://Graphics/Research/uncertainty.svg" id="65_b6pum"]
 [ext_resource type="Script" uid="uid://bg2dtkgmt0rfq" path="res://Scripts/MapEditorControl.cs" id="65_uqmnr"]
-[ext_resource type="Resource" uid="uid://dq525753wnhi5" path="res://Resources/Skills/Leadership.tres" id="66_qmo2n"]
 [ext_resource type="PackedScene" uid="uid://iur3kq10dikl" path="res://Scenes/MapEditor.tscn" id="66_sq6pt"]
 [ext_resource type="PackedScene" uid="uid://bhgbnf6lykhb6" path="res://Scenes/UI/PerkLabel.tscn" id="68_6cv3c"]
 [ext_resource type="Texture2D" uid="uid://cs6gb8bpwt7xd" path="res://Graphics/yellow-crumpled-lined-paper-background-2022-12-16-00-47-47-utc-scaled.webp" id="76_xlxp7"]
@@ -210,18 +199,19 @@ script = ExtResource("2_yf7pt")
 dailyInfluenceGain = 5
 leaderOfPeopleInfluenceBonus = 5
 startPaused = true
+turnOffStoryEvents = true
 mapColorCoded = ExtResource("2_h1vmt")
 countiesParent = NodePath("../../Counties")
 minimumCountyPop = 5
 maximumCountyPop = 10
 factionsParent = NodePath("../../Factions")
 minimumFood = 100
-numberOfPrimaryTerrainEvents = 1
-numberOfSecondaryTerrainEvents = 1
-numberOfTertiaryTerrainEvents = 1
 startingPerishableStorage = 1000
 startingNonperishableStorage = 1000
 startingAmountOfEachGood = 1
+numberOfPrimaryTerrainEvents = 1
+numberOfSecondaryTerrainEvents = 1
+numberOfTertiaryTerrainEvents = 1
 heroToken = SubResource("PackedScene_mjyee")
 spawnedTokenButton = SubResource("PackedScene_0j4c6")
 movementSpeed = 1
@@ -257,7 +247,6 @@ interests = Array[Object]([ExtResource("46_m2cvk"), ExtResource("47_sru0x"), Ext
 
 [node name="All Skills" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("23_jme5x")
-allSkills = Array[Object]([ExtResource("24_8xnmt"), ExtResource("25_xv245"), ExtResource("26_dr7ub"), ExtResource("27_gvn1c"), ExtResource("37_c2oha"), ExtResource("66_qmo2n"), ExtResource("28_1iuk7"), ExtResource("63_514fr"), ExtResource("29_8u7ma"), ExtResource("30_d528s"), ExtResource("31_0vaa8")])
 
 [node name="All Token Textures" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("7_7iyml")
@@ -1271,124 +1260,118 @@ vertical_alignment = 1
 
 [node name="Unhelpful Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
 visible = false
-custom_minimum_size = Vector2(100, 23)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PERK_NAME_UNHELPFUL"
 horizontal_alignment = 1
 vertical_alignment = 1
-autowrap_mode = 3
 
 [node name="Loyalty Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(100, 23)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "WORD_LOYALTY"
 horizontal_alignment = 1
 vertical_alignment = 1
-autowrap_mode = 3
+clip_text = true
 
 [node name="Construction Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(100, 23)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "SKILL_NAME_CONSTRUCTION"
 horizontal_alignment = 1
 vertical_alignment = 1
-autowrap_mode = 3
+clip_text = true
 
 [node name="Cool Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(100, 23)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "SKILL_NAME_COOL"
 horizontal_alignment = 1
 vertical_alignment = 1
-autowrap_mode = 3
+clip_text = true
 
 [node name="Farm Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(100, 23)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "SKILL_NAME_FARM"
 horizontal_alignment = 1
 vertical_alignment = 1
-autowrap_mode = 3
+clip_text = true
 
 [node name="Fish Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(100, 23)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "SKILL_NAME_FISH"
 horizontal_alignment = 1
 vertical_alignment = 1
-autowrap_mode = 3
+clip_text = true
 
 [node name="Labor Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(100, 23)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "SKILL_NAME_LABOR"
 horizontal_alignment = 1
 vertical_alignment = 1
-autowrap_mode = 3
+clip_text = true
 
 [node name="Leadership Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(100, 23)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "SKILL_NAME_LEADERSHIP"
 horizontal_alignment = 1
 vertical_alignment = 1
-autowrap_mode = 3
+clip_text = true
 
 [node name="Lumberjack Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(100, 23)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "SKILL_NAME_LUMBERJACK"
 horizontal_alignment = 1
 vertical_alignment = 1
-autowrap_mode = 3
+clip_text = true
 
 [node name="Production Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(100, 23)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "SKILL_NAME_PRODUCTION"
 horizontal_alignment = 1
 vertical_alignment = 1
-autowrap_mode = 3
+clip_text = true
 
 [node name="Research Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(100, 23)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "SKILL_NAME_RESEARCH"
 horizontal_alignment = 1
 vertical_alignment = 1
-autowrap_mode = 3
+clip_text = true
 
 [node name="Rifle Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(100, 23)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "SKILL_NAME_RIFLE"
 horizontal_alignment = 1
 vertical_alignment = 1
-autowrap_mode = 3
+clip_text = true
 
 [node name="Scavenge Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(100, 23)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "SKILL_NAME_SCAVENGE"
 horizontal_alignment = 1
 vertical_alignment = 1
-autowrap_mode = 3
+clip_text = true
+
+[node name="Scout Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SKILL_NAME_SCOUT"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
 
 [node name="Current Activity Label" type="Label" parent="Player UI Canvas/Population List MarginContainer/Population List PanelContainer/Population VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(250, 0)
+custom_minimum_size = Vector2(225, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "WORD_ACTIVITY"
@@ -1834,6 +1817,13 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Scavenge 100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Scout Skill Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Skills GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Scout 100"
 horizontal_alignment = 1
 vertical_alignment = 1
 

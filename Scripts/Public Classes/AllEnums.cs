@@ -94,14 +94,7 @@ public class AllEnums
         Both,
     }
 
-    // These are just prototype personalities.
-    // Player only should apply to the current factionLeader.
-    public enum Personality
-    {
-        Player,
-        Defensive,
-        Offensive,
-    }
+
 
     public enum HeroType
     {
@@ -144,6 +137,15 @@ public class AllEnums
         Unhelpful,
     }
 
+    // These are just prototype personalities.
+    // Player only should apply to the current factionLeader.
+    public enum Personality
+    {
+        Player,
+        Defensive,
+        Offensive,
+    }
+    
     public enum Province
     {
         Oregon,
@@ -170,6 +172,7 @@ public class AllEnums
         Research,
         Rifle,
         Scavenge,
+        Scout,
     }
 
     public enum Terrain

@@ -221,7 +221,7 @@ public partial class PopulationGeneration : Node
     {
         Godot.Collections.Dictionary<AllEnums.Skills, SkillData> newSkills = [];
 
-        foreach (SkillData skillData in AllSkills.Instance.allSkills)
+        foreach (SkillData skillData in AllSkills.Instance.allSkillData)
         {
             newSkills.Add(skillData.skill, (SkillData)skillData.Duplicate());
             newSkills[skillData.skill].skillLevel = random.Next(startingSkillMin, startingSkillMax);

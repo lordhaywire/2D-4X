@@ -40,8 +40,8 @@ public class PopulationWorkEnd
                     // Skill learning is done in the GenerateScavengedResources.
                     Banker.GenerateScavengedResources(countyData, populationData);
 
-                    // Learning skillcheck.
-                    // Just for testing it is set to fast.  The bool doesn't matter for this skill.
+                    // Learning skill check.
+                    // Just for testing, it is set to fast.  The bool doesn't matter for this skill.
                     SkillData.LearningCheck(populationData, true);
 
                     if (populationData.isHero != true)
@@ -50,7 +50,7 @@ public class PopulationWorkEnd
                     }
                     break;
                 case AllEnums.Activities.Build:
-                    // Produce resources based on the countyimprovement
+                    // Produce resources based on the county improvement
                     ApplyWorkPerPerson(populationData);
 
                     // Check for Skill Learning.
@@ -82,7 +82,7 @@ public class PopulationWorkEnd
                     }
                     else
                     {
-                        // If there isn't enough goods add a day to days employed but idle.
+                        // If there aren't enough goods, add a day to daysEmployed but idle.
                         populationData.daysEmployedButIdle++;
                     }
 
@@ -108,6 +108,9 @@ public class PopulationWorkEnd
                 case AllEnums.Activities.Combat:
                     break;
                 case AllEnums.Activities.Explore:
+                    // This will not work with armies.  We are getting rid of the army concept.
+                    Explorer.ExploreCounty(countyData, populationData);
+                    Explorer.CheckForFinishedExploration(countyData);
                     break;
                 case AllEnums.Activities.Move:
                     break;
@@ -126,10 +129,10 @@ public class PopulationWorkEnd
     }
 
     /// <summary>
-    /// Uses a loyalty skill check to see if the person wants to keep working at the improvement.  It is a skill check
+    /// Uses a loyalty skill check to see if the person wants to keep working at the improvement.  It is a skill check,
     /// so it is pure percental chance.
     /// Then it does another check to see if the person is employed but idle and also does another loyalty skill check.
-    /// Resets the days employed and employed but idle numbers to zero if they get a check.
+    /// Reset the daysEmployed and employed but idle numbers to zero if they get a check.
     /// </summary>
     /// <param name="populationData"></param>
     private static void KeepWorkingAtCountyImprovement(PopulationData populationData)
@@ -155,12 +158,11 @@ public class PopulationWorkEnd
 
 
     /// <summary>
-    /// Shouldn't check learning be in GenerateWorkAmoutWithSkillCheck?
-    /// Applies work for each person and adds it to the county improvments All Daily Work Amount At Improvement Completed.
+    /// Shouldn't check learning be in GenerateWorkAmountWithSkillCheck?
+    /// Applies work for each person and adds it to the county improvements All Daily Work Amount At Improvement Completed.
     /// </summary>
-    /// <param name="countyData"></param>
     /// <param name="populationData"></param>
-    public static void ApplyWorkPerPerson(PopulationData populationData)
+    private static void ApplyWorkPerPerson(PopulationData populationData)
     {
         if (populationData.currentCountyImprovement == null)
         {
@@ -174,7 +176,6 @@ public class PopulationWorkEnd
             $"{populationData.currentCountyImprovement.improvementName}: " +
             $"All Daily {populationData.activity} Amount At Improvement Completed: "
             + populationData.currentCountyImprovement.allDailyWorkAmountAtImprovementCompleted);
-        
     }
 
     /// <summary>
@@ -182,7 +183,7 @@ public class PopulationWorkEnd
     /// </summary>
     /// <param name="populationData"></param>
     /// <returns></returns>
-    public static int GenerateWorkAmountWithSkillCheck(PopulationData populationData)
+    private static int GenerateWorkAmountWithSkillCheck(PopulationData populationData)
     {
         //CountyImprovementData countyImprovementData = populationData.currentCountyImprovement;
         int skillLevel = populationData.skills[populationData.currentCountyImprovement.workSkill].skillLevel;
@@ -190,7 +191,7 @@ public class PopulationWorkEnd
         int attributeBonus = AttributeData.GetAttributeBonus(attributeLevel, false, false);
 
         int workAmount;
-        if (SkillData.CheckWithBonuses(skillLevel, attributeBonus, 0, 0) == true) // TODO: Perk Bonus
+        if (SkillData.CheckWithBonuses(skillLevel, attributeBonus, 0, 0)) // TODO: Perk Bonus
         {
             workAmount = Globals.Instance.dailyWorkAmount + Globals.Instance.dailyWorkAmountBonus;
             return workAmount;
@@ -201,6 +202,7 @@ public class PopulationWorkEnd
             return workAmount;
         }
     }
+    
     /// <summary>
     /// This should go through the list of completed county improvements and does the math
     /// to generate the goods produced.
@@ -223,12 +225,12 @@ public class PopulationWorkEnd
             {
                 foreach (KeyValuePair<GoodData, ProductionData> keyValuePair in countyImprovementData.outputGoods)
                 {
-                    // Reset todays goods amount generated before it does all the calculations.
+                    // Reset today's goods amount generated before it does all the calculations.
                     // It needs to keep this number for the player UI until it hits PopulationAI.WorkDayOverForPopulation.
                     keyValuePair.Value.todaysGoodsAmountGenerated = 0;
 
                     // The work amount isn't divided by the number of resources.  The work amount
-                    // is applied to each resource and the amount of goods generated should reflect that.
+                    // is applied to each resource, and the amount of goods generated should reflect that.
                     keyValuePair.Value.workAmount
                         += countyImprovementData.allDailyWorkAmountAtImprovementCompleted;
 
@@ -242,7 +244,7 @@ public class PopulationWorkEnd
                         keyValuePair.Value.workAmount = keyValuePair.Value.workAmount % keyValuePair.Value.workCost;
                     }
 
-                    GD.Print($"{countyData.countyName} {countyImprovementData.improvementName} todays goods " +
+                    GD.Print($"{countyData.countyName} {countyImprovementData.improvementName} today's goods " +
                         $"generated: {keyValuePair.Value.todaysGoodsAmountGenerated}");
 
                     Haulmaster.AdjustCountyGoodAmount(countyData, keyValuePair.Key.countyGoodType, keyValuePair.Value.todaysGoodsAmountGenerated);
