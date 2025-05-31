@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="StoryEventData" load_steps=2 format=3 uid="uid://o7hn1b1vqgxd"]
+
+[ext_resource type="Script" uid="uid://c6mqh2wl64evh" path="res://Resources/StoryEventData.cs" id="1_4pgqk"]
+
+[resource]
+script = ExtResource("1_4pgqk")
+storyEventTitle = "Found Nothing"
+storyEventDescription = "In the distance the explorer sees a dilapidated shack.  With excitement the explorer approaches and to their disappointment they find only trash from the old world."
+storyEventTerrainType = 1
+amountExplored = 0
+rewardCountyGoodType = 0
+rewardFactionGoodType = 0
+rewardAmount = 0
+choices = PackedStringArray("Leave with head hung low.")
+metadata/_custom_type_script = "uid://c6mqh2wl64evh"

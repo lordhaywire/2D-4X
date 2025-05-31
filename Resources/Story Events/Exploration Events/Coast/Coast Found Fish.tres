@@ -4,11 +4,12 @@
 
 [resource]
 script = ExtResource("1_24urq")
-storyEventTitle = "Coast Found Remnants"
-storyEventDescription = "After much exploration the leader has found a room full of remnants of the old world."
+storyEventTitle = "Found Fish"
+storyEventDescription = "As the leader of the expedition walked along the beach, they discovered a fishing net filled with fish."
 storyEventTerrainType = 0
-rewardCountyGoodType = 4
+amountExplored = 0
+rewardCountyGoodType = 2
 rewardFactionGoodType = 0
 rewardAmount = 100
-choices = PackedStringArray("Collect the remnants", "Ignore remnants")
+choices = PackedStringArray("Collect the fish!", "Ignore the stinking fish.")
 metadata/_custom_type_script = "uid://c6mqh2wl64evh"

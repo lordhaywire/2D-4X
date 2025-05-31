@@ -2833,6 +2833,4 @@ process_mode = 3
 [connection signal="visibility_changed" from="Player UI Canvas/Story Event Control" to="Player UI Canvas/Story Event Control" method="OnVisibilityChanged"]
 [connection signal="mouse_entered" from="Player UI Canvas/Story Event Control/PanelContainer" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="Player UI Canvas/Story Event Control/PanelContainer" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
-[connection signal="pressed" from="Player UI Canvas/Story Event Control/PanelContainer/VBoxContainer/Accept Button" to="Player UI Canvas/Story Event Control" method="AcceptButtonPressed"]
-[connection signal="pressed" from="Player UI Canvas/Story Event Control/PanelContainer/VBoxContainer/Decline Button" to="Player UI Canvas/Story Event Control" method="DeclineButtonPressed"]
 [connection signal="pressed" from="Player UI Canvas/Map Editor Control/Map Editor Button" to="Player UI Canvas/Map Editor Control" method="ButtonPressed"]

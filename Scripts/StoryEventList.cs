@@ -8,8 +8,6 @@ namespace PlayerSpace
     {
         public static StoryEventList Instance { get; private set; }
 
-        [Export] public StoryEventData[] storyEventData;
-
         public readonly Dictionary<AllEnums.Terrain, List<StoryEventData>> eventsByTerrainDictionary = [];
         
         private string rootEventExplorationDirectory = "res://Resources/Story Events/Exploration Events/";
