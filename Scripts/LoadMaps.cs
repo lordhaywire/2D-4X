@@ -20,7 +20,7 @@ public partial class LoadMaps : Node
             }
             else
             {
-                //GD.Print(mapDirectory + " directory doesn't exist in pck!");
+                //GD.Print(mapDirectory + "directory doesn't exist in pck!");
             }
                 
         }
@@ -38,7 +38,7 @@ public partial class LoadMaps : Node
             }
             else
             {
-                //GD.Print(mapDirectory + " globalized directory doesn't exist!");
+                //GD.Print(mapDirectory + "globalized directory doesn't exist!");
             }
         }
     }

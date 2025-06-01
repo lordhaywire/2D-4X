@@ -18,7 +18,5 @@ namespace PlayerSpace
         [Export] public string[] choices;
 
         public County eventCounty;
-
-
     }
 }

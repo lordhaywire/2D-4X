@@ -1,4 +1,4 @@
-[gd_scene load_steps=123 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=124 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://World Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
 [ext_resource type="Script" uid="uid://bl7hn0hgb5876" path="res://Scripts/LoadMaps.cs" id="2_nda5i"]
@@ -109,6 +109,7 @@
 [ext_resource type="PackedScene" uid="uid://bhgbnf6lykhb6" path="res://Scenes/UI/PerkLabel.tscn" id="68_6cv3c"]
 [ext_resource type="Texture2D" uid="uid://cs6gb8bpwt7xd" path="res://Graphics/yellow-crumpled-lined-paper-background-2022-12-16-00-47-47-utc-scaled.webp" id="76_xlxp7"]
 [ext_resource type="Texture2D" uid="uid://cyphf3703b4qa" path="res://Graphics/Icons/Top Bar/bolter-gun.svg" id="98_qs8v3"]
+[ext_resource type="PackedScene" uid="uid://cchni40ta8gfs" path="res://Scenes/UI/StoryEventChoiceButton.tscn" id="114_yhlxv"]
 [ext_resource type="Script" uid="uid://b0xy2tg5uv2gh" path="res://Scripts/UI/InventoryVBoxContainer.cs" id="117_0j4c6"]
 [ext_resource type="PackedScene" uid="uid://x448dpajwnx" path="res://Scenes/UI/CountyImprovementPanelContainer.tscn" id="119_kkhw7"]
 [ext_resource type="Script" uid="uid://bjbqgqmxofv05" path="res://Scripts/UI/SubordinatesVBoxContainer.cs" id="119_mjyee"]
@@ -208,7 +209,7 @@ factionsParent = NodePath("../../Factions")
 minimumFood = 100
 startingPerishableStorage = 1000
 startingNonperishableStorage = 1000
-startingAmountOfEachGood = 1
+startingAmountOfEachGood = 0
 numberOfPrimaryTerrainEvents = 1
 numberOfSecondaryTerrainEvents = 1
 numberOfTertiaryTerrainEvents = 1
@@ -1388,7 +1389,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "WORD_CLOSE"
 
-[node name="Population Description Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("populationName", "leaderTitleButton", "aideTitleButton", "armyLeaderTitleButton", "physicalStrengthLabel", "agilityLabel", "enduranceLabel", "intelligenceLabel", "mentalStrengthLabel", "awarenessLabel", "charismaLabel", "looksLabel", "loyaltyAttributeLabel", "ageLabel", "sexLabel", "perksParent", "skillsGridContainer", "interestLabel", "preferredWorkLabel", "currentActivityLabel", "inventoryAndSubordinatesInventoryVBoxContainer", "inventoryVBoxContainer", "subordinatesVBoxContainer", "aideRecruitButton", "armyLeaderRecruitButton", "heroRecruitmentConfirmPanel")]
+[node name="Population Description Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("populationName", "leaderTitleButton", "aideTitleButton", "armyLeaderTitleButton", "physicalStrengthLabel", "agilityLabel", "enduranceLabel", "intelligenceLabel", "mentalStrengthLabel", "awarenessLabel", "charismaLabel", "looksLabel", "loyaltyAttributeLabel", "ageLabel", "sexLabel", "perksParent", "skillsGridContainer", "interestLabel", "preferredWorkLabel", "currentActivityLabel", "inventoryAndSubordinatesInventoryVBoxContainer", "inventoryVBoxContainer", "subordinatesVBoxContainer", "newestEquipmentCheckBox", "aideRecruitButton", "armyLeaderRecruitButton", "heroRecruitmentConfirmPanel")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -1422,6 +1423,7 @@ currentActivityLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/
 inventoryAndSubordinatesInventoryVBoxContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer")
 inventoryVBoxContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer")
 subordinatesVBoxContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer")
+newestEquipmentCheckBox = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer/Newest Equipment CheckBox")
 aideRecruitButton = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Recruit Aide Button")
 armyLeaderRecruitButton = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Recruit Army Button")
 heroRecruitmentConfirmPanel = NodePath("../Recuit Hero Confirmation PanelContainer")
@@ -1878,6 +1880,7 @@ vertical_alignment = 1
 layout_mode = 2
 
 [node name="Inventory and Subordinates Title Label" type="Label" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "PHRASE_INVENTORY_AND_SUBORDINATES"
@@ -2618,7 +2621,7 @@ size_flags_horizontal = 3
 tooltip_text = "You are a piece of shit!"
 text = "Yes"
 
-[node name="Story Event Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("storyEventTitle", "storyEventDescription", "storyEventLocation")]
+[node name="Story Event Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("storyEventTitle", "storyEventDescription", "storyEventLocation", "choicesVBoxContainer")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -2629,9 +2632,11 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("62_onxgq")
-storyEventTitle = NodePath("PanelContainer/VBoxContainer/Story Event Title Label")
-storyEventDescription = NodePath("PanelContainer/VBoxContainer/Story Event Description Label")
-storyEventLocation = NodePath("PanelContainer/VBoxContainer/Story Event Location Label")
+storyEventTitle = NodePath("PanelContainer/Choices VBoxContainer/Story Event Title Label")
+storyEventDescription = NodePath("PanelContainer/Choices VBoxContainer/Story Event Description Label")
+storyEventLocation = NodePath("PanelContainer/Choices VBoxContainer/Story Event Location Label")
+choicesVBoxContainer = NodePath("PanelContainer/Choices VBoxContainer")
+storyEventChoiceButton = ExtResource("114_yhlxv")
 
 [node name="PanelContainer" type="PanelContainer" parent="Player UI Canvas/Story Event Control"]
 layout_mode = 1
@@ -2647,10 +2652,10 @@ offset_bottom = 236.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Story Event Control/PanelContainer"]
+[node name="Choices VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Story Event Control/PanelContainer"]
 layout_mode = 2
 
-[node name="Story Event Title Label" type="Label" parent="Player UI Canvas/Story Event Control/PanelContainer/VBoxContainer"]
+[node name="Story Event Title Label" type="Label" parent="Player UI Canvas/Story Event Control/PanelContainer/Choices VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 24
@@ -2658,34 +2663,36 @@ text = "This is going to be the story event title"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Story Event Description Label" type="Label" parent="Player UI Canvas/Story Event Control/PanelContainer/VBoxContainer"]
+[node name="Story Event Description Label" type="Label" parent="Player UI Canvas/Story Event Control/PanelContainer/Choices VBoxContainer"]
 custom_minimum_size = Vector2(575, 250)
 layout_mode = 2
 text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
 autowrap_mode = 3
 
-[node name="Story Event Location Label" type="Label" parent="Player UI Canvas/Story Event Control/PanelContainer/VBoxContainer"]
+[node name="Story Event Location Label" type="Label" parent="Player UI Canvas/Story Event Control/PanelContainer/Choices VBoxContainer"]
 layout_mode = 2
 text = "County: Some Place"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Accept Button" type="Button" parent="Player UI Canvas/Story Event Control/PanelContainer/VBoxContainer"]
+[node name="Accept Button" parent="Player UI Canvas/Story Event Control/PanelContainer/Choices VBoxContainer" instance=ExtResource("114_yhlxv")]
+visible = false
 layout_mode = 2
-mouse_filter = 1
-text = "Accept Button"
 
-[node name="Option 2 Button" type="Button" parent="Player UI Canvas/Story Event Control/PanelContainer/VBoxContainer"]
+[node name="Option 2 Button" type="Button" parent="Player UI Canvas/Story Event Control/PanelContainer/Choices VBoxContainer"]
+visible = false
 layout_mode = 2
 mouse_filter = 1
 text = "Option 2"
 
-[node name="Option 3 Button" type="Button" parent="Player UI Canvas/Story Event Control/PanelContainer/VBoxContainer"]
+[node name="Option 3 Button" type="Button" parent="Player UI Canvas/Story Event Control/PanelContainer/Choices VBoxContainer"]
+visible = false
 layout_mode = 2
 mouse_filter = 1
 text = "Option 3"
 
-[node name="Decline Button" type="Button" parent="Player UI Canvas/Story Event Control/PanelContainer/VBoxContainer"]
+[node name="Decline Button" type="Button" parent="Player UI Canvas/Story Event Control/PanelContainer/Choices VBoxContainer"]
+visible = false
 layout_mode = 2
 mouse_filter = 1
 text = "Decline Button"

@@ -11,36 +11,42 @@ public partial class InventoryVBoxContainer : VBoxContainer
 
     public override void _Ready()
     {
-        GetEquipmentLables();
+        GetEquipmentLabels();
     }
 
-    private void GetEquipmentLables()
+    private void GetEquipmentLabels()
     {
         foreach (Node node in GetChildren().Skip(2))
         {
-            if (node is Label)
+            if (node is Label label)
             {
-                equipment.Add(node as Label);
+                equipment.Add(label);
             }
         }
     }
 
-    public void PopulateEquipment(PopulationData populationData)
+    public void PopulateHeroEquipment(PopulationData populationData)
     {
-        if (populationData.isHero)
+        PopulationDescriptionControl.Instance.newestEquipmentCheckBox.Show();
+        PopulationDescriptionControl.Instance.subordinatesVBoxContainer.Show();
+
+        if (populationData.isHero || populationData.activity == AllEnums.Activities.Service)
         {
             PopulationDescriptionControl.Instance.inventoryAndSubordinatesInventoryVBoxContainer.Show();
-
-            for (int i = 0; i < equipment.Count; i++)
+            if (populationData.isHero)
             {
-                if (populationData.equipment[i] != null)
+                for (int i = 0; i < equipment.Count; i++)
                 {
-                    equipment[i].Text = populationData.equipment[i].goodName;
+                    equipment[i].Text = populationData.equipment[i] != null
+                        ? populationData.equipment[i].goodName
+                        : $"{Tr("WORD_NONE")}";
                 }
-                else
-                {
-                    equipment[i].Text = $"{Tr("WORD_NONE")}";
-                }
+            }
+
+            if (populationData.activity == AllEnums.Activities.Service)
+            {
+                PopulationDescriptionControl.Instance.subordinatesVBoxContainer.Hide();
+                PopulationDescriptionControl.Instance.newestEquipmentCheckBox.Hide();
             }
         }
         else
@@ -56,15 +62,16 @@ public partial class InventoryVBoxContainer : VBoxContainer
 
         GD.Print("Newest Equipment Checkbox has been pressed. " + newestEquipment.ButtonPressed);
         GD.Print("Token Movement - MoveToken: " + populationData.heroToken?.tokenMovement.MoveToken);
-        if(populationData.heroToken?.tokenMovement.MoveToken == true)
+        if (populationData.heroToken?.tokenMovement.MoveToken == true)
         {
             populationData.useNewestEquipment = newestEquipment.ButtonPressed;
             return;
         }
+
         if (Globals.Instance.CheckIfPlayerFaction(locationCountyData.factionData) == true)
         {
             Quartermaster.EquipHeroes(populationData);
-            PopulateEquipment(populationData);
+            PopulateHeroEquipment(populationData);
         }
     }
 }

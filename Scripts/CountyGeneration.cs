@@ -20,7 +20,6 @@ public partial class CountyGeneration : Node
         }
 
         AssignStartingGoodsToCounty();
-
         AssignTerrainToTerrainList();
         GenerateExplorationEvents();
     }
@@ -52,11 +51,11 @@ public partial class CountyGeneration : Node
 
                 int numberOfEvents = i == 0 ? Globals.Instance.numberOfPrimaryTerrainEvents : i == 1 ? Globals.Instance.numberOfSecondaryTerrainEvents : Globals.Instance.numberOfTertiaryTerrainEvents;
 
-                List<StoryEventData> selectedEvents = new List<StoryEventData>();
+                List<StoryEventData> selectedEvents = [];
                 for (int j = 0; j < terrainEvents.Count && selectedEvents.Count < numberOfEvents; j++)
                 {
                     int randIndex = (int)(GD.Randi() % (ulong)(j + 1));
-                    selectedEvents.Insert(randIndex, terrainEvents[j]);
+                    selectedEvents.Insert(randIndex, (StoryEventData)terrainEvents[j].Duplicate());
                 }
 
                 allEvents.AddRange(selectedEvents);

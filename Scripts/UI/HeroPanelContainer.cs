@@ -143,6 +143,12 @@ public partial class HeroPanelContainer : PanelContainer
         {
             primaryCheckBoxesList[1].Disabled = false;
         }
+        
+        // Explore
+        if (countyData.explorationEvents.Count > 0)
+        {
+            primaryCheckBoxesList[4].Disabled = false;
+        }
     }
 
     private void PopulateActivityHBoxes()
@@ -187,8 +193,7 @@ public partial class HeroPanelContainer : PanelContainer
     private void DisableMostActivityCheckboxes()
     {
         foreach (CheckBox checkBox in primaryCheckBoxesList.Where(checkBox => checkBox != primaryCheckBoxesList[0]
-                                                                              && checkBox != primaryCheckBoxesList[3]
-                                                                              && checkBox != primaryCheckBoxesList[4]))
+                                                                              && checkBox != primaryCheckBoxesList[3]))
         {
             checkBox.Disabled = true;
         }

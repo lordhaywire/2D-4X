@@ -81,6 +81,7 @@ public partial class FactionGeneration : Node
             }
             factionData.researchItems.Add(researchItemDataCopy);
 
+            /*
             // This is for testing.
             if (factionData.researchItems.Count > 0)
             {
@@ -88,7 +89,7 @@ public partial class FactionGeneration : Node
 
                 GD.Print($"Test of research item faction ID: {factionData.researchItems[0].factionID}");
             }
-                
+            */  
         }
 
         foreach(ResearchItemData researchItem in factionData.researchItems)

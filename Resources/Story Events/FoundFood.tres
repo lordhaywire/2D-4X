@@ -6,6 +6,8 @@
 script = ExtResource("1_13g2d")
 storyEventTitle = "Found Food"
 storyEventDescription = "Your people have stumbled across a bunch of food.  If you decide to keep it, then you will get 500 food."
+storyEventTerrainType = 0
+amountExplored = 0
 rewardCountyGoodType = 2
 rewardFactionGoodType = 0
 rewardAmount = 500

@@ -137,6 +137,7 @@ public partial class PopulationData : Resource
     public void UpdateActivity(AllEnums.Activities newActivity)
     {
         activity = newActivity;
+        
         if (newActivity == AllEnums.Activities.Idle && factionData.isPlayer)
         {
             GD.Print($"{GetFullName()} is set to idle!");

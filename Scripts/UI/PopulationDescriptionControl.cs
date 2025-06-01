@@ -37,6 +37,7 @@ public partial class PopulationDescriptionControl : Control
     [Export] public VBoxContainer inventoryAndSubordinatesInventoryVBoxContainer;
     [Export] public InventoryVBoxContainer inventoryVBoxContainer;
     [Export] public SubordinatesVBoxContainer subordinatesVBoxContainer;
+    [Export] public CheckBox newestEquipmentCheckBox;
     [Export] private Button aideRecruitButton;
     [Export] private Button armyLeaderRecruitButton;
     [Export] private RecruitHeroConfirmationPanelContainer heroRecruitmentConfirmPanel;
@@ -107,7 +108,7 @@ public partial class PopulationDescriptionControl : Control
 
     public void UpdateDescriptionInfo()
     {
-        inventoryVBoxContainer.PopulateEquipment(populationData);
+        inventoryVBoxContainer.PopulateHeroEquipment(populationData);
         subordinatesVBoxContainer.UpdateNumberOfSubordinates(populationData);
         subordinatesVBoxContainer.UpdateSubordinates(populationData.heroSubordinates);
         subordinatesVBoxContainer.UpdateMaxSubordinates();

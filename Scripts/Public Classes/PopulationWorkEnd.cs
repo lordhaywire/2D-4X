@@ -110,7 +110,7 @@ public class PopulationWorkEnd
                 case AllEnums.Activities.Explore:
                     // This will not work with armies.  We are getting rid of the army concept.
                     Explorer.ExploreCounty(countyData, populationData);
-                    Explorer.CheckForFinishedExploration(countyData);
+                    //Explorer.CheckForFinishedExploration(countyData, populationData);
                     break;
                 case AllEnums.Activities.Move:
                     break;

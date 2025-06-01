@@ -6,7 +6,7 @@
 script = ExtResource("1_gjjhf")
 storyEventTitle = "Forest Found Remnants"
 storyEventDescription = "After much exploration the leader has found a room full of remnants of the old world."
-storyEventTerrainType = 0
+storyEventTerrainType = 2
 amountExplored = 0
 rewardCountyGoodType = 4
 rewardFactionGoodType = 0

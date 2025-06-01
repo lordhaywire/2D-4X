@@ -46,7 +46,7 @@ public class Banker
     }
 
     // This should be in PopulationWork.
-    public static int GenerateScavengedResourceWithSkillCheck(PopulationData populationData)
+    private static int GenerateScavengedResourceWithSkillCheck(PopulationData populationData)
     {
         int skillLevel = populationData.skills[AllEnums.Skills.Scavenge].skillLevel;
         int attributeLevel = populationData.attributes[populationData.skills[AllEnums.Skills.Scavenge].attribute].attributeLevel;
@@ -67,7 +67,7 @@ public class Banker
     public static void AddStoryEventCountyGood(StoryEventData storyEventData)
     {
         GD.Print($"Reward Faction: {storyEventData.eventCounty.countyData.factionData.factionName} is adding " +
-            $"{storyEventData.rewardAmount} {storyEventData.rewardCountyGoodType}");
+            $"{storyEventData.rewardAmount} {storyEventData.rewardCountyGoodType} to {storyEventData.eventCounty.countyData.goods[storyEventData.rewardCountyGoodType].Amount}");
 
         storyEventData.eventCounty.countyData.goods[storyEventData.rewardCountyGoodType].Amount
             += storyEventData.rewardAmount;
@@ -85,14 +85,11 @@ public class Banker
 
     // This should probably either in the perk data for the bonus, or it should be a generic perk bonus check.
     // Or both.
-    public static int AddLeaderBonusInfluence(FactionData factionData)
+    private static int AddLeaderBonusInfluence(FactionData factionData)
     {
         int bonus = 0;
-        if (factionData.factionLeader.CheckForPerk(AllEnums.Perks.LeaderOfPeople) == true)
-        {
-            bonus = Globals.Instance.leaderOfPeopleInfluenceBonus;
-            return bonus;
-        }
+        if (!factionData.factionLeader.CheckForPerk(AllEnums.Perks.LeaderOfPeople)) return bonus;
+        bonus = Globals.Instance.leaderOfPeopleInfluenceBonus;
         return bonus;
     }
 
@@ -130,7 +127,7 @@ public class Banker
     private static void IncreaseResearcherResearch(PopulationData populationData, bool passedCheck)
     {
         int bonusResearchIncrease = 0;
-        if (passedCheck == true)
+        if (passedCheck)
         {
             bonusResearchIncrease = Globals.Instance.random.Next(1, Globals.Instance.researchIncreaseBonus);
         }
@@ -162,7 +159,7 @@ public class Banker
     public static bool CheckBuildingCost(CountyData countyData, CountyImprovementData countyImprovementData)
     {
         // GD.Print("Checking Building Cost...");
-        // This is here so the county improvement can be shown in the Research pannel.
+        // This is here, so the county improvement can be shown in the Research panel.
         if (countyData == null)
         {
             // GD.Print("County Data is null so Check Building Cost is skipped.");
@@ -223,7 +220,7 @@ public class Banker
 
                 /* GD.Print($"{countyImprovementData.improvementName} costs " +
                     $"{countyImprovementData.countyResourceConstructionCost[keyValuePair.Key]} and" +
-                $" was charged to {countyData.countyName} those cost was : {countyData.countyResources[resourceType].name} {keyValuePair.Value}");
+                $" was charged to {countyData.countyName} those cost was: {countyData.countyResources[resourceType].name} {keyValuePair.Value}");
                 */
             }
         }
