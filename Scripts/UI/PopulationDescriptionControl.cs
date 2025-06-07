@@ -90,15 +90,15 @@ public partial class PopulationDescriptionControl : Control
                 CountyInfoControl.Instance.DisableSpawnHeroCheckButton(false);
                 heroRecruitmentConfirmPanel.Hide();
                 PlayerControls.Instance.AdjustPlayerControls(true);
-                Clock.Instance.UnpauseTime();
             }
             else
             {
                 CountyInfoControl.Instance.DisableSpawnHeroCheckButton(false);
                 heroRecruitmentConfirmPanel.Hide();
                 PlayerUICanvas.Instance.populationListUIElement.Show();
-                Clock.Instance.UnpauseTime();
             }
+
+            Clock.Instance.UnpauseTime();
 
             heroButtonClicked = false;
         }
@@ -106,8 +106,10 @@ public partial class PopulationDescriptionControl : Control
         CountyInfoControl.Instance.UpdateEverything();
     }
 
+
+
     public void UpdateDescriptionInfo()
-    {
+    { 
         inventoryVBoxContainer.PopulateHeroEquipment(populationData);
         subordinatesVBoxContainer.UpdateNumberOfSubordinates(populationData);
         subordinatesVBoxContainer.UpdateSubordinates(populationData.heroSubordinates);

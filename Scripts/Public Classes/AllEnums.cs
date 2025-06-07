@@ -180,28 +180,46 @@ public class AllEnums
         Coast,
         Desert,
         Forest,
+        Glacier,
+        Hill,
+        Lake,
         Mountain,
+        Oasis,
         Plain,
+        Plateau,
         River,
         Ruin,
         Swamp,
+        Tundra,
     }
 
     public static string GetTerrainName(Terrain terrain)
     {
-        List<String> terrainStrings =
+        List<string> terrainStrings =
         [
             $"{TranslationServer.Translate("TERRAIN_NAME_COAST")}",
             $"{TranslationServer.Translate("TERRAIN_NAME_DESERT")}",
             $"{TranslationServer.Translate("TERRAIN_NAME_FOREST")}",
+            $"{TranslationServer.Translate("TERRAIN_NAME_GLACIER")}",
+            $"{TranslationServer.Translate("TERRAIN_NAME_HILL")}",
+            $"{TranslationServer.Translate("TERRAIN_NAME_LAKE")}",
             $"{TranslationServer.Translate("TERRAIN_NAME_MOUNTAIN")}",
+            $"{TranslationServer.Translate("TERRAIN_NAME_OASIS")}",
             $"{TranslationServer.Translate("TERRAIN_NAME_PLAIN")}",
+            $"{TranslationServer.Translate("TERRAIN_NAME_PLATEAU")}",
             $"{TranslationServer.Translate("TERRAIN_NAME_RIVER")}",
             $"{TranslationServer.Translate("TERRAIN_NAME_RUIN")}",
             $"{TranslationServer.Translate("TERRAIN_NAME_SWAMP")}",
+            $"{TranslationServer.Translate("TERRAIN_NAME_TUNDRA")}",
         ];
         return terrainStrings[(int)terrain];
     }
+    
+    /// <summary>
+    /// Since there is no equipment slot of none, but there is an equipment slot for all the other equipment types we need to subtract one from the equipment type.
+    /// </summary>
+    /// <param name="equipmentType"></param>
+    /// <returns></returns>
     public static int GetCorrectEquipmentSlot(EquipmentType equipmentType)
     {
         int equipmentSlot = (int)equipmentType - 1;

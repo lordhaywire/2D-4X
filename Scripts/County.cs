@@ -8,8 +8,9 @@ public partial class County : Node2D
 {
     [Export] public CountyData countyData;
 
-    [ExportGroup("Attached Nodes")]
-    [Export] public Sprite2D maskSprite;
+    [ExportGroup("Attached Nodes")] [Export]
+    public Sprite2D maskSprite;
+
     [Export] public Sprite2D countySprite;
     [Export] public Sprite2D capitalSprite;
     [Export] public Node2D countyOverlayNode2D;
@@ -55,7 +56,7 @@ public partial class County : Node2D
 
         // Check each hero to see if they need recruit subordinates.  I moved this from StartOfDay on 5/18/25
         Recruiter.CheckForRecruitment(countyData);
-        
+
         // GD.Print("County Hour One.");
         // Subtracted county resources yesterday from today.
         countyData.SubtractCountyResources();
@@ -93,7 +94,7 @@ public partial class County : Node2D
 
         // Check to see how long each recruit has been recruited before they enter service for real.
         Recruiter.CheckForDaysRecruited(countyData);
-        
+
         // See if we can combine this into something else.
         GD.Print("County: " + countyData.countyName);
         countyData.CheckIfCountyImprovementsAreDone();
@@ -118,7 +119,7 @@ public partial class County : Node2D
         // County Improvements gather goods for their stockpile.
         // Sorts the list first by prioritized, then gathers the stockpiled goods.  Written by ChatGPT.
         foreach (CountyImprovementData countyImprovementData in countyData.completedCountyImprovementList
-            .OrderByDescending(c => c.prioritize))
+                     .OrderByDescending(c => c.prioritize))
         {
             Haulmaster.GatherStockpileGoods(countyData, countyImprovementData);
         }
@@ -130,7 +131,8 @@ public partial class County : Node2D
         // If there is no prioritized construction or building, skip making the list.
         // Check for prioritized under construction improvements
         PopulationWorkStart.GeneratePrioritizedConstructionImprovementList(countyData);
-        GD.Print($"{countyData.countyName} : Prioritized Construction Improvement List Count: " + countyData.prioritizedConstructionImprovementList.Count);
+        GD.Print($"{countyData.countyName} : Prioritized Construction Improvement List Count: " +
+                 countyData.prioritizedConstructionImprovementList.Count);
         if (countyData.prioritizedConstructionImprovementList.Count > 0)
         {
             PopulationWorkStart.GeneratePrioritizedBuildersList(countyData);
@@ -148,7 +150,8 @@ public partial class County : Node2D
         PopulationWorkStart.GeneratePrioritizedWorkImprovementList(countyData);
 
         // Assign people to the prioritized work improvements.
-        GD.Print($"{countyData.countyName} : Prioritized Work Improvement List Count: " + countyData.prioritizedWorkImprovementList.Count);
+        GD.Print($"{countyData.countyName} : Prioritized Work Improvement List Count: " +
+                 countyData.prioritizedWorkImprovementList.Count);
         if (countyData.prioritizedWorkImprovementList.Count > 0)
         {
             PopulationWorkStart.GeneratePrioritizedWorkersList(countyData);
@@ -205,15 +208,17 @@ public partial class County : Node2D
 
         foreach (PopulationData populationData in countyData.heroesInCountyList)
         {
-            if (countyData.factionData == populationData.factionData 
+            if (countyData.factionData == populationData.factionData
                 && populationData.heroToken?.tokenMovement.MoveToken != true)
             {
-                Quartermaster.EquipHeroes(populationData);
-                GD.Print($"{populationData.firstName} has been equipped.");
+                Quartermaster.EquipHeroesAndSubordinates(populationData);
+
+
             }
             else
             {
-                GD.Print("Hero is in an unfriendly county so it needs to equip from supply, which isn't implemented yet.");
+                GD.Print(
+                    "Hero is in an unfriendly county so it needs to equip from supply, which isn't implemented yet.");
             }
         }
     }
@@ -224,4 +229,3 @@ public partial class County : Node2D
         Clock.Instance.DailyHourZeroFirstQuarter -= StartDay;
     }
 }
-

@@ -5,11 +5,25 @@ using System.Linq;
 namespace PlayerSpace;
 public class Quartermaster
 {
+    public static void EquipHeroesAndSubordinates(PopulationData populationData)
+    {
+        EquipPopulation(populationData, populationData.useNewestEquipment); 
+        GD.Print($"{populationData.firstName} has been equipped.");
+        
+        foreach (PopulationData subordinate in populationData.heroSubordinates)
+        {
+            if (subordinate.activity != AllEnums.Activities.Service) continue;
+            EquipPopulation(subordinate, populationData.useNewestEquipment);
+            GD.Print($"{subordinate.firstName} has been equipped.");
+        }
+    }
+    
     /// <summary>
     /// I didn't take into account if the heroes are no in a friendly county.
     /// </summary>
     /// <param name="populationData"></param>
-    public static void EquipHeroes(PopulationData populationData)
+    /// <param name="useNewestEquipment"></param>
+    private static void EquipPopulation(PopulationData populationData, bool useNewestEquipment)
     {
         County county = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
         CountyData countyData = county.countyData;
@@ -19,13 +33,14 @@ public class Quartermaster
             List<GoodData> sortedEquipmentList = GenerateEquipmentList(countyData, i);
             // If the useNewestEquipment is set to false, then it picks the lowest level of equipment,
             // otherwise it picks the highest level of equipment.
-            GoodData goodToEquip = populationData.useNewestEquipment
+            GoodData goodToEquip = useNewestEquipment
                 ? sortedEquipmentList.LastOrDefault()
                 : sortedEquipmentList.FirstOrDefault(g => g.Amount >= 1);
             if (goodToEquip != null)
             {
                 //GD.Print("Good to equip: " + goodToEquip.goodName);
                 CheckForAlreadyEquippedAndAdjustCountyGoods(countyData, goodToEquip, populationData);
+                
             }
             else
             {
@@ -42,6 +57,7 @@ public class Quartermaster
             sortedEquipmentList.Clear();
         }
     }
+
 
     private static void CheckForAlreadyEquippedAndAdjustCountyGoods(CountyData countyData, GoodData goodToEquip, PopulationData populationData)
     {
@@ -94,5 +110,16 @@ public class Quartermaster
 
         // Sorts the list by ascending order.
         return [.. equipmentList.OrderBy(e => e.equipmentData.equipmentTier)];
+    }
+    
+    public static int GetEquipmentBonus(PopulationData populationData, AllEnums.EquipmentType equipmentType)
+    {
+        int equipmentBonus = 0;
+        if (populationData.equipment[AllEnums.GetCorrectEquipmentSlot(equipmentType)] != null)
+        {
+            equipmentBonus = populationData.equipment[AllEnums.GetCorrectEquipmentSlot(equipmentType)].equipmentData.equipmentBonus;
+        }
+
+        return equipmentBonus;
     }
 }

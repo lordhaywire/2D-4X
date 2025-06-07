@@ -48,7 +48,7 @@ public partial class SubordinatesVBoxContainer : VBoxContainer
         }
     }
 
-    private void OpenSubordinateDescriptionPanel(PopulationData population)
+    private static void OpenSubordinateDescriptionPanel(PopulationData population)
     {
         PopulationDescriptionControl.Instance.populationData = population;
         PopulationDescriptionControl.Instance.UpdateDescriptionInfo();

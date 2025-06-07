@@ -140,6 +140,8 @@ PHRASE_GOODS_PRODUCED_YESTERDAY,Goods Produced Yesterday,Bienes producidos ayer
 PHRASE_HAS_BEEN_COMPLETED,has been completed,se ha completado
 PHRASE_HAS_DECLARED_WAR,has declared war on,ha declarado la guerra a
 PHRASE_HAS_HIT,has hit,ha golpeado
+PHRASE_HAS_SUCCESSFULLY_EXPLORED,has successfully explored,ha explorado con éxito
+PHRASE_IDLE_WORKERS,Idle Workers,Trabajadores inactivos
 PHRASE_INPUT_GOODS,Input Goods,Bienes de entrada
 PHRASE_INVENTORY_AND_SUBORDINATES,Inventory and Subordinates,Inventario y subordinados
 PHRASE_IS_NOW_RESEARCHING,is now researching,ahora está investigando
@@ -157,6 +159,7 @@ PHRASE_NO_MORE_PEOPLE_TO_RECRUIT,No more people to recruit.,No hay más gente pa
 PHRASE_NUMBER_OF_SUBORDINATES,Number of Subordinates,Número de subordinados
 PHRASE_OFFENSIVE_EQUIPMENT,[u]Offensive Equipment[/u],[u]Equipo ofensivo[/u]
 PHRASE_ONLY_PRODUCE,Only Produce,Solo producir
+PHRASE_PERCENT_EXPLORED,Percent Explore,Porcentaje de exploración
 PHRASE_POSSIBLE_IMPROVEMENTS,Possible Improvements,Posibles mejoras
 PHRASE_PREFERRED_WORK,Preferred Work,Trabajo preferido
 PHRASE_PRODUCE_AS_NEEDED,Produce as needed,Producir según sea necesario
@@ -169,6 +172,7 @@ PHRASE_RESEARCH_COST,Research Cost,Coste de investigación
 PHRASE_RESEARCH_FOR,Research for,Investigación para
 PHRASE_RESEARCH_PROGRESS,Research Progress,Avances en la investigación
 PHRASE_RETURNING_TO,Returning to,Volviendo a
+PHRASE_SCAVENGEABLE_GOODS,Scavengeable Goods,Bienes recuperables
 PHRASE_THERE_IS_NEGATIVE_STORAGE,There is negative storage!,¡Hay almacenamiento negativo!
 PHRASE_UNDER_CONSTRUCTION,Under Construction,En obra
 PHRASE_USE_REMNANTS_FOR_CONSTRUCTION,Use Remnants for construction,Usar remanentes para la construcción
@@ -191,6 +195,7 @@ SKILL_DESCRIPTION_PRODUCTION,Not written.,No está escrito.
 SKILL_DESCRIPTION_RESEARCH,Not written.,No está escrito.
 SKILL_DESCRIPTION_RIFLE,Not written.,No está escrito.
 SKILL_DESCRIPTION_SCAVENGE,Not written.,No está escrito.
+SKILL_DESCRIPTION_SCOUT,The ability to notice things in the environment,La capacidad de notar cosas en el entorno
 SKILL_NAME_CONSTRUCTION,Construction,Construcción
 SKILL_NAME_COOL,Cool,Fresco
 SKILL_NAME_FARM,Farm,Granja
@@ -202,6 +207,21 @@ SKILL_NAME_PRODUCTION,Production,Producción
 SKILL_NAME_RESEARCH,Research,Investigación
 SKILL_NAME_RIFLE,Rifle,Fusil
 SKILL_NAME_SCAVENGE,Scavenge,Recoger la basura
+SKILL_NAME_SCOUT,Scout,Escucha
+TERRAIN_NAME_COAST,Coast,Costa
+TERRAIN_NAME_DESERT,Desert,Desierto
+TERRAIN_NAME_FOREST,Forest,Bosque
+TERRAIN_NAME_GLACIER,Glacier,Glaciar
+TERRAIN_NAME_HILLS,Hill,Loma
+TERRAIN_NAME_LAKE,Lake,Lago
+TERRAIN_NAME_MOUNTAIN,Mountain,Montaña
+TERRAIN_NAME_OASIS,Oasis,Oasis
+TERRAIN_NAME_PLAIN,Plain,Llanura
+TERRAIN_NAME_PLATEAU,Plateau,Meseta
+TERRAIN_NAME_RIVER,River,Río
+TERRAIN_NAME_RUIN,Ruin,Ruina
+TERRAIN_NAME_SWAMP,Swamp,Pantano
+TERRAIN_NAME_TUNDRA,Tundra,Tundra
 TITLE_AIDE,Aide,Ayudante
 TITLE_ARMY_LEADER,Army Leader,Líder del Ejército
 TITLE_FACTION_LEADER,Faction Leader,Líder de facción
@@ -212,8 +232,10 @@ WORD_BUILD,Build- THIS IS AN ACTIVITY,Construir
 WORD_CLOSE,Close,Cerrar
 WORD_CONSTRUCT,Construct,Construir
 WORD_CONSTRUCTION,Construction,Construcción
+WORD_COUNTY,County,Condado
 WORD_DAY,Day:,Día
 WORD_EXPLORE,Explore- THIS IS AN ACTIVITY,Explorar
+WORD_EXPLORED,Explored,Explorado
 WORD_FEMALE,Female,Hembra
 WORD_GOODS,Goods,Bienes
 WORD_HELPFUL,Helpful,Útil
@@ -247,19 +269,3 @@ WORD_TITLES,Titles,Títulos
 WORD_TRAIN,Train - THIS IS AN ACTIVITY,Tren
 WORD_VISITORS,Visitors,Visitantes
 WORD_WORK,Work- THIS IS AN ACTIVITY,Trabajo
-WORD_EXPLORED,Explored,Explorado
-PHRASE_SCAVENGEABLE_GOODS,Scavengeable Goods,Bienes recuperables
-PHRASE_IDLE_WORKERS,Idle Workers,Trabajadores inactivos
-TERRAIN_NAME_COAST,Coast,Costa
-TERRAIN_NAME_DESERT,Desert,Desierto
-TERRAIN_NAME_FOREST,Forest,Bosque
-TERRAIN_NAME_MOUNTAIN,Mountain,Montaña
-TERRAIN_NAME_PLAIN,Plain,Llanura
-TERRAIN_NAME_RIVER,River,Río
-TERRAIN_NAME_RUIN,Ruin,Ruina
-TERRAIN_NAME_SWAMP,Swamp,Pantano
-PHRASE_PERCENT_EXPLORED,Percent Explore,Porcentaje de exploración
-SKILL_NAME_SCOUT,Scout,Escucha
-SKILL_DESCRIPTION_SCOUT,The ability to notice things in the environment,La capacidad de notar cosas en el entorno
-PHRASE_HAS_SUCCESSFULLY_EXPLORED,has successfully explored,ha explorado con éxito
-WORD_COUNTY,County,Condado

@@ -25,15 +25,24 @@ public partial class InventoryVBoxContainer : VBoxContainer
         }
     }
 
+    private void ChangeAllInventoryItemsToNone()
+    {
+        foreach (Label label in equipment)
+        {
+            label.Text = $"{Tr("WORD_NONE")}";
+        }
+    }
+    
     public void PopulateHeroEquipment(PopulationData populationData)
     {
+        ChangeAllInventoryItemsToNone();
         PopulationDescriptionControl.Instance.newestEquipmentCheckBox.Show();
         PopulationDescriptionControl.Instance.subordinatesVBoxContainer.Show();
 
         if (populationData.isHero || populationData.activity == AllEnums.Activities.Service)
         {
             PopulationDescriptionControl.Instance.inventoryAndSubordinatesInventoryVBoxContainer.Show();
-            if (populationData.isHero)
+            if (populationData.isHero || populationData.activity == AllEnums.Activities.Service)
             {
                 for (int i = 0; i < equipment.Count; i++)
                 {
@@ -68,9 +77,9 @@ public partial class InventoryVBoxContainer : VBoxContainer
             return;
         }
 
-        if (Globals.Instance.CheckIfPlayerFaction(locationCountyData.factionData) == true)
+        if (Globals.Instance.CheckIfPlayerFaction(locationCountyData.factionData))
         {
-            Quartermaster.EquipHeroes(populationData);
+            Quartermaster.EquipHeroesAndSubordinates(populationData);
             PopulateHeroEquipment(populationData);
         }
     }

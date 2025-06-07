@@ -27,9 +27,9 @@ public abstract class Explorer
         int attributeLevel = hero.attributes[hero.skills[AllEnums.Skills.Scout].attribute].attributeLevel;
         int attributeBonus = AttributeData.GetAttributeBonus(attributeLevel, false, false);
         int additionalBonus =
-            GetSubordinateBonus(
-                hero); // TODO: Add Scouting Equipment Bonus.  Possibly add subordinate scouting equipment bonus too.
-        int perkBonus = 0; //Add a perk of some sort. // TODO: Perk Bonus
+            GetSubordinateBonus(hero) + Quartermaster.GetEquipmentBonus(hero, AllEnums.EquipmentType.Reconnaissance);
+        GD.Print($"Reconnaissance Equipment Bonus for {hero.GetFullName()} {Quartermaster.GetEquipmentBonus(hero, AllEnums.EquipmentType.Reconnaissance)}"); 
+        int perkBonus = 0; // TODO: Add a perk of some sort. // TODO: Perk Bonus
         int exploredAmount = 0;
         // Only gives exploration progress if the skill check passes.
         if (SkillData.CheckWithBonuses(skillLevel, attributeBonus, additionalBonus, perkBonus))
@@ -53,7 +53,8 @@ public abstract class Explorer
             int attributeLevel = subordinate.attributes[subordinate.skills[AllEnums.Skills.Scout].attribute]
                 .attributeLevel;
             int attributeBonus = AttributeData.GetAttributeBonus(attributeLevel, false, false);
-            int additionalBonus = 0;
+            int additionalBonus = Quartermaster.GetEquipmentBonus(subordinate, AllEnums.EquipmentType.Reconnaissance);
+            GD.Print($"Reconnaissance Equipment Bonus for {subordinate.GetFullName()} {Quartermaster.GetEquipmentBonus(subordinate, AllEnums.EquipmentType.Reconnaissance)}");
             int perkBonus = 0; //Add a perk of some sort.// TODO: Perk Bonus
 
             if (SkillData.CheckWithBonuses(skillLevel, attributeBonus, additionalBonus, perkBonus))
