@@ -212,7 +212,7 @@ TERRAIN_NAME_COAST,Coast,Costa
 TERRAIN_NAME_DESERT,Desert,Desierto
 TERRAIN_NAME_FOREST,Forest,Bosque
 TERRAIN_NAME_GLACIER,Glacier,Glaciar
-TERRAIN_NAME_HILLS,Hill,Loma
+TERRAIN_NAME_HILL,Hill,Loma
 TERRAIN_NAME_LAKE,Lake,Lago
 TERRAIN_NAME_MOUNTAIN,Mountain,Montaña
 TERRAIN_NAME_OASIS,Oasis,Oasis
@@ -269,3 +269,25 @@ WORD_TITLES,Titles,Títulos
 WORD_TRAIN,Train - THIS IS AN ACTIVITY,Tren
 WORD_VISITORS,Visitors,Visitantes
 WORD_WORK,Work- THIS IS AN ACTIVITY,Trabajo
+STORY_EVENT_TITLE_FOUND_FISH,Found Fish,Peces encontrados
+STORY_EVENT_TITLE_FOUND_NOTHING,Found Nothing,No encontré nada
+STORY_EVENT_TITLE_FOUND_REMNANTS,Found Remnants,Restos encontrados
+STORY_EVENT_DESCRIPTION_COAST_FOUND_FISH,"As the leader of the expedition walked along the beach, they discovered a fishing net filled with a plentiful catch.","Mientras el líder de la expedición caminaba por la playa, descubrieron una red de pesca llena de abundantes capturas."
+STORY_EVENT_DESCRIPTION_DESERT_FOUND_NOTHING,In the distance the explorer sees a dilapidated shack.  With excitement the explorer approaches and to their disappointment they find only trash from the old world.,"A lo lejos, el explorador ve una choza en ruinas.  Con emoción, el explorador se acerca y, para su decepción, solo encuentran basura del viejo mundo."
+STORY_EVENT_COAST_FOUND_FISH_CHOICE_ACCEPT,Grab the fish!,¡Agarra el pez!
+STORY_EVENT_COAST_FOUND_FISH_CHOICE_DECLINE,Leave the stinking fish behind.,Deja atrás el pescado apestoso.
+WORD_REWARD,Reward,Recompensa
+STORY_EVENT_DESERT_FOUND_NOTHING_DECLINE,Leave with head hung low.,Salir con la cabeza gacha.
+STORY_EVENT_TITLE_FOUND_WOOD,Found Wood,Madera encontrada
+STORY_EVENT_DESCRIPTION_FOREST_FOUND_WOOD,The leader of the expedition has discovered a logging camp with a small quanity of wood already chopped and processed.,El líder de la expedición ha descubierto un campamento maderero con una pequeña cantidad de madera ya cortada y procesada.
+STORY_EVENT_FOREST_FOUND_WOOD_CHOICE_ACCEPT,Collect the back breaking amount of wood.,Recoge la cantidad de madera que rompa la espalda.
+STORY_EVENT_FOREST_FOUND_WOOD_CHOICE_DECLINE,This is too heavy.  Leave it behind.,Esto es demasiado pesado.  Déjalo atrás.
+STORY_EVENT_RIVER_FOUND_REMNANTS,An abandoned river boat is wedge on the bank of the river.  It is filled with left overs from the old world.,Un barco abandonado está en la orilla del río.  Está lleno de sobras del viejo mundo.
+STORY_EVENT_RIVER_FOUND_REMNANTS_CHOICE_ACCEPT,Take the junk back home.,Llévate la basura a casa.
+STORY_EVENT_RIVER_FOUND_REMNANTS_CHOICE_DECLINE,"Nah, we don't want the stuff!","¡No, no queremos las cosas!"
+STORY_EVENT_DESCRIPTION_RUIN_FOUND_REMNANTS,"Digging through the ruins of the past is demoralizing, but at least the expedition has found some useful items.","Excavar en las ruinas del pasado es desmoralizador, pero al menos la expedición ha encontrado algunos objetos útiles."
+STORY_EVENT_RUIN_FOUND_REMNANTS_CHOICE_ACCEPT,Take everything!,¡Llévate todo!
+STORY_EVENT_RUIN_FOUND_REMNANTS_CHOICE_DECLINE,We don't want anything!,¡No queremos nada!
+STORY_EVENT_DESCRIPTION_GLACIER_FOUND_NOTHING,The freezing expanse reveals nothing.,La extensión helada no revela nada.
+GOOD_IRON,Iron,Hierro
+GOOD_DESCRIPTION_IRON,A ferromagnetic metal which is soft and rusts easily but can be used to make steel which makes it very durable and resist corrosion.,"Un metal ferromagnético que es blando y se oxida fácilmente, pero se puede usar para hacer acero, lo que lo hace muy duradero y resistente a la corrosión."

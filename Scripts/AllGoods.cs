@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 namespace PlayerSpace;
@@ -6,25 +8,27 @@ public partial class AllGoods : Node
 {
     public static AllGoods Instance { get; private set; }
 
-    [Export] public GoodData[] allGoods;
+    public List<GoodData> allGoods = [];
+    private string goodsDirectory = "res://Resources/Goods/";
 
     public override void _Ready()
     {
         Instance = this;
+        allGoods = Globals.Instance.ReadResourcesFromDisk(goodsDirectory).Cast<GoodData>().ToList();
         CountGoods();
     }
 
     /// <summary>
     /// Since there is an enum of None (which is zero when parsed to an int), we need to subtract
-    /// 1 from the CountyResourceType when getting the resource with the AllEnums from the allResources
+    /// 1 from the CountyGoodType when getting the good with the AllEnums from the allGoods
     /// array.
     /// </summary>
-    /// <param name="resourceType"></param>
+    /// <param name="goodType"></param>
     /// <returns></returns>
-    public GoodData GetCountyResourceData(AllEnums.CountyGoodType resourceType)
+    public GoodData GetCorrectGoodData(AllEnums.CountyGoodType goodType)
     {
-        GoodData countyResourceData = allGoods[(int)resourceType - 1];
-        return countyResourceData;
+        GoodData correctGoodData = allGoods[(int)goodType - 1];
+        return correctGoodData;
     }
     private void CountGoods()
     {

@@ -11,6 +11,7 @@ public partial class StoryEventControl : Control
     [Export] private Label storyEventTitle;
     [Export] private Label storyEventDescription;
     [Export] private Label storyEventLocation;
+    [Export] private Label storyEventRewardLabel;
 
     [Export] private VBoxContainer choicesVBoxContainer;
     [Export] private PackedScene storyEventChoiceButton;
@@ -21,7 +22,6 @@ public partial class StoryEventControl : Control
         Instance = this;
 
         Clock.Instance.HourChanged += CheckForEvent;
-        //GetChoiceButtons();
     }
 
     private void OnVisibilityChanged()
@@ -40,15 +40,6 @@ public partial class StoryEventControl : Control
             CountyInfoControl.Instance.UpdateEverything();
         }
     }
-    /*
-    private void GetChoiceButtons()
-    {
-        foreach (Button button in GetChild(0).GetChild(0).GetChildren().Skip(3).Cast<Button>())
-        {
-            choiceButtons.Add(button);
-        }
-    }
-    */
 
     // This was just for testing.
     private void CheckForEvent()
@@ -59,11 +50,9 @@ public partial class StoryEventControl : Control
         }
     }
 
- 
-
     private void DeleteChoiceButtons()
     {
-        foreach (Button button in choicesVBoxContainer.GetChildren().Skip(3).Cast<Button>())
+        foreach (Button button in choicesVBoxContainer.GetChildren().Skip(4).Cast<Button>())
         {
             button.QueueFree();
         }
@@ -74,6 +63,8 @@ public partial class StoryEventControl : Control
     {
         storyEventTitle.Text = currentStoryEventData.storyEventTitle;
         storyEventDescription.Text = currentStoryEventData.storyEventDescription;
+        storyEventRewardLabel.Text =
+            $"{Tr(currentStoryEventData.rewardGood.goodName)}: {currentStoryEventData.rewardAmount}";
         storyEventLocation.Text = $"{Tr("WORD_COUNTY")}: {currentStoryEventData.eventCounty.countyData.countyName}";
 
         InstantiateChoicesButtons();

@@ -56,6 +56,7 @@ public class AllEnums
         None,
         CannedFood,
         Fish,
+        Iron,
         PrimitiveScoutingEquipment,
         Remnants,
         StorageNonperishable,
@@ -93,8 +94,6 @@ public class AllEnums
         FactionGood,
         Both,
     }
-
-
 
     public enum HeroType
     {
@@ -216,7 +215,7 @@ public class AllEnums
     }
     
     /// <summary>
-    /// Since there is no equipment slot of none, but there is an equipment slot for all the other equipment types we need to subtract one from the equipment type.
+    /// Since there is no equipment slot of none, but there is an equipment slot for all the other equipment types, we need to subtract one from the equipment type.
     /// </summary>
     /// <param name="equipmentType"></param>
     /// <returns></returns>

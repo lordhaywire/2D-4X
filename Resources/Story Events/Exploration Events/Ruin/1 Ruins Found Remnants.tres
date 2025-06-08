@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="StoryEventData" load_steps=3 format=3 uid="uid://ccck2rviyxs7r"]
+
+[ext_resource type="Script" uid="uid://c6mqh2wl64evh" path="res://Resources/StoryEventData.cs" id="1_1f2b8"]
+[ext_resource type="Resource" uid="uid://bhmwj5yptebic" path="res://Resources/Goods/Remnants.tres" id="1_k63x0"]
+
+[resource]
+script = ExtResource("1_1f2b8")
+storyEventTitle = "STORY_EVENT_TITLE_FOUND_REMNANTS"
+storyEventDescription = "STORY_EVENT_DESCRIPTION_RUIN_FOUND_REMNANTS"
+storyEventTerrainType = 11
+amountExplored = 0
+rewardGood = ExtResource("1_k63x0")
+rewardAmount = 50
+choices = PackedStringArray("STORY_EVENT_RUIN_FOUND_REMNANTS_CHOICE_ACCEPT", "STORY_EVENT_RUIN_FOUND_REMNANTS_CHOICE_DECLINE")
+metadata/_custom_type_script = "uid://c6mqh2wl64evh"

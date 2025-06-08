@@ -67,13 +67,13 @@ public class Banker
     public static void AddStoryEventCountyGood(StoryEventData storyEventData)
     {
         GD.Print($"Reward Faction: {storyEventData.eventCounty.countyData.factionData.factionName} is adding " +
-            $"{storyEventData.rewardAmount} {storyEventData.rewardCountyGoodType} to {storyEventData.eventCounty.countyData.goods[storyEventData.rewardCountyGoodType].Amount}");
+            $"{storyEventData.rewardAmount} {storyEventData.rewardGood.goodName} to {storyEventData.eventCounty.countyData.goods[storyEventData.rewardGood.countyGoodType].Amount}");
 
-        storyEventData.eventCounty.countyData.goods[storyEventData.rewardCountyGoodType].Amount
+        storyEventData.eventCounty.countyData.goods[storyEventData.rewardGood.countyGoodType].Amount
             += storyEventData.rewardAmount;
 
         GD.Print($"Reward Faction: {storyEventData.eventCounty.countyData.factionData.factionName} " +
-            $"{storyEventData.eventCounty.countyData.goods[storyEventData.rewardCountyGoodType].Amount}");
+            $"{storyEventData.eventCounty.countyData.goods[storyEventData.rewardGood.countyGoodType].Amount}");
         TopBarControl.Instance.UpdateTopBarGoodLabels();
     }
 

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="StoryEventData" load_steps=2 format=3 uid="uid://o7hn1b1vqgxd"]
+
+[ext_resource type="Script" uid="uid://c6mqh2wl64evh" path="res://Resources/StoryEventData.cs" id="1_4pgqk"]
+
+[resource]
+script = ExtResource("1_4pgqk")
+storyEventTitle = "STORY_EVENT_TITLE_FOUND_NOTHING"
+storyEventDescription = "STORY_EVENT_DESCRIPTION_DESERT_FOUND_NOTHING"
+storyEventTerrainType = 1
+amountExplored = 0
+rewardAmount = 0
+choices = PackedStringArray("STORY_EVENT_DESERT_FOUND_NOTHING_DECLINE")
+metadata/_custom_type_script = "uid://c6mqh2wl64evh"

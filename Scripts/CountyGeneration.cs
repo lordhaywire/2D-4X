@@ -110,7 +110,7 @@ public partial class CountyGeneration : Node
         county.countyData.scavengeableRemnants = Globals.Instance.maxScavengeableScrap;
     }
 
-    private static void CopyAndAssignGoods(CountyData countyData, GoodData[] allGoods)
+    private static void CopyAndAssignGoods(CountyData countyData, List<GoodData> allGoods)
     {
         foreach (GoodData goodData in allGoods)
         {

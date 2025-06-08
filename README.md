@@ -3,7 +3,7 @@
 ## Using Godot 4.4.1.stable.mono C#
 
 This is the repository containing the open source code for the game creation streams that Lord Haywire does on his KilledByDev [Twitch](https://www.twitch.tv/killedbydev) 
-and [Youtube](https://www.youtube.com/@killedbydev) channels.
+and [YouTube](https://www.youtube.com/@killedbydev) channels.
 
 The old Unity version is here: [2D-4X Unity](https://github.com/lordhaywire/2D-4X-Unity)
 
@@ -21,11 +21,13 @@ The old Unity version is here: [2D-4X Unity](https://github.com/lordhaywire/2D-4
 
 2. Create a good in the County Resource folder.
 
-3. Assign enums on the good, and fix all other good enums.
+3. Create an enum for the Good.
+
+4. This will throw off the enums on already created Goods.  Fix them.
 
 #### Construction Good for County Improvement
 
-Goods Construction Cost is a one time fee charged when the county improvement is initially started being built.
+Goods Construction Cost is a one time fee charged when the county improvement is initially built.
 
 1. Drag over the Good resource.
 
@@ -43,11 +45,11 @@ Goods Construction Cost is a one time fee charged when the county improvement is
 
 4. Right click GenericProduction and select Make Unique.
 
-5. Adjust unique generic production to the correct amounts.  The main thing being work cost so that the
+5. Adjust unique generic production to the correct amounts.  The main thing is work cost so that
 
-average daily amount generated is correct.
+the average daily amount generated is correct.
 
-This needs to be setup correctly in the inspector so the average daily amount generated is generated.
+This needs to be set up correctly in the inspector so the average daily amount generated is generated.
 
 MaxWorkers * Global Amount of Daily Work with bonus / work cost = average daily amount generated.
 
@@ -63,7 +65,7 @@ Each input good is per worker per day.
 
 #### How to Export from Godot
 
-In Godot Project>Export make sure Embed PCK is checked and the Export path goes somewhere that is not in the project
+In Godot Project>Export makes sure Embed PCK is checked, and the Export path goes somewhere that is not in the project
 folder.
 
 Copy over the map folder from the project to the folder you are Exporting the game to.

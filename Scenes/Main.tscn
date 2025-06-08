@@ -1,4 +1,4 @@
-[gd_scene load_steps=124 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=110 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://World Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
 [ext_resource type="Script" uid="uid://bl7hn0hgb5876" path="res://Scripts/LoadMaps.cs" id="2_nda5i"]
@@ -30,12 +30,8 @@
 [ext_resource type="Resource" uid="uid://dy4bltm86q63n" path="res://Resources/Attributes/Intelligence.tres" id="17_y7h6l"]
 [ext_resource type="Script" uid="uid://c6nd17mfkssti" path="res://Scripts/RandomFactionColor.cs" id="18_3aru6"]
 [ext_resource type="Script" uid="uid://dhynx3i0k61wi" path="res://Scripts/AllGoods.cs" id="18_wf5kh"]
-[ext_resource type="Resource" uid="uid://c55q8uucl7cqe" path="res://Resources/Goods/Fish.tres" id="19_1e80i"]
 [ext_resource type="Script" uid="uid://dq7hcwrq41ub" path="res://Scripts/Clock.cs" id="19_dn5gi"]
 [ext_resource type="Script" uid="uid://cjkl8rag6oe66" path="res://Scripts/Map Editor/FindNeighbors.cs" id="20_0i5kb"]
-[ext_resource type="Resource" uid="uid://bhmwj5yptebic" path="res://Resources/Goods/Remnants.tres" id="20_k67vp"]
-[ext_resource type="Resource" uid="uid://dpddpnnbjvql" path="res://Resources/Goods/Vegetables.tres" id="21_r83qp"]
-[ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/Goods/Wood.tres" id="22_leslc"]
 [ext_resource type="Resource" uid="uid://bljrvhrjka1hs" path="res://Resources/ResearchItems/Basic Production.tres" id="22_ugyvd"]
 [ext_resource type="Script" uid="uid://bwjophygkh7hw" path="res://Scripts/AllPerks.cs" id="23_8jwco"]
 [ext_resource type="Script" uid="uid://bn3fvsw7u2ufw" path="res://Scripts/AllSkills.cs" id="23_jme5x"]
@@ -55,33 +51,23 @@
 [ext_resource type="Resource" uid="uid://bkqqewiydjtb2" path="res://Resources/Attributes/Looks.tres" id="29_xoqji"]
 [ext_resource type="PackedScene" uid="uid://djph5cv7o4atl" path="res://Scenes/UI/PopulationRowButton.tscn" id="30_bhu5o"]
 [ext_resource type="Resource" uid="uid://dqsfduf2ukjae" path="res://Resources/Attributes/Mental Strength.tres" id="30_lqs38"]
-[ext_resource type="Resource" uid="uid://khlm5miw0ik3" path="res://Resources/Goods/Building Materials.tres" id="31_hwg2s"]
 [ext_resource type="Script" uid="uid://cdm2i82r44cjc" path="res://Scripts/UI/PopulationDescriptionControl.cs" id="31_hwyyh"]
 [ext_resource type="Resource" uid="uid://dc6rsi4v4mw1g" path="res://Resources/Attributes/Physical Strength.tres" id="31_odxrg"]
 [ext_resource type="Texture2D" uid="uid://jyr4u6ph1nu6" path="res://Graphics/Icons/Population/portrait.svg" id="32_s1dhj"]
-[ext_resource type="Resource" uid="uid://bxlhn0725kssw" path="res://Resources/Goods/Equipment.tres" id="33_bposm"]
 [ext_resource type="Resource" uid="uid://7ylqwh5wl2xi" path="res://Resources/ResearchItems/Primitive Scouting Equipment.tres" id="33_uirqi"]
 [ext_resource type="Script" uid="uid://cb81oehioy1sr" path="res://Scripts/UI/HeroPanelContainer.cs" id="34_8wj68"]
 [ext_resource type="Theme" uid="uid://bcc8wsoqypsuc" path="res://Themes/TopBarTheme.tres" id="34_e2d2b"]
-[ext_resource type="Resource" uid="uid://rs4bgxx8ctc8" path="res://Resources/Goods/Canned Food.tres" id="34_hf6gg"]
 [ext_resource type="Script" uid="uid://pnqklen5b2s4" path="res://Scripts/UI/RecruitHeroConfirmationPanelContainer.cs" id="34_mgqam"]
-[ext_resource type="Resource" uid="uid://ptk65ipaec11" path="res://Resources/Goods/Food.tres" id="35_0j4c6"]
 [ext_resource type="Script" uid="uid://dqcgliu6jmjx1" path="res://Scripts/UI/BattleLogControl.cs" id="35_10y8n"]
 [ext_resource type="Script" uid="uid://cu733m1t7gb20" path="res://Scripts/UI/TopBarControl.cs" id="35_ecv6a"]
 [ext_resource type="Texture2D" uid="uid://ddb0p4x0erycl" path="res://Graphics/Icons/Top Bar/Influence.png" id="36_fqvec"]
-[ext_resource type="Resource" uid="uid://iyqqtyef01mo" path="res://Resources/Goods/Influence.tres" id="36_qmo2n"]
 [ext_resource type="Texture2D" uid="uid://tqexbc3d8yy8" path="res://Graphics/Icons/Top Bar/Money.png" id="37_16y4w"]
-[ext_resource type="Resource" uid="uid://dx87ykrfpioxm" path="res://Resources/Goods/Money.tres" id="37_mjyee"]
 [ext_resource type="Script" uid="uid://cfy6ob5n6nyrd" path="res://Scripts/CountyImprovementsControl.cs" id="37_rkirm"]
-[ext_resource type="Resource" uid="uid://cium8f0spbwdp" path="res://Resources/Goods/PrimitiveScoutingEquipment.tres" id="37_w4428"]
 [ext_resource type="Texture2D" uid="uid://u6mmuhhiejnw" path="res://Graphics/Icons/Top Bar/Food.png" id="38_0q3s5"]
 [ext_resource type="Script" uid="uid://ctq2ohlmisi1k" path="res://Scripts/UI/BuildConfirmationDialog.cs" id="39_atdu5"]
 [ext_resource type="Texture2D" uid="uid://dmbho3pkucn34" path="res://Graphics/Icons/Top Bar/Scrap.png" id="39_mrqgp"]
-[ext_resource type="Resource" uid="uid://c2dbcupxnjaq6" path="res://Resources/Goods/Research.tres" id="40_fend5"]
 [ext_resource type="Script" uid="uid://gwt26oei4avi" path="res://Scripts/UI/ResearchControl.cs" id="40_t5amt"]
 [ext_resource type="Script" uid="uid://ejvox70h10ew" path="res://Scripts/UI/ResearchDescriptionPanel.cs" id="41_77kvj"]
-[ext_resource type="Resource" uid="uid://cvcmicp5gw3w4" path="res://Resources/Goods/Storage Nonperishable.tres" id="41_qxwff"]
-[ext_resource type="Resource" uid="uid://c2g12b5fk6456" path="res://Resources/Goods/Storage Perishable.tres" id="42_dwns0"]
 [ext_resource type="Script" uid="uid://soiwiq8ymdp7" path="res://Scripts/UI/DeclareWarControl.cs" id="42_g5xi4"]
 [ext_resource type="Script" uid="uid://dau2q6n6oubso" path="res://Scripts/UI/EventLog.cs" id="43_w0p1n"]
 [ext_resource type="PackedScene" uid="uid://bjgv6c8xhn4lo" path="res://Scenes/UI/Event Log Text Panel.tscn" id="44_du832"]
@@ -236,7 +222,6 @@ allPerks = Array[Object]([ExtResource("24_edv5e"), ExtResource("25_626s1")])
 
 [node name="All Goods" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("18_wf5kh")
-allGoods = Array[Object]([ExtResource("31_hwg2s"), ExtResource("34_hf6gg"), ExtResource("33_bposm"), ExtResource("19_1e80i"), ExtResource("35_0j4c6"), ExtResource("36_qmo2n"), ExtResource("37_mjyee"), ExtResource("37_w4428"), ExtResource("20_k67vp"), ExtResource("40_fend5"), ExtResource("41_qxwff"), ExtResource("42_dwns0"), ExtResource("21_r83qp"), ExtResource("22_leslc")])
 
 [node name="All Research" type="Node" parent="Game Controller Node/Arrays"]
 script = ExtResource("12_hmucs")
@@ -2621,7 +2606,7 @@ size_flags_horizontal = 3
 tooltip_text = "You are a piece of shit!"
 text = "Yes"
 
-[node name="Story Event Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("storyEventTitle", "storyEventDescription", "storyEventLocation", "choicesVBoxContainer")]
+[node name="Story Event Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("storyEventTitle", "storyEventDescription", "storyEventLocation", "storyEventRewardLabel", "choicesVBoxContainer")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -2635,6 +2620,7 @@ script = ExtResource("62_onxgq")
 storyEventTitle = NodePath("PanelContainer/Choices VBoxContainer/Story Event Title Label")
 storyEventDescription = NodePath("PanelContainer/Choices VBoxContainer/Story Event Description Label")
 storyEventLocation = NodePath("PanelContainer/Choices VBoxContainer/Story Event Location Label")
+storyEventRewardLabel = NodePath("PanelContainer/Choices VBoxContainer/PanelContainer/VBoxContainer/Story Event Reward Label")
 choicesVBoxContainer = NodePath("PanelContainer/Choices VBoxContainer")
 storyEventChoiceButton = ExtResource("114_yhlxv")
 
@@ -2669,33 +2655,28 @@ layout_mode = 2
 text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
 autowrap_mode = 3
 
+[node name="PanelContainer" type="PanelContainer" parent="Player UI Canvas/Story Event Control/PanelContainer/Choices VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Story Event Control/PanelContainer/Choices VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Title Reward Label" type="Label" parent="Player UI Canvas/Story Event Control/PanelContainer/Choices VBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "WORD_REWARD"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Story Event Reward Label" type="Label" parent="Player UI Canvas/Story Event Control/PanelContainer/Choices VBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Story Event Location Label" type="Label" parent="Player UI Canvas/Story Event Control/PanelContainer/Choices VBoxContainer"]
 layout_mode = 2
 text = "County: Some Place"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Accept Button" parent="Player UI Canvas/Story Event Control/PanelContainer/Choices VBoxContainer" instance=ExtResource("114_yhlxv")]
-visible = false
-layout_mode = 2
-
-[node name="Option 2 Button" type="Button" parent="Player UI Canvas/Story Event Control/PanelContainer/Choices VBoxContainer"]
-visible = false
-layout_mode = 2
-mouse_filter = 1
-text = "Option 2"
-
-[node name="Option 3 Button" type="Button" parent="Player UI Canvas/Story Event Control/PanelContainer/Choices VBoxContainer"]
-visible = false
-layout_mode = 2
-mouse_filter = 1
-text = "Option 3"
-
-[node name="Decline Button" type="Button" parent="Player UI Canvas/Story Event Control/PanelContainer/Choices VBoxContainer"]
-visible = false
-layout_mode = 2
-mouse_filter = 1
-text = "Decline Button"
 
 [node name="Map Editor Control" type="Control" parent="Player UI Canvas"]
 visible = false

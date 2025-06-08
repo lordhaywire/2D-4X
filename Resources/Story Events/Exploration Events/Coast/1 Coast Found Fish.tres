@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="StoryEventData" load_steps=3 format=3 uid="uid://d2trlr4s0mxj0"]
+
+[ext_resource type="Resource" uid="uid://c55q8uucl7cqe" path="res://Resources/Goods/Fish.tres" id="1_bgon7"]
+[ext_resource type="Script" uid="uid://c6mqh2wl64evh" path="res://Resources/StoryEventData.cs" id="1_okil6"]
+
+[resource]
+script = ExtResource("1_okil6")
+storyEventTitle = "STORY_EVENT_TITLE_FOUND_FISH"
+storyEventDescription = "STORY_EVENT_DESCRIPTION_COAST_FOUND_FISH"
+storyEventTerrainType = 0
+amountExplored = 0
+rewardGood = ExtResource("1_bgon7")
+rewardAmount = 50
+choices = PackedStringArray("STORY_EVENT_COAST_FOUND_FISH_CHOICE_ACCEPT", "STORY_EVENT_COAST_FOUND_FISH_CHOICE_DECLINE")
+metadata/_custom_type_script = "uid://c6mqh2wl64evh"

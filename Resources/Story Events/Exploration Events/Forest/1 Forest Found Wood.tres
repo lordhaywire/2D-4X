@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="StoryEventData" load_steps=3 format=3 uid="uid://cl7j7khcpxl1q"]
+
+[ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/Goods/Wood.tres" id="1_b6ipl"]
+[ext_resource type="Script" uid="uid://c6mqh2wl64evh" path="res://Resources/StoryEventData.cs" id="2_c80v1"]
+
+[resource]
+script = ExtResource("2_c80v1")
+storyEventTitle = "STORY_EVENT_TITLE_FOUND_WOOD"
+storyEventDescription = "STORY_EVENT_DESCRIPTION_FOREST_FOUND_WOOD"
+storyEventTerrainType = 2
+amountExplored = 0
+rewardGood = ExtResource("1_b6ipl")
+rewardAmount = 50
+choices = PackedStringArray("STORY_EVENT_FOREST_FOUND_WOOD_CHOICE_ACCEPT", "STORY_EVENT_FOREST_FOUND_WOOD_CHOICE_DECLINE")
+metadata/_custom_type_script = "uid://c6mqh2wl64evh"

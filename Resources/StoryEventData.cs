@@ -10,9 +10,8 @@ namespace PlayerSpace
         [Export] public AllEnums.Terrain storyEventTerrainType;
         [Export] public int amountExplored;
 
-        [ExportGroup("Event Rewards")]
-        [Export] public AllEnums.CountyGoodType rewardCountyGoodType;
-        [Export] public AllEnums.FactionGoodType rewardFactionGoodType;
+        [ExportGroup("Event Rewards")] 
+        [Export] public GoodData rewardGood;
         [Export] public int rewardAmount;
 
         [Export] public string[] choices;
