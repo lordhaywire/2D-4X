@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StoryEventData" load_steps=3 format=3 uid="uid://tgcyci2aupi3"]
+
+[ext_resource type="Resource" uid="uid://dpddpnnbjvql" path="res://Resources/Goods/Vegetables.tres" id="1_yqiv0"]
+[ext_resource type="Script" uid="uid://c6mqh2wl64evh" path="res://Resources/StoryEventData.cs" id="2_2civu"]
+
+[resource]
+script = ExtResource("2_2civu")
+storyEventTitle = "STORY_EVENT_TITLE_FOUND_VEGETABLES"
+storyEventDescription = "STORY_EVENT_DESCRIPTION_SWAMP_FOUND_VEGETABLES"
+storyEventTerrainType = 12
+amountExplored = 0
+storyEventRewardType = 0
+rewardGood = ExtResource("1_yqiv0")
+rewardAmount = 50
+choices = PackedStringArray("STORY_EVENT_SWAMP_FOUND_VEGETABLES_CHOICE_ACCEPT", "STORY_EVENT_SWAMP_FOUND_VEGETABLES_CHOICE_DECLINE")
+metadata/_custom_type_script = "uid://c6mqh2wl64evh"

@@ -31,8 +31,8 @@ public partial class CountyData : Resource
     [Export] public AllEnums.Terrain primaryTerrain;
     [Export] public AllEnums.Terrain secondaryTerrain;
     [Export] public AllEnums.Terrain tertiaryTerrain;
-    [Export] public Godot.Collections.Array<AllEnums.Terrain> allTerrains = [];
-    [Export] public Godot.Collections.Array<StoryEventData> explorationEvents = [];
+    [Export] public Godot.Collections.Array<AllEnums.Terrain> allTerrains; // = [];
+    [Export] public Godot.Collections.Array<StoryEventData> explorationEvents; // = [];
     
     [ExportGroup("Population Lists")]
     [Export] public Godot.Collections.Array<PopulationData> populationDataList;// = [];

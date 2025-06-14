@@ -64,6 +64,53 @@ public class Banker
         return amount;
     }
 
+    public static void ApplyCorrectRewardType(StoryEventData storyEventData)
+    {
+        switch (storyEventData.storyEventRewardType)
+        {
+            case AllEnums.StoryEventRewardType.Instant:
+                AddStoryEventCountyGood(storyEventData);
+                return;
+            case AllEnums.StoryEventRewardType.People:
+                return;
+            case AllEnums.StoryEventRewardType.Scavengeable:
+                AddStoryEventScavengeableCountyGood(storyEventData);
+                return;
+        }
+    }
+
+    private static void AddStoryEventScavengeableCountyGood(StoryEventData storyEventData)
+    {
+        GD.Print($"{storyEventData.rewardAmount} {storyEventData.rewardGood.goodName} to scavengeable " +
+                 $"{storyEventData.eventCounty.countyData.goods[storyEventData.rewardGood.countyGoodType].Amount}");
+
+        if (storyEventData.rewardGood.countyGoodType == AllEnums.CountyGoodType.CannedFood)
+        {
+            GD.Print($"{storyEventData.rewardAmount} {storyEventData.rewardGood.goodName} to scavengeable canned food " +
+                     $"{storyEventData.eventCounty.countyData.scavengeableCannedFood}");
+            
+            storyEventData.eventCounty.countyData.scavengeableCannedFood += storyEventData.rewardAmount;
+            
+        }
+        else
+        {
+            GD.Print($"{storyEventData.rewardAmount} {storyEventData.rewardGood.goodName} to scavengeable remnants " +
+                     $"{storyEventData.eventCounty.countyData.scavengeableRemnants}");
+            storyEventData.eventCounty.countyData.scavengeableRemnants += storyEventData.rewardAmount;
+        }
+
+
+        GD.Print($"{storyEventData.rewardAmount} {storyEventData.rewardGood.goodName} to scavengeable canned food " +
+                 $"{storyEventData.eventCounty.countyData.scavengeableCannedFood}");
+        GD.Print($"{storyEventData.rewardAmount} {storyEventData.rewardGood.goodName} to scavengeable remnants " +
+                 $"{storyEventData.eventCounty.countyData.scavengeableRemnants}");
+        
+        if (Globals.Instance.SelectedLeftClickCounty != null)
+        {
+            CountyInfoControl.Instance.UpdateCountyAvailableScavengeableGoods();
+        }
+    }
+
     public static void AddStoryEventCountyGood(StoryEventData storyEventData)
     {
         GD.Print($"Reward Faction: {storyEventData.eventCounty.countyData.factionData.factionName} is adding " +

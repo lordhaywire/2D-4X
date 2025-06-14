@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="GoodData" load_steps=2 format=3 uid="uid://b5hjqqpjiox58"]
+
+[ext_resource type="Script" uid="uid://cmfu3g7sbgyfx" path="res://Resources/GoodData.cs" id="1_cplca"]
+
+[resource]
+script = ExtResource("1_cplca")
+goodName = "GOOD_CLOTH"
+description = "GOOD_DESCRIPTION_CLOTH"
+goodType = 0
+countyGoodType = 2
+factionGoodType = 1
+perishable = 2
+failureRate = 5
+remnantSubstitutable = true
+useRemnants = false
+amount = 0
+Amount = 0
+maxAmount = 2147483647
+MaxAmount = 0

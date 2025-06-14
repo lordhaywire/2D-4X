@@ -17,13 +17,11 @@ The old Unity version is here: [2D-4X Unity](https://github.com/lordhaywire/2D-4
 
 #### Adding a county good
 
-1. Create a good type enum.
+1. Create a CountyGoodType enum.
 
-2. Create a good in the County Resource folder.
+2. Create a good in the Resources > Goods folder.
 
-3. Create an enum for the Good.
-
-4. This will throw off the enums on already created Goods.  Fix them.
+3. This will throw off the enums on already created Goods.  Update all enums in all goods.
 
 #### Construction Good for County Improvement
 

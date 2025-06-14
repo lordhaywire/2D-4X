@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="StoryEventData" load_steps=3 format=3 uid="uid://udbehys3ht1v"]
+
+[ext_resource type="Resource" uid="uid://d2ny6ydpsknuv" path="res://Resources/Goods/Fruit.tres" id="1_pt1xf"]
+[ext_resource type="Script" uid="uid://c6mqh2wl64evh" path="res://Resources/StoryEventData.cs" id="2_74k51"]
+
+[resource]
+script = ExtResource("2_74k51")
+storyEventTitle = "STORY_EVENT_TITLE_FOUND_FRUIT"
+storyEventDescription = "STORY_EVENT_DESCRIPTION_OASIS_FOUND_FRUIT"
+storyEventTerrainType = 7
+amountExplored = 0
+rewardGood = ExtResource("1_pt1xf")
+rewardAmount = 50
+choices = PackedStringArray("STORY_EVENT_OASIS_FOUND_FRUIT_CHOICE_ACCEPT", "STORY_EVENT_OASIS_FOUND_FRUIT_CHOICE_DECLINE")
+metadata/_custom_type_script = "uid://c6mqh2wl64evh"

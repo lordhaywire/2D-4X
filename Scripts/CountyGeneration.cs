@@ -29,9 +29,12 @@ public partial class CountyGeneration : Node
         // Add all the human set terrains to a Godot Collection for later use.
         foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
         {
-            county.countyData.allTerrains.Add(county.countyData.primaryTerrain);
-            county.countyData.allTerrains.Add(county.countyData.secondaryTerrain);
-            county.countyData.allTerrains.Add(county.countyData.tertiaryTerrain);
+            county.countyData.allTerrains =
+            [
+                county.countyData.primaryTerrain,
+                county.countyData.secondaryTerrain,
+                county.countyData.tertiaryTerrain
+            ];
         }
     }
 

@@ -10,7 +10,8 @@ namespace PlayerSpace
         [Export] public AllEnums.Terrain storyEventTerrainType;
         [Export] public int amountExplored;
 
-        [ExportGroup("Event Rewards")] 
+        [ExportGroup("Event Rewards")]
+        [Export] public AllEnums.StoryEventRewardType storyEventRewardType;
         [Export] public GoodData rewardGood;
         [Export] public int rewardAmount;
 

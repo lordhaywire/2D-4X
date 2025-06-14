@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="GoodData" load_steps=2 format=3 uid="uid://c2dbcupxnjaq6"]
 
-[ext_resource type="Script" path="res://Resources/GoodData.cs" id="1_ios6q"]
+[ext_resource type="Script" uid="uid://cmfu3g7sbgyfx" path="res://Resources/GoodData.cs" id="1_ios6q"]
 
 [resource]
 script = ExtResource("1_ios6q")
@@ -8,8 +8,12 @@ goodName = "GOOD_RESEARCH"
 description = "GOOD_DESCRIPTION_RESEARCH"
 goodType = 1
 countyGoodType = 0
-factionGoodType = 7
-perishable = false
+factionGoodType = 8
+perishable = 0
 failureRate = 0
 remnantSubstitutable = false
+useRemnants = false
 amount = 0
+Amount = 0
+maxAmount = 0
+MaxAmount = 0

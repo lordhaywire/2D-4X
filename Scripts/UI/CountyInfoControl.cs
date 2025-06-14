@@ -94,7 +94,7 @@ public partial class CountyInfoControl : Control
         UpdateNameLabels();
         UpdatePercentageExplored();
         UpdateTerrain();
-        UpdateCountyAvailableResources();
+        UpdateCountyAvailableScavengeableGoods();
         UpdateCountyPopulationLabel();
         UpdateVisitorsPopulationLabel();
         UpdateIdleWorkersLabel();
@@ -124,7 +124,7 @@ public partial class CountyInfoControl : Control
     }
 
 
-    public void UpdateCountyAvailableResources()
+    public void UpdateCountyAvailableScavengeableGoods()
     {
         countyFoodLabel.Text = $"{Tr("GOOD_FOOD")}: {countyData.scavengeableCannedFood}";
         countyScrapLabel.Text = $"{Tr("GOOD_REMNANTS")}: {countyData.scavengeableRemnants}";

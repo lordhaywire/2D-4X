@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="GoodData" load_steps=2 format=3 uid="uid://c2g12b5fk6456"]
 
-[ext_resource type="Script" uid="uid://cmfu3g7sbgyfx" path="res://Resources/GoodData.cs" id="1_u6enf"]
+[ext_resource type="Script" uid="uid://cmfu3g7sbgyfx" path="res://Resources/GoodData.cs" id="1_i7sgl"]
 
 [resource]
-script = ExtResource("1_u6enf")
+script = ExtResource("1_i7sgl")
 goodName = "GOOD_STORAGE_PERISHABLE"
 description = "GOOD_DESCRIPTION_STORAGE_PERISHABLE"
 goodType = 0
-countyGoodType = 7
+countyGoodType = 10
 factionGoodType = 0
 perishable = 0
 failureRate = 0

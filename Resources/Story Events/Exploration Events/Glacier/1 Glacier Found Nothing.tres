@@ -5,9 +5,9 @@
 [resource]
 script = ExtResource("1_bx2ok")
 storyEventTitle = "STORY_EVENT_TITLE_FOUND_NOTHING"
-storyEventDescription = "STORY_EVENT_DESCRIPTION_DESERT_FOUND_NOTHING"
+storyEventDescription = "STORY_EVENT_DESCRIPTION_GLACIER_FOUND_NOTHING"
 storyEventTerrainType = 3
 amountExplored = 0
 rewardAmount = 0
-choices = PackedStringArray("STORY_EVENT_DESCRIPTION_GLACIER_FOUND_NOTHING")
+choices = PackedStringArray("STORY_EVENT_GLACIER_FOUND_NOTHING_CHOICE_ACCEPT")
 metadata/_custom_type_script = "uid://c6mqh2wl64evh"

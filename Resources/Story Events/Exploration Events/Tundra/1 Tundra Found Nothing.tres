@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="StoryEventData" load_steps=2 format=3 uid="uid://dtf35es0cbcse"]
+
+[ext_resource type="Script" uid="uid://c6mqh2wl64evh" path="res://Resources/StoryEventData.cs" id="1_7oq8k"]
+
+[resource]
+script = ExtResource("1_7oq8k")
+storyEventTitle = "STORY_EVENT_TITLE_FOUND_NOTHING"
+storyEventDescription = "STORY_EVENT_DESCRIPTION_TUNDRA_FOUND_NOTHING"
+storyEventTerrainType = 13
+amountExplored = 0
+storyEventRewardType = 0
+rewardAmount = 0
+choices = PackedStringArray("STORY_EVENT_TUNDRA_FOUND_NOTHING_CHOICE_ACCEPT")
+metadata/_custom_type_script = "uid://c6mqh2wl64evh"

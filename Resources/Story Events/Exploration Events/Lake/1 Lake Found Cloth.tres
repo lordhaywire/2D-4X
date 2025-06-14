@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="StoryEventData" load_steps=3 format=3 uid="uid://c7e40l1j3q8oe"]
+
+[ext_resource type="Resource" uid="uid://b5hjqqpjiox58" path="res://Resources/Goods/Cloth.tres" id="1_4uu2k"]
+[ext_resource type="Script" uid="uid://c6mqh2wl64evh" path="res://Resources/StoryEventData.cs" id="2_dadbf"]
+
+[resource]
+script = ExtResource("2_dadbf")
+storyEventTitle = "STORY_EVENT_TITLE_FOUND_CLOTH"
+storyEventDescription = "STORY_EVENT_DESCRIPTION_LAKE_FOUND_CLOTH"
+storyEventTerrainType = 5
+amountExplored = 0
+rewardGood = ExtResource("1_4uu2k")
+rewardAmount = 50
+choices = PackedStringArray("STORY_EVENT_LAKE_FOUND_CLOTH_CHOICE_ACCEPT", "STORY_EVENT_LAKE_FOUND_CLOTH_CHOICE_DECLINE")
+metadata/_custom_type_script = "uid://c6mqh2wl64evh"

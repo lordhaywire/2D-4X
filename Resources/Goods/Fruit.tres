@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="GoodData" load_steps=2 format=3 uid="uid://d2ny6ydpsknuv"]
+
+[ext_resource type="Script" uid="uid://cmfu3g7sbgyfx" path="res://Resources/GoodData.cs" id="1_tuupa"]
+
+[resource]
+script = ExtResource("1_tuupa")
+goodName = "GOOD_FRUIT"
+description = "GOOD_DESCRIPTION_FRUIT"
+goodType = 0
+countyGoodType = 4
+factionGoodType = 3
+perishable = 1
+failureRate = 0
+remnantSubstitutable = false
+useRemnants = false
+amount = 0
+Amount = 0
+maxAmount = 2147483647
+MaxAmount = 0

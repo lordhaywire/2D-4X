@@ -1,11 +1,10 @@
-[gd_resource type="Resource" script_class="CountyData" load_steps=7 format=3 uid="uid://cvc0wfljshom0"]
+[gd_resource type="Resource" script_class="CountyData" load_steps=6 format=3 uid="uid://cvc0wfljshom0"]
 
 [ext_resource type="Script" uid="uid://cmfu3g7sbgyfx" path="res://Resources/GoodData.cs" id="1_emrh8"]
 [ext_resource type="Resource" uid="uid://8rlgk7ws51cg" path="res://Resources/Factions/AIFaction1.tres" id="1_mr4wl"]
 [ext_resource type="Script" uid="uid://bvkux0mhx52u8" path="res://Resources/PopulationData.cs" id="2_7dcpa"]
 [ext_resource type="Script" uid="uid://4nhd1im4255h" path="res://Resources/CountyData.cs" id="2_bmxi8"]
 [ext_resource type="Script" uid="uid://blu41dxinr54t" path="res://Resources/CountyImprovementData.cs" id="3_2c3j2"]
-[ext_resource type="Script" uid="uid://c6mqh2wl64evh" path="res://Resources/StoryEventData.cs" id="4_7dcpa"]
 
 [resource]
 script = ExtResource("2_bmxi8")
@@ -20,8 +19,8 @@ province = 1
 primaryTerrain = 11
 secondaryTerrain = 0
 tertiaryTerrain = 12
-allTerrains = Array[int]([])
-explorationEvents = Array[ExtResource("4_7dcpa")]([])
+allTerrains = null
+explorationEvents = null
 populationDataList = Array[ExtResource("2_7dcpa")]([])
 heroesInCountyList = Array[ExtResource("2_7dcpa")]([])
 armiesInCountyList = Array[ExtResource("2_7dcpa")]([])

@@ -64,12 +64,17 @@ ATTRIBUTE_NAME_MENTAL_STRENGTH,Mental Strength,Fuerza Mental
 ATTRIBUTE_NAME_PHYSICAL_STRENGTH,Physical Strength,Fuerza Física
 GOOD_BUILDING_MATERIALS,Building Materials,Materiales de construcción
 GOOD_CANNED_FOOD,Canned Food,Alimentos enlatados
+GOOD_CLOTH,Cloth,Tela
 GOOD_DESCRIPTION_BUILDING_MATERIALS,"Materials that are using for building, such as wood and remnants.","Materiales que se utilizan para la construcción, como la madera y los restos."
 GOOD_DESCRIPTION_CANNED_FOOD,Food that comes in a can.,Comida que viene en lata.
+GOOD_DESCRIPTION_CLOTH,A fabric use for making clothing and other things.,Tela que se utiliza para hacer ropa y otras cosas.
 GOOD_DESCRIPTION_EQUIPMENT,Things that people use or wear.,Cosas que la gente usa o usa.
 GOOD_DESCRIPTION_FISH,An edible animal that lives in water.,Animal comestible que vive en el agua.
 GOOD_DESCRIPTION_FOOD,Things that people shove in their faces.  It reduces hunger.,Cosas que la gente se mete en la cara.  Reduce el hambre.
+GOOD_DESCRIPTION_FRUIT,A seed pod that is ediable.,Una vaina de semillas que es comestible.
 GOOD_DESCRIPTION_INFLUENCE,Used to get people to do things.,Se usa para hacer que la gente haga cosas.
+GOOD_DESCRIPTION_IRON,A processed ferromagnetic metal which is soft and rusts easily but can be used to make steel which makes it very durable and resist corrosion.,"Un metal ferromagnético que es blando y se oxida fácilmente, pero se puede usar para hacer acero, lo que lo hace muy duradero y resistente a la corrosión."
+GOOD_DESCRIPTION_IRON_ORE,A ferromagnetic metal which is soft and rusts easily but can be used to make steel which makes it very durable and resist corrosion.,"Un metal ferromagnético que es blando y se oxida fácilmente, pero se puede usar para hacer acero, lo que lo hace muy duradero y resistente a la corrosión."
 GOOD_DESCRIPTION_MONEY,Objects of value that are spent.,Objetos de valor que se gastan.
 GOOD_DESCRIPTION_PRIMITIVE_SCOUTING_EQUIPMENT,"Thrown together maps, binoculars and other scouting gear.","Junté mapas, binoculares y otros equipos de exploración."
 GOOD_DESCRIPTION_REMNANTS,Left overs from the old world.,Sobras del viejo mundo.
@@ -81,7 +86,10 @@ GOOD_DESCRIPTION_WOOD,It is made from trees.,Está hecho de árboles.
 GOOD_EQUIPMENT,Equipment,Equipo
 GOOD_FISH,Fish,Pescado
 GOOD_FOOD,Food,Víveres
+GOOD_FRUIT,Fruit,Fruta
 GOOD_INFLUENCE,Influence,Influencia
+GOOD_IRON,Iron,Hierro
+GOOD_IRON_ORE,Iron Ore,Mineral de hierro
 GOOD_MONEY,Money,Dinero
 GOOD_PRIMITIVE_SCOUTING_EQUIPMENT,Primitive Scouting Equipment,Equipo de exploración primitivo
 GOOD_REMNANTS,Remnants,Remanente
@@ -208,6 +216,52 @@ SKILL_NAME_RESEARCH,Research,Investigación
 SKILL_NAME_RIFLE,Rifle,Fusil
 SKILL_NAME_SCAVENGE,Scavenge,Recoger la basura
 SKILL_NAME_SCOUT,Scout,Escucha
+STORY_EVENT_COAST_FOUND_FISH_CHOICE_ACCEPT,Grab the fish!,¡Agarra el pez!
+STORY_EVENT_COAST_FOUND_FISH_CHOICE_DECLINE,Leave the stinking fish behind.,Deja atrás el pescado apestoso.
+STORY_EVENT_DESCRIPTION_COAST_FOUND_FISH,"As the leader of the expedition walked along the beach, they discovered a fishing net filled with a plentiful catch.","Mientras el líder de la expedición caminaba por la playa, descubrieron una red de pesca llena de abundantes capturas."
+STORY_EVENT_DESCRIPTION_DESERT_FOUND_NOTHING,In the distance the explorer sees a dilapidated shack.  With excitement the explorer approaches and to their disappointment they find only trash from the old world.,"A lo lejos, el explorador ve una choza en ruinas.  Con emoción, el explorador se acerca y, para su decepción, solo encuentran basura del viejo mundo."
+STORY_EVENT_DESCRIPTION_FOREST_FOUND_WOOD,The leader of the expedition has discovered a logging camp with a small quanity of wood already chopped and processed.,El líder de la expedición ha descubierto un campamento maderero con una pequeña cantidad de madera ya cortada y procesada.
+STORY_EVENT_DESCRIPTION_GLACIER_FOUND_NOTHING,The freezing expanse reveals nothing.,La extensión helada no revela nada.
+STORY_EVENT_DESCRIPTION_HILL_FOUND_IRON,An old stockpile of iron has been stumbled upon.,Se ha tropezado con una vieja pila de hierro.
+STORY_EVENT_DESCRIPTION_LAKE_FOUND_CLOTH,Each lake house seems to have a sunken sailing boat with a usable sail.,Cada casa del lago parece tener un velero hundido con una vela utilizable.
+STORY_EVENT_DESCRIPTION_MOUNTAIN_FOUND_IRON_ORE,The expedition has found a massive abandoned iron mine.  In the tailings there is a small amount of iron ore that can be collected.,La expedición ha encontrado una enorme mina de hierro abandonada.  En los relaves hay una pequeña cantidad de mineral de hierro que se puede recolectar.
+STORY_EVENT_DESCRIPTION_OASIS_FOUND_FRUIT,An oasis holding a variety of dying fruit trees has been discovered.  Might as well grab the last few fruits on the way out.,Se ha descubierto un oasis que contiene una variedad de árboles frutales moribundos.  También podría agarrar las últimas frutas al salir.
+STORY_EVENT_DESCRIPTION_PLAIN_FOUND_NOTHING,A wide open empty field of nothing.,Un campo abierto y vacío de nada.
+STORY_EVENT_DESCRIPTION_PLATEAU_FOUND_NOTHING,"The view is great from up here, but that is about it.","La vista es genial desde aquí arriba, pero eso es todo."
+STORY_EVENT_DESCRIPTION_RUIN_FOUND_REMNANTS,"Digging through the ruins of the past is demoralizing, but at least the expedition has found some useful items.","Excavar en las ruinas del pasado es desmoralizador, pero al menos la expedición ha encontrado algunos objetos útiles."
+STORY_EVENT_DESCRIPTION_SWAMP_FOUND_VEGETABLES,As the expedition travels through the dampness they come upon a dilapidated shack with a small vegetable garden.,"A medida que la expedición viaja a través de la humedad, se encuentran con una choza en ruinas con un pequeño huerto."
+STORY_EVENT_DESCRIPTION_TUNDRA_FOUND_NOTHING,"It is very cold, and empty.",Hace mucho frío y está vacío.
+STORY_EVENT_DESERT_FOUND_NOTHING_DECLINE,Leave with head hung low.,Salir con la cabeza gacha.
+STORY_EVENT_FOREST_FOUND_WOOD_CHOICE_ACCEPT,Collect the back breaking amount of wood.,Recoge la cantidad de madera que rompa la espalda.
+STORY_EVENT_FOREST_FOUND_WOOD_CHOICE_DECLINE,This is too heavy.  Leave it behind.,Esto es demasiado pesado.  Déjalo atrás.
+STORY_EVENT_GLACIER_FOUND_NOTHING_CHOICE_ACCEPT,"Yep, nothing here.  Lets go.","Sí, aquí no hay nada.  Vamos."
+STORY_EVENT_HILL_FOUND_IRON_CHOICE_ACCEPT,Take the iron!,¡Toma la plancha!
+STORY_EVENT_HILL_FOUND_IRON_CHOICE_DECLINE,Leave it to rust.,Deja que se oxide.
+STORY_EVENT_LAKE_FOUND_CLOTH_CHOICE_ACCEPT,Take the sails!,¡Toma las velas!
+STORY_EVENT_LAKE_FOUND_CLOTH_CHOICE_DECLINE,Leave the sails to rot.,Deja que las velas se pudran.
+STORY_EVENT_MOUNTAIN_FOUND_IRON_ORE_CHOICE_ACCEPT,"Yeah, lets grab all of it!","¡Sí, vamos a agarrarlo todo!"
+STORY_EVENT_MOUNTAIN_FOUND_IRON_ORE_CHOICE_DECLINE,"No, thank you.","No, gracias."
+STORY_EVENT_OASIS_FOUND_FRUIT_CHOICE_ACCEPT,Pick the fruits!,¡Recoge las frutas!
+STORY_EVENT_OASIS_FOUND_FRUIT_CHOICE_DECLINE,Leave the fruits!,¡Deja los frutos!
+STORY_EVENT_PLAIN_FOUND_NOTHING_CHOICE_ACCEPT,"Nothing to take, so leave.","No hay nada que llevarse, así que vete."
+STORY_EVENT_PLATEAU_FOUND_NOTHING_CHOICE_ACCEPT,Time to carefully leave the plateau with nothing in hand.,Es hora de abandonar con cuidado la meseta sin nada en la mano.
+STORY_EVENT_RIVER_FOUND_REMNANTS,An abandoned river boat is wedge on the bank of the river.  It is filled with left overs from the old world.,Un barco abandonado está en la orilla del río.  Está lleno de sobras del viejo mundo.
+STORY_EVENT_RIVER_FOUND_REMNANTS_CHOICE_ACCEPT,Take the junk back home.,Llévate la basura a casa.
+STORY_EVENT_RIVER_FOUND_REMNANTS_CHOICE_DECLINE,"Nah, we don't want the stuff!","¡No, no queremos las cosas!"
+STORY_EVENT_RUIN_FOUND_REMNANTS_CHOICE_ACCEPT,Take everything!,¡Llévate todo!
+STORY_EVENT_RUIN_FOUND_REMNANTS_CHOICE_DECLINE,We don't want anything!,¡No queremos nada!
+STORY_EVENT_SWAMP_FOUND_VEGETABLES_CHOICE_ACCEPT,Veggies are good for health.  Take them!,Las verduras son buenas para la salud.  ¡Tómalos!
+STORY_EVENT_SWAMP_FOUND_VEGETABLES_CHOICE_DECLINE,The expedition hates eating vegetables.  Leave them behind.,La expedición detesta comer verduras.  Déjalos atrás.
+STORY_EVENT_TITLE_FOUND_CLOTH,Found Cloth,Tela encontrada
+STORY_EVENT_TITLE_FOUND_FISH,Found Fish,Peces encontrados
+STORY_EVENT_TITLE_FOUND_FRUIT,Found Fruit,Fruta encontrada
+STORY_EVENT_TITLE_FOUND_IRON,Found Iron,Hierro encontrado
+STORY_EVENT_TITLE_FOUND_IRON_ORE,Found Iron Ore,Hierro encontrado
+STORY_EVENT_TITLE_FOUND_NOTHING,Found Nothing,No encontré nada
+STORY_EVENT_TITLE_FOUND_REMNANTS,Found Remnants,Restos encontrados
+STORY_EVENT_TITLE_FOUND_VEGETABLES,Found Vegetables,Verduras encontradas
+STORY_EVENT_TITLE_FOUND_WOOD,Found Wood,Madera encontrada
+STORY_EVENT_TUNDRA_FOUND_NOTHING_CHOICE_ACCEPT,"Nothing but moss here, so the expedition leaves.","Aquí no hay nada más que musgo, así que la expedición se va."
 TERRAIN_NAME_COAST,Coast,Costa
 TERRAIN_NAME_DESERT,Desert,Desierto
 TERRAIN_NAME_FOREST,Forest,Bosque
@@ -259,6 +313,7 @@ WORD_PREREQUISITES,Prerequisites,Prerrequisitos
 WORD_PRIORITIZE,Prioritize,Priorizar
 WORD_RECRUITED,Recruited,Reclutado
 WORD_RESEARCH,Research - THIS IS AN ACTIVITY,Investigación
+WORD_REWARD,Reward,Recompensa
 WORD_SCAVENGE,Scavenge- THIS IS AN ACTIVITY,Recoger la basura
 WORD_SEX,Sex,Sexo
 WORD_SKILLS,Skills,Habilidades
@@ -269,25 +324,7 @@ WORD_TITLES,Titles,Títulos
 WORD_TRAIN,Train - THIS IS AN ACTIVITY,Tren
 WORD_VISITORS,Visitors,Visitantes
 WORD_WORK,Work- THIS IS AN ACTIVITY,Trabajo
-STORY_EVENT_TITLE_FOUND_FISH,Found Fish,Peces encontrados
-STORY_EVENT_TITLE_FOUND_NOTHING,Found Nothing,No encontré nada
-STORY_EVENT_TITLE_FOUND_REMNANTS,Found Remnants,Restos encontrados
-STORY_EVENT_DESCRIPTION_COAST_FOUND_FISH,"As the leader of the expedition walked along the beach, they discovered a fishing net filled with a plentiful catch.","Mientras el líder de la expedición caminaba por la playa, descubrieron una red de pesca llena de abundantes capturas."
-STORY_EVENT_DESCRIPTION_DESERT_FOUND_NOTHING,In the distance the explorer sees a dilapidated shack.  With excitement the explorer approaches and to their disappointment they find only trash from the old world.,"A lo lejos, el explorador ve una choza en ruinas.  Con emoción, el explorador se acerca y, para su decepción, solo encuentran basura del viejo mundo."
-STORY_EVENT_COAST_FOUND_FISH_CHOICE_ACCEPT,Grab the fish!,¡Agarra el pez!
-STORY_EVENT_COAST_FOUND_FISH_CHOICE_DECLINE,Leave the stinking fish behind.,Deja atrás el pescado apestoso.
-WORD_REWARD,Reward,Recompensa
-STORY_EVENT_DESERT_FOUND_NOTHING_DECLINE,Leave with head hung low.,Salir con la cabeza gacha.
-STORY_EVENT_TITLE_FOUND_WOOD,Found Wood,Madera encontrada
-STORY_EVENT_DESCRIPTION_FOREST_FOUND_WOOD,The leader of the expedition has discovered a logging camp with a small quanity of wood already chopped and processed.,El líder de la expedición ha descubierto un campamento maderero con una pequeña cantidad de madera ya cortada y procesada.
-STORY_EVENT_FOREST_FOUND_WOOD_CHOICE_ACCEPT,Collect the back breaking amount of wood.,Recoge la cantidad de madera que rompa la espalda.
-STORY_EVENT_FOREST_FOUND_WOOD_CHOICE_DECLINE,This is too heavy.  Leave it behind.,Esto es demasiado pesado.  Déjalo atrás.
-STORY_EVENT_RIVER_FOUND_REMNANTS,An abandoned river boat is wedge on the bank of the river.  It is filled with left overs from the old world.,Un barco abandonado está en la orilla del río.  Está lleno de sobras del viejo mundo.
-STORY_EVENT_RIVER_FOUND_REMNANTS_CHOICE_ACCEPT,Take the junk back home.,Llévate la basura a casa.
-STORY_EVENT_RIVER_FOUND_REMNANTS_CHOICE_DECLINE,"Nah, we don't want the stuff!","¡No, no queremos las cosas!"
-STORY_EVENT_DESCRIPTION_RUIN_FOUND_REMNANTS,"Digging through the ruins of the past is demoralizing, but at least the expedition has found some useful items.","Excavar en las ruinas del pasado es desmoralizador, pero al menos la expedición ha encontrado algunos objetos útiles."
-STORY_EVENT_RUIN_FOUND_REMNANTS_CHOICE_ACCEPT,Take everything!,¡Llévate todo!
-STORY_EVENT_RUIN_FOUND_REMNANTS_CHOICE_DECLINE,We don't want anything!,¡No queremos nada!
-STORY_EVENT_DESCRIPTION_GLACIER_FOUND_NOTHING,The freezing expanse reveals nothing.,La extensión helada no revela nada.
-GOOD_IRON,Iron,Hierro
-GOOD_DESCRIPTION_IRON,A ferromagnetic metal which is soft and rusts easily but can be used to make steel which makes it very durable and resist corrosion.,"Un metal ferromagnético que es blando y se oxida fácilmente, pero se puede usar para hacer acero, lo que lo hace muy duradero y resistente a la corrosión."
+STORY_EVENT_TITLE_FOUND_SCAVENGEABLE_REMNANTS,Found Scavengeable Remnants,
+STORY_EVENT_DESCRIPTION_RUIN_FOUND_SCAVENGEABLE_REMNANTS,An old hardware store has been discovered.  A perfect place for the scavenging crews to gather left overs from the old world.,
+STORY_EVENT_TITLE_FOUND_SCAVENGEABLE_FOOD,Found Scavengeable Food,
+STORY_EVENT_RUIN_FOUND_SCAVENGEABLE_REMNANTS_CHOICE_ACCEPT,Mark it on the map for later scavenging.,

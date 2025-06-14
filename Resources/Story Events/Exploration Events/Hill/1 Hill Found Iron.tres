@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="StoryEventData" load_steps=3 format=3 uid="uid://dpvggs0yviar4"]
+
+[ext_resource type="Resource" uid="uid://dor0vfjcsjxm3" path="res://Resources/Goods/Iron.tres" id="1_uldmu"]
+[ext_resource type="Script" uid="uid://c6mqh2wl64evh" path="res://Resources/StoryEventData.cs" id="2_m37a7"]
+
+[resource]
+script = ExtResource("2_m37a7")
+storyEventTitle = "STORY_EVENT_TITLE_FOUND_IRON"
+storyEventDescription = "STORY_EVENT_DESCRIPTION_HILL_FOUND_IRON"
+storyEventTerrainType = 4
+amountExplored = 0
+rewardGood = ExtResource("1_uldmu")
+rewardAmount = 50
+choices = PackedStringArray("STORY_EVENT_HILL_FOUND_IRON_CHOICE_ACCEPT", "STORY_EVENT_HILL_FOUND_IRON_CHOICE_DECLINE")
+metadata/_custom_type_script = "uid://c6mqh2wl64evh"

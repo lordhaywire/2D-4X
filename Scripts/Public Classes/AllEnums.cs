@@ -55,8 +55,11 @@ public class AllEnums
     {
         None,
         CannedFood,
+        Cloth,
         Fish,
+        Fruit,
         Iron,
+        IronOre,
         PrimitiveScoutingEquipment,
         Remnants,
         StorageNonperishable,
@@ -83,6 +86,7 @@ public class AllEnums
         Food,
         Influence,
         Money,
+        RawMaterial,
         Remnants,
         Research,
     }
@@ -174,6 +178,12 @@ public class AllEnums
         Scout,
     }
 
+    public enum StoryEventRewardType
+    {
+        Instant,
+        People,
+        Scavengeable,
+    }
     public enum Terrain
     {
         Coast,

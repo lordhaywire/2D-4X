@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CountyImprovementData" load_steps=5 format=3 uid="uid://cpmbf5setweth"]
 
-[ext_resource type="Resource" uid="uid://rs4bgxx8ctc8" path="res://Resources/Goods/Canned Food.tres" id="1_3dqef"]
+[ext_resource type="Resource" uid="uid://rs4bgxx8ctc8" path="res://Resources/Goods/CannedFood.tres" id="1_3dqef"]
 [ext_resource type="Texture2D" uid="uid://mhuco6bk8l6y" path="res://Graphics/County Improvements/axe-in-log.svg" id="1_fohtd"]
 [ext_resource type="Script" uid="uid://blu41dxinr54t" path="res://Resources/CountyImprovementData.cs" id="2_26moa"]
 [ext_resource type="Resource" uid="uid://ftsx8rr0uriv" path="res://Resources/Interests/Botany.tres" id="3_3dqef"]

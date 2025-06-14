@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StoryEventData" load_steps=3 format=3 uid="uid://bbmkv88q6vu5m"]
+
+[ext_resource type="Resource" uid="uid://bhmwj5yptebic" path="res://Resources/Goods/Remnants.tres" id="1_ybvf5"]
+[ext_resource type="Script" uid="uid://c6mqh2wl64evh" path="res://Resources/StoryEventData.cs" id="2_ws8dw"]
+
+[resource]
+script = ExtResource("2_ws8dw")
+storyEventTitle = "STORY_EVENT_TITLE_FOUND_SCAVENGEABLE_REMNANTS"
+storyEventDescription = "STORY_EVENT_DESCRIPTION_RUIN_FOUND_SCAVENGEABLE_REMNANTS"
+storyEventTerrainType = 11
+amountExplored = 0
+storyEventRewardType = 2
+rewardGood = ExtResource("1_ybvf5")
+rewardAmount = 500
+choices = PackedStringArray("STORY_EVENT_RUIN_FOUND_SCAVENGEABLE_REMNANTS_CHOICE_ACCEPT")
+metadata/_custom_type_script = "uid://c6mqh2wl64evh"

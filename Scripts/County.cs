@@ -105,7 +105,7 @@ public partial class County : Node2D
         // Update the county info control with the counties available resources.
         if (Globals.Instance.SelectedLeftClickCounty != null)
         {
-            CountyInfoControl.Instance.UpdateCountyAvailableResources();
+            CountyInfoControl.Instance.UpdateCountyAvailableScavengeableGoods();
         }
 
         countyData.ClearIdlePopulationList();
