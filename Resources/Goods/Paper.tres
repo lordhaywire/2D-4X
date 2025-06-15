@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="GoodData" load_steps=2 format=3 uid="uid://clgih0avxlouq"]
+
+[ext_resource type="Script" uid="uid://cmfu3g7sbgyfx" path="res://Resources/GoodData.cs" id="2_phe00"]
+
+[resource]
+script = ExtResource("2_phe00")
+goodName = "GOOD_PAPER"
+description = "GOOD_DESCRIPTION_PAPER"
+goodType = 0
+countyGoodType = 8
+factionGoodType = 6
+perishable = 2
+failureRate = 1
+remnantSubstitutable = true
+useRemnants = false
+amount = 0
+Amount = 0
+maxAmount = 2147483647
+MaxAmount = 0

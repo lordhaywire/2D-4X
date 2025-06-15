@@ -58,8 +58,10 @@ public class AllEnums
         Cloth,
         Fish,
         Fruit,
+        Glass,
         Iron,
         IronOre,
+        Paper,
         PrimitiveScoutingEquipment,
         Remnants,
         StorageNonperishable,
@@ -180,8 +182,10 @@ public class AllEnums
 
     public enum StoryEventRewardType
     {
+        CountyImprovement,
         Instant,
         People,
+        Raider,
         Scavengeable,
     }
     public enum Terrain

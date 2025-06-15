@@ -68,8 +68,11 @@ public class Banker
     {
         switch (storyEventData.storyEventRewardType)
         {
+            case AllEnums.StoryEventRewardType.CountyImprovement:
+                AddCountyImprovementToCountyCompleted(storyEventData);
+                return;
             case AllEnums.StoryEventRewardType.Instant:
-                AddStoryEventCountyGood(storyEventData);
+                AddStoryEventGood(storyEventData);
                 return;
             case AllEnums.StoryEventRewardType.People:
                 return;
@@ -77,6 +80,11 @@ public class Banker
                 AddStoryEventScavengeableCountyGood(storyEventData);
                 return;
         }
+    }
+
+    private static void AddCountyImprovementToCountyCompleted(StoryEventData storyEventData)
+    {
+        storyEventData.eventCounty.countyData.completedCountyImprovementList.Add(CountyImprovementData.NewCopy(storyEventData.rewardCountyImprovement));
     }
 
     private static void AddStoryEventScavengeableCountyGood(StoryEventData storyEventData)
@@ -111,16 +119,20 @@ public class Banker
         }
     }
 
-    public static void AddStoryEventCountyGood(StoryEventData storyEventData)
+    private static void AddStoryEventGood(StoryEventData storyEventData)
     {
-        GD.Print($"Reward Faction: {storyEventData.eventCounty.countyData.factionData.factionName} is adding " +
-            $"{storyEventData.rewardAmount} {storyEventData.rewardGood.goodName} to {storyEventData.eventCounty.countyData.goods[storyEventData.rewardGood.countyGoodType].Amount}");
-
-        storyEventData.eventCounty.countyData.goods[storyEventData.rewardGood.countyGoodType].Amount
-            += storyEventData.rewardAmount;
-
-        GD.Print($"Reward Faction: {storyEventData.eventCounty.countyData.factionData.factionName} " +
-            $"{storyEventData.eventCounty.countyData.goods[storyEventData.rewardGood.countyGoodType].Amount}");
+        if (storyEventData.rewardGood.goodType == AllEnums.GoodType.CountyGood)
+        {
+            storyEventData.eventCounty.countyData.goods[storyEventData.rewardGood.countyGoodType].Amount
+                += storyEventData.rewardAmount;
+            
+        }
+        else
+        {
+            storyEventData.eventCounty.countyData.factionData.factionGoods[storyEventData.rewardGood.factionGoodType].Amount
+                += storyEventData.rewardAmount;
+        }
+        
         TopBarControl.Instance.UpdateTopBarGoodLabels();
     }
 

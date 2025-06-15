@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=9 format=3 uid="uid://chufschxvhcsh"]
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=11 format=3 uid="uid://chufschxvhcsh"]
 
 [ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/Goods/Wood.tres" id="1_2r2el"]
 [ext_resource type="Texture2D" uid="uid://5ya3dlibok7" path="res://Graphics/County Improvements/Scouting Equipment Workshop tarot-00-the-fool.svg" id="1_231ft"]
 [ext_resource type="Script" uid="uid://blu41dxinr54t" path="res://Resources/CountyImprovementData.cs" id="1_wleyv"]
 [ext_resource type="Resource" uid="uid://deym3plaxo5wl" path="res://Resources/Interests/Warfare.tres" id="3_dvaxv"]
-[ext_resource type="Resource" uid="uid://c55q8uucl7cqe" path="res://Resources/Goods/Fish.tres" id="3_u02bl"]
+[ext_resource type="Resource" uid="uid://dor0vfjcsjxm3" path="res://Resources/Goods/Iron.tres" id="3_nba77"]
 [ext_resource type="Resource" uid="uid://cium8f0spbwdp" path="res://Resources/Goods/PrimitiveScoutingEquipment.tres" id="4_dvaxv"]
+[ext_resource type="Resource" uid="uid://clgih0avxlouq" path="res://Resources/Goods/Paper.tres" id="4_hl1fy"]
+[ext_resource type="Resource" uid="uid://cg1o8xscpc7m5" path="res://Resources/Goods/Glass.tres" id="5_44o3w"]
 [ext_resource type="Script" uid="uid://b6u77qyvyfqm4" path="res://Resources/ProductionData.cs" id="5_u02bl"]
 
 [sub_resource type="Resource" id="Resource_f38jq"]
@@ -27,7 +29,7 @@ prioritize = false
 improvementTexture = ExtResource("1_231ft")
 improvementName = "IMPROVEMENT_SCOUTING_EQUIPMENT_WORKSHOP"
 improvementDescription = "IMPROVEMENT_DESCRIPTION_SCOUTING_EQUIPMENT_WORKSHOP"
-workSkill = 6
+workSkill = 11
 interestData = ExtResource("3_dvaxv")
 goodsConstructionCost = Dictionary[Variant, int]({
 ExtResource("1_2r2el"): 1
@@ -46,7 +48,10 @@ ExtResource("4_dvaxv"): SubResource("Resource_f38jq")
 allDailyWorkAmountAtImprovementCompleted = 0
 uniqueInputGoods = Dictionary[Variant, int]({})
 inputGoods = Dictionary[Variant, int]({
-ExtResource("3_u02bl"): 1
+ExtResource("3_nba77"): 1,
+ExtResource("4_hl1fy"): 1,
+ExtResource("5_44o3w"): 1,
+ExtResource("1_2r2el"): 2
 })
 countyStockpiledGoods = Dictionary[int, int]({})
 status = 0

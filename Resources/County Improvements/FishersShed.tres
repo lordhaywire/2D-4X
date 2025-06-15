@@ -34,7 +34,7 @@ maxBuilders = 5
 adjustedMaxBuilders = 0
 maxWorkers = 5
 adjustedMaxWorkers = 0
-countyResourceType = 2
+countyResourceType = 3
 factionResourceType = 3
 outputGoods = {
 ExtResource("5_rxp18"): SubResource("Resource_gpo3t")

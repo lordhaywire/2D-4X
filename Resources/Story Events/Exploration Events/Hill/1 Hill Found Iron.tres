@@ -9,6 +9,7 @@ storyEventTitle = "STORY_EVENT_TITLE_FOUND_IRON"
 storyEventDescription = "STORY_EVENT_DESCRIPTION_HILL_FOUND_IRON"
 storyEventTerrainType = 4
 amountExplored = 0
+storyEventRewardType = 1
 rewardGood = ExtResource("1_uldmu")
 rewardAmount = 50
 choices = PackedStringArray("STORY_EVENT_HILL_FOUND_IRON_CHOICE_ACCEPT", "STORY_EVENT_HILL_FOUND_IRON_CHOICE_DECLINE")

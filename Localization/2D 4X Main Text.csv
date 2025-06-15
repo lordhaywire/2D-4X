@@ -324,7 +324,22 @@ WORD_TITLES,Titles,Títulos
 WORD_TRAIN,Train - THIS IS AN ACTIVITY,Tren
 WORD_VISITORS,Visitors,Visitantes
 WORD_WORK,Work- THIS IS AN ACTIVITY,Trabajo
-STORY_EVENT_TITLE_FOUND_SCAVENGEABLE_REMNANTS,Found Scavengeable Remnants,
-STORY_EVENT_DESCRIPTION_RUIN_FOUND_SCAVENGEABLE_REMNANTS,An old hardware store has been discovered.  A perfect place for the scavenging crews to gather left overs from the old world.,
-STORY_EVENT_TITLE_FOUND_SCAVENGEABLE_FOOD,Found Scavengeable Food,
-STORY_EVENT_RUIN_FOUND_SCAVENGEABLE_REMNANTS_CHOICE_ACCEPT,Mark it on the map for later scavenging.,
+STORY_EVENT_TITLE_FOUND_SCAVENGEABLE_REMNANTS,Found Scavengeable Remnants,Restos encontrados que se pueden recoger
+STORY_EVENT_DESCRIPTION_RUIN_FOUND_SCAVENGEABLE_REMNANTS,An old hardware store has been discovered.  A perfect place for the scavenging crews to gather left overs from the old world.,Se ha descubierto una antigua ferretería.  Un lugar perfecto para que las tripulaciones de carroñeros recojan las sobras del viejo mundo.
+STORY_EVENT_TITLE_FOUND_SCAVENGEABLE_FOOD,Found Scavengeable Food,Comida recolectable encontrada
+STORY_EVENT_RUIN_FOUND_SCAVENGEABLE_REMNANTS_CHOICE_ACCEPT,Mark it on the map for later scavenging.,Márcalo en el mapa para buscarlo más tarde.
+STORY_EVENT_RUIN_FOUND_SCAVENGEABLE_REMNANTS_CHOICE_DECLINE,That is too much work.  Ignore the store.,Eso es demasiado trabajo.  Ignora la tienda.
+STORY_EVENT_TITLE_FOUND_MONEY,Found Money,Dinero encontrado
+STORY_EVENT_DESCRIPTION_RIVER_FOUND_MONEY,A hidden safe filled with jewels has been found by the expedition.,Una caja fuerte escondida llena de joyas ha sido encontrada por la expedición.
+STORY_EVENT_RIVER_FOUND_MONEY_CHOICE_ACCEPT,Take all the valuables!,¡Llévate todos los objetos de valor!
+STORY_EVENT_RIVER_FOUND_MONEY_CHOICE_DECLINE,This is all worthless.  Leave it!,Todo esto no vale nada.  ¡Déjalo!
+IMPROVEMENT_IMPROVISED_LUMBERJACK_STATION,Improvised Lumberjack Station,Estación de leñadores improvisada
+IMPROVEMENT_DESCRIPTION_IMPROVISED_LUMBERJACK_STATION,An area thrown together with a few axes and other tree chopping equipment.,Un área armada con algunas hachas y otros equipos de tala de árboles.
+GOOD_PAPER,Paper,Papel
+GOOD_DESCRIPTION_PAPER,A material that can be used to write on.,Un material que se puede utilizar para escribir.
+GOOD_GLASS,Glass,Vidrio
+GOOD_DESCRIPTION_GLASS,A clear material made from sand.,Un material transparente hecho de arena.
+STORY_EVENT_TITLE_FOUND_LUMBERJACK_STATION,Found Lumberjack Station,
+STORY_EVENT_DESCRIPTION_FOREST_FOUND_LUMBERJACK_STATION,The explorers have found a working lumberjack station left over from the old world.,
+STORY_EVENT_FOREST_FOUND_LUMBERJACK_STATION_CHOICE_ACCEPT,Take control of the lumberjack station!,
+STORY_EVENT_FOREST_FOUND_LUMBERJACK_STATION_CHOICE_DECLINE,Last thing we need is more wood.  Ignore the building.,

@@ -23,6 +23,10 @@ The old Unity version is here: [2D-4X Unity](https://github.com/lordhaywire/2D-4
 
 3. This will throw off the enums on already created Goods.  Update all enums in all goods.
 
+#### Adding a County Improvement
+
+1. Write this!
+
 #### Construction Good for County Improvement
 
 Goods Construction Cost is a one time fee charged when the county improvement is initially built.
@@ -33,23 +37,23 @@ Goods Construction Cost is a one time fee charged when the county improvement is
 
 3. Click Add Key/Value Pair
 
-#### Output Good to County Improvement
+#### Output Good for County Improvement
 
-1. Drag over good to Output Goods dictionary in inspector.
+1. Click the Nil dictionary part of OutputGoods dictionary to create a new KeyValuePair.
 
-2. Drag over GenericProduction resource over to Output Goods dictionary in inspector.
+2. Drag over good to Output Goods dictionary in inspector as the new key.
 
-3. Click add KeyValuePair for dictionary.
+3. Create a new ProductionData resource in Output Goods dictionary in inspector as the value.
 
-4. Right click GenericProduction and select Make Unique.
+4. Click add KeyValuePair for dictionary.
 
-5. Adjust unique generic production to the correct amounts.  The main thing is work cost so that
+4. Right click new ProductionData and select Make Unique. (I think this actually is already Unique if you create a new ProductionData like in step 3.)
 
-the average daily amount generated is correct.
+5. Adjust new ProductionData to the correct amounts. Work cost must be at least 1. This way the average daily amount generated.
 
 This needs to be set up correctly in the inspector so the average daily amount generated is generated.
 
-MaxWorkers * Global Amount of Daily Work with bonus / work cost = average daily amount generated.
+MaxWorkers * Global Amount of Daily Work / work cost = average daily amount generated.
 
 #### Input Good to County Improvement
 
@@ -60,6 +64,19 @@ Each input good is per worker per day.
 2. Set the int that is the cost.
 
 3. Click Add Key/Value Pair
+
+#### Story Event Categories
+
+1 - Found County Good
+
+2 - Found Faction Good
+
+3 - Found Scavengeable Good (either canned food, or remnants)
+
+4 - Found County Improvement
+
+5 - Found People
+
 
 #### How to Export from Godot
 

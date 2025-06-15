@@ -63,11 +63,15 @@ public partial class StoryEventControl : Control
     {
         storyEventTitle.Text = currentStoryEventData.storyEventTitle;
         storyEventDescription.Text = currentStoryEventData.storyEventDescription;
-        storyEventRewardLabel.Text =
-            $"{Tr(currentStoryEventData.rewardGood.goodName)}: {currentStoryEventData.rewardAmount}";
+        storyEventRewardLabel.Text = GoodOrImprovementReward();
         storyEventLocation.Text = $"{Tr("WORD_COUNTY")}: {currentStoryEventData.eventCounty.countyData.countyName}";
 
         InstantiateChoicesButtons();
+    }
+
+    private string GoodOrImprovementReward()
+    {
+        return currentStoryEventData.rewardGood != null ? $"{Tr(currentStoryEventData.rewardGood.goodName)}: {currentStoryEventData.rewardAmount}" : $"{Tr(currentStoryEventData.rewardCountyImprovement.improvementName)}";
     }
 
     private void InstantiateChoicesButtons()
@@ -93,7 +97,7 @@ public partial class StoryEventControl : Control
 
     private void AcceptButtonPressed()
     {
-        Banker.AddStoryEventCountyGood(currentStoryEventData);
+        Banker.ApplyCorrectRewardType(currentStoryEventData);
         GD.Print("Accept Button has been pressed.");
     }
 }

@@ -115,7 +115,7 @@ public partial class CountyImprovementData : Resource
     /// MaxWorkers * Global Amount of Daily Work without bonus / work cost = average daily amount generated.
     /// </summary>
     /// <param name="productionData"></param>
-    public void GenerateGoodsProducedWithoutBonusesForUI(ProductionData productionData)
+    public void GenerateGoodsProducedWithoutBonusesForUi(ProductionData productionData)
     {
         if (countyImprovementType != AllEnums.CountyImprovementType.Storage)
         {

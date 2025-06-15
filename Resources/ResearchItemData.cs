@@ -7,8 +7,8 @@ namespace PlayerSpace;
 [GlobalClass]
 public partial class ResearchItemData : Resource
 {
-    public int factionID;
-    [Export] public AllEnums.ResearchTiers tier; // We might not need this now that the research is manually added to the research panel.
+    public int factionId;
+    [Export] public AllEnums.ResearchTiers tier;
     [Export] public AllEnums.Skills skill;
     [Export] public InterestData interestData;
     [Export] public bool researchedAtStart;
@@ -42,7 +42,7 @@ public partial class ResearchItemData : Resource
     public void CompleteResearch()
     {
         GD.PrintRich($"[rainbow]Complete Research! " + researchName);
-        Faction faction = (Faction)Globals.Instance.factionsParent.GetChild(factionID);
+        Faction faction = (Faction)Globals.Instance.factionsParent.GetChild(factionId);
         if (faction.factionData == Globals.Instance.playerFactionData)
         {
             EventLog.Instance?.AddLog($"{Tr("PHRASE_RESEARCH_FOR")} {Tr(researchName)} {Tr("PHRASE_HAS_BEEN_COMPLETED")}.");
@@ -52,7 +52,7 @@ public partial class ResearchItemData : Resource
         {
             foreach (CountyImprovementData countyImprovementData in countyImprovementDatas)
             {
-                FactionData factionData = FactionData.GetFactionDataFromId(factionID);
+                FactionData factionData = FactionData.GetFactionDataFromId(factionId);
                 //GD.Print($"This is where it breaks: {factionData.factionName} {countyImprovementData.improvementName}");
 
                 // This is to set the starting adjusted max builders and workers.
@@ -87,7 +87,7 @@ public partial class ResearchItemData : Resource
     {
         ResearchItemData newResearchItemData = new()
         {
-            factionID = researchItemData.factionID,
+            factionId = researchItemData.factionId,
             tier = researchItemData.tier,
             skill = researchItemData.skill,
             interestData = researchItemData.interestData,

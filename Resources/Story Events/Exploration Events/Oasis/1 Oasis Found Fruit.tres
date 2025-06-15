@@ -9,6 +9,7 @@ storyEventTitle = "STORY_EVENT_TITLE_FOUND_FRUIT"
 storyEventDescription = "STORY_EVENT_DESCRIPTION_OASIS_FOUND_FRUIT"
 storyEventTerrainType = 7
 amountExplored = 0
+storyEventRewardType = 1
 rewardGood = ExtResource("1_pt1xf")
 rewardAmount = 50
 choices = PackedStringArray("STORY_EVENT_OASIS_FOUND_FRUIT_CHOICE_ACCEPT", "STORY_EVENT_OASIS_FOUND_FRUIT_CHOICE_DECLINE")

@@ -229,7 +229,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     {
         // Generate the goods produced without bonuses.
         // This is going to happen every time the player opens the county improvement panel, or research panel.
-        countyImprovementData.GenerateGoodsProducedWithoutBonusesForUI(productionData);
+        countyImprovementData.GenerateGoodsProducedWithoutBonusesForUi(productionData);
 
         GoodPanelContainer goodPanelContainer = (GoodPanelContainer)goodPanelContainerPackedScene.Instantiate();
         goodsParentGridContainer.AddChild(goodPanelContainer);

@@ -8,6 +8,7 @@ storyEventTitle = "STORY_EVENT_TITLE_FOUND_NOTHING"
 storyEventDescription = "STORY_EVENT_DESCRIPTION_PLAIN_FOUND_NOTHING"
 storyEventTerrainType = 8
 amountExplored = 0
+storyEventRewardType = 1
 rewardAmount = 0
 choices = PackedStringArray("STORY_EVENT_PLAIN_FOUND_NOTHING_CHOICE_ACCEPT")
 metadata/_custom_type_script = "uid://c6mqh2wl64evh"

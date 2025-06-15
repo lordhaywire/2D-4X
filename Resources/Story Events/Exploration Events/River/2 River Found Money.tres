@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="StoryEventData" load_steps=3 format=3 uid="uid://dod7hd5833sin"]
+
+[ext_resource type="Resource" uid="uid://dx87ykrfpioxm" path="res://Resources/Goods/Money.tres" id="1_5muyn"]
+[ext_resource type="Script" uid="uid://c6mqh2wl64evh" path="res://Resources/StoryEventData.cs" id="2_l3q4k"]
+
+[resource]
+script = ExtResource("2_l3q4k")
+storyEventTitle = "STORY_EVENT_TITLE_FOUND_MONEY"
+storyEventDescription = "STORY_EVENT_DESCRIPTION_RIVER_FOUND_MONEY"
+storyEventTerrainType = 10
+amountExplored = 0
+storyEventRewardType = 1
+rewardGood = ExtResource("1_5muyn")
+rewardAmount = 50
+choices = PackedStringArray("STORY_EVENT_RIVER_FOUND_MONEY_CHOICE_ACCEPT", "STORY_EVENT_RIVER_FOUND_MONEY_CHOICE_DECLINE")
+metadata/_custom_type_script = "uid://c6mqh2wl64evh"

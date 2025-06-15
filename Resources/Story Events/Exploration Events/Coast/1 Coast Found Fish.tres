@@ -9,6 +9,7 @@ storyEventTitle = "STORY_EVENT_TITLE_FOUND_FISH"
 storyEventDescription = "STORY_EVENT_DESCRIPTION_COAST_FOUND_FISH"
 storyEventTerrainType = 0
 amountExplored = 0
+storyEventRewardType = 1
 rewardGood = ExtResource("1_bgon7")
 rewardAmount = 50
 choices = PackedStringArray("STORY_EVENT_COAST_FOUND_FISH_CHOICE_ACCEPT", "STORY_EVENT_COAST_FOUND_FISH_CHOICE_DECLINE")

@@ -9,6 +9,7 @@ storyEventTitle = "STORY_EVENT_TITLE_FOUND_WOOD"
 storyEventDescription = "STORY_EVENT_DESCRIPTION_FOREST_FOUND_WOOD"
 storyEventTerrainType = 2
 amountExplored = 0
+storyEventRewardType = 1
 rewardGood = ExtResource("1_b6ipl")
 rewardAmount = 50
 choices = PackedStringArray("STORY_EVENT_FOREST_FOUND_WOOD_CHOICE_ACCEPT", "STORY_EVENT_FOREST_FOUND_WOOD_CHOICE_DECLINE")

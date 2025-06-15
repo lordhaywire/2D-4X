@@ -69,7 +69,7 @@ public partial class FactionGeneration : Node
         foreach (ResearchItemData researchItemData in AllResearch.Instance.allResearchItemDatas)
         {
             //GD.Print("Faction ID that is getting assigned: " + factionData.factionID);
-            researchItemData.factionID = factionData.factionId;
+            researchItemData.factionId = factionData.factionId;
             //GD.PrintRich($"[rainbow]{FactionData.GetFactionDataFromID(researchItemData.factionID).factionName}: {researchItemData.researchName}");
 
             ResearchItemData researchItemDataCopy = researchItemData.NewCopy(researchItemData); //(ResearchItemData)researchItemData.Duplicate(true); //

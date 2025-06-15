@@ -13,7 +13,7 @@ public partial class StorageHbox : HBoxContainer
 
     private static void ValueChanged(float value)
     {
-        GD.Print("Value Changed:" + value);
+        //GD.Print("Value Changed:" + value);
         GoodsPanelContainer.Instance.UpdateCountyAvailableStorageLabels();
         GoodsPanelContainer.Instance.UpdateSpinBoxMaxValuePlusLabel();
     }

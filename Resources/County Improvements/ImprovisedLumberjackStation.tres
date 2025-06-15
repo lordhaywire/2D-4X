@@ -1,0 +1,51 @@
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=8 format=3 uid="uid://cdrcuqp123w8f"]
+
+[ext_resource type="Resource" uid="uid://bhmwj5yptebic" path="res://Resources/Goods/Remnants.tres" id="1_6n26h"]
+[ext_resource type="Texture2D" uid="uid://mhuco6bk8l6y" path="res://Graphics/County Improvements/axe-in-log.svg" id="2_ngwew"]
+[ext_resource type="Resource" uid="uid://ftsx8rr0uriv" path="res://Resources/Interests/Botany.tres" id="3_k0eql"]
+[ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/Goods/Wood.tres" id="4_hbd6y"]
+[ext_resource type="Script" uid="uid://blu41dxinr54t" path="res://Resources/CountyImprovementData.cs" id="4_io4vv"]
+[ext_resource type="Script" uid="uid://b6u77qyvyfqm4" path="res://Resources/ProductionData.cs" id="5_lwxsy"]
+
+[sub_resource type="Resource" id="Resource_no3qn"]
+script = ExtResource("5_lwxsy")
+workAmountAfterSkillCheck = 0
+workCost = 3
+workAmount = 0
+todaysGoodsAmountGenerated = 0
+averageDailyAmountGenerated = 0.0
+storageAmount = 0
+AverageDailyGoodsAmountGenerated = 0.0
+metadata/_custom_type_script = "uid://b6u77qyvyfqm4"
+
+[resource]
+script = ExtResource("4_io4vv")
+currentAmountOfConstruction = 0
+numberBuilt = 0
+countyImprovementType = 0
+prioritize = false
+improvementTexture = ExtResource("2_ngwew")
+improvementName = "IMPROVEMENT_IMPROVISED_LUMBERJACK_STATION"
+improvementDescription = "IMPROVEMENT_DESCRIPTION_IMPROVISED_LUMBERJACK_STATION"
+workSkill = 6
+interestData = ExtResource("3_k0eql")
+goodsConstructionCost = Dictionary[Variant, int]({
+ExtResource("1_6n26h"): 100
+})
+CurrentAmountOfConstruction = 0
+maxAmountOfConstruction = 500
+maxBuilders = 2
+adjustedMaxBuilders = 0
+maxWorkers = 3
+adjustedMaxWorkers = 0
+countyResourceType = 12
+factionResourceType = 1
+outputGoods = Dictionary[Object, Object]({
+ExtResource("4_hbd6y"): SubResource("Resource_no3qn")
+})
+allDailyWorkAmountAtImprovementCompleted = 0
+uniqueInputGoods = Dictionary[Variant, int]({})
+inputGoods = Dictionary[Variant, int]({})
+countyStockpiledGoods = Dictionary[int, int]({})
+status = 0
+populationAtImprovement = []

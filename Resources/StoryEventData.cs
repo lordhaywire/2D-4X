@@ -14,6 +14,7 @@ namespace PlayerSpace
         [Export] public AllEnums.StoryEventRewardType storyEventRewardType;
         [Export] public GoodData rewardGood;
         [Export] public int rewardAmount;
+        [Export] public CountyImprovementData rewardCountyImprovement;
 
         [Export] public string[] choices;
 

@@ -45,7 +45,7 @@ maxBuilders = 5
 adjustedMaxBuilders = 0
 maxWorkers = 0
 adjustedMaxWorkers = 0
-countyResourceType = 5
+countyResourceType = 0
 factionResourceType = 0
 outputGoods = {
 ExtResource("3_ouxf7"): SubResource("Resource_kdctx"),
