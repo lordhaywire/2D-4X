@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using System.Collections.Generic;
 
@@ -75,6 +76,7 @@ public class Banker
                 AddStoryEventGood(storyEventData);
                 return;
             case AllEnums.StoryEventRewardType.People:
+                AddPeopleToCounty(storyEventData);
                 return;
             case AllEnums.StoryEventRewardType.Scavengeable:
                 AddStoryEventScavengeableCountyGood(storyEventData);
@@ -82,9 +84,26 @@ public class Banker
         }
     }
 
+    /// <summary>
+    /// This will generate population and assign it to the county that is in the story event.
+    /// It will randomly generate between half the story event reward and the story event reward.
+    /// </summary>
+    /// <param name="storyEventData"></param>
+    private static void AddPeopleToCounty(StoryEventData storyEventData)
+    {
+        Random random = new();
+        PopulationGeneration.Instance.GeneratePopulation(storyEventData.eventCounty.countyData, false,
+            random.Next(storyEventData.rewardAmount/2,storyEventData.rewardAmount));
+    }
+
     private static void AddCountyImprovementToCountyCompleted(StoryEventData storyEventData)
     {
-        storyEventData.eventCounty.countyData.completedCountyImprovementList.Add(CountyImprovementData.NewCopy(storyEventData.rewardCountyImprovement));
+        CountyImprovementData foundCountyImprovement =
+            CountyImprovementData.NewCopy(storyEventData.rewardCountyImprovement);
+        // This is to set the starting adjusted max builders and workers.
+        foundCountyImprovement.adjustedMaxBuilders = foundCountyImprovement.maxBuilders;
+        foundCountyImprovement.adjustedMaxWorkers = foundCountyImprovement.maxWorkers;
+        storyEventData.eventCounty.countyData.completedCountyImprovementList.Add(foundCountyImprovement);
     }
 
     private static void AddStoryEventScavengeableCountyGood(StoryEventData storyEventData)

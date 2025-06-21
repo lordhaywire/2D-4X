@@ -40,7 +40,7 @@ maxBuilders = 5
 adjustedMaxBuilders = 0
 maxWorkers = 5
 adjustedMaxWorkers = 0
-countyResourceType = 3
+countyResourceType = 9
 factionResourceType = 2
 outputGoods = {
 ExtResource("4_dvaxv"): SubResource("Resource_f38jq")

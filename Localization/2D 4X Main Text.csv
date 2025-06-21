@@ -339,7 +339,11 @@ GOOD_PAPER,Paper,Papel
 GOOD_DESCRIPTION_PAPER,A material that can be used to write on.,Un material que se puede utilizar para escribir.
 GOOD_GLASS,Glass,Vidrio
 GOOD_DESCRIPTION_GLASS,A clear material made from sand.,Un material transparente hecho de arena.
-STORY_EVENT_TITLE_FOUND_LUMBERJACK_STATION,Found Lumberjack Station,
-STORY_EVENT_DESCRIPTION_FOREST_FOUND_LUMBERJACK_STATION,The explorers have found a working lumberjack station left over from the old world.,
-STORY_EVENT_FOREST_FOUND_LUMBERJACK_STATION_CHOICE_ACCEPT,Take control of the lumberjack station!,
-STORY_EVENT_FOREST_FOUND_LUMBERJACK_STATION_CHOICE_DECLINE,Last thing we need is more wood.  Ignore the building.,
+STORY_EVENT_TITLE_FOUND_LUMBERJACK_STATION,Found Lumberjack Station,Estación de leñadores encontrada
+STORY_EVENT_DESCRIPTION_FOREST_FOUND_LUMBERJACK_STATION,The explorers have found a working lumberjack station left over from the old world.,Los exploradores han encontrado una estación de leñadores en funcionamiento que quedó del viejo mundo.
+STORY_EVENT_FOREST_FOUND_LUMBERJACK_STATION_CHOICE_ACCEPT,Take control of the lumberjack station!,¡Toma el control de la estación de leñadores!
+STORY_EVENT_FOREST_FOUND_LUMBERJACK_STATION_CHOICE_DECLINE,Last thing we need is more wood.  Ignore the building.,Lo último que necesitamos es más madera.  Ignora el edificio.
+STORY_EVENT_TITLE_FOUND_SURVIVORS,Found Survivors,Supervivientes encontrados
+STORY_EVENT_DESCRIPTION_RUIN_FOUND_SURVIVORS,The exploration expedition has stumbled across a number of people living in the ruins.,La expedición de exploración se ha topado con varias personas que viven en las ruinas.
+STORY_EVENT_RUIN_FOUND_SURVIVORS_CHOICE_ACCEPT,Invite the people back to the settlement.,Invita a la gente a volver al asentamiento.
+STORY_EVENT_RUIN_FOUND_SURVIVORS_CHOICE_DECLINE,Fuck those people.,A la mierda esa gente.

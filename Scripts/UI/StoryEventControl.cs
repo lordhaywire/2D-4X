@@ -63,15 +63,20 @@ public partial class StoryEventControl : Control
     {
         storyEventTitle.Text = currentStoryEventData.storyEventTitle;
         storyEventDescription.Text = currentStoryEventData.storyEventDescription;
-        storyEventRewardLabel.Text = GoodOrImprovementReward();
+        storyEventRewardLabel.Text = GoodImprovementOrPeopleReward();
         storyEventLocation.Text = $"{Tr("WORD_COUNTY")}: {currentStoryEventData.eventCounty.countyData.countyName}";
 
         InstantiateChoicesButtons();
     }
 
-    private string GoodOrImprovementReward()
+    private string GoodImprovementOrPeopleReward()
     {
-        return currentStoryEventData.rewardGood != null ? $"{Tr(currentStoryEventData.rewardGood.goodName)}: {currentStoryEventData.rewardAmount}" : $"{Tr(currentStoryEventData.rewardCountyImprovement.improvementName)}";
+        if (currentStoryEventData.rewardGood != null)
+            return $"{Tr(currentStoryEventData.rewardGood.goodName)}: {currentStoryEventData.rewardAmount}";
+        else if (currentStoryEventData.rewardCountyImprovement != null)
+            return $"{Tr(currentStoryEventData.rewardCountyImprovement.improvementName)}";
+        else
+            return $"{Tr("WORD_POPULATION")}";
     }
 
     private void InstantiateChoicesButtons()

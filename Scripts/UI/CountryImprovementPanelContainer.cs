@@ -43,8 +43,8 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     [Export] private PanelContainer constructionPanelContainer;
     [Export] private Label constructionTitleLabel;
     [Export] private GridContainer constructionMaterialCostGridContainer;
-    //[Export] public CheckBox remnantsForContructionCheckBox;
-    [Export] public HBoxContainer adjustMaxBuildersHbox;
+    [Export] public CheckBox remnantsForConstructionCheckBox;
+    [Export] public HBoxContainer adjustMaxBuildersHBox;
     [Export] public Label currentBuildersNumberLabel;
     [Export] public Label adjustedBuildersNumberLabel;
     [Export] public Label maxBuildersNumberLabel;
@@ -55,7 +55,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
 
     [ExportGroup("Research")]
     [Export] private Label assignResearcherInPanelLabel;
-    [Export] public Label underContructionLabel;
+    [Export] public Label underConstructionLabel;
     [Export] private Button removeImprovementButton;
 
     public override void _Ready()
@@ -104,8 +104,8 @@ public partial class CountryImprovementPanelContainer : PanelContainer
                 GenerateInputGoods();
                 constructionPanelContainer.Show();
                 GenerateConstructionGoodsCosts();
-                adjustMaxBuildersHbox.Show();
-                underContructionLabel.Show();
+                adjustMaxBuildersHBox.Show();
+                underConstructionLabel.Show();
                 removeImprovementButton.Show();
                 break;
             // Default is status none, so when it is in the possible list.
@@ -160,8 +160,8 @@ public partial class CountryImprovementPanelContainer : PanelContainer
         workersPanelContainer.Hide();
         constructButton.Hide();
         constructionPanelContainer.Hide();
-        adjustMaxBuildersHbox.Hide();
-        underContructionLabel.Hide();
+        adjustMaxBuildersHBox.Hide();
+        underConstructionLabel.Hide();
         removeImprovementButton.Hide();
         assignResearcherInPanelLabel.Hide();
         researchAssignedLabel.Hide();
@@ -275,8 +275,8 @@ public partial class CountryImprovementPanelContainer : PanelContainer
             {
                 CheckForHideUseRemnants(keyValuePair, goodPanelContainer);
             }
-            goodPanelContainer.useRemnantsCheckBox.Toggled += (GoodData)
-                => SetUseRemnants(goodPanelContainer.useRemnantsCheckBox.ButtonPressed, keyValuePair.Key);
+            goodPanelContainer.useRemnantsCheckBox.Toggled += toggled
+                => SetUseRemnants(toggled, keyValuePair.Key);
         }
     }
 
@@ -286,17 +286,19 @@ public partial class CountryImprovementPanelContainer : PanelContainer
         goodData.useRemnants = toggledOn;
     }
 
-    GoodPanelContainer AddConstructionGoodsPanel(GoodData goodData, int amount)
+    private GoodPanelContainer AddConstructionGoodsPanel(GoodData goodData, int amount)
     {
         GoodPanelContainer goodPanelContainer = (GoodPanelContainer)goodPanelContainerPackedScene.Instantiate();
         constructionMaterialCostGridContainer.AddChild(goodPanelContainer);
 
         goodPanelContainer.goodLabel.Text = $"{Tr(goodData.goodName)} : {amount}";
+        
+        goodPanelContainer.useRemnantsCheckBox.ButtonPressed = goodData.useRemnants;
 
         return goodPanelContainer;
     }
 
-    GoodPanelContainer AddInputGoodsPanel(GoodData goodData, int amount
+    private GoodPanelContainer AddInputGoodsPanel(GoodData goodData, int amount
         , int numberOfAdjustedWorkers)
     {
         GoodPanelContainer goodPanelContainer = (GoodPanelContainer)goodPanelContainerPackedScene.Instantiate();
@@ -309,7 +311,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
         return goodPanelContainer;
     }
 
-    void GenerateConstructionGoodsCosts()
+    private void GenerateConstructionGoodsCosts()
     {
         CheckForGoodsForColumns(constructionMaterialCostGridContainer
             , countyImprovementData.goodsConstructionCost.Count);
@@ -320,6 +322,9 @@ public partial class CountryImprovementPanelContainer : PanelContainer
                 = AddConstructionGoodsPanel(keyValuePair.Key, keyValuePair.Value);
 
             CheckForHideUseRemnants(keyValuePair, goodPanelContainer);
+            
+            goodPanelContainer.useRemnantsCheckBox.Toggled += toggled
+                => SetUseRemnants(toggled, keyValuePair.Key);
         }
     }
 
@@ -328,7 +333,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     {
         bool shouldHideCheckBox =
             countyImprovementData.status == AllEnums.CountyImprovementStatus.None
-            || countyImprovementData.status == AllEnums.CountyImprovementStatus.UnderConstruction
+            //|| countyImprovementData.status == AllEnums.CountyImprovementStatus.UnderConstruction
             || countyImprovementData.status == AllEnums.CountyImprovementStatus.InResearchPanel
             || keyValuePair.Key.countyGoodType == AllEnums.CountyGoodType.Remnants
             || keyValuePair.Key.factionGoodType == AllEnums.FactionGoodType.Food;
@@ -362,12 +367,11 @@ public partial class CountryImprovementPanelContainer : PanelContainer
             gridContainer.AddChild(goodPanelContainer);
             gridContainer.Columns = 1;
             goodPanelContainer.goodLabel.Text = $"{Tr("WORD_NONE")}";
-            return;
         }
     }
 
     /// <summary>
-    /// Currently passing in the player faction data, if the AI needs to use this then we need to have
+    /// Currently passing in the player faction data, if the AI needs to use this, then we need to have
     /// it pass in a different factionData.
     /// </summary>
     private void CheckForConstructionResources(CountyData countyData)

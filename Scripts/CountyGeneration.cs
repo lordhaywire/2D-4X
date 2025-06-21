@@ -59,7 +59,6 @@ public partial class CountyGeneration : Node
 
                 List<StoryEventData> selectedEvents = [];
 
-                // NEW CODE STARTS HERE
                 List<StoryEventData> shuffledTerrainEvents = new List<StoryEventData>(terrainEvents);
                 for (int j = shuffledTerrainEvents.Count - 1; j > 0; j--)
                 {
@@ -72,7 +71,6 @@ public partial class CountyGeneration : Node
                 {
                     selectedEvents.Add((StoryEventData)shuffledTerrainEvents[j].Duplicate());
                 }
-                // NEW CODE ENDS HERE
 
                 allEvents.AddRange(selectedEvents);
             }
@@ -93,53 +91,7 @@ public partial class CountyGeneration : Node
             }
         }
     }
-
-    /*
-    private void GenerateExplorationEvents()
-    {
-        foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
-        {
-            List<StoryEventData> allEvents = [];
-
-            for (int i = 0; i < county.countyData.allTerrains.Count; i++)
-            {
-                AllEnums.Terrain terrain = county.countyData.allTerrains[i];
-
-                if (!StoryEventList.Instance.eventsByTerrainDictionary.TryGetValue(terrain,
-                        out List<StoryEventData> terrainEvents))
-                    continue;
-
-                int numberOfEvents = i == 0 ? Globals.Instance.numberOfPrimaryTerrainEvents : i == 1 ? Globals.Instance.numberOfSecondaryTerrainEvents : Globals.Instance.numberOfTertiaryTerrainEvents;
-
-                List<StoryEventData> selectedEvents = [];
-                for (int j = 0; j < terrainEvents.Count && selectedEvents.Count < numberOfEvents; j++)
-                {
-                    int randIndex = (int)(GD.Randi() % (ulong)(j + 1));
-                    selectedEvents.Insert(randIndex, (StoryEventData)terrainEvents[j].Duplicate());
-                }
-
-                allEvents.AddRange(selectedEvents);
-            }
-
-            // Shuffle combined events
-            for (int i = allEvents.Count - 1; i > 0; i--)
-            {
-                int randIndex = (int)(GD.Randi() % (ulong)(i + 1));
-                (allEvents[i], allEvents[randIndex]) = (allEvents[randIndex], allEvents[i]);
-            }
-
-            // Convert to Godot.Collections.Array and assign
-            county.countyData.explorationEvents = new Godot.Collections.Array<StoryEventData>(allEvents);
-
-            // Assign the county to each story event so the story event knows where it is happening.
-            foreach (StoryEventData storyEventData in county.countyData.explorationEvents)
-            {
-                storyEventData.eventCounty = county;
-                GD.Print($"{county.countyData.countyName} {storyEventData.storyEventTitle}");
-            }
-        }
-    }
-*/
+    
     private void AssignStartingGoodsToCounty()
     {
         // This is just for testing.  Sets all resources to a starting amount.

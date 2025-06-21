@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="StoryEventData" load_steps=2 format=3 uid="uid://bfws0amj2my7u"]
+
+[ext_resource type="Script" uid="uid://c6mqh2wl64evh" path="res://Resources/StoryEventData.cs" id="2_ruh88"]
+
+[resource]
+script = ExtResource("2_ruh88")
+storyEventTitle = "STORY_EVENT_TITLE_FOUND_SURVIVORS"
+storyEventDescription = "STORY_EVENT_DESCRIPTION_RUIN_FOUND_SURVIVORS"
+storyEventTerrainType = 11
+amountExplored = 0
+storyEventRewardType = 2
+rewardAmount = 10
+choices = PackedStringArray("STORY_EVENT_RUIN_FOUND_SURVIVORS_CHOICE_ACCEPT", "STORY_EVENT_RUIN_FOUND_SURVIVORS_CHOICE_DECLINE")
+metadata/_custom_type_script = "uid://c6mqh2wl64evh"

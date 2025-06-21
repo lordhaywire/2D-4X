@@ -1,9 +1,22 @@
-[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=5 format=3 uid="uid://cpmbf5setweth"]
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=8 format=3 uid="uid://cpmbf5setweth"]
 
 [ext_resource type="Resource" uid="uid://rs4bgxx8ctc8" path="res://Resources/Goods/CannedFood.tres" id="1_3dqef"]
 [ext_resource type="Texture2D" uid="uid://mhuco6bk8l6y" path="res://Graphics/County Improvements/axe-in-log.svg" id="1_fohtd"]
 [ext_resource type="Script" uid="uid://blu41dxinr54t" path="res://Resources/CountyImprovementData.cs" id="2_26moa"]
 [ext_resource type="Resource" uid="uid://ftsx8rr0uriv" path="res://Resources/Interests/Botany.tres" id="3_3dqef"]
+[ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/Goods/Wood.tres" id="4_bu3tf"]
+[ext_resource type="Script" uid="uid://b6u77qyvyfqm4" path="res://Resources/ProductionData.cs" id="5_qfuk6"]
+
+[sub_resource type="Resource" id="Resource_5joa7"]
+script = ExtResource("5_qfuk6")
+workAmountAfterSkillCheck = 0
+workCost = 2
+workAmount = 0
+todaysGoodsAmountGenerated = 0
+averageDailyAmountGenerated = 0.0
+storageAmount = 0
+AverageDailyGoodsAmountGenerated = 0.0
+metadata/_custom_type_script = "uid://b6u77qyvyfqm4"
 
 [resource]
 script = ExtResource("2_26moa")
@@ -25,9 +38,11 @@ maxBuilders = 2
 adjustedMaxBuilders = 0
 maxWorkers = 3
 adjustedMaxWorkers = 0
-countyResourceType = 12
+countyResourceType = 14
 factionResourceType = 1
-outputGoods = {}
+outputGoods = {
+ExtResource("4_bu3tf"): SubResource("Resource_5joa7")
+}
 allDailyWorkAmountAtImprovementCompleted = 0
 uniqueInputGoods = Dictionary[Variant, int]({})
 inputGoods = Dictionary[Variant, int]({})

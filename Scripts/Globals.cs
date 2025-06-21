@@ -88,8 +88,8 @@ public partial class Globals : Node
     [Export] public int numberOfNonperishableGoods; // Total nonperishable goods
     [Export] public int maxScavengeableScrap = 10000;
     [Export] public int maxScavengeableFood = 10000;
-    [Export] public int startingPerishableStorage = 500;
-    [Export] public int startingNonperishableStorage = 500;
+    [Export] public int startingPerishableStorage = 2000;
+    [Export] public int startingNonperishableStorage = 2000;
     [Export] public int startingAmountOfEachGood = 100;
     
     [ExportGroup("Exploration Variables")]

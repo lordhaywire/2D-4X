@@ -38,7 +38,7 @@ maxBuilders = 2
 adjustedMaxBuilders = 0
 maxWorkers = 3
 adjustedMaxWorkers = 0
-countyResourceType = 12
+countyResourceType = 14
 factionResourceType = 1
 outputGoods = Dictionary[Object, Object]({
 ExtResource("4_hbd6y"): SubResource("Resource_no3qn")

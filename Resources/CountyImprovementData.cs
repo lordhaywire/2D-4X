@@ -30,11 +30,8 @@ public partial class CountyImprovementData : Resource
     [Export]
     public int CurrentAmountOfConstruction
     {
-        get { return currentAmountOfConstruction; }
-        set
-        {
-            currentAmountOfConstruction = Math.Min(value, maxAmountOfConstruction);
-        }
+        get => currentAmountOfConstruction;
+        set => currentAmountOfConstruction = Math.Min(value, maxAmountOfConstruction);
     }
     [Export] public int maxAmountOfConstruction;
     [Export] public int maxBuilders;
@@ -199,10 +196,11 @@ public partial class CountyImprovementData : Resource
         populationAtImprovement.Remove(populationData);
         populationData.currentCountyImprovement = null;
     }
-
+    
     /// <summary>
-    /// This could have been an if else but I think we will add more types.
+    /// Sets the allDailyWorkAmountAtImprovementCompleted to zero for some reason.
     /// </summary>
+    /// <param name="countyData"></param>
     public void SetCountyImprovementComplete(CountyData countyData)
     {
         switch (countyImprovementType)
@@ -288,7 +286,7 @@ public partial class CountyImprovementData : Resource
     }
     
     // We have to do a copy of a copy to make a copy that is unique.
-    // I bet this isn't really unique.
+    // I bet this isn't unique.
     public Godot.Collections.Dictionary<GoodData, ProductionData> CopyOutputGoods()
     {
         Godot.Collections.Dictionary<GoodData, ProductionData> copiedDictionary = [];
