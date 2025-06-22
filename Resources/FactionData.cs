@@ -107,6 +107,7 @@ public partial class FactionData : Resource
         factionGoods[AllEnums.FactionGoodType.Remnants].Amount = 0;
         factionGoods[AllEnums.FactionGoodType.BuildingMaterial].Amount = 0;
         factionGoods[AllEnums.FactionGoodType.Equipment].Amount = 0;
+        factionGoods[AllEnums.FactionGoodType.RawMaterial].Amount = 0;
     }
 
     // This should be counting just the county resources of Faction Type, not the used.
@@ -123,6 +124,8 @@ public partial class FactionData : Resource
                 += countyData.CountFactionResourceOfType(AllEnums.FactionGoodType.BuildingMaterial);
             factionGoods[AllEnums.FactionGoodType.Equipment].Amount
                 += countyData.CountFactionResourceOfType(AllEnums.FactionGoodType.Equipment);
+            factionGoods[AllEnums.FactionGoodType.RawMaterial].Amount
+                += countyData.CountFactionResourceOfType(AllEnums.FactionGoodType.RawMaterial);
         }
     }
 
@@ -137,6 +140,10 @@ public partial class FactionData : Resource
                 += countyData.CountUsedFactionResourceOfType(AllEnums.FactionGoodType.Remnants);
             amountUsedFactionGoods[AllEnums.FactionGoodType.BuildingMaterial].Amount
                 += countyData.CountUsedFactionResourceOfType(AllEnums.FactionGoodType.BuildingMaterial);
+            amountUsedFactionGoods[AllEnums.FactionGoodType.Equipment].Amount
+                += countyData.CountUsedFactionResourceOfType(AllEnums.FactionGoodType.Equipment);
+            amountUsedFactionGoods[AllEnums.FactionGoodType.RawMaterial].Amount
+                += countyData.CountUsedFactionResourceOfType(AllEnums.FactionGoodType.RawMaterial);
         }
     }
 
@@ -148,6 +155,7 @@ public partial class FactionData : Resource
         amountUsedFactionGoods[AllEnums.FactionGoodType.Remnants].Amount = 0;
         amountUsedFactionGoods[AllEnums.FactionGoodType.BuildingMaterial].Amount = 0;
         amountUsedFactionGoods[AllEnums.FactionGoodType.Equipment].Amount = 0;
+        amountUsedFactionGoods[AllEnums.FactionGoodType.RawMaterial].Amount = 0;
     }
 
     public void SubtractFactionResources()

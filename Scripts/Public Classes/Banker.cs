@@ -236,34 +236,43 @@ public class Banker
 
     public static bool CheckBuildingCost(CountyData countyData, CountyImprovementData countyImprovementData)
     {
-        // GD.Print("Checking Building Cost...");
+        GD.Print("Checking Building Cost...");
         // This is here, so the county improvement can be shown in the Research panel.
         if (countyData == null)
         {
-            // GD.Print("County Data is null so Check Building Cost is skipped.");
+            GD.Print("County Data is null so Check Building Cost is skipped.");
             return false;
         }
+        
+        // For testing.
+        //countyData.goods[AllEnums.CountyGoodType.Remnants].Amount += 500;
 
         if (countyImprovementData.goodsConstructionCost != null)
         {
             foreach (KeyValuePair<GoodData, int> keyValuePair in countyImprovementData.goodsConstructionCost)
             {
                 AllEnums.GoodType goodType = keyValuePair.Key.goodType;
-                AllEnums.CountyGoodType countyResourceType = keyValuePair.Key.countyGoodType;
-                AllEnums.FactionGoodType factionResourceType = keyValuePair.Key.factionGoodType;
+                AllEnums.CountyGoodType countyGoodType = keyValuePair.Key.countyGoodType;
+                AllEnums.FactionGoodType factionGoodType = keyValuePair.Key.factionGoodType;
+                
+                if (keyValuePair.Key.useRemnants)
+                {
+                    goodType = AllEnums.GoodType.Both;
+                    countyGoodType = AllEnums.CountyGoodType.Remnants;
+                }
 
-                // If the good type is a county good, or both it checks the county amount of the resource
+                // If the good type is a county good, or both it checks the county amount of the good
                 // currently only Remnants is both and the player is taking from the county amount.
                 if (goodType == AllEnums.GoodType.CountyGood || goodType == AllEnums.GoodType.Both)
                 {
-                    if (countyData.goods[countyResourceType].Amount < keyValuePair.Value)
+                    if (countyData.goods[countyGoodType].Amount < keyValuePair.Value)
                     {
                         return false;
                     }
                 }
                 else
                 {
-                    if (countyData.factionData.factionGoods[factionResourceType].Amount < keyValuePair.Value)
+                    if (countyData.factionData.factionGoods[factionGoodType].Amount < keyValuePair.Value)
                     {
                         return false;
                     }

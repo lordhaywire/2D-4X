@@ -10,24 +10,24 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     [Export] private PackedScene goodPanelContainerPackedScene;
 
     [Export] private Label researchAssignedLabel;
-    [ExportGroup("Progress")]
-    [Export] public PanelContainer progressPanelContainer;
+    [ExportGroup("Progress")] [Export] public PanelContainer progressPanelContainer;
     [Export] public Label progressTitle;
     [Export] public ProgressBar progressBar;
     [Export] public Label constructionCostLabel;
     [Export] public Label maxWorkersLabel;
 
-    [ExportGroup("Prioritize")]
-    [Export] private HBoxContainer prioritizeHBox;
+    [ExportGroup("Prioritize")] [Export] private HBoxContainer prioritizeHBox;
     [Export] public CheckBox prioritizeCheckBox;
 
-    [ExportGroup("Improvement Info")]
-    [Export] public Label improvementNameLabel;
+    [ExportGroup("Improvement Info")] [Export]
+    public Label improvementNameLabel;
+
     [Export] private Label improvementDescriptionLabel;
     [Export] private TextureRect improvementTextureRect;
 
-    [ExportGroup("Workers")]
-    [Export] private PanelContainer workersPanelContainer; // This had the worker amounts and minus/plus buttons inside it.
+    [ExportGroup("Workers")] [Export]
+    private PanelContainer workersPanelContainer; // This had the worker amounts and minus/plus buttons inside it.
+
     [Export] public CheckBox produceAsNeededCheckBox;
     [Export] public Label currentWorkersNumberLabel;
     [Export] public Label adjustedWorkersNumberLabel;
@@ -39,8 +39,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     [Export] private GridContainer inputsGridContainer;
     [Export] public Label nontangibleProductionLabel;
 
-    [ExportGroup("Construction")]
-    [Export] private PanelContainer constructionPanelContainer;
+    [ExportGroup("Construction")] [Export] private PanelContainer constructionPanelContainer;
     [Export] private Label constructionTitleLabel;
     [Export] private GridContainer constructionMaterialCostGridContainer;
     [Export] public CheckBox remnantsForConstructionCheckBox;
@@ -53,8 +52,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     [Export] private Button constructButton;
     //[Export] private Label hiringLabel;
 
-    [ExportGroup("Research")]
-    [Export] private Label assignResearcherInPanelLabel;
+    [ExportGroup("Research")] [Export] private Label assignResearcherInPanelLabel;
     [Export] public Label underConstructionLabel;
     [Export] private Button removeImprovementButton;
 
@@ -71,7 +69,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
         {
             // This is currently working in the research description panel.
             case AllEnums.CountyImprovementStatus.InResearchPanel:
-                UpdateConstructionCost();
+                UpdateConstructionBuildCost();
                 UpdateMaxWorkers();
                 GenerateOutputGoods();
                 GenerateInputGoods();
@@ -110,7 +108,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
                 break;
             // Default is status none, so when it is in the possible list.
             default:
-                UpdateConstructionCost();
+                UpdateConstructionBuildCost();
                 UpdateMaxWorkers();
                 GenerateOutputGoods();
                 GenerateInputGoods();
@@ -124,32 +122,34 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     private void RemoveImprovementButtonPressed()
     {
         CountyImprovementsControl.Instance.removeCountyImprovementConfirmationPanelContainer.Show();
-        CountyImprovementsControl.Instance.removeCountyImprovementConfirmationPanelContainer.removingCountyImprovementData =
+        CountyImprovementsControl.Instance.removeCountyImprovementConfirmationPanelContainer
+                .removingCountyImprovementData =
             countyImprovementData;
     }
-    private void UpdateConstructionCost()
+
+    private void UpdateConstructionBuildCost()
     {
         progressPanelContainer.Show();
         progressBar.Hide();
         progressTitle.Hide();
         constructionCostLabel.Text = $"{Tr("PHRASE_CONSTRUCTION_COST")} : " +
-            $"{countyImprovementData.maxAmountOfConstruction}";
-
+                                     $"{countyImprovementData.maxAmountOfConstruction}";
     }
 
-    void UpdateMaxWorkers()
+    private void UpdateMaxWorkers()
     {
         maxWorkersLabel.Show();
         maxWorkersLabel.Text = $"{Tr("PHRASE_MAX_WORKERS")} : " +
-            $"{countyImprovementData.maxWorkers}";
+                               $"{countyImprovementData.maxWorkers}";
     }
+
     private void UpdateConstructionProgress()
     {
         progressPanelContainer.Show();
         progressBar.MaxValue = countyImprovementData.maxAmountOfConstruction;
         progressBar.Value = countyImprovementData.CurrentAmountOfConstruction;
         constructionCostLabel.Text = $"{Tr("PHRASE_CONSTRUCTION_COST")} : " +
-            $"{countyImprovementData.CurrentAmountOfConstruction} / {countyImprovementData.maxAmountOfConstruction}";
+                                     $"{countyImprovementData.CurrentAmountOfConstruction} / {countyImprovementData.maxAmountOfConstruction}";
     }
 
     private void HideEverything()
@@ -190,14 +190,16 @@ public partial class CountryImprovementPanelContainer : PanelContainer
         {
             return;
         }
+
         PopulationData populationData = countyImprovementData.populationAtImprovement[0];
         if (populationData.currentResearchItemData == null)
         {
             assignResearcherInPanelLabel.Show();
             return;
         }
+
         researchAssignedLabel.Text = $"{populationData.firstName} {populationData.lastName}" +
-            $" {Tr("PHRASE_IS_RESEARCHING")} {Tr(populationData.currentResearchItemData.researchName)}";
+                                     $" {Tr("PHRASE_IS_RESEARCHING")} {Tr(populationData.currentResearchItemData.researchName)}";
         researchAssignedLabel.Show();
         progressPanelContainer.Show();
         progressTitle.Text = "PHRASE_RESEARCH_PROGRESS";
@@ -209,7 +211,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     private void GenerateOutputGoods()
     {
         CheckForGoodsForColumns(outputsGridContainer
-           , countyImprovementData.outputGoods.Count);
+            , countyImprovementData.outputGoods.Count);
 
         foreach (KeyValuePair<GoodData, ProductionData> keyValuePair in countyImprovementData.outputGoods)
         {
@@ -224,7 +226,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     }
 
     // ChatGPT wrote most of this.
-    GoodPanelContainer AddOutputGoodsPanel(GoodData goodData, ProductionData productionData
+    private GoodPanelContainer AddOutputGoodsPanel(GoodData goodData, ProductionData productionData
         , GridContainer goodsParentGridContainer)
     {
         // Generate the goods produced without bonuses.
@@ -238,21 +240,23 @@ public partial class CountryImprovementPanelContainer : PanelContainer
         if (countyImprovementData.status != AllEnums.CountyImprovementStatus.Producing)
         {
             goodPanelContainer.goodLabel.Text = $"{Tr(goodData.goodName)} "
-                + $": {productionData.AverageDailyGoodsAmountGenerated}";
+                                                + $": {productionData.AverageDailyGoodsAmountGenerated}";
         }
         else
         {
             goodsProducedPerDayTitleLabel.Text = "PHRASE_GOODS_PRODUCED_YESTERDAY";
             if (productionData.todaysGoodsAmountGenerated >= 1)
             {
-                goodPanelContainer.goodLabel.Text = $"{Tr(goodData.goodName)} : {productionData.todaysGoodsAmountGenerated}";
+                goodPanelContainer.goodLabel.Text =
+                    $"{Tr(goodData.goodName)} : {productionData.todaysGoodsAmountGenerated}";
             }
             else
             {
                 goodPanelContainer.goodLabel.Text = $"{Tr(goodData.goodName)} "
-                    + $": {productionData.workAmount} / {productionData.workCost}";
+                                                    + $": {productionData.workAmount} / {productionData.workCost}";
             }
         }
+
         return goodPanelContainer;
     }
 
@@ -265,7 +269,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
         {
             GoodPanelContainer goodPanelContainer
                 = AddInputGoodsPanel(keyValuePair.Key, keyValuePair.Value
-                , countyImprovementData.adjustedMaxWorkers);
+                    , countyImprovementData.adjustedMaxWorkers);
 
             if (countyImprovementData.status == AllEnums.CountyImprovementStatus.UnderConstruction)
             {
@@ -275,6 +279,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
             {
                 CheckForHideUseRemnants(keyValuePair, goodPanelContainer);
             }
+
             goodPanelContainer.useRemnantsCheckBox.Toggled += toggled
                 => SetUseRemnants(toggled, keyValuePair.Key);
         }
@@ -282,8 +287,9 @@ public partial class CountryImprovementPanelContainer : PanelContainer
 
     private void SetUseRemnants(bool toggledOn, GoodData goodData)
     {
-        GD.Print($"{goodData.goodName} Use Remnants has been toggled!!!!!!!!" + toggledOn);
+        //GD.Print($"{goodData.goodName} Use Remnants has been toggled!!!!!!!!" + toggledOn);
         goodData.useRemnants = toggledOn;
+        CheckForConstructionResources(Globals.Instance.SelectedLeftClickCounty.countyData);
     }
 
     private GoodPanelContainer AddConstructionGoodsPanel(GoodData goodData, int amount)
@@ -292,7 +298,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
         constructionMaterialCostGridContainer.AddChild(goodPanelContainer);
 
         goodPanelContainer.goodLabel.Text = $"{Tr(goodData.goodName)} : {amount}";
-        
+
         goodPanelContainer.useRemnantsCheckBox.ButtonPressed = goodData.useRemnants;
 
         return goodPanelContainer;
@@ -322,7 +328,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
                 = AddConstructionGoodsPanel(keyValuePair.Key, keyValuePair.Value);
 
             CheckForHideUseRemnants(keyValuePair, goodPanelContainer);
-            
+
             goodPanelContainer.useRemnantsCheckBox.Toggled += toggled
                 => SetUseRemnants(toggled, keyValuePair.Key);
         }
@@ -332,11 +338,14 @@ public partial class CountryImprovementPanelContainer : PanelContainer
         , GoodPanelContainer goodPanelContainer)
     {
         bool shouldHideCheckBox =
-            countyImprovementData.status == AllEnums.CountyImprovementStatus.None
-            //|| countyImprovementData.status == AllEnums.CountyImprovementStatus.UnderConstruction
+            //countyImprovementData.status == AllEnums.CountyImprovementStatus.None
+            //|| // Get rid of this soon.
+            countyImprovementData.status == AllEnums.CountyImprovementStatus.UnderConstruction
             || countyImprovementData.status == AllEnums.CountyImprovementStatus.InResearchPanel
             || keyValuePair.Key.countyGoodType == AllEnums.CountyGoodType.Remnants
+            || keyValuePair.Key.factionGoodType == AllEnums.FactionGoodType.Money
             || keyValuePair.Key.factionGoodType == AllEnums.FactionGoodType.Food;
+
 
         if (shouldHideCheckBox)
         {
@@ -345,6 +354,17 @@ public partial class CountryImprovementPanelContainer : PanelContainer
         else
         {
             goodPanelContainer.useRemnantsCheckBox.Show();
+        }
+
+        // This strange way of doing things works, so like, why not?
+        // This makes it so that Use Remnants checkbox is only shown on construction items.
+        if (GetParent() == CountyImprovementsControl.Instance.possibleImprovementsScrollContainerParent)
+        {
+            if (goodPanelContainer.GetParent().Name == "Inputs GridContainer")
+            {
+                goodPanelContainer.useRemnantsCheckBox.Hide();
+                //GD.PrintRich($"[rainbow]This is inside the Inputs GridContainer");
+            }
         }
     }
 
@@ -361,6 +381,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
         {
             gridContainer.Columns = 1;
         }
+
         if (totalGoods == 0)
         {
             GoodPanelContainer goodPanelContainer = (GoodPanelContainer)goodPanelContainerPackedScene.Instantiate();
@@ -376,6 +397,8 @@ public partial class CountryImprovementPanelContainer : PanelContainer
     /// </summary>
     private void CheckForConstructionResources(CountyData countyData)
     {
+        bool checkBuildingCost = Banker.CheckBuildingCost(countyData, countyImprovementData);
+        GD.Print("Checking Building Cost is : " + checkBuildingCost);
         if (Banker.CheckBuildingCost(countyData, countyImprovementData))
         {
             constructButton.Show();
@@ -391,6 +414,7 @@ public partial class CountryImprovementPanelContainer : PanelContainer
         countyImprovementData.prioritize = !countyImprovementData.prioritize;
         //GD.Print("Prioritized? " + countyImprovementData.prioritize);
     }
+
     public void UpdateImprovementLabels()
     {
         UpdatePrioritizeCheckbox();

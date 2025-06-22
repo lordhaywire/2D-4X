@@ -89,7 +89,7 @@ public partial class County : Node2D
         PopulationAI.IsThereEnoughFood(countyData); // This is a terrible name for this method.
 
         // This is a check for Occasional needs.
-        // The Population uses other resources besides food.
+        // The Population uses other goods besides food.
         countyData.OccasionalNeeds();
 
         // Check to see how long each recruit has been recruited before they enter service for real.

@@ -1,4 +1,4 @@
-[gd_scene load_steps=110 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=111 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://World Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
 [ext_resource type="Script" uid="uid://bl7hn0hgb5876" path="res://Scripts/LoadMaps.cs" id="2_nda5i"]
@@ -92,6 +92,7 @@
 [ext_resource type="Texture2D" uid="uid://dmeg24s68kkig" path="res://Graphics/Research/uncertainty.svg" id="65_b6pum"]
 [ext_resource type="Script" uid="uid://bg2dtkgmt0rfq" path="res://Scripts/MapEditorControl.cs" id="65_uqmnr"]
 [ext_resource type="PackedScene" uid="uid://iur3kq10dikl" path="res://Scenes/MapEditor.tscn" id="66_sq6pt"]
+[ext_resource type="Texture2D" uid="uid://eflg2wqpqawn" path="res://Graphics/Icons/Top Bar/Raw Materials Ore.png" id="67_eef1t"]
 [ext_resource type="PackedScene" uid="uid://bhgbnf6lykhb6" path="res://Scenes/UI/PerkLabel.tscn" id="68_6cv3c"]
 [ext_resource type="Texture2D" uid="uid://cs6gb8bpwt7xd" path="res://Graphics/yellow-crumpled-lined-paper-background-2022-12-16-00-47-47-utc-scaled.webp" id="76_xlxp7"]
 [ext_resource type="Texture2D" uid="uid://cyphf3703b4qa" path="res://Graphics/Icons/Top Bar/bolter-gun.svg" id="98_qs8v3"]
@@ -306,7 +307,7 @@ size_flags_vertical = 10
 mouse_filter = 0
 theme_override_constants/separation = 1
 
-[node name="Top Bar Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("clock", "dayLabel", "hourLabel", "timeMultiplierLabel", "pausedLabel", "influenceLabel", "influenceAmountUsed", "moneyLabel", "moneyAmountUsed", "remnantsLabel", "remnantsAmountUsed", "buildingMaterialsLabel", "buildingMaterialsAmountUsed", "equipmentLabel", "equipmentAmountUsed", "foodLabel", "foodAmountUsed", "x0Button", "xHalfButton", "x1Button", "x2Button", "x4Button", "x8Button", "x16Button")]
+[node name="Top Bar Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("clock", "dayLabel", "hourLabel", "timeMultiplierLabel", "pausedLabel", "influenceLabel", "influenceAmountUsed", "moneyLabel", "moneyAmountUsed", "remnantsLabel", "remnantsAmountUsed", "buildingMaterialsLabel", "buildingMaterialsAmountUsed", "equipmentLabel", "equipmentAmountUsed", "foodLabel", "foodAmountUsed", "rawMaterialsLabel", "rawMaterialsAmountUsed", "x0Button", "xHalfButton", "x1Button", "x2Button", "x4Button", "x8Button", "x16Button")]
 custom_minimum_size = Vector2(0, 31)
 layout_mode = 3
 anchors_preset = 10
@@ -333,6 +334,8 @@ equipmentLabel = NodePath("PanelContainer/Top Bar HBox/Equipment Panel Container
 equipmentAmountUsed = NodePath("PanelContainer/Top Bar HBox/Equipment Amount Used Panel Container/Equipment Amount Used Label")
 foodLabel = NodePath("PanelContainer/Top Bar HBox/Food Panel Container/Food Number")
 foodAmountUsed = NodePath("PanelContainer/Top Bar HBox/Food Amount Used Panel Container/Food Amount Used Label")
+rawMaterialsLabel = NodePath("PanelContainer/Top Bar HBox/Raw Materials Panel Container/Raw Materials Number")
+rawMaterialsAmountUsed = NodePath("PanelContainer/Top Bar HBox/Raw Materials Amount Used Panel Container/Raw Materials Amount Used Label")
 x0Button = NodePath("PanelContainer/Time and Research Buttons HBox/x0 Button")
 xHalfButton = NodePath("PanelContainer/Time and Research Buttons HBox/xHalf Button")
 x1Button = NodePath("PanelContainer/Time and Research Buttons HBox/x1 Button")
@@ -404,6 +407,7 @@ vertical_alignment = 1
 
 [node name="Influence TextureRect" type="TextureRect" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox"]
 layout_mode = 2
+tooltip_text = "GOOD_INFLUENCE"
 mouse_filter = 0
 texture = ExtResource("36_fqvec")
 expand_mode = 3
@@ -434,6 +438,7 @@ vertical_alignment = 1
 
 [node name="Money TextureRect" type="TextureRect" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox"]
 layout_mode = 2
+tooltip_text = "GOOD_MONEY"
 mouse_filter = 0
 texture = ExtResource("37_16y4w")
 expand_mode = 3
@@ -464,6 +469,7 @@ vertical_alignment = 1
 
 [node name="Remnants TextureRect" type="TextureRect" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox"]
 layout_mode = 2
+tooltip_text = "GOOD_REMNANTS"
 mouse_filter = 0
 texture = ExtResource("39_mrqgp")
 expand_mode = 3
@@ -494,6 +500,7 @@ vertical_alignment = 1
 
 [node name="Building Materials TextureRect" type="TextureRect" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox"]
 layout_mode = 2
+tooltip_text = "GOOD_BUILDING_MATERIALS"
 mouse_filter = 0
 texture = ExtResource("52_5fb6h")
 expand_mode = 3
@@ -524,6 +531,7 @@ vertical_alignment = 1
 
 [node name="Equipment TextureRect" type="TextureRect" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox"]
 layout_mode = 2
+tooltip_text = "GOOD_EQUIPMENT"
 mouse_filter = 0
 texture = ExtResource("98_qs8v3")
 expand_mode = 3
@@ -554,6 +562,7 @@ vertical_alignment = 1
 
 [node name="Food TextureRect" type="TextureRect" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox"]
 layout_mode = 2
+tooltip_text = "GOOD_FOOD"
 mouse_filter = 0
 texture = ExtResource("38_0q3s5")
 expand_mode = 3
@@ -574,6 +583,37 @@ layout_mode = 2
 size_flags_horizontal = 4
 
 [node name="Food Amount Used Label" type="Label" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Food Amount Used Panel Container"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+text = "(0)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Raw Materials TextureRect" type="TextureRect" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox"]
+layout_mode = 2
+tooltip_text = "GOOD_FOOD"
+mouse_filter = 0
+texture = ExtResource("67_eef1t")
+expand_mode = 3
+
+[node name="Raw Materials Panel Container" type="PanelContainer" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
+[node name="Raw Materials Number" type="Label" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Raw Materials Panel Container"]
+layout_mode = 2
+text = "100000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Raw Materials Amount Used Panel Container" type="PanelContainer" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Raw Materials Amount Used Label" type="Label" parent="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Raw Materials Amount Used Panel Container"]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -2749,6 +2789,12 @@ process_mode = 3
 [connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Food Panel Container" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
 [connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Food Amount Used Panel Container" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Food Amount Used Panel Container" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
+[connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Raw Materials TextureRect" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Raw Materials TextureRect" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
+[connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Raw Materials Panel Container" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Raw Materials Panel Container" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
+[connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Raw Materials Amount Used Panel Container" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Raw Materials Amount Used Panel Container" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
 [connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
 [connection signal="pressed" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/Research Button" to="Player UI Canvas/Research Control" method="ShowResearchPanel"]

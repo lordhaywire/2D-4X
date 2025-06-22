@@ -222,7 +222,6 @@ public class Haulmaster
             if (inputGood.Value > stockpileAmount)
             {
                 hasEnoughInputGoods = false;
-
                 break; // No need to check further if one good is insufficient.
             }
         }

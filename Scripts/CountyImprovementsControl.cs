@@ -7,7 +7,7 @@ public partial class CountyImprovementsControl : Control
 {
     public static CountyImprovementsControl Instance { get; private set; }
 
-    [Export] private VBoxContainer possibleImprovementsScrollContainerParent;
+    [Export] public VBoxContainer possibleImprovementsScrollContainerParent;
     [Export] public VBoxContainer currentImprovementsScrollContainerParent;
     [Export] public ConfirmationDialog buildConfirmationDialog;
     [Export] public RemoveCountyImprovementConfirmationPanelContainer removeCountyImprovementConfirmationPanelContainer;
@@ -21,7 +21,7 @@ public partial class CountyImprovementsControl : Control
     
     private void OnCountyImprovementControlVisibilityChanged()
     {
-        if (Visible == true)
+        if (Visible)
         {
             Clock.Instance.PauseTime();
             CreateAllCountyImprovementButtons();
@@ -38,7 +38,7 @@ public partial class CountyImprovementsControl : Control
     }
 
     /// <summary>
-    /// This goes through all of the county improvement lists and generates them for the player UI.
+    /// This goes through all the county improvement lists and generates them for the player UI.
     /// </summary>
     public void CreateAllCountyImprovementButtons()
     {
@@ -56,8 +56,9 @@ public partial class CountyImprovementsControl : Control
     /// <summary>
     /// createAllCountyImprovement Buttons calls this three times to create them all.
     /// </summary>
-    /// <param name="listOfCountyImprovements"></param>
+    /// <param name="disorderedListOfCountyImprovements"></param>
     /// <param name="parent"></param>
+    /// <param name="allCountyImprovements"></param>
     private void CreateCountyImprovementButtons(Godot.Collections.Array<CountyImprovementData> disorderedListOfCountyImprovements
         , VBoxContainer parent, bool allCountyImprovements)
     {
@@ -72,14 +73,7 @@ public partial class CountyImprovementsControl : Control
         {
             CountryImprovementPanelContainer countyImprovementPanelContainer = (CountryImprovementPanelContainer)countyImprovementPanelContainerPackedScene.Instantiate();
             // This needs to be above AddChild.
-            if (allCountyImprovements)
-            {
-                countyImprovementPanelContainer.countyImprovementData = CountyImprovementData.NewCopy(countyImprovementData);
-            }
-            else
-            {
-                countyImprovementPanelContainer.countyImprovementData = countyImprovementData;
-            }
+            countyImprovementPanelContainer.countyImprovementData = allCountyImprovements ? CountyImprovementData.NewCopy(countyImprovementData) : countyImprovementData;
             parent.AddChild(countyImprovementPanelContainer);
         }
     }

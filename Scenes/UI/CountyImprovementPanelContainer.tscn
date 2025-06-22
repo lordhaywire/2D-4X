@@ -36,7 +36,7 @@ inputsGridContainer = NodePath("Everything VBoxContainer/Production and Building
 nontangibleProductionLabel = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Nontangible Goods Produced Title Label")
 constructionPanelContainer = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer")
 constructionTitleLabel = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Goods VBoxContainer/Construction Goods Label")
-constructionMaterialCostGridContainer = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Goods VBoxContainer/Contruction Material Cost GridContainer")
+constructionMaterialCostGridContainer = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Goods VBoxContainer/Construction Material Cost GridContainer")
 adjustMaxBuildersHBox = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Goods VBoxContainer/Adjustable Builders HBoxContainer")
 currentBuildersNumberLabel = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Goods VBoxContainer/Adjustable Builders HBoxContainer/Current Builders Number Label")
 adjustedBuildersNumberLabel = NodePath("Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Goods VBoxContainer/Adjustable Builders HBoxContainer/Adjusted Max Builders Number Label")
@@ -227,7 +227,7 @@ text = "PHRASE_CONSTRUCTION_GOODS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Contruction Material Cost GridContainer" type="GridContainer" parent="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Goods VBoxContainer"]
+[node name="Construction Material Cost GridContainer" type="GridContainer" parent="Everything VBoxContainer/Production and Building VBoxContainer/Contruction PanelContainer/Construction Goods VBoxContainer"]
 layout_mode = 2
 columns = 2
 
