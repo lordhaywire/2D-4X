@@ -47,9 +47,9 @@ Goods Construction Cost is a one time fee charged when the county improvement is
 
 4. Click add KeyValuePair for dictionary.
 
-4. Right click new ProductionData and select Make Unique. (I think this actually is already Unique if you create a new ProductionData like in step 3.)
+5. Right click new ProductionData and select Make Unique. (I think this actually is already Unique if you create a new ProductionData like in step 3.)
 
-5. Adjust new ProductionData to the correct amounts. Work cost must be at least 1. This way the average daily amount generated.
+6. Adjust new ProductionData to the correct amounts. Work cost must be at least 1. This way the average daily amount generated.
 
 This needs to be set up correctly in the inspector so the average daily amount generated is generated.
 
