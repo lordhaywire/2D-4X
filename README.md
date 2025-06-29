@@ -1,4 +1,4 @@
-# 2D 4X
+# 2D 4X 0.0.8
 
 ## Using Godot 4.4.1.stable.mono C#
 
