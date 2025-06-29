@@ -349,3 +349,7 @@ WORD_VISITORS,Visitors,Visitantes
 WORD_WORK,Work- THIS IS AN ACTIVITY,Trabajo
 GOOD_RAW_MATERIALS,Raw Materials,Materias primas
 GOOD_DESCRIPTION_RAW_MATERIALS,The base materials used to create other things.,Los materiales base utilizados para crear otras cosas.
+WORD_OPTIONS,Options,Opciones
+WORD_SAVE,Save,Salvar
+WORD_LOAD,Load,Carga
+PHRASE_DEVELOPER_OPTIONS,Developer Options,Opciones de desarrollador

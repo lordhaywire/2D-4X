@@ -212,13 +212,10 @@ public partial class County : Node2D
                 && populationData.heroToken?.tokenMovement.MoveToken != true)
             {
                 Quartermaster.EquipHeroesAndSubordinates(populationData);
-
-
             }
             else
             {
-                GD.Print(
-                    "Hero is in an unfriendly county so it needs to equip from supply, which isn't implemented yet.");
+                GD.Print("Hero is in an unfriendly county so it needs to equip from supply, which isn't implemented yet.");
             }
         }
     }

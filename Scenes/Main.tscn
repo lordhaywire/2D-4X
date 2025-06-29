@@ -1,4 +1,4 @@
-[gd_scene load_steps=111 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=112 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://World Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
 [ext_resource type="Script" uid="uid://bl7hn0hgb5876" path="res://Scripts/LoadMaps.cs" id="2_nda5i"]
@@ -96,6 +96,7 @@
 [ext_resource type="PackedScene" uid="uid://bhgbnf6lykhb6" path="res://Scenes/UI/PerkLabel.tscn" id="68_6cv3c"]
 [ext_resource type="Texture2D" uid="uid://cs6gb8bpwt7xd" path="res://Graphics/yellow-crumpled-lined-paper-background-2022-12-16-00-47-47-utc-scaled.webp" id="76_xlxp7"]
 [ext_resource type="Texture2D" uid="uid://cyphf3703b4qa" path="res://Graphics/Icons/Top Bar/bolter-gun.svg" id="98_qs8v3"]
+[ext_resource type="Script" uid="uid://bsu4do5jsmkcb" path="res://Scripts/OptionsControl.cs" id="104_siwj1"]
 [ext_resource type="PackedScene" uid="uid://cchni40ta8gfs" path="res://Scenes/UI/StoryEventChoiceButton.tscn" id="114_yhlxv"]
 [ext_resource type="Script" uid="uid://b0xy2tg5uv2gh" path="res://Scripts/UI/InventoryVBoxContainer.cs" id="117_0j4c6"]
 [ext_resource type="PackedScene" uid="uid://x448dpajwnx" path="res://Scenes/UI/CountyImprovementPanelContainer.tscn" id="119_kkhw7"]
@@ -2737,6 +2738,69 @@ offset_top = -8.0
 offset_right = 8.0
 grow_vertical = 0
 text = "Map Editor"
+
+[node name="Options Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("optionsPanelContainer", "saveButton", "loadButton", "developerOptionsButton")]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("104_siwj1")
+optionsPanelContainer = NodePath("Options PanelContainer")
+saveButton = NodePath("Options PanelContainer/VBoxContainer/Save Button")
+loadButton = NodePath("Options PanelContainer/VBoxContainer/Load Button")
+developerOptionsButton = NodePath("Options PanelContainer/VBoxContainer/Developer Options Button")
+
+[node name="Blocker Panel" type="Panel" parent="Player UI Canvas/Options Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Options PanelContainer" type="PanelContainer" parent="Player UI Canvas/Options Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -121.5
+offset_top = -92.5
+offset_right = 121.5
+offset_bottom = 92.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Options Control/Options PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Player UI Canvas/Options Control/Options PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "WORD_OPTIONS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Save Button" type="Button" parent="Player UI Canvas/Options Control/Options PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+text = "WORD_SAVE"
+
+[node name="Load Button" type="Button" parent="Player UI Canvas/Options Control/Options PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+text = "WORD_LOAD"
+
+[node name="Developer Options Button" type="Button" parent="Player UI Canvas/Options Control/Options PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+text = "PHRASE_DEVELOPER_OPTIONS"
 
 [node name="Factions" type="Node" parent="."]
 

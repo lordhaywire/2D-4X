@@ -115,6 +115,18 @@ public partial class PlayerControls : StaticBody2D
             {
                 Clock.Instance.SpaceBarPause();
             }
+            
+            if (@event.IsActionPressed("options"))
+            {
+                if (OptionsControl.Instance.Visible)
+                {
+                    OptionsControl.Instance.Hide();
+                }
+                else
+                {
+                    OptionsControl.Instance.Show();
+                }
+            }
         }
     }
 
