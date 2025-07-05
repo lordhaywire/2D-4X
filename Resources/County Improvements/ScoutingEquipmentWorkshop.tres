@@ -29,7 +29,7 @@ prioritize = false
 improvementTexture = ExtResource("1_231ft")
 improvementName = "IMPROVEMENT_SCOUTING_EQUIPMENT_WORKSHOP"
 improvementDescription = "IMPROVEMENT_DESCRIPTION_SCOUTING_EQUIPMENT_WORKSHOP"
-workSkill = 11
+workSkill = 7
 interestData = ExtResource("3_dvaxv")
 goodsConstructionCost = Dictionary[Variant, int]({
 ExtResource("1_2r2el"): 1

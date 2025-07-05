@@ -1,6 +1,6 @@
 # 2D 4X 0.0.8
 
-## Using Godot 4.4.1.stable.mono C#
+## Using Godot 4.5.beta2.mono C#
 
 This is the repository containing the open source code for the game creation streams that Lord Haywire does on his KilledByDev [Twitch](https://www.twitch.tv/killedbydev) 
 and [YouTube](https://www.youtube.com/@killedbydev) channels.
@@ -65,6 +65,11 @@ Each input good is per worker per day.
 
 3. Click Add Key/Value Pair
 
+#### Adding Research Items
+
+1. Create the ResearchItemData.
+
+2. 
 #### Story Event Categories
 
 1 - Found County Good

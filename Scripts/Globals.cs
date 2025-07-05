@@ -10,6 +10,8 @@ public partial class Globals : Node
     public static Globals Instance { get; private set; }
     public readonly Random random = new();
 
+    [Export] public bool loadGameAtStart;
+    
     [ExportGroup("Player Faction BS")]
     [Export] public FactionData playerFactionData;
 

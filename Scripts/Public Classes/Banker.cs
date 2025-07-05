@@ -85,7 +85,7 @@ public class Banker
     }
 
     /// <summary>
-    /// This will generate population and assign it to the county that is in the story event.
+    /// This will generate population and assign it to the county in the story event.
     /// It will randomly generate between half the story event reward and the story event reward.
     /// </summary>
     /// <param name="storyEventData"></param>
@@ -236,11 +236,11 @@ public class Banker
 
     public static bool CheckBuildingCost(CountyData countyData, CountyImprovementData countyImprovementData)
     {
-        GD.Print("Checking Building Cost...");
+        //GD.Print("Checking Building Cost...");
         // This is here, so the county improvement can be shown in the Research panel.
         if (countyData == null)
         {
-            GD.Print("County Data is null so Check Building Cost is skipped.");
+            //GD.Print("County Data is null so Check Building Cost is skipped.");
             return false;
         }
         

@@ -1,8 +1,7 @@
-[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=10 format=3 uid="uid://bkakbc8lqeex4"]
+[gd_resource type="Resource" script_class="CountyImprovementData" load_steps=9 format=3 uid="uid://bkakbc8lqeex4"]
 
 [ext_resource type="Texture2D" uid="uid://bpj5td645dmvi" path="res://Graphics/County Improvements/spade.svg" id="1_b2i5i"]
 [ext_resource type="Resource" uid="uid://bhmwj5yptebic" path="res://Resources/Goods/Remnants.tres" id="1_urcy4"]
-[ext_resource type="Resource" uid="uid://bhb7ok6ynakog" path="res://Resources/Goods/Wood.tres" id="2_40yu6"]
 [ext_resource type="Resource" uid="uid://dx87ykrfpioxm" path="res://Resources/Goods/Money.tres" id="2_hnqk4"]
 [ext_resource type="Script" uid="uid://blu41dxinr54t" path="res://Resources/CountyImprovementData.cs" id="2_n4a1t"]
 [ext_resource type="Resource" uid="uid://ftsx8rr0uriv" path="res://Resources/Interests/Botany.tres" id="2_nsp6t"]
@@ -47,10 +46,7 @@ ExtResource("4_sycl5"): SubResource("Resource_urcy4")
 }
 allDailyWorkAmountAtImprovementCompleted = 0
 uniqueInputGoods = Dictionary[Variant, int]({})
-inputGoods = Dictionary[Variant, int]({
-ExtResource("2_40yu6"): 100,
-ExtResource("1_urcy4"): 1
-})
+inputGoods = null
 countyStockpiledGoods = Dictionary[int, int]({})
 status = 0
 populationAtImprovement = []

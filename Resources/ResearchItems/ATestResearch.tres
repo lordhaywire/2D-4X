@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ResearchItemData" load_steps=5 format=3 uid="uid://c4r3p3p77qt1e"]
+
+[ext_resource type="Resource" uid="uid://byhexolf4vdf2" path="res://Resources/County Improvements/ATestImprovement.tres" id="1_fc6s4"]
+[ext_resource type="Resource" uid="uid://ftsx8rr0uriv" path="res://Resources/Interests/Botany.tres" id="2_tqrbd"]
+[ext_resource type="Texture2D" uid="uid://hy56shtefjj6" path="res://Graphics/Research/Test Icon coinflip.png" id="3_d1meg"]
+[ext_resource type="Script" uid="uid://c7krhj3d0jakh" path="res://Resources/ResearchItemData.cs" id="4_8yyy6"]
+
+[resource]
+script = ExtResource("4_8yyy6")
+tier = 0
+skill = 2
+interestData = ExtResource("2_tqrbd")
+researchedAtStart = true
+researchName = "A Test Research"
+researchDescription = "A Test Research Description"
+researchTexture = ExtResource("3_d1meg")
+amountOfResearchDone = 0
+costOfResearch = 100
+countyImprovementDatas = [ExtResource("1_fc6s4")]
+researchPrerequisites = null
+metadata/_custom_type_script = "uid://c7krhj3d0jakh"

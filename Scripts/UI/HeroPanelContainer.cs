@@ -222,7 +222,8 @@ public partial class HeroPanelContainer : PanelContainer
         if (secondaryCheckBoxesList[0].ButtonPressed)
         {
             return;
-        };
+        }
+
         secondaryActivitiesHBoxContainer.Hide();
         primaryActivitiesHBoxContainer.Show();
         populationData.numberOfSubordinatesWanted = populationData.heroSubordinates.Count;
