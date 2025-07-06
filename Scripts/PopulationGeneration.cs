@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoloadSpace;
 
 namespace PlayerSpace;
 
@@ -179,7 +180,7 @@ public partial class PopulationGeneration : Node
     }
     private static InterestData GenerateInterest()
     {
-        InterestData interest = AllInterests.Instance.GetRandomInterest();
+        InterestData interest = Autoload.Instance.GetRandomInterest();
         //GD.Print("Interest: " + interest.name);
         return interest;
     }
@@ -224,7 +225,7 @@ public partial class PopulationGeneration : Node
     {
         Godot.Collections.Dictionary<AllEnums.Skills, SkillData> newSkills = [];
 
-        foreach (SkillData skillData in AllSkills.Instance.allSkillData)
+        foreach (SkillData skillData in Autoload.Instance.allSkillData)
         {
             newSkills.Add(skillData.skill, (SkillData)skillData.Duplicate());
             newSkills[skillData.skill].skillLevel = random.Next(startingSkillMin, startingSkillMax);
@@ -288,7 +289,7 @@ public partial class PopulationGeneration : Node
     private static Godot.Collections.Dictionary<AllEnums.Perks, PerkData> GenerateLeaderPerks()
     {
         Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks = [];
-        perks.Add(AllEnums.Perks.LeaderOfPeople, AllPerks.Instance.allPerks[(int)AllEnums.Perks.LeaderOfPeople]);
+        perks.Add(AllEnums.Perks.LeaderOfPeople, Autoload.Instance.allPerks[(int)AllEnums.Perks.LeaderOfPeople]);
         return perks;
     }
     private Godot.Collections.Dictionary<AllEnums.Perks, PerkData> GeneratePopulationPerks()
@@ -297,7 +298,7 @@ public partial class PopulationGeneration : Node
         int unhelpfulRoll = random.Next(1, 101);
         if (unhelpfulRoll < chanceOfBeingUnhelpful)
         {
-            perks.Add(AllEnums.Perks.Unhelpful, AllPerks.Instance.allPerks[(int)AllEnums.Perks.Unhelpful]);
+            perks.Add(AllEnums.Perks.Unhelpful, Autoload.Instance.allPerks[(int)AllEnums.Perks.Unhelpful]);
         }
         return perks;
     }

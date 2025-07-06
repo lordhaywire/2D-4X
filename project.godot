@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+Autoload="*res://Scripts/Autoload/Autoload.cs"
 SaveManager="*res://Scripts/SaveManager.cs"
 CountyResourcesAutoLoad="*res://Scripts/CountyResourcesAutoLoad.cs"
 

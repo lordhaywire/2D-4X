@@ -6,7 +6,7 @@ namespace PlayerSpace
 {
     public partial class StoryEventList : Node
     {
-        public static StoryEventList Instance { get; private set; }
+        //public static StoryEventList Instance { get; private set; }
 
         public readonly Dictionary<AllEnums.Terrain, List<StoryEventData>> eventsByTerrainDictionary = [];
         
@@ -14,7 +14,7 @@ namespace PlayerSpace
 
         public override void _Ready()
         {
-            Instance = this;
+            //Instance = this;
             GetAllExplorationEventsFromDisk();
             TestPrintAllResourceNames();
         }

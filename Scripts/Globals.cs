@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoloadSpace;
 
 namespace PlayerSpace;
 
@@ -170,6 +171,7 @@ public partial class Globals : Node
         Instance = this;
         allFactionData = [];
         LoadNames();
+        CountGoods();
     }
 
     public async Task WaitFrames(int frameCount)
@@ -233,35 +235,6 @@ public partial class Globals : Node
 
     }
 
-    public List<Resource> ReadResourcesFromDisk(string path)
-    {
-        List<Resource> resources = [];
-        DirAccess dirAccess = DirAccess.Open(path);
-
-        if (dirAccess != null && dirAccess.ListDirBegin() == Error.Ok)
-        {
-            string fileName;
-
-            while ((fileName = dirAccess.GetNext()) != "")
-            {
-                if (dirAccess.CurrentIsDir() || (!fileName.EndsWith(".tres") && !fileName.EndsWith(".res")))
-                    continue;
-
-                string filePath = path + fileName;
-                Resource readResource = ResourceLoader.Load(filePath);
-                GD.Print($"Loaded Resource: {filePath}");
-                resources.Add(readResource);
-            }
-
-            dirAccess.ListDirEnd(); // Always close the directory listing
-        }
-        else
-        {
-            GD.PrintErr("Failed to open directory: " + path);
-        }
-        return resources;
-    }
-    
     private static void OnMouseEnteredUI()
     {
         PlayerControls.Instance.stopClickThrough = true;
@@ -272,6 +245,27 @@ public partial class Globals : Node
     {
         PlayerControls.Instance.stopClickThrough = false;
         //GD.Print("Mouse Over UI: " + PlayerControls.Instance.stopClickThrough);
+    }
+    
+    private void CountGoods()
+    {
+        int perishable = 0;
+        int nonperishable = 0;
+
+        foreach (GoodData resourceData in Autoload.Instance.allGoods)
+        {
+            switch (resourceData.perishable)
+            {
+                case AllEnums.Perishable.Perishable:
+                    perishable++;
+                    break;
+                case AllEnums.Perishable.Nonperishable:
+                    nonperishable++;
+                    break;
+            }
+        }
+        numberOfPerishableGoods = perishable;
+        numberOfNonperishableGoods = nonperishable;
     }
 }
 

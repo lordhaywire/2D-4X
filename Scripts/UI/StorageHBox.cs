@@ -2,12 +2,11 @@ using Godot;
 
 namespace PlayerSpace;
 
-public partial class StorageHbox : HBoxContainer
+public partial class StorageHBox : HBoxContainer
 {
     [Export] public GoodData goodData;
-    [Export] public Label resourceNameLabel;
-    [Export] public Label resourceAmountLabel;
-    [Export] public Label resourceMaxAmountLabel;
+    [Export] public Label goodNameLabel;
+    [Export] public Label goodAmountLabel;
 
     [Export] public SpinBox maxAmountSpinBox;
 

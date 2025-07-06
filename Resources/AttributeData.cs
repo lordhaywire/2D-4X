@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using AutoloadSpace;
 
 namespace PlayerSpace;
 
@@ -72,7 +73,7 @@ public partial class AttributeData : Resource
     public static Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> NewCopy()
     {
         Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> newAttributes = [];
-        foreach (AttributeData attributeData in AllAttributes.Instance.allAttributes)
+        foreach (AttributeData attributeData in Autoload.Instance.allAttributes)
         {
             newAttributes.Add(attributeData.attribute, new AttributeData
             {

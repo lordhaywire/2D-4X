@@ -1,10 +1,11 @@
+using AutoloadSpace;
 using Godot;
 
 namespace PlayerSpace;
 
 public partial class FactionGeneration : Node
 {
-    public static FactionGeneration Instance { get; private set; }
+    //public static FactionGeneration Instance { get; private set; }
 
     private string factionDataPath = "res://Resources/Factions/";
     [Export] private PackedScene factionNodePackedScene;
@@ -13,7 +14,7 @@ public partial class FactionGeneration : Node
 
     public override void _Ready()
     {
-        Instance = this;
+        //Instance = this;
 
         CreateFactionsFromDisk();
     }
@@ -34,10 +35,10 @@ public partial class FactionGeneration : Node
                 factionData
                     = (FactionData)ResourceLoader.Load<FactionData>(factionDataPath + fileNames[i]).Duplicate();
                 Globals.Instance.allFactionData.Add(factionData); // We should probably get rid of this.  We already
-                // have it in the FactioNode children.
+                // have it in the FactionNode children.
                 factionData.factionId = i;
 
-                if (Globals.Instance.allFactionData[i].isPlayer == true)
+                if (Globals.Instance.allFactionData[i].isPlayer)
                 {
                     Globals.Instance.playerFactionData = factionData;
                 }
@@ -60,20 +61,20 @@ public partial class FactionGeneration : Node
         }
         else
         {
-            //GD.Print("You are so fucked.  This directory doesn't exist: " + factionDataPath);
+            //GD.Print("You are so fucked. This directory doesn't exist: " + factionDataPath);
         }
     }
 
     private void AddStartingResearch()
     {
-        foreach (ResearchItemData researchItemData in AllResearch.Instance.allResearchItemDatas)
+        foreach (ResearchItemData researchItemData in Autoload.Instance.allResearchItemDatas)
         {
             //GD.Print("Faction ID that is getting assigned: " + factionData.factionID);
             researchItemData.factionId = factionData.factionId;
             //GD.PrintRich($"[rainbow]{FactionData.GetFactionDataFromID(researchItemData.factionID).factionName}: {researchItemData.researchName}");
 
             ResearchItemData researchItemDataCopy = researchItemData.NewCopy(researchItemData); //(ResearchItemData)researchItemData.Duplicate(true); //
-            if (researchItemDataCopy.researchedAtStart == true)
+            if (researchItemDataCopy.researchedAtStart)
             {
                 // We need to add some randomness to the starting factions starting research, except
                 // for the player factions.
@@ -103,7 +104,7 @@ public partial class FactionGeneration : Node
 
     private static void CreateFactionGoodDictionary(FactionData factionData)
     {
-        foreach (GoodData goodData in AllGoods.Instance.allGoods)
+        foreach (GoodData goodData in Autoload.Instance.allGoods)
         {
             if (goodData.goodType == AllEnums.GoodType.CountyGood)
             {
@@ -114,7 +115,7 @@ public partial class FactionGeneration : Node
             factionData.yesterdaysFactionGoods.Add(goodData.factionGoodType, (GoodData)goodData.Duplicate());
             factionData.amountUsedFactionGoods.Add(goodData.factionGoodType, (GoodData)goodData.Duplicate());
         }
-        // This is for testing.  We are going to have to have a different, more random way of
+        // This is for testing.  We are going to have a different, more random way of
         // generating starting resources for each faction.
         factionData.factionGoods[AllEnums.FactionGoodType.Influence].Amount = 1500;
         factionData.factionGoods[AllEnums.FactionGoodType.Money].Amount = 1500;

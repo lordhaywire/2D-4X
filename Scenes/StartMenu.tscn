@@ -1,3 +1,38 @@
-[gd_scene format=3 uid="uid://d3l0wrv1cf1lg"]
+[gd_scene load_steps=2 format=3 uid="uid://d3l0wrv1cf1lg"]
 
-[node name="Start Menu Canvas Layer" type="CanvasLayer"]
+[ext_resource type="Script" uid="uid://chstifpnls2h8" path="res://Scripts/Start Menu/StartMenuCanvasLayer.cs" id="1_dvnd1"]
+
+[node name="Start Menu Canvas Layer" type="CanvasLayer" node_paths=PackedStringArray("startButton", "loadButton", "exitButton")]
+script = ExtResource("1_dvnd1")
+startButton = NodePath("PanelContainer/VBoxContainer/Start Button")
+loadButton = NodePath("PanelContainer/VBoxContainer/Load Button")
+exitButton = NodePath("PanelContainer/VBoxContainer/Exit Button")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(200, 200)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Start Button" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "WORD_START"
+
+[node name="Load Button" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "WORD_LOAD"
+
+[node name="Exit Button" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "WORD_EXIT"

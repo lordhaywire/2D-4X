@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using AutoloadSpace;
 
 namespace PlayerSpace;
 
@@ -168,7 +169,7 @@ public partial class PopulationData : Resource
 
     public string GetActivityName()
     {
-        string name = TranslationServer.Translate(AllActivities.Instance.allActivityData[(int)activity].name);
+        string name = TranslationServer.Translate(Autoload.Instance.allActivityData[(int)activity].name);
 
         return name;
     }

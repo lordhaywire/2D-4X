@@ -2,6 +2,7 @@ using System;
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
+using AutoloadSpace;
 
 namespace PlayerSpace;
 
@@ -49,7 +50,7 @@ public partial class CountyGeneration : Node
             {
                 AllEnums.Terrain terrain = county.countyData.allTerrains[i];
 
-                if (!StoryEventList.Instance.eventsByTerrainDictionary.TryGetValue(terrain,
+                if (!Autoload.Instance.eventsByTerrainDictionary.TryGetValue(terrain,
                         out List<StoryEventData> terrainEvents))
                     continue;
 
@@ -111,7 +112,7 @@ public partial class CountyGeneration : Node
         // Assign a copy of each good to each county.
         foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
         {
-            CopyAndAssignGoods(county.countyData, AllGoods.Instance.allGoods);
+            CopyAndAssignGoods(county.countyData, Autoload.Instance.allGoods);
             UpdateScavengeableResources(county);
         }
     }

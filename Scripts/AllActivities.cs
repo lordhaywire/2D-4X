@@ -6,15 +6,15 @@ namespace PlayerSpace;
 
 public partial class AllActivities : Node
 {
-    public static AllActivities Instance { get; private set; }
+    //public static AllActivities Instance { get; private set; }
 
     private string activitiesDirectory = "res://Resources/Activities/";
     public List<ActivityData> allActivityData = [];
 
     public override void _Ready()
     {
-        Instance = this;
+       // Instance = this;
 
-        allActivityData = Globals.Instance.ReadResourcesFromDisk(activitiesDirectory).Cast<ActivityData>().ToList();
+        //allActivityData = Globals.Instance.ReadResourcesFromDisk(activitiesDirectory).Cast<ActivityData>().ToList();
     }
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=108 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=83 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://World Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
 [ext_resource type="Script" uid="uid://bl7hn0hgb5876" path="res://Scripts/LoadMaps.cs" id="2_nda5i"]
@@ -15,42 +15,25 @@
 [ext_resource type="Script" uid="uid://cshbx03lu00mu" path="res://Scripts/CountyLoader.cs" id="7_o23yn"]
 [ext_resource type="Script" uid="uid://dotu8ux8tg6l8" path="res://Scripts/TokenMovement.cs" id="7_qmo2n"]
 [ext_resource type="Texture2D" uid="uid://b67d6nynwdq3o" path="res://Graphics/Icons/Population/resized faction aide.png" id="8_rm8kv"]
-[ext_resource type="Script" uid="uid://8nqlrujpaio1" path="res://Scripts/AllActivities.cs" id="9_bq1ko"]
 [ext_resource type="Texture2D" uid="uid://cbpah1j3xx4f2" path="res://Graphics/Icons/Population/resized army icon.png" id="9_ft7d6"]
 [ext_resource type="Texture2D" uid="uid://cvc31dbpf0ptl" path="res://Graphics/Tokens/Army Token Unselected.png" id="10_0wqfi"]
 [ext_resource type="Texture2D" uid="uid://bnau4cacldl0t" path="res://Graphics/Tokens/Army Token Selected.png" id="11_e5ayq"]
 [ext_resource type="Script" uid="uid://bumyrywwkfvin" path="res://Scripts/FactionGeneration.cs" id="11_ivpku"]
-[ext_resource type="Script" uid="uid://e541emm3oiuj" path="res://Scripts/AllResearch.cs" id="12_hmucs"]
-[ext_resource type="Script" uid="uid://dlq7cjj83joxf" path="res://Scripts/StoryEventList.cs" id="12_q0wdt"]
 [ext_resource type="PackedScene" uid="uid://cjgb8g7l3340p" path="res://Scenes/FactionNode.tscn" id="12_r0ltm"]
 [ext_resource type="Script" uid="uid://dmto35ej5sjd4" path="res://Scripts/PlayerControls.cs" id="12_vfu86"]
 [ext_resource type="Script" uid="uid://bvi0u5nh4c4p5" path="res://Scripts/CountyGeneration.cs" id="16_pxxn4"]
 [ext_resource type="Script" uid="uid://w7efp2g0eih7" path="res://Scripts/PopulationGeneration.cs" id="17_1215r"]
-[ext_resource type="Resource" uid="uid://dy4bltm86q63n" path="res://Resources/Attributes/Intelligence.tres" id="17_y7h6l"]
 [ext_resource type="Script" uid="uid://c6nd17mfkssti" path="res://Scripts/RandomFactionColor.cs" id="18_3aru6"]
-[ext_resource type="Script" uid="uid://dhynx3i0k61wi" path="res://Scripts/AllGoods.cs" id="18_wf5kh"]
 [ext_resource type="Script" uid="uid://dq7hcwrq41ub" path="res://Scripts/Clock.cs" id="19_dn5gi"]
 [ext_resource type="Script" uid="uid://cjkl8rag6oe66" path="res://Scripts/Map Editor/FindNeighbors.cs" id="20_0i5kb"]
-[ext_resource type="Script" uid="uid://bwjophygkh7hw" path="res://Scripts/AllPerks.cs" id="23_8jwco"]
-[ext_resource type="Script" uid="uid://bn3fvsw7u2ufw" path="res://Scripts/AllSkills.cs" id="23_jme5x"]
-[ext_resource type="Script" uid="uid://4hqo6ob017yd" path="res://Scripts/AllAttributes.cs" id="23_ucd0c"]
-[ext_resource type="Resource" uid="uid://d00kar3t6pno1" path="res://Resources/Perks/LeaderofPeople.tres" id="24_edv5e"]
-[ext_resource type="Resource" uid="uid://dbydedpcih0ai" path="res://Resources/Attributes/Agility.tres" id="24_kqay3"]
 [ext_resource type="Script" uid="uid://bm5yey7s0ixuj" path="res://Scripts/UI/PlayerUICanvas.cs" id="24_s3wh2"]
-[ext_resource type="Resource" uid="uid://dhai1v7kfto40" path="res://Resources/Perks/Unhelpful.tres" id="25_626s1"]
-[ext_resource type="Resource" uid="uid://fth3n71c5xi3" path="res://Resources/Attributes/Awareness.tres" id="25_arsfn"]
 [ext_resource type="Script" uid="uid://i3iuln0enakh" path="res://Scripts/UI/CountyInfoControl.cs" id="26_8qp8l"]
-[ext_resource type="Resource" uid="uid://cis6df0tnolhg" path="res://Resources/Attributes/Charisma.tres" id="26_eof2h"]
 [ext_resource type="PackedScene" uid="uid://d4i6w8w8jld3d" path="res://Scenes/UI/HeroPanelContainer.tscn" id="27_03q5w"]
-[ext_resource type="Resource" uid="uid://brpboms0hfwgq" path="res://Resources/Attributes/Endurance.tres" id="27_fmdgm"]
 [ext_resource type="Script" uid="uid://cv0yvwdbhg5f" path="res://Scripts/UI/PopAndIdleButtons.cs" id="28_celvx"]
 [ext_resource type="Script" uid="uid://bw5d3f13w26s5" path="res://Scripts/CountyDictator.cs" id="28_qe8u4"]
 [ext_resource type="Script" path="res://Scripts/UI/PopulationListUiElement.cs" id="29_ts64q"]
-[ext_resource type="Resource" uid="uid://bkqqewiydjtb2" path="res://Resources/Attributes/Looks.tres" id="29_xoqji"]
 [ext_resource type="PackedScene" uid="uid://djph5cv7o4atl" path="res://Scenes/UI/PopulationRowButton.tscn" id="30_bhu5o"]
-[ext_resource type="Resource" uid="uid://dqsfduf2ukjae" path="res://Resources/Attributes/Mental Strength.tres" id="30_lqs38"]
 [ext_resource type="Script" uid="uid://cdm2i82r44cjc" path="res://Scripts/UI/PopulationDescriptionControl.cs" id="31_hwyyh"]
-[ext_resource type="Resource" uid="uid://dc6rsi4v4mw1g" path="res://Resources/Attributes/Physical Strength.tres" id="31_odxrg"]
 [ext_resource type="Texture2D" uid="uid://jyr4u6ph1nu6" path="res://Graphics/Icons/Population/portrait.svg" id="32_s1dhj"]
 [ext_resource type="Script" uid="uid://cb81oehioy1sr" path="res://Scripts/UI/HeroPanelContainer.cs" id="34_8wj68"]
 [ext_resource type="Theme" uid="uid://bcc8wsoqypsuc" path="res://Themes/TopBarTheme.tres" id="34_e2d2b"]
@@ -69,18 +52,10 @@
 [ext_resource type="Script" uid="uid://dau2q6n6oubso" path="res://Scripts/UI/EventLog.cs" id="43_w0p1n"]
 [ext_resource type="PackedScene" uid="uid://bjgv6c8xhn4lo" path="res://Scenes/UI/Event Log Text Panel.tscn" id="44_du832"]
 [ext_resource type="PackedScene" uid="uid://x41vmtlrl1cx" path="res://Scenes/UI/CombatLogTextPanel.tscn" id="44_qsgen"]
-[ext_resource type="Script" uid="uid://bmq7wm2mj40gj" path="res://Scripts/AllInterests.cs" id="45_vjt1m"]
-[ext_resource type="Resource" uid="uid://bojgmxcwswihv" path="res://Resources/Interests/Biology.tres" id="46_m2cvk"]
-[ext_resource type="Resource" uid="uid://ftsx8rr0uriv" path="res://Resources/Interests/Botany.tres" id="47_sru0x"]
-[ext_resource type="Resource" uid="uid://dqjlx4jv1pgfi" path="res://Resources/Interests/Engineering.tres" id="48_kokrl"]
-[ext_resource type="Resource" uid="uid://bpr5n6xga0460" path="res://Resources/Interests/Humanities.tres" id="49_6seni"]
 [ext_resource type="Theme" uid="uid://b7f66fp0haa2c" path="res://Themes/FullScreenPanelTheme.tres" id="50_5cg3n"]
 [ext_resource type="Texture2D" uid="uid://bmawb7v8d3eev" path="res://Graphics/Old Yellow Lined Paper.png" id="50_6hqe0"]
-[ext_resource type="Resource" uid="uid://bgy1phaeqjaiv" path="res://Resources/Interests/Information.tres" id="50_ljibg"]
-[ext_resource type="Resource" uid="uid://cm8m7c4m1xp8k" path="res://Resources/Interests/Politics.tres" id="51_6355g"]
 [ext_resource type="Texture2D" uid="uid://buiql8w31bmgq" path="res://Graphics/Icons/Top Bar/Building Materials concrete-bag.svg" id="52_5fb6h"]
-[ext_resource type="Resource" uid="uid://deym3plaxo5wl" path="res://Resources/Interests/Warfare.tres" id="52_ie7mt"]
-[ext_resource type="PackedScene" uid="uid://bif5f4i17oc2p" path="res://Scenes/UI/StorageHbox.tscn" id="53_xnh1n"]
+[ext_resource type="PackedScene" uid="uid://bif5f4i17oc2p" path="res://Scenes/UI/StorageHBox.tscn" id="53_xnh1n"]
 [ext_resource type="Script" uid="uid://cvdjp0n1wtfi5" path="res://Scripts/UI/GoodsPanelContainer.cs" id="54_ia1o5"]
 [ext_resource type="PackedScene" uid="uid://4t2ve1w4uvww" path="res://Scenes/UI/AssignedResearcherHBoxContainer.tscn" id="62_dhpbg"]
 [ext_resource type="PackedScene" uid="uid://dbh44f2eysibn" path="res://ResearchItemButton.tscn" id="62_nohy5"]
@@ -203,41 +178,12 @@ costOfHero = 500
 [node name="User Folder Controller" type="Node" parent="Game Controller Node"]
 script = ExtResource("7_fr5hn")
 
-[node name="Arrays" type="Node" parent="Game Controller Node"]
-
-[node name="All Activities" type="Node" parent="Game Controller Node/Arrays"]
-script = ExtResource("9_bq1ko")
-
-[node name="All Attributes" type="Node" parent="Game Controller Node/Arrays"]
-script = ExtResource("23_ucd0c")
-allAttributes = Array[Object]([ExtResource("24_kqay3"), ExtResource("25_arsfn"), ExtResource("26_eof2h"), ExtResource("27_fmdgm"), ExtResource("17_y7h6l"), ExtResource("29_xoqji"), ExtResource("30_lqs38"), ExtResource("31_odxrg")])
-
-[node name="All Perks" type="Node" parent="Game Controller Node/Arrays"]
-script = ExtResource("23_8jwco")
-allPerks = Array[Object]([ExtResource("24_edv5e"), ExtResource("25_626s1")])
-
-[node name="All Goods" type="Node" parent="Game Controller Node/Arrays"]
-script = ExtResource("18_wf5kh")
-
-[node name="All Research" type="Node" parent="Game Controller Node/Arrays"]
-script = ExtResource("12_hmucs")
-
-[node name="All Interests" type="Node" parent="Game Controller Node/Arrays"]
-script = ExtResource("45_vjt1m")
-interests = Array[Object]([ExtResource("46_m2cvk"), ExtResource("47_sru0x"), ExtResource("48_kokrl"), ExtResource("49_6seni"), ExtResource("50_ljibg"), ExtResource("51_6355g"), ExtResource("52_ie7mt")])
-
-[node name="All Skills" type="Node" parent="Game Controller Node/Arrays"]
-script = ExtResource("23_jme5x")
-
-[node name="All Token Textures" type="Node" parent="Game Controller Node/Arrays"]
+[node name="All Token Textures" type="Node" parent="Game Controller Node"]
 script = ExtResource("7_7iyml")
 unselectedHeroTexture = ExtResource("4_pxob5")
 selectedHeroTexture = ExtResource("3_r5dcu")
 unselectedArmyTexture = ExtResource("10_0wqfi")
 selectedArmyTexture = ExtResource("11_e5ayq")
-
-[node name="Story Event List" type="Node" parent="Game Controller Node/Arrays"]
-script = ExtResource("12_q0wdt")
 
 [node name="County Loader" type="Node" parent="Game Controller Node"]
 script = ExtResource("7_o23yn")
@@ -1077,7 +1023,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "x"
 
-[node name="Goods PanelContainer" type="PanelContainer" parent="Player UI Canvas" node_paths=PackedStringArray("negativeStoragePanelContainer", "countyNameTitleLabel", "currentPerishableAvailableLabel", "maxPerishableAmountAvailableLabel", "currentNonperishableAvailableLabel", "maxNonperisableAmountAvailableLabel", "perishableVboxParent", "nonperishableVboxParent")]
+[node name="Goods PanelContainer" type="PanelContainer" parent="Player UI Canvas" node_paths=PackedStringArray("negativeStoragePanelContainer", "countyNameTitleLabel", "currentPerishableAvailableLabel", "maxPerishableAmountAvailableLabel", "currentNonperishableAvailableLabel", "maxNonperishableAmountAvailableLabel", "perishableVboxParent", "nonperishableVboxParent")]
 visible = false
 anchors_preset = 15
 anchor_right = 1.0
@@ -1091,7 +1037,7 @@ countyNameTitleLabel = NodePath("VBoxContainer/County Name Title Label")
 currentPerishableAvailableLabel = NodePath("VBoxContainer/Available Storage HBoxContainer/Current Perishable Amount Available Label")
 maxPerishableAmountAvailableLabel = NodePath("VBoxContainer/Available Storage HBoxContainer/Max Perishable Max Amount Available Label")
 currentNonperishableAvailableLabel = NodePath("VBoxContainer/Available Storage HBoxContainer/Current Nonperishable Amount Available Label")
-maxNonperisableAmountAvailableLabel = NodePath("VBoxContainer/Available Storage HBoxContainer/Max Nonperishable Max Amount Available Label")
+maxNonperishableAmountAvailableLabel = NodePath("VBoxContainer/Available Storage HBoxContainer/Max Nonperishable Max Amount Available Label")
 storageHBoxPackedScene = ExtResource("53_xnh1n")
 perishableVboxParent = NodePath("MarginContainer/All Resources VBoxContainer/Perishable VBoxContainer")
 nonperishableVboxParent = NodePath("MarginContainer/All Resources VBoxContainer/Nonperishable VBoxContainer")

@@ -5,13 +5,13 @@ namespace PlayerSpace;
 
 public partial class AllInterests : Node
 {
-    public static AllInterests Instance { get; private set; }
+    //public static AllInterests Instance { get; private set; }
 
     [Export] public Godot.Collections.Array<InterestData> interests;
 
     public override void _Ready()
     {
-        Instance = this;
+        //Instance = this;
     }
 
     public InterestData GetRandomInterest()

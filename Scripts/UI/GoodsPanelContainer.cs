@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using AutoloadSpace;
 
 namespace PlayerSpace;
 
@@ -14,9 +15,9 @@ public partial class GoodsPanelContainer : PanelContainer
     [Export] private Label currentPerishableAvailableLabel;
     [Export] private Label maxPerishableAmountAvailableLabel;
     [Export] private Label currentNonperishableAvailableLabel;
-    [Export] private Label maxNonperisableAmountAvailableLabel;
+    [Export] private Label maxNonperishableAmountAvailableLabel;
 
-    [ExportGroup("Storage Hboxes")]
+    [ExportGroup("Storage HBoxes")]
     [Export] private PackedScene storageHBoxPackedScene;
     [Export] private VBoxContainer perishableVboxParent;
     [Export] private VBoxContainer nonperishableVboxParent;
@@ -25,7 +26,7 @@ public partial class GoodsPanelContainer : PanelContainer
     private CountyData countyData;
     
     // This one shouldn't be getting the ERROR because it is not exported.
-    private Godot.Collections.Dictionary<AllEnums.CountyGoodType, StorageHbox> resourceStorageHBoxDictionary = [];
+    private Godot.Collections.Dictionary<AllEnums.CountyGoodType, StorageHBox> resourceStorageHBoxDictionary = [];
 
     public override void _Ready()
     {
@@ -33,30 +34,30 @@ public partial class GoodsPanelContainer : PanelContainer
         GenerateStorageHBoxes();
     }
 
-    // Creates the Storage Hboxes when the game starts.
+    // Creates the Storage HBoxes when the game starts.
     private void GenerateStorageHBoxes()
     {
-        foreach (GoodData goodData in AllGoods.Instance.allGoods)
+        foreach (GoodData goodData in Autoload.Instance.allGoods)
         {
             if (goodData.goodType == AllEnums.GoodType.FactionGood)
             {
                 continue;
             }
-
-            StorageHbox storageHbox = (StorageHbox)storageHBoxPackedScene.Instantiate();
+            
+            StorageHBox storageHBox = (StorageHBox)storageHBoxPackedScene.Instantiate();
             //GD.Print("Resource Name: " + resourceData.name);
-            storageHbox.Name = goodData.goodName;
-            storageHbox.goodData = goodData; // This is strange.
+            storageHBox.Name = goodData.goodName;
+            storageHBox.goodData = goodData; // This is strange.
 
-            if (storageHbox.goodData.perishable == AllEnums.Perishable.Perishable)
+            if (storageHBox.goodData.perishable == AllEnums.Perishable.Perishable)
             {
-                perishableVboxParent.AddChild(storageHbox);
+                perishableVboxParent.AddChild(storageHBox);
             }
-            else if (storageHbox.goodData.perishable == AllEnums.Perishable.Nonperishable)
+            else if (storageHBox.goodData.perishable == AllEnums.Perishable.Nonperishable)
             {
-                nonperishableVboxParent.AddChild(storageHbox);
+                nonperishableVboxParent.AddChild(storageHBox);
             }
-            resourceStorageHBoxDictionary.Add(storageHbox.goodData.countyGoodType, storageHbox);
+            resourceStorageHBoxDictionary.Add(storageHBox.goodData.countyGoodType, storageHBox);
         }
     }
 
@@ -72,9 +73,9 @@ public partial class GoodsPanelContainer : PanelContainer
             }
             */
             countyNameTitleLabel.Text = countyData.countyName; // We could change this to a method at some point.
-            AssignGoodsToStorageHboxes();
+            AssignGoodsToStorageHBoxes();
             UpdateMaxAvailableStorageAmountLabels();
-            UpdateEachHboxWithResource();
+            UpdateEachHBoxWithResource();
 
             Clock.Instance.PauseTime();
             PlayerControls.Instance.playerControlsEnabled = false;
@@ -89,8 +90,8 @@ public partial class GoodsPanelContainer : PanelContainer
         }
     }
 
-    // This assigns the county's resources to the Storage Hboxes when this becomes visible.
-    private void AssignGoodsToStorageHboxes()
+    // This assigns the county's resources to the Storage HBoxes when this becomes visible.
+    private void AssignGoodsToStorageHBoxes()
     {
         foreach (KeyValuePair<AllEnums.CountyGoodType, GoodData> keyValuePair
                  in countyData.goods)
@@ -108,7 +109,7 @@ public partial class GoodsPanelContainer : PanelContainer
 
         currentNonperishableAvailableLabel.Text
             = CountAvailableStorageAmounts(countyData.nonperishableStorage, AllEnums.Perishable.Nonperishable).ToString();
-        maxNonperisableAmountAvailableLabel.Text = countyData.nonperishableStorage.ToString();
+        maxNonperishableAmountAvailableLabel.Text = countyData.nonperishableStorage.ToString();
     }
 
     // Goes through every good and counts how much storage is assigned to them.
@@ -128,9 +129,9 @@ public partial class GoodsPanelContainer : PanelContainer
 
     // I think the dictionary is in the same order as the resources.
     // Someone in chat told me that there is no order to a dictionary.
-    private static void SetResourceMaxValues(Godot.Collections.Dictionary<AllEnums.CountyGoodType, StorageHbox> storageHboxes)
+    private static void SetResourceMaxValues(Godot.Collections.Dictionary<AllEnums.CountyGoodType, StorageHBox> storageHBoxes)
     {
-        foreach (KeyValuePair<AllEnums.CountyGoodType, StorageHbox> keyValuePair in storageHboxes)
+        foreach (KeyValuePair<AllEnums.CountyGoodType, StorageHBox> keyValuePair in storageHBoxes)
         {
             keyValuePair.Value.goodData.MaxAmount = (int)keyValuePair.Value.maxAmountSpinBox.Value;
         }
@@ -140,7 +141,7 @@ public partial class GoodsPanelContainer : PanelContainer
     // It needs to add the label amount so that the player can add more to the spinbox.
     public void UpdateSpinBoxMaxValuePlusLabel()
     {
-        foreach (KeyValuePair<AllEnums.CountyGoodType, StorageHbox> keyValuePair in resourceStorageHBoxDictionary)
+        foreach (KeyValuePair<AllEnums.CountyGoodType, StorageHBox> keyValuePair in resourceStorageHBoxDictionary)
         {
             if (keyValuePair.Value.goodData.perishable == AllEnums.Perishable.Perishable)
             {
@@ -159,7 +160,7 @@ public partial class GoodsPanelContainer : PanelContainer
     {
         int totalUsedPerishableStorage = 0;
         int totalUsedNonperishableStorage = 0;
-        foreach (KeyValuePair<AllEnums.CountyGoodType, StorageHbox> keyValuePair in resourceStorageHBoxDictionary)
+        foreach (KeyValuePair<AllEnums.CountyGoodType, StorageHBox> keyValuePair in resourceStorageHBoxDictionary)
         {
             if (keyValuePair.Value.goodData.perishable == AllEnums.Perishable.Perishable)
             {
@@ -178,12 +179,12 @@ public partial class GoodsPanelContainer : PanelContainer
         }
     }
 
-    private void UpdateEachHboxWithResource()
+    private void UpdateEachHBoxWithResource()
     {
-        foreach (KeyValuePair<AllEnums.CountyGoodType, StorageHbox> keyValuePair in resourceStorageHBoxDictionary)
+        foreach (KeyValuePair<AllEnums.CountyGoodType, StorageHBox> keyValuePair in resourceStorageHBoxDictionary)
         {
-            UpdateStorageHboxLabels(keyValuePair);
-            //GD.Print(resourceStorageHboxDictionary[keyValuePair.Key].resourceData.MaxAmount);
+            UpdateStorageHBoxLabels(keyValuePair);
+            //GD.Print(resourceStorageHBoxDictionary[keyValuePair.Key].resourceData.MaxAmount);
             resourceStorageHBoxDictionary[keyValuePair.Key].maxAmountSpinBox.MaxValue
                 = resourceStorageHBoxDictionary[keyValuePair.Key].goodData.MaxAmount;
             resourceStorageHBoxDictionary[keyValuePair.Key].maxAmountSpinBox.Value
@@ -192,12 +193,12 @@ public partial class GoodsPanelContainer : PanelContainer
     }
 
 
-    private void UpdateStorageHboxLabels(KeyValuePair<AllEnums.CountyGoodType, StorageHbox> keyValuePair)
+    private void UpdateStorageHBoxLabels(KeyValuePair<AllEnums.CountyGoodType, StorageHBox> keyValuePair)
     {
         resourceStorageHBoxDictionary[keyValuePair.Key].goodData = countyData.goods[keyValuePair.Key];
-        //GD.Print("Update Storage Hbox Labels Resource:" + countyData.resources[keyValuePair.Key].name);
-        resourceStorageHBoxDictionary[keyValuePair.Key].resourceNameLabel.Text = $"{Tr(resourceStorageHBoxDictionary[keyValuePair.Key].goodData.goodName)}:";
-        resourceStorageHBoxDictionary[keyValuePair.Key].resourceAmountLabel.Text = resourceStorageHBoxDictionary[keyValuePair.Key].goodData.Amount.ToString();
+        //GD.Print("Update Storage HBox Labels Resource:" + countyData.resources[keyValuePair.Key].name);
+        resourceStorageHBoxDictionary[keyValuePair.Key].goodNameLabel.Text = $"{Tr(resourceStorageHBoxDictionary[keyValuePair.Key].goodData.goodName)}:";
+        resourceStorageHBoxDictionary[keyValuePair.Key].goodAmountLabel.Text = resourceStorageHBoxDictionary[keyValuePair.Key].goodData.Amount.ToString();
     }
 
     private bool IsStoragePositive()
