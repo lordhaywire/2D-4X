@@ -1,20 +1,20 @@
 [gd_scene load_steps=2 format=3 uid="uid://bif5f4i17oc2p"]
 
-[ext_resource type="Script" uid="uid://befbuwp71sjh8" path="res://Scripts/UI/StorageHbox.cs" id="1_j0r4g"]
+[ext_resource type="Script" uid="uid://h1e67x8ogkd7" path="res://Scripts/UI/StorageHBox.cs" id="1_c2yu0"]
 
-[node name="Storage HBoxContainer" type="HBoxContainer" node_paths=PackedStringArray("resourceNameLabel", "resourceAmountLabel", "maxAmountSpinBox")]
+[node name="Storage HBoxContainer" type="HBoxContainer" node_paths=PackedStringArray("goodNameLabel", "goodAmountLabel", "maxAmountSpinBox")]
 custom_minimum_size = Vector2(50, 0)
 alignment = 1
-script = ExtResource("1_j0r4g")
-resourceNameLabel = NodePath("Resource Name Label")
-resourceAmountLabel = NodePath("Current Amount Label")
+script = ExtResource("1_c2yu0")
+goodNameLabel = NodePath("Good Name Label")
+goodAmountLabel = NodePath("Good Amount Label")
 maxAmountSpinBox = NodePath("Max Amount SpinBox")
 
-[node name="Resource Name Label" type="Label" parent="."]
+[node name="Good Name Label" type="Label" parent="."]
 layout_mode = 2
 text = "Resource:"
 
-[node name="Current Amount Label" type="Label" parent="."]
+[node name="Good Amount Label" type="Label" parent="."]
 layout_mode = 2
 text = "Current Amount"
 
