@@ -12,6 +12,7 @@ public partial class FactionData : Resource
     [Export] public bool isPlayer;
     [Export] public string factionName;
     [Export] public Color factionColor;
+    [Export] public AllEnums.FactionStatus factionStatus;
     [Export] public int factionCapitalCounty;
 
     [Export] public Godot.Collections.Array<ResearchItemData> researchItems;// = [];
@@ -83,8 +84,7 @@ public partial class FactionData : Resource
         }
         if (isPlayer)
         {
-            //GD.Print("Yesterday's Influence: " + yesterdaysFactionResources[AllEnums.FactionResourceType.Influence].amount);
-            //GD.Print("This Influence should be the same as yesterdays: " + factionResources[AllEnums.FactionResourceType.Influence].amount);
+            //GD.Print("Yesterday's Influence: "+ yesterdaysFactionResources[AllEnums.FactionResourceType.Influence].amount);
         }
     }
     public void AddCountyImprovementToAllCountyImprovements(CountyImprovementData countyImprovementData)

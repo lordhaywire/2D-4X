@@ -8,10 +8,13 @@ public partial class Faction : Node
 
     public override void _Ready()
     {
-        // This was CallDeferred, but it should be happening before County so I changed it.  It could cause issues
+        // This was CallDeferred, but it should be happening before the County, so I changed it.  It could cause issues
         // in the future.
         //CallDeferred(nameof(SubscribeToEvents));
-        SubscribeToEvents();
+        if (factionData.factionStatus != AllEnums.FactionStatus.Dead)
+        {
+            SubscribeToEvents();
+        }
     }
 
     private void SubscribeToEvents()
@@ -22,7 +25,13 @@ public partial class Faction : Node
         Clock.Instance.Weekly += Weekly;
     }
 
-
+    public void UnsubscribeFromEvents()
+    {
+        Clock.Instance.DailyHourZeroFirstQuarter -= EndOfDay;
+        Clock.Instance.DailyHourZeroThirdQuarter -= DayStart;
+        Clock.Instance.DailyHourZeroFourthQuarter -= AfterDayStart;
+        Clock.Instance.Weekly -= Weekly;
+    }
 
     private void Weekly()
     {
@@ -74,26 +83,22 @@ public partial class Faction : Node
 
         Research.CreateResearchableResearchList(factionData);
 
-            
-        // Assign to all heroes passive research
-        //Research.AssignPassiveResearch(factionData.allHeroesList);
-
         // Assign Passive research for each county population, not including heroes.
         foreach (CountyData countyData in factionData.countiesFactionOwns)
         {
             //GD.PrintRich($"[rainbow]{countyData.countyName} is checking population passive research.");
             Research.AssignPassiveResearch(countyData.populationDataList);
         }
-        /*
-        // This is just for testing.
-        foreach (ResearchItemData researchItemData in factionData.researchItems)
-        {
-            GD.Print($"{factionData.factionName} research in " +
-                $"{researchItemData.researchName}: {researchItemData.AmountOfResearchDone}");
-        }
-        */
     }
 
+    public static void ConvertFactionToDeadFaction(int factionId)
+    {
+        Faction factionNode = (Faction)Globals.Instance.factionsParent.GetChild(factionId);
+        factionNode.Name = $"ID: {factionNode.factionData.factionId} Name: {factionNode.factionData.factionName} - Dead";
+        factionNode.factionData.factionStatus = AllEnums.FactionStatus.Dead;
+        factionNode.UnsubscribeFromEvents(); // Unsubscribe from all events so the faction doesn't do anything anymore.
+    }
+    
     private void AfterDayStart()
     {
         if (factionData != Globals.Instance.playerFactionData)
@@ -101,6 +106,7 @@ public partial class Faction : Node
             FactionAI.DecideIfHeroUsesNewestEquipment(this);
         }
     }
+
     private void OnTreeExit()
     {
         Clock.Instance.DailyHourZeroFirstQuarter -= EndOfDay;

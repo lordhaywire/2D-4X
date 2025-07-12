@@ -1,3 +1,4 @@
+using System.Linq;
 using AutoloadSpace;
 using Godot;
 
@@ -34,11 +35,11 @@ public partial class FactionGeneration : Node
                 //GD.Print("Files in Faction Resources: " + fileNames[i]);
                 factionData
                     = (FactionData)ResourceLoader.Load<FactionData>(factionDataPath + fileNames[i]).Duplicate();
-                Globals.Instance.allFactionData.Add(factionData); // We should probably get rid of this.  We already
+                //Globals.Instance.allFactionData.Add(factionData); // We should probably get rid of this.  We already
                 // have it in the FactionNode children.
                 factionData.factionId = i;
 
-                if (Globals.Instance.allFactionData[i].isPlayer)
+                if (factionData.isPlayer)
                 {
                     Globals.Instance.playerFactionData = factionData;
                 }
@@ -49,15 +50,6 @@ public partial class FactionGeneration : Node
                 AddFactionsToDiplomacyWar(factionData);
                 AddStartingResearch();
             }
-            /*
-            foreach (Faction faction in Globals.Instance.factionsParent.GetChildren().Cast<Faction>())
-            {
-                foreach (ResearchItemData researchItem in faction.factionData.researchItems)
-                {
-                    GD.Print("Research Item Data Faction ID: " + researchItem.factionID);
-                }
-            }
-            */
         }
         else
         {
@@ -119,14 +111,14 @@ public partial class FactionGeneration : Node
         // generating starting resources for each faction.
         factionData.factionGoods[AllEnums.FactionGoodType.Influence].Amount = 1500;
         factionData.factionGoods[AllEnums.FactionGoodType.Money].Amount = 1500;
-        //GD.Print("Faction Influence: "+ factionData.factionGood[AllEnums.FactionGoodType.Influence].Amount);
     }
 
     private static void AddFactionsToDiplomacyWar(FactionData factionData)
     {
         //GD.Print("Faction Name: " + factionData.factionName);
-        foreach (FactionData warFactionData in Globals.Instance.allFactionData)
+        foreach (Faction faction in Globals.Instance.factionsParent.GetChildren().Cast<Faction>())
         {
+            FactionData warFactionData = faction.factionData;
             // Add warFactionData to factionWarDictionary with a default value of false
             factionData.factionWarDictionary[warFactionData.factionName] = false;
         }

@@ -58,7 +58,7 @@
 [ext_resource type="PackedScene" uid="uid://bif5f4i17oc2p" path="res://Scenes/UI/StorageHBox.tscn" id="53_xnh1n"]
 [ext_resource type="Script" uid="uid://cvdjp0n1wtfi5" path="res://Scripts/UI/GoodsPanelContainer.cs" id="54_ia1o5"]
 [ext_resource type="PackedScene" uid="uid://4t2ve1w4uvww" path="res://Scenes/UI/AssignedResearcherHBoxContainer.tscn" id="62_dhpbg"]
-[ext_resource type="PackedScene" uid="uid://dbh44f2eysibn" path="res://ResearchItemButton.tscn" id="62_nohy5"]
+[ext_resource type="PackedScene" uid="uid://dbh44f2eysibn" path="res://Scenes/UI/ResearchItemButton.tscn" id="62_nohy5"]
 [ext_resource type="Script" uid="uid://c8wh1vjtb6kne" path="res://Scripts/UI/StoryEventControl.cs" id="62_onxgq"]
 [ext_resource type="Texture2D" uid="uid://dmeg24s68kkig" path="res://Graphics/Research/uncertainty.svg" id="65_b6pum"]
 [ext_resource type="Script" uid="uid://bg2dtkgmt0rfq" path="res://Scripts/MapEditorControl.cs" id="65_uqmnr"]
@@ -154,17 +154,19 @@ centered = false
 
 [node name="Game Controller Node" type="Node" parent="."]
 
-[node name="Globals" type="Node" parent="Game Controller Node" node_paths=PackedStringArray("countiesParent", "factionsParent")]
+[node name="Globals" type="Node" parent="Game Controller Node" node_paths=PackedStringArray("countiesParent", "factionsParent", "deadFactionsParent")]
 script = ExtResource("2_yf7pt")
 dailyInfluenceGain = 5
 leaderOfPeopleInfluenceBonus = 5
 startPaused = true
 turnOffStoryEvents = true
+winAllBattles = true
 mapColorCoded = ExtResource("2_h1vmt")
 countiesParent = NodePath("../../Counties")
 minimumCountyPop = 5
 maximumCountyPop = 10
 factionsParent = NodePath("../../Factions")
+deadFactionsParent = NodePath("")
 minimumFood = 100
 startingAmountOfEachGood = 5
 numberOfPrimaryTerrainEvents = 2

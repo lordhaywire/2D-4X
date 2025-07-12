@@ -93,6 +93,11 @@ public class AllEnums
         Research,
     }
 
+    public enum FactionStatus
+    {
+        Alive,
+        Dead,
+    }
 
     public enum GoodType
     {

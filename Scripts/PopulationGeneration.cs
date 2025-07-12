@@ -47,8 +47,9 @@ public partial class PopulationGeneration : Node
 
     private void CreateFactionLeaders()
     {
-        foreach (FactionData factionData in Globals.Instance.allFactionData)
+        foreach (Faction faction in Globals.Instance.factionsParent.GetChildren().Cast<Faction>())
         {
+            FactionData factionData = faction.factionData;
             countiesParent = Globals.Instance.countiesParent;
             // Generate Faction Leader County Population
             //GD.Print($"{factionData.factionName} Capital ID: {factionData.factionCapitalCounty}");

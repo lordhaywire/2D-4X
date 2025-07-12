@@ -8,10 +8,7 @@
 
 [resource]
 script = ExtResource("1_fvued")
-factionID = 2
-isPlayer = false
 factionName = "AI Faction 3"
-factionColor = Color(0, 0, 0, 0)
 factionCapitalCounty = 6
 researchItems = []
 researchableResearch = []

@@ -16,7 +16,7 @@ public partial class Globals : Node
     [ExportGroup("Player Faction BS")]
     [Export] public FactionData playerFactionData;
 
-    [Export] public Godot.Collections.Array<FactionData> allFactionData;// = [];
+    //[Export] public Godot.Collections.Array<FactionData> allFactionData;// = [];
 
     [ExportGroup("Faction Variables")]
     [Export] public int dailyInfluenceGain;
@@ -169,7 +169,7 @@ public partial class Globals : Node
     public override void _Ready()
     {
         Instance = this;
-        allFactionData = [];
+        //allFactionData = [];
         LoadNames();
         CountGoods();
     }

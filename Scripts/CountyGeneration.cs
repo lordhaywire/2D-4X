@@ -141,25 +141,25 @@ public partial class CountyGeneration : Node
     {
         // Cowlitz
         County selectCounty = (County)Globals.Instance.countiesParent.GetChild(0);
-        selectCounty.countyData.factionData = Globals.Instance.allFactionData[0];
+        selectCounty.countyData.factionData = FactionData.GetFactionDataFromId(0);
         // Tillamook
         selectCounty = (County)Globals.Instance.countiesParent.GetChild(1);
-        selectCounty.countyData.factionData = Globals.Instance.allFactionData[1];
+        selectCounty.countyData.factionData = FactionData.GetFactionDataFromId(1);
         // Douglas
         selectCounty = (County)Globals.Instance.countiesParent.GetChild(2);
-        selectCounty.countyData.factionData = Globals.Instance.allFactionData[1];
+        selectCounty.countyData.factionData = FactionData.GetFactionDataFromId(1);
         // Portland
         selectCounty = (County)Globals.Instance.countiesParent.GetChild(3);
-        selectCounty.countyData.factionData = Globals.Instance.allFactionData[3];
+        selectCounty.countyData.factionData = FactionData.GetFactionDataFromId(3);
         // Wasco
         selectCounty = (County)Globals.Instance.countiesParent.GetChild(4);
-        selectCounty.countyData.factionData = Globals.Instance.allFactionData[3];
+        selectCounty.countyData.factionData = FactionData.GetFactionDataFromId(3);
         // Harney
         selectCounty = (County)Globals.Instance.countiesParent.GetChild(5);
-        selectCounty.countyData.factionData = Globals.Instance.allFactionData[1];
+        selectCounty.countyData.factionData = FactionData.GetFactionDataFromId(1);
         // Umatilla
         selectCounty = (County)Globals.Instance.countiesParent.GetChild(6);
-        selectCounty.countyData.factionData = Globals.Instance.allFactionData[2];
+        selectCounty.countyData.factionData = FactionData.GetFactionDataFromId(2);
     }
 
     private static void AssignCountyDataToFaction()

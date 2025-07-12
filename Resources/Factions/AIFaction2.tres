@@ -8,10 +8,7 @@
 
 [resource]
 script = ExtResource("1_8ctp6")
-factionID = 1
-isPlayer = false
 factionName = "AI Faction 2"
-factionColor = Color(0, 0, 0, 0)
 factionCapitalCounty = 1
 researchItems = Array[ExtResource("4_gyx2e")]([])
 researchableResearch = Array[ExtResource("4_gyx2e")]([])
