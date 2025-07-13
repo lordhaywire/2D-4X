@@ -1,3 +1,4 @@
+using AutoloadSpace;
 using Godot;
 
 namespace PlayerSpace;
@@ -25,7 +26,7 @@ public partial class Faction : Node
         Clock.Instance.Weekly += Weekly;
     }
 
-    public void UnsubscribeFromEvents()
+    private void UnsubscribeFromEvents()
     {
         Clock.Instance.DailyHourZeroFirstQuarter -= EndOfDay;
         Clock.Instance.DailyHourZeroThirdQuarter -= DayStart;
@@ -76,7 +77,7 @@ public partial class Faction : Node
         // This is just commented out until we get to Research.
         GD.PrintRich($"[rainbow]Faction : StartOfDay!!!!!");
 
-        if (factionData != Globals.Instance.playerFactionData)
+        if (factionData != Autoload.Instance.playerFactionData)
         {
             //factionAI.AssignResearch(factionData);
         }
@@ -101,7 +102,7 @@ public partial class Faction : Node
     
     private void AfterDayStart()
     {
-        if (factionData != Globals.Instance.playerFactionData)
+        if (factionData != Autoload.Instance.playerFactionData)
         {
             FactionAI.DecideIfHeroUsesNewestEquipment(this);
         }

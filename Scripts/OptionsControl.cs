@@ -28,7 +28,7 @@ public partial class OptionsControl : Control
     private static void OnSaveButtonPressed()
     {
         GD.Print("Save Button Pressed");
-        SaveManager.Instance.SaveGame();
+        //SaveManager.Instance.SaveGame();
     }
 
     private static void OnLoadButtonPressed()

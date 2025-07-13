@@ -23,7 +23,7 @@ public partial class AllGoods : Node
         int perishable = 0;
         int nonperishable = 0;
 
-        foreach (GoodData resourceData in Autoload.Instance.allGoods)
+        foreach (GoodData resourceData in Autoload.Instance.allGoodData)
         {
             switch (resourceData.perishable)
             {

@@ -37,7 +37,7 @@ public partial class GoodsPanelContainer : PanelContainer
     // Creates the Storage HBoxes when the game starts.
     private void GenerateStorageHBoxes()
     {
-        foreach (GoodData goodData in Autoload.Instance.allGoods)
+        foreach (GoodData goodData in Autoload.Instance.allGoodData)
         {
             if (goodData.goodType == AllEnums.GoodType.FactionGood)
             {

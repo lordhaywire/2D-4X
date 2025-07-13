@@ -1,4 +1,5 @@
 using System.Globalization;
+using AutoloadSpace;
 using Godot;
 
 namespace PlayerSpace;
@@ -44,7 +45,8 @@ public partial class TopBarControl : Control
     public override void _Ready()
     {
         Instance = this;
-        factionData = Globals.Instance.playerFactionData;
+        
+        factionData = Autoload.Instance.playerFactionData;
         UpdateTopBarGoodLabels();
         CreateSignalsForTimeButtons();
     }

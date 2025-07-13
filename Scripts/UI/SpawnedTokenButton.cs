@@ -1,5 +1,6 @@
 using Godot;
 using System.Linq;
+using AutoloadSpace;
 
 namespace PlayerSpace;
 
@@ -26,7 +27,7 @@ public partial class SpawnedTokenButton : Button
 
     public void OnButtonUp()
     {
-        if(populationData.factionData == Globals.Instance.playerFactionData)
+        if(populationData.factionData == Autoload.Instance.playerFactionData)
         {
             //GD.Print("You pressed the hero button.");
             heroToken = populationData.heroToken;

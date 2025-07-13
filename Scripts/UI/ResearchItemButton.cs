@@ -1,3 +1,4 @@
+using AutoloadSpace;
 using Godot;
 
 namespace PlayerSpace;
@@ -45,7 +46,7 @@ public partial class ResearchItemButton : PanelContainer
         {
             Label researchPrerequisiteLabel = (Label)researchPrerequisiteLabelPackedScene.Instantiate();
             researchPrerequisiteLabel.Text 
-                = Globals.Instance.playerFactionData.researchItems[(int)enumResearch].researchName;
+                = Autoload.Instance.playerFactionData.researchItems[(int)enumResearch].researchName;
             prerequisitesParent.AddChild(researchPrerequisiteLabel);
         }
     }

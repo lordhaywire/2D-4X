@@ -73,7 +73,7 @@ public partial class AttributeData : Resource
     public static Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> NewCopy()
     {
         Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> newAttributes = [];
-        foreach (AttributeData attributeData in Autoload.Instance.allAttributes)
+        foreach (AttributeData attributeData in Autoload.Instance.allAttributeData)
         {
             newAttributes.Add(attributeData.attribute, new AttributeData
             {

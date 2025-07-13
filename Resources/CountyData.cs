@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using AutoloadSpace;
 
 namespace PlayerSpace;
 
@@ -148,7 +149,7 @@ public partial class CountyData : Resource
                 completedImprovements.Add(countyImprovementData);
 
                 // Check to only print the event logs of the player's county improvements.
-                if (factionData == Globals.Instance.playerFactionData)
+                if (factionData == Autoload.Instance.playerFactionData)
                 {
                     EventLog.Instance.AddLog(
                         $"{Tr(countyImprovementData.GetCountyImprovementName())} {Tr("PHRASE_HAS_BEEN_COMPLETED")}.");

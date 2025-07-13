@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using AutoloadSpace;
 
 namespace PlayerSpace;
 
@@ -119,7 +120,7 @@ public partial class HeroToken : CharacterBody2D
     private void OnClick(Viewport viewport, InputEvent @event, int _shapeIdx)
     {
         if (@event is InputEventMouseButton eventMouseButton &&
-            populationData.factionData == Globals.Instance.playerFactionData)
+            populationData.factionData == Autoload.Instance.playerFactionData)
         {
             if (eventMouseButton.ButtonIndex == MouseButton.Left && eventMouseButton.Pressed == false)
             {

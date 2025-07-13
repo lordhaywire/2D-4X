@@ -1,3 +1,4 @@
+using AutoloadSpace;
 using Godot;
 
 namespace PlayerSpace;
@@ -143,7 +144,7 @@ public partial class CountyInfoControl : Control
         foreach (Node node in heroSpawnCheckButtonParent.GetChildren())
         {
             HeroPanelContainer heroPanelContainer = (HeroPanelContainer)node;
-            if (heroPanelContainer.populationData.factionData == Globals.Instance.playerFactionData)
+            if (heroPanelContainer.populationData.factionData == Autoload.Instance.playerFactionData)
             {
                 heroPanelContainer.spawnHeroButton.Disabled = value;
             }
@@ -190,7 +191,7 @@ public partial class CountyInfoControl : Control
 
     private void CheckForOwnership()
     {
-        if (Globals.Instance.playerFactionData != Globals.Instance.SelectedLeftClickCounty.countyData.factionData)
+        if (Autoload.Instance.playerFactionData != Globals.Instance.SelectedLeftClickCounty.countyData.factionData)
         {
             populationListButton.Disabled = true;
             countyImprovementsButton.Disabled = true;

@@ -1,6 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
+using AutoloadSpace;
 
 // ReSharper disable SuggestVarOrType_SimpleTypes
 
@@ -178,11 +179,11 @@ public partial class PopulationDescriptionControl : Control
     /// <param name="county"></param>
     private void CheckForArmyRecruitmentButton(County county)
     {
-        if (county.countyData.factionData == Globals.Instance.playerFactionData)
+        if (county.countyData.factionData == Autoload.Instance.playerFactionData)
         {
             // If this is just a normal population
             if (populationData.HeroType == AllEnums.HeroType.None
-                && Globals.Instance.playerFactionData.factionGoods[AllEnums.FactionGoodType.Influence].Amount
+                && Autoload.Instance.playerFactionData.factionGoods[AllEnums.FactionGoodType.Influence].Amount
                 < Globals.Instance.costOfHero)
             {
                 armyLeaderRecruitButton.Disabled = false;
@@ -208,7 +209,7 @@ public partial class PopulationDescriptionControl : Control
     /// </summary>
     private void CheckForAideRecruitmentButton()
     {
-        if (Globals.Instance.playerFactionData.factionGoods[AllEnums.FactionGoodType.Influence].Amount
+        if (Autoload.Instance.playerFactionData.factionGoods[AllEnums.FactionGoodType.Influence].Amount
             < Globals.Instance.costOfHero || populationData.isHero)
         {
             aideRecruitButton.Disabled = true;

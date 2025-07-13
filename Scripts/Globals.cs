@@ -13,9 +13,6 @@ public partial class Globals : Node
 
     [Export] public bool loadGameAtStart;
     
-    [ExportGroup("Player Faction BS")]
-    [Export] public FactionData playerFactionData;
-
     //[Export] public Godot.Collections.Array<FactionData> allFactionData;// = [];
 
     [ExportGroup("Faction Variables")]
@@ -190,7 +187,7 @@ public partial class Globals : Node
 
     public bool CheckIfPlayerFaction(FactionData factionData)
     {
-        if(factionData == playerFactionData)
+        if(factionData == Autoload.Instance.playerFactionData)
         {
             return true;
         }
@@ -252,7 +249,7 @@ public partial class Globals : Node
         int perishable = 0;
         int nonperishable = 0;
 
-        foreach (GoodData resourceData in Autoload.Instance.allGoods)
+        foreach (GoodData resourceData in Autoload.Instance.allGoodData)
         {
             switch (resourceData.perishable)
             {

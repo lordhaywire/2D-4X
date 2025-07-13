@@ -240,7 +240,7 @@ public class Haulmaster
     /// <summary>
     /// This has to generate the stock piled goods from the developer created inputGoods list.  The inputGoods list
     /// is later copied to the uniqueList because it has to be.
-    /// If the player selects Use Remnants then this will break.
+    
     /// </summary>
     /// <param name="countyImprovementData"></param>
     public static void GenerateStockpileGoodsDictionary(CountyImprovementData countyImprovementData)
@@ -253,12 +253,12 @@ public class Haulmaster
         if (!countyImprovementData.countyStockpiledGoods.TryGetValue(AllEnums.CountyGoodType.Remnants, out int value))
         {
             countyImprovementData.countyStockpiledGoods[AllEnums.CountyGoodType.Remnants] = 0;
-            GD.Print($"Remnants added to {countyImprovementData.improvementName}.");
+            //GD.Print($"Remnants added to {countyImprovementData.improvementName}.");
         }
         else
         {
-            GD.Print($"It already has {value}" +
-                $" remnants in the countyStockpiledGoods at {countyImprovementData.improvementName}");
+            //GD.Print($"It already has {value}" +
+            //    $" remnants in the countyStockpiledGoods at {countyImprovementData.improvementName}");
         }
     }
 }

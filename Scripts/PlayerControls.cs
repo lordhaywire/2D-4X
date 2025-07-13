@@ -1,5 +1,6 @@
 using Godot;
 using System.Linq;
+using AutoloadSpace;
 
 namespace PlayerSpace;
 
@@ -148,18 +149,18 @@ public partial class PlayerControls : StaticBody2D
             }
             else
             {
-                if (Globals.Instance.playerFactionData == moveTargetCountyData.factionData)
+                if (Autoload.Instance.playerFactionData == moveTargetCountyData.factionData)
                 {
                     selectToken.tokenMovement.StartMove(moveTargetCountyData.countyId);
                 }
                 else
                 {
                     //GD.Print("You are about to declare war, because you are an army.");
-                    if (Globals.Instance.playerFactionData.factionWarDictionary[
+                    if (Autoload.Instance.playerFactionData.factionWarDictionary[
                             Globals.Instance.selectedRightClickCounty.countyData.factionData.factionName]
                         != true)
                     {
-                        Globals.Instance.playerFactionData.diplomacy.DeclareWarConfirmation(moveTargetCountyData);
+                        Autoload.Instance.playerFactionData.diplomacy.DeclareWarConfirmation(moveTargetCountyData);
                     }
                     else
                     {

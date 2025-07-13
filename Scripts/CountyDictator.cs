@@ -34,7 +34,7 @@ public partial class CountyDictator : Node
             populationData.factionData = winnersFactionData;
         }
 
-        // Assign the faction's
+        // Assign the faction's - Todo: What is missing from here? 
     }
 
     private static void DestroyFaction(County county)

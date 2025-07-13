@@ -1,12 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://bkvoeyl6dapva"]
+[gd_scene load_steps=6 format=3 uid="uid://bkvoeyl6dapva"]
 
 [ext_resource type="Script" uid="uid://bnyvq3m43wfaf" path="res://Scripts/Game Generation/GameGenerationCanvasLayer.cs" id="1_abo1n"]
+[ext_resource type="Script" uid="uid://bumyrywwkfvin" path="res://Scripts/FactionGeneration.cs" id="2_8gupl"]
+[ext_resource type="Script" uid="uid://ucfvsmqt2s20" path="res://Scripts/Game Generation/SaveGeneratedWorldToDisk.cs" id="3_govcm"]
+[ext_resource type="Script" uid="uid://bhxl2uniuob2i" path="res://Scripts/Game Generation/SpawnMainGame.cs" id="4_vt6nh"]
+[ext_resource type="PackedScene" uid="uid://dcycrof2uq8gd" path="res://Scenes/Main.tscn" id="5_78hrc"]
 
-[node name="Game Generation Canvas Layer" type="CanvasLayer" node_paths=PackedStringArray("statusLabel")]
+[node name="Root Node" type="Node"]
+
+[node name="Game Generation Canvas Layer" type="CanvasLayer" parent="." node_paths=PackedStringArray("statusLabel")]
 script = ExtResource("1_abo1n")
 statusLabel = NodePath("Status Label")
 
-[node name="Status Label" type="Label" parent="."]
+[node name="Status Label" type="Label" parent="Game Generation Canvas Layer"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -20,3 +26,13 @@ grow_horizontal = 2
 grow_vertical = 2
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Faction Generation" type="Node" parent="."]
+script = ExtResource("2_8gupl")
+
+[node name="Save Generated World To Disk" type="Node" parent="."]
+script = ExtResource("3_govcm")
+
+[node name="SpawnMainGame" type="Node" parent="."]
+script = ExtResource("4_vt6nh")
+mainGameScene = ExtResource("5_78hrc")

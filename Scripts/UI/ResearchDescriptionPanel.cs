@@ -1,5 +1,6 @@
 using Godot;
 using System.Linq;
+using AutoloadSpace;
 
 namespace PlayerSpace;
 
@@ -56,7 +57,7 @@ public partial class ResearchDescriptionPanel : PanelContainer
         availableOffices.Clear();
         availableResearchers.Clear();
         availableOffices
-            = Research.GetListOfAvailableResearchOffices(Globals.Instance.playerFactionData);
+            = Research.GetListOfAvailableResearchOffices(Autoload.Instance.playerFactionData);
         availableResearchers 
             = Research.GetListOfAvailableHeroResearchers();
 
@@ -200,7 +201,7 @@ public partial class ResearchDescriptionPanel : PanelContainer
         {
             Label researchPrerequisiteLabel = (Label)researchPrerequisiteLabelPackedScene.Instantiate();
             researchPrerequisiteLabel.Text 
-                = Globals.Instance.playerFactionData.researchItems[(int)enumResearch].researchName;
+                = Autoload.Instance.playerFactionData.researchItems[(int)enumResearch].researchName;
             prerequisitesParent.AddChild(researchPrerequisiteLabel);
         }
     }

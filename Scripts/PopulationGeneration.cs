@@ -42,14 +42,13 @@ public partial class PopulationGeneration : Node
     // Eventually this will assign other things, but currently we just need this here.
     private static void AssignPlayerSpecificThings()
     {
-        Globals.Instance.playerFactionData.factionLeader.personality = AllEnums.Personality.Player;
+        Autoload.Instance.playerFactionData.factionLeader.personality = AllEnums.Personality.Player;
     }
 
     private void CreateFactionLeaders()
     {
-        foreach (Faction faction in Globals.Instance.factionsParent.GetChildren().Cast<Faction>())
+        foreach (FactionData factionData in Autoload.Instance.allFactionDataList)
         {
-            FactionData factionData = faction.factionData;
             countiesParent = Globals.Instance.countiesParent;
             // Generate Faction Leader County Population
             //GD.Print($"{factionData.factionName} Capital ID: {factionData.factionCapitalCounty}");
@@ -290,7 +289,7 @@ public partial class PopulationGeneration : Node
     private static Godot.Collections.Dictionary<AllEnums.Perks, PerkData> GenerateLeaderPerks()
     {
         Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks = [];
-        perks.Add(AllEnums.Perks.LeaderOfPeople, Autoload.Instance.allPerks[(int)AllEnums.Perks.LeaderOfPeople]);
+        perks.Add(AllEnums.Perks.LeaderOfPeople, Autoload.Instance.allPerkData[(int)AllEnums.Perks.LeaderOfPeople]);
         return perks;
     }
     private Godot.Collections.Dictionary<AllEnums.Perks, PerkData> GeneratePopulationPerks()
@@ -299,7 +298,7 @@ public partial class PopulationGeneration : Node
         int unhelpfulRoll = random.Next(1, 101);
         if (unhelpfulRoll < chanceOfBeingUnhelpful)
         {
-            perks.Add(AllEnums.Perks.Unhelpful, Autoload.Instance.allPerks[(int)AllEnums.Perks.Unhelpful]);
+            perks.Add(AllEnums.Perks.Unhelpful, Autoload.Instance.allPerkData[(int)AllEnums.Perks.Unhelpful]);
         }
         return perks;
     }

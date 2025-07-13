@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoloadSpace;
 
 namespace PlayerSpace;
 
@@ -116,7 +117,7 @@ public partial class ResearchControl : Control
     /// </summary>
     private void AddPlayerResearchToUi()
     {
-        foreach(ResearchItemData currentResearchItemData in Globals.Instance.playerFactionData.researchItems)
+        foreach(ResearchItemData currentResearchItemData in Autoload.Instance.playerFactionData.researchItems)
         {
             //GD.Print($"Research Item Data Tier: " + researchItemData.tier);
             switch (currentResearchItemData.tier)

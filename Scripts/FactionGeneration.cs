@@ -1,134 +1,124 @@
+using System.Collections.Generic;
 using System.Linq;
 using AutoloadSpace;
+using GameGeneration;
 using Godot;
 
 namespace PlayerSpace;
 
 public partial class FactionGeneration : Node
 {
-    //public static FactionGeneration Instance { get; private set; }
+    private string factionDirectory = "res://Resources/Factions/";
 
-    private string factionDataPath = "res://Resources/Factions/";
-    [Export] private PackedScene factionNodePackedScene;
-    [Export] private CountyImprovementData[] countyImprovementData;
-    private FactionData factionData;
-
+    private List<FactionData> allFactionDataList = [];
     public override void _Ready()
     {
-        //Instance = this;
-
         CreateFactionsFromDisk();
     }
 
     private void CreateFactionsFromDisk()
     {
-        factionData = null;
-        DirAccess directory = DirAccess.Open("res://");//(factionDataPath);
-        if (directory.DirExists("res://Resources/Factions/")) //(factionDataPath))
-        {
-            directory = DirAccess.Open("res://Resources/Factions/");
-            //GD.Print("Faction Resource Directory Found.");
-            directory.ListDirBegin();
-            string[] fileNames = directory.GetFiles();
-            for (int i = 0; i < fileNames.Length; i++)
-            {
-                //GD.Print("Files in Faction Resources: " + fileNames[i]);
-                factionData
-                    = (FactionData)ResourceLoader.Load<FactionData>(factionDataPath + fileNames[i]).Duplicate();
-                //Globals.Instance.allFactionData.Add(factionData); // We should probably get rid of this.  We already
-                // have it in the FactionNode children.
-                factionData.factionId = i;
+        allFactionDataList = Autoload.Instance.ReadResourcesFromDisk(factionDirectory).Cast<FactionData>().ToList();
 
-                if (factionData.isPlayer)
-                {
-                    Globals.Instance.playerFactionData = factionData;
-                }
-                GD.Print($"{factionData.factionName} has been loaded from disk.");
-                // The order is important.
-                CreateFactionNode(factionData);
-                CreateFactionGoodDictionary(factionData);
-                AddFactionsToDiplomacyWar(factionData);
-                AddStartingResearch();
-            }
-        }
-        else
+        for (int i = 0; i < allFactionDataList.Count; i++)
         {
-            //GD.Print("You are so fucked. This directory doesn't exist: " + factionDataPath);
+            allFactionDataList[i].factionId = i;
+
+            if (allFactionDataList[i].isPlayer)
+            {
+                Autoload.Instance.playerFactionData = allFactionDataList[i];
+            }
+
+            GD.Print($"{allFactionDataList[i].factionName} has been loaded from disk.");
+            // The order is important.
+            CreateFactionGoodDictionary(allFactionDataList[i]);
+            AddFactionsToDiplomacyWar(allFactionDataList[i]);
+            AddStartingResearch(allFactionDataList[i]);
+            ConvertFactionDataListsToGodotArrayInAutoload(allFactionDataList);
         }
     }
 
-    private void AddStartingResearch()
+    private static void ConvertFactionDataListsToGodotArrayInAutoload(List<FactionData> allFactionDataListCSharp)
     {
-        foreach (ResearchItemData researchItemData in Autoload.Instance.allResearchItemDatas)
+        Autoload.Instance.allFactionDataList.Clear();
+        foreach (FactionData factionData in allFactionDataListCSharp)
+        {
+            Autoload.Instance.allFactionDataList.Add(factionData);
+        }
+    }
+    
+    private void AddStartingResearch(FactionData factionData)
+    {
+        foreach (ResearchItemData researchItemData in Autoload.Instance.allResearchItemData)
         {
             //GD.Print("Faction ID that is getting assigned: " + factionData.factionID);
+            // Todo: What the fuck is this?  Why are we doing?
             researchItemData.factionId = factionData.factionId;
             //GD.PrintRich($"[rainbow]{FactionData.GetFactionDataFromID(researchItemData.factionID).factionName}: {researchItemData.researchName}");
 
-            ResearchItemData researchItemDataCopy = researchItemData.NewCopy(researchItemData); //(ResearchItemData)researchItemData.Duplicate(true); //
+            ResearchItemData researchItemDataCopy = researchItemData.NewCopy(researchItemData);
             if (researchItemDataCopy.researchedAtStart)
             {
                 // We need to add some randomness to the starting factions starting research, except
                 // for the player factions.
                 researchItemDataCopy.AmountOfResearchDone = researchItemDataCopy.costOfResearch;
+                AssignResearchedCountyImprovements(factionData, researchItemDataCopy);
             }
+
             factionData.researchItems.Add(researchItemDataCopy);
-
-            /*
-            // This is for testing.
-            if (factionData.researchItems.Count > 0)
-            {
-                GD.Print($"Faction Data Research Items Count: {factionData.researchItems.Count}");
-
-                GD.Print($"Test of research item faction ID: {factionData.researchItems[0].factionID}");
-            }
-            */  
         }
+    }
 
-        foreach(ResearchItemData researchItem in factionData.researchItems)
+    private void AssignResearchedCountyImprovements(FactionData currentFactionData, ResearchItemData researchItemData)
+    {
+        GD.PrintRich($"[rainbow]Adding county improvements for! " + researchItemData.researchName);
+
+        GameGenerationCanvasLayer.Instance.UpdateStatusLabelText(
+            $"{Tr("PHRASE_RESEARCH_FOR")} {Tr(researchItemData.researchName)} {Tr("PHRASE_HAS_BEEN_COMPLETED")}.");
+
+        if (researchItemData.countyImprovementDatas.Length > 0)
         {
-            if (researchItem.CheckIfResearchDone())
+            foreach (CountyImprovementData countyImprovementData in researchItemData.countyImprovementDatas)
             {
-                researchItem.CompleteResearch();
+                // This is to set the starting adjusted max builders and workers.
+                countyImprovementData.adjustedMaxBuilders = countyImprovementData.maxBuilders;
+                countyImprovementData.adjustedMaxWorkers = countyImprovementData.maxWorkers;
+
+                currentFactionData.AddCountyImprovementToAllCountyImprovements(countyImprovementData);
             }
         }
     }
 
     private static void CreateFactionGoodDictionary(FactionData factionData)
     {
-        foreach (GoodData goodData in Autoload.Instance.allGoods)
+        foreach (GoodData goodData in Autoload.Instance.allGoodData)
         {
             if (goodData.goodType == AllEnums.GoodType.CountyGood)
             {
                 continue;
             }
+
             //GD.Print($"{goodData.goodName} has been added to {factionData.factionName}");
             factionData.factionGoods.Add(goodData.factionGoodType, (GoodData)goodData.Duplicate());
             factionData.yesterdaysFactionGoods.Add(goodData.factionGoodType, (GoodData)goodData.Duplicate());
             factionData.amountUsedFactionGoods.Add(goodData.factionGoodType, (GoodData)goodData.Duplicate());
         }
+
         // This is for testing.  We are going to have a different, more random way of
         // generating starting resources for each faction.
+        // Todo - Make a developer option that allows these numbers to be changed.
         factionData.factionGoods[AllEnums.FactionGoodType.Influence].Amount = 1500;
         factionData.factionGoods[AllEnums.FactionGoodType.Money].Amount = 1500;
     }
 
-    private static void AddFactionsToDiplomacyWar(FactionData factionData)
+    private void AddFactionsToDiplomacyWar(FactionData factionData)
     {
         //GD.Print("Faction Name: " + factionData.factionName);
-        foreach (Faction faction in Globals.Instance.factionsParent.GetChildren().Cast<Faction>())
+        foreach (FactionData warFactionData in
+                 Autoload.Instance.allFactionDataList.Where(warFactionData => warFactionData != factionData))
         {
-            FactionData warFactionData = faction.factionData;
             // Add warFactionData to factionWarDictionary with a default value of false
             factionData.factionWarDictionary[warFactionData.factionName] = false;
         }
-    }
-
-    private void CreateFactionNode(FactionData newFactionData)
-    {
-        Faction faction = (Faction)factionNodePackedScene.Instantiate();
-        faction.factionData = newFactionData;
-        faction.Name = faction.factionData.factionName;
-        Globals.Instance.factionsParent.AddChild(faction);
     }
 }

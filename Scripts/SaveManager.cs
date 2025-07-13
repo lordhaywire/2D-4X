@@ -1,3 +1,4 @@
+using AutoloadSpace;
 using Godot;
 
 namespace PlayerSpace;
@@ -19,8 +20,16 @@ public partial class SaveManager : Node
     public void SaveGame()
     {
         CheckForFolderAndCreate();
+        UpdateSaveGameData();
         SaveFileToDisk();
     }
+
+    private void UpdateSaveGameData()
+    {
+        saveGameData.allFactionDataList = Autoload.Instance.allFactionDataList;
+    }
+
+
 
     private void SaveFileToDisk()
     {

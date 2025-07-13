@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using AutoloadSpace;
 
 namespace PlayerSpace;
 
@@ -162,7 +163,7 @@ public class Research
         GetListOfAvailableHeroResearchers()
     {
         Godot.Collections.Array<PopulationData> availableResearchers = [];
-        foreach (CountyData countyData in Globals.Instance.playerFactionData.countiesFactionOwns)
+        foreach (CountyData countyData in Autoload.Instance.playerFactionData.countiesFactionOwns)
         {
             foreach (PopulationData populationData in countyData.heroesInCountyList)
             {

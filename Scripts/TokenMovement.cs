@@ -1,3 +1,4 @@
+using AutoloadSpace;
 using Godot;
 
 namespace PlayerSpace
@@ -19,7 +20,7 @@ namespace PlayerSpace
                 {
                     heroToken.populationData.lastLocation = heroToken.populationData.location;
                     heroToken.Show();
-                    if (Globals.Instance.playerFactionData != heroToken.populationData.factionData)
+                    if (Autoload.Instance.playerFactionData != heroToken.populationData.factionData)
                     {
                         return;
                     }

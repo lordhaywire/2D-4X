@@ -1,3 +1,4 @@
+using AutoloadSpace;
 using Godot;
 
 namespace PlayerSpace;
@@ -71,7 +72,7 @@ public partial class RecruitHeroConfirmationPanelContainer : PanelContainer
     private void CheckIfPopulationIsHero(CountyData countyData, PopulationData populationData)
     {
         if (populationData.isHero != false) return;
-        Banker.ChargeForHero(Globals.Instance.playerFactionData);
+        Banker.ChargeForHero(Autoload.Instance.playerFactionData);
         countyData.populationDataList.Remove(populationData);
         populationData.isHero = true;
     }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=81 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://World Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
 [ext_resource type="Script" uid="uid://bl7hn0hgb5876" path="res://Scripts/LoadMaps.cs" id="2_nda5i"]
@@ -18,8 +18,6 @@
 [ext_resource type="Texture2D" uid="uid://cbpah1j3xx4f2" path="res://Graphics/Icons/Population/resized army icon.png" id="9_ft7d6"]
 [ext_resource type="Texture2D" uid="uid://cvc31dbpf0ptl" path="res://Graphics/Tokens/Army Token Unselected.png" id="10_0wqfi"]
 [ext_resource type="Texture2D" uid="uid://bnau4cacldl0t" path="res://Graphics/Tokens/Army Token Selected.png" id="11_e5ayq"]
-[ext_resource type="Script" uid="uid://bumyrywwkfvin" path="res://Scripts/FactionGeneration.cs" id="11_ivpku"]
-[ext_resource type="PackedScene" uid="uid://cjgb8g7l3340p" path="res://Scenes/FactionNode.tscn" id="12_r0ltm"]
 [ext_resource type="Script" uid="uid://dmto35ej5sjd4" path="res://Scripts/PlayerControls.cs" id="12_vfu86"]
 [ext_resource type="Script" uid="uid://bvi0u5nh4c4p5" path="res://Scripts/CountyGeneration.cs" id="16_pxxn4"]
 [ext_resource type="Script" uid="uid://w7efp2g0eih7" path="res://Scripts/PopulationGeneration.cs" id="17_1215r"]
@@ -154,7 +152,7 @@ centered = false
 
 [node name="Game Controller Node" type="Node" parent="."]
 
-[node name="Globals" type="Node" parent="Game Controller Node" node_paths=PackedStringArray("countiesParent", "factionsParent", "deadFactionsParent")]
+[node name="Globals" type="Node" parent="Game Controller Node" node_paths=PackedStringArray("countiesParent", "factionsParent")]
 script = ExtResource("2_yf7pt")
 dailyInfluenceGain = 5
 leaderOfPeopleInfluenceBonus = 5
@@ -165,8 +163,7 @@ mapColorCoded = ExtResource("2_h1vmt")
 countiesParent = NodePath("../../Counties")
 minimumCountyPop = 5
 maximumCountyPop = 10
-factionsParent = NodePath("../../Factions")
-deadFactionsParent = NodePath("")
+factionsParent = NodePath("")
 minimumFood = 100
 startingAmountOfEachGood = 5
 numberOfPrimaryTerrainEvents = 2
@@ -204,10 +201,7 @@ process_mode = 3
 script = ExtResource("12_vfu86")
 collisionRectangleShape = SubResource("RectangleShape2D_co2vr")
 
-[node name="Faction Generation" type="Node" parent="Game Controller Node"]
-script = ExtResource("11_ivpku")
-factionNodePackedScene = ExtResource("12_r0ltm")
-countyImprovementData = Array[Object]([])
+[node name="Create Faction Nodes" type="Node" parent="Game Controller Node"]
 
 [node name="County Generation" type="Node" parent="Game Controller Node"]
 script = ExtResource("16_pxxn4")
@@ -2744,8 +2738,6 @@ text = "WORD_LOAD"
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 text = "PHRASE_DEVELOPER_OPTIONS"
-
-[node name="Factions" type="Node" parent="."]
 
 [node name="Counties" type="Node2D" parent="."]
 process_mode = 3

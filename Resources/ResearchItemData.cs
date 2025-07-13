@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using AutoloadSpace;
 
 namespace PlayerSpace;
 
@@ -43,7 +44,7 @@ public partial class ResearchItemData : Resource
     {
         GD.PrintRich($"[rainbow]Complete Research! " + researchName);
         Faction faction = (Faction)Globals.Instance.factionsParent.GetChild(factionId);
-        if (faction.factionData == Globals.Instance.playerFactionData)
+        if (faction.factionData == Autoload.Instance.playerFactionData)
         {
             EventLog.Instance?.AddLog($"{Tr("PHRASE_RESEARCH_FOR")} {Tr(researchName)} {Tr("PHRASE_HAS_BEEN_COMPLETED")}.");
         }
@@ -75,7 +76,7 @@ public partial class ResearchItemData : Resource
         {
             //GD.Print($"{Globals.Instance.playerFactionData.researchItems[(int)enumResearch].researchName} " +
             //    $"{Globals.Instance.playerFactionData.researchItems[(int)enumResearch].CheckIfResearchDone()}");
-            if (Globals.Instance.playerFactionData.researchItems[(int)enumResearch].CheckIfResearchDone()
+            if (Autoload.Instance.playerFactionData.researchItems[(int)enumResearch].CheckIfResearchDone()
                 == false)
             {
                 return false;

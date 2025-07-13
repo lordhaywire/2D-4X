@@ -20,32 +20,35 @@ public partial class Autoload : Node
 
     private string rootEventExplorationDirectory = "res://Resources/Story Events/Exploration Events/";
 
-
     public List<ActivityData> allActivityData = [];
-    public List<AttributeData> allAttributes = [];
-    public List<PerkData> allPerks = [];
-    public List<GoodData> allGoods = [];
-    public List<ResearchItemData> allResearchItemDatas;
-    public List<InterestData> interests;
-    public List<SkillData> allSkillData;
+    public List<AttributeData> allAttributeData = [];
+    public List<PerkData> allPerkData = [];
+    public List<GoodData> allGoodData = [];
+    public List<ResearchItemData> allResearchItemData = [];
+    public List<InterestData> allInterestData = []; // Todo: Figure out why this can be private.  It should be used in populationGeneration.
+    public List<SkillData> allSkillData = [];
 
-    public readonly Dictionary<AllEnums.Terrain, List<StoryEventData>> eventsByTerrainDictionary = [];
+    public readonly System.Collections.Generic.Dictionary<AllEnums.Terrain, List<StoryEventData>> eventsByTerrainDictionary = [];
+    
+    public FactionData playerFactionData;
+    [Export] public Godot.Collections.Array<FactionData> allFactionDataList = [];
 
     public override void _Ready()
     {
         Instance = this;
 
         allActivityData = ReadResourcesFromDisk(activitiesDirectory).Cast<ActivityData>().ToList();
-        allAttributes = ReadResourcesFromDisk(attributesDirectory).Cast<AttributeData>().ToList();
-        allPerks = ReadResourcesFromDisk(perksDirectory).Cast<PerkData>().ToList();
-        allGoods = ReadResourcesFromDisk(goodsDirectory).Cast<GoodData>().ToList();
-        allResearchItemDatas = ReadResourcesFromDisk(researchDirectory).Cast<ResearchItemData>().ToList();
-        interests = ReadResourcesFromDisk(interestsDirectory).Cast<InterestData>().ToList();
+        allAttributeData = ReadResourcesFromDisk(attributesDirectory).Cast<AttributeData>().ToList();
+        allPerkData = ReadResourcesFromDisk(perksDirectory).Cast<PerkData>().ToList();
+        allGoodData = ReadResourcesFromDisk(goodsDirectory).Cast<GoodData>().ToList();
+        allResearchItemData = ReadResourcesFromDisk(researchDirectory).Cast<ResearchItemData>().ToList();
+        allInterestData = ReadResourcesFromDisk(interestsDirectory).Cast<InterestData>().ToList();
         allSkillData = ReadResourcesFromDisk(skillDirectory).Cast<SkillData>().ToList();
 
         GetAllExplorationEventsFromDisk();
-        TestPrintAllResourceNames();
+        //TestPrintAllResourceNames();
     }
+
 
     private void TestPrintAllResourceNames()
     {
@@ -61,9 +64,9 @@ public partial class Autoload : Node
         }
     }
 
-    public List<Resource> ReadResourcesFromDisk(string path)
+    public Godot.Collections.Array<Resource> ReadResourcesFromDisk(string path)
     {
-        List<Resource> resources = [];
+        Godot.Collections.Array<Resource> resources = [];
         DirAccess dirAccess = DirAccess.Open(path);
 
         if (dirAccess != null && dirAccess.ListDirBegin() == Error.Ok)
@@ -91,7 +94,7 @@ public partial class Autoload : Node
         return resources;
     }
 
-    public void GetAllExplorationEventsFromDisk()
+    private void GetAllExplorationEventsFromDisk()
     {
         DirAccess rootDir = DirAccess.Open(rootEventExplorationDirectory);
         if (rootDir == null)
@@ -172,25 +175,24 @@ public partial class Autoload : Node
     /// <returns></returns>
     private GoodData GetCorrectGoodData(AllEnums.CountyGoodType goodType)
     {
-        GoodData correctGoodData = allGoods[(int)goodType - 1];
+        GoodData correctGoodData = allGoodData[(int)goodType - 1];
         return correctGoodData;
     }
 
     public InterestData GetRandomInterest()
     {
         Random random = new();
-        if (interests.Count == 0)
+        if (allInterestData.Count == 0)
         {
             return null; // Or handle this case as appropriate
         }
 
-        int randomIndex = random.Next(0, interests.Count);
-        return interests[randomIndex];
+        int randomIndex = random.Next(0, allInterestData.Count);
+        return allInterestData[randomIndex];
     }
 
     public List<StoryEventData> GetEventsForTerrain(AllEnums.Terrain terrain)
     {
-        List<StoryEventData> list;
-        return eventsByTerrainDictionary.TryGetValue(terrain, out list) ? list : new List<StoryEventData>();
+        return eventsByTerrainDictionary.TryGetValue(terrain, out var list) ? list : [];
     }
 }

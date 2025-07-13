@@ -1,5 +1,6 @@
 using Godot;
 using System.Linq;
+using AutoloadSpace;
 
 namespace PlayerSpace;
 
@@ -45,7 +46,7 @@ public partial class CountyImprovementsControl : Control
         ClearImprovements();
         //GD.PrintRich($"[rainbow]Count of county improvements: " + Globals.Instance.playerFactionData.allCountyImprovements.Count);
 
-        CreateCountyImprovementButtons(Globals.Instance.playerFactionData.allCountyImprovements
+        CreateCountyImprovementButtons(Autoload.Instance.playerFactionData.allCountyImprovements
             , possibleImprovementsScrollContainerParent, true);
         CreateCountyImprovementButtons(Globals.Instance.SelectedLeftClickCounty.countyData.underConstructionCountyImprovementList
             , currentImprovementsScrollContainerParent, false);
