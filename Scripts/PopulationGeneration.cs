@@ -47,7 +47,7 @@ public partial class PopulationGeneration : Node
 
     private void CreateFactionLeaders()
     {
-        foreach (FactionData factionData in Autoload.Instance.allFactionDataList)
+        foreach (FactionData factionData in SaveManager.Instance.saveGameData.allFactionDataList)
         {
             countiesParent = Globals.Instance.countiesParent;
             // Generate Faction Leader County Population
@@ -108,7 +108,7 @@ public partial class PopulationGeneration : Node
                     moraleExpendable = GenerateExpendables(),
                     loyaltyBase = loyaltyBase,
                     LoyaltyAdjusted = loyaltyBase,
-                    happiness = random.Next(31, 101),
+                    Happiness = random.Next(31, 101),
                     daysStarving = 0,
                     daysUntilServiceStarts = -1,
                     needs = GenerateNeeds(),
@@ -151,8 +151,7 @@ public partial class PopulationGeneration : Node
                     moraleExpendable = GenerateExpendables(),
                     loyaltyBase = loyaltyBase,
                     LoyaltyAdjusted = loyaltyBase,
-                    happiness = random.Next(31, 101), // Our leaders can be unhappy?
-                    Happiness = 0,
+                    Happiness = random.Next(31, 101), // Our leaders can be unhappy?
                     daysEmployed = 0,
                     daysEmployedButIdle = 0,
                     daysStarving = 0,

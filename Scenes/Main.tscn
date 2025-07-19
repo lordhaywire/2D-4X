@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=82 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://World Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
 [ext_resource type="Script" uid="uid://bl7hn0hgb5876" path="res://Scripts/LoadMaps.cs" id="2_nda5i"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://cshbx03lu00mu" path="res://Scripts/CountyLoader.cs" id="7_o23yn"]
 [ext_resource type="Script" uid="uid://dotu8ux8tg6l8" path="res://Scripts/TokenMovement.cs" id="7_qmo2n"]
 [ext_resource type="Texture2D" uid="uid://b67d6nynwdq3o" path="res://Graphics/Icons/Population/resized faction aide.png" id="8_rm8kv"]
+[ext_resource type="Script" uid="uid://s41lhm601tmm" path="res://Scripts/InitialLoadGame.cs" id="9_as1io"]
 [ext_resource type="Texture2D" uid="uid://cbpah1j3xx4f2" path="res://Graphics/Icons/Population/resized army icon.png" id="9_ft7d6"]
 [ext_resource type="Texture2D" uid="uid://cvc31dbpf0ptl" path="res://Graphics/Tokens/Army Token Unselected.png" id="10_0wqfi"]
 [ext_resource type="Texture2D" uid="uid://bnau4cacldl0t" path="res://Graphics/Tokens/Army Token Selected.png" id="11_e5ayq"]
@@ -152,7 +153,7 @@ centered = false
 
 [node name="Game Controller Node" type="Node" parent="."]
 
-[node name="Globals" type="Node" parent="Game Controller Node" node_paths=PackedStringArray("countiesParent", "factionsParent")]
+[node name="Globals" type="Node" parent="Game Controller Node" node_paths=PackedStringArray("countiesParent")]
 script = ExtResource("2_yf7pt")
 dailyInfluenceGain = 5
 leaderOfPeopleInfluenceBonus = 5
@@ -161,9 +162,9 @@ turnOffStoryEvents = true
 winAllBattles = true
 mapColorCoded = ExtResource("2_h1vmt")
 countiesParent = NodePath("../../Counties")
+totalCapitolPop = 5
 minimumCountyPop = 5
-maximumCountyPop = 10
-factionsParent = NodePath("")
+maximumCountyPop = 5
 minimumFood = 100
 startingAmountOfEachGood = 5
 numberOfPrimaryTerrainEvents = 2
@@ -173,6 +174,9 @@ heroToken = SubResource("PackedScene_mjyee")
 spawnedTokenButton = SubResource("PackedScene_0j4c6")
 movementSpeed = 1
 costOfHero = 500
+
+[node name="Initial Load Game" type="Node" parent="Game Controller Node"]
+script = ExtResource("9_as1io")
 
 [node name="User Folder Controller" type="Node" parent="Game Controller Node"]
 script = ExtResource("7_fr5hn")

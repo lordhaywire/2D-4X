@@ -11,7 +11,7 @@ public partial class CountyData : Resource
     [ExportGroup("MapEditor")] public County countyNode; // See if we can get rid of this somehow.
     
     [Export] public Color color;
-    public Vector2I startMaskPosition; // I think this is the local position...
+    [Export] public Vector2I startMaskPosition; // I think this is the local position...
     [Export] public Vector2I countyOverlayLocalPosition;
 
     [ExportGroup("County other somethings")] 
@@ -77,13 +77,13 @@ public partial class CountyData : Resource
     [Export] public Godot.Collections.Dictionary<AllEnums.CountyGoodType, GoodData> amountOfGoodsUsed;// = [];
 
     // These are used just to pass some data around.  Probably I should find a better way to do this.
-    public Texture2D maskTexture;
-    public Texture2D mapTexture;
+    [Export] public Texture2D maskTexture;
+    [Export] public Texture2D mapTexture;
 
     // We will have to see if this is still used.
     public event Action<bool> CountySelected;
 
-    private bool selected;
+    [Export] private bool selected;
 
     private bool Selected
     {
@@ -100,7 +100,7 @@ public partial class CountyData : Resource
         CountySelected?.Invoke(isSelected);
     }
 
-    int idleWorkers;
+    [Export] private int idleWorkers;
 
     public int IdleWorkers
     {
@@ -116,7 +116,7 @@ public partial class CountyData : Resource
         }
     }
 
-    readonly List<PopulationData> peopleWhoNeedToDie = [];
+    private readonly List<PopulationData> peopleWhoNeedToDie = [];
 
     public void CheckIfCountyImprovementsAreDone()
     {

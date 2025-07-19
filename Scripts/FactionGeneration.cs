@@ -11,9 +11,11 @@ public partial class FactionGeneration : Node
     private string factionDirectory = "res://Resources/Factions/";
 
     private List<FactionData> allFactionDataList = [];
+
     public override void _Ready()
     {
         CreateFactionsFromDisk();
+        NotifyPropertyListChanged();
     }
 
     private void CreateFactionsFromDisk()
@@ -40,13 +42,13 @@ public partial class FactionGeneration : Node
 
     private static void ConvertFactionDataListsToGodotArrayInAutoload(List<FactionData> allFactionDataListCSharp)
     {
-        Autoload.Instance.allFactionDataList.Clear();
+        SaveManager.Instance.saveGameData.allFactionDataList.Clear();
         foreach (FactionData factionData in allFactionDataListCSharp)
         {
-            Autoload.Instance.allFactionDataList.Add(factionData);
+            SaveManager.Instance.saveGameData.allFactionDataList.Add(factionData);
         }
     }
-    
+
     private void AddStartingResearch(FactionData factionData)
     {
         foreach (ResearchItemData researchItemData in Autoload.Instance.allResearchItemData)
@@ -98,7 +100,7 @@ public partial class FactionGeneration : Node
                 continue;
             }
 
-            //GD.Print($"{goodData.goodName} has been added to {factionData.factionName}");
+            GD.Print($"{goodData.goodName} has been added to {factionData.factionName}");
             factionData.factionGoods.Add(goodData.factionGoodType, (GoodData)goodData.Duplicate());
             factionData.yesterdaysFactionGoods.Add(goodData.factionGoodType, (GoodData)goodData.Duplicate());
             factionData.amountUsedFactionGoods.Add(goodData.factionGoodType, (GoodData)goodData.Duplicate());
@@ -115,7 +117,8 @@ public partial class FactionGeneration : Node
     {
         //GD.Print("Faction Name: " + factionData.factionName);
         foreach (FactionData warFactionData in
-                 Autoload.Instance.allFactionDataList.Where(warFactionData => warFactionData != factionData))
+                 SaveManager.Instance.saveGameData.allFactionDataList.Where(warFactionData =>
+                     warFactionData != factionData))
         {
             // Add warFactionData to factionWarDictionary with a default value of false
             factionData.factionWarDictionary[warFactionData.factionName] = false;

@@ -141,33 +141,33 @@ public partial class CountyGeneration : Node
     {
         // Cowlitz
         County selectCounty = (County)Globals.Instance.countiesParent.GetChild(0);
-        selectCounty.countyData.factionData = Autoload.Instance.allFactionDataList[0];
+        selectCounty.countyData.factionData = SaveManager.Instance.saveGameData.allFactionDataList[0];
         // Tillamook
         selectCounty = (County)Globals.Instance.countiesParent.GetChild(1);
-        selectCounty.countyData.factionData = Autoload.Instance.allFactionDataList[1];
+        selectCounty.countyData.factionData = SaveManager.Instance.saveGameData.allFactionDataList[1];
         // Douglas
         selectCounty = (County)Globals.Instance.countiesParent.GetChild(2);
-        selectCounty.countyData.factionData = Autoload.Instance.allFactionDataList[1];
+        selectCounty.countyData.factionData = SaveManager.Instance.saveGameData.allFactionDataList[1];
         // Portland
         selectCounty = (County)Globals.Instance.countiesParent.GetChild(3);
-        selectCounty.countyData.factionData = Autoload.Instance.allFactionDataList[3];
+        selectCounty.countyData.factionData = SaveManager.Instance.saveGameData.allFactionDataList[3];
         // Wasco
         selectCounty = (County)Globals.Instance.countiesParent.GetChild(4);
-        selectCounty.countyData.factionData = Autoload.Instance.allFactionDataList[3];
+        selectCounty.countyData.factionData = SaveManager.Instance.saveGameData.allFactionDataList[3];
         // Harney
         selectCounty = (County)Globals.Instance.countiesParent.GetChild(5);
-        selectCounty.countyData.factionData = Autoload.Instance.allFactionDataList[1];
+        selectCounty.countyData.factionData = SaveManager.Instance.saveGameData.allFactionDataList[1];
         // Umatilla
         selectCounty = (County)Globals.Instance.countiesParent.GetChild(6);
-        selectCounty.countyData.factionData = Autoload.Instance.allFactionDataList[2];
+        selectCounty.countyData.factionData = SaveManager.Instance.saveGameData.allFactionDataList[2];
     }
 
     private static void AssignCountyDataToFaction()
     {
         // This goes through every county and adds itself to the faction data already assigned to the county.
-        foreach (County selectCounty in Globals.Instance.countiesParent.GetChildren().Cast<County>())
+        foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
         {
-            selectCounty.countyData.factionData.countiesFactionOwns.Add(selectCounty.countyData);
+            county.countyData.factionData.countiesFactionOwns.Add(county.countyData);
             //GD.Print($"Faction: {selectCounty.countyData.factionData.factionName} {selectCounty.countyData.countyName}");
         }
     }

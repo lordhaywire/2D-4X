@@ -1,4 +1,5 @@
 using Godot;
+using Microsoft.VisualBasic;
 
 namespace PlayerSpace;
 
@@ -25,10 +26,11 @@ public partial class OptionsControl : Control
         developerOptionsButton.Pressed += OnDeveloperOptionButtonsPressed;
     }
 
-    private static void OnSaveButtonPressed()
+    private void OnSaveButtonPressed()
     {
         GD.Print("Save Button Pressed");
-        //SaveManager.Instance.SaveGame();
+        SaveManager.Instance.SaveGame();
+        Hide();
     }
 
     private static void OnLoadButtonPressed()

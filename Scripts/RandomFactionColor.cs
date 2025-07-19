@@ -17,7 +17,7 @@ public partial class RandomFactionColor : Node
 
     private void RandomFactionColors()
     {
-        if (Arrays.colors.Length < Autoload.Instance.allFactionDataList.Count)
+        if (Arrays.colors.Length < SaveManager.Instance.saveGameData.allFactionDataList.Count)
         {
             //GD.Print("Not enough color options for all Sprite Renderers!");
             return;
@@ -27,7 +27,7 @@ public partial class RandomFactionColor : Node
         List<Color> availableColors = new(Arrays.colors);
 
         // Loop through each factionNameAndColors and assign a random color32 from available options
-        foreach (FactionData factionData in Autoload.Instance.allFactionDataList)
+        foreach (FactionData factionData in SaveManager.Instance.saveGameData.allFactionDataList)
         {
             int randomIndex = random.Next(0, availableColors.Count);
             factionData.factionColor = availableColors[randomIndex];

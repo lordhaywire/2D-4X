@@ -31,7 +31,7 @@ public partial class Autoload : Node
     public readonly System.Collections.Generic.Dictionary<AllEnums.Terrain, List<StoryEventData>> eventsByTerrainDictionary = [];
     
     public FactionData playerFactionData;
-    [Export] public Godot.Collections.Array<FactionData> allFactionDataList = [];
+    //[Export] public Godot.Collections.Array<FactionData> allFactionDataList = [];
 
     public override void _Ready()
     {
@@ -81,7 +81,7 @@ public partial class Autoload : Node
                 string filePath = path + fileName;
                 Resource readResource = ResourceLoader.Load(filePath);
                 GD.Print($"Loaded Resource: {filePath}");
-                resources.Add(readResource);
+                resources.Add(readResource.Duplicate());
             }
 
             dirAccess.ListDirEnd(); // Always close the directory listing

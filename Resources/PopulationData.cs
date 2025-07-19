@@ -29,7 +29,6 @@ public partial class PopulationData : Resource
 
     [Export] private AllEnums.HeroType heroType;
 
-    [Export]
     public AllEnums.HeroType HeroType
     {
         get => heroType;
@@ -68,9 +67,8 @@ public partial class PopulationData : Resource
             loyaltyAdjusted = Math.Min(value, 100);
     }
 
-    [Export] public int happiness;
+    [Export] private int happiness;
 
-    [Export]
     public int Happiness
     {
         get => happiness;
@@ -95,16 +93,18 @@ public partial class PopulationData : Resource
     // Resource needs, currently there is just 1 need, Remnants.
     [Export] public Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> needs;
 
-    [ExportGroup("Attributes")] [Export]
-    public Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes; // = [];
+    [ExportGroup("Attributes")] 
+    [Export] public Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes; // = [];
 
     [ExportGroup("Skills")] [Export] public Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills; // = [];
     [Export] public SkillData preferredSkill;
     [Export] public InterestData interestData;
 
-    [ExportGroup("Work")] [Export] public AllEnums.Activities activity;
+    [ExportGroup("Work")] 
+    [Export] public AllEnums.Activities activity;
 
-    [ExportGroup("Inventory")] [Export] public bool useNewestEquipment;
+    [ExportGroup("Inventory")] 
+    [Export] public bool useNewestEquipment;
     [Export] public GoodData[] equipment;
 
     [Export] public CountyImprovementData currentCountyImprovement; // Used for work and building.
