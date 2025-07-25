@@ -210,7 +210,7 @@ collisionRectangleShape = SubResource("RectangleShape2D_co2vr")
 [node name="County Generation" type="Node" parent="Game Controller Node"]
 script = ExtResource("16_pxxn4")
 
-[node name="County Population Generation" type="Node" parent="Game Controller Node"]
+[node name="Population Generation" type="Node" parent="Game Controller Node"]
 script = ExtResource("17_1215r")
 
 [node name="Random Faction Colors" type="Node" parent="Game Controller Node"]

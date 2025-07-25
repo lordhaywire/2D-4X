@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using AutoloadSpace;
 
 namespace PlayerSpace;
@@ -7,6 +9,7 @@ namespace PlayerSpace;
 [GlobalClass]
 public partial class PopulationData : Resource
 {
+    [Export] public int populationId;
     [Export] public FactionData factionData;
     [Export] public int location;
     [Export] public int lastLocation;
@@ -46,13 +49,13 @@ public partial class PopulationData : Resource
     [Export] public int numberOfSubordinatesWanted;
     [Export] public Godot.Collections.Array<PopulationData> heroSubordinates; //=[];
 
-    [ExportGroup("Perks")] [Export] public Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks;
+    [ExportGroup("Perks")] 
+    [Export] public Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks;
 
     [ExportGroup("Expendables")] [Export] public int hitPoints;
     [Export] public int maxHitPoints;
 
-    [Export]
-    public int
+    [Export] public int
         moraleExpendable; // I think we are going to have this as leader morale or army morale or some shit.
 
     [Export] public int loyaltyBase;
@@ -100,11 +103,9 @@ public partial class PopulationData : Resource
     [Export] public SkillData preferredSkill;
     [Export] public InterestData interestData;
 
-    [ExportGroup("Work")] 
-    [Export] public AllEnums.Activities activity;
+    [ExportGroup("Work")] [Export] public AllEnums.Activities activity;
 
-    [ExportGroup("Inventory")] 
-    [Export] public bool useNewestEquipment;
+    [ExportGroup("Inventory")] [Export] public bool useNewestEquipment;
     [Export] public GoodData[] equipment;
 
     [Export] public CountyImprovementData currentCountyImprovement; // Used for work and building.
@@ -113,6 +114,67 @@ public partial class PopulationData : Resource
     [Export] public ResearchItemData currentResearchItemData;
 
     public HeroToken heroToken;
+
+    public PopulationDto ToDto()
+    {
+        return new PopulationDto
+        {
+            PopulationId = populationId,
+            FactionId = factionData?.factionId,
+            Location = location,
+            LastLocation = lastLocation,
+            Destination = destination,
+
+            FirstName = firstName,
+            LastName = lastName,
+            IsMale = isMale,
+            Age = age,
+
+            Personality = personality.ToString(),
+            IsHero = isHero,
+            HeroType = HeroType.ToString(),
+            NumberOfSubordinatesWanted = numberOfSubordinatesWanted,
+
+            HeroSubordinates = heroSubordinates.Select(h => h.populationId).ToList(),
+            Perks = perks.ToDictionary(
+                kvp => kvp.Key.ToString(),
+                kvp => PerkData.ToDto(kvp.Value)),
+            HitPoints = hitPoints,
+            MaxHitPoints = maxHitPoints,
+            MoraleExpendable = moraleExpendable,
+            LoyaltyBase = loyaltyBase,
+            LoyaltyAdjusted = LoyaltyAdjusted,
+            Happiness = Happiness,
+
+            DaysEmployed = daysEmployed,
+            DaysEmployedButIdle = daysEmployedButIdle,
+            DaysStarving = daysStarving,
+            DaysRecruited = daysRecruited,
+            DaysUntilServiceStarts = daysUntilServiceStarts,
+
+            Needs = needs.ToDictionary(kvp => kvp.Key.ToString(), kvp => kvp.Value),
+
+            Attributes = attributes.ToDictionary(
+                kvp => kvp.Key.ToString(),
+                kvp => kvp.Value.ToDto()),
+
+            Skills = skills.ToDictionary(
+                kvp => kvp.Key.ToString(),
+                kvp => kvp.Value.ToDto()),
+
+            PreferredSkill = preferredSkill?.skillName,
+            InterestData = interestData?.interestName,
+
+            Activity = activity.ToString(),
+            UseNewestEquipment = useNewestEquipment,
+
+            Equipment = equipment?.Select(e => e.ToDto()).ToList() ?? new List<GoodDto>(),
+
+            CurrentCountyImprovement = currentCountyImprovement?.improvementName,
+            PassiveResearchItem = passiveResearchItemData?.researchName,
+            CurrentResearchItem = currentResearchItemData?.researchName
+        };
+    }
 
     public bool CheckForPerk(AllEnums.Perks perk)
     {
@@ -128,7 +190,9 @@ public partial class PopulationData : Resource
     public void ChangeToArmy()
     {
         isHero = true;
-        HeroType = HeroType == AllEnums.HeroType.FactionLeader ? AllEnums.HeroType.FactionLeaderArmyLeader : AllEnums.HeroType.ArmyLeader;
+        HeroType = HeroType == AllEnums.HeroType.FactionLeader
+            ? AllEnums.HeroType.FactionLeaderArmyLeader
+            : AllEnums.HeroType.ArmyLeader;
 
         County selectCounty = (County)Globals.Instance.countiesParent.GetChild(location);
         selectCounty.countyData.armiesInCountyList.Add(this);
@@ -138,7 +202,7 @@ public partial class PopulationData : Resource
     public void UpdateActivity(AllEnums.Activities newActivity)
     {
         activity = newActivity;
-        
+
         if (newActivity == AllEnums.Activities.Idle && factionData.isPlayer)
         {
             GD.Print($"{GetFullName()} is set to idle!");

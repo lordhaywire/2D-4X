@@ -86,4 +86,16 @@ public partial class AttributeData : Resource
         }
         return newAttributes;
     }
+    
+    public AttributeDto ToDto()
+    {
+        return new AttributeDto
+        {
+            Attribute = attribute,
+            AttributeAbbreviation = attributeAbbreviation,
+            AttributeName = attributeName,
+            AttributeDescription = attributeDescription,
+            AttributeLevel = attributeLevel,
+        };
+    }
 }

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Text.Json;
 using AutoloadSpace;
 using Godot;
 
@@ -11,6 +13,8 @@ public partial class SaveManager : Node
 
     private string saveFolderPath = "user://saves";
     private string saveFilePath = "user://saves/savegame.tres";
+    private string saveFilePathJson = "user://saves/savegame.json";
+    
 
     public override void _Ready()
     {
@@ -37,7 +41,7 @@ public partial class SaveManager : Node
         { 
             saveGameData = (SaveGameData)ResourceLoader.Load(saveFilePath);
             // We may want to move this to just be saved inside the saveGameData on its own.
-            foreach (FactionData factionData in SaveManager.Instance.saveGameData.allFactionDataList)
+            foreach (FactionData factionData in saveGameData.allFactionDataList)
             {
                 if (factionData.isPlayer)
                 {
@@ -50,6 +54,30 @@ public partial class SaveManager : Node
             GD.Print("Save game folder is missing, you are so fucked.");
         }
     }
+    
+    private void SaveGameToJson()
+    {
+        JsonSerializerOptions options = new JsonSerializerOptions
+        {
+            WriteIndented = true
+        };
+
+        List<FactionDto> factionDtos = [];
+
+        foreach (FactionData faction in saveGameData.allFactionDataList)
+        {
+            factionDtos.Add(faction.ToDto());
+        }
+
+
+        string json = JsonSerializer.Serialize(factionDtos, options);
+
+        FileAccess file = FileAccess.Open(saveFilePathJson, FileAccess.ModeFlags.Write);
+        file.StoreString(json);
+        file.Close();
+
+        //GD.Print("Save Game saved as JSON:\n" + json);
+    }
 
     private bool CheckForSaveFolder()
     {
@@ -60,6 +88,7 @@ public partial class SaveManager : Node
 
     private void SaveFileToDisk()
     {
+        SaveGameToJson();
         ResourceSaver.Save(saveGameData, saveFilePath);
     }
 

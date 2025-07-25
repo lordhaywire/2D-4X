@@ -88,6 +88,7 @@ public partial class PopulationGeneration : Node
                 // This is for the standard population.
                 PopulationData newPopulationData = new()
                 {
+                    populationId =  SaveManager.Instance.saveGameData.currentPopulationId,
                     factionData = currentCountyData.factionData,
                     location = currentCountyData.countyId,
                     lastLocation = -1,
@@ -130,6 +131,7 @@ public partial class PopulationGeneration : Node
             {
                 PopulationData newPopulationData = new()
                 {
+                    populationId =  SaveManager.Instance.saveGameData.currentPopulationId,
                     factionData = currentCountyData.factionData,
                     location = currentCountyData.countyId,
                     lastLocation = -1,
@@ -174,7 +176,8 @@ public partial class PopulationGeneration : Node
                 // Add the hero to allHeroesList
                 currentCountyData.factionData.AddHeroToAllHeroesList(newPopulationData);
             }
-                
+            GD.Print("PopulationID: " + SaveManager.Instance.saveGameData.currentPopulationId);
+            SaveManager.Instance.saveGameData.currentPopulationId++;
         }
     }
     private static InterestData GenerateInterest()

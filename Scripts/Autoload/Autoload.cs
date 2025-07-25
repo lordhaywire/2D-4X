@@ -28,10 +28,9 @@ public partial class Autoload : Node
     public List<InterestData> allInterestData = []; // Todo: Figure out why this can be private.  It should be used in populationGeneration.
     public List<SkillData> allSkillData = [];
 
-    public readonly System.Collections.Generic.Dictionary<AllEnums.Terrain, List<StoryEventData>> eventsByTerrainDictionary = [];
+    public readonly Dictionary<AllEnums.Terrain, List<StoryEventData>> eventsByTerrainDictionary = [];
     
     public FactionData playerFactionData;
-    //[Export] public Godot.Collections.Array<FactionData> allFactionDataList = [];
 
     public override void _Ready()
     {
