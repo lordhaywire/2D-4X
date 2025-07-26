@@ -86,7 +86,7 @@ public class CountyAI
     public static CountyImprovementData FindCountyImpovementOfType(County county
         , AllEnums.FactionGoodType factionResourceType)
     {
-        foreach (CountyImprovementData countyImprovementData in county.countyData.factionData.allCountyImprovements)
+        foreach (CountyImprovementData countyImprovementData in county.countyData.factionData.allFactionKnownCountyImprovements)
         {
             if (countyImprovementData.factionResourceType == factionResourceType)
             {

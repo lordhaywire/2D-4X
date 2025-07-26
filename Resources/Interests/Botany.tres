@@ -5,5 +5,5 @@
 [resource]
 script = ExtResource("1_hyg5o")
 interestType = 1
-name = "INTEREST_BOTANY"
-description = ""
+interestName = "INTEREST_BOTANY"
+interestDescription = "INTEREST_DESCRIPTION_BOTANY"

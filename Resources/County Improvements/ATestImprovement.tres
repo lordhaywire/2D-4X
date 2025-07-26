@@ -8,42 +8,27 @@
 
 [sub_resource type="Resource" id="Resource_ejuje"]
 script = ExtResource("4_dmiy5")
-workAmountAfterSkillCheck = 0
 workCost = 1
-workAmount = 0
-todaysGoodsAmountGenerated = 0
-averageDailyAmountGenerated = 0.0
-storageAmount = 0
-AverageDailyGoodsAmountGenerated = 0.0
 metadata/_custom_type_script = "uid://b6u77qyvyfqm4"
 
 [resource]
 script = ExtResource("5_0kwg3")
-currentAmountOfConstruction = 0
-numberBuilt = 0
-countyImprovementType = 0
-prioritize = false
 improvementTexture = ExtResource("1_t3a4m")
 improvementName = "A Test County Improvement"
 improvementDescription = "A Test County Improvement Description"
 workSkill = 4
 interestData = ExtResource("2_py5va")
 goodsConstructionCost = null
-CurrentAmountOfConstruction = 0
 maxAmountOfConstruction = 10
 maxBuilders = 5
-adjustedMaxBuilders = 0
 maxWorkers = 5
-adjustedMaxWorkers = 0
 countyResourceType = 6
 factionResourceType = 1
 outputGoods = Dictionary[Object, Object]({
 ExtResource("3_47r5f"): SubResource("Resource_ejuje")
 })
-allDailyWorkAmountAtImprovementCompleted = 0
 uniqueInputGoods = null
 inputGoods = null
 countyStockpiledGoods = null
-status = 0
 populationAtImprovement = null
 metadata/_custom_type_script = "uid://blu41dxinr54t"

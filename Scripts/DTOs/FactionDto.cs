@@ -13,7 +13,7 @@ public class FactionDto
     public int FactionCapitalCounty { get; set; }
 
     // Collections
-    public List<string> ResearchItems { get; set; } = [];
+    public List<ResearchItemDto> ResearchItems { get; set; } = [];
     public List<string> ResearchableResearch { get; set; } = [];
     public List<string> CountiesFactionOwns { get; set; } = [];
     public List<int> AllHeroesList { get; set; } = [];

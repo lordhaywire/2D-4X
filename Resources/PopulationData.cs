@@ -49,8 +49,7 @@ public partial class PopulationData : Resource
     [Export] public int numberOfSubordinatesWanted;
     [Export] public Godot.Collections.Array<PopulationData> heroSubordinates; //=[];
 
-    [ExportGroup("Perks")] 
-    [Export] public Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks;
+    [ExportGroup("Perks")] [Export] public Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks;
 
     [ExportGroup("Expendables")] [Export] public int hitPoints;
     [Export] public int maxHitPoints;
@@ -96,8 +95,8 @@ public partial class PopulationData : Resource
     // Resource needs, currently there is just 1 need, Remnants.
     [Export] public Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> needs;
 
-    [ExportGroup("Attributes")] 
-    [Export] public Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes; // = [];
+    [ExportGroup("Attributes")] [Export]
+    public Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes; // = [];
 
     [ExportGroup("Skills")] [Export] public Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills; // = [];
     [Export] public SkillData preferredSkill;
@@ -174,6 +173,164 @@ public partial class PopulationData : Resource
             PassiveResearchItem = passiveResearchItemData?.researchName,
             CurrentResearchItem = currentResearchItemData?.researchName
         };
+    }
+
+    public static PopulationData FromDto(PopulationDto dto)
+    {
+        PopulationData pop = new PopulationData();
+
+        // 🔹 Basic info
+        pop.populationId = dto.PopulationId;
+
+        // 🔹 Reconnect FactionData by ID
+        if (dto.FactionId.HasValue)
+        {
+            pop.factionData = SaveManager.Instance.saveGameData.allFactionDataList
+                .FirstOrDefault(f => f.factionId == dto.FactionId.Value);
+        }
+
+        pop.location = dto.Location;
+        pop.lastLocation = dto.LastLocation;
+        pop.destination = dto.Destination;
+
+        pop.firstName = dto.FirstName;
+        pop.lastName = dto.LastName;
+        pop.isMale = dto.IsMale;
+        pop.age = dto.Age;
+
+        // 🔹 Personality (convert string to enum)
+        if (Enum.TryParse(dto.Personality, out AllEnums.Personality parsedPersonality))
+        {
+            pop.personality = parsedPersonality;
+        }
+
+        pop.isHero = dto.IsHero;
+
+        // 🔹 HeroType (convert string to enum)
+        if (Enum.TryParse(dto.HeroType, out AllEnums.HeroType parsedHeroType))
+        {
+            pop.HeroType = parsedHeroType;
+        }
+
+        pop.numberOfSubordinatesWanted = dto.NumberOfSubordinatesWanted;
+
+        // 🔹 Hero Subordinates (IDs → PopulationData references)
+        pop.heroSubordinates = new Godot.Collections.Array<PopulationData>();
+        foreach (int subId in dto.HeroSubordinates)
+        {
+            PopulationData subordinate = SaveManager.Instance.saveGameData.allPopulationDataList
+                .FirstOrDefault(p => p.populationId == subId);
+
+            if (subordinate != null)
+                pop.heroSubordinates.Add(subordinate);
+        }
+
+        // 🔹 Perks
+        pop.perks = new Godot.Collections.Dictionary<AllEnums.Perks, PerkData>();
+        foreach (var kvp in dto.Perks)
+        {
+            if (Enum.TryParse(kvp.Key, out AllEnums.Perks perkEnum))
+            {
+                PerkData perk = PerkData.FromDto(kvp.Value);
+                pop.perks[perkEnum] = perk;
+            }
+        }
+
+        // 🔹 Expendables
+        pop.hitPoints = dto.HitPoints;
+        pop.maxHitPoints = dto.MaxHitPoints;
+        pop.moraleExpendable = dto.MoraleExpendable;
+        pop.loyaltyBase = dto.LoyaltyBase;
+        pop.LoyaltyAdjusted = dto.LoyaltyAdjusted;
+        pop.Happiness = dto.Happiness;
+
+        // 🔹 Employment / time info
+        pop.daysEmployed = dto.DaysEmployed;
+        pop.daysEmployedButIdle = dto.DaysEmployedButIdle;
+        pop.daysStarving = dto.DaysStarving;
+        pop.daysRecruited = dto.DaysRecruited;
+        pop.daysUntilServiceStarts = dto.DaysUntilServiceStarts;
+
+        // 🔹 Needs (string → enum)
+        pop.needs = new Godot.Collections.Dictionary<AllEnums.CountyGoodType, int>();
+        foreach (var kvp in dto.Needs)
+        {
+            if (Enum.TryParse(kvp.Key, out AllEnums.CountyGoodType goodType))
+            {
+                pop.needs[goodType] = kvp.Value;
+            }
+        }
+
+        // 🔹 Attributes
+        pop.attributes = new Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData>();
+        foreach (var kvp in dto.Attributes)
+        {
+            if (Enum.TryParse(kvp.Key, out AllEnums.Attributes attrEnum))
+            {
+                pop.attributes[attrEnum] = AttributeData.FromDto(kvp.Value);
+            }
+        }
+
+        // 🔹 Skills
+        pop.skills = new Godot.Collections.Dictionary<AllEnums.Skills, SkillData>();
+        foreach (var kvp in dto.Skills)
+        {
+            if (Enum.TryParse(kvp.Key, out AllEnums.Skills skillEnum))
+            {
+                pop.skills[skillEnum] = SkillData.FromDto(kvp.Value);
+            }
+        }
+
+        // 🔹 Preferred Skill (by name)
+        if (!string.IsNullOrEmpty(dto.PreferredSkill))
+        {
+            pop.preferredSkill = Autoload.Instance.allSkillData
+                .FirstOrDefault(s => s.skillName == dto.PreferredSkill);
+        }
+
+        // 🔹 InterestData (by name)
+        if (!string.IsNullOrEmpty(dto.InterestData))
+        {
+            pop.interestData = Autoload.Instance.allInterestData
+                .FirstOrDefault(i => i.interestName == dto.InterestData);
+        }
+
+        // 🔹 Activity (convert string to enum)
+        if (Enum.TryParse(dto.Activity, out AllEnums.Activities parsedActivity))
+        {
+            pop.activity = parsedActivity;
+        }
+
+        pop.useNewestEquipment = dto.UseNewestEquipment;
+
+        // 🔹 Equipment (convert GoodDto → GoodData)
+        if (dto.Equipment != null)
+        {
+            pop.equipment = dto.Equipment.Select(g => GoodData.FromDto(g)).ToArray();
+        }
+
+        // 🔹 Current County Improvement
+        if (!string.IsNullOrEmpty(dto.CurrentCountyImprovement))
+        {
+            pop.currentCountyImprovement = Autoload.Instance.allCountyImprovementData
+                .FirstOrDefault(c => c.improvementName == dto.CurrentCountyImprovement);
+        }
+
+        // 🔹 Passive Research
+        if (!string.IsNullOrEmpty(dto.PassiveResearchItem))
+        {
+            pop.passiveResearchItemData = Autoload.Instance.allResearchItemData
+                .FirstOrDefault(r => r.researchName == dto.PassiveResearchItem);
+        }
+
+        // 🔹 Current Research
+        if (!string.IsNullOrEmpty(dto.CurrentResearchItem))
+        {
+            pop.currentResearchItemData = Autoload.Instance.allResearchItemData
+                .FirstOrDefault(r => r.researchName == dto.CurrentResearchItem);
+        }
+
+        return pop;
     }
 
     public bool CheckForPerk(AllEnums.Perks perk)

@@ -6,6 +6,6 @@ namespace PlayerSpace;
 public partial class InterestData : Resource
 {
     [Export] public AllEnums.InterestType interestType;
-    [Export] public string name;
-    [Export] public string description;
+    [Export] public string interestName;
+    [Export] public string interestDescription;
 }

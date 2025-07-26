@@ -355,3 +355,10 @@ WORD_LOAD,Load,Carga
 PHRASE_DEVELOPER_OPTIONS,Developer Options,Opciones de desarrollador
 WORD_START,Start,Empezar
 WORD_EXIT,Exit,Salida
+INTEREST_DESCRIPTION_BIOLOGY,The interest of biology.,El interés de la biología.
+INTEREST_DESCRIPTION_BOTANY,The interest of botany.,El interés de la botánica.
+INTEREST_DESCRIPTION_ENGINEERING,The interest of engineering.,El interés de la ingeniería.
+INTEREST_DESCRIPTION_HUMANITIES,The interest of humanities.,El interés de las humanidades.
+INTEREST_DESCRIPTION_INFORMATION,The interest of information.,El interés de la información.
+INTEREST_DESCRIPTION_POLITICS,The interest of politics.,El interés de la política.
+INTEREST_DESCRIPTION_WARFARE,The interest of warfare.,El interés de la guerra.

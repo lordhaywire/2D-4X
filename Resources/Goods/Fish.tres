@@ -7,22 +7,14 @@
 script = ExtResource("1_4r0h8")
 equipmentType = 4
 equipmentTier = 5
-equipmentBonus = 0
 metadata/_custom_type_script = "uid://c87la23ufut0h"
 
 [resource]
 script = ExtResource("1_4tpxq")
 goodName = "GOOD_FISH"
 description = "GOOD_DESCRIPTION_FISH"
-goodType = 0
 countyGoodType = 3
 factionGoodType = 3
 perishable = 1
 equipmentData = SubResource("Resource_4r0h8")
-failureRate = 0
-remnantSubstitutable = false
-useRemnants = false
-amount = 0
-Amount = 0
 maxAmount = 2147483647
-MaxAmount = 0

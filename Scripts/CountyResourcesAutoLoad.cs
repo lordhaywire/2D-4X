@@ -8,7 +8,8 @@ public partial class CountyResourcesAutoLoad : Node
     // This is for the map editor, I believe.
     public static CountyResourcesAutoLoad Instance { get; private set; }
 
-    private string pathToCountyDatas = "res://Resources/Counties/";
+    // Todo: This needs to use the Resource Loading method in Autoload.  Its already loaded, actually.
+    private const string PathToCountyData = "res://Resources/Counties/";
     [Export] public Godot.Collections.Array<CountyData> countyDatas;// = [];
 
     public override void _Ready()
@@ -21,7 +22,7 @@ public partial class CountyResourcesAutoLoad : Node
 
     private void LoadCountyResources()
     {
-        DirAccess directory = DirAccess.Open(pathToCountyDatas);
+        DirAccess directory = DirAccess.Open(PathToCountyData);
         if (directory != null)
         {
             directory.ListDirBegin();
@@ -31,7 +32,7 @@ public partial class CountyResourcesAutoLoad : Node
                 // Load county resources from disk.
                 foreach (string name in files)
                 {
-                    CountyData countyData = (CountyData)GD.Load(pathToCountyDatas + name).Duplicate();
+                    CountyData countyData = (CountyData)GD.Load(PathToCountyData + name).Duplicate();
                     countyDatas.Add(countyData);
                     //GD.Print("County that was added: " + countyData.countyName);
                 }

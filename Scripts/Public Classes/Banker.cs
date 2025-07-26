@@ -213,7 +213,7 @@ public class Banker
         //if (populationData.factionData == Globals.Instance.playerFactionData)
         //{
         EventLog.Instance.AddLog($"{populationData.location} " +
-            $"{populationData.firstName} - {populationData.interestData.name} " +
+            $"{populationData.firstName} - {populationData.interestData.interestName} " +
             $"{TranslationServer.Translate(populationData.currentResearchItemData.researchName)}" +
             $": {researchAmount}");
         //}

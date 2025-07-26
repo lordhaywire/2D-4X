@@ -25,24 +25,22 @@ public partial class FactionData : Resource
 
     public readonly Diplomacy diplomacy = new();
 
-    [Export]
-    public Godot.Collections.Array<CountyImprovementData>
-        allCountyImprovements; // This includes all county improvements, even possible ones.
+    [Export] public Godot.Collections.Array<CountyImprovementData>
+        allFactionKnownCountyImprovements; // This includes all county improvements, even possible ones.
 
     // All Faction Research Offices.
     [Export] public Godot.Collections.Array<CountyImprovementData> researchOffices;
 
     // Goods.
-    [ExportGroup("Goods")] [Export]
-    public Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData> factionGoods;
-
+    [ExportGroup("Goods")] 
+    [Export] public Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData> factionGoods;
     [Export] public Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData> yesterdaysFactionGoods;
     [Export] public Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData> amountUsedFactionGoods;
 
     public readonly List<War> wars = [];
 
-    [ExportGroup("Diplomatic Matrix")] [Export]
-    public Godot.Collections.Dictionary<string, bool> factionWarDictionary;
+    [ExportGroup("Diplomatic Matrix")] 
+    [Export] public Godot.Collections.Dictionary<string, bool> factionWarDictionary;
 
     public FactionDto ToDto()
     {
@@ -56,9 +54,11 @@ public partial class FactionData : Resource
             FactionCapitalCounty = factionCapitalCounty
         };
 
+        // TODO: We need to get the actual saved JSON info from disk for this because the Resources are unique.
         // Convert research items (assuming they have names or IDs)
         foreach (ResearchItemData research in researchItems)
-            dto.ResearchItems.Add(research.researchName);
+            dto.ResearchItems.Add(research.ToDto());
+
 
         foreach (ResearchItemData research in researchableResearch)
             dto.ResearchableResearch.Add(research.researchName);
@@ -72,7 +72,7 @@ public partial class FactionData : Resource
         if (factionLeader != null)
             dto.FactionLeader = factionLeader.populationId;
 
-        foreach (CountyImprovementData improvement in allCountyImprovements)
+        foreach (CountyImprovementData improvement in allFactionKnownCountyImprovements)
             dto.AllCountyImprovements.Add(improvement.improvementName);
 
         foreach (CountyImprovementData office in researchOffices)
@@ -111,22 +111,12 @@ public partial class FactionData : Resource
             factionCapitalCounty = factionDto.FactionCapitalCounty
         };
 
-        // TODO: Replace these with actual resource lookups as you build the loader
-        // (for now they’re just placeholders)
+        // TODO: We need to get the actual saved JSON info from disk for this because the Resources are unique.
         factionData.researchItems = [];
-        foreach (string researchName in factionDto.ResearchItems)
+        foreach (ResearchItemDto researchDto in factionDto.ResearchItems)
         {
-            ResearchItemData found = Autoload.Instance.allResearchItemData
-                .FirstOrDefault(r => r.researchName == researchName);
-
-            if (found != null)
-            {
-                factionData.researchItems.Add(found);
-            }
-            else
-            {
-                GD.PrintErr($"[FactionData.FromDto] Could not find ResearchItemData for {researchName}");
-            }
+            ResearchItemData loadedItem = ResearchItemData.FromDto(researchDto);
+            factionData.researchItems.Add(loadedItem);
         }
 
         factionData.researchableResearch = [];
@@ -145,7 +135,7 @@ public partial class FactionData : Resource
             }
         }
 
-        // THis is going to break when we move County Generation from Main to Game Generation.
+        // TODO: This is going to break when we move County Generation from Main to Game Generation.
         factionData.countiesFactionOwns = [];
         foreach (string countyName in factionDto.CountiesFactionOwns)
         {
@@ -164,31 +154,61 @@ public partial class FactionData : Resource
             }
         }
 
+        factionData.allHeroesList = new Godot.Collections.Array<PopulationData>();
 
-        factionData.allHeroesList = [];
         foreach (int heroId in factionDto.AllHeroesList)
         {
-            // Load or create PopulationData here later
+            PopulationData hero = SaveManager.Instance.saveGameData.allPopulationDataList
+                .FirstOrDefault(p => p.populationId == heroId);
+
+            if (hero != null)
+            {
+                factionData.allHeroesList.Add(hero);
+            }
         }
 
-        if (!string.IsNullOrEmpty(factionDto.FactionLeader))
+        if (factionDto.FactionLeader > -1)
         {
-            // Look up leader by name or ID (future logic here)
-            // faction.factionLeader = ResourceLoader.Load<PopulationData>($"res://heroes/{dto.FactionLeader}.tres");
+            PopulationData leader = SaveManager.Instance.saveGameData.allPopulationDataList
+                .FirstOrDefault(p => p.populationId == factionDto.FactionLeader);
+
+            if (leader != null)
+            {
+                factionData.factionLeader = leader;
+            }
+            else
+            {
+                GD.PrintErr($"Faction leader with ID {factionDto.FactionLeader} not found in save data.");
+            }
         }
 
-        factionData.allCountyImprovements = new Godot.Collections.Array<CountyImprovementData>();
+
+        // TODO: We need to get the actual saved JSON info from disk for this because the Resources are unique.
+        factionData.allFactionKnownCountyImprovements = new Godot.Collections.Array<CountyImprovementData>();
+
         foreach (string improvementName in factionDto.AllCountyImprovements)
         {
-            // Load CountyImprovementData
+            CountyImprovementData improvement = Autoload.Instance.allCountyImprovementData
+                .FirstOrDefault(c => c.improvementName == improvementName);
+
+            if (improvement != null)
+            {
+                factionData.allFactionKnownCountyImprovements.Add(improvement);
+            }
+            else
+            {
+                GD.PrintErr($"CountyImprovement '{improvementName}' not found in allCountyImprovementData.");
+            }
         }
 
+        // TODO: We need to get the actual saved JSON info from disk for this because the Resources are unique.
         factionData.researchOffices = new Godot.Collections.Array<CountyImprovementData>();
         foreach (string officeName in factionDto.ResearchOffices)
         {
             // Load CountyImprovementData
         }
 
+        // TODO: We need to get the actual saved JSON info from disk for this because the Resources are unique.
         // ✅ Convert faction goods dictionaries
         factionData.factionGoods = new Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData>();
         foreach (var kvp in factionDto.FactionGoods)
@@ -199,13 +219,15 @@ public partial class FactionData : Resource
         factionData.yesterdaysFactionGoods = new Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData>();
         foreach (var kvp in factionDto.YesterdaysFactionGoods)
         {
-            factionData.yesterdaysFactionGoods[Enum.Parse<AllEnums.FactionGoodType>(kvp.Key)] = GoodData.FromDto(kvp.Value);
+            factionData.yesterdaysFactionGoods[Enum.Parse<AllEnums.FactionGoodType>(kvp.Key)] =
+                GoodData.FromDto(kvp.Value);
         }
 
         factionData.amountUsedFactionGoods = new Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData>();
         foreach (var kvp in factionDto.AmountUsedFactionGoods)
         {
-            factionData.amountUsedFactionGoods[Enum.Parse<AllEnums.FactionGoodType>(kvp.Key)] = GoodData.FromDto(kvp.Value);
+            factionData.amountUsedFactionGoods[Enum.Parse<AllEnums.FactionGoodType>(kvp.Key)] =
+                GoodData.FromDto(kvp.Value);
         }
 
         // ✅ Wars – rebuild as War objects
@@ -216,6 +238,7 @@ public partial class FactionData : Resource
             factionData.wars.Add(war);
         }
 
+        // Todo: Fix this VAR garbage.
         // ✅ Diplomatic matrix
         factionData.factionWarDictionary = new Godot.Collections.Dictionary<string, bool>();
         foreach (var kvp in factionDto.FactionWarDictionary)
@@ -281,11 +304,11 @@ public partial class FactionData : Resource
         // Generates the stockpile good dictionary.
         Haulmaster.GenerateStockpileGoodsDictionary(countyImprovementData);
 
-        allCountyImprovements.Add(CountyImprovementData.NewCopy(countyImprovementData));
+        allFactionKnownCountyImprovements.Add(CountyImprovementData.NewCopy(countyImprovementData));
         //GD.PrintRich($"[rainbow][tornado]{factionName} {countyImprovementData.improvementName} has been added.");
         // Alphabetize the list by improvementName
-        allCountyImprovements
-            = [.. allCountyImprovements.OrderBy(improvement => Tr(improvement.improvementName))];
+        allFactionKnownCountyImprovements
+            = [.. allFactionKnownCountyImprovements.OrderBy(improvement => Tr(improvement.improvementName))];
     }
 
     // Zero resources that are summed from each county.

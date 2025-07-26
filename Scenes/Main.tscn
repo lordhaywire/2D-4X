@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=81 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://World Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
 [ext_resource type="Script" uid="uid://bl7hn0hgb5876" path="res://Scripts/LoadMaps.cs" id="2_nda5i"]
@@ -20,7 +20,6 @@
 [ext_resource type="Texture2D" uid="uid://cvc31dbpf0ptl" path="res://Graphics/Tokens/Army Token Unselected.png" id="10_0wqfi"]
 [ext_resource type="Texture2D" uid="uid://bnau4cacldl0t" path="res://Graphics/Tokens/Army Token Selected.png" id="11_e5ayq"]
 [ext_resource type="Script" uid="uid://dmto35ej5sjd4" path="res://Scripts/PlayerControls.cs" id="12_vfu86"]
-[ext_resource type="Script" uid="uid://bvi0u5nh4c4p5" path="res://Scripts/CountyGeneration.cs" id="16_pxxn4"]
 [ext_resource type="Script" uid="uid://w7efp2g0eih7" path="res://Scripts/PopulationGeneration.cs" id="17_1215r"]
 [ext_resource type="Script" uid="uid://c6nd17mfkssti" path="res://Scripts/RandomFactionColor.cs" id="18_3aru6"]
 [ext_resource type="Script" uid="uid://dq7hcwrq41ub" path="res://Scripts/Clock.cs" id="19_dn5gi"]
@@ -155,6 +154,7 @@ centered = false
 
 [node name="Globals" type="Node" parent="Game Controller Node" node_paths=PackedStringArray("countiesParent")]
 script = ExtResource("2_yf7pt")
+loadGameAtStart = true
 dailyInfluenceGain = 5
 leaderOfPeopleInfluenceBonus = 5
 startPaused = true
@@ -206,9 +206,6 @@ script = ExtResource("12_vfu86")
 collisionRectangleShape = SubResource("RectangleShape2D_co2vr")
 
 [node name="Create Faction Nodes" type="Node" parent="Game Controller Node"]
-
-[node name="County Generation" type="Node" parent="Game Controller Node"]
-script = ExtResource("16_pxxn4")
 
 [node name="Population Generation" type="Node" parent="Game Controller Node"]
 script = ExtResource("17_1215r")

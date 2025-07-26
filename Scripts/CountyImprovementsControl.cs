@@ -46,7 +46,7 @@ public partial class CountyImprovementsControl : Control
         ClearImprovements();
         //GD.PrintRich($"[rainbow]Count of county improvements: " + Globals.Instance.playerFactionData.allCountyImprovements.Count);
 
-        CreateCountyImprovementButtons(Autoload.Instance.playerFactionData.allCountyImprovements
+        CreateCountyImprovementButtons(Autoload.Instance.playerFactionData.allFactionKnownCountyImprovements
             , possibleImprovementsScrollContainerParent, true);
         CreateCountyImprovementButtons(Globals.Instance.SelectedLeftClickCounty.countyData.underConstructionCountyImprovementList
             , currentImprovementsScrollContainerParent, false);

@@ -1,7 +1,8 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Reflection.Metadata.Ecma335;
+using System.Linq;
+using AutoloadSpace;
 
 namespace PlayerSpace;
 
@@ -9,13 +10,46 @@ namespace PlayerSpace;
 public partial class SkillData : Resource
 {
     [Export] public AllEnums.Skills skill;
-
     [Export] public string skillName;
     [Export] public string skillDescription;
     [Export] public int skillLevel;
     [Export] public int amountUntilLearned;
     [Export] public bool isCombatSkill;
     [Export] public AllEnums.Attributes attribute;
+
+    public SkillDto ToDto()
+    {
+        return new SkillDto
+        {
+            Skill = skill.ToString(),
+            SkillLevel = skillLevel,
+            AmountUntilLearned = amountUntilLearned
+        };
+    }
+
+    public static SkillData FromDto(SkillDto dto)
+    {
+        // Look up the base SkillData from Autoload by enum
+        AllEnums.Skills skillEnum = Enum.Parse<AllEnums.Skills>(dto.Skill);
+        SkillData baseSkillData = Autoload.Instance.allSkillData
+            .First(s => s.skill == skillEnum);
+
+        // Make a copy so we don't modify the shared template
+        SkillData skillData = new SkillData
+        {
+            skill = baseSkillData.skill,
+            skillName = baseSkillData.skillName,
+            skillDescription = baseSkillData.skillDescription,
+            isCombatSkill = baseSkillData.isCombatSkill,
+            attribute = baseSkillData.attribute,
+
+            // Overwrite unique fields
+            skillLevel = dto.SkillLevel,
+            amountUntilLearned = dto.AmountUntilLearned
+        };
+
+        return skillData;
+    }
 
     /// <summary>
     /// int attributeBonus 

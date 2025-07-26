@@ -1,10 +1,7 @@
-using PlayerSpace;
+namespace  PlayerSpace;
 
 public class AttributeDto
 {
-    public AllEnums.Attributes Attribute { get; set; }
-    public string AttributeAbbreviation { get; set; }
-    public string AttributeName { get; set; }
-    public string AttributeDescription { get; set; }
-    public int AttributeLevel { get; set; }
+    public string Attribute { get; set; }   // save the enum name (ex: "Strength")
+    public int AttributeLevel { get; set; } // only unique data
 }

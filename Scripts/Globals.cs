@@ -68,7 +68,7 @@ public partial class Globals : Node
     public bool isVisitorList;
 
     [ExportGroup("Map")]
-    [Export] public string pathToCounties = "res://Counties/";
+    public string pathToCounties = "res://Counties/";
     [Export] public Texture2D mapColorCoded;
 
     [ExportGroup("Population Generation")]

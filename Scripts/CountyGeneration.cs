@@ -14,11 +14,11 @@ public partial class CountyGeneration : Node
         AssignFactionDataToCountyData();
         AssignCountyDataToFaction();
         UpdateGoods();
-        //PrebuildCountyImprovements(); // Currently Empty.
-        foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
+        
+        foreach (CountyData countyData in Autoload.Instance.allCountyData)
         {
-            Haulmaster.CountCountyMaxStorage(county.countyData);
-            Haulmaster.AssignMaxStorageToGoods(county.countyData);
+            Haulmaster.CountCountyMaxStorage(countyData);
+            Haulmaster.AssignMaxStorageToGoods(countyData);
         }
 
         AssignStartingGoodsToCounty();
@@ -110,17 +110,17 @@ public partial class CountyGeneration : Node
     private static void UpdateGoods()
     {
         // Assign a copy of each good to each county.
-        foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
+        foreach (CountyData countyData in Autoload.Instance.allCountyData)
         {
-            CopyAndAssignGoods(county.countyData, Autoload.Instance.allGoodData);
-            UpdateScavengeableResources(county);
+            CopyAndAssignGoods(countyData, Autoload.Instance.allGoodData);
+            UpdateScavengeableResources(countyData);
         }
     }
 
-    private static void UpdateScavengeableResources(County county)
+    private static void UpdateScavengeableResources(CountyData countyData)
     {
-        county.countyData.scavengeableCannedFood = Globals.Instance.maxScavengeableFood;
-        county.countyData.scavengeableRemnants = Globals.Instance.maxScavengeableScrap;
+        countyData.scavengeableCannedFood = Globals.Instance.maxScavengeableFood;
+        countyData.scavengeableRemnants = Globals.Instance.maxScavengeableScrap;
     }
 
     private static void CopyAndAssignGoods(CountyData countyData, List<GoodData> allGoods)
@@ -140,34 +140,34 @@ public partial class CountyGeneration : Node
     private static void AssignFactionDataToCountyData()
     {
         // Cowlitz
-        County selectCounty = (County)Globals.Instance.countiesParent.GetChild(0);
-        selectCounty.countyData.factionData = SaveManager.Instance.saveGameData.allFactionDataList[0];
+        CountyData cowlitzCountyData = Autoload.Instance.allCountyData[0];
+        cowlitzCountyData.factionData = SaveManager.Instance.saveGameData.allFactionDataList[0];
         // Tillamook
-        selectCounty = (County)Globals.Instance.countiesParent.GetChild(1);
-        selectCounty.countyData.factionData = SaveManager.Instance.saveGameData.allFactionDataList[1];
+        CountyData tillamookCountyData = Autoload.Instance.allCountyData[1];
+        tillamookCountyData.factionData = SaveManager.Instance.saveGameData.allFactionDataList[1];
         // Douglas
-        selectCounty = (County)Globals.Instance.countiesParent.GetChild(2);
-        selectCounty.countyData.factionData = SaveManager.Instance.saveGameData.allFactionDataList[1];
+        CountyData douglasCountyData = Autoload.Instance.allCountyData[2];
+        douglasCountyData.factionData = SaveManager.Instance.saveGameData.allFactionDataList[1];
         // Portland
-        selectCounty = (County)Globals.Instance.countiesParent.GetChild(3);
-        selectCounty.countyData.factionData = SaveManager.Instance.saveGameData.allFactionDataList[3];
+        CountyData portlandCountyData = Autoload.Instance.allCountyData[3];
+        portlandCountyData.factionData = SaveManager.Instance.saveGameData.allFactionDataList[3];
         // Wasco
-        selectCounty = (County)Globals.Instance.countiesParent.GetChild(4);
-        selectCounty.countyData.factionData = SaveManager.Instance.saveGameData.allFactionDataList[3];
+        CountyData wascoCountyData = Autoload.Instance.allCountyData[4];
+        wascoCountyData.factionData = SaveManager.Instance.saveGameData.allFactionDataList[3];
         // Harney
-        selectCounty = (County)Globals.Instance.countiesParent.GetChild(5);
-        selectCounty.countyData.factionData = SaveManager.Instance.saveGameData.allFactionDataList[1];
+        CountyData harneyCountyData = Autoload.Instance.allCountyData[5];
+        harneyCountyData.factionData = SaveManager.Instance.saveGameData.allFactionDataList[1];
         // Umatilla
-        selectCounty = (County)Globals.Instance.countiesParent.GetChild(6);
-        selectCounty.countyData.factionData = SaveManager.Instance.saveGameData.allFactionDataList[2];
+        CountyData umatillaCountyData = Autoload.Instance.allCountyData[6];
+        umatillaCountyData.factionData = SaveManager.Instance.saveGameData.allFactionDataList[2];
     }
 
     private static void AssignCountyDataToFaction()
     {
         // This goes through every county and adds itself to the faction data already assigned to the county.
-        foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
+        foreach (CountyData countyData in Autoload.Instance.allCountyData)
         {
-            county.countyData.factionData.countiesFactionOwns.Add(county.countyData);
+            countyData.factionData.countiesFactionOwns.Add(countyData);
             //GD.Print($"Faction: {selectCounty.countyData.factionData.factionName} {selectCounty.countyData.countyName}");
         }
     }

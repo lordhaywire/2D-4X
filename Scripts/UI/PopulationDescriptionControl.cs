@@ -222,7 +222,7 @@ public partial class PopulationDescriptionControl : Control
 
     private void UpdateInterest()
     {
-        interestLabel.Text = Tr(populationData.interestData.name);
+        interestLabel.Text = Tr(populationData.interestData.interestName);
     }
 
     private void UpdatePreferredWork()

@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using AutoloadSpace;
 
 namespace PlayerSpace;
@@ -18,6 +19,7 @@ public partial class ResearchItemData : Resource
     [Export] public Texture2D researchTexture;
 
     [Export] private int amountOfResearchDone;
+
     public int AmountOfResearchDone
     {
         get { return amountOfResearchDone; }
@@ -35,10 +37,46 @@ public partial class ResearchItemData : Resource
             }
         }
     }
+
     [Export] public int costOfResearch;
+
     // This is the list of countyImprovementDatas that is research controls.
     [Export] public CountyImprovementData[] countyImprovementDatas = [];
     [Export] public Godot.Collections.Array<EnumsResearch.All> researchPrerequisites;
+
+
+    public ResearchItemDto ToDto()
+    {
+        return new ResearchItemDto
+        {
+            ResearchName = researchName,
+            FactionId = factionId,
+            AmountOfResearchDone = AmountOfResearchDone
+        };
+    }
+
+    public static ResearchItemData FromDto(ResearchItemDto dto)
+    {
+        // Look up the base template from the master list
+        ResearchItemData baseItem = Autoload.Instance.allResearchItemData
+            .FirstOrDefault(r => r.researchName == dto.ResearchName);
+
+        if (baseItem == null)
+        {
+            GD.PrintErr($"[ERROR] Could not find ResearchItemData for {dto.ResearchName}");
+            return null;
+        }
+
+        // Make a copy so we don’t overwrite the master data
+        ResearchItemData copy = baseItem.NewCopy(baseItem);
+
+        // Apply unique save data
+        copy.factionId = dto.FactionId;
+        copy.AmountOfResearchDone = dto.AmountOfResearchDone;
+
+        return copy;
+    }
+
 
     public void CompleteResearch()
     {
@@ -46,8 +84,10 @@ public partial class ResearchItemData : Resource
         Faction faction = (Faction)Globals.Instance.factionsParent.GetChild(factionId);
         if (faction.factionData == Autoload.Instance.playerFactionData)
         {
-            EventLog.Instance?.AddLog($"{Tr("PHRASE_RESEARCH_FOR")} {Tr(researchName)} {Tr("PHRASE_HAS_BEEN_COMPLETED")}.");
+            EventLog.Instance?.AddLog(
+                $"{Tr("PHRASE_RESEARCH_FOR")} {Tr(researchName)} {Tr("PHRASE_HAS_BEEN_COMPLETED")}.");
         }
+
         //GD.Print("County Improvement Array Count: " + countyImprovementDatas.Length);
         if (countyImprovementDatas.Length > 0)
         {
@@ -82,8 +122,10 @@ public partial class ResearchItemData : Resource
                 return false;
             }
         }
+
         return true;
     }
+
     public ResearchItemData NewCopy(ResearchItemData researchItemData)
     {
         ResearchItemData newResearchItemData = new()
@@ -101,18 +143,6 @@ public partial class ResearchItemData : Resource
             countyImprovementDatas = researchItemData.countyImprovementDatas,
             researchPrerequisites = researchItemData.researchPrerequisites,
         };
-        // This was an attempt at deep copying the array.
-        //countyImprovementDatas = new CountyImprovementData[researchItemData.countyImprovementDatas.Length],
-
-        /*
-        for (int i = 0; i < researchItemData.countyImprovementDatas.Length; i++)
-        {
-            countyImprovementDatas[i] = CountyImprovementData.NewCopy(researchItemData.countyImprovementDatas[i]);
-            GD.Print($"County Improvement: {countyImprovementDatas[i].improvementName}.");
-        }
-        */
-
         return newResearchItemData;
     }
-    
 }

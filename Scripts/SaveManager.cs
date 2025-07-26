@@ -14,7 +14,7 @@ public partial class SaveManager : Node
     private string saveFolderPath = "user://saves";
     private string saveFilePath = "user://saves/savegame.tres";
     private string saveFilePathJson = "user://saves/savegame.json";
-    
+
 
     public override void _Ready()
     {
@@ -24,22 +24,52 @@ public partial class SaveManager : Node
     public void SaveGame()
     {
         CheckForFolderAndCreate();
-        //UpdateSaveGameData();
         SaveFileToDisk();
     }
 
-    /*
-    private void UpdateSaveGameData()
-    {
-        saveGameData.allFactionDataList = Autoload.Instance.allFactionDataList;
-    }
-    */
 
+    private void SaveGameToJson()
+    {
+        JsonSerializerOptions options = new JsonSerializerOptions
+        {
+            WriteIndented = true
+        };
+
+        // Convert entire saveGameData into DTO
+        SaveGameDto saveDto = saveGameData.ToDto();
+
+        // Serialize everything
+        string json = JsonSerializer.Serialize(saveDto, options);
+
+        // Write JSON to disk
+        using FileAccess file = FileAccess.Open(saveFilePathJson, FileAccess.ModeFlags.Write);
+        file.StoreString(json);
+
+        GD.Print("Full game saved as JSON.");
+    }
+
+    public void LoadGameFromJson()
+    {
+        if (!CheckForSaveFolder())
+        {
+            GD.PrintErr("Save file not found!");
+            return;
+        }
+
+        string json = FileAccess.GetFileAsString(saveFilePathJson);
+        SaveGameDto saveDto = JsonSerializer.Deserialize<SaveGameDto>(json);
+
+        // Convert DTO back to runtime SaveGameData
+        saveGameData = SaveGameData.FromDto(saveDto);
+
+        GD.Print("Full game loaded from JSON.");
+    }
+
+    /*
     public void LoadGame()
     {
         if (CheckForSaveFolder())
-        { 
-            saveGameData = (SaveGameData)ResourceLoader.Load(saveFilePath);
+        {
             // We may want to move this to just be saved inside the saveGameData on its own.
             foreach (FactionData factionData in saveGameData.allFactionDataList)
             {
@@ -54,31 +84,7 @@ public partial class SaveManager : Node
             GD.Print("Save game folder is missing, you are so fucked.");
         }
     }
-    
-    private void SaveGameToJson()
-    {
-        JsonSerializerOptions options = new JsonSerializerOptions
-        {
-            WriteIndented = true
-        };
-
-        List<FactionDto> factionDtos = [];
-
-        foreach (FactionData faction in saveGameData.allFactionDataList)
-        {
-            factionDtos.Add(faction.ToDto());
-        }
-
-
-        string json = JsonSerializer.Serialize(factionDtos, options);
-
-        FileAccess file = FileAccess.Open(saveFilePathJson, FileAccess.ModeFlags.Write);
-        file.StoreString(json);
-        file.Close();
-
-        //GD.Print("Save Game saved as JSON:\n" + json);
-    }
-
+    */
     private bool CheckForSaveFolder()
     {
         DirAccess directory = DirAccess.Open("user://");
@@ -89,7 +95,6 @@ public partial class SaveManager : Node
     private void SaveFileToDisk()
     {
         SaveGameToJson();
-        ResourceSaver.Save(saveGameData, saveFilePath);
     }
 
     private void CheckForFolderAndCreate()

@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using System.Collections.Generic;
 using AutoloadSpace;
@@ -13,6 +14,43 @@ public partial class AttributeData : Resource
     [Export] public string attributeName;
     [Export] public string attributeDescription;
     [Export] public int attributeLevel;
+
+    public AttributeDto ToDto()
+    {
+        return new AttributeDto
+        {
+            Attribute = attribute.ToString(),
+            AttributeLevel = attributeLevel
+        };
+    }
+
+    public static AttributeData FromDto(AttributeDto dto)
+    {
+        // Convert the string back into the enum
+        AllEnums.Attributes attributeEnum = Enum.Parse<AllEnums.Attributes>(dto.Attribute);
+
+        // Find the base data from the master list
+        AttributeData baseData = Autoload.Instance.allAttributeData
+            .Find(attr => attr.attribute == attributeEnum);
+
+        if (baseData == null)
+        {
+            GD.PrintErr($"AttributeData not found for key: {dto.Attribute}");
+            return null;
+        }
+
+        // Create a copy and set the unique data
+        AttributeData newData = new AttributeData
+        {
+            attribute = baseData.attribute,
+            attributeAbbreviation = baseData.attributeAbbreviation,
+            attributeName = baseData.attributeName,
+            attributeDescription = baseData.attributeDescription,
+            attributeLevel = dto.AttributeLevel
+        };
+
+        return newData;
+    }
 
     /// <summary>
     /// If a -1 is put in the attribute value, then there is no bonus given.
@@ -87,15 +125,5 @@ public partial class AttributeData : Resource
         return newAttributes;
     }
     
-    public AttributeDto ToDto()
-    {
-        return new AttributeDto
-        {
-            Attribute = attribute,
-            AttributeAbbreviation = attributeAbbreviation,
-            AttributeName = attributeName,
-            AttributeDescription = attributeDescription,
-            AttributeLevel = attributeLevel,
-        };
-    }
+
 }

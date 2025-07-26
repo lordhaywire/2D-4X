@@ -10,16 +10,20 @@ public partial class Autoload : Node
 {
     public static Autoload Instance { get; private set; }
 
-    private string activitiesDirectory = "res://Resources/Activities/";
-    private string attributesDirectory = "res://Resources/Attributes/";
-    private string perksDirectory = "res://Resources/Perks/";
-    private string goodsDirectory = "res://Resources/Goods/";
-    private string researchDirectory = "res://Resources/ResearchItems/";
-    private string interestsDirectory = "res://Resources/Interests/";
-    private string skillDirectory = "res://Resources/Skills/";
+    private const string CountiesDirectory = "res://Resources/Counties/";
+    private const string ImprovementsDirectory = "res://Resources/County Improvements/";
+    private const string ActivitiesDirectory = "res://Resources/Activities/";
+    private const string AttributesDirectory = "res://Resources/Attributes/";
+    private const string PerksDirectory = "res://Resources/Perks/";
+    private const string GoodsDirectory = "res://Resources/Goods/";
+    private const string ResearchDirectory = "res://Resources/ResearchItems/";
+    private const string InterestsDirectory = "res://Resources/Interests/";
+    private const string SkillsDirectory = "res://Resources/Skills/";
 
-    private string rootEventExplorationDirectory = "res://Resources/Story Events/Exploration Events/";
+    private const string RootEventExplorationDirectory = "res://Resources/Story Events/Exploration Events/";
 
+    public List<CountyData> allCountyData = [];
+    public List<CountyImprovementData> allCountyImprovementData = [];
     public List<ActivityData> allActivityData = [];
     public List<AttributeData> allAttributeData = [];
     public List<PerkData> allPerkData = [];
@@ -35,14 +39,15 @@ public partial class Autoload : Node
     public override void _Ready()
     {
         Instance = this;
-
-        allActivityData = ReadResourcesFromDisk(activitiesDirectory).Cast<ActivityData>().ToList();
-        allAttributeData = ReadResourcesFromDisk(attributesDirectory).Cast<AttributeData>().ToList();
-        allPerkData = ReadResourcesFromDisk(perksDirectory).Cast<PerkData>().ToList();
-        allGoodData = ReadResourcesFromDisk(goodsDirectory).Cast<GoodData>().ToList();
-        allResearchItemData = ReadResourcesFromDisk(researchDirectory).Cast<ResearchItemData>().ToList();
-        allInterestData = ReadResourcesFromDisk(interestsDirectory).Cast<InterestData>().ToList();
-        allSkillData = ReadResourcesFromDisk(skillDirectory).Cast<SkillData>().ToList();
+        allCountyData = ReadResourcesFromDisk(CountiesDirectory).Cast<CountyData>().ToList();
+        allActivityData = ReadResourcesFromDisk(ActivitiesDirectory).Cast<ActivityData>().ToList();
+        allAttributeData = ReadResourcesFromDisk(AttributesDirectory).Cast<AttributeData>().ToList();
+        allPerkData = ReadResourcesFromDisk(PerksDirectory).Cast<PerkData>().ToList();
+        allGoodData = ReadResourcesFromDisk(GoodsDirectory).Cast<GoodData>().ToList();
+        allResearchItemData = ReadResourcesFromDisk(ResearchDirectory).Cast<ResearchItemData>().ToList();
+        allInterestData = ReadResourcesFromDisk(InterestsDirectory).Cast<InterestData>().ToList();
+        allSkillData = ReadResourcesFromDisk(SkillsDirectory).Cast<SkillData>().ToList();
+        allCountyImprovementData = ReadResourcesFromDisk(ImprovementsDirectory).Cast<CountyImprovementData>().ToList();
 
         GetAllExplorationEventsFromDisk();
         //TestPrintAllResourceNames();
@@ -95,10 +100,10 @@ public partial class Autoload : Node
 
     private void GetAllExplorationEventsFromDisk()
     {
-        DirAccess rootDir = DirAccess.Open(rootEventExplorationDirectory);
+        DirAccess rootDir = DirAccess.Open(RootEventExplorationDirectory);
         if (rootDir == null)
         {
-            GD.PrintErr($"Failed to open root exploration directory: {rootEventExplorationDirectory}");
+            GD.PrintErr($"Failed to open root exploration directory: {RootEventExplorationDirectory}");
             return;
         }
 
@@ -122,7 +127,7 @@ public partial class Autoload : Node
                 continue;
             }
 
-            string fullFolderPath = rootEventExplorationDirectory + folderName + "/";
+            string fullFolderPath = RootEventExplorationDirectory + folderName + "/";
 
             if (!eventsByTerrainDictionary.ContainsKey(terrain))
                 eventsByTerrainDictionary[terrain] = [];

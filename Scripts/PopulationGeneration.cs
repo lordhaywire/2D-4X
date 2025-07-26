@@ -8,8 +8,8 @@ namespace PlayerSpace;
 
 public partial class PopulationGeneration : Node
 {
-    public static PopulationGeneration Instance {  get; private set; }
-    
+    public static PopulationGeneration Instance { get; private set; }
+
     private readonly Random random = new();
 
     private Node2D countiesParent;
@@ -19,8 +19,9 @@ public partial class PopulationGeneration : Node
     private string lastName;
     private bool isMale;
 
-    [ExportGroup("For Population Generation")]
-    [Export] private int startingAttributeMin = 21;
+    [ExportGroup("For Population Generation")] [Export]
+    private int startingAttributeMin = 21;
+
     [Export] private int startingAttributeMax = 81; // One above max.
     [Export] private int startingSkillMin = 1;
     [Export] private int startingSkillMax = 51; // One above max.
@@ -33,7 +34,7 @@ public partial class PopulationGeneration : Node
     public override void _Ready()
     {
         Instance = this;
-        
+
         CreateFactionLeaders();
         CreatePopulation();
         AssignPlayerSpecificThings();
@@ -78,17 +79,17 @@ public partial class PopulationGeneration : Node
     {
         for (int i = 0; i < totalPopulation; i++)
         {
-            GenerateNameAndSex();  // This could probably be broken into two methods.
+            GenerateNameAndSex(); // This could probably be broken into two methods.
             // This needs to be up here because the personality is needed for iPersonality.
             AllEnums.Personality newPersonality = (AllEnums.Personality)GeneratePersonalities();
             int loyaltyBase = random.Next(31, 101); // This is a temporary number.
-            
+
             if (hero == false)
             {
                 // This is for the standard population.
                 PopulationData newPopulationData = new()
                 {
-                    populationId =  SaveManager.Instance.saveGameData.currentPopulationId,
+                    populationId = SaveManager.Instance.saveGameData.currentPopulationId,
                     factionData = currentCountyData.factionData,
                     location = currentCountyData.countyId,
                     lastLocation = -1,
@@ -126,12 +127,13 @@ public partial class PopulationGeneration : Node
                     heroToken = null,
                 };
                 currentCountyData.populationDataList.Add(newPopulationData);
+                SaveManager.Instance.saveGameData.allPopulationDataList.Add(newPopulationData);
             }
             else
             {
                 PopulationData newPopulationData = new()
                 {
-                    populationId =  SaveManager.Instance.saveGameData.currentPopulationId,
+                    populationId = SaveManager.Instance.saveGameData.currentPopulationId,
                     factionData = currentCountyData.factionData,
                     location = currentCountyData.countyId,
                     lastLocation = -1,
@@ -175,17 +177,21 @@ public partial class PopulationGeneration : Node
                 currentCountyData.heroesInCountyList.Add(newPopulationData);
                 // Add the hero to allHeroesList
                 currentCountyData.factionData.AddHeroToAllHeroesList(newPopulationData);
+                SaveManager.Instance.saveGameData.allPopulationDataList.Add(newPopulationData);
             }
+
             GD.Print("PopulationID: " + SaveManager.Instance.saveGameData.currentPopulationId);
             SaveManager.Instance.saveGameData.currentPopulationId++;
         }
     }
+
     private static InterestData GenerateInterest()
     {
         InterestData interest = Autoload.Instance.GetRandomInterest();
         //GD.Print("Interest: " + interest.name);
         return interest;
     }
+
     private static Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> GenerateNeeds()
     {
         Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> needs = [];
@@ -197,7 +203,8 @@ public partial class PopulationGeneration : Node
     {
         Rolls rolls = new();
         IEnumerable<KeyValuePair<AllEnums.Skills, SkillData>> sortedSkills
-            = skills.Where(keyValue => !keyValue.Value.isCombatSkill).OrderByDescending(keyValue => keyValue.Value.skillLevel);
+            = skills.Where(keyValue => !keyValue.Value.isCombatSkill)
+                .OrderByDescending(keyValue => keyValue.Value.skillLevel);
 
         // Get the skill with the highest skill level
         SkillData possiblePreferredSkill = sortedSkills.First().Value;
@@ -208,9 +215,12 @@ public partial class PopulationGeneration : Node
         if (rolls.Attribute(newAttributes[AllEnums.Attributes.Intelligence])) return;
         {
             // Create a list of non-combat skills for random selection
-            List<AllEnums.Skills> nonCombatSkills = [.. skills
-                .Where(keyValue => !keyValue.Value.isCombatSkill)
-                .Select(keyValue => keyValue.Key)];
+            List<AllEnums.Skills> nonCombatSkills =
+            [
+                .. skills
+                    .Where(keyValue => !keyValue.Value.isCombatSkill)
+                    .Select(keyValue => keyValue.Key)
+            ];
 
             if (nonCombatSkills.Count <= 0) return;
             int randomIndex = random.Next(0, nonCombatSkills.Count);
@@ -232,6 +242,7 @@ public partial class PopulationGeneration : Node
             newSkills.Add(skillData.skill, (SkillData)skillData.Duplicate());
             newSkills[skillData.skill].skillLevel = random.Next(startingSkillMin, startingSkillMax);
         }
+
         GeneratePreferredWork(newSkills);
         return newSkills;
     }
@@ -243,6 +254,7 @@ public partial class PopulationGeneration : Node
         {
             newAttributes[keyValuePair.Key].attributeLevel = random.Next(startingAttributeMin, startingAttributeMax);
         }
+
         //GD.PrintRich($"[rainbow]Intelligence: {newAttributes[AllEnums.Attributes.Intelligence].attributeLevel}");
         return newAttributes;
     }
@@ -294,6 +306,7 @@ public partial class PopulationGeneration : Node
         perks.Add(AllEnums.Perks.LeaderOfPeople, Autoload.Instance.allPerkData[(int)AllEnums.Perks.LeaderOfPeople]);
         return perks;
     }
+
     private Godot.Collections.Dictionary<AllEnums.Perks, PerkData> GeneratePopulationPerks()
     {
         Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks = [];
@@ -302,6 +315,7 @@ public partial class PopulationGeneration : Node
         {
             perks.Add(AllEnums.Perks.Unhelpful, Autoload.Instance.allPerkData[(int)AllEnums.Perks.Unhelpful]);
         }
+
         return perks;
     }
 
@@ -320,17 +334,20 @@ public partial class PopulationGeneration : Node
             if (populationCountyData.isPlayerCapital || populationCountyData.isAiCapital)
             {
                 // Generate Normal Population
-                GeneratePopulation(populationCountyData,false, Globals.Instance.totalCapitolPop);
+                GeneratePopulation(populationCountyData, false, Globals.Instance.totalCapitolPop);
                 populationCountyData.population += populationCountyData.populationDataList.Count;
-                populationCountyData.IdleWorkers = populationCountyData.population -= populationCountyData.heroesInCountyList.Count;
+                populationCountyData.IdleWorkers =
+                    populationCountyData.population -= populationCountyData.heroesInCountyList.Count;
             }
             else
             {
                 // Generate Normal Population
-                int normalPopulation = random.Next(Globals.Instance.minimumCountyPop, Globals.Instance.maximumCountyPop);
+                int normalPopulation =
+                    random.Next(Globals.Instance.minimumCountyPop, Globals.Instance.maximumCountyPop);
                 GeneratePopulation(populationCountyData, false, normalPopulation);
                 populationCountyData.population += populationCountyData.populationDataList.Count;
-                populationCountyData.IdleWorkers = populationCountyData.population -= populationCountyData.heroesInCountyList.Count;
+                populationCountyData.IdleWorkers =
+                    populationCountyData.population -= populationCountyData.heroesInCountyList.Count;
             }
         }
     }
