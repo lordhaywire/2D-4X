@@ -24,7 +24,7 @@ public partial class SaveManager : Node
     public void SaveGame()
     {
         CheckForFolderAndCreate();
-        SaveFileToDisk();
+        SaveGameToJson();
     }
 
 
@@ -90,11 +90,6 @@ public partial class SaveManager : Node
         DirAccess directory = DirAccess.Open("user://");
 
         return directory.DirExists(saveFolderPath);
-    }
-
-    private void SaveFileToDisk()
-    {
-        SaveGameToJson();
     }
 
     private void CheckForFolderAndCreate()

@@ -74,28 +74,13 @@ public partial class Globals : Node
     [ExportGroup("Population Generation")]
     [Export] public Node2D countiesParent; // Used for Population generation and random color.  I think we are going to change how the colors are distributed.
     //[Export] public int heroPopulation = 1;
-    [Export] public int totalCapitolPop = 20;
-    [Export] public int minimumCountyPop = 1;
-    [Export] public int maximumCountyPop = 4;
+
 
     [ExportGroup("Faction Shit")]
     [Export] public Node factionsParent;
     [Export] public int minimumFood;
 
-    [ExportGroup("County Stuff")]
-    // These two are populated from AllResources at Ready.
-    [Export] public int numberOfPerishableGoods; // Total perishable goods
-    [Export] public int numberOfNonperishableGoods; // Total nonperishable goods
-    [Export] public int maxScavengeableScrap = 10000;
-    [Export] public int maxScavengeableFood = 10000;
-    [Export] public int startingPerishableStorage = 2000;
-    [Export] public int startingNonperishableStorage = 2000;
-    [Export] public int startingAmountOfEachGood = 100;
-    
     [ExportGroup("Exploration Variables")]
-    [Export] public int numberOfPrimaryTerrainEvents = 10;
-    [Export] public int numberOfSecondaryTerrainEvents = 6;
-    [Export] public int numberOfTertiaryTerrainEvents = 3;
     [Export] public int explorationCost = 10;
     [Export] public int subordinateExplorationBonus = 5;
     
@@ -127,7 +112,6 @@ public partial class Globals : Node
     [Export] public int willWorkLoyalty = 20; // The loyalty a population needs to be willing to work.
                                               // 50 is too high for testing, but might work well for the real game.
     [Export] public int willFightLoyalty = 30; // Loyalty required for a population to be able to be hired as a subordinate.
-    [Export] public int startingHitPoints = 10;
     [Export] public int fastLearningNeeded = 10;
     [Export] public int mediumLearningNeeded = 50;
     [Export] public int slowLearningNeeded = 100;
@@ -148,27 +132,21 @@ public partial class Globals : Node
 
     private int researchClicked; // This is so the Research description panel knows which research was clicked.
 
-    private string listsPath = "Lists/";
-    private string maleNamesPath = "MaleNames.txt";
-    private string femaleNamesPath = "FemaleNames.txt";
-    private string lastNamesPath = "LastNames.txt";
+    
 
-    public readonly List<string> maleNames = [];
-    public readonly List<string> femaleNames = [];
-    public readonly List<string> lastNames = [];
+
 
     [ExportGroup("This is some bullshit.")]
     [Export] public bool isInsideToken;
 
-    // ReSharper disable once CollectionNeverQueried.Global
+    // ReSharper disable once CollectionNeverQueried.Global <- What the fuck is this?
     public readonly List<FactionData> deadFactions = [];
 
     public override void _Ready()
     {
         Instance = this;
         //allFactionData = [];
-        LoadNames();
-        CountGoods();
+        //CountGoods();
     }
 
     public async Task WaitFrames(int frameCount)
@@ -193,44 +171,7 @@ public partial class Globals : Node
         }
         return false;
     }
-    private void LoadNames()
-    {
-        // Load all the names from disk.
-
-        // I think the variable can be used if we open up the root directory first.
-        // Right now this code is doing nothing except the GD.Print stuff.
-        //listDirectory = ProjectSettings.LocalizePath(listsPath); 
-        GD.Print(OS.HasFeature("editor") ? "Is in the editor!!!" : "Is not in the editor!");
-
-        //listDirectory = ProjectSettings.LocalizePath(listsPath);
-        DirAccess directory = DirAccess.Open("res://");
-        if (directory.DirExists("res://Lists/"))
-        {
-            using var maleFile = FileAccess.Open("res://Lists/MaleNames.txt", FileAccess.ModeFlags.Read);//(listsPath + maleNamesPath, FileAccess.ModeFlags.Read);
-            while (maleFile.GetPosition() < maleFile.GetLength())
-            {
-                maleNames.Add(maleFile.GetLine());
-            }
-            using var femaleFile = FileAccess.Open("res://Lists/FemaleNames.txt", FileAccess.ModeFlags.Read); //(listsPath + femaleNamesPath, FileAccess.ModeFlags.Read);
-            while (femaleFile.GetPosition() < femaleFile.GetLength())
-            {
-                femaleNames.Add(femaleFile.GetLine());
-            }
-            using var lastNameFile = FileAccess.Open("res://Lists/LastNames.txt", FileAccess.ModeFlags.Read); //(listsPath + lastNamesPath, FileAccess.ModeFlags.Read);
-            while (lastNameFile.GetPosition() < lastNameFile.GetLength())
-            {
-                lastNames.Add(lastNameFile.GetLine());
-            }
-            //GD.Print("Names have been loaded.");
-        }
-        /*
-        else
-        {
-            GD.Print("Directory doesn't exist! " + listDirectory);
-        }
-        */
-
-    }
+    
 
     private static void OnMouseEnteredUI()
     {
@@ -243,7 +184,7 @@ public partial class Globals : Node
         PlayerControls.Instance.stopClickThrough = false;
         //GD.Print("Mouse Over UI: " + PlayerControls.Instance.stopClickThrough);
     }
-    
+    /*
     private void CountGoods()
     {
         int perishable = 0;
@@ -261,8 +202,9 @@ public partial class Globals : Node
                     break;
             }
         }
-        numberOfPerishableGoods = perishable;
-        numberOfNonperishableGoods = nonperishable;
+        Autoload.Instance.numberOfPerishableGoods = perishable;
+        Autoload.Instance.numberOfNonperishableGoods = nonperishable;
     }
+    */
 }
 

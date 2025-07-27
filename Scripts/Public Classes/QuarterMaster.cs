@@ -28,7 +28,7 @@ public class Quartermaster
         County county = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
         CountyData countyData = county.countyData;
 
-        for (int i = 1; i <= populationData.equipment.Length; i++)
+        for (int i = 1; i <= populationData.inventory.Length; i++)
         {
             List<GoodData> sortedEquipmentList = GenerateEquipmentList(countyData, i);
             // If the useNewestEquipment is set to false, then it picks the lowest level of equipment,
@@ -62,9 +62,9 @@ public class Quartermaster
     private static void CheckForAlreadyEquippedAndAdjustCountyGoods(CountyData countyData, GoodData goodToEquip, PopulationData populationData)
     {
         // If there is no equipment equipped, then take one from the county goods and equip it.
-        if (populationData.equipment[AllEnums.GetCorrectEquipmentSlot(goodToEquip.equipmentData.equipmentType)] == null)
+        if (populationData.inventory[AllEnums.GetCorrectEquipmentSlot(goodToEquip.equipmentData.equipmentType)] == null)
         {
-            populationData.equipment[AllEnums.GetCorrectEquipmentSlot(goodToEquip.equipmentData.equipmentType)] 
+            populationData.inventory[AllEnums.GetCorrectEquipmentSlot(goodToEquip.equipmentData.equipmentType)] 
                 = goodToEquip;
             // Take 1 good away from the County goods.
             Haulmaster.AdjustCountyGoodAmount(countyData, goodToEquip.countyGoodType, -1);
@@ -72,7 +72,7 @@ public class Quartermaster
         else
         {
             // If the goodData is already equipped, then don't do anything.
-            if (populationData.equipment[AllEnums.GetCorrectEquipmentSlot(goodToEquip.equipmentData.equipmentType)].goodName 
+            if (populationData.inventory[AllEnums.GetCorrectEquipmentSlot(goodToEquip.equipmentData.equipmentType)].goodName 
                 == goodToEquip.goodName)
             {
                 GD.Print($"{goodToEquip.goodName} is already equipped.");
@@ -83,12 +83,12 @@ public class Quartermaster
                 // the county goods.
                 // Put back the original equipped equipment.
                 Haulmaster.AdjustCountyGoodAmount(countyData, 
-                    populationData.equipment[AllEnums.GetCorrectEquipmentSlot(goodToEquip.equipmentData.equipmentType)].countyGoodType
+                    populationData.inventory[AllEnums.GetCorrectEquipmentSlot(goodToEquip.equipmentData.equipmentType)].countyGoodType
                     , 1);
                 // Get the equipment from the county goods.
                 Haulmaster.AdjustCountyGoodAmount(countyData, goodToEquip.countyGoodType, -1);
                 // Equip the new goodToEquip on the populationData.
-                populationData.equipment[AllEnums.GetCorrectEquipmentSlot(goodToEquip.equipmentData.equipmentType)] 
+                populationData.inventory[AllEnums.GetCorrectEquipmentSlot(goodToEquip.equipmentData.equipmentType)] 
                     = goodToEquip;
                 //GD.Print($"{goodToEquip.goodName} is different from currently equipped.");
             }
@@ -115,9 +115,9 @@ public class Quartermaster
     public static int GetEquipmentBonus(PopulationData populationData, AllEnums.EquipmentType equipmentType)
     {
         int equipmentBonus = 0;
-        if (populationData.equipment[AllEnums.GetCorrectEquipmentSlot(equipmentType)] != null)
+        if (populationData.inventory[AllEnums.GetCorrectEquipmentSlot(equipmentType)] != null)
         {
-            equipmentBonus = populationData.equipment[AllEnums.GetCorrectEquipmentSlot(equipmentType)].equipmentData.equipmentBonus;
+            equipmentBonus = populationData.inventory[AllEnums.GetCorrectEquipmentSlot(equipmentType)].equipmentData.equipmentBonus;
         }
 
         return equipmentBonus;

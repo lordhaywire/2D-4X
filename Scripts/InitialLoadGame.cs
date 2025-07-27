@@ -8,6 +8,7 @@ public partial class InitialLoadGame : Node
     {
         if (Globals.Instance.loadGameAtStart)
         {
+            SaveManager.Instance.saveGameData = null;
             SaveManager.Instance.LoadGameFromJson();
         }
     }

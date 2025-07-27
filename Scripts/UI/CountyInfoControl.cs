@@ -114,9 +114,9 @@ public partial class CountyInfoControl : Control
     /// </summary>
     private void UpdatePercentageExplored()
     {
-        int total = Globals.Instance.numberOfPrimaryTerrainEvents 
-                    + Globals.Instance.numberOfSecondaryTerrainEvents 
-                    + Globals.Instance.numberOfTertiaryTerrainEvents;
+        int total = Autoload.Instance.numberOfPrimaryTerrainEvents 
+                    + Autoload.Instance.numberOfSecondaryTerrainEvents 
+                    + Autoload.Instance.numberOfTertiaryTerrainEvents;
 
         int completed = total - countyData.explorationEvents.Count;
         int percentage = total > 0 ? (int)((float)completed / total * 100f) : 0;

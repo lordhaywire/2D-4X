@@ -29,34 +29,34 @@ public partial class CountyGeneration : Node
     private void AssignTerrainToTerrainList()
     {
         // Add all the human set terrains to a Godot Collection for later use.
-        foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
+        foreach (CountyData countyData in Autoload.Instance.allCountyData)
         {
-            county.countyData.allTerrains =
+            countyData.allTerrains =
             [
-                county.countyData.primaryTerrain,
-                county.countyData.secondaryTerrain,
-                county.countyData.tertiaryTerrain
+                countyData.primaryTerrain,
+                countyData.secondaryTerrain,
+                countyData.tertiaryTerrain
             ];
         }
     }
 
     private void GenerateExplorationEvents()
     {
-        foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
+        foreach (CountyData countyData in Autoload.Instance.allCountyData)
         {
             List<StoryEventData> allEvents = [];
 
-            for (int i = 0; i < county.countyData.allTerrains.Count; i++)
+            for (int i = 0; i < countyData.allTerrains.Count; i++)
             {
-                AllEnums.Terrain terrain = county.countyData.allTerrains[i];
+                AllEnums.Terrain terrain = countyData.allTerrains[i];
 
                 if (!Autoload.Instance.eventsByTerrainDictionary.TryGetValue(terrain,
                         out List<StoryEventData> terrainEvents))
                     continue;
 
-                int numberOfEvents = i == 0 ? Globals.Instance.numberOfPrimaryTerrainEvents
-                    : i == 1 ? Globals.Instance.numberOfSecondaryTerrainEvents
-                    : Globals.Instance.numberOfTertiaryTerrainEvents;
+                int numberOfEvents = i == 0 ? Autoload.Instance.numberOfPrimaryTerrainEvents
+                    : i == 1 ? Autoload.Instance.numberOfSecondaryTerrainEvents
+                    : Autoload.Instance.numberOfTertiaryTerrainEvents;
 
                 List<StoryEventData> selectedEvents = [];
 
@@ -83,27 +83,23 @@ public partial class CountyGeneration : Node
                 (allEvents[i], allEvents[randIndex]) = (allEvents[randIndex], allEvents[i]);
             }
 
-            county.countyData.explorationEvents = new Godot.Collections.Array<StoryEventData>(allEvents);
+            countyData.explorationEvents = new Godot.Collections.Array<StoryEventData>(allEvents);
 
-            foreach (StoryEventData storyEventData in county.countyData.explorationEvents)
+            foreach (StoryEventData storyEventData in countyData.explorationEvents)
             {
-                storyEventData.eventCounty = county;
-                GD.Print($"{county.countyData.countyName} {storyEventData.storyEventTitle}");
+                storyEventData.eventCounty = countyData.countyNode;
+                GD.Print($"{countyData.countyName} {storyEventData.storyEventTitle}");
             }
         }
     }
     
-    private void AssignStartingGoodsToCounty()
+    private static void AssignStartingGoodsToCounty()
     {
         // This is just for testing.  Sets all resources to a starting amount.
         // This has to be after the initial storage is set.
-        foreach (County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
+        foreach (KeyValuePair<AllEnums.CountyGoodType, GoodData> keyValuePair in Autoload.Instance.allCountyData.SelectMany(countyData => countyData.goods))
         {
-            CountyData countyData = county.countyData;
-            foreach (KeyValuePair<AllEnums.CountyGoodType, GoodData> keyValuePair in countyData.goods)
-            {
-                keyValuePair.Value.Amount = Globals.Instance.startingAmountOfEachGood;
-            }
+            keyValuePair.Value.Amount = Autoload.Instance.startingAmountOfEachGood;
         }
     }
 
@@ -119,8 +115,8 @@ public partial class CountyGeneration : Node
 
     private static void UpdateScavengeableResources(CountyData countyData)
     {
-        countyData.scavengeableCannedFood = Globals.Instance.maxScavengeableFood;
-        countyData.scavengeableRemnants = Globals.Instance.maxScavengeableScrap;
+        countyData.scavengeableCannedFood = Autoload.Instance.maxScavengeableFood;
+        countyData.scavengeableRemnants = Autoload.Instance.maxScavengeableScrap;
     }
 
     private static void CopyAndAssignGoods(CountyData countyData, List<GoodData> allGoods)

@@ -1,3 +1,4 @@
+using AutoloadSpace;
 using Godot;
 using GlobalSpace;
 
@@ -25,12 +26,13 @@ public partial class CountyLoader : Node
                 {
                     PackedScene countyScene = (PackedScene)GD.Load(Globals.Instance.pathToCounties + files[i]);
                     County county = (County)countyScene.Instantiate();
-                    CountyResourcesAutoLoad.Instance.countyDatas[i].countyNode = county;
+                    county.countyData = Autoload.Instance.allCountyData[i];
+                    Autoload.Instance.allCountyData[i].countyNode = county;
                     Globals.Instance.countiesParent.AddChild(county);
 
                     // Since we are already going through all the countyDatas we add the countyData ID to the countyData.
-                    CountyResourcesAutoLoad.Instance.countyDatas[i].countyId = i;
-                    //GD.Print($"County ID: {CountyResourcesAutoLoad.Instance.countyDatas[i].countyId} {county.Name}");
+                    Autoload.Instance.allCountyData[i].countyId = i;
+                    //GD.Print($"County ID: {Autoload.Instance.allCountyData[i].countyId} {county.Name}");
                 }
             }
             else
@@ -38,8 +40,6 @@ public partial class CountyLoader : Node
                 //GD.PrintRich($"[color=red]No files in {Globals.Instance.pathToCounties}[/color]");
                 //GD.PrintRich($"[color=red]You need to generate the counties in the map editor![/color]");
                 GetTree().Quit();
-                return;
-
             }
         }
         else

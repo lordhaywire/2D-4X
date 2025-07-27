@@ -64,7 +64,7 @@ public partial class GoodData : Resource
             UseRemnants = useRemnants,
             Amount = Amount,
             MaxAmount = MaxAmount,
-            // ✅ if there is an EquipmentData resource, store its EquipmentType as string
+            // if there is an EquipmentData resource, store its EquipmentType as string
             EquipmentData = equipmentData?.equipmentType.ToString()
         };
     }

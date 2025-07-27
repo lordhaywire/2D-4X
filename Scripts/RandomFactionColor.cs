@@ -19,7 +19,7 @@ public partial class RandomFactionColor : Node
     {
         if (Arrays.colors.Length < SaveManager.Instance.saveGameData.allFactionDataList.Count)
         {
-            //GD.Print("Not enough color options for all Sprite Renderers!");
+            GD.Print("Not enough color options for all Sprite Renderers!");
             return;
         }
 

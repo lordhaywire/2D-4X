@@ -19,9 +19,8 @@ public partial class PopulationGeneration : Node
     private string lastName;
     private bool isMale;
 
-    [ExportGroup("For Population Generation")] [Export]
-    private int startingAttributeMin = 21;
-
+    [ExportGroup("For Population Generation")] 
+    [Export] private int startingAttributeMin = 21;
     [Export] private int startingAttributeMax = 81; // One above max.
     [Export] private int startingSkillMin = 1;
     [Export] private int startingSkillMax = 51; // One above max.
@@ -50,14 +49,11 @@ public partial class PopulationGeneration : Node
     {
         foreach (FactionData factionData in SaveManager.Instance.saveGameData.allFactionDataList)
         {
-            countiesParent = Globals.Instance.countiesParent;
             // Generate Faction Leader County Population
-            //GD.Print($"{factionData.factionName} Capital ID: {factionData.factionCapitalCounty}");
-            county = (County)countiesParent.GetChild(factionData.factionCapitalCounty);
-            CountyData newCountyData = county.countyData;
+            CountyData newCountyData = Autoload.Instance.allCountyData[factionData.factionCapitalCounty];
             GeneratePopulation(newCountyData, true, 1); // There is never going to be more than 1 faction leader.
 
-            factionData.factionLeader = county.countyData.heroesInCountyList[0];
+            factionData.factionLeader = newCountyData.heroesInCountyList[0];
             newCountyData.population += newCountyData.heroesInCountyList.Count;
         }
     }
@@ -105,8 +101,8 @@ public partial class PopulationGeneration : Node
                     HeroType = AllEnums.HeroType.None,
                     heroSubordinates = [],
                     perks = GeneratePopulationPerks(),
-                    hitPoints = Globals.Instance.startingHitPoints,
-                    maxHitPoints = Globals.Instance.startingHitPoints,
+                    hitPoints = Autoload.Instance.startingHitPoints,
+                    maxHitPoints = Autoload.Instance.startingHitPoints,
                     moraleExpendable = GenerateExpendables(),
                     loyaltyBase = loyaltyBase,
                     LoyaltyAdjusted = loyaltyBase,
@@ -120,7 +116,7 @@ public partial class PopulationGeneration : Node
                     interestData = GenerateInterest(),
                     activity = AllEnums.Activities.Idle,
                     useNewestEquipment = false,
-                    equipment = new GoodData[5],
+                    inventory = new GoodData[5],
                     currentCountyImprovement = null,
                     passiveResearchItemData = null,
                     currentResearchItemData = null,
@@ -150,8 +146,8 @@ public partial class PopulationGeneration : Node
                     numberOfSubordinatesWanted = 0,
                     heroSubordinates = [],
                     perks = GenerateLeaderPerks(),
-                    hitPoints = Globals.Instance.startingHitPoints,
-                    maxHitPoints = Globals.Instance.startingHitPoints,
+                    hitPoints = Autoload.Instance.startingHitPoints,
+                    maxHitPoints = Autoload.Instance.startingHitPoints,
                     moraleExpendable = GenerateExpendables(),
                     loyaltyBase = loyaltyBase,
                     LoyaltyAdjusted = loyaltyBase,
@@ -167,7 +163,7 @@ public partial class PopulationGeneration : Node
                     interestData = GenerateInterest(),
                     activity = AllEnums.Activities.Idle,
                     useNewestEquipment = false,
-                    equipment = new GoodData[5],
+                    inventory = new GoodData[5],
                     currentCountyImprovement = null,
                     passiveResearchItemData = null,
                     currentResearchItemData = null,
@@ -269,16 +265,16 @@ public partial class PopulationGeneration : Node
     private int GenerateAge()
     {
         // Determine the person's age.
-        int age = random.Next(18, 61);
+        int age = random.Next(Autoload.Instance.minStartingAge, Autoload.Instance.maxStartingAge);
         return age;
     }
 
     private void GenerateNameAndSex()
     {
         // Generates Persons Last Name
-        List<string> lastNames = Globals.Instance.lastNames;
-        List<string> femaleNames = Globals.Instance.femaleNames;
-        List<string> maleNames = Globals.Instance.maleNames;
+        List<string> lastNames = Autoload.Instance.lastNames;
+        List<string> femaleNames = Autoload.Instance.femaleNames;
+        List<string> maleNames = Autoload.Instance.maleNames;
 
         int randomLastNameNumber = random.Next(0, lastNames.Count);
         lastName = lastNames[randomLastNameNumber];
@@ -321,12 +317,10 @@ public partial class PopulationGeneration : Node
 
     private void CreatePopulation()
     {
-        countiesParent = Globals.Instance.countiesParent;
         // Create various county specific data.
-        for (int i = 0; i < countiesParent.GetChildCount(); i++)
+        for (int i = 0; i < Autoload.Instance.allCountyData.Count; i++)
         {
-            county = (County)countiesParent.GetChild(i);
-            CountyData populationCountyData = county.countyData;
+            CountyData populationCountyData = Autoload.Instance.allCountyData[i];
             populationCountyData.countyId = i; // Generate countyID.
             //GD.PrintRich("[rainbow]County ID: " + countyData.countyID);
 
@@ -334,7 +328,7 @@ public partial class PopulationGeneration : Node
             if (populationCountyData.isPlayerCapital || populationCountyData.isAiCapital)
             {
                 // Generate Normal Population
-                GeneratePopulation(populationCountyData, false, Globals.Instance.totalCapitolPop);
+                GeneratePopulation(populationCountyData, false, Autoload.Instance.totalCapitolPop);
                 populationCountyData.population += populationCountyData.populationDataList.Count;
                 populationCountyData.IdleWorkers =
                     populationCountyData.population -= populationCountyData.heroesInCountyList.Count;
@@ -343,7 +337,7 @@ public partial class PopulationGeneration : Node
             {
                 // Generate Normal Population
                 int normalPopulation =
-                    random.Next(Globals.Instance.minimumCountyPop, Globals.Instance.maximumCountyPop);
+                    random.Next(Autoload.Instance.minimumCountyPop, Autoload.Instance.maximumCountyPop);
                 GeneratePopulation(populationCountyData, false, normalPopulation);
                 populationCountyData.population += populationCountyData.populationDataList.Count;
                 populationCountyData.IdleWorkers =

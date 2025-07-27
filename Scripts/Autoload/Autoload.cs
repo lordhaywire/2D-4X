@@ -36,6 +36,40 @@ public partial class Autoload : Node
     
     public FactionData playerFactionData;
 
+    // Name Variables
+    private string listsPath = "Lists/";
+    private string maleNamesPath = "MaleNames.txt";
+    private string femaleNamesPath = "FemaleNames.txt";
+    private string lastNamesPath = "LastNames.txt";
+    
+    public readonly List<string> maleNames = [];
+    public readonly List<string> femaleNames = [];
+    public readonly List<string> lastNames = [];
+    
+    // County Generation Variables
+    public int maxScavengeableScrap = 10000;
+    public int maxScavengeableFood = 10000;
+    public int startingPerishableStorage = 2000;
+    public int startingNonperishableStorage = 2000;
+    public int startingAmountOfEachGood = 100;
+    
+    // Population Generation Variables
+    public int minStartingAge = 18;
+    public int maxStartingAge = 61;
+    public int startingHitPoints = 10;
+    public int minimumCountyPop = 1;
+    public int maximumCountyPop = 4;
+    public int totalCapitolPop = 20;
+    
+    // Exploration Variables
+    public int numberOfPrimaryTerrainEvents = 10;
+    public int numberOfSecondaryTerrainEvents = 6;
+    public int numberOfTertiaryTerrainEvents = 3;
+    
+    // These two are populated from AllResources at Ready. Is this true anymore?
+    public int numberOfPerishableGoods; // Total perishable goods
+    public int numberOfNonperishableGoods; // Total nonperishable goods
+    
     public override void _Ready()
     {
         Instance = this;
@@ -50,6 +84,8 @@ public partial class Autoload : Node
         allCountyImprovementData = ReadResourcesFromDisk(ImprovementsDirectory).Cast<CountyImprovementData>().ToList();
 
         GetAllExplorationEventsFromDisk();
+        CountGoods();
+        LoadNames();
         //TestPrintAllResourceNames();
     }
 
@@ -68,6 +104,44 @@ public partial class Autoload : Node
         }
     }
 
+    private void LoadNames()
+    {
+        // Load all the names from disk.
+
+        // I think the variable can be used if we open up the root directory first.
+        // Right now this code is doing nothing except the GD.Print stuff.
+        //listDirectory = ProjectSettings.LocalizePath(listsPath); 
+        GD.Print(OS.HasFeature("editor") ? "Is in the editor!!!" : "Is not in the editor!");
+
+        //listDirectory = ProjectSettings.LocalizePath(listsPath);
+        DirAccess directory = DirAccess.Open("res://");
+        if (directory.DirExists("res://Lists/"))
+        {
+            using var maleFile = FileAccess.Open("res://Lists/MaleNames.txt", FileAccess.ModeFlags.Read);//(listsPath + maleNamesPath, FileAccess.ModeFlags.Read);
+            while (maleFile.GetPosition() < maleFile.GetLength())
+            {
+                maleNames.Add(maleFile.GetLine());
+            }
+            using var femaleFile = FileAccess.Open("res://Lists/FemaleNames.txt", FileAccess.ModeFlags.Read); //(listsPath + femaleNamesPath, FileAccess.ModeFlags.Read);
+            while (femaleFile.GetPosition() < femaleFile.GetLength())
+            {
+                femaleNames.Add(femaleFile.GetLine());
+            }
+            using var lastNameFile = FileAccess.Open("res://Lists/LastNames.txt", FileAccess.ModeFlags.Read); //(listsPath + lastNamesPath, FileAccess.ModeFlags.Read);
+            while (lastNameFile.GetPosition() < lastNameFile.GetLength())
+            {
+                lastNames.Add(lastNameFile.GetLine());
+            }
+            //GD.Print("Names have been loaded.");
+        }
+        /*
+        else
+        {
+            GD.Print("Directory doesn't exist! " + listDirectory);
+        }
+        */
+
+    }
     public Godot.Collections.Array<Resource> ReadResourcesFromDisk(string path)
     {
         Godot.Collections.Array<Resource> resources = [];
@@ -198,5 +272,26 @@ public partial class Autoload : Node
     public List<StoryEventData> GetEventsForTerrain(AllEnums.Terrain terrain)
     {
         return eventsByTerrainDictionary.TryGetValue(terrain, out var list) ? list : [];
+    }
+    
+    private void CountGoods()
+    {
+        int perishable = 0;
+        int nonperishable = 0;
+
+        foreach (GoodData resourceData in Autoload.Instance.allGoodData)
+        {
+            switch (resourceData.perishable)
+            {
+                case AllEnums.Perishable.Perishable:
+                    perishable++;
+                    break;
+                case AllEnums.Perishable.Nonperishable:
+                    nonperishable++;
+                    break;
+            }
+        }
+        numberOfPerishableGoods = perishable;
+        numberOfNonperishableGoods = nonperishable;
     }
 }

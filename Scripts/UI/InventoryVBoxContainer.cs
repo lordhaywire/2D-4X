@@ -46,8 +46,8 @@ public partial class InventoryVBoxContainer : VBoxContainer
             {
                 for (int i = 0; i < equipment.Count; i++)
                 {
-                    equipment[i].Text = populationData.equipment[i] != null
-                        ? populationData.equipment[i].goodName
+                    equipment[i].Text = populationData.inventory[i] != null
+                        ? populationData.inventory[i].goodName
                         : $"{Tr("WORD_NONE")}";
                 }
             }

@@ -27,7 +27,7 @@ namespace MapEditorSpace
 
 
             Velocity = inputDirection * Speed / Math.Max((int)Engine.TimeScale, 1);
-            GD.Print("Velocity: " + Velocity);
+            //GD.Print("Velocity: " + Velocity);
         }
 
         public override void _PhysicsProcess(double delta)

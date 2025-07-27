@@ -154,7 +154,7 @@ public partial class FactionData : Resource
             }
         }
 
-        factionData.allHeroesList = new Godot.Collections.Array<PopulationData>();
+        factionData.allHeroesList = [];
 
         foreach (int heroId in factionDto.AllHeroesList)
         {
@@ -209,7 +209,7 @@ public partial class FactionData : Resource
         }
 
         // TODO: We need to get the actual saved JSON info from disk for this because the Resources are unique.
-        // ✅ Convert faction goods dictionaries
+        // Convert faction goods dictionaries
         factionData.factionGoods = new Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData>();
         foreach (var kvp in factionDto.FactionGoods)
         {

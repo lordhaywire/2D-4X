@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using AutoloadSpace;
 
 namespace PlayerSpace;
 public class Haulmaster
@@ -70,8 +71,8 @@ public class Haulmaster
 
     public static void CountCountyMaxStorage(CountyData countyData)
     {
-        countyData.nonperishableStorage = Globals.Instance.startingNonperishableStorage;
-        countyData.perishableStorage = Globals.Instance.startingPerishableStorage;
+        countyData.nonperishableStorage = Autoload.Instance.startingNonperishableStorage;
+        countyData.perishableStorage = Autoload.Instance.startingPerishableStorage;
         //GD.Print("Initial County Storage: " + countyData.nonperishableStorage);
         foreach (CountyImprovementData countyImprovementData in countyData.completedCountyImprovementList)
         {
@@ -100,13 +101,13 @@ public class Haulmaster
             if (goodData.perishable == AllEnums.Perishable.Perishable)
             {
                 goodData.MaxAmount = countyData.perishableStorage
-                    / Globals.Instance.numberOfPerishableGoods;
+                    / Autoload.Instance.numberOfPerishableGoods;
 
             }
             else if (goodData.perishable == AllEnums.Perishable.Nonperishable)
             {
                 goodData.MaxAmount = countyData.nonperishableStorage
-                    / Globals.Instance.numberOfNonperishableGoods;
+                    / Autoload.Instance.numberOfNonperishableGoods;
             }
             //GD.Print($"AssignMaxStorageToGoods: {countyData.countyName} : {goodData.goodName}: {goodData.MaxAmount}");
         }
@@ -249,7 +250,7 @@ public class Haulmaster
         {
             countyImprovementData.countyStockpiledGoods[keyValuePair.Key.countyGoodType] = 0;
         }
-        // If this county improvement's countyStockpiledGoods doesn't contain remnants then add it.
+        // If this county improvement's countyStockpiledGoods doesn't contain remnants, then add it.
         if (!countyImprovementData.countyStockpiledGoods.TryGetValue(AllEnums.CountyGoodType.Remnants, out int value))
         {
             countyImprovementData.countyStockpiledGoods[AllEnums.CountyGoodType.Remnants] = 0;

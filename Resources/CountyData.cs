@@ -8,7 +8,8 @@ namespace PlayerSpace;
 [GlobalClass]
 public partial class CountyData : Resource
 {
-    [ExportGroup("MapEditor")] public County countyNode; // See if we can get rid of this somehow.
+    [ExportGroup("MapEditor")] 
+    public County countyNode; // See if we can get rid of this somehow.
     
     [Export] public Color color;
     [Export] public Vector2I startMaskPosition; // I think this is the local position...
@@ -109,7 +110,7 @@ public partial class CountyData : Resource
         {
             idleWorkers = value;
             //GD.Print("Idle workers: " + idleWorkers);
-            if (Globals.Instance.SelectedLeftClickCounty?.countyData == this)
+            if (Globals.Instance?.SelectedLeftClickCounty?.countyData == this)
             {
                 CountyInfoControl.Instance.UpdateIdleWorkersLabel();
             }
