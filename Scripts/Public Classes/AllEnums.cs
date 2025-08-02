@@ -69,7 +69,8 @@ public class AllEnums
         Vegetables,
         Wood,
     }
-    public enum EquipmentType
+    
+    public enum InventorySlot
     {
         None,
         Reconnaissance,
@@ -233,16 +234,6 @@ public class AllEnums
         return terrainStrings[(int)terrain];
     }
     
-    /// <summary>
-    /// Since there is no equipment slot of none, but there is an equipment slot for all the other equipment types, we need to subtract one from the equipment type.
-    /// </summary>
-    /// <param name="equipmentType"></param>
-    /// <returns></returns>
-    public static int GetCorrectEquipmentSlot(EquipmentType equipmentType)
-    {
-        int equipmentSlot = (int)equipmentType - 1;
-        return equipmentSlot;
-    }
     /// <summary>
     /// This will be used for loading from disk as well.
     /// </summary>

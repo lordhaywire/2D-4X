@@ -29,22 +29,22 @@ public partial class SaveGameData : Resource
         return dto;
     }
     
-    public static SaveGameData FromDto(SaveGameDto dto)
+    public static SaveGameData FromDto(SaveGameDto saveGameDto)
     {
         SaveGameData saveGameData = new SaveGameData
         {
-            saveVersion = dto.SaveVersion,
-            currentPopulationId = dto.CurrentPopulationId,
+            saveVersion = saveGameDto.SaveVersion,
+            currentPopulationId = saveGameDto.CurrentPopulationId,
             allPopulationDataList = [],
             allFactionDataList = []
         };
 
-        foreach (PopulationDto popDto in dto.AllPopulationDataList)
+        foreach (PopulationDto popDto in saveGameDto.AllPopulationDataList)
         {
             saveGameData.allPopulationDataList.Add(PopulationData.FromDto(popDto));
         }
 
-        foreach (FactionDto factionDto in dto.AllFactionDataList)
+        foreach (FactionDto factionDto in saveGameDto.AllFactionDataList)
         {
             saveGameData.allFactionDataList.Add(FactionData.FromDto(factionDto));
         }

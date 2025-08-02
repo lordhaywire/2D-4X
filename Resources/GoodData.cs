@@ -65,34 +65,34 @@ public partial class GoodData : Resource
             Amount = Amount,
             MaxAmount = MaxAmount,
             // if there is an EquipmentData resource, store its EquipmentType as string
-            EquipmentData = equipmentData?.equipmentType.ToString()
+            EquipmentData = equipmentData?.inventorySlot.ToString()
         };
     }
 
-    public static GoodData FromDto(GoodDto dto)
+    public static GoodData FromDto(GoodDto goodDto)
     {
         GoodData goodData = new GoodData
         {
-            goodName = dto.GoodName,
-            description = dto.Description,
-            goodType = Enum.Parse<AllEnums.GoodType>(dto.GoodType),
-            countyGoodType = Enum.Parse<AllEnums.CountyGoodType>(dto.CountyGoodType),
-            factionGoodType = Enum.Parse<AllEnums.FactionGoodType>(dto.FactionGoodType),
-            perishable = Enum.Parse<AllEnums.Perishable>(dto.Perishable),
-            failureRate = dto.FailureRate,
-            remnantSubstitutable = dto.RemnantSubstitutable,
-            useRemnants = dto.UseRemnants,
-            Amount = dto.Amount,
-            MaxAmount = dto.MaxAmount
+            goodName = goodDto.GoodName,
+            description = goodDto.Description,
+            goodType = Enum.Parse<AllEnums.GoodType>(goodDto.GoodType),
+            countyGoodType = Enum.Parse<AllEnums.CountyGoodType>(goodDto.CountyGoodType),
+            factionGoodType = Enum.Parse<AllEnums.FactionGoodType>(goodDto.FactionGoodType),
+            perishable = Enum.Parse<AllEnums.Perishable>(goodDto.Perishable),
+            failureRate = goodDto.FailureRate,
+            remnantSubstitutable = goodDto.RemnantSubstitutable,
+            useRemnants = goodDto.UseRemnants,
+            Amount = goodDto.Amount,
+            MaxAmount = goodDto.MaxAmount
         };
         
         // If EquipmentType exists, you can later decide how to load/create the correct EquipmentData
-        if (!string.IsNullOrEmpty(dto.EquipmentData))
+        if (!string.IsNullOrEmpty(goodDto.EquipmentData))
         {
             // Either just set type if you're creating EquipmentData later
             goodData.equipmentData = new EquipmentData
             {
-                equipmentType = Enum.Parse<AllEnums.EquipmentType>(dto.EquipmentData)
+                inventorySlot = Enum.Parse<AllEnums.InventorySlot>(goodDto.EquipmentData)
             };
         }
 

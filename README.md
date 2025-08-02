@@ -1,6 +1,6 @@
 # 2D 4X 0.0.8
 
-## Using Godot 4.5.beta3.mono C#
+## Using Godot 4.5.beta4.mono C#
 
 This is the repository containing the open source code for the game creation streams that Lord Haywire does on his KilledByDev [Twitch](https://www.twitch.tv/killedbydev) 
 and [YouTube](https://www.youtube.com/@killedbydev) channels.

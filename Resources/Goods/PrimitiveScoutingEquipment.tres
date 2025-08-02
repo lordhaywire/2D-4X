@@ -5,7 +5,6 @@
 
 [sub_resource type="Resource" id="Resource_k0sx7"]
 script = ExtResource("1_k0sx7")
-equipmentType = 1
 equipmentTier = 1
 equipmentBonus = 5
 metadata/_custom_type_script = "uid://c87la23ufut0h"
@@ -14,15 +13,9 @@ metadata/_custom_type_script = "uid://c87la23ufut0h"
 script = ExtResource("1_8577a")
 goodName = "GOOD_PRIMITIVE_SCOUTING_EQUIPMENT"
 description = "GOOD_DESCRIPTION_PRIMITIVE_SCOUTING_EQUIPMENT"
-goodType = 0
 countyGoodType = 9
 factionGoodType = 2
 perishable = 2
 equipmentData = SubResource("Resource_k0sx7")
 failureRate = 10
-remnantSubstitutable = false
-useRemnants = false
-amount = 0
-Amount = 0
 maxAmount = 2147483647
-MaxAmount = 0

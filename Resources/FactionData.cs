@@ -9,7 +9,8 @@ namespace PlayerSpace;
 [GlobalClass]
 public partial class FactionData : Resource
 {
-    [ExportGroup("Faction Info")] [Export] public int factionId;
+    [ExportGroup("Faction Info")] 
+    [Export] public int factionId;
     [Export] public bool isPlayer;
     [Export] public string factionName;
     [Export] public Color factionColor;
@@ -17,7 +18,8 @@ public partial class FactionData : Resource
     [Export] public int factionCapitalCounty;
 
     [Export] public Godot.Collections.Array<ResearchItemData> researchItems;
-    [Export] public Godot.Collections.Array<ResearchItemData> researchableResearch;
+    // Why are we saving this?  It happens every day at Day Start.  It could be a temporary list just used when needed.
+    [Export] public Godot.Collections.Array<ResearchItemData> researchableResearch; 
 
     [Export] public Godot.Collections.Array<CountyData> countiesFactionOwns;
     [Export] public Godot.Collections.Array<PopulationData> allHeroesList;
@@ -25,8 +27,8 @@ public partial class FactionData : Resource
 
     public readonly Diplomacy diplomacy = new();
 
-    [Export] public Godot.Collections.Array<CountyImprovementData>
-        allFactionKnownCountyImprovements; // This includes all county improvements, even possible ones.
+    // This includes all county improvements, even possible ones.
+    [Export] public Godot.Collections.Array<CountyImprovementData> allFactionKnownCountyImprovements; 
 
     // All Faction Research Offices.
     [Export] public Godot.Collections.Array<CountyImprovementData> researchOffices;
@@ -44,7 +46,7 @@ public partial class FactionData : Resource
 
     public FactionDto ToDto()
     {
-        FactionDto dto = new FactionDto
+        FactionDto factionDto = new FactionDto
         {
             FactionId = factionId,
             IsPlayer = isPlayer,
@@ -54,49 +56,50 @@ public partial class FactionData : Resource
             FactionCapitalCounty = factionCapitalCounty
         };
 
-        // TODO: We need to get the actual saved JSON info from disk for this because the Resources are unique.
-        // Convert research items (assuming they have names or IDs)
         foreach (ResearchItemData research in researchItems)
-            dto.ResearchItems.Add(research.ToDto());
-
+            factionDto.ResearchItems.Add(research.ToDto());
 
         foreach (ResearchItemData research in researchableResearch)
-            dto.ResearchableResearch.Add(research.researchName);
+            factionDto.ResearchableResearch.Add(research.researchName);
 
         foreach (CountyData county in countiesFactionOwns)
-            dto.CountiesFactionOwns.Add(county.countyName);
+            factionDto.CountiesFactionOwns.Add(county.countyName);
 
         foreach (PopulationData hero in allHeroesList)
-            dto.AllHeroesList.Add(hero.populationId);
+            factionDto.AllHeroesList.Add(hero.populationId);
 
         if (factionLeader != null)
-            dto.FactionLeader = factionLeader.populationId;
+            factionDto.FactionLeader = factionLeader.populationId;
 
         foreach (CountyImprovementData improvement in allFactionKnownCountyImprovements)
-            dto.AllCountyImprovements.Add(improvement.improvementName);
+            factionDto.AllCountyImprovements.Add(improvement.improvementName);
+
+        factionDto.ResearchOffices = new List<CountyImprovementDto>();
 
         foreach (CountyImprovementData office in researchOffices)
-            dto.ResearchOffices.Add(office.improvementName);
+        {
+            factionDto.ResearchOffices.Add(office.ToDto());
+        }
 
         // Goods (convert to GoodDto)
         foreach (KeyValuePair<AllEnums.FactionGoodType, GoodData> keyValuePair in factionGoods)
-            dto.FactionGoods[keyValuePair.Key.ToString()] = keyValuePair.Value.ToDto();
+            factionDto.FactionGoods[keyValuePair.Key.ToString()] = keyValuePair.Value.ToDto();
 
         foreach (KeyValuePair<AllEnums.FactionGoodType, GoodData> keyValuePair in yesterdaysFactionGoods)
-            dto.YesterdaysFactionGoods[keyValuePair.Key.ToString()] = keyValuePair.Value.ToDto();
+            factionDto.YesterdaysFactionGoods[keyValuePair.Key.ToString()] = keyValuePair.Value.ToDto();
 
         foreach (KeyValuePair<AllEnums.FactionGoodType, GoodData> keyValuePair in amountUsedFactionGoods)
-            dto.AmountUsedFactionGoods[keyValuePair.Key.ToString()] = keyValuePair.Value.ToDto();
+            factionDto.AmountUsedFactionGoods[keyValuePair.Key.ToString()] = keyValuePair.Value.ToDto();
 
         // Wars
         foreach (War war in wars)
-            dto.Wars.Add(war.ToDto());
+            factionDto.Wars.Add(war.ToDto());
 
 
-        foreach (var kvp in factionWarDictionary)
-            dto.FactionWarDictionary[kvp.Key] = kvp.Value;
+        foreach (KeyValuePair<string, bool> keyValuePair in factionWarDictionary)
+            factionDto.FactionWarDictionary[keyValuePair.Key] = keyValuePair.Value;
 
-        return dto;
+        return factionDto;
     }
 
     public static FactionData FromDto(FactionDto factionDto)
@@ -111,11 +114,9 @@ public partial class FactionData : Resource
             factionCapitalCounty = factionDto.FactionCapitalCounty
         };
 
-        // TODO: We need to get the actual saved JSON info from disk for this because the Resources are unique.
         factionData.researchItems = [];
-        foreach (ResearchItemDto researchDto in factionDto.ResearchItems)
+        foreach (ResearchItemData loadedItem in factionDto.ResearchItems.Select(ResearchItemData.FromDto))
         {
-            ResearchItemData loadedItem = ResearchItemData.FromDto(researchDto);
             factionData.researchItems.Add(loadedItem);
         }
 
@@ -155,7 +156,6 @@ public partial class FactionData : Resource
         }
 
         factionData.allHeroesList = [];
-
         foreach (int heroId in factionDto.AllHeroesList)
         {
             PopulationData hero = SaveManager.Instance.saveGameData.allPopulationDataList
@@ -183,9 +183,8 @@ public partial class FactionData : Resource
         }
 
 
-        // TODO: We need to get the actual saved JSON info from disk for this because the Resources are unique.
-        factionData.allFactionKnownCountyImprovements = new Godot.Collections.Array<CountyImprovementData>();
-
+        // List of all the possible county improvements a faction can build.
+        factionData.allFactionKnownCountyImprovements = [];
         foreach (string improvementName in factionDto.AllCountyImprovements)
         {
             CountyImprovementData improvement = Autoload.Instance.allCountyImprovementData
@@ -201,51 +200,48 @@ public partial class FactionData : Resource
             }
         }
 
-        // TODO: We need to get the actual saved JSON info from disk for this because the Resources are unique.
-        factionData.researchOffices = new Godot.Collections.Array<CountyImprovementData>();
-        foreach (string officeName in factionDto.ResearchOffices)
+        factionData.researchOffices = [];
+        foreach (CountyImprovementData countyImprovement in factionDto.ResearchOffices.Select(CountyImprovementData.FromDto))
         {
-            // Load CountyImprovementData
+            factionData.researchOffices.Add(countyImprovement);
         }
 
-        // TODO: We need to get the actual saved JSON info from disk for this because the Resources are unique.
         // Convert faction goods dictionaries
         factionData.factionGoods = new Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData>();
-        foreach (var kvp in factionDto.FactionGoods)
+        foreach (KeyValuePair<string, GoodDto> keyValuePair in factionDto.FactionGoods)
         {
-            factionData.factionGoods[Enum.Parse<AllEnums.FactionGoodType>(kvp.Key)] = GoodData.FromDto(kvp.Value);
+            factionData.factionGoods[Enum.Parse<AllEnums.FactionGoodType>(keyValuePair.Key)] = GoodData.FromDto(keyValuePair.Value);
         }
 
         factionData.yesterdaysFactionGoods = new Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData>();
-        foreach (var kvp in factionDto.YesterdaysFactionGoods)
+        foreach (KeyValuePair<string, GoodDto> keyValuePair in factionDto.YesterdaysFactionGoods)
         {
-            factionData.yesterdaysFactionGoods[Enum.Parse<AllEnums.FactionGoodType>(kvp.Key)] =
-                GoodData.FromDto(kvp.Value);
+            factionData.yesterdaysFactionGoods[Enum.Parse<AllEnums.FactionGoodType>(keyValuePair.Key)] =
+                GoodData.FromDto(keyValuePair.Value);
         }
 
         factionData.amountUsedFactionGoods = new Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData>();
-        foreach (var kvp in factionDto.AmountUsedFactionGoods)
+        foreach (KeyValuePair<string, GoodDto> keyValuePair in factionDto.AmountUsedFactionGoods)
         {
-            factionData.amountUsedFactionGoods[Enum.Parse<AllEnums.FactionGoodType>(kvp.Key)] =
-                GoodData.FromDto(kvp.Value);
+            factionData.amountUsedFactionGoods[Enum.Parse<AllEnums.FactionGoodType>(keyValuePair.Key)] =
+                GoodData.FromDto(keyValuePair.Value);
         }
 
-        // ✅ Wars – rebuild as War objects
+        //TODO: This needs to be loaded after the all faction data list is loaded.
+        // Wars – rebuild as War objects
         factionData.wars.Clear();
         foreach (WarDto warDto in factionDto.Wars)
         {
-            War war = War.FromDto(warDto, /* you’ll need a faction lookup here */ null);
-            factionData.wars.Add(war);
+           //War war = War.FromDto(warDto, SaveManager.Instance.saveGameData.allFactionDataList);
+            //factionData.wars.Add(war);
         }
 
-        // Todo: Fix this VAR garbage.
-        // ✅ Diplomatic matrix
+        // Diplomatic matrix
         factionData.factionWarDictionary = new Godot.Collections.Dictionary<string, bool>();
-        foreach (var kvp in factionDto.FactionWarDictionary)
+        foreach (KeyValuePair<string, bool> keyValuePair in factionDto.FactionWarDictionary)
         {
-            factionData.factionWarDictionary[kvp.Key] = kvp.Value;
+            factionData.factionWarDictionary[keyValuePair.Key] = keyValuePair.Value;
         }
-
         return factionData;
     }
 

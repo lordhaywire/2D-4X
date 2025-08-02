@@ -2,30 +2,34 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoloadSpace;
 
 namespace PlayerSpace;
 
 [GlobalClass]
 public partial class CountyImprovementData : Resource
 {
-    [ExportGroup("Not For Inspector")]
-    [Export] private int currentAmountOfConstruction;
+    [ExportGroup("Not For Inspector")] [Export]
+    private int currentAmountOfConstruction;
+
     [Export] public int numberBuilt; // This is used to number the improvement name in the County Improvement Panel.
 
-    [ExportGroup("Improvement Info")]
-    [Export] public AllEnums.CountyImprovementType countyImprovementType;
+    [ExportGroup("Improvement Info")] [Export]
+    public AllEnums.CountyImprovementType countyImprovementType;
+
     [Export] public bool prioritize;
 
     [Export] public Texture2D improvementTexture;
     [Export] public string improvementName;
     [Export] public string improvementDescription;
 
-    [ExportGroup("Skill and Interest")]
-    [Export] public AllEnums.Skills workSkill;
+    [ExportGroup("Skill and Interest")] [Export]
+    public AllEnums.Skills workSkill;
+
     [Export] public InterestData interestData;
 
-    [ExportGroup("Construction Costs")]
-    [Export] public Godot.Collections.Dictionary<GoodData, int> goodsConstructionCost;// = [];
+    [ExportGroup("Construction Costs")] [Export]
+    public Godot.Collections.Dictionary<GoodData, int> goodsConstructionCost; // = [];
 
     [Export]
     public int CurrentAmountOfConstruction
@@ -33,30 +37,166 @@ public partial class CountyImprovementData : Resource
         get => currentAmountOfConstruction;
         set => currentAmountOfConstruction = Math.Min(value, maxAmountOfConstruction);
     }
+
     [Export] public int maxAmountOfConstruction;
     [Export] public int maxBuilders;
     [Export] public int adjustedMaxBuilders;
     [Export] public int maxWorkers;
     [Export] public int adjustedMaxWorkers;
 
-    [ExportGroup("Resource Types")]
-    [Export] public AllEnums.CountyGoodType countyResourceType;
+    [ExportGroup("Resource Types")] [Export]
+    public AllEnums.CountyGoodType countyResourceType;
+
     [Export] public AllEnums.FactionGoodType factionResourceType;
 
-    [ExportGroup("Outputs")]
-    [Export] public Godot.Collections.Dictionary<GoodData, ProductionData> outputGoods;// = [];
+    [ExportGroup("Outputs")] [Export] public Godot.Collections.Dictionary<GoodData, ProductionData> outputGoods;
     [Export] public int allDailyWorkAmountAtImprovementCompleted;
 
     // All input goods that are need to create the finished good.
     [ExportGroup("Inputs")]
     // Unqiue input goods are needed for the county improvement container so that the GoodData can remember
     // changes such as Use Remnants that the player or AI does.
-    [Export] public Godot.Collections.Dictionary<GoodData, int> uniqueInputGoods;// = [];
-    [Export] public Godot.Collections.Dictionary<GoodData, int> inputGoods;// = [];
-    [Export] public Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> countyStockpiledGoods;// = [];
+    [Export]
+    public Godot.Collections.Dictionary<GoodData, int> uniqueInputGoods;
+
+    [Export] public Godot.Collections.Dictionary<GoodData, int> inputGoods;
+    [Export] public Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> countyStockpiledGoods;
 
     [Export] public AllEnums.CountyImprovementStatus status;
-    [Export] public Godot.Collections.Array<PopulationData> populationAtImprovement;// = [];
+    [Export] public Godot.Collections.Array<PopulationData> populationAtImprovement;
+
+    public CountyImprovementDto ToDto()
+    {
+        return new CountyImprovementDto
+        {
+            ImprovementName = improvementName,
+            ImprovementDescription = improvementDescription,
+            ImprovementTexturePath = improvementTexture?.ResourcePath,
+
+            CountyImprovementType = countyImprovementType,
+            Prioritize = prioritize,
+
+            WorkSkill = workSkill,
+            InterestDataName = interestData?.interestName,
+
+            CurrentAmountOfConstruction = CurrentAmountOfConstruction,
+            MaxAmountOfConstruction = maxAmountOfConstruction,
+            NumberBuilt = numberBuilt,
+            MaxBuilders = maxBuilders,
+            AdjustedMaxBuilders = adjustedMaxBuilders,
+            MaxWorkers = maxWorkers,
+            AdjustedMaxWorkers = adjustedMaxWorkers,
+
+            GoodsConstructionCost = goodsConstructionCost?.ToDictionary(
+                kvp => kvp.Key.goodName,
+                kvp => kvp.Value
+            ) ?? new Dictionary<string, int>(),
+
+            OutputGoods = outputGoods?.ToDictionary(
+                kvp => kvp.Key.goodName,
+                kvp => kvp.Value.ToDto()
+            ) ?? new Dictionary<string, ProductionDto>(),
+
+            UniqueInputGoods = uniqueInputGoods?.ToDictionary(
+                kvp => kvp.Key.goodName,
+                kvp => kvp.Value
+            ) ?? new Dictionary<string, int>(),
+
+            InputGoods = inputGoods?.ToDictionary(
+                kvp => kvp.Key.goodName,
+                kvp => kvp.Value
+            ) ?? new Dictionary<string, int>(),
+
+            CountyStockpiledGoods = countyStockpiledGoods?.ToDictionary(
+                kvp => kvp.Key,
+                kvp => kvp.Value
+            ) ?? new Dictionary<AllEnums.CountyGoodType, int>(),
+
+            CountyResourceType = countyResourceType,
+            FactionResourceType = factionResourceType,
+            Status = status,
+            AllDailyWorkAmountAtImprovementCompleted = allDailyWorkAmountAtImprovementCompleted,
+
+            PopulationIdsAtImprovement = populationAtImprovement
+                .Select(p => p.populationId)
+                .ToList()
+        };
+    }
+
+    public static CountyImprovementData FromDto(CountyImprovementDto dto)
+    {
+        CountyImprovementData data = new CountyImprovementData
+        {
+            improvementName = dto.ImprovementName,
+            improvementDescription = dto.ImprovementDescription,
+            improvementTexture = !string.IsNullOrEmpty(dto.ImprovementTexturePath)
+                ? GD.Load<Texture2D>(dto.ImprovementTexturePath)
+                : null,
+
+            countyImprovementType = dto.CountyImprovementType,
+            prioritize = dto.Prioritize,
+
+            workSkill = dto.WorkSkill,
+            interestData = Autoload.Instance.allInterestData
+                .FirstOrDefault(i => i.interestName == dto.InterestDataName),
+
+            CurrentAmountOfConstruction = dto.CurrentAmountOfConstruction,
+            maxAmountOfConstruction = dto.MaxAmountOfConstruction,
+            numberBuilt = dto.NumberBuilt,
+            maxBuilders = dto.MaxBuilders,
+            adjustedMaxBuilders = dto.AdjustedMaxBuilders,
+            maxWorkers = dto.MaxWorkers,
+            adjustedMaxWorkers = dto.AdjustedMaxWorkers,
+
+            goodsConstructionCost = new Godot.Collections.Dictionary<GoodData, int>(),
+            outputGoods = new Godot.Collections.Dictionary<GoodData, ProductionData>(),
+            uniqueInputGoods = new Godot.Collections.Dictionary<GoodData, int>(),
+            inputGoods = new Godot.Collections.Dictionary<GoodData, int>(),
+            countyStockpiledGoods = new Godot.Collections.Dictionary<AllEnums.CountyGoodType, int>(),
+
+            countyResourceType = dto.CountyResourceType,
+            factionResourceType = dto.FactionResourceType,
+            status = dto.Status,
+            allDailyWorkAmountAtImprovementCompleted = dto.AllDailyWorkAmountAtImprovementCompleted,
+            populationAtImprovement = new Godot.Collections.Array<PopulationData>()
+        };
+
+        // 🔹 Convert goods dictionaries back to Godot dictionaries
+        foreach (var kvp in dto.GoodsConstructionCost)
+        {
+            GoodData good = Autoload.Instance.allGoodData.FirstOrDefault(g => g.goodName == kvp.Key);
+            if (good != null) data.goodsConstructionCost.Add(good, kvp.Value);
+        }
+
+        foreach (var kvp in dto.OutputGoods)
+        {
+            GoodData good = Autoload.Instance.allGoodData.FirstOrDefault(g => g.goodName == kvp.Key);
+            if (good != null) data.outputGoods.Add(good, ProductionData.FromDto(kvp.Value));
+        }
+
+        foreach (var kvp in dto.UniqueInputGoods)
+        {
+            GoodData good = Autoload.Instance.allGoodData.FirstOrDefault(g => g.goodName == kvp.Key);
+            if (good != null) data.uniqueInputGoods.Add(good, kvp.Value);
+        }
+
+        foreach (var kvp in dto.InputGoods)
+        {
+            GoodData good = Autoload.Instance.allGoodData.FirstOrDefault(g => g.goodName == kvp.Key);
+            if (good != null) data.inputGoods.Add(good, kvp.Value);
+        }
+
+        foreach (var kvp in dto.CountyStockpiledGoods)
+        {
+            data.countyStockpiledGoods.Add(kvp.Key, kvp.Value);
+        }
+
+        // 🔹 Workers will be linked later (we just store IDs now)
+        // populationAtImprovement will be filled in AFTER all populations are loaded
+
+        return data;
+    }
+
 
     public void AdjustNumberOfBuilders(int adjustment)
     {
@@ -81,8 +221,10 @@ public partial class CountyImprovementData : Resource
         {
             name = $"{Tr(improvementName)} {numberBuilt}";
         }
+
         return name;
     }
+
     private PopulationData GetLowestSkilledPopulation(bool constructing)
     {
         AllEnums.Skills skill;
@@ -94,12 +236,12 @@ public partial class CountyImprovementData : Resource
         {
             skill = workSkill;
         }
+
         // Remove the lowest skilled worker.
         List<PopulationData> sortedLowestSkillLevelPopulation
             = [.. populationAtImprovement.OrderBy(pop => pop.skills[skill].skillLevel)];
         PopulationData lowestSkilledPopulation = sortedLowestSkillLevelPopulation.FirstOrDefault();
         return lowestSkilledPopulation;
-
     }
 
     public int CountNumberOfGoodsGettingProduced()
@@ -118,8 +260,8 @@ public partial class CountyImprovementData : Resource
         {
             // Get all of the work and then divide it by the number of resources.
             int workAmount = maxWorkers * Globals.Instance.dailyWorkAmount
-                / productionData.workCost;
-            
+                             / productionData.workCost;
+
             productionData.AverageDailyGoodsAmountGenerated = workAmount;
         }
         else
@@ -127,22 +269,27 @@ public partial class CountyImprovementData : Resource
             productionData.AverageDailyGoodsAmountGenerated = productionData.storageAmount;
         }
     }
+
     public bool CheckIfWorkersFull()
     {
-        if(populationAtImprovement.Count >= adjustedMaxWorkers)
+        if (populationAtImprovement.Count >= adjustedMaxWorkers)
         {
             return true;
         }
+
         return false;
     }
+
     public bool CheckIfResearchImprovement()
     {
         if (factionResourceType == AllEnums.FactionGoodType.Research)
         {
             return true;
         }
+
         return false;
     }
+
     public bool CheckIfStorageImprovement()
     {
         if (countyResourceType == AllEnums.CountyGoodType.StorageNonperishable
@@ -150,8 +297,10 @@ public partial class CountyImprovementData : Resource
         {
             return true;
         }
+
         return false;
     }
+
     public void AdjustNumberOfWorkers(int adjustment)
     {
         adjustedMaxWorkers += adjustment;
@@ -170,6 +319,7 @@ public partial class CountyImprovementData : Resource
         {
             return true;
         }
+
         return false;
     }
 
@@ -177,26 +327,29 @@ public partial class CountyImprovementData : Resource
     {
         return status == AllEnums.CountyImprovementStatus.LowStockpiledGoods;
     }
+
     public void AddPopulationToPopulationAtImprovementList(PopulationData populationData)
     {
         // GD.Print($"{populationData.firstName} was added to {improvementName}'s list {populationAtImprovement.Count}.");
         populationAtImprovement.Add(populationData);
     }
+
     public void RemoveEveryoneFromCountyImprovement(CountyData countyData)
     {
         Godot.Collections.Array<PopulationData> peopleToRemove = populationAtImprovement.Duplicate();
-        foreach(PopulationData populationData in peopleToRemove)
+        foreach (PopulationData populationData in peopleToRemove)
         {
             populationData.RemoveFromCountyImprovement();
             countyData.workersList.Add(populationData);
         }
     }
+
     public void RemovePopulationFromPopulationAtImprovementList(PopulationData populationData)
     {
         populationAtImprovement.Remove(populationData);
         populationData.currentCountyImprovement = null;
     }
-    
+
     /// <summary>
     /// Sets the allDailyWorkAmountAtImprovementCompleted to zero for some reason.
     /// </summary>
@@ -224,6 +377,7 @@ public partial class CountyImprovementData : Resource
     {
         factionData.researchOffices.Add(this);
     }
+
     public void SetCountyImprovementStatus(AllEnums.CountyImprovementStatus newStatus)
     {
         status = newStatus;
@@ -266,10 +420,11 @@ public partial class CountyImprovementData : Resource
     {
         Godot.Collections.Dictionary<GoodData, int> copiedDictionary = [];
 
-        foreach (KeyValuePair<GoodData, int> keyValuePair in inputGoods) 
+        foreach (KeyValuePair<GoodData, int> keyValuePair in inputGoods)
         {
             copiedDictionary.Add(GoodData.NewCopy(keyValuePair.Key), keyValuePair.Value);
         }
+
         return copiedDictionary;
     }
 
@@ -282,9 +437,10 @@ public partial class CountyImprovementData : Resource
         {
             copiedDictionary.Add(keyValuePair.Key, keyValuePair.Value);
         }
+
         return copiedDictionary;
     }
-    
+
     // We have to do a copy of a copy to make a copy that is unique.
     // I bet this isn't unique.
     public Godot.Collections.Dictionary<GoodData, ProductionData> CopyOutputGoods()

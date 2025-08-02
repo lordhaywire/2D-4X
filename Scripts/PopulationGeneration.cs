@@ -116,7 +116,7 @@ public partial class PopulationGeneration : Node
                     interestData = GenerateInterest(),
                     activity = AllEnums.Activities.Idle,
                     useNewestEquipment = false,
-                    inventory = new GoodData[5],
+                    inventory = GenerateInventory(),
                     currentCountyImprovement = null,
                     passiveResearchItemData = null,
                     currentResearchItemData = null,
@@ -163,7 +163,7 @@ public partial class PopulationGeneration : Node
                     interestData = GenerateInterest(),
                     activity = AllEnums.Activities.Idle,
                     useNewestEquipment = false,
-                    inventory = new GoodData[5],
+                    inventory = GenerateInventory(),
                     currentCountyImprovement = null,
                     passiveResearchItemData = null,
                     currentResearchItemData = null,
@@ -179,6 +179,21 @@ public partial class PopulationGeneration : Node
             GD.Print("PopulationID: " + SaveManager.Instance.saveGameData.currentPopulationId);
             SaveManager.Instance.saveGameData.currentPopulationId++;
         }
+    }
+
+    private Godot.Collections.Dictionary<AllEnums.InventorySlot, GoodData> GenerateInventory()
+    {
+        Godot.Collections.Dictionary<AllEnums.InventorySlot, GoodData> inventoryDictionary = new();
+
+        foreach (AllEnums.InventorySlot slot in Enum.GetValues(typeof(AllEnums.InventorySlot)))
+        {
+            if (slot == AllEnums.InventorySlot.None)
+                continue; // skip the first one
+
+            inventoryDictionary[slot] = null; // or new EquipmentData() if you want default objects
+        }
+
+        return inventoryDictionary;
     }
 
     private static InterestData GenerateInterest()

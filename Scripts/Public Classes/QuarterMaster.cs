@@ -28,7 +28,7 @@ public class Quartermaster
         County county = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
         CountyData countyData = county.countyData;
 
-        for (int i = 1; i <= populationData.inventory.Length; i++)
+        for (int i = 1; i <= populationData.inventory.Count; i++)
         {
             List<GoodData> sortedEquipmentList = GenerateEquipmentList(countyData, i);
             // If the useNewestEquipment is set to false, then it picks the lowest level of equipment,
@@ -62,9 +62,9 @@ public class Quartermaster
     private static void CheckForAlreadyEquippedAndAdjustCountyGoods(CountyData countyData, GoodData goodToEquip, PopulationData populationData)
     {
         // If there is no equipment equipped, then take one from the county goods and equip it.
-        if (populationData.inventory[AllEnums.GetCorrectEquipmentSlot(goodToEquip.equipmentData.equipmentType)] == null)
+        if (populationData.inventory[goodToEquip.equipmentData.inventorySlot] == null)
         {
-            populationData.inventory[AllEnums.GetCorrectEquipmentSlot(goodToEquip.equipmentData.equipmentType)] 
+            populationData.inventory[goodToEquip.equipmentData.inventorySlot] 
                 = goodToEquip;
             // Take 1 good away from the County goods.
             Haulmaster.AdjustCountyGoodAmount(countyData, goodToEquip.countyGoodType, -1);
@@ -72,7 +72,7 @@ public class Quartermaster
         else
         {
             // If the goodData is already equipped, then don't do anything.
-            if (populationData.inventory[AllEnums.GetCorrectEquipmentSlot(goodToEquip.equipmentData.equipmentType)].goodName 
+            if (populationData.inventory[goodToEquip.equipmentData.inventorySlot].goodName 
                 == goodToEquip.goodName)
             {
                 GD.Print($"{goodToEquip.goodName} is already equipped.");
@@ -83,12 +83,12 @@ public class Quartermaster
                 // the county goods.
                 // Put back the original equipped equipment.
                 Haulmaster.AdjustCountyGoodAmount(countyData, 
-                    populationData.inventory[AllEnums.GetCorrectEquipmentSlot(goodToEquip.equipmentData.equipmentType)].countyGoodType
+                    populationData.inventory[goodToEquip.equipmentData.inventorySlot].countyGoodType
                     , 1);
                 // Get the equipment from the county goods.
                 Haulmaster.AdjustCountyGoodAmount(countyData, goodToEquip.countyGoodType, -1);
                 // Equip the new goodToEquip on the populationData.
-                populationData.inventory[AllEnums.GetCorrectEquipmentSlot(goodToEquip.equipmentData.equipmentType)] 
+                populationData.inventory[goodToEquip.equipmentData.inventorySlot] 
                     = goodToEquip;
                 //GD.Print($"{goodToEquip.goodName} is different from currently equipped.");
             }
@@ -101,7 +101,7 @@ public class Quartermaster
 
         foreach (KeyValuePair<AllEnums.CountyGoodType, GoodData> keyValuePair in countyData.goods)
         {
-            if (keyValuePair.Value.equipmentData?.equipmentType == (AllEnums.EquipmentType)i
+            if (keyValuePair.Value.equipmentData?.inventorySlot == (AllEnums.InventorySlot)i
                 && keyValuePair.Value.Amount > 0)
             {
                 equipmentList.Add(keyValuePair.Value);
@@ -112,12 +112,12 @@ public class Quartermaster
         return [.. equipmentList.OrderBy(e => e.equipmentData.equipmentTier)];
     }
     
-    public static int GetEquipmentBonus(PopulationData populationData, AllEnums.EquipmentType equipmentType)
+    public static int GetEquipmentBonus(PopulationData populationData, AllEnums.InventorySlot inventorySlot)
     {
         int equipmentBonus = 0;
-        if (populationData.inventory[AllEnums.GetCorrectEquipmentSlot(equipmentType)] != null)
+        if (populationData.inventory[inventorySlot] != null)
         {
-            equipmentBonus = populationData.inventory[AllEnums.GetCorrectEquipmentSlot(equipmentType)].equipmentData.equipmentBonus;
+            equipmentBonus = populationData.inventory[inventorySlot].equipmentData.equipmentBonus;
         }
 
         return equipmentBonus;

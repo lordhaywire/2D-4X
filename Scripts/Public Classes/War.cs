@@ -18,7 +18,7 @@ public class War
         };
     }
 
-    public static War FromDto(WarDto dto, List<FactionData> allFactions)
+    public static War FromDto(WarDto dto, Godot.Collections.Array<FactionData> allFactions)
     {
         return new War
         {

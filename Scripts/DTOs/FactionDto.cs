@@ -20,7 +20,7 @@ public class FactionDto
     public int FactionLeader { get; set; }
 
     public List<string> AllCountyImprovements { get; set; } = [];
-    public List<string> ResearchOffices { get; set; } = [];
+    public List<CountyImprovementDto> ResearchOffices { get; set; } = [];
 
     // Goods
     public Dictionary<string, GoodDto> FactionGoods { get; set; } = new();
@@ -28,8 +28,6 @@ public class FactionDto
     public Dictionary<string, GoodDto> AmountUsedFactionGoods { get; set; } = new();
 
     // Diplomacy & War
-    public List<WarDto> Wars { get; set; } = new();
+    public List<WarDto> Wars { get; set; } = [];
     public Dictionary<string, bool> FactionWarDictionary { get; set; } = new();
-    
-    
 }

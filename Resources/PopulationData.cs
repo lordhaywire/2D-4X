@@ -47,7 +47,7 @@ public partial class PopulationData : Resource
     }
 
     [Export] public int numberOfSubordinatesWanted;
-    [Export] public Godot.Collections.Array<PopulationData> heroSubordinates; //=[];
+    [Export] public Godot.Collections.Array<PopulationData> heroSubordinates;
 
     [ExportGroup("Perks")] [Export] public Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks;
 
@@ -96,16 +96,16 @@ public partial class PopulationData : Resource
     [Export] public Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> needs;
 
     [ExportGroup("Attributes")] [Export]
-    public Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes; // = [];
+    public Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes;
 
-    [ExportGroup("Skills")] [Export] public Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills; // = [];
+    [ExportGroup("Skills")] [Export] public Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills;
     [Export] public SkillData preferredSkill;
     [Export] public InterestData interestData;
 
     [ExportGroup("Work")] [Export] public AllEnums.Activities activity;
 
     [ExportGroup("Inventory")] [Export] public bool useNewestEquipment;
-    [Export] public GoodData[] inventory;
+    [Export] public Godot.Collections.Dictionary<AllEnums.InventorySlot, GoodData> inventory;
 
     [Export] public CountyImprovementData currentCountyImprovement; // Used for work and building.
 
@@ -116,9 +116,15 @@ public partial class PopulationData : Resource
 
     public PopulationDto ToDto()
     {
-        List<GoodDto> inventoryDtos = inventory != null
-            ? inventory.Select(g => g?.ToDto()).ToList()
-            : new List<GoodDto>();
+        // ✅ Convert Inventory (Dictionary<InventorySlot, GoodData>) → Dictionary<InventorySlot, GoodDto>
+        // Convert Dictionary<InventorySlot, GoodData> → Dictionary<string, GoodDto>
+        Dictionary<string, GoodDto> inventoryDtos =
+            inventory != null
+                ? inventory.ToDictionary(
+                    kvp => kvp.Key.ToString(), // 🔹 Convert enum to string
+                    kvp => kvp.Value?.ToDto()) // 🔹 Convert GoodData → GoodDto (handles null safely)
+                : new Dictionary<string, GoodDto>();
+
 
         return new PopulationDto
         {
@@ -310,11 +316,35 @@ public partial class PopulationData : Resource
 
         populationData.useNewestEquipment = populationDto.UseNewestEquipment;
 
-        // Inventory (convert GoodDto → GoodData)
-        populationData.inventory = populationDto.Inventory != null
-            ? populationDto.Inventory.Select(GoodData.FromDto).ToArray()
-            : [];
+        // Convert Dictionary<string, GoodDto> → Dictionary<InventorySlot, GoodData>
+        Godot.Collections.Dictionary<AllEnums.InventorySlot, GoodData> inventoryResult = new Godot.Collections.Dictionary<AllEnums.InventorySlot, GoodData>();
 
+        if (populationDto.Inventory != null)
+        {
+            foreach (KeyValuePair<string, GoodDto> keyValuePair in populationDto.Inventory)
+            {
+                // 🔹 Convert the string key back into the InventorySlot enum
+                AllEnums.InventorySlot slot = Enum.Parse<AllEnums.InventorySlot>(keyValuePair.Key);
+
+                // 🔹 If the GoodDto is not null, convert it to GoodData
+                GoodData goodData = null;
+                if (keyValuePair.Value != null)
+                {
+                    goodData = GoodData.FromDto(keyValuePair.Value);
+                }
+
+                // 🔹 Add the converted key/value to the dictionary
+                inventoryResult[slot] = goodData;
+            }
+        }
+        else
+        {
+            // 🔹 No inventory provided → initialize an empty dictionary
+            inventoryResult = new Godot.Collections.Dictionary<AllEnums.InventorySlot, GoodData>();
+        }
+
+        // 🔹 Assign the finished dictionary to the population data object
+        populationData.inventory = inventoryResult;
 
         // Current County Improvement
         if (!string.IsNullOrEmpty(populationDto.CurrentCountyImprovement))

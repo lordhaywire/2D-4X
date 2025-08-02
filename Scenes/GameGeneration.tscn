@@ -15,7 +15,7 @@ script = ExtResource("1_abo1n")
 statusLabel = NodePath("Status Label")
 
 [node name="Status Label" type="Label" parent="Game Generation Canvas Layer"]
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

@@ -46,11 +46,23 @@ public partial class InventoryVBoxContainer : VBoxContainer
             {
                 for (int i = 0; i < equipment.Count; i++)
                 {
-                    equipment[i].Text = populationData.inventory[i] != null
-                        ? populationData.inventory[i].goodName
+                    // Convert int index 'i' to InventorySlot enum, skipping 'None' (which is 0)
+                    // So 'i' = 0 corresponds to Reconnaissance (1), 'i' = 1 -> Offensive (2), etc.
+                    AllEnums.InventorySlot slot = (AllEnums.InventorySlot)(i + 1);
+
+                    // Get the GoodData for that slot, if any
+                    GoodData goodData = null;
+                    if (populationData.inventory != null && populationData.inventory.TryGetValue(slot, out GoodData value))
+                    {
+                        goodData = value;
+                    }
+
+                    equipment[i].Text = goodData != null
+                        ? goodData.goodName
                         : $"{Tr("WORD_NONE")}";
                 }
             }
+
 
             if (populationData.activity == AllEnums.Activities.Service)
             {

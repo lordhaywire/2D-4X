@@ -27,6 +27,32 @@ namespace PlayerSpace
             }
         }
 
+        public ProductionDto ToDto()
+        {
+            return new ProductionDto
+            {
+                WorkAmountAfterSkillCheck = workAmountAfterSkillCheck,
+                WorkCost = workCost,
+                WorkAmount = workAmount,
+                TodaysGoodsAmountGenerated = todaysGoodsAmountGenerated,
+                AverageDailyGoodsAmountGenerated = AverageDailyGoodsAmountGenerated,
+                StorageAmount = storageAmount
+            };
+        }
+
+        public static ProductionData FromDto(ProductionDto dto)
+        {
+            return new ProductionData
+            {
+                workAmountAfterSkillCheck = dto.WorkAmountAfterSkillCheck,
+                workCost = dto.WorkCost,
+                workAmount = dto.WorkAmount,
+                todaysGoodsAmountGenerated = dto.TodaysGoodsAmountGenerated,
+                AverageDailyGoodsAmountGenerated = dto.AverageDailyGoodsAmountGenerated,
+                storageAmount = dto.StorageAmount
+            };
+        }
+
         public ProductionData NewCopy(ProductionData productionData)
         {
             ProductionData newProductionData = new()

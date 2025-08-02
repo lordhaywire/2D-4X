@@ -27,8 +27,8 @@ public abstract class Explorer
         int attributeLevel = hero.attributes[hero.skills[AllEnums.Skills.Scout].attribute].attributeLevel;
         int attributeBonus = AttributeData.GetAttributeBonus(attributeLevel, false, false);
         int additionalBonus =
-            GetSubordinateBonus(hero) + Quartermaster.GetEquipmentBonus(hero, AllEnums.EquipmentType.Reconnaissance);
-        GD.Print($"Reconnaissance Equipment Bonus for {hero.GetFullName()} {Quartermaster.GetEquipmentBonus(hero, AllEnums.EquipmentType.Reconnaissance)}"); 
+            GetSubordinateBonus(hero) + Quartermaster.GetEquipmentBonus(hero, AllEnums.InventorySlot.Reconnaissance);
+        GD.Print($"Reconnaissance Equipment Bonus for {hero.GetFullName()} {Quartermaster.GetEquipmentBonus(hero, AllEnums.InventorySlot.Reconnaissance)}"); 
         int perkBonus = 0; // TODO: Add a perk of some sort. // TODO: Perk Bonus
         int exploredAmount = 0;
         // Only gives exploration progress if the skill check passes.
@@ -53,8 +53,8 @@ public abstract class Explorer
             int attributeLevel = subordinate.attributes[subordinate.skills[AllEnums.Skills.Scout].attribute]
                 .attributeLevel;
             int attributeBonus = AttributeData.GetAttributeBonus(attributeLevel, false, false);
-            int additionalBonus = Quartermaster.GetEquipmentBonus(subordinate, AllEnums.EquipmentType.Reconnaissance);
-            GD.Print($"Reconnaissance Equipment Bonus for {subordinate.GetFullName()} {Quartermaster.GetEquipmentBonus(subordinate, AllEnums.EquipmentType.Reconnaissance)}");
+            int additionalBonus = Quartermaster.GetEquipmentBonus(subordinate, AllEnums.InventorySlot.Reconnaissance);
+            GD.Print($"Reconnaissance Equipment Bonus for {subordinate.GetFullName()} {Quartermaster.GetEquipmentBonus(subordinate, AllEnums.InventorySlot.Reconnaissance)}");
             int perkBonus = 0; //Add a perk of some sort.// TODO: Perk Bonus
 
             if (SkillData.CheckWithBonuses(skillLevel, attributeBonus, additionalBonus, perkBonus))

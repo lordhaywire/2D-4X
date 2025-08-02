@@ -54,7 +54,7 @@ public class PopulationDto
 
     // Inventory
     public bool UseNewestEquipment { get; set; }
-    public List<GoodDto> Inventory { get; set; }
+    public Dictionary<string, GoodDto> Inventory { get; set; }
 
     // Current County Improvement & Research
     public string CurrentCountyImprovement { get; set; }
