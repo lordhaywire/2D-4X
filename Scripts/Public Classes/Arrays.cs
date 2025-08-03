@@ -2,36 +2,18 @@ using Godot;
 
 namespace PlayerSpace;
 
-public partial class Arrays
+public class Arrays
 {
-    public static readonly Color[] colors =
+    public static readonly Color[] Colors =
     {
-        Colors.RosyBrown,
-        Colors.Tomato,
-        Colors.SandyBrown,
-        Colors.Plum,
-        Colors.PeachPuff,
-        Colors.ForestGreen,
-        Colors.MediumSpringGreen,
-        Colors.MediumPurple,
-        Colors.LightPink,
+        Godot.Colors.RosyBrown,
+        Godot.Colors.Tomato,
+        Godot.Colors.SandyBrown,
+        Godot.Colors.Plum,
+        Godot.Colors.PeachPuff,
+        Godot.Colors.ForestGreen,
+        Godot.Colors.MediumSpringGreen,
+        Godot.Colors.MediumPurple,
+        Godot.Colors.LightPink,
     };
-
-    /*
-    // If the prebuilt colors don't work.
-    // Possibly - Color red = Color8(255, 0, 0, 255);
-    public static Color[] notColors =
-    {
-    AllColors.salmon,
-    AllColors.darkSalmon,
-    AllColors.purple,
-    AllColors.darkPurple,
-    AllColors.lightBlue,
-    AllColors.blue,
-    AllColors.green,
-    AllColors.lightGreen,
-    AllColors.orange,
-    AllColors.burnt,
-};
-    */
 }

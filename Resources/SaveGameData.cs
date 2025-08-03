@@ -13,7 +13,7 @@ public partial class SaveGameData : Resource
     
     public SaveGameDto ToDto()
     {
-        SaveGameDto dto = new SaveGameDto
+        SaveGameDto saveGameDto = new SaveGameDto
         {
             SaveVersion = saveVersion,
             CurrentPopulationId = currentPopulationId,
@@ -23,32 +23,31 @@ public partial class SaveGameData : Resource
 
         foreach (FactionData faction in allFactionDataList)
         {
-            dto.AllFactionDataList.Add(faction.ToDto());
+            saveGameDto.AllFactionDataList.Add(faction.ToDto());
         }
 
-        return dto;
+        return saveGameDto;
     }
     
-    public static SaveGameData FromDto(SaveGameDto saveGameDto)
+    public static void FromDto(SaveGameDto saveGameDto)
     {
-        SaveGameData saveGameData = new SaveGameData
+        SaveManager.Instance.saveGameData = new SaveGameData
         {
             saveVersion = saveGameDto.SaveVersion,
             currentPopulationId = saveGameDto.CurrentPopulationId,
             allPopulationDataList = [],
             allFactionDataList = []
         };
-
+        
         foreach (PopulationDto popDto in saveGameDto.AllPopulationDataList)
         {
-            saveGameData.allPopulationDataList.Add(PopulationData.FromDto(popDto));
+            SaveManager.Instance.saveGameData.allPopulationDataList.Add(PopulationData.FromDto(popDto));
         }
 
         foreach (FactionDto factionDto in saveGameDto.AllFactionDataList)
         {
-            saveGameData.allFactionDataList.Add(FactionData.FromDto(factionDto));
+            GD.PrintRich($"[rainbow]Count of All Population Data List: {SaveManager.Instance.saveGameData.allPopulationDataList.Count}");
+            SaveManager.Instance.saveGameData.allFactionDataList.Add(FactionData.FromDto(factionDto));
         }
-
-        return saveGameData;
     }
 }

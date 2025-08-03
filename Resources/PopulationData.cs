@@ -193,6 +193,7 @@ public partial class PopulationData : Resource
         populationData.populationId = populationDto.PopulationId;
 
         // Todo: We need to reconnect this after allFactionDataList is loaded from disk.
+        
         /*
         // Reconnect FactionData by ID
         if (populationDto.FactionId.HasValue)
@@ -216,7 +217,8 @@ public partial class PopulationData : Resource
         {
             populationData.personality = parsedPersonality;
         }
-
+        // Todo We need to assign the actual personality here.
+        
         populationData.isHero = populationDto.IsHero;
 
         // 🔹 HeroType (convert string to enum)
@@ -227,6 +229,7 @@ public partial class PopulationData : Resource
 
         populationData.numberOfSubordinatesWanted = populationDto.NumberOfSubordinatesWanted;
 
+        // Todo: This needs to happen after the allPopulationDataList is fully loaded.
         // 🔹 Hero Subordinates (IDs → PopulationData references)
         populationData.heroSubordinates = new Godot.Collections.Array<PopulationData>();
         foreach (int subId in populationDto.HeroSubordinates)
@@ -240,11 +243,11 @@ public partial class PopulationData : Resource
 
         // 🔹 Perks
         populationData.perks = new Godot.Collections.Dictionary<AllEnums.Perks, PerkData>();
-        foreach (var kvp in populationDto.Perks)
+        foreach (KeyValuePair<string, PerkDto> keyValuePair in populationDto.Perks)
         {
-            if (Enum.TryParse(kvp.Key, out AllEnums.Perks perkEnum))
+            if (Enum.TryParse(keyValuePair.Key, out AllEnums.Perks perkEnum))
             {
-                PerkData perk = PerkData.FromDto(kvp.Value);
+                PerkData perk = PerkData.FromDto(keyValuePair.Value);
                 populationData.perks[perkEnum] = perk;
             }
         }
@@ -266,31 +269,31 @@ public partial class PopulationData : Resource
 
         // 🔹 Needs (string → enum)
         populationData.needs = new Godot.Collections.Dictionary<AllEnums.CountyGoodType, int>();
-        foreach (var kvp in populationDto.Needs)
+        foreach (KeyValuePair<string, int> keyValuePair in populationDto.Needs)
         {
-            if (Enum.TryParse(kvp.Key, out AllEnums.CountyGoodType goodType))
+            if (Enum.TryParse(keyValuePair.Key, out AllEnums.CountyGoodType goodType))
             {
-                populationData.needs[goodType] = kvp.Value;
+                populationData.needs[goodType] = keyValuePair.Value;
             }
         }
 
         // 🔹 Attributes
         populationData.attributes = new Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData>();
-        foreach (var kvp in populationDto.Attributes)
+        foreach (KeyValuePair<string, AttributeDto> keyValuePair in populationDto.Attributes)
         {
-            if (Enum.TryParse(kvp.Key, out AllEnums.Attributes attrEnum))
+            if (Enum.TryParse(keyValuePair.Key, out AllEnums.Attributes attrEnum))
             {
-                populationData.attributes[attrEnum] = AttributeData.FromDto(kvp.Value);
+                populationData.attributes[attrEnum] = AttributeData.FromDto(keyValuePair.Value);
             }
         }
 
         // 🔹 Skills
         populationData.skills = new Godot.Collections.Dictionary<AllEnums.Skills, SkillData>();
-        foreach (var kvp in populationDto.Skills)
+        foreach (KeyValuePair<string, SkillDto> keyValuePair in populationDto.Skills)
         {
-            if (Enum.TryParse(kvp.Key, out AllEnums.Skills skillEnum))
+            if (Enum.TryParse(keyValuePair.Key, out AllEnums.Skills skillEnum))
             {
-                populationData.skills[skillEnum] = SkillData.FromDto(kvp.Value);
+                populationData.skills[skillEnum] = SkillData.FromDto(keyValuePair.Value);
             }
         }
 
@@ -360,7 +363,7 @@ public partial class PopulationData : Resource
                 .FirstOrDefault(r => r.researchName == populationDto.PassiveResearchItem);
         }
 
-        // 🔹 Current Research
+        // Current Research
         if (!string.IsNullOrEmpty(populationDto.CurrentResearchItem))
         {
             populationData.currentResearchItemData = Autoload.Instance.allResearchItemData

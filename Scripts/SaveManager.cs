@@ -15,7 +15,6 @@ public partial class SaveManager : Node
     private string saveFilePath = "user://saves/savegame.tres";
     private string saveFilePathJson = "user://saves/savegame.json";
 
-
     public override void _Ready()
     {
         Instance = this;
@@ -26,7 +25,6 @@ public partial class SaveManager : Node
         CheckForFolderAndCreate();
         SaveGameToJson();
     }
-
 
     private void SaveGameToJson()
     {
@@ -60,7 +58,7 @@ public partial class SaveManager : Node
         SaveGameDto saveDto = JsonSerializer.Deserialize<SaveGameDto>(json);
 
         // Convert DTO back to runtime SaveGameData
-        saveGameData = SaveGameData.FromDto(saveDto);
+        SaveGameData.FromDto(saveDto);
 
         GD.Print("Full game loaded from JSON.");
     }

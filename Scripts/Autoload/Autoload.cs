@@ -117,17 +117,17 @@ public partial class Autoload : Node
         DirAccess directory = DirAccess.Open("res://");
         if (directory.DirExists("res://Lists/"))
         {
-            using var maleFile = FileAccess.Open("res://Lists/MaleNames.txt", FileAccess.ModeFlags.Read);//(listsPath + maleNamesPath, FileAccess.ModeFlags.Read);
+            using FileAccess maleFile = FileAccess.Open("res://Lists/MaleNames.txt", FileAccess.ModeFlags.Read);//(listsPath + maleNamesPath, FileAccess.ModeFlags.Read);
             while (maleFile.GetPosition() < maleFile.GetLength())
             {
                 maleNames.Add(maleFile.GetLine());
             }
-            using var femaleFile = FileAccess.Open("res://Lists/FemaleNames.txt", FileAccess.ModeFlags.Read); //(listsPath + femaleNamesPath, FileAccess.ModeFlags.Read);
+            using FileAccess femaleFile = FileAccess.Open("res://Lists/FemaleNames.txt", FileAccess.ModeFlags.Read); //(listsPath + femaleNamesPath, FileAccess.ModeFlags.Read);
             while (femaleFile.GetPosition() < femaleFile.GetLength())
             {
                 femaleNames.Add(femaleFile.GetLine());
             }
-            using var lastNameFile = FileAccess.Open("res://Lists/LastNames.txt", FileAccess.ModeFlags.Read); //(listsPath + lastNamesPath, FileAccess.ModeFlags.Read);
+            using FileAccess lastNameFile = FileAccess.Open("res://Lists/LastNames.txt", FileAccess.ModeFlags.Read); //(listsPath + lastNamesPath, FileAccess.ModeFlags.Read);
             while (lastNameFile.GetPosition() < lastNameFile.GetLength())
             {
                 lastNames.Add(lastNameFile.GetLine());

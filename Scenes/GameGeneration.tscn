@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bkvoeyl6dapva"]
+[gd_scene load_steps=9 format=3 uid="uid://bkvoeyl6dapva"]
 
 [ext_resource type="Script" uid="uid://bnyvq3m43wfaf" path="res://Scripts/Game Generation/GameGenerationCanvasLayer.cs" id="1_abo1n"]
 [ext_resource type="Script" uid="uid://bumyrywwkfvin" path="res://Scripts/FactionGeneration.cs" id="2_8gupl"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://w7efp2g0eih7" path="res://Scripts/PopulationGeneration.cs" id="4_vo2cf"]
 [ext_resource type="Script" uid="uid://bhxl2uniuob2i" path="res://Scripts/Game Generation/SpawnMainGame.cs" id="4_vt6nh"]
 [ext_resource type="PackedScene" uid="uid://dcycrof2uq8gd" path="res://Scenes/Main.tscn" id="5_78hrc"]
+[ext_resource type="Script" uid="uid://dbc6ojfaamfb7" path="res://Scripts/Game Generation/RandomlyAssignColorsToFactions.cs" id="5_fersv"]
 
 [node name="Root Node" type="Node"]
 
@@ -37,6 +38,9 @@ script = ExtResource("3_78hrc")
 
 [node name="Population Generation" type="Node" parent="."]
 script = ExtResource("4_vo2cf")
+
+[node name="Randomly Assign Colors to Factions" type="Node" parent="."]
+script = ExtResource("5_fersv")
 
 [node name="Save Generated World To Disk" type="Node" parent="."]
 script = ExtResource("3_govcm")

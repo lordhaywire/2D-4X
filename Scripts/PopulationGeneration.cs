@@ -19,12 +19,11 @@ public partial class PopulationGeneration : Node
     private string lastName;
     private bool isMale;
 
-    [ExportGroup("For Population Generation")] 
-    [Export] private int startingAttributeMin = 21;
-    [Export] private int startingAttributeMax = 81; // One above max.
-    [Export] private int startingSkillMin = 1;
-    [Export] private int startingSkillMax = 51; // One above max.
-    [Export] private int chanceOfBeingUnhelpful = 11; // One above max.
+    private int startingAttributeMin = 21;
+    private int startingAttributeMax = 81; // One above max.
+    private int startingSkillMin = 1;
+    private int startingSkillMax = 51; // One above max.
+    private int chanceOfBeingUnhelpful = 11; // One above max.
 
     // This has to be up here, so the other methods can access it for Preferred Skill.
     private Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> newAttributes = [];
@@ -54,7 +53,7 @@ public partial class PopulationGeneration : Node
             GeneratePopulation(newCountyData, true, 1); // There is never going to be more than 1 faction leader.
 
             factionData.factionLeader = newCountyData.heroesInCountyList[0];
-            newCountyData.population += newCountyData.heroesInCountyList.Count;
+            newCountyData.populationCount += newCountyData.heroesInCountyList.Count;
         }
     }
 
@@ -344,9 +343,9 @@ public partial class PopulationGeneration : Node
             {
                 // Generate Normal Population
                 GeneratePopulation(populationCountyData, false, Autoload.Instance.totalCapitolPop);
-                populationCountyData.population += populationCountyData.populationDataList.Count;
+                populationCountyData.populationCount += populationCountyData.populationDataList.Count;
                 populationCountyData.IdleWorkers =
-                    populationCountyData.population -= populationCountyData.heroesInCountyList.Count;
+                    populationCountyData.populationCount -= populationCountyData.heroesInCountyList.Count;
             }
             else
             {
@@ -354,9 +353,9 @@ public partial class PopulationGeneration : Node
                 int normalPopulation =
                     random.Next(Autoload.Instance.minimumCountyPop, Autoload.Instance.maximumCountyPop);
                 GeneratePopulation(populationCountyData, false, normalPopulation);
-                populationCountyData.population += populationCountyData.populationDataList.Count;
+                populationCountyData.populationCount += populationCountyData.populationDataList.Count;
                 populationCountyData.IdleWorkers =
-                    populationCountyData.population -= populationCountyData.heroesInCountyList.Count;
+                    populationCountyData.populationCount -= populationCountyData.heroesInCountyList.Count;
             }
         }
     }

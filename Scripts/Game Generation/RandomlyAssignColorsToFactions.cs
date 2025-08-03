@@ -1,18 +1,15 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using AutoloadSpace;
 
 namespace PlayerSpace;
-
-public partial class RandomFactionColor : Node
+public partial class RandomlyAssignColorsToFactions : Node
 {
     private readonly Random random = new();
+
     public override void _Ready()
     {
-        //RandomFactionColors();
-        ApplyFactionColorsToCounties();
+        RandomFactionColors();
     }
 
     private void RandomFactionColors()
@@ -32,16 +29,8 @@ public partial class RandomFactionColor : Node
         {
             int randomIndex = random.Next(0, availableColors.Count);
             factionData.factionColor = availableColors[randomIndex];
-            //GD.Print("Faction Data attempting to get color: " + factionData.factionName + factionData.factionColor);
+            GD.Print("Faction Data attempting to get color: " + factionData.factionName + factionData.factionColor);
             availableColors.RemoveAt(randomIndex);
-        }
-    }
-
-    private static void ApplyFactionColorsToCounties()
-    {
-        foreach(County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
-        {
-            county.countySprite.SelfModulate = county.countyData.factionData.factionColor;
         }
     }
 }

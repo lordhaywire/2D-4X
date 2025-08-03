@@ -9,6 +9,7 @@ public partial class StartMenuCanvasLayer : CanvasLayer
     [Export] private Button exitButton;
 
     private string gameGenerationSceneDirectory = "res://Scenes/GameGeneration.tscn";
+    private string mainGameSceneDirectory = "res://Scenes/Main.tscn";
 
     public override void _Ready()
     {
@@ -25,7 +26,8 @@ public partial class StartMenuCanvasLayer : CanvasLayer
     
     private void LoadGame()
     {
-        throw new System.NotImplementedException();
+        GD.Print("Load Game");
+        GetTree().ChangeSceneToFile(mainGameSceneDirectory);
     }
     private void ExitGame()
     {

@@ -153,7 +153,6 @@ centered = false
 
 [node name="Globals" type="Node" parent="Game Controller Node" node_paths=PackedStringArray("countiesParent")]
 script = ExtResource("2_yf7pt")
-loadGameAtStart = true
 dailyInfluenceGain = 5
 leaderOfPeopleInfluenceBonus = 5
 startPaused = true
@@ -197,8 +196,6 @@ process_mode = 3
 script = ExtResource("12_vfu86")
 collisionRectangleShape = SubResource("RectangleShape2D_co2vr")
 
-[node name="Create Faction Nodes" type="Node" parent="Game Controller Node"]
-
 [node name="Random Faction Colors" type="Node" parent="Game Controller Node"]
 script = ExtResource("18_3aru6")
 
@@ -215,7 +212,7 @@ resourcesPanelContainer = NodePath("Goods PanelContainer")
 
 [node name="Event Log ScrollContainer" type="ScrollContainer" parent="Player UI Canvas" node_paths=PackedStringArray("eventLogScrollContainer", "eventLogVBoxContainer")]
 custom_minimum_size = Vector2(300, 75)
-anchors_preset = 2
+anchors_preset = -1
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 1620.0
@@ -238,7 +235,6 @@ theme_override_constants/separation = 1
 [node name="Top Bar Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("clock", "dayLabel", "hourLabel", "timeMultiplierLabel", "pausedLabel", "influenceLabel", "influenceAmountUsed", "moneyLabel", "moneyAmountUsed", "remnantsLabel", "remnantsAmountUsed", "buildingMaterialsLabel", "buildingMaterialsAmountUsed", "equipmentLabel", "equipmentAmountUsed", "foodLabel", "foodAmountUsed", "rawMaterialsLabel", "rawMaterialsAmountUsed", "x0Button", "xHalfButton", "x1Button", "x2Button", "x4Button", "x8Button", "x16Button")]
 custom_minimum_size = Vector2(0, 31)
 layout_mode = 3
-anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 31.0
 grow_horizontal = 2
@@ -274,7 +270,7 @@ x16Button = NodePath("PanelContainer/Time and Research Buttons HBox/x16 Button")
 
 [node name="PanelContainer" type="PanelContainer" parent="Player UI Canvas/Top Bar Control"]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = -1
 anchor_right = 1.0
 offset_bottom = 25.0
 grow_horizontal = 2
@@ -626,7 +622,6 @@ script = ExtResource("19_dn5gi")
 [node name="Pause Control" type="Control" parent="Player UI Canvas"]
 custom_minimum_size = Vector2(0, 31)
 layout_mode = 3
-anchors_preset = 0
 offset_top = 31.0
 offset_right = 1920.0
 offset_bottom = 62.0
@@ -635,7 +630,7 @@ mouse_filter = 2
 [node name="Pause Label" type="Label" parent="Player UI Canvas/Pause Control"]
 visible = false
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -654,7 +649,6 @@ vertical_alignment = 1
 visible = false
 custom_minimum_size = Vector2(300, 400)
 layout_mode = 3
-anchors_preset = 0
 offset_right = 300.0
 offset_bottom = 300.0
 size_flags_horizontal = 2
@@ -686,6 +680,7 @@ heroListPrefab = ExtResource("27_03q5w")
 
 [node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/County Info Control"]
 layout_mode = 1
+anchors_preset = -1
 offset_right = 300.0
 offset_bottom = 399.0
 mouse_filter = 2
@@ -2377,7 +2372,7 @@ alignment = 1
 
 [node name="Close Button" type="Button" parent="Player UI Canvas/Research Control"]
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -2533,7 +2528,7 @@ declareWarTitleLabel = NodePath("Declare War Confirmation PanelContainer/Title L
 [node name="Declare War Confirmation PanelContainer" type="PanelContainer" parent="Player UI Canvas/Declare War Control"]
 custom_minimum_size = Vector2(400, 200)
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -2592,7 +2587,7 @@ storyEventChoiceButton = ExtResource("114_yhlxv")
 
 [node name="PanelContainer" type="PanelContainer" parent="Player UI Canvas/Story Event Control"]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -2658,7 +2653,7 @@ mapEditorScene = ExtResource("66_sq6pt")
 
 [node name="Map Editor Button" type="Button" parent="Player UI Canvas/Map Editor Control"]
 layout_mode = 1
-anchors_preset = 2
+anchors_preset = -1
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -8.0
@@ -2692,7 +2687,7 @@ grow_vertical = 2
 
 [node name="Options PanelContainer" type="PanelContainer" parent="Player UI Canvas/Options Control"]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
