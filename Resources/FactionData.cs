@@ -260,7 +260,8 @@ public partial class FactionData : Resource
         // We need to double-check that the hero isn't already in the list.
         if (!allHeroesList.Contains(populationData))
         {
-            populationData.factionData.allHeroesList.Add(populationData);
+            FactionData factionData = GetFactionDataFromId(populationData.factionId);
+            factionData.allHeroesList.Add(populationData);
             //GD.Print($"Add To {populationData.factionData.factionName} Hero List: " + populationData.lastName);
         }
 

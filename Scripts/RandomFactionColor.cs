@@ -41,7 +41,7 @@ public partial class RandomFactionColor : Node
     {
         foreach(County county in Globals.Instance.countiesParent.GetChildren().Cast<County>())
         {
-            county.countySprite.SelfModulate = county.countyData.factionData.factionColor;
+            county.countySprite.SelfModulate = county.countyData.factionId.factionColor;
         }
     }
 }

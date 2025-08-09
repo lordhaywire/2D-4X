@@ -360,7 +360,7 @@ public partial class CountyImprovementData : Resource
         {
             case AllEnums.CountyImprovementType.Research:
                 status = AllEnums.CountyImprovementStatus.Researching;
-                AddResearchOfficeToFactionResearchOfficeList(countyData.factionData);
+                AddResearchOfficeToFactionResearchOfficeList(SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(countyData.factionId));
                 break;
             case AllEnums.CountyImprovementType.Storage:
                 Haulmaster.AddImprovementStorageToCounty(countyData, this);

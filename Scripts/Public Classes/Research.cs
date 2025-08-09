@@ -49,9 +49,10 @@ public class Research
     {
         foreach (PopulationData populationData in populationDataList)
         {
+            FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(populationData.factionId);
             populationData.passiveResearchItemData = GetResearchByInterest(populationData);
             populationData.passiveResearchItemData ??= GetPassiveResearchByActivity(populationData);
-            populationData.passiveResearchItemData ??= GetLowestTierRandomResearch(populationData.factionData);
+            populationData.passiveResearchItemData ??= GetLowestTierRandomResearch(factionData);
             if (populationData.passiveResearchItemData != null)
             {
                 //GD.Print($"Final Passive Research Outcome: {populationData.firstName} " +
@@ -67,9 +68,10 @@ public class Research
     /// <param name="populationData"></param>
     private static ResearchItemData GetResearchByInterest(PopulationData populationData)
     {
+        FactionData factionData  = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(populationData.factionId);
         //GD.Print("Assign Research By Interest to: " + populationData.firstName);
         ResearchItemData researchItemData
-            = GetRandomResearchByInterestType(populationData.factionData
+            = GetRandomResearchByInterestType(factionData
                 , populationData.interestData.interestType);
         return researchItemData;
     }
@@ -83,27 +85,28 @@ public class Research
     /// <returns></returns>
     private static ResearchItemData GetPassiveResearchByActivity(PopulationData populationData)
     {
+        FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(populationData.factionId);
         ResearchItemData whatPopulationIsResearching;
         switch (populationData.activity)
         {
             case AllEnums.Activities.Build:
                 whatPopulationIsResearching
-                    = GetRandomResearchByInterestType(populationData.factionData
+                    = GetRandomResearchByInterestType(factionData
                         , AllEnums.InterestType.Engineering);
                 break;
             case AllEnums.Activities.Combat:
                 whatPopulationIsResearching
-                    = GetRandomResearchByInterestType(populationData.factionData
+                    = GetRandomResearchByInterestType(factionData
                         , AllEnums.InterestType.Warfare);
                 break;
             case AllEnums.Activities.Research:
                 whatPopulationIsResearching
-                    = GetRandomResearchByInterestType(populationData.factionData
+                    = GetRandomResearchByInterestType(factionData
                         , populationData.currentResearchItemData.interestData.interestType);
                 break;
             case AllEnums.Activities.Work:
                 whatPopulationIsResearching
-                    = GetRandomResearchByInterestType(populationData.factionData
+                    = GetRandomResearchByInterestType(factionData
                         , populationData.currentCountyImprovement.interestData.interestType);
                 break;
             // If they are idle, scavenging, exploring or moving, they get random research.
@@ -115,7 +118,7 @@ public class Research
             case AllEnums.Activities.Service:
             case AllEnums.Activities.Idle:
             case AllEnums.Activities.Move:
-                whatPopulationIsResearching = GetLowestTierRandomResearch(populationData.factionData);
+                whatPopulationIsResearching = GetLowestTierRandomResearch(factionData);
                 /*
                 GD.Print($"{populationData.firstName} is either idle, scavenging or moving so they are getting " +
                     $"random passive research: {whatPopulationIsResearching.researchName}");
@@ -127,7 +130,6 @@ public class Research
 
         return whatPopulationIsResearching;
     }
-
 
     /// <summary>
     /// Check to see if there is a research office that isn't getting used by a hero.

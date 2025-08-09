@@ -208,7 +208,7 @@ public partial class County : Node2D
 
         foreach (PopulationData populationData in countyData.heroesInCountyList)
         {
-            if (countyData.factionData == populationData.factionData
+            if (countyData.factionId == populationData.factionId
                 && populationData.heroToken?.tokenMovement.MoveToken != true)
             {
                 Quartermaster.EquipHeroesAndSubordinates(populationData);

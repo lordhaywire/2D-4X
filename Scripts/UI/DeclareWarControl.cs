@@ -21,7 +21,7 @@ namespace PlayerSpace
             War newWar = new()
             {
                 aggressorFactionData = Autoload.Instance.playerFactionData,
-                defenderFactionData = Globals.Instance.selectedRightClickCounty.countyData.factionData
+                defenderFactionData = Globals.Instance.selectedRightClickCounty.countyData.factionId
             };
             //GD.Print($"{newWar.aggressorFactionData.factionName} is attacking {newWar.defenderFactionData.factionName}");
             // Once yes has been hit, this is the actual declaration of war.

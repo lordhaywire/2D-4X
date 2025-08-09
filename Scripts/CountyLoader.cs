@@ -26,12 +26,12 @@ public partial class CountyLoader : Node
                 {
                     PackedScene countyScene = (PackedScene)GD.Load(Globals.Instance.pathToCounties + files[i]);
                     County county = (County)countyScene.Instantiate();
-                    county.countyData = Autoload.Instance.allCountyData[i];
-                    Autoload.Instance.allCountyData[i].countyNode = county;
+                    county.countyData = SaveManager.Instance.saveGameData.allCountyDataList[i];
+                    SaveManager.Instance.saveGameData.allCountyDataList[i].countyNode = county;
                     Globals.Instance.countiesParent.AddChild(county);
 
                     // Since we are already going through all the countyDatas we add the countyData ID to the countyData.
-                    Autoload.Instance.allCountyData[i].countyId = i;
+                    SaveManager.Instance.saveGameData.allCountyDataList[i].countyId = i;
                     //GD.Print($"County ID: {Autoload.Instance.allCountyData[i].countyId} {county.Name}");
                 }
             }

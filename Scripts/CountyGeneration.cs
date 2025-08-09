@@ -8,14 +8,19 @@ namespace PlayerSpace;
 
 public partial class CountyGeneration : Node
 {
+    public List<CountyData> allCountyData = [];
+    private const string CountiesDirectory = "res://Resources/Counties/";
+    
     public override void _Ready()
     {
+        allCountyData = Autoload.Instance.ReadResourcesFromDisk(CountiesDirectory).Cast<CountyData>().ToList();
+        
         // This whole thing could probably be done in 1 foreach.  Maybe?
         AssignFactionDataToCountyData();
         AssignCountyDataToFaction();
         UpdateGoods();
         
-        foreach (CountyData countyData in Autoload.Instance.allCountyData)
+        foreach (CountyData countyData in allCountyData)
         {
             Haulmaster.CountCountyMaxStorage(countyData);
             Haulmaster.AssignMaxStorageToGoods(countyData);
@@ -24,12 +29,22 @@ public partial class CountyGeneration : Node
         AssignStartingGoodsToCounty();
         AssignTerrainToTerrainList();
         GenerateExplorationEvents();
+        ConvertCountyDataListToGodotArrayInSaveGame();
     }
 
+    private void ConvertCountyDataListToGodotArrayInSaveGame()
+    {
+        SaveManager.Instance.saveGameData.allCountyDataList.Clear();
+        foreach (CountyData countyData in allCountyData)
+        {
+            SaveManager.Instance.saveGameData.allCountyDataList.Add(countyData);
+        }
+    }
+    
     private void AssignTerrainToTerrainList()
     {
         // Add all the human set terrains to a Godot Collection for later use.
-        foreach (CountyData countyData in Autoload.Instance.allCountyData)
+        foreach (CountyData countyData in allCountyData)
         {
             countyData.allTerrains =
             [
@@ -42,7 +57,7 @@ public partial class CountyGeneration : Node
 
     private void GenerateExplorationEvents()
     {
-        foreach (CountyData countyData in Autoload.Instance.allCountyData)
+        foreach (CountyData countyData in allCountyData)
         {
             List<StoryEventData> allEvents = [];
 
@@ -93,20 +108,20 @@ public partial class CountyGeneration : Node
         }
     }
     
-    private static void AssignStartingGoodsToCounty()
+    private void AssignStartingGoodsToCounty()
     {
         // This is just for testing.  Sets all resources to a starting amount.
         // This has to be after the initial storage is set.
-        foreach (KeyValuePair<AllEnums.CountyGoodType, GoodData> keyValuePair in Autoload.Instance.allCountyData.SelectMany(countyData => countyData.goods))
+        foreach (KeyValuePair<AllEnums.CountyGoodType, GoodData> keyValuePair in allCountyData.SelectMany(countyData => countyData.goods))
         {
             keyValuePair.Value.Amount = Autoload.Instance.startingAmountOfEachGood;
         }
     }
 
-    private static void UpdateGoods()
+    private void UpdateGoods()
     {
         // Assign a copy of each good to each county.
-        foreach (CountyData countyData in Autoload.Instance.allCountyData)
+        foreach (CountyData countyData in allCountyData)
         {
             CopyAndAssignGoods(countyData, Autoload.Instance.allGoodData);
             UpdateScavengeableResources(countyData);
@@ -133,37 +148,38 @@ public partial class CountyGeneration : Node
     }
 
     // This is just temporary until we set up random faction generation.
-    private static void AssignFactionDataToCountyData()
+    private void AssignFactionDataToCountyData()
     {
         // Cowlitz
-        CountyData cowlitzCountyData = Autoload.Instance.allCountyData[0];
-        cowlitzCountyData.factionData = SaveManager.Instance.saveGameData.allFactionDataList[0];
+        CountyData cowlitzCountyData = allCountyData[0];
+        cowlitzCountyData.factionId = 0;
         // Tillamook
-        CountyData tillamookCountyData = Autoload.Instance.allCountyData[1];
-        tillamookCountyData.factionData = SaveManager.Instance.saveGameData.allFactionDataList[1];
+        CountyData tillamookCountyData = allCountyData[1];
+        tillamookCountyData.factionId = 1;
         // Douglas
-        CountyData douglasCountyData = Autoload.Instance.allCountyData[2];
-        douglasCountyData.factionData = SaveManager.Instance.saveGameData.allFactionDataList[1];
+        CountyData douglasCountyData = allCountyData[2];
+        douglasCountyData.factionId = 1;
         // Portland
-        CountyData portlandCountyData = Autoload.Instance.allCountyData[3];
-        portlandCountyData.factionData = SaveManager.Instance.saveGameData.allFactionDataList[3];
+        CountyData portlandCountyData = allCountyData[3];
+        portlandCountyData.factionId = 3;
         // Wasco
-        CountyData wascoCountyData = Autoload.Instance.allCountyData[4];
-        wascoCountyData.factionData = SaveManager.Instance.saveGameData.allFactionDataList[3];
+        CountyData wascoCountyData = allCountyData[4];
+        wascoCountyData.factionId = 3;
         // Harney
-        CountyData harneyCountyData = Autoload.Instance.allCountyData[5];
-        harneyCountyData.factionData = SaveManager.Instance.saveGameData.allFactionDataList[1];
+        CountyData harneyCountyData = allCountyData[5];
+        harneyCountyData.factionId = 1;
         // Umatilla
-        CountyData umatillaCountyData = Autoload.Instance.allCountyData[6];
-        umatillaCountyData.factionData = SaveManager.Instance.saveGameData.allFactionDataList[2];
+        CountyData umatillaCountyData = allCountyData[6];
+        umatillaCountyData.factionId = 2;
     }
 
-    private static void AssignCountyDataToFaction()
+    private void AssignCountyDataToFaction()
     {
         // This goes through every county and adds itself to the faction data already assigned to the county.
-        foreach (CountyData countyData in Autoload.Instance.allCountyData)
+        foreach (CountyData countyData in allCountyData)
         {
-            countyData.factionData.countiesFactionOwns.Add(countyData);
+            FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(countyData.factionId);
+            factionData.countiesFactionOwns.Add(countyData);
             //GD.Print($"Faction: {selectCounty.countyData.factionData.factionName} {selectCounty.countyData.countyName}");
         }
     }

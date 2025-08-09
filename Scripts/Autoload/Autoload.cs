@@ -10,7 +10,6 @@ public partial class Autoload : Node
 {
     public static Autoload Instance { get; private set; }
 
-    private const string CountiesDirectory = "res://Resources/Counties/";
     private const string ImprovementsDirectory = "res://Resources/County Improvements/";
     private const string ActivitiesDirectory = "res://Resources/Activities/";
     private const string AttributesDirectory = "res://Resources/Attributes/";
@@ -22,7 +21,6 @@ public partial class Autoload : Node
 
     private const string RootEventExplorationDirectory = "res://Resources/Story Events/Exploration Events/";
 
-    public List<CountyData> allCountyData = [];
     public List<CountyImprovementData> allCountyImprovementData = [];
     public List<ActivityData> allActivityData = [];
     public List<AttributeData> allAttributeData = [];
@@ -73,7 +71,6 @@ public partial class Autoload : Node
     public override void _Ready()
     {
         Instance = this;
-        allCountyData = ReadResourcesFromDisk(CountiesDirectory).Cast<CountyData>().ToList();
         allActivityData = ReadResourcesFromDisk(ActivitiesDirectory).Cast<ActivityData>().ToList();
         allAttributeData = ReadResourcesFromDisk(AttributesDirectory).Cast<AttributeData>().ToList();
         allPerkData = ReadResourcesFromDisk(PerksDirectory).Cast<PerkData>().ToList();

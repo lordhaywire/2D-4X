@@ -29,7 +29,7 @@ public class Haulmaster
             }
             else
             {
-                countyData.factionData.factionGoods[keyValuePair.Key.factionGoodType].Amount += returnedAmount;
+                countyData.factionId.factionGoods[keyValuePair.Key.factionGoodType].Amount += returnedAmount;
             }
         }
     }

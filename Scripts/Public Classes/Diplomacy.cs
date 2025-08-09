@@ -9,19 +9,20 @@ public class Diplomacy
 {
     public void DeclareWar(War war)
     {
+        FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(Globals.Instance
+            .selectedRightClickCounty.countyData
+            .factionId);
         //GD.Print($"{war.aggressorFactionData.factionName} has declared war on {war.defenderFactionData.factionName}.");
         EventLog.Instance.AddLog($"{war.aggressorFactionData.factionName} {TranslationServer.Translate("PHRASE_HAS_DECLARED_WAR")} {war.defenderFactionData.factionName}.");
-        Globals.Instance.selectedRightClickCounty.countyData
-            .factionData.diplomacy.RespondToDeclarationOfWar(war);
+        factionData.diplomacy.RespondToDeclarationOfWar(war);
     }
 
     public void DeclareWarConfirmation(CountyData countyData)
     {
         DeclareWarControl.Instance.Show();
-            
+        FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(countyData.factionId);
         DeclareWarControl.Instance.declareWarTitleLabel.Text
-            = $"{TranslationServer.Translate("PHRASE_DECLARE_WAR_CONFIRMATION")} {countyData.factionData.factionName}";
-            
+            = $"{TranslationServer.Translate("PHRASE_DECLARE_WAR_CONFIRMATION")} {factionData.factionName}";
     }
 
     public void RespondToDeclarationOfWar(War war)
@@ -95,8 +96,9 @@ public class Diplomacy
         }
         else
         {
+            FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(battleLocation.countyData.factionId);
             //GD.Print("Defenders Faction Name: " + battleLocation.countyData.factionData.factionName);
-            if (battleLocation.countyData.factionData.factionGoods[AllEnums.FactionGoodType.Influence].Amount 
+            if (factionData.factionGoods[AllEnums.FactionGoodType.Influence].Amount 
                 >= Globals.Instance.costOfHero)
             {
                 List<PopulationData> possibleDefenders = [];
@@ -131,10 +133,9 @@ public class Diplomacy
             }
             else
             {
-                //GD.Print("Not enough influence to hire a hero for defence.");
+                //GD.Print("Not enough influence to hire a hero for defense.");
                 return null;
             }
-
         }
         return null;
     }

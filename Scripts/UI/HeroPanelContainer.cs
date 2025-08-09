@@ -45,7 +45,8 @@ public partial class HeroPanelContainer : PanelContainer
         UpdateHeroNameAndIcons();
 
         // Change color of the panel to the faction color.
-        SelfModulate = populationData.factionData.factionColor;
+        FactionData factionData =  SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(populationData.factionId);
+        SelfModulate = factionData.factionColor;
 
         CheckForAvailableActivities(locationCountyData);
 
@@ -55,7 +56,9 @@ public partial class HeroPanelContainer : PanelContainer
         // Once we add the ability for heroes to do things in enemy faction counties, we will change this.
         // Currently, we are just making it so that the heroes Activities boxes are hidden.
         // Check if the hero is not player owned.
-        if (Globals.Instance.CheckIfPlayerFaction(populationData.factionData) == false)
+        FactionData populationFactionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(populationData.factionId);
+        FactionData locationFactionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(locationCountyData.factionId);
+        if (Globals.Instance.CheckIfPlayerFaction(populationFactionData) == false)
         {
             heroDescriptionButton.Disabled = true;
             spawnHeroButton.Hide();
@@ -64,8 +67,8 @@ public partial class HeroPanelContainer : PanelContainer
 
         // This checks if the location of the hero is in a non-player owned county.
         // If this is a player hero, but in an enemy's county they can't currently do anything.
-        if (Globals.Instance.CheckIfPlayerFaction(populationData.factionData) &&
-            Globals.Instance.CheckIfPlayerFaction(locationCountyData.factionData) == false)
+        if (Globals.Instance.CheckIfPlayerFaction(populationFactionData) &&
+            Globals.Instance.CheckIfPlayerFaction(locationFactionData) == false)
         {
             spawnHeroButton.Disabled = true;
             heroDescriptionButton.Disabled = false;

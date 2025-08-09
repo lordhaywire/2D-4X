@@ -25,50 +25,48 @@ public partial class CountyData : Resource
 
     [Export] public bool isAiCapital;
 
-    //[Export] public AllEnums.Factions faction;
-    [Export] public FactionData factionData;
+    [Export] public int factionId;
     [Export] public AllEnums.Province province;
 
-    [ExportGroup("Terrain and Exploration")] [Export]
-    public AllEnums.Terrain primaryTerrain;
-
+    [ExportGroup("Terrain and Exploration")] 
+    [Export] public AllEnums.Terrain primaryTerrain;
     [Export] public AllEnums.Terrain secondaryTerrain;
     [Export] public AllEnums.Terrain tertiaryTerrain;
     [Export] public Godot.Collections.Array<AllEnums.Terrain> allTerrains;
     [Export] public Godot.Collections.Array<StoryEventData> explorationEvents;
 
-    [ExportGroup("Population Lists")] 
-    [Export] public Godot.Collections.Array<PopulationData> populationDataList;
+    [ExportGroup("Population Lists")] [Export]
+    public Godot.Collections.Array<PopulationData> populationDataList = [];
 
-    [Export] public Godot.Collections.Array<PopulationData> heroesInCountyList;
-    [Export] public Godot.Collections.Array<PopulationData> armiesInCountyList;
-    [Export] public Godot.Collections.Array<PopulationData> visitingHeroList;
-    [Export] public Godot.Collections.Array<PopulationData> visitingArmyList;
-    [Export] public Godot.Collections.Array<PopulationData> deadPeopleList;
+    [Export] public Godot.Collections.Array<PopulationData> heroesInCountyList = [];
+    [Export] public Godot.Collections.Array<PopulationData> armiesInCountyList = [];
+    [Export] public Godot.Collections.Array<PopulationData> visitingHeroList = [];
+    [Export] public Godot.Collections.Array<PopulationData> visitingArmyList = [];
+    [Export] public Godot.Collections.Array<PopulationData> deadPeopleList = [];
 
-    [ExportGroup("Construction and Work Lists")] 
-    [Export] public Godot.Collections.Array<PopulationData> heroBuildersList;
+    [ExportGroup("Construction and Work Lists")] [Export]
+    public Godot.Collections.Array<PopulationData> heroBuildersList = [];
 
-    [Export] public Godot.Collections.Array<PopulationData> heroWorkersList;
-
-    [Export] public Godot.Collections.Array<PopulationData>
-        workersList; // List of all the idle, helpful and loyal workers for that day.
-
-    [Export] public Godot.Collections.Array<PopulationData> prioritizedHeroBuildersList;
-    [Export] public Godot.Collections.Array<PopulationData> prioritizedHeroWorkersList;
-    [Export] public Godot.Collections.Array<PopulationData> prioritizedBuildersList;
-    [Export] public Godot.Collections.Array<PopulationData> prioritizedWorkersList;
+    [Export] public Godot.Collections.Array<PopulationData> heroWorkersList = [];
 
     [Export] public Godot.Collections.Array<PopulationData>
-        workersToRemoveFromLists; // List to collect county populations to be removed from the possibleWorkers.
+        workersList = []; // List of all the idle, helpful and loyal workers for that day.
 
-    [Export] public Godot.Collections.Array<CountyImprovementData> prioritizedConstructionImprovementList;
-    [Export] public Godot.Collections.Array<CountyImprovementData> prioritizedWorkImprovementList;
+    [Export] public Godot.Collections.Array<PopulationData> prioritizedHeroBuildersList = [];
+    [Export] public Godot.Collections.Array<PopulationData> prioritizedHeroWorkersList = [];
+    [Export] public Godot.Collections.Array<PopulationData> prioritizedBuildersList = [];
+    [Export] public Godot.Collections.Array<PopulationData> prioritizedWorkersList = [];
+
+    [Export] public Godot.Collections.Array<PopulationData>
+        workersToRemoveFromLists = []; // List to collect county populations to be removed from the possibleWorkers.
+
+    [Export] public Godot.Collections.Array<CountyImprovementData> prioritizedConstructionImprovementList = [];
+    [Export] public Godot.Collections.Array<CountyImprovementData> prioritizedWorkImprovementList = [];
 
     public readonly List<Button> spawnedTokenButtons = [];
 
-    [Export] public Godot.Collections.Array<CountyImprovementData> underConstructionCountyImprovementList;
-    [Export] public Godot.Collections.Array<CountyImprovementData> completedCountyImprovementList;
+    [Export] public Godot.Collections.Array<CountyImprovementData> underConstructionCountyImprovementList = [];
+    [Export] public Godot.Collections.Array<CountyImprovementData> completedCountyImprovementList = [];
     public readonly List<Battle> battles = [];
 
     public int populationCount = 0;
@@ -125,13 +123,13 @@ public partial class CountyData : Resource
 
     public CountyDto ToDto()
     {
-        CountyDto dto = new CountyDto
+        CountyDto countyDto = new CountyDto
         {
             CountyId = countyId,
             CountyName = countyName,
             IsPlayerCapital = isPlayerCapital,
             IsAiCapital = isAiCapital,
-            FactionId = factionData != null ? factionData.factionId : -1,
+            FactionId = factionId,
             Province = province,
 
             PrimaryTerrain = primaryTerrain,
@@ -165,120 +163,128 @@ public partial class CountyData : Resource
         };
 
         // ✅ Convert every population list
-        foreach (PopulationData pop in populationDataList) dto.PopulationDataList.Add(pop.ToDto());
-        foreach (PopulationData pop in heroesInCountyList) dto.HeroesInCountyList.Add(pop.ToDto());
-        foreach (PopulationData pop in armiesInCountyList) dto.ArmiesInCountyList.Add(pop.ToDto());
-        foreach (PopulationData pop in visitingHeroList) dto.VisitingHeroList.Add(pop.ToDto());
-        foreach (PopulationData pop in visitingArmyList) dto.VisitingArmyList.Add(pop.ToDto());
-        foreach (PopulationData pop in deadPeopleList) dto.DeadPeopleList.Add(pop.ToDto());
-        foreach (PopulationData pop in heroBuildersList) dto.HeroBuildersList.Add(pop.ToDto());
-        foreach (PopulationData pop in heroWorkersList) dto.HeroWorkersList.Add(pop.ToDto());
-        foreach (PopulationData pop in workersList) dto.WorkersList.Add(pop.ToDto());
-        foreach (PopulationData pop in prioritizedHeroBuildersList) dto.PrioritizedHeroBuildersList.Add(pop.ToDto());
-        foreach (PopulationData pop in prioritizedHeroWorkersList) dto.PrioritizedHeroWorkersList.Add(pop.ToDto());
-        foreach (PopulationData pop in prioritizedBuildersList) dto.PrioritizedBuildersList.Add(pop.ToDto());
-        foreach (PopulationData pop in prioritizedWorkersList) dto.PrioritizedWorkersList.Add(pop.ToDto());
-        foreach (PopulationData pop in workersToRemoveFromLists) dto.WorkersToRemoveFromLists.Add(pop.ToDto());
+        foreach (PopulationData pop in populationDataList) countyDto.PopulationDataList.Add(pop.ToDto());
+        foreach (PopulationData pop in heroesInCountyList) countyDto.HeroesInCountyList.Add(pop.ToDto());
+        foreach (PopulationData pop in armiesInCountyList) countyDto.ArmiesInCountyList.Add(pop.ToDto());
+        foreach (PopulationData pop in visitingHeroList) countyDto.VisitingHeroList.Add(pop.ToDto());
+        foreach (PopulationData pop in visitingArmyList) countyDto.VisitingArmyList.Add(pop.ToDto());
+        foreach (PopulationData pop in deadPeopleList) countyDto.DeadPeopleList.Add(pop.ToDto());
+        foreach (PopulationData pop in heroBuildersList) countyDto.HeroBuildersList.Add(pop.ToDto());
+        foreach (PopulationData pop in heroWorkersList) countyDto.HeroWorkersList.Add(pop.ToDto());
+        foreach (PopulationData pop in workersList) countyDto.WorkersList.Add(pop.ToDto());
+        foreach (PopulationData pop in prioritizedHeroBuildersList)
+            countyDto.PrioritizedHeroBuildersList.Add(pop.ToDto());
+        foreach (PopulationData pop in prioritizedHeroWorkersList)
+            countyDto.PrioritizedHeroWorkersList.Add(pop.ToDto());
+        foreach (PopulationData pop in prioritizedBuildersList) countyDto.PrioritizedBuildersList.Add(pop.ToDto());
+        foreach (PopulationData pop in prioritizedWorkersList) countyDto.PrioritizedWorkersList.Add(pop.ToDto());
+        foreach (PopulationData pop in workersToRemoveFromLists) countyDto.WorkersToRemoveFromLists.Add(pop.ToDto());
 
         // ✅ County improvements
         foreach (CountyImprovementData ci in prioritizedConstructionImprovementList)
-            dto.PrioritizedConstructionImprovementList.Add(ci.ToDto());
+            countyDto.PrioritizedConstructionImprovementList.Add(ci.ToDto());
         foreach (CountyImprovementData ci in prioritizedWorkImprovementList)
-            dto.PrioritizedWorkImprovementList.Add(ci.ToDto());
+            countyDto.PrioritizedWorkImprovementList.Add(ci.ToDto());
         foreach (CountyImprovementData ci in underConstructionCountyImprovementList)
-            dto.UnderConstructionCountyImprovementList.Add(ci.ToDto());
+            countyDto.UnderConstructionCountyImprovementList.Add(ci.ToDto());
         foreach (CountyImprovementData ci in completedCountyImprovementList)
-            dto.CompletedCountyImprovementList.Add(ci.ToDto());
+            countyDto.CompletedCountyImprovementList.Add(ci.ToDto());
 
-        return dto;
+        return countyDto;
     }
 
 
-    public static CountyData FromDto(CountyDto dto)
+    public static CountyData FromDto(CountyDto countyDto)
     {
         CountyData countyData = new CountyData
         {
-            countyId = dto.CountyId,
-            countyName = dto.CountyName,
-            isPlayerCapital = dto.IsPlayerCapital,
-            isAiCapital = dto.IsAiCapital,
-            province = dto.Province,
+            countyId = countyDto.CountyId,
+            countyName = countyDto.CountyName,
+            isPlayerCapital = countyDto.IsPlayerCapital,
+            isAiCapital = countyDto.IsAiCapital,
+            province = countyDto.Province,
 
-            primaryTerrain = dto.PrimaryTerrain,
-            secondaryTerrain = dto.SecondaryTerrain,
-            tertiaryTerrain = dto.TertiaryTerrain,
-            allTerrains = new Godot.Collections.Array<AllEnums.Terrain>(dto.AllTerrains),
+            primaryTerrain = countyDto.PrimaryTerrain,
+            secondaryTerrain = countyDto.SecondaryTerrain,
+            tertiaryTerrain = countyDto.TertiaryTerrain,
+            allTerrains = new Godot.Collections.Array<AllEnums.Terrain>(countyDto.AllTerrains),
 
-            populationCount = dto.PopulationCount,
-            perishableStorage = dto.PerishableStorage,
-            nonperishableStorage = dto.NonperishableStorage,
-            scavengeableRemnants = dto.ScavengeableRemnants,
-            scavengeableCannedFood = dto.ScavengeableCannedFood,
+            populationCount = countyDto.PopulationCount,
+            perishableStorage = countyDto.PerishableStorage,
+            nonperishableStorage = countyDto.NonperishableStorage,
+            scavengeableRemnants = countyDto.ScavengeableRemnants,
+            scavengeableCannedFood = countyDto.ScavengeableCannedFood,
 
             goods = new Godot.Collections.Dictionary<AllEnums.CountyGoodType, GoodData>(
-                dto.Goods.ToDictionary(kvp => kvp.Key, kvp => kvp.Value != null ? GoodData.FromDto(kvp.Value) : null)
+                countyDto.Goods.ToDictionary(kvp => kvp.Key,
+                    kvp => kvp.Value != null ? GoodData.FromDto(kvp.Value) : null)
             ),
             yesterdaysGoods = new Godot.Collections.Dictionary<AllEnums.CountyGoodType, GoodData>(
-                dto.YesterdaysGoods.ToDictionary(kvp => kvp.Key,
+                countyDto.YesterdaysGoods.ToDictionary(kvp => kvp.Key,
                     kvp => kvp.Value != null ? GoodData.FromDto(kvp.Value) : null)
             ),
             amountOfGoodsUsed = new Godot.Collections.Dictionary<AllEnums.CountyGoodType, GoodData>(
-                dto.AmountOfGoodsUsed.ToDictionary(kvp => kvp.Key,
+                countyDto.AmountOfGoodsUsed.ToDictionary(kvp => kvp.Key,
                     kvp => kvp.Value != null ? GoodData.FromDto(kvp.Value) : null)
             ),
 
-            color = new Color(dto.ColorHex),
-            startMaskPosition = dto.StartMaskPosition,
-            countyOverlayLocalPosition = dto.CountyOverlayLocalPosition,
-            maskTexture = !string.IsNullOrEmpty(dto.MaskTexturePath) ? GD.Load<Texture2D>(dto.MaskTexturePath) : null,
-            mapTexture = !string.IsNullOrEmpty(dto.MapTexturePath) ? GD.Load<Texture2D>(dto.MapTexturePath) : null,
+            color = new Color(countyDto.ColorHex),
+            startMaskPosition = countyDto.StartMaskPosition,
+            countyOverlayLocalPosition = countyDto.CountyOverlayLocalPosition,
+            maskTexture = !string.IsNullOrEmpty(countyDto.MaskTexturePath)
+                ? GD.Load<Texture2D>(countyDto.MaskTexturePath)
+                : null,
+            mapTexture = !string.IsNullOrEmpty(countyDto.MapTexturePath)
+                ? GD.Load<Texture2D>(countyDto.MapTexturePath)
+                : null,
 
-            selected = dto.Selected,
-            idleWorkers = dto.IdleWorkers
+            selected = countyDto.Selected,
+            idleWorkers = countyDto.IdleWorkers
         };
 
-        // ✅ Reattach faction
-        countyData.factionData = SaveManager.Instance.saveGameData.allFactionDataList
-            .FirstOrDefault(f => f.factionId == dto.FactionId);
 
         // ✅ Convert every population list
-        foreach (PopulationDto pop in dto.PopulationDataList)
+
+        foreach (PopulationDto pop in countyDto.PopulationDataList)
             countyData.populationDataList.Add(PopulationData.FromDto(pop));
-        foreach (PopulationDto pop in dto.HeroesInCountyList)
+        foreach (PopulationDto pop in countyDto.HeroesInCountyList)
             countyData.heroesInCountyList.Add(PopulationData.FromDto(pop));
-        foreach (PopulationDto pop in dto.ArmiesInCountyList)
+        foreach (PopulationDto pop in countyDto.ArmiesInCountyList)
             countyData.armiesInCountyList.Add(PopulationData.FromDto(pop));
-        foreach (PopulationDto pop in dto.VisitingHeroList)
+        foreach (PopulationDto pop in countyDto.VisitingHeroList)
             countyData.visitingHeroList.Add(PopulationData.FromDto(pop));
-        foreach (PopulationDto pop in dto.VisitingArmyList)
+        foreach (PopulationDto pop in countyDto.VisitingArmyList)
             countyData.visitingArmyList.Add(PopulationData.FromDto(pop));
-        foreach (PopulationDto pop in dto.DeadPeopleList) countyData.deadPeopleList.Add(PopulationData.FromDto(pop));
-        foreach (PopulationDto pop in dto.HeroBuildersList)
+        foreach (PopulationDto pop in countyDto.DeadPeopleList)
+            countyData.deadPeopleList.Add(PopulationData.FromDto(pop));
+        foreach (PopulationDto pop in countyDto.HeroBuildersList)
             countyData.heroBuildersList.Add(PopulationData.FromDto(pop));
-        foreach (PopulationDto pop in dto.HeroWorkersList) countyData.heroWorkersList.Add(PopulationData.FromDto(pop));
-        foreach (PopulationDto pop in dto.WorkersList) countyData.workersList.Add(PopulationData.FromDto(pop));
-        foreach (PopulationDto pop in dto.PrioritizedHeroBuildersList)
+        foreach (PopulationDto pop in countyDto.HeroWorkersList)
+            countyData.heroWorkersList.Add(PopulationData.FromDto(pop));
+        foreach (PopulationDto pop in countyDto.WorkersList) countyData.workersList.Add(PopulationData.FromDto(pop));
+        foreach (PopulationDto pop in countyDto.PrioritizedHeroBuildersList)
             countyData.prioritizedHeroBuildersList.Add(PopulationData.FromDto(pop));
-        foreach (PopulationDto pop in dto.PrioritizedHeroWorkersList)
+        foreach (PopulationDto pop in countyDto.PrioritizedHeroWorkersList)
             countyData.prioritizedHeroWorkersList.Add(PopulationData.FromDto(pop));
-        foreach (PopulationDto pop in dto.PrioritizedBuildersList)
+        foreach (PopulationDto pop in countyDto.PrioritizedBuildersList)
             countyData.prioritizedBuildersList.Add(PopulationData.FromDto(pop));
-        foreach (PopulationDto pop in dto.PrioritizedWorkersList)
+        foreach (PopulationDto pop in countyDto.PrioritizedWorkersList)
             countyData.prioritizedWorkersList.Add(PopulationData.FromDto(pop));
-        foreach (PopulationDto pop in dto.WorkersToRemoveFromLists)
+        foreach (PopulationDto pop in countyDto.WorkersToRemoveFromLists)
             countyData.workersToRemoveFromLists.Add(PopulationData.FromDto(pop));
 
+
         // ✅ County Improvements
-        foreach (CountyImprovementDto ci in dto.PrioritizedConstructionImprovementList)
+        foreach (CountyImprovementDto ci in countyDto.PrioritizedConstructionImprovementList)
             countyData.prioritizedConstructionImprovementList.Add(CountyImprovementData.FromDto(ci));
 
-        foreach (CountyImprovementDto ci in dto.PrioritizedWorkImprovementList)
+        foreach (CountyImprovementDto ci in countyDto.PrioritizedWorkImprovementList)
             countyData.prioritizedWorkImprovementList.Add(CountyImprovementData.FromDto(ci));
 
-        foreach (CountyImprovementDto ci in dto.UnderConstructionCountyImprovementList)
+        foreach (CountyImprovementDto ci in countyDto.UnderConstructionCountyImprovementList)
             countyData.underConstructionCountyImprovementList.Add(CountyImprovementData.FromDto(ci));
 
-        foreach (CountyImprovementDto ci in dto.CompletedCountyImprovementList)
+        foreach (CountyImprovementDto ci in countyDto.CompletedCountyImprovementList)
             countyData.completedCountyImprovementList.Add(CountyImprovementData.FromDto(ci));
 
         return countyData;
@@ -315,7 +321,7 @@ public partial class CountyData : Resource
                 completedImprovements.Add(countyImprovementData);
 
                 // Check to only print the event logs of the player's county improvements.
-                if (factionData == Autoload.Instance.playerFactionData)
+                if (factionId == Autoload.Instance.playerFactionData.factionId)
                 {
                     EventLog.Instance.AddLog(
                         $"{Tr(countyImprovementData.GetCountyImprovementName())} {Tr("PHRASE_HAS_BEEN_COMPLETED")}.");
@@ -891,7 +897,8 @@ public partial class CountyData : Resource
     {
         foreach (PopulationData populationData in peopleWhoNeedToDieSoon)
         {
-            populationData.factionData.RemoveHeroFromAllHeroesList(populationData);
+            FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(populationData.factionId);
+            factionData.RemoveHeroFromAllHeroesList(populationData);
             populationDataList.Remove(populationData);
             heroesInCountyList.Remove(populationData);
             armiesInCountyList.Remove(populationData);

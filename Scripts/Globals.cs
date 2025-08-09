@@ -132,10 +132,6 @@ public partial class Globals : Node
 
     private int researchClicked; // This is so the Research description panel knows which research was clicked.
 
-    
-
-
-
     [ExportGroup("This is some bullshit.")]
     [Export] public bool isInsideToken;
 
@@ -163,9 +159,10 @@ public partial class Globals : Node
         return county.countyData;
     }
 
+    // We were comparing factionData but why not just check the bool?
     public bool CheckIfPlayerFaction(FactionData factionData)
     {
-        if(factionData == Autoload.Instance.playerFactionData)
+        if(factionData.isPlayer)//== Autoload.Instance.playerFactionData)
         {
             return true;
         }

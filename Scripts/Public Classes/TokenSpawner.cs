@@ -82,8 +82,9 @@ public class TokenSpawner
     // This is so that the AI token spawning doesn't make the player select it.
     private static void DecidedIfSelected(County selectCounty, HeroToken spawnedToken)
     {
-        GD.Print($"{selectCounty.countyData.factionData.factionName} vs {Autoload.Instance.playerFactionData.factionName}");
-        if(selectCounty.countyData.factionData == Autoload.Instance.playerFactionData)
+        FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(selectCounty.countyData.factionId);
+        GD.Print($"{factionData.factionName} vs {Autoload.Instance.playerFactionData.factionName}");
+        if(Globals.Instance.CheckIfPlayerFaction(factionData))
         {
             spawnedToken.IsSelected = true;
             GD.Print("Spawned Token Button Token's Name: " + spawnedToken.populationData.firstName + spawnedToken.IsSelected);

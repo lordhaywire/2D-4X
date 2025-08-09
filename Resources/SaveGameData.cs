@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 namespace PlayerSpace;
@@ -9,7 +10,13 @@ public partial class SaveGameData : Resource
     // Since we don't really need to see this in the inspector when the game is running
     // and since the list below doesn't even show the correct data it is a C# list.
     public List<PopulationData> allPopulationDataList = []; 
+    [Export] public Godot.Collections.Array<CountyData> allCountyDataList = [];
     [Export] public Godot.Collections.Array<FactionData> allFactionDataList = [];
+
+    public FactionData ConvertFactionIdToFactionData(int factionId)
+    {
+        return allFactionDataList[factionId];
+    }
     
     public SaveGameDto ToDto()
     {
@@ -18,14 +25,18 @@ public partial class SaveGameData : Resource
             SaveVersion = saveVersion,
             CurrentPopulationId = currentPopulationId,
             AllPopulationDataList = allPopulationDataList.ConvertAll(p => p.ToDto()),
+            AllCountyDataList = [],
             AllFactionDataList = []
         };
 
+        foreach (CountyData countyData in allCountyDataList)
+        {
+            saveGameDto.AllCountyDataList.Add(countyData.ToDto());
+        }
         foreach (FactionData faction in allFactionDataList)
         {
             saveGameDto.AllFactionDataList.Add(faction.ToDto());
         }
-
         return saveGameDto;
     }
     
@@ -36,6 +47,7 @@ public partial class SaveGameData : Resource
             saveVersion = saveGameDto.SaveVersion,
             currentPopulationId = saveGameDto.CurrentPopulationId,
             allPopulationDataList = [],
+            allCountyDataList = [],
             allFactionDataList = []
         };
         
@@ -44,6 +56,12 @@ public partial class SaveGameData : Resource
             SaveManager.Instance.saveGameData.allPopulationDataList.Add(PopulationData.FromDto(popDto));
         }
 
+        foreach (CountyDto countyDto in saveGameDto.AllCountyDataList)
+        {
+            GD.PrintRich($"[rainbow]SaveGameData.cs: FromDto: {countyDto.CountyName}");
+            SaveManager.Instance.saveGameData.allCountyDataList.Add(CountyData.FromDto(countyDto));
+        }
+        
         foreach (FactionDto factionDto in saveGameDto.AllFactionDataList)
         {
             GD.PrintRich($"[rainbow]Count of All Population Data List: {SaveManager.Instance.saveGameData.allPopulationDataList.Count}");

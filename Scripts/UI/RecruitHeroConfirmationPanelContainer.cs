@@ -7,13 +7,14 @@ public partial class RecruitHeroConfirmationPanelContainer : PanelContainer
 {
     [Export] private Label titleLabel;
     [Export] public bool armyLeaderRecruited;
+
     private void OnVisibilityChange()
     {
         if (Visible == true)
         {
             titleLabel.Text = $"{Tr("PHRASE_RECRUIT_HERO_CONFIRMATION")} " +
-                $"{PopulationDescriptionControl.Instance.populationData.firstName} " +
-                $"{PopulationDescriptionControl.Instance.populationData.lastName}";
+                              $"{PopulationDescriptionControl.Instance.populationData.firstName} " +
+                              $"{PopulationDescriptionControl.Instance.populationData.lastName}";
         }
     }
 
@@ -29,12 +30,13 @@ public partial class RecruitHeroConfirmationPanelContainer : PanelContainer
         // charged for the hero.
         CheckIfPopulationIsHero(countyData, populationData);
 
+        FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(countyData.factionId);
         if (armyLeaderRecruited == false)
         {
             populationData.isHero = true;
             populationData.HeroType = AllEnums.HeroType.Aide;
             countyData.heroesInCountyList.Add(populationData);
-            countyData.factionData.AddHeroToAllHeroesList(populationData);
+            factionData.AddHeroToAllHeroesList(populationData);
         }
         else
         {
@@ -49,7 +51,7 @@ public partial class RecruitHeroConfirmationPanelContainer : PanelContainer
 
             countyData.heroesInCountyList.Remove(populationData);
             countyData.armiesInCountyList.Add(populationData);
-            countyData.factionData.AddHeroToAllHeroesList(populationData);
+            factionData.AddHeroToAllHeroesList(populationData);
         }
 
         // This is set again to update the sprite textures;

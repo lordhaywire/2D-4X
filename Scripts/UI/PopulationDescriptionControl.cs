@@ -179,7 +179,7 @@ public partial class PopulationDescriptionControl : Control
     /// <param name="county"></param>
     private void CheckForArmyRecruitmentButton(County county)
     {
-        if (county.countyData.factionData == Autoload.Instance.playerFactionData)
+        if (county.countyData.factionId == Autoload.Instance.playerFactionData)
         {
             // If this is just a normal population
             if (populationData.HeroType == AllEnums.HeroType.None

@@ -149,15 +149,16 @@ public partial class PlayerControls : StaticBody2D
             }
             else
             {
-                if (Autoload.Instance.playerFactionData == moveTargetCountyData.factionData)
+                if (Autoload.Instance.playerFactionData.factionId == moveTargetCountyData.factionId)
                 {
                     selectToken.tokenMovement.StartMove(moveTargetCountyData.countyId);
                 }
                 else
                 {
+                    FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(Globals.Instance.selectedRightClickCounty.countyData.factionId);
                     //GD.Print("You are about to declare war, because you are an army.");
                     if (Autoload.Instance.playerFactionData.factionWarDictionary[
-                            Globals.Instance.selectedRightClickCounty.countyData.factionData.factionName]
+                            factionData.factionName]
                         != true)
                     {
                         Autoload.Instance.playerFactionData.diplomacy.DeclareWarConfirmation(moveTargetCountyData);

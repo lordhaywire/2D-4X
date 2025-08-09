@@ -20,7 +20,8 @@ namespace PlayerSpace
                 {
                     heroToken.populationData.lastLocation = heroToken.populationData.location;
                     heroToken.Show();
-                    if (Autoload.Instance.playerFactionData != heroToken.populationData.factionData)
+                    FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(heroToken.populationData.factionId);
+                    if (Globals.Instance.CheckIfPlayerFaction(factionData) == false)
                     {
                         return;
                     }
@@ -73,12 +74,13 @@ namespace PlayerSpace
         private void CheckForDefenders()
         {
             County selectCounty = (County)Globals.Instance.countiesParent.GetChild(heroToken.populationData.destination);
-
-            if (heroToken.populationData.factionData.factionWarDictionary
-                    [selectCounty.countyData.factionData.factionName] && DefenderOnTheWay() == false)
+            FactionData heroFactionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(heroToken.populationData.factionId);
+            FactionData selectedFactionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(selectCounty.countyData.factionId);
+            if (heroFactionData.factionWarDictionary
+                    [selectedFactionData.factionName] && DefenderOnTheWay() == false)
             {
-                selectCounty.countyData.factionData.diplomacy.DefenderSpawnArmies(destinationCounty);
-                EventLog.Instance.AddLog($"{selectCounty.countyData.factionData.factionName}" +
+                selectedFactionData.diplomacy.DefenderSpawnArmies(destinationCounty);
+                EventLog.Instance.AddLog($"{selectedFactionData.factionName}" +
                                          $" is raising armies at {selectCounty.countyData.countyName}!");
             }
             else
@@ -92,7 +94,8 @@ namespace PlayerSpace
             // Get the All Heroes List in the destination county for that county's faction and see if any of that
             // faction heroes are on the way to it.
             //GD.Print("Seeing if someone is on the way.");
-            foreach (PopulationData populationData in destinationCounty.countyData.factionData.allHeroesList)
+            FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(destinationCounty.countyData.factionId);
+            foreach (PopulationData populationData in factionData.allHeroesList)
             {
                 if (populationData.destination != heroToken.populationData.destination) continue;
                 GD.Print("Hero on the way is: " + populationData.firstName);
@@ -130,9 +133,10 @@ namespace PlayerSpace
             GD.Print("Top of Reached Destination County Population: " + heroToken.populationData.firstName);
             GD.Print("Token Destination: " + heroToken.populationData.destination);
             destinationCounty = (County)Globals.Instance.countiesParent.GetChild(heroToken.populationData.destination);
-            GD.Print("Faction of Destination County: " + destinationCounty.countyData.factionData.factionName);
+            FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(destinationCounty.countyData.factionId);
+            GD.Print("Faction of Destination County: " + factionData.factionName);
             // Checking to see if the hero is in a friendly county.
-            if (destinationCounty.countyData.factionData == heroToken.populationData.factionData)
+            if (destinationCounty.countyData.factionId == heroToken.populationData.factionId)
             {
                 if (heroToken.populationData.IsThisAnArmy() == false)
                 {
@@ -182,7 +186,7 @@ namespace PlayerSpace
             else
             {
                 CountyDictator.Instance.CaptureCounty(heroToken.populationData.destination,
-                    heroToken.populationData.factionData);
+                    heroToken.populationData.factionId);
             }
         }
 

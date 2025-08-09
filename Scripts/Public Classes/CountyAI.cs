@@ -7,7 +7,8 @@ public class CountyAI
     // This needs to take into account the new HeroPersonalities.
     public void DecideBuildingCountyImprovements(County county)
     {
-        if (county.countyData.factionData.isPlayer)
+        FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(county.countyData.factionId);
+        if (Globals.Instance.CheckIfPlayerFaction(factionData))
         {
             return;
         }
@@ -15,7 +16,7 @@ public class CountyAI
         // Check if the county has enough food. If not, build a food building.
         if (!county.countyData.CheckEnoughCountyFactionResource(AllEnums.FactionGoodType.Food))
         {
-            CountyImprovementData foodBuilding = FindCountyImpovementOfType(county, AllEnums.FactionGoodType.Food);
+            CountyImprovementData foodBuilding = FindCountyImprovementOfType(county, AllEnums.FactionGoodType.Food);
 
             if (foodBuilding != null)
             {
@@ -83,14 +84,16 @@ public class CountyAI
     }
 
     // This probably needs to be moved to CountyImprovementData, or like the Banker or some shit.
-    public static CountyImprovementData FindCountyImpovementOfType(County county
+    private static CountyImprovementData FindCountyImprovementOfType(County county
         , AllEnums.FactionGoodType factionResourceType)
     {
-        foreach (CountyImprovementData countyImprovementData in county.countyData.factionData.allFactionKnownCountyImprovements)
+        FactionData factionData =
+            SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(county.countyData.factionId);
+        foreach (CountyImprovementData countyImprovementData in factionData.allFactionKnownCountyImprovements)
         {
             if (countyImprovementData.factionResourceType == factionResourceType)
             {
-                GD.Print($"{county.countyData.factionData.factionName} found {countyImprovementData.improvementName} " +
+                GD.Print($"{factionData.factionName} found {countyImprovementData.improvementName} " +
                     $"in {county.countyData.countyName}.");
                 return countyImprovementData;
             }

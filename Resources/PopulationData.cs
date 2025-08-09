@@ -10,7 +10,7 @@ namespace PlayerSpace;
 public partial class PopulationData : Resource
 {
     [Export] public int populationId;
-    [Export] public FactionData factionData;
+    [Export] public int factionId;
     [Export] public int location;
     [Export] public int lastLocation;
     [Export] public int destination;
@@ -129,7 +129,7 @@ public partial class PopulationData : Resource
         return new PopulationDto
         {
             PopulationId = populationId,
-            FactionId = factionData?.factionId,
+            FactionId = factionId,
             Location = location,
             LastLocation = lastLocation,
             Destination = destination,
@@ -399,7 +399,7 @@ public partial class PopulationData : Resource
     public void UpdateActivity(AllEnums.Activities newActivity)
     {
         activity = newActivity;
-
+        FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(factionId);
         if (newActivity == AllEnums.Activities.Idle && factionData.isPlayer)
         {
             GD.Print($"{GetFullName()} is set to idle!");

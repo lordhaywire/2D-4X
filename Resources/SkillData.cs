@@ -154,7 +154,9 @@ public partial class SkillData : Resource
 
                 skillData.skillLevel += experienceLearned;
 
-                if (populationData.factionData.isPlayer)
+                FactionData factionData =
+                    SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(populationData.factionId);
+                if (Globals.Instance.CheckIfPlayerFaction(factionData))
                 {
                     EventLog.Instance.AddLog($"{populationData.firstName} - {TranslationServer.Translate(skillData.skillName)}" +
                         $" {TranslationServer.Translate("WORD_LEARNED")} {experienceLearned}");

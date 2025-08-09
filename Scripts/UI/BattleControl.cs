@@ -27,8 +27,10 @@ public partial class BattleControl : Control
     private void CountyCaptured()
     {
         EndBattle();
-        CountyDictator.Instance.CaptureCounty(countyDefendersSelectToken.populationData.location
-            , countyAttackerSelectToken.populationData.factionData);
+        FactionData factionData =
+            SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(countyAttackerSelectToken.populationData
+                .factionId);
+        CountyDictator.Instance.CaptureCounty(countyDefendersSelectToken.populationData.location, factionData);
     }
 
     public void StartBattle(Battle currentBattle)
@@ -133,7 +135,9 @@ public partial class BattleControl : Control
         else
         {
             County selectCounty = (County)Globals.Instance.countiesParent.GetChild(populationData.lastLocation);
-            if (selectCounty.countyData.factionData.factionName == populationData.factionData.factionName)
+            FactionData selectedFactionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(selectCounty.countyData.factionId);
+            FactionData populationFactionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(populationData.factionId);
+            if (selectedFactionData.factionName == populationFactionData.factionName)
             {
                 populationData.heroToken.tokenMovement.StartMove(populationData.lastLocation);
                 EndBattle();
@@ -166,7 +170,7 @@ public partial class BattleControl : Control
     private static County FindFactionOwnedNeighborCounty(List<County> countyNeighbors, PopulationData populationData)
     {
         List<County> eligibleCounties =
-            [.. countyNeighbors.Where(c => c.countyData.factionData == populationData.factionData)];
+            [.. countyNeighbors.Where(c => c.countyData.factionId == populationData.factionId)];
 
         if (eligibleCounties.Count > 0)
         {

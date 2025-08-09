@@ -148,7 +148,8 @@ public class Banker
         }
         else
         {
-            storyEventData.eventCounty.countyData.factionData.factionGoods[storyEventData.rewardGood.factionGoodType].Amount
+            FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(storyEventData.eventCounty.countyData.factionId);
+            factionData.factionGoods[storyEventData.rewardGood.factionGoodType].Amount
                 += storyEventData.rewardAmount;
         }
         
@@ -272,7 +273,8 @@ public class Banker
                 }
                 else
                 {
-                    if (countyData.factionData.factionGoods[factionGoodType].Amount < keyValuePair.Value)
+                    FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(countyData.factionId);
+                    if (factionData.factionGoods[factionGoodType].Amount < keyValuePair.Value)
                     {
                         return false;
                     }
@@ -302,7 +304,8 @@ public class Banker
                 }
                 else
                 {
-                    countyData.factionData.factionGoods[factionResourceType].Amount -= keyValuePair.Value;
+                    FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(countyData.factionId);
+                    factionData.factionGoods[factionResourceType].Amount -= keyValuePair.Value;
                 }
 
                 /* GD.Print($"{countyImprovementData.improvementName} costs " +

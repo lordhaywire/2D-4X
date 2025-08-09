@@ -27,7 +27,8 @@ public partial class SpawnedTokenButton : Button
 
     public void OnButtonUp()
     {
-        if(populationData.factionData == Autoload.Instance.playerFactionData)
+        FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(populationData.factionId);
+        if(Globals.Instance.CheckIfPlayerFaction(factionData))
         {
             //GD.Print("You pressed the hero button.");
             heroToken = populationData.heroToken;

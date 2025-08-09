@@ -49,7 +49,7 @@ public partial class PopulationGeneration : Node
         foreach (FactionData factionData in SaveManager.Instance.saveGameData.allFactionDataList)
         {
             // Generate Faction Leader County Population
-            CountyData newCountyData = Autoload.Instance.allCountyData[factionData.factionCapitalCounty];
+            CountyData newCountyData = SaveManager.Instance.saveGameData.allCountyDataList[factionData.factionCapitalCounty];
             GeneratePopulation(newCountyData, true, 1); // There is never going to be more than 1 faction leader.
 
             factionData.factionLeader = newCountyData.heroesInCountyList[0];
@@ -85,7 +85,7 @@ public partial class PopulationGeneration : Node
                 PopulationData newPopulationData = new()
                 {
                     populationId = SaveManager.Instance.saveGameData.currentPopulationId,
-                    factionData = currentCountyData.factionData,
+                    factionId = currentCountyData.factionId,
                     location = currentCountyData.countyId,
                     lastLocation = -1,
                     destination = -1,
@@ -129,7 +129,7 @@ public partial class PopulationGeneration : Node
                 PopulationData newPopulationData = new()
                 {
                     populationId = SaveManager.Instance.saveGameData.currentPopulationId,
-                    factionData = currentCountyData.factionData,
+                    factionId = currentCountyData.factionId,
                     location = currentCountyData.countyId,
                     lastLocation = -1,
                     destination = -1,
@@ -171,7 +171,8 @@ public partial class PopulationGeneration : Node
                 // Add the hero to the county hero's list.
                 currentCountyData.heroesInCountyList.Add(newPopulationData);
                 // Add the hero to allHeroesList
-                currentCountyData.factionData.AddHeroToAllHeroesList(newPopulationData);
+                FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(currentCountyData.factionId);
+                factionData.AddHeroToAllHeroesList(newPopulationData);
                 SaveManager.Instance.saveGameData.allPopulationDataList.Add(newPopulationData);
             }
 
@@ -332,9 +333,9 @@ public partial class PopulationGeneration : Node
     private void CreatePopulation()
     {
         // Create various county specific data.
-        for (int i = 0; i < Autoload.Instance.allCountyData.Count; i++)
+        for (int i = 0; i < SaveManager.Instance.saveGameData.allCountyDataList.Count; i++)
         {
-            CountyData populationCountyData = Autoload.Instance.allCountyData[i];
+            CountyData populationCountyData = SaveManager.Instance.saveGameData.allCountyDataList[i];
             populationCountyData.countyId = i; // Generate countyID.
             //GD.PrintRich("[rainbow]County ID: " + countyData.countyID);
 

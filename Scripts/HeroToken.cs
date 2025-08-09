@@ -120,7 +120,7 @@ public partial class HeroToken : CharacterBody2D
     private void OnClick(Viewport viewport, InputEvent @event, int _shapeIdx)
     {
         if (@event is InputEventMouseButton eventMouseButton &&
-            populationData.factionData == Autoload.Instance.playerFactionData)
+            populationData.factionId == Autoload.Instance.playerFactionData.factionId)
         {
             if (eventMouseButton.ButtonIndex == MouseButton.Left && eventMouseButton.Pressed == false)
             {
@@ -136,7 +136,7 @@ public partial class HeroToken : CharacterBody2D
         //GD.Print($"Removed {token.populationData.firstName} {token.populationData.factionData.factionName}");
         // Remove populationData from the heroes starting county location list.
         County startingCounty = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
-        FactionData locationFactionData = populationData.factionData;
+        FactionData locationFactionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(populationData.factionId);
 
         // We don't need to check which list the hero is in because C# doesn't give a shit if the hero isn't in the list.
         // So we just try to remove it from both, and it will remove it from the correct one.
@@ -174,7 +174,7 @@ public partial class HeroToken : CharacterBody2D
     public void AddHeroAndSubordinatesToDestinationCounty(County destinationCounty)
     {
         //GD.Print("Add To Destination County " + token.populationData.firstName);
-        FactionData locationFactionData = destinationCounty.countyData.factionData;
+        FactionData locationFactionData = destinationCounty.countyData.factionId;
         populationData.location = destinationCounty.countyData.countyId;
         
         destinationCounty.countyData.spawnedTokenButtons.Add(spawnedTokenButton);
