@@ -66,7 +66,6 @@ public partial class County : Node2D
         // Check to see if any population needs healing from starvation or whatever.
         CountyData.CheckForHealing(countyData.populationDataList);
         CountyData.CheckForHealing(countyData.heroesInCountyList);
-        CountyData.CheckForHealing(countyData.armiesInCountyList);
 
         // It checks this at end of day, so that at day start all the employment etc. hits.
         countyAi.DecideBuildingCountyImprovements(this);

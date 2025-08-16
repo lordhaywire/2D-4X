@@ -251,6 +251,7 @@ public class Research
     }
 
     /// <summary>
+    /// This is used for both normal population and heroes.
     /// There is no learning check for population random research.
     /// </summary>
     public static void GeneratePassiveResearch(Godot.Collections.Array<PopulationData> researchers)

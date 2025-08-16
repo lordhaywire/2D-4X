@@ -122,7 +122,7 @@ public partial class PopulationGeneration : Node
                     heroToken = null,
                 };
                 currentCountyData.populationDataList.Add(newPopulationData);
-                SaveManager.Instance.saveGameData.allPopulationDataList.Add(newPopulationData);
+                //SaveManager.Instance.saveGameData.allPopulationDataList.Add(newPopulationData);
             }
             else
             {
@@ -173,7 +173,7 @@ public partial class PopulationGeneration : Node
                 // Add the hero to allHeroesList
                 FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(currentCountyData.factionId);
                 factionData.AddHeroToAllHeroesList(newPopulationData);
-                SaveManager.Instance.saveGameData.allPopulationDataList.Add(newPopulationData);
+                //SaveManager.Instance.saveGameData.allPopulationDataList.Add(newPopulationData);
             }
 
             GD.Print("PopulationID: " + SaveManager.Instance.saveGameData.currentPopulationId);

@@ -36,22 +36,16 @@ public partial class CountyData : Resource
     [Export] public Godot.Collections.Array<AllEnums.Terrain> allTerrains = [];
     [Export] public Godot.Collections.Array<StoryEventData> explorationEvents = [];
 
-    [ExportGroup("Population Lists")] [Export]
-    public Godot.Collections.Array<PopulationData> populationDataList = [];
-
+    [ExportGroup("Population Lists")] 
+    [Export] public Godot.Collections.Array<PopulationData> populationDataList = [];
     [Export] public Godot.Collections.Array<PopulationData> heroesInCountyList = [];
-    [Export] public Godot.Collections.Array<PopulationData> armiesInCountyList = [];
     [Export] public Godot.Collections.Array<PopulationData> visitingHeroList = [];
-    [Export] public Godot.Collections.Array<PopulationData> visitingArmyList = [];
     [Export] public Godot.Collections.Array<PopulationData> deadPeopleList = [];
 
-    [ExportGroup("Construction and Work Lists")] [Export]
-    public Godot.Collections.Array<PopulationData> heroBuildersList = [];
-
+    [ExportGroup("Construction and Work Lists")] 
+    [Export] public Godot.Collections.Array<PopulationData> heroBuildersList = [];
     [Export] public Godot.Collections.Array<PopulationData> heroWorkersList = [];
-
-    [Export] public Godot.Collections.Array<PopulationData>
-        workersList = []; // List of all the idle, helpful and loyal workers for that day.
+    [Export] public Godot.Collections.Array<PopulationData> workersList = []; // List of all the idle, helpful and loyal workers for that day.
 
     [Export] public Godot.Collections.Array<PopulationData> prioritizedHeroBuildersList = [];
     [Export] public Godot.Collections.Array<PopulationData> prioritizedHeroWorkersList = [];

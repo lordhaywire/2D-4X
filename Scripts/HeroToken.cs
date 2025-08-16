@@ -141,9 +141,7 @@ public partial class HeroToken : CharacterBody2D
         // We don't need to check which list the hero is in because C# doesn't give a shit if the hero isn't in the list.
         // So we just try to remove it from both, and it will remove it from the correct one.
         startingCounty.countyData.heroesInCountyList.Remove(populationData);
-        startingCounty.countyData.armiesInCountyList.Remove(populationData);
         startingCounty.countyData.visitingHeroList.Remove(populationData);
-        startingCounty.countyData.visitingArmyList.Remove(populationData);
 
         startingCounty.countyData.spawnedTokenButtons.Remove(spawnedTokenButton);
 

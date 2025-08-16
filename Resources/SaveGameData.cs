@@ -10,7 +10,7 @@ public partial class SaveGameData : Resource
     private float saveVersion = 0.01f;
     public int currentPopulationId;
 
-    public List<PopulationData> allPopulationDataList = []; 
+    //public List<PopulationData> allPopulationDataList = []; 
     [Export] public Godot.Collections.Array<CountyData> allCountyDataList = [];
     [Export] public Godot.Collections.Array<FactionData> allFactionDataList = [];
 
@@ -26,7 +26,7 @@ public partial class SaveGameData : Resource
             SaveTimestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), // Store timestamp as string
             SaveVersion = saveVersion,
             CurrentPopulationId = currentPopulationId,
-            AllPopulationDataList = allPopulationDataList.ConvertAll(p => p.ToDto()),
+            //AllPopulationDataList = allPopulationDataList.ConvertAll(p => p.ToDto()),
             AllCountyDataList = [],
             AllFactionDataList = []
         };
@@ -49,15 +49,17 @@ public partial class SaveGameData : Resource
             saveTimestamp = DateTime.TryParse(saveGameDto.SaveTimestamp, out var parsed) ? parsed : DateTime.MinValue,
             saveVersion = saveGameDto.SaveVersion,
             currentPopulationId = saveGameDto.CurrentPopulationId,
-            allPopulationDataList = [],
+            //allPopulationDataList = [],
             allCountyDataList = [],
             allFactionDataList = []
         };
         
+        /*
         foreach (PopulationDto popDto in saveGameDto.AllPopulationDataList)
         {
             SaveManager.Instance.saveGameData.allPopulationDataList.Add(PopulationData.FromDto(popDto));
         }
+        */
 
         foreach (CountyDto countyDto in saveGameDto.AllCountyDataList)
         {
@@ -67,7 +69,7 @@ public partial class SaveGameData : Resource
         
         foreach (FactionDto factionDto in saveGameDto.AllFactionDataList)
         {
-            GD.PrintRich($"[rainbow]Count of All Population Data List: {SaveManager.Instance.saveGameData.allPopulationDataList.Count}");
+            //GD.PrintRich($"[rainbow]Count of All Population Data List: {SaveManager.Instance.saveGameData.allPopulationDataList.Count}");
             SaveManager.Instance.saveGameData.allFactionDataList.Add(FactionData.FromDto(factionDto));
         }
     }

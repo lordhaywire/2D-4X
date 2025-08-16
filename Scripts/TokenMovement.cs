@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using AutoloadSpace;
 using Godot;
 
@@ -93,10 +94,12 @@ namespace PlayerSpace
         {
             // Get the All Heroes List in the destination county for that county's faction and see if any of that
             // faction heroes are on the way to it.
-            //GD.Print("Seeing if someone is on the way.");
+            GD.Print("Seeing if someone is on the way.");
             FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(destinationCounty.countyData.factionId);
-            foreach (PopulationData populationData in factionData.allHeroesList)
+            foreach (KeyValuePair<int, int> keyValuePair in factionData.allHeroesDictionary)
             {
+                County county = (County)Globals.Instance.countiesParent.GetChild(keyValuePair.Value);
+                PopulationData populationData = PopulationData.ReturnPopulationDataFromPopulationId(county.countyData.heroesInCountyList, keyValuePair.Key);
                 if (populationData.destination != heroToken.populationData.destination) continue;
                 GD.Print("Hero on the way is: " + populationData.firstName);
                 return true;
@@ -149,6 +152,7 @@ namespace PlayerSpace
             }
             else
             {
+                // This needs to be changed to something like, If the faction is at war with the current hero locations faction.
                 if (heroToken.populationData.IsThisAnArmy() == false)
                 {
                     HeroVisitingCounty();
@@ -176,7 +180,7 @@ namespace PlayerSpace
 
         private void ArmyAttackingCounty()
         {
-            ArmyVisitingCounty();
+            //ArmyVisitingCounty();
             if (destinationCounty.countyData.armiesInCountyList.Count > 0)
             {
                 Battle battle = new(destinationCounty.countyData);
@@ -198,12 +202,14 @@ namespace PlayerSpace
             Recruiter.CheckForRecruitingActivity(heroToken.populationData);
         }
 
+        /*
         private void ArmyReachedCounty()
         {
             heroToken.spawnedTokenButton.Reparent(destinationCounty.armiesHBox);
             destinationCounty.countyData.armiesInCountyList.Add(heroToken.populationData);
             Recruiter.CheckForRecruitingActivity(heroToken.populationData);
         }
+        */
 
         private void HeroVisitingCounty()
         {
@@ -211,10 +217,12 @@ namespace PlayerSpace
             destinationCounty.countyData.visitingHeroList.Add(heroToken.populationData);
         }
 
+        /*
         private void ArmyVisitingCounty()
         {
             heroToken.spawnedTokenButton.Reparent(destinationCounty.armiesHBox);
             destinationCounty.countyData.visitingArmyList.Add(heroToken.populationData);
         }
+        */
     }
 }

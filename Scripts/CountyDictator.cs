@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 
 namespace PlayerSpace;
@@ -41,33 +42,36 @@ public partial class CountyDictator : Node
     private static void DestroyFaction(County county)
     {
         //GD.Print("All Heroes List Count: " + selectCounty.countyData.factionData.allHeroesList.Count);
-        // Remove all of these faction heroes from the game.
+        // Remove the destroyed faction heroes from the game.
         FactionData factionData =
             SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(county.countyData.factionId);
-        FactionCountyPopulationDestroyer(factionData.allHeroesList);
+        FactionCountyPopulationDestroyer(factionData.allHeroesDictionary);
 
         // Since we got rid of the allFactionData list, we are now just reparenting the dead faction to the dead faction node.  You can probably delete this comment
         // soon.
         //Globals.Instance.deadFactions.Add(county.countyData.factionData);
-        Faction.ConvertFactionToDeadFaction(factionData.factionId);
+        FactionDictator.ConvertFactionToDeadFaction(factionData.factionId);
         //Globals.Instance.factionsParent.GetChild(county.countyData.factionData.factionId).QueueFree();
     }
 
     // Maybe move to a Faction Dictator script.
-    private static void FactionCountyPopulationDestroyer(Godot.Collections.Array<PopulationData> allHeroesList)
+    private static void FactionCountyPopulationDestroyer(Dictionary<int, int> allHeroesDictionary)
     {
-        foreach (PopulationData populationData in allHeroesList)
+        foreach (KeyValuePair<int, int> keyValuePair in allHeroesDictionary)
         {
-            County selectCounty = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
-            selectCounty.countyData.heroesInCountyList.Remove(populationData);
-            selectCounty.countyData.armiesInCountyList.Remove(populationData);
-            selectCounty.countyData.spawnedTokenButtons.Remove(populationData.heroToken.spawnedTokenButton);
-            populationData.heroToken.spawnedTokenButton.QueueFree();
-            populationData.heroToken.QueueFree();
+            County county = (County)Globals.Instance.countiesParent.GetChild(keyValuePair.Value);
+            PopulationData hero =
+                PopulationData.ReturnPopulationDataFromPopulationId(county.countyData.heroesInCountyList,
+                    keyValuePair.Key);
+            GD.Print($"FactionCountyPopulationDestroyer - Hero getting removed {hero.GetFullName()}");
+            county.countyData.heroesInCountyList.Remove(hero);
+            county.countyData.spawnedTokenButtons.Remove(hero.heroToken.spawnedTokenButton);
+            hero.heroToken.spawnedTokenButton.QueueFree();
+            hero.heroToken.QueueFree();
 
             //GD.PrintRich($"[rainbow]{populationData.firstName}");
             CountyInfoControl.Instance.GenerateHeroesPanelList();
         }
-        allHeroesList.Clear();
+        allHeroesDictionary.Clear();
     }
 }

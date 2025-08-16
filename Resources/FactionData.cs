@@ -22,7 +22,7 @@ public partial class FactionData : Resource
     [Export] public Godot.Collections.Array<ResearchItemData> researchableResearch; 
 
     [Export] public Godot.Collections.Array<CountyData> countiesFactionOwns;
-    [Export] public Godot.Collections.Array<PopulationData> allHeroesList;
+    public Dictionary<int,int> allHeroesDictionary; // Hero Id, hero location
     [Export] public PopulationData factionLeader;
 
     public readonly Diplomacy diplomacy = new();
@@ -65,7 +65,7 @@ public partial class FactionData : Resource
         foreach (CountyData county in countiesFactionOwns)
             factionDto.CountiesFactionOwns.Add(county.countyName);
 
-        foreach (PopulationData hero in allHeroesList)
+        foreach (PopulationData hero in allHeroesDictionary)
             factionDto.AllHeroesList.Add(hero.populationId);
 
         if (factionLeader != null)
@@ -155,15 +155,16 @@ public partial class FactionData : Resource
             }
         }
 
-        factionData.allHeroesList = [];
+        factionData.allHeroesDictionary = [];
         foreach (int heroId in factionDto.AllHeroesList)
         {
-            PopulationData hero = SaveManager.Instance.saveGameData.allPopulationDataList
+            
+            PopulationData hero = SaveManager.Instance.saveGameData.allCountyDataList[h]
                 .FirstOrDefault(p => p.populationId == heroId);
 
             if (hero != null)
             {
-                factionData.allHeroesList.Add(hero);
+                factionData.allHeroesDictionary.Add(hero);
             }
         }
 
@@ -252,18 +253,16 @@ public partial class FactionData : Resource
         FactionData factionData = SaveManager.Instance.saveGameData.allFactionDataList[id];
         return factionData;
     }
-
-    // We can error on the side of adding the hero to the All Heroes List because this checks
-    // to see if the hero is already in the list.
+    
     public void AddHeroToAllHeroesList(PopulationData populationData)
     {
-        // We need to double-check that the hero isn't already in the list.
-        if (!allHeroesList.Contains(populationData))
+        // We need to double-check that the hero isn't already in the dictionary.
+        if (!allHeroesDictionary.ContainsKey(populationData.populationId))
         {
             FactionData factionData = GetFactionDataFromId(populationData.factionId);
-            factionData.allHeroesList.Add(populationData);
-            //GD.Print($"Add To {populationData.factionData.factionName} Hero List: " + populationData.lastName);
+            factionData.allHeroesDictionary[populationData.populationId] = populationData.location;
         }
+
 
         GD.Print($"{populationData.firstName} has been added to {factionName} all heroes list.");
     }
@@ -271,7 +270,7 @@ public partial class FactionData : Resource
     // This isn't used yet, but when heroes die...Can heroes starve to death?
     public void RemoveHeroFromAllHeroesList(PopulationData populationData)
     {
-        allHeroesList.Remove(populationData);
+        allHeroesDictionary.Remove(populationData.populationId);
         GD.Print($"{populationData.firstName} has been removed from {factionName} all heroes list.");
     }
 

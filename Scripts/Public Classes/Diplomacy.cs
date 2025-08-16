@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,8 +53,10 @@ public class Diplomacy
 
     public static PopulationData CheckForArmies(County battleLocation)
     {
-        // Checkes for spawned armies.  If there is one, then it returns null, otherwise it spawns one.
+        // Checks for spawned armies.  If there is one, then it returns null, otherwise it spawns one.
         //GD.Print("Defending Army List Count: " + battleLocation.countyData.armiesInCountyList.Count());
+        throw new ArgumentException("CheckForArmies is commented out!!!!!");
+        /*
         if(battleLocation.countyData.armiesInCountyList.Count > 0)
         {
             foreach(PopulationData populationData in battleLocation.countyData.armiesInCountyList)
@@ -68,6 +71,7 @@ public class Diplomacy
                 }
             }
         }
+        
         //GD.Print("Defending Hero List Count: " + battleLocation.countyData.herosInCountyList.Count());
         if (battleLocation.countyData.heroesInCountyList.Count > 0)
         {
@@ -138,5 +142,7 @@ public class Diplomacy
             }
         }
         return null;
+            */
     }
+
 }

@@ -14,8 +14,6 @@ public class PopulationAI
             // Happiness is addedin the PopulationEatsFood method.
             countyData.PopulationEatsFood(countyData.heroesInCountyList,
                 Globals.Instance.foodToGainHappiness);
-            countyData.PopulationEatsFood(countyData.armiesInCountyList,
-                Globals.Instance.foodToGainHappiness);
             countyData.PopulationEatsFood(countyData.populationDataList,
                 Globals.Instance.foodToGainHappiness);
             // Visiting heroes need to be able to eat food too.  It needs to improve faction relations.
@@ -25,8 +23,6 @@ public class PopulationAI
             //GD.Print("People get jack shit for happiness.");
             // Happiness is added in the PopulationEatsFood method.
             countyData.PopulationEatsFood(countyData.heroesInCountyList,
-                Globals.Instance.foodToGainNothing);
-            countyData.PopulationEatsFood(countyData.armiesInCountyList,
                 Globals.Instance.foodToGainNothing);
             countyData.PopulationEatsFood(countyData.populationDataList,
                 Globals.Instance.foodToGainNothing);
@@ -38,8 +34,6 @@ public class PopulationAI
             // Happiness is removed in method PopulationEatsFood.
             countyData.PopulationEatsFood(countyData.heroesInCountyList,
                 Globals.Instance.foodToLoseHappiness);
-            countyData.PopulationEatsFood(countyData.armiesInCountyList,
-                Globals.Instance.foodToLoseHappiness);
             countyData.PopulationEatsFood(countyData.populationDataList,
                 Globals.Instance.foodToLoseHappiness);
             // Visiting heroes need to be able to eat food too.  It needs to improve faction relations.
@@ -50,8 +44,6 @@ public class PopulationAI
             // Eating the last of the food, then major penalty for starvation.
             // It will already reduce their happiness by 1 in the Population Eats Food method.
             countyData.PopulationEatsFood(countyData.heroesInCountyList,
-                Globals.Instance.foodToLoseHappiness);
-            countyData.PopulationEatsFood(countyData.armiesInCountyList,
                 Globals.Instance.foodToLoseHappiness);
             countyData.PopulationEatsFood(countyData.populationDataList,
                 Globals.Instance.foodToLoseHappiness);

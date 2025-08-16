@@ -15,37 +15,38 @@ public static class Recruiter
     public static void CheckForRecruitment(CountyData countyData)
     {
         // If the hero isn't moving, then recruit.
-        // Adds the army list to the end of the hero list and then check both of them.
-        foreach (PopulationData populationData in countyData.heroesInCountyList.Concat(countyData.armiesInCountyList)
-                     .Where(populationData => populationData.activity != AllEnums.Activities.Move))
+        foreach (PopulationData populationData in countyData.heroesInCountyList)
         {
-            // Not enough recruits, so start recruiting.
-            if (populationData.heroSubordinates.Count < populationData.numberOfSubordinatesWanted)
+            if (populationData.activity != AllEnums.Activities.Move)
             {
-                GD.Print("Number of subordinates is less then the number wanted, so recruiting has started.");
-                populationData.UpdateActivity(AllEnums.Activities.Recruit);
-                // Each day the hero should try to recruit only one person.
-                int numberOfSubordinatesToHire =
-                    1; //populationData.numberOfSubordinatesWanted - populationData.heroSubordinates.Count;
+                // Not enough recruits, so start recruiting.
+                if (populationData.heroSubordinates.Count < populationData.numberOfSubordinatesWanted)
+                {
+                    GD.Print("Number of subordinates is less then the number wanted, so recruiting has started.");
+                    populationData.UpdateActivity(AllEnums.Activities.Recruit);
+                    // Each day the hero should try to recruit only one person.
+                    int numberOfSubordinatesToHire =
+                        1; //populationData.numberOfSubordinatesWanted - populationData.heroSubordinates.Count;
 
-                RecruitSubordinates(populationData, numberOfSubordinatesToHire);
-            }
-            else if (populationData.heroSubordinates.Count > populationData.numberOfSubordinatesWanted)
-            {
-                GD.Print("Number of subordinates is greater then the number wanted, so firing has started.");
-                int numberOfSubordinatesToFire =
-                    populationData.heroSubordinates.Count - populationData.numberOfSubordinatesWanted;
-                FireSubordinates(populationData, numberOfSubordinatesToFire);
-            }
-            else
-            {
-                GD.Print("Number of subordinates does match, so nothing is being done.");
+                    RecruitSubordinates(populationData, numberOfSubordinatesToHire);
+                }
+                else if (populationData.heroSubordinates.Count > populationData.numberOfSubordinatesWanted)
+                {
+                    GD.Print("Number of subordinates is greater then the number wanted, so firing has started.");
+                    int numberOfSubordinatesToFire =
+                        populationData.heroSubordinates.Count - populationData.numberOfSubordinatesWanted;
+                    FireSubordinates(populationData, numberOfSubordinatesToFire);
+                }
+                else
+                {
+                    GD.Print("Number of subordinates does match, so nothing is being done.");
+                }
+
+                CheckForRecruitmentFinished(populationData);
             }
 
-            CheckForRecruitmentFinished(populationData);
+            CountyInfoControl.Instance.UpdateEverything();
         }
-
-        CountyInfoControl.Instance.UpdateEverything();
     }
 
     private static void CheckForRecruitmentFinished(PopulationData populationData)
@@ -183,7 +184,7 @@ public static class Recruiter
             if (subordinate.activity != AllEnums.Activities.Recruited) continue;
             peopleToRemove.Add(subordinate);
         }
-        
+
         RemovePeopleFromSubordinateList(peopleToRemove, populationData);
     }
 
@@ -198,14 +199,16 @@ public static class Recruiter
 
     public static int GetMaxNumberOfRecruits(PopulationData populationData)
     {
-         int charismaBonus = AttributeData.GetAttributeBonus(populationData.attributes[AllEnums.Attributes.Charisma].attributeLevel,
-                true, false);
-         int leadershipBonus = AttributeData.GetAttributeBonus(populationData.skills[AllEnums.Skills.Leadership].skillLevel,
-             true, false);
-         int leaderOfPeopleBonus = PerkData.GetPerkBonus(populationData, AllEnums.Perks.LeaderOfPeople);
+        int charismaBonus = AttributeData.GetAttributeBonus(
+            populationData.attributes[AllEnums.Attributes.Charisma].attributeLevel,
+            true, false);
+        int leadershipBonus = AttributeData.GetAttributeBonus(
+            populationData.skills[AllEnums.Skills.Leadership].skillLevel,
+            true, false);
+        int leaderOfPeopleBonus = PerkData.GetPerkBonus(populationData, AllEnums.Perks.LeaderOfPeople);
 
-         int maxNumberOfRecruits = Math.Max(0, charismaBonus + leadershipBonus + leaderOfPeopleBonus);
-         
-         return maxNumberOfRecruits;
+        int maxNumberOfRecruits = Math.Max(0, charismaBonus + leadershipBonus + leaderOfPeopleBonus);
+
+        return maxNumberOfRecruits;
     }
 }

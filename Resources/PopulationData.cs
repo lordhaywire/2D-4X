@@ -20,13 +20,13 @@ public partial class PopulationData : Resource
     [Export] public bool isMale;
     [Export] public int age;
 
-    [ExportGroup("Personality")] [Export] public AllEnums.Personality personality;
-    public IPersonality iPersonality; // I have fucked my future self.  This will not save with the resource saver.
+    [ExportGroup("Personality")] 
+    [Export] public AllEnums.Personality personality;
+    public IPersonality iPersonality;
 
     [ExportGroup("Hero")]
     // Change this to an enum
-    [Export]
-    public bool isHero;
+    [Export] public bool isHero;
 
     //[Export] public bool isWorker;
 
@@ -204,6 +204,7 @@ public partial class PopulationData : Resource
         {
             populationData.personality = parsedPersonality;
         }
+
         populationData.iPersonality = CreatePersonalityFromEnum(populationData.personality);
         populationData.isHero = populationDto.IsHero;
 
@@ -215,12 +216,12 @@ public partial class PopulationData : Resource
 
         populationData.numberOfSubordinatesWanted = populationDto.NumberOfSubordinatesWanted;
 
-        // Todo: This needs to happen after the allPopulationDataList is fully loaded.
-        // 🔹 Hero Subordinates (IDs → PopulationData references)
+        // Hero Subordinates (IDs → PopulationData references)
         populationData.heroSubordinates = new Godot.Collections.Array<PopulationData>();
         foreach (int subId in populationDto.HeroSubordinates)
         {
-            PopulationData subordinate = SaveManager.Instance.saveGameData.allPopulationDataList
+            PopulationData subordinate = SaveManager.Instance.saveGameData.allCountyDataList[populationData.location]
+                .populationDataList
                 .FirstOrDefault(p => p.populationId == subId);
 
             if (subordinate != null)
@@ -306,7 +307,8 @@ public partial class PopulationData : Resource
         populationData.useNewestEquipment = populationDto.UseNewestEquipment;
 
         // Convert Dictionary<string, GoodDto> → Dictionary<InventorySlot, GoodData>
-        Godot.Collections.Dictionary<AllEnums.InventorySlot, GoodData> inventoryResult = new Godot.Collections.Dictionary<AllEnums.InventorySlot, GoodData>();
+        Godot.Collections.Dictionary<AllEnums.InventorySlot, GoodData> inventoryResult =
+            new Godot.Collections.Dictionary<AllEnums.InventorySlot, GoodData>();
 
         if (populationDto.Inventory != null)
         {
@@ -359,6 +361,19 @@ public partial class PopulationData : Resource
         return populationData;
     }
 
+    public static PopulationData ReturnPopulationDataFromPopulationId(Godot.Collections.Array<PopulationData> populationList, int populationId)
+    {
+        foreach (PopulationData populationData in populationList)
+        {
+            if (populationData.populationId == populationId)
+            {
+                return populationData;
+            }
+        }
+
+        return null;
+    }
+
     public bool CheckForPerk(AllEnums.Perks perk)
     {
         if (perks.ContainsKey(perk))
@@ -367,19 +382,6 @@ public partial class PopulationData : Resource
         }
 
         return false;
-    }
-
-    // They always need to be a hero first for everything else to work.
-    public void ChangeToArmy()
-    {
-        isHero = true;
-        HeroType = HeroType == AllEnums.HeroType.FactionLeader
-            ? AllEnums.HeroType.FactionLeaderArmyLeader
-            : AllEnums.HeroType.ArmyLeader;
-
-        County selectCounty = (County)Globals.Instance.countiesParent.GetChild(location);
-        selectCounty.countyData.armiesInCountyList.Add(this);
-        selectCounty.countyData.heroesInCountyList.Remove(this);
     }
 
     public void UpdateActivity(AllEnums.Activities newActivity)
@@ -497,7 +499,7 @@ public partial class PopulationData : Resource
         string fullName = $"{firstName} {lastName}";
         return fullName;
     }
-    
+
     public static IPersonality CreatePersonalityFromEnum(AllEnums.Personality personality)
     {
         switch (personality)
@@ -512,5 +514,4 @@ public partial class PopulationData : Resource
                 throw new ArgumentOutOfRangeException(nameof(personality), personality, "Unknown personality type");
         }
     }
-
 }

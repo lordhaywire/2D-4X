@@ -6,12 +6,10 @@ namespace PlayerSpace;
 
 public class Banker
 {
-    // This includes the armies in the county, but it only works while the army is one person.
     public static int CountEveryoneInCounty(CountyData countyData)
     {
         int numberOfPeople = countyData.populationDataList.Count
-            + countyData.heroesInCountyList.Count + countyData.visitingHeroList.Count
-            + countyData.armiesInCountyList.Count;
+                             + countyData.heroesInCountyList.Count + countyData.visitingHeroList.Count;
         //GD.Print($"{countyData.countyName} has {numberOfPeople} people.");
         return numberOfPeople;
     }

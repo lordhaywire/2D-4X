@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace PlayerSpace;
 
 public class FactionAI
@@ -5,15 +7,16 @@ public class FactionAI
     /// <summary>
     /// This takes the faction leaders personality and assign each heroes equipment depending on that.
     /// </summary>
-    /// <param name="faction"></param>
-    public static void DecideIfHeroUsesNewestEquipment(Faction faction)
+    public static void DecideIfHeroUsesNewestEquipment(FactionData factionData)
     {
-        foreach (PopulationData populationData in faction.factionData.allHeroesList)
+        foreach (KeyValuePair<int, int> keyValuePair in factionData.allHeroesDictionary)
         {
-            faction.factionData.factionLeader.iPersonality.EquipmentAssignment(populationData);
+            County county = (County)Globals.Instance.countiesParent.GetChild(keyValuePair.Value);
+            PopulationData populationData = PopulationData.ReturnPopulationDataFromPopulationId(county.countyData.heroesInCountyList, keyValuePair.Key);
+            factionData.factionLeader.iPersonality.EquipmentAssignment(populationData);
         }
     }
-    // This is very primative logic.  It just goes down the list of idle heroes and assigns the first
+    // This is very primitive logic.  It just goes down the list of idle heroes and assigns the first
     // research that isn't done to them.
     /*
     public void AssignResearch(FactionData factionData)
