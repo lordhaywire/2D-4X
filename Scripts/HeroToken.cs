@@ -174,7 +174,7 @@ public partial class HeroToken : CharacterBody2D
     public void AddHeroAndSubordinatesToDestinationCounty(County destinationCounty)
     {
         //GD.Print("Add To Destination County " + token.populationData.firstName);
-        FactionData locationFactionData = destinationCounty.countyData.factionId;
+        FactionData locationFactionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(destinationCounty.countyData.factionId);
         populationData.location = destinationCounty.countyData.countyId;
         
         destinationCounty.countyData.spawnedTokenButtons.Add(spawnedTokenButton);

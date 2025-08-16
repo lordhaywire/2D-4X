@@ -193,7 +193,8 @@ public partial class CountyInfoControl : Control
 
     private void CheckForOwnership()
     {
-        if (Globals.Instance.CheckIfPlayerFaction(countyData.factionId) != true)
+        FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(countyData.factionId);
+        if (Globals.Instance.CheckIfPlayerFaction(factionData) != true)
         {
             populationListButton.Disabled = true;
             countyImprovementsButton.Disabled = true;

@@ -10,7 +10,7 @@ public partial class FactionGeneration : Node
 {
     private string factionDirectory = "res://Resources/Factions/";
 
-    private List<FactionData> allFactionDataList = [];
+    //private List<FactionData> allFactionDataList = [];
 
     public override void _Ready()
     {
@@ -20,23 +20,35 @@ public partial class FactionGeneration : Node
 
     private void CreateFactionsFromDisk()
     {
-        allFactionDataList = Autoload.Instance.ReadResourcesFromDisk(factionDirectory).Cast<FactionData>().ToList();
+        Godot.Collections.Array<Resource> loadedResources =
+            Autoload.Instance.ReadResourcesFromDisk(factionDirectory);
 
-        for (int i = 0; i < allFactionDataList.Count; i++)
+        Godot.Collections.Array<FactionData> factionDataArray = new Godot.Collections.Array<FactionData>();
+
+        foreach (Resource res in loadedResources)
         {
-            allFactionDataList[i].factionId = i;
-
-            if (allFactionDataList[i].isPlayer)
+            if (res is FactionData factionData)
             {
-                Autoload.Instance.playerFactionData = allFactionDataList[i];
+                factionDataArray.Add(factionData);
+            }
+        }
+
+        SaveManager.Instance.saveGameData.allFactionDataList = factionDataArray;
+        for (int i = 0; i < SaveManager.Instance.saveGameData.allFactionDataList.Count; i++)
+        {
+            SaveManager.Instance.saveGameData.allFactionDataList[i].factionId = i;
+
+            if (SaveManager.Instance.saveGameData.allFactionDataList[i].isPlayer)
+            {
+                Autoload.Instance.playerFactionData = SaveManager.Instance.saveGameData.allFactionDataList[i];
             }
 
-            GD.Print($"{allFactionDataList[i].factionName} has been loaded from disk.");
+            GD.Print($"{SaveManager.Instance.saveGameData.allFactionDataList[i].factionName} has been loaded from disk.");
             // The order is important.
-            CreateFactionGoodDictionary(allFactionDataList[i]);
-            AddFactionsToDiplomacyWar(allFactionDataList[i]);
-            AddStartingResearch(allFactionDataList[i]);
-            ConvertFactionDataListsToGodotArrayInAutoload(allFactionDataList);
+            CreateFactionGoodDictionary(SaveManager.Instance.saveGameData.allFactionDataList[i]);
+            AddFactionsToDiplomacyWar(SaveManager.Instance.saveGameData.allFactionDataList[i]);
+            AddStartingResearch(SaveManager.Instance.saveGameData.allFactionDataList[i]);
+            //ConvertFactionDataListsToGodotArrayInAutoload(allFactionDataList);
         }
     }
 

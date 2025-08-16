@@ -4,7 +4,7 @@ using PlayerSpace;
 public class PopulationDto
 {
     public int PopulationId { get; set; }
-    public int? FactionId { get; set; }    // Store just ID, not whole FactionData
+    public int FactionId { get; set; }    // Store just ID, not whole FactionData
     public int Location { get; set; }
     public int LastLocation { get; set; }
     public int Destination { get; set; }

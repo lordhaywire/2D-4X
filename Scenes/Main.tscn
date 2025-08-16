@@ -20,7 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://cvc31dbpf0ptl" path="res://Graphics/Tokens/Army Token Unselected.png" id="10_0wqfi"]
 [ext_resource type="Texture2D" uid="uid://bnau4cacldl0t" path="res://Graphics/Tokens/Army Token Selected.png" id="11_e5ayq"]
 [ext_resource type="Script" uid="uid://dmto35ej5sjd4" path="res://Scripts/PlayerControls.cs" id="12_vfu86"]
-[ext_resource type="Script" uid="uid://c6nd17mfkssti" path="res://Scripts/RandomFactionColor.cs" id="18_3aru6"]
+[ext_resource type="Script" uid="uid://c6nd17mfkssti" path="res://Scripts/AssignFactionColorsToCounties.cs" id="18_3aru6"]
 [ext_resource type="Script" uid="uid://dq7hcwrq41ub" path="res://Scripts/Clock.cs" id="19_dn5gi"]
 [ext_resource type="Script" uid="uid://cjkl8rag6oe66" path="res://Scripts/Map Editor/FindNeighbors.cs" id="20_0i5kb"]
 [ext_resource type="Script" uid="uid://bm5yey7s0ixuj" path="res://Scripts/UI/PlayerUICanvas.cs" id="24_s3wh2"]
@@ -153,6 +153,7 @@ centered = false
 
 [node name="Globals" type="Node" parent="Game Controller Node" node_paths=PackedStringArray("countiesParent")]
 script = ExtResource("2_yf7pt")
+loadGameAtStart = true
 dailyInfluenceGain = 5
 leaderOfPeopleInfluenceBonus = 5
 startPaused = true
@@ -196,7 +197,7 @@ process_mode = 3
 script = ExtResource("12_vfu86")
 collisionRectangleShape = SubResource("RectangleShape2D_co2vr")
 
-[node name="Random Faction Colors" type="Node" parent="Game Controller Node"]
+[node name="Assign Faction Colors to Counties" type="Node" parent="Game Controller Node"]
 script = ExtResource("18_3aru6")
 
 [node name="County Dictator" type="Node" parent="Game Controller Node"]

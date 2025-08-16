@@ -29,7 +29,8 @@ public class Haulmaster
             }
             else
             {
-                countyData.factionId.factionGoods[keyValuePair.Key.factionGoodType].Amount += returnedAmount;
+                FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(countyData.factionId);
+                factionData.factionGoods[keyValuePair.Key.factionGoodType].Amount += returnedAmount;
             }
         }
     }

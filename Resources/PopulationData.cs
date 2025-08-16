@@ -143,7 +143,6 @@ public partial class PopulationData : Resource
             IsHero = isHero,
             HeroType = HeroType.ToString(),
             NumberOfSubordinatesWanted = numberOfSubordinatesWanted,
-
             HeroSubordinates = heroSubordinates.Select(h => h.populationId).ToList(),
             Perks = perks.ToDictionary(
                 kvp => kvp.Key.ToString(),
@@ -191,22 +190,10 @@ public partial class PopulationData : Resource
 
         // Basic info
         populationData.populationId = populationDto.PopulationId;
-
-        // Todo: We need to reconnect this after allFactionDataList is loaded from disk.
-        
-        /*
-        // Reconnect FactionData by ID
-        if (populationDto.FactionId.HasValue)
-        {
-            populationData.factionData = SaveManager.Instance.saveGameData.allFactionDataList
-                .FirstOrDefault(f => f.factionId == populationDto.FactionId.Value);
-        }
-        */
-
+        populationData.factionId = populationDto.FactionId;
         populationData.location = populationDto.Location;
         populationData.lastLocation = populationDto.LastLocation;
         populationData.destination = populationDto.Destination;
-
         populationData.firstName = populationDto.FirstName;
         populationData.lastName = populationDto.LastName;
         populationData.isMale = populationDto.IsMale;
@@ -217,8 +204,7 @@ public partial class PopulationData : Resource
         {
             populationData.personality = parsedPersonality;
         }
-        // Todo We need to assign the actual personality here.
-        
+        populationData.iPersonality = CreatePersonalityFromEnum(populationData.personality);
         populationData.isHero = populationDto.IsHero;
 
         // 🔹 HeroType (convert string to enum)
@@ -511,4 +497,20 @@ public partial class PopulationData : Resource
         string fullName = $"{firstName} {lastName}";
         return fullName;
     }
+    
+    public static IPersonality CreatePersonalityFromEnum(AllEnums.Personality personality)
+    {
+        switch (personality)
+        {
+            case AllEnums.Personality.Defensive:
+                return new DefensivePersonality();
+            case AllEnums.Personality.Offensive:
+                return new OffensivePersonality();
+            case AllEnums.Personality.Player:
+                return new PlayerPersonality();
+            default:
+                throw new ArgumentOutOfRangeException(nameof(personality), personality, "Unknown personality type");
+        }
+    }
+
 }

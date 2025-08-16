@@ -1,14 +1,15 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using Godot;
 
 namespace PlayerSpace;
 public partial class SaveGameData : Resource
 {
+    // Store when the save was created (runtime)
+    public DateTime saveTimestamp;
     private float saveVersion = 0.01f;
     public int currentPopulationId;
-    // Since we don't really need to see this in the inspector when the game is running
-    // and since the list below doesn't even show the correct data it is a C# list.
+
     public List<PopulationData> allPopulationDataList = []; 
     [Export] public Godot.Collections.Array<CountyData> allCountyDataList = [];
     [Export] public Godot.Collections.Array<FactionData> allFactionDataList = [];
@@ -22,6 +23,7 @@ public partial class SaveGameData : Resource
     {
         SaveGameDto saveGameDto = new SaveGameDto
         {
+            SaveTimestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), // Store timestamp as string
             SaveVersion = saveVersion,
             CurrentPopulationId = currentPopulationId,
             AllPopulationDataList = allPopulationDataList.ConvertAll(p => p.ToDto()),
@@ -44,6 +46,7 @@ public partial class SaveGameData : Resource
     {
         SaveManager.Instance.saveGameData = new SaveGameData
         {
+            saveTimestamp = DateTime.TryParse(saveGameDto.SaveTimestamp, out var parsed) ? parsed : DateTime.MinValue,
             saveVersion = saveGameDto.SaveVersion,
             currentPopulationId = saveGameDto.CurrentPopulationId,
             allPopulationDataList = [],

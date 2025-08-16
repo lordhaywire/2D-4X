@@ -249,8 +249,8 @@ public partial class FactionData : Resource
     public static FactionData GetFactionDataFromId(int id)
     {
         GD.Print("Faction ID that is trying to be used: " + id);
-        Faction faction = (Faction)Globals.Instance.factionsParent.GetChild(id);
-        return faction.factionData;
+        FactionData factionData = SaveManager.Instance.saveGameData.allFactionDataList[id];
+        return factionData;
     }
 
     // We can error on the side of adding the hero to the All Heroes List because this checks

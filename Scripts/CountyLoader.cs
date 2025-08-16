@@ -32,7 +32,7 @@ public partial class CountyLoader : Node
 
                     // Since we are already going through all the countyDatas we add the countyData ID to the countyData.
                     SaveManager.Instance.saveGameData.allCountyDataList[i].countyId = i;
-                    //GD.Print($"County ID: {Autoload.Instance.allCountyData[i].countyId} {county.Name}");
+                    GD.Print($"County ID: {SaveManager.Instance.saveGameData.allCountyDataList[i].countyId} {county.Name}");
                 }
             }
             else

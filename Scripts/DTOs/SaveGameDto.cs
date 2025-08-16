@@ -4,6 +4,7 @@ namespace PlayerSpace;
 
 public class SaveGameDto
 {
+    public string SaveTimestamp { get; set; } // Store in ISO-like format
     public float SaveVersion { get; set; }
     public int CurrentPopulationId { get; set; }
 

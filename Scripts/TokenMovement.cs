@@ -185,8 +185,9 @@ namespace PlayerSpace
             }
             else
             {
+                FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(heroToken.populationData.factionId);
                 CountyDictator.Instance.CaptureCounty(heroToken.populationData.destination,
-                    heroToken.populationData.factionId);
+                    factionData);
             }
         }
 

@@ -8,9 +8,8 @@ public partial class County : Node2D
 {
     [Export] public CountyData countyData;
 
-    [ExportGroup("Attached Nodes")] [Export]
-    public Sprite2D maskSprite;
-
+    [ExportGroup("Attached Nodes")] 
+    [Export] public Sprite2D maskSprite;
     [Export] public Sprite2D countySprite;
     [Export] public Sprite2D capitalSprite;
     [Export] public Node2D countyOverlayNode2D;

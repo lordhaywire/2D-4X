@@ -9,14 +9,15 @@ namespace PlayerSpace;
 [GlobalClass]
 public partial class CountyData : Resource
 {
-    [ExportGroup("MapEditor")] public County countyNode; // See if we can get rid of this somehow.
+    [ExportGroup("MapEditor")] 
+    public County countyNode; // See if we can get rid of this somehow.
 
     [Export] public Color color;
     [Export] public Vector2I startMaskPosition; // I think this is the local position...
     [Export] public Vector2I countyOverlayLocalPosition;
 
-    [ExportGroup("County other somethings")] [Export]
-    public int countyId; // This is used all over the place.
+    [ExportGroup("County other somethings")] 
+    [Export] public int countyId; // This is used all over the place.
 
     [Export] public string countyName;
 
@@ -32,8 +33,8 @@ public partial class CountyData : Resource
     [Export] public AllEnums.Terrain primaryTerrain;
     [Export] public AllEnums.Terrain secondaryTerrain;
     [Export] public AllEnums.Terrain tertiaryTerrain;
-    [Export] public Godot.Collections.Array<AllEnums.Terrain> allTerrains;
-    [Export] public Godot.Collections.Array<StoryEventData> explorationEvents;
+    [Export] public Godot.Collections.Array<AllEnums.Terrain> allTerrains = [];
+    [Export] public Godot.Collections.Array<StoryEventData> explorationEvents = [];
 
     [ExportGroup("Population Lists")] [Export]
     public Godot.Collections.Array<PopulationData> populationDataList = [];
@@ -202,6 +203,7 @@ public partial class CountyData : Resource
             countyName = countyDto.CountyName,
             isPlayerCapital = countyDto.IsPlayerCapital,
             isAiCapital = countyDto.IsAiCapital,
+            factionId = countyDto.FactionId,
             province = countyDto.Province,
 
             primaryTerrain = countyDto.PrimaryTerrain,
@@ -272,7 +274,6 @@ public partial class CountyData : Resource
             countyData.prioritizedWorkersList.Add(PopulationData.FromDto(pop));
         foreach (PopulationDto pop in countyDto.WorkersToRemoveFromLists)
             countyData.workersToRemoveFromLists.Add(PopulationData.FromDto(pop));
-
 
         // ✅ County Improvements
         foreach (CountyImprovementDto ci in countyDto.PrioritizedConstructionImprovementList)

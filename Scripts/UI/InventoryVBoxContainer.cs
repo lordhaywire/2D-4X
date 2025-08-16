@@ -80,6 +80,7 @@ public partial class InventoryVBoxContainer : VBoxContainer
     {
         PopulationData populationData = PopulationDescriptionControl.Instance.populationData;
         CountyData locationCountyData = Globals.Instance.GetCountyDataFromLocationId(populationData.location);
+        FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(locationCountyData.factionId);
 
         GD.Print("Newest Equipment Checkbox has been pressed. " + newestEquipment.ButtonPressed);
         GD.Print("Token Movement - MoveToken: " + populationData.heroToken?.tokenMovement.MoveToken);
@@ -89,7 +90,7 @@ public partial class InventoryVBoxContainer : VBoxContainer
             return;
         }
 
-        if (Globals.Instance.CheckIfPlayerFaction(locationCountyData.factionId))
+        if (Globals.Instance.CheckIfPlayerFaction(factionData))
         {
             Quartermaster.EquipHeroesAndSubordinates(populationData);
             PopulateHeroEquipment(populationData);
