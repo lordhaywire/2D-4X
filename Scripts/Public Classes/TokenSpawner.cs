@@ -84,7 +84,7 @@ public class TokenSpawner
     {
         FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(selectCounty.countyData.factionId);
         GD.Print($"{factionData.factionName} vs {Autoload.Instance.playerFactionData.factionName}");
-        if(Globals.Instance.CheckIfPlayerFaction(factionData))
+        if(Globals.CheckIfPlayerFaction(factionData))
         {
             spawnedToken.IsSelected = true;
             GD.Print("Spawned Token Button Token's Name: " + spawnedToken.populationData.firstName + spawnedToken.IsSelected);

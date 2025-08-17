@@ -25,7 +25,7 @@ public partial class Globals : Node
     [Export] public bool winAllBattles;
 
     [ExportGroup("Selected Items")]
-    [Export] public int selectedCountyId = -1;
+    //[Export] public int selectedCountyId = -1;
     [Export] private County selectedLeftClickCounty;
 
     public County SelectedLeftClickCounty
@@ -159,14 +159,9 @@ public partial class Globals : Node
         return county.countyData;
     }
 
-    // We were comparing factionData but why not just check the bool?
-    public bool CheckIfPlayerFaction(FactionData factionData)
+    public static bool CheckIfPlayerFaction(FactionData factionData)
     {
-        if(factionData.isPlayer)//== Autoload.Instance.playerFactionData)
-        {
-            return true;
-        }
-        return false;
+        return factionData.isPlayer;
     }
     
 

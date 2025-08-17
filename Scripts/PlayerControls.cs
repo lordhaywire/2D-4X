@@ -63,7 +63,7 @@ public partial class PlayerControls : StaticBody2D
                         {
                             //EventLog.Instance.AddLog($"{county.countyData.countyName} was clicked on.");
 
-                            Globals.Instance.selectedCountyId = county.countyData.countyId;
+                            //Globals.Instance.selectedCountyId = county.countyData.countyId;
                             Globals.Instance.SelectedLeftClickCounty = county;
 
                             // These things need to be on click because you might be clicking through different
@@ -102,7 +102,7 @@ public partial class PlayerControls : StaticBody2D
                 }
                 else
                 {
-                    if (Globals.Instance.selectedCountyId != county.countyData.countyId)
+                    if (Globals.Instance.SelectedLeftClickCounty?.countyData.countyId != county.countyData.countyId)
                     {
                         maskSprite.Hide();
                     }

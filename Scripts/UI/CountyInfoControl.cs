@@ -145,7 +145,7 @@ public partial class CountyInfoControl : Control
         {
             HeroPanelContainer heroPanelContainer = (HeroPanelContainer)node;
             FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(heroPanelContainer.populationData.factionId);
-            if (Globals.Instance.CheckIfPlayerFaction(factionData))
+            if (Globals.CheckIfPlayerFaction(factionData))
             {
                 heroPanelContainer.spawnHeroButton.Disabled = value;
             }
@@ -163,9 +163,7 @@ public partial class CountyInfoControl : Control
     {
         ClearHeroList();
         GenerateHeroes(countyData.heroesInCountyList);
-        GenerateHeroes(countyData.armiesInCountyList);
         GenerateHeroes(countyData.visitingHeroList);
-        GenerateHeroes(countyData.visitingArmyList);
     }
 
     private void ClearHeroList()
@@ -194,7 +192,7 @@ public partial class CountyInfoControl : Control
     private void CheckForOwnership()
     {
         FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(countyData.factionId);
-        if (Globals.Instance.CheckIfPlayerFaction(factionData) != true)
+        if (Globals.CheckIfPlayerFaction(factionData) != true)
         {
             populationListButton.Disabled = true;
             countyImprovementsButton.Disabled = true;

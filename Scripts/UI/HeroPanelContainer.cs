@@ -28,8 +28,8 @@ public partial class HeroPanelContainer : PanelContainer
             return;
         }
 
-        GetPrimaryActivityCheckboxes();
-        GetSecondaryActivityCheckboxes();
+        GetPrimaryArrayOfActivityCheckboxes();
+        GetSecondaryArrayOfActivityCheckboxes();
         ConnectButtonSignals();
         PopulateHeroPanel();
     }
@@ -44,17 +44,64 @@ public partial class HeroPanelContainer : PanelContainer
 
         UpdateHeroNameAndIcons();
 
-        // Change color of the panel to the faction color.
-        FactionData factionData =  SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(populationData.factionId);
-        SelfModulate = factionData.factionColor;
+        ChangeHeroColorToFactionColor();
 
+        CheckForHeroLocationAndFaction();
         CheckForAvailableActivities(locationCountyData);
 
         PopulateActivityHBoxes();
 
-        // Check to see if the hero is part of the player's faction to determine what to show.
-        // Once we add the ability for heroes to do things in enemy faction counties, we will change this.
-        // Currently, we are just making it so that the heroes Activities boxes are hidden.
+
+        //GD.Print("County Info Control Hero Token: " + populationData.heroToken);
+        // This is only for the player's tokens. // Todo - Double check what this does.
+        spawnHeroButton.ButtonPressed = populationData.heroToken != null;
+    }
+
+    // Check to see if the hero is part of the player's faction to determine what to show.
+    // Once we add the ability for heroes to do things in enemy faction counties, we will change this.
+    // Currently, we are just making it so that the heroes Activities boxes are hidden.
+    private void CheckForHeroLocationAndFaction()
+    {
+        CountyData locationCountyData = Globals.Instance.GetCountyDataFromLocationId(populationData.location);
+        FactionData populationFactionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(populationData.factionId);
+        FactionData locationFactionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(locationCountyData.factionId);
+
+        bool isPlayerHero = Globals.CheckIfPlayerFaction(populationFactionData);
+        bool isPlayerCounty = Globals.CheckIfPlayerFaction(locationFactionData);
+
+        // Case 1: Hero is not owned by the player
+        if (!isPlayerHero)
+        {
+            heroDescriptionButton.Disabled = true;
+            spawnHeroButton.Hide();
+            return;
+        }
+
+        // Case 2: Hero is player-owned, but in non-player county
+        if (!isPlayerCounty)
+        {
+            heroDescriptionButton.Disabled = false;
+            spawnHeroButton.Disabled = true;
+            spawnHeroButton.Show();
+        }
+        // Case 3: Hero is player-owned and in player county
+        else
+        {
+            heroDescriptionButton.Disabled = false;
+            spawnHeroButton.Disabled = false; // <- explicitly re-enable
+            spawnHeroButton.Show();           // <- make sure it’s visible
+        }
+
+        // Handle activity-based UI
+        if (populationData.IsThisAnArmy() || populationData.activity == AllEnums.Activities.Recruit)
+        {
+            secondaryActivitiesHBoxContainer.Show();
+        }
+        else if (populationData.activity != AllEnums.Activities.Move)
+        {
+            primaryActivitiesHBoxContainer.Show();
+        }
+        /*
         // Check if the hero is not player owned.
         FactionData populationFactionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(populationData.factionId);
         FactionData locationFactionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(locationCountyData.factionId);
@@ -62,7 +109,6 @@ public partial class HeroPanelContainer : PanelContainer
         {
             heroDescriptionButton.Disabled = true;
             spawnHeroButton.Hide();
-            return; // TODO This used to be inside a loop.
         }
 
         // This checks if the location of the hero is in a non-player owned county.
@@ -72,7 +118,6 @@ public partial class HeroPanelContainer : PanelContainer
         {
             spawnHeroButton.Disabled = true;
             heroDescriptionButton.Disabled = false;
-            return; // TODO Test this return.
         }
 
         if (populationData.IsThisAnArmy() || populationData.activity == AllEnums.Activities.Recruit)
@@ -86,10 +131,14 @@ public partial class HeroPanelContainer : PanelContainer
 
         heroDescriptionButton.Disabled = false;
         spawnHeroButton.Show();
+        */
+    }
 
-        //GD.Print("County Info Control Hero Token: " + populationData.heroToken);
-        // This is only for the player's tokens.
-        spawnHeroButton.ButtonPressed = populationData.heroToken != null;
+    private void ChangeHeroColorToFactionColor()
+    {
+        FactionData factionData =
+            SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(populationData.factionId);
+        SelfModulate = factionData.factionColor;
     }
 
     public void UpdateHeroNameAndIcons()
@@ -146,7 +195,7 @@ public partial class HeroPanelContainer : PanelContainer
         {
             primaryCheckBoxesList[1].Disabled = false;
         }
-        
+
         // Explore
         if (countyData.explorationEvents.Count > 0)
         {
@@ -249,7 +298,7 @@ public partial class HeroPanelContainer : PanelContainer
         movementActivityHBoxContainer.Hide();
     }
 
-    private void GetPrimaryActivityCheckboxes()
+    private void GetPrimaryArrayOfActivityCheckboxes()
     {
         foreach (CheckBox checkBox in primaryActivitiesHBoxContainer.GetChildren().Cast<CheckBox>())
         {
@@ -257,7 +306,7 @@ public partial class HeroPanelContainer : PanelContainer
         }
     }
 
-    private void GetSecondaryActivityCheckboxes()
+    private void GetSecondaryArrayOfActivityCheckboxes()
     {
         foreach (CheckBox checkBox in secondaryActivitiesHBoxContainer.GetChildren().Cast<CheckBox>())
         {

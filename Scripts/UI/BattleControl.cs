@@ -36,10 +36,12 @@ public partial class BattleControl : Control
     public void StartBattle(Battle currentBattle)
     {
         //GD.Print("Start Battle.");
+        throw new ArgumentException("StartBattle needs an army list.");
 
         battle = currentBattle;
         County selectCounty = (County)GetParent().GetParent();
 
+        /*
         // How could any of the token's ever be equal to null?
         // Attackers Army
         foreach (PopulationData attackerCountyPopulation in selectCounty.countyData.visitingArmyList)
@@ -68,7 +70,7 @@ public partial class BattleControl : Control
                 break;
             }
         }
-
+        */
         Show();
         SubscribeToHourChange();
     }

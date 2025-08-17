@@ -160,9 +160,7 @@ public partial class CountyData : Resource
         // ✅ Convert every population list
         foreach (PopulationData pop in populationDataList) countyDto.PopulationDataList.Add(pop.ToDto());
         foreach (PopulationData pop in heroesInCountyList) countyDto.HeroesInCountyList.Add(pop.ToDto());
-        foreach (PopulationData pop in armiesInCountyList) countyDto.ArmiesInCountyList.Add(pop.ToDto());
         foreach (PopulationData pop in visitingHeroList) countyDto.VisitingHeroList.Add(pop.ToDto());
-        foreach (PopulationData pop in visitingArmyList) countyDto.VisitingArmyList.Add(pop.ToDto());
         foreach (PopulationData pop in deadPeopleList) countyDto.DeadPeopleList.Add(pop.ToDto());
         foreach (PopulationData pop in heroBuildersList) countyDto.HeroBuildersList.Add(pop.ToDto());
         foreach (PopulationData pop in heroWorkersList) countyDto.HeroWorkersList.Add(pop.ToDto());
@@ -239,18 +237,14 @@ public partial class CountyData : Resource
         };
 
 
-        // ✅ Convert every population list
+        // Convert every population list
 
         foreach (PopulationDto pop in countyDto.PopulationDataList)
             countyData.populationDataList.Add(PopulationData.FromDto(pop));
         foreach (PopulationDto pop in countyDto.HeroesInCountyList)
             countyData.heroesInCountyList.Add(PopulationData.FromDto(pop));
-        foreach (PopulationDto pop in countyDto.ArmiesInCountyList)
-            countyData.armiesInCountyList.Add(PopulationData.FromDto(pop));
         foreach (PopulationDto pop in countyDto.VisitingHeroList)
             countyData.visitingHeroList.Add(PopulationData.FromDto(pop));
-        foreach (PopulationDto pop in countyDto.VisitingArmyList)
-            countyData.visitingArmyList.Add(PopulationData.FromDto(pop));
         foreach (PopulationDto pop in countyDto.DeadPeopleList)
             countyData.deadPeopleList.Add(PopulationData.FromDto(pop));
         foreach (PopulationDto pop in countyDto.HeroBuildersList)
@@ -269,7 +263,7 @@ public partial class CountyData : Resource
         foreach (PopulationDto pop in countyDto.WorkersToRemoveFromLists)
             countyData.workersToRemoveFromLists.Add(PopulationData.FromDto(pop));
 
-        // ✅ County Improvements
+        // County Improvements
         foreach (CountyImprovementDto ci in countyDto.PrioritizedConstructionImprovementList)
             countyData.prioritizedConstructionImprovementList.Add(CountyImprovementData.FromDto(ci));
 
@@ -668,7 +662,6 @@ public partial class CountyData : Resource
     public void OccasionalNeeds()
     {
         PossiblyUseResources(this, heroesInCountyList);
-        PossiblyUseResources(this, armiesInCountyList);
         PossiblyUseResources(this, populationDataList);
     }
 
@@ -896,7 +889,6 @@ public partial class CountyData : Resource
             factionData.RemoveHeroFromAllHeroesList(populationData);
             populationDataList.Remove(populationData);
             heroesInCountyList.Remove(populationData);
-            armiesInCountyList.Remove(populationData);
             deadPeopleList.Add(populationData);
             //GD.PrintRich($"[color=red]{populationData.firstName} {populationData.lastName} has croaked.[/color]");
         }

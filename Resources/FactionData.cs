@@ -9,8 +9,7 @@ namespace PlayerSpace;
 [GlobalClass]
 public partial class FactionData : Resource
 {
-    [ExportGroup("Faction Info")] 
-    [Export] public int factionId;
+    [ExportGroup("Faction Info")] [Export] public int factionId;
     [Export] public bool isPlayer;
     [Export] public string factionName;
     [Export] public Color factionColor;
@@ -18,31 +17,33 @@ public partial class FactionData : Resource
     [Export] public int factionCapitalCounty;
 
     [Export] public Godot.Collections.Array<ResearchItemData> researchItems;
+
     // Why are we saving this?  It happens every day at Day Start.  It could be a temporary list just used when needed.
-    [Export] public Godot.Collections.Array<ResearchItemData> researchableResearch; 
+    [Export] public Godot.Collections.Array<ResearchItemData> researchableResearch;
 
     [Export] public Godot.Collections.Array<CountyData> countiesFactionOwns;
-    public Dictionary<int,int> allHeroesDictionary; // Hero Id, hero location
+    public Dictionary<int, int> allHeroesDictionary = []; // Hero Id, hero location
     [Export] public PopulationData factionLeader;
 
     public readonly Diplomacy diplomacy = new();
 
     // This includes all county improvements, even possible ones.
-    [Export] public Godot.Collections.Array<CountyImprovementData> allFactionKnownCountyImprovements; 
+    [Export] public Godot.Collections.Array<CountyImprovementData> allFactionKnownCountyImprovements;
 
     // All Faction Research Offices.
     [Export] public Godot.Collections.Array<CountyImprovementData> researchOffices;
 
     // Goods.
-    [ExportGroup("Goods")] 
-    [Export] public Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData> factionGoods;
+    [ExportGroup("Goods")] [Export]
+    public Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData> factionGoods;
+
     [Export] public Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData> yesterdaysFactionGoods;
     [Export] public Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData> amountUsedFactionGoods;
 
     public readonly List<War> wars = [];
 
-    [ExportGroup("Diplomatic Matrix")] 
-    [Export] public Godot.Collections.Dictionary<string, bool> factionWarDictionary;
+    [ExportGroup("Diplomatic Matrix")] [Export]
+    public Godot.Collections.Dictionary<string, bool> factionWarDictionary;
 
     public FactionDto ToDto()
     {
@@ -65,11 +66,16 @@ public partial class FactionData : Resource
         foreach (CountyData county in countiesFactionOwns)
             factionDto.CountiesFactionOwns.Add(county.countyName);
 
-        foreach (PopulationData hero in allHeroesDictionary)
-            factionDto.AllHeroesList.Add(hero.populationId);
+        foreach (KeyValuePair<int, int> keyValuePair in allHeroesDictionary)
+        {
+            int heroId = keyValuePair.Key;
+            int countyId = keyValuePair.Value;
+
+            factionDto.AllHeroesDictionary.Add(heroId, countyId);
+        }
 
         if (factionLeader != null)
-            factionDto.FactionLeader = factionLeader.populationId;
+            factionDto.FactionLeader = (factionLeader.populationId, factionLeader.location);
 
         foreach (CountyImprovementData improvement in allFactionKnownCountyImprovements)
             factionDto.AllCountyImprovements.Add(improvement.improvementName);
@@ -156,22 +162,15 @@ public partial class FactionData : Resource
         }
 
         factionData.allHeroesDictionary = [];
-        foreach (int heroId in factionDto.AllHeroesList)
+        foreach (KeyValuePair<int, int> keyValuePair in factionDto.AllHeroesDictionary)
         {
-            
-            PopulationData hero = SaveManager.Instance.saveGameData.allCountyDataList[h]
-                .FirstOrDefault(p => p.populationId == heroId);
-
-            if (hero != null)
-            {
-                factionData.allHeroesDictionary.Add(hero);
-            }
+            factionData.allHeroesDictionary[keyValuePair.Key] = keyValuePair.Value;
         }
 
-        if (factionDto.FactionLeader > -1)
+        if (factionDto.FactionLeader.HeroId > -1)
         {
-            PopulationData leader = SaveManager.Instance.saveGameData.allPopulationDataList
-                .FirstOrDefault(p => p.populationId == factionDto.FactionLeader);
+            CountyData countyData = SaveManager.Instance.saveGameData.allCountyDataList[factionDto.FactionLeader.CountyId];
+            PopulationData leader = countyData.heroesInCountyList[factionDto.FactionLeader.CountyId];
 
             if (leader != null)
             {
@@ -202,7 +201,8 @@ public partial class FactionData : Resource
         }
 
         factionData.researchOffices = [];
-        foreach (CountyImprovementData countyImprovement in factionDto.ResearchOffices.Select(CountyImprovementData.FromDto))
+        foreach (CountyImprovementData countyImprovement in factionDto.ResearchOffices.Select(CountyImprovementData
+                     .FromDto))
         {
             factionData.researchOffices.Add(countyImprovement);
         }
@@ -211,7 +211,8 @@ public partial class FactionData : Resource
         factionData.factionGoods = new Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData>();
         foreach (KeyValuePair<string, GoodDto> keyValuePair in factionDto.FactionGoods)
         {
-            factionData.factionGoods[Enum.Parse<AllEnums.FactionGoodType>(keyValuePair.Key)] = GoodData.FromDto(keyValuePair.Value);
+            factionData.factionGoods[Enum.Parse<AllEnums.FactionGoodType>(keyValuePair.Key)] =
+                GoodData.FromDto(keyValuePair.Value);
         }
 
         factionData.yesterdaysFactionGoods = new Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData>();
@@ -233,7 +234,7 @@ public partial class FactionData : Resource
         factionData.wars.Clear();
         foreach (WarDto warDto in factionDto.Wars)
         {
-           //War war = War.FromDto(warDto, SaveManager.Instance.saveGameData.allFactionDataList);
+            //War war = War.FromDto(warDto, SaveManager.Instance.saveGameData.allFactionDataList);
             //factionData.wars.Add(war);
         }
 
@@ -243,6 +244,7 @@ public partial class FactionData : Resource
         {
             factionData.factionWarDictionary[keyValuePair.Key] = keyValuePair.Value;
         }
+
         return factionData;
     }
 
@@ -253,8 +255,8 @@ public partial class FactionData : Resource
         FactionData factionData = SaveManager.Instance.saveGameData.allFactionDataList[id];
         return factionData;
     }
-    
-    public void AddHeroToAllHeroesList(PopulationData populationData)
+
+    public void AddHeroToAllHeroesDictionary(PopulationData populationData)
     {
         // We need to double-check that the hero isn't already in the dictionary.
         if (!allHeroesDictionary.ContainsKey(populationData.populationId))
@@ -262,7 +264,6 @@ public partial class FactionData : Resource
             FactionData factionData = GetFactionDataFromId(populationData.factionId);
             factionData.allHeroesDictionary[populationData.populationId] = populationData.location;
         }
-
 
         GD.Print($"{populationData.firstName} has been added to {factionName} all heroes list.");
     }

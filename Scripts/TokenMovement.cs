@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using AutoloadSpace;
 using Godot;
@@ -22,7 +23,7 @@ namespace PlayerSpace
                     heroToken.populationData.lastLocation = heroToken.populationData.location;
                     heroToken.Show();
                     FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(heroToken.populationData.factionId);
-                    if (Globals.Instance.CheckIfPlayerFaction(factionData) == false)
+                    if (Globals.CheckIfPlayerFaction(factionData) == false)
                     {
                         return;
                     }
@@ -147,7 +148,8 @@ namespace PlayerSpace
                 }
                 else
                 {
-                    ArmyReachedCounty();
+                    throw new ArgumentException("ReachedDestination thinks this is an army.");
+                    //ArmyReachedCounty();
                 }
             }
             else
@@ -181,6 +183,8 @@ namespace PlayerSpace
         private void ArmyAttackingCounty()
         {
             //ArmyVisitingCounty();
+            throw new ArgumentException("ArmyAttackinCounty thinks this is an army.");
+            /*
             if (destinationCounty.countyData.armiesInCountyList.Count > 0)
             {
                 Battle battle = new(destinationCounty.countyData);
@@ -193,6 +197,7 @@ namespace PlayerSpace
                 CountyDictator.Instance.CaptureCounty(heroToken.populationData.destination,
                     factionData);
             }
+            */
         }
 
         private void HeroReachedCounty()

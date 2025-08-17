@@ -7,7 +7,7 @@ public partial class FactionDictator : Node
 {
     public override void _Ready()
     {
-        SubscribeToEvents();
+        CallDeferred(nameof(SubscribeToEvents));
     }
 
     private void SubscribeToEvents()

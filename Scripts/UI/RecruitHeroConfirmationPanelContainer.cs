@@ -1,3 +1,4 @@
+using System;
 using AutoloadSpace;
 using Godot;
 
@@ -36,10 +37,11 @@ public partial class RecruitHeroConfirmationPanelContainer : PanelContainer
             populationData.isHero = true;
             populationData.HeroType = AllEnums.HeroType.Aide;
             countyData.heroesInCountyList.Add(populationData);
-            factionData.AddHeroToAllHeroesList(populationData);
+            factionData.AddHeroToAllHeroesDictionary(populationData);
         }
         else
         {
+            throw new ArgumentException("YesButton: YesButton thinks you are trying to hire an army leader.");
             if (populationData.HeroType == AllEnums.HeroType.FactionLeader)
             {
                 populationData.HeroType = AllEnums.HeroType.FactionLeaderArmyLeader;
@@ -50,8 +52,8 @@ public partial class RecruitHeroConfirmationPanelContainer : PanelContainer
             }
 
             countyData.heroesInCountyList.Remove(populationData);
-            countyData.armiesInCountyList.Add(populationData);
-            factionData.AddHeroToAllHeroesList(populationData);
+            //countyData.armiesInCountyList.Add(populationData);
+            factionData.AddHeroToAllHeroesDictionary(populationData);
         }
 
         // This is set again to update the sprite textures;

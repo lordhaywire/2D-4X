@@ -9,7 +9,7 @@ public partial class InitialLoadGame : Node
     {
         SaveManager.Instance.saveGameData = new SaveGameData();
         //GD.PrintRich($"[rainbow]Save Game Data {SaveManager.Instance.saveGameData.allFactionDataList[0]?.factionName}");
-        SaveManager.Instance.LoadGameFromJson();
+        SaveManager.Instance.LoadGame();
         // Add Player Specific Stuff Here
         foreach (FactionData factionData in SaveManager.Instance.saveGameData.allFactionDataList)
         {

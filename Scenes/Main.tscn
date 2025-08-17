@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=81 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://World Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
 [ext_resource type="Script" uid="uid://bl7hn0hgb5876" path="res://Scripts/LoadMaps.cs" id="2_nda5i"]
@@ -23,6 +23,7 @@
 [ext_resource type="Script" uid="uid://c6nd17mfkssti" path="res://Scripts/AssignFactionColorsToCounties.cs" id="18_3aru6"]
 [ext_resource type="Script" uid="uid://dq7hcwrq41ub" path="res://Scripts/Clock.cs" id="19_dn5gi"]
 [ext_resource type="Script" uid="uid://cjkl8rag6oe66" path="res://Scripts/Map Editor/FindNeighbors.cs" id="20_0i5kb"]
+[ext_resource type="Script" uid="uid://u2ibr8hl4jq0" path="res://Scripts/FactionDictator.cs" id="23_8n4h5"]
 [ext_resource type="Script" uid="uid://bm5yey7s0ixuj" path="res://Scripts/UI/PlayerUICanvas.cs" id="24_s3wh2"]
 [ext_resource type="Script" uid="uid://i3iuln0enakh" path="res://Scripts/UI/CountyInfoControl.cs" id="26_8qp8l"]
 [ext_resource type="PackedScene" uid="uid://d4i6w8w8jld3d" path="res://Scenes/UI/HeroPanelContainer.tscn" id="27_03q5w"]
@@ -199,6 +200,9 @@ collisionRectangleShape = SubResource("RectangleShape2D_co2vr")
 
 [node name="Assign Faction Colors to Counties" type="Node" parent="Game Controller Node"]
 script = ExtResource("18_3aru6")
+
+[node name="Faction Dictator" type="Node" parent="Game Controller Node"]
+script = ExtResource("23_8n4h5")
 
 [node name="County Dictator" type="Node" parent="Game Controller Node"]
 script = ExtResource("28_qe8u4")
@@ -1652,6 +1656,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Recruit Army Button" type="Button" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer"]
+visible = false
 custom_minimum_size = Vector2(75, 50)
 layout_mode = 2
 size_flags_horizontal = 4

@@ -16,8 +16,9 @@ public class FactionDto
     public List<ResearchItemDto> ResearchItems { get; set; } = [];
     public List<string> ResearchableResearch { get; set; } = [];
     public List<string> CountiesFactionOwns { get; set; } = [];
-    public List<int> AllHeroesList { get; set; } = [];
-    public int FactionLeader { get; set; }
+    public Dictionary<int, int> AllHeroesDictionary { get; set; } = [];
+    
+    public (int HeroId, int CountyId) FactionLeader { get; set; }
 
     public List<string> AllCountyImprovements { get; set; } = [];
     public List<CountyImprovementDto> ResearchOffices { get; set; } = [];

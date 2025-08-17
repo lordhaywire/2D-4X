@@ -24,6 +24,10 @@ public partial class SaveManager : Node
         SaveGameToJson();
     }
 
+    public void LoadGame()
+    {
+        LoadGameFromJson();
+    }
     private void SaveGameToJson()
     {
         JsonSerializerOptions options = new JsonSerializerOptions
@@ -44,7 +48,7 @@ public partial class SaveManager : Node
         GD.Print("Full game saved as JSON.");
     }
 
-    public void LoadGameFromJson()
+    private void LoadGameFromJson()
     {
         if (!CheckForSaveFolder())
         {

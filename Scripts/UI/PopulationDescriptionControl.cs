@@ -161,7 +161,7 @@ public partial class PopulationDescriptionControl : Control
     private void ShowDefaultUiElements()
     {
         aideRecruitButton.Show();
-        armyLeaderRecruitButton.Show();
+        //armyLeaderRecruitButton.Show();
     }
 
     private void UpdateHeroRecruitmentButtons()
@@ -180,7 +180,7 @@ public partial class PopulationDescriptionControl : Control
     private void CheckForArmyRecruitmentButton(County county)
     {
         FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(county.countyData.factionId);
-        if (Globals.Instance.CheckIfPlayerFaction(factionData))
+        if (Globals.CheckIfPlayerFaction(factionData))
         {
             // If this is just a normal population
             if (populationData.HeroType == AllEnums.HeroType.None

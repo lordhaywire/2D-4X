@@ -156,7 +156,7 @@ public partial class SkillData : Resource
 
                 FactionData factionData =
                     SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(populationData.factionId);
-                if (Globals.Instance.CheckIfPlayerFaction(factionData))
+                if (Globals.CheckIfPlayerFaction(factionData))
                 {
                     EventLog.Instance.AddLog($"{populationData.firstName} - {TranslationServer.Translate(skillData.skillName)}" +
                         $" {TranslationServer.Translate("WORD_LEARNED")} {experienceLearned}");

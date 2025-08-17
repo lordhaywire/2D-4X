@@ -1,4 +1,5 @@
 using Godot;
+using Microsoft.VisualBasic;
 
 namespace PlayerSpace;
 
@@ -32,9 +33,11 @@ public partial class OptionsControl : Control
         Hide();
     }
 
-    private static void OnLoadButtonPressed()
+    private void OnLoadButtonPressed()
     {
         GD.Print("Load Button Pressed");
+        SaveManager.Instance.LoadGame();
+        Hide();
     }
 
     private static void OnDeveloperOptionButtonsPressed()

@@ -90,7 +90,7 @@ public partial class InventoryVBoxContainer : VBoxContainer
             return;
         }
 
-        if (Globals.Instance.CheckIfPlayerFaction(factionData))
+        if (Globals.CheckIfPlayerFaction(factionData))
         {
             Quartermaster.EquipHeroesAndSubordinates(populationData);
             PopulateHeroEquipment(populationData);
