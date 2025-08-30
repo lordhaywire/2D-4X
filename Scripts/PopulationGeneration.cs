@@ -174,7 +174,7 @@ public partial class PopulationGeneration : Node
                 factionData.AddHeroToAllHeroesDictionary(newPopulationData);
             }
 
-            GD.Print("PopulationID: " + SaveManager.Instance.saveGameData.currentPopulationId);
+            //GD.Print("PopulationID: " + SaveManager.Instance.saveGameData.currentPopulationId);
             SaveManager.Instance.saveGameData.currentPopulationId++;
         }
     }

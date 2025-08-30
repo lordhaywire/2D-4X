@@ -11,7 +11,7 @@ public partial class Globals : Node
     public static Globals Instance { get; private set; }
     public readonly Random random = new();
 
-    [Export] public bool loadGameAtStart;
+   //[Export] public bool loadGameAtStart;
     
     //[Export] public Godot.Collections.Array<FactionData> allFactionData;// = [];
 

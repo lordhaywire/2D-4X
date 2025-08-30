@@ -43,7 +43,8 @@ public partial class FactionGeneration : Node
                 Autoload.Instance.playerFactionData = SaveManager.Instance.saveGameData.allFactionDataList[i];
             }
 
-            GD.Print($"{SaveManager.Instance.saveGameData.allFactionDataList[i].factionName} has been loaded from disk.");
+            GD.Print(
+                $"{SaveManager.Instance.saveGameData.allFactionDataList[i].factionName} has been loaded from disk.");
             // The order is important.
             CreateFactionGoodDictionary(SaveManager.Instance.saveGameData.allFactionDataList[i]);
             AddFactionsToDiplomacyWar(SaveManager.Instance.saveGameData.allFactionDataList[i]);
@@ -112,7 +113,6 @@ public partial class FactionGeneration : Node
                 continue;
             }
 
-            GD.Print($"{goodData.goodName} has been added to {factionData.factionName}");
             factionData.factionGoods.Add(goodData.factionGoodType, (GoodData)goodData.Duplicate());
             factionData.yesterdaysFactionGoods.Add(goodData.factionGoodType, (GoodData)goodData.Duplicate());
             factionData.amountUsedFactionGoods.Add(goodData.factionGoodType, (GoodData)goodData.Duplicate());
@@ -123,6 +123,11 @@ public partial class FactionGeneration : Node
         // Todo - Make a developer option that allows these numbers to be changed.
         factionData.factionGoods[AllEnums.FactionGoodType.Influence].Amount = 1500;
         factionData.factionGoods[AllEnums.FactionGoodType.Money].Amount = 1500;
+        
+        foreach (KeyValuePair<AllEnums.FactionGoodType, GoodData> keyValuePair in factionData.factionGoods)
+        {
+            GD.Print($"{keyValuePair.Value.goodName}:{keyValuePair.Value.Amount} has been added to {factionData.factionName}");
+        }
     }
 
     private void AddFactionsToDiplomacyWar(FactionData factionData)

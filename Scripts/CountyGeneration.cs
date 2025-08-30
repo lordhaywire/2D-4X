@@ -10,7 +10,7 @@ public partial class CountyGeneration : Node
 {
     //private List<CountyData> allCountyData = [];
     private const string CountiesDirectory = "res://Resources/Counties/";
-    
+
     public override void _Ready()
     {
         Godot.Collections.Array<Resource> loadedResources =
@@ -29,10 +29,11 @@ public partial class CountyGeneration : Node
         SaveManager.Instance.saveGameData.allCountyDataList = countyDataArray;
 
         // This whole thing could probably be done in 1 foreach.  Maybe?
+        AssignCountyId();
         AssignFactionDataToCountyData();
         AssignCountyDataToFaction();
         UpdateGoods();
-        
+
         foreach (CountyData countyData in SaveManager.Instance.saveGameData.allCountyDataList)
         {
             Haulmaster.CountCountyMaxStorage(countyData);
@@ -45,6 +46,15 @@ public partial class CountyGeneration : Node
         //ConvertCountyDataListToGodotArrayInSaveGame();
     }
 
+    private void AssignCountyId()
+    {
+        for (int i = 0; i < SaveManager.Instance.saveGameData.allCountyDataList.Count; i++)
+        {
+            SaveManager.Instance.saveGameData.allCountyDataList[i].countyId = i;
+        }
+    }
+
+    /*
     private void ConvertCountyDataListToGodotArrayInSaveGame()
     {
         SaveManager.Instance.saveGameData.allCountyDataList.Clear();
@@ -53,7 +63,8 @@ public partial class CountyGeneration : Node
             SaveManager.Instance.saveGameData.allCountyDataList.Add(countyData);
         }
     }
-    
+    */
+
     private void AssignTerrainToTerrainList()
     {
         // Add all the human set terrains to a Godot Collection for later use.
@@ -120,14 +131,24 @@ public partial class CountyGeneration : Node
             }
         }
     }
-    
+
+    // This is just for testing.  Sets all resources to a starting amount.
+    // This has to be after the initial storage is set.
     private void AssignStartingGoodsToCounty()
     {
-        // This is just for testing.  Sets all resources to a starting amount.
-        // This has to be after the initial storage is set.
-        foreach (KeyValuePair<AllEnums.CountyGoodType, GoodData> keyValuePair in SaveManager.Instance.saveGameData.allCountyDataList.SelectMany(countyData => countyData.goods))
+        foreach (KeyValuePair<AllEnums.CountyGoodType, GoodData> keyValuePair in SaveManager.Instance.saveGameData
+                     .allCountyDataList.SelectMany(countyData => countyData.goods))
         {
             keyValuePair.Value.Amount = Autoload.Instance.startingAmountOfEachGood;
+        }
+        
+        foreach (CountyData countyData in SaveManager.Instance.saveGameData.allCountyDataList)
+        {
+            foreach (KeyValuePair<AllEnums.CountyGoodType, GoodData> kvp in countyData.goods)
+            {
+                kvp.Value.Amount = Autoload.Instance.startingAmountOfEachGood;
+                GD.Print($"County: {countyData.countyName}, Good: {kvp.Key}, Amount: {kvp.Value.Amount}");
+            }
         }
     }
 
@@ -184,7 +205,8 @@ public partial class CountyGeneration : Node
         // This goes through every county and adds itself to the faction data already assigned to the county.
         foreach (CountyData countyData in SaveManager.Instance.saveGameData.allCountyDataList)
         {
-            FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(countyData.factionId);
+            FactionData factionData =
+                SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(countyData.factionId);
             factionData.countiesFactionOwns.Add(countyData);
             //GD.Print($"Faction: {selectCounty.countyData.factionData.factionName} {selectCounty.countyData.countyName}");
         }

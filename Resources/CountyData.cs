@@ -442,18 +442,16 @@ public partial class CountyData : Resource
         }
     }
 
-    public int CountFactionResourceOfType(AllEnums.FactionGoodType resourceType)
+    public int CountFactionResourceOfType(AllEnums.FactionGoodType goodType)
     {
         int amount = 0;
-        foreach (GoodData resourceData in goods.Values)
+        foreach (GoodData goodData in goods.Values)
         {
-            if (resourceData.factionGoodType == resourceType)
+            if (goodData.factionGoodType == goodType)
             {
-                amount += resourceData.Amount;
-                //// GD.Print($"{countyData.countyName} is counting food: {resourceData.name} {resourceData.amount}");
+                amount += goodData.Amount;
             }
         }
-
         return amount;
     }
 
@@ -465,10 +463,8 @@ public partial class CountyData : Resource
             if (goodData.factionGoodType == goodType)
             {
                 amount += goodData.Amount;
-                //// GD.Print($"{countyData.countyName} is counting food: {resourceData.name} {resourceData.amount}");
             }
         }
-
         return amount;
     }
 

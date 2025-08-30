@@ -28,6 +28,7 @@ public partial class SaveManager : Node
     {
         LoadGameFromJson();
     }
+
     private void SaveGameToJson()
     {
         JsonSerializerOptions options = new JsonSerializerOptions

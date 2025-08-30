@@ -85,7 +85,6 @@ public partial class TopBarControl : Control
     }
     public void UpdateTopBarGoodLabels()
     {
-        //GD.Print("Top Bar expendables have been updated, motherfucker!");
         UpdateInfluenceMoneyLabels();
         UpdateUsedInfluenceMoneyLabels();
 
@@ -97,6 +96,7 @@ public partial class TopBarControl : Control
         {
             CountyLevelGoods();
         }
+        GD.Print("Top Bar expendables have been updated, motherfucker!");
     }
 
     private void CountyLevelGoods()
@@ -146,8 +146,8 @@ public partial class TopBarControl : Control
     private void FactionLevelGoods()
     {
         // Count all the county resources and assign them to the faction resource dictionary.
-        factionData.CountAllCountyFactionResources();
-        factionData.CountAllCountyFactionUsedResources();
+        factionData.CountAllCountyFactionGoods();
+        factionData.CountAllCountyFactionUsedGoods();
 
         // Update all the faction labels
         UpdateLabelsWithFactionAmounts();

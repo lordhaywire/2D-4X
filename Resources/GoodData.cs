@@ -39,13 +39,13 @@ public partial class GoodData : Resource
             if (goodType == AllEnums.GoodType.FactionGood)
             {
                 maxAmount = int.MaxValue;
-                //GD.PrintRich($"Faction Good Max Amount: {goodName} {maxAmount}");
+                GD.PrintRich($"Faction Good Max Amount: {goodName} {maxAmount}");
                 return;
             }
 
             maxAmount = value;
             Amount = Math.Min(Amount, maxAmount);
-            //GD.Print($"Good Max Amount: {goodName} {maxAmount}");
+            GD.Print($"Good Max Amount: {goodName} {maxAmount}");
         }
     }
 
@@ -62,8 +62,8 @@ public partial class GoodData : Resource
             FailureRate = failureRate,
             RemnantSubstitutable = remnantSubstitutable,
             UseRemnants = useRemnants,
-            Amount = Amount,
-            MaxAmount = MaxAmount,
+            Amount = amount,
+            MaxAmount = maxAmount,
             // if there is an EquipmentData resource, store its EquipmentType as string
             EquipmentData = equipmentData?.inventorySlot.ToString()
         };
@@ -82,8 +82,8 @@ public partial class GoodData : Resource
             failureRate = goodDto.FailureRate,
             remnantSubstitutable = goodDto.RemnantSubstitutable,
             useRemnants = goodDto.UseRemnants,
-            Amount = goodDto.Amount,
-            MaxAmount = goodDto.MaxAmount
+            amount = goodDto.Amount,
+            maxAmount = goodDto.MaxAmount
         };
         
         // If EquipmentType exists, you can later decide how to load/create the correct EquipmentData

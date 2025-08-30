@@ -49,7 +49,6 @@ public partial class SaveGameData : Resource
             saveTimestamp = DateTime.TryParse(saveGameDto.SaveTimestamp, out var parsed) ? parsed : DateTime.MinValue,
             saveVersion = saveGameDto.SaveVersion,
             currentPopulationId = saveGameDto.CurrentPopulationId,
-            //allPopulationDataList = [],
             allCountyDataList = [],
             allFactionDataList = []
         };

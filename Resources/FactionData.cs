@@ -16,12 +16,12 @@ public partial class FactionData : Resource
     [Export] public AllEnums.FactionStatus factionStatus;
     [Export] public int factionCapitalCounty;
 
-    [Export] public Godot.Collections.Array<ResearchItemData> researchItems;
+    [Export] public Godot.Collections.Array<ResearchItemData> researchItems = [];
 
     // Why are we saving this?  It happens every day at Day Start.  It could be a temporary list just used when needed.
-    [Export] public Godot.Collections.Array<ResearchItemData> researchableResearch;
+    [Export] public Godot.Collections.Array<ResearchItemData> researchableResearch = [];
 
-    [Export] public Godot.Collections.Array<CountyData> countiesFactionOwns;
+    [Export] public Godot.Collections.Array<CountyData> countiesFactionOwns = [];
     public Dictionary<int, int> allHeroesDictionary = []; // Hero Id, hero location
     [Export] public PopulationData factionLeader;
 
@@ -70,7 +70,7 @@ public partial class FactionData : Resource
         {
             int heroId = keyValuePair.Key;
             int countyId = keyValuePair.Value;
-
+            GD.Print($"All Hero Dictionary: {keyValuePair.Key} : {keyValuePair.Value}");
             factionDto.AllHeroesDictionary.Add(heroId, countyId);
         }
 
@@ -147,16 +147,13 @@ public partial class FactionData : Resource
         foreach (string countyName in factionDto.CountiesFactionOwns)
         {
             // Go through every County node under countiesParent
-            foreach (Node child in Globals.Instance.countiesParent.GetChildren())
+            foreach (CountyData countyData in SaveManager.Instance.saveGameData.allCountyDataList)
             {
-                if (child is County county)
+                // Match the name (or some other unique property)
+                if (countyData.countyName == countyName)
                 {
-                    // Match the name (or some other unique property)
-                    if (county.countyData.countyName == countyName)
-                    {
-                        factionData.countiesFactionOwns.Add(county.countyData);
-                        break; // stop looping once we find it
-                    }
+                    factionData.countiesFactionOwns.Add(countyData);
+                    break; // stop looping once we find it
                 }
             }
         }
@@ -169,7 +166,8 @@ public partial class FactionData : Resource
 
         if (factionDto.FactionLeader.HeroId > -1)
         {
-            CountyData countyData = SaveManager.Instance.saveGameData.allCountyDataList[factionDto.FactionLeader.CountyId];
+            CountyData countyData =
+                SaveManager.Instance.saveGameData.allCountyDataList[factionDto.FactionLeader.CountyId];
             PopulationData leader = countyData.heroesInCountyList[factionDto.FactionLeader.CountyId];
 
             if (leader != null)
@@ -319,8 +317,7 @@ public partial class FactionData : Resource
         factionGoods[AllEnums.FactionGoodType.RawMaterial].Amount = 0;
     }
 
-    // This should be counting just the county resources of Faction Type, not the used.
-    public void CountAllCountyFactionResources()
+    public void CountAllCountyFactionGoods()
     {
         ZeroFactionCountyResources();
         foreach (CountyData countyData in countiesFactionOwns)
@@ -338,7 +335,7 @@ public partial class FactionData : Resource
         }
     }
 
-    public void CountAllCountyFactionUsedResources()
+    public void CountAllCountyFactionUsedGoods()
     {
         ZeroFactionCountyActualUsedResources();
         foreach (CountyData countyData in countiesFactionOwns)
