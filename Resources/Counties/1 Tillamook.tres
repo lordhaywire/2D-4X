@@ -1,29 +1,18 @@
-[gd_resource type="Resource" script_class="CountyData" load_steps=4 format=3 uid="uid://cwiqoelw7ltr0"]
+[gd_resource type="Resource" script_class="CountyData" load_steps=3 format=3 uid="uid://cwiqoelw7ltr0"]
 
 [ext_resource type="Script" uid="uid://c6mqh2wl64evh" path="res://Resources/StoryEventData.cs" id="1_djqhg"]
-[ext_resource type="Resource" uid="uid://bxcc4eq3er03d" path="res://Resources/Factions/AIFaction2.tres" id="1_t7173"]
 [ext_resource type="Script" uid="uid://4nhd1im4255h" path="res://Resources/CountyData.cs" id="2_hstm1"]
 
 [resource]
 script = ExtResource("2_hstm1")
 color = Color(0, 0.560784, 0.937255, 1)
-countyOverlayLocalPosition = Vector2i(0, 0)
-countyId = 0
 countyName = "Tillamook"
-isPlayerCapital = false
-isAiCapital = false
-factionData = ExtResource("1_t7173")
-province = 0
-primaryTerrain = 0
+isAiCapital = true
 secondaryTerrain = 2
 tertiaryTerrain = 6
-allTerrains = Array[int]([])
-explorationEvents = Array[ExtResource("1_djqhg")]([])
 populationDataList = null
 heroesInCountyList = null
-armiesInCountyList = null
 visitingHeroList = null
-visitingArmyList = null
 deadPeopleList = null
 heroBuildersList = null
 heroWorkersList = null
@@ -37,10 +26,6 @@ prioritizedConstructionImprovementList = null
 prioritizedWorkImprovementList = null
 underConstructionCountyImprovementList = null
 completedCountyImprovementList = null
-perishableStorage = 0
-nonperishableStorage = 0
-scavengeableRemnants = 0
-scavengeableCannedFood = 0
 goods = null
 yesterdaysGoods = null
 amountOfGoodsUsed = null

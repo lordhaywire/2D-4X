@@ -81,8 +81,8 @@ public partial class ResearchItemData : Resource
     public void CompleteResearch()
     {
         GD.PrintRich($"[rainbow]Complete Research! " + researchName);
-        Faction faction = (Faction)Globals.Instance.factionsParent.GetChild(factionId);
-        if (faction.factionData == Autoload.Instance.playerFactionData)
+        FactionData factionData = SaveManager.Instance.saveGameData.allFactionDataList[factionId];
+        if (factionData == Autoload.Instance.playerFactionData)
         {
             EventLog.Instance?.AddLog(
                 $"{Tr("PHRASE_RESEARCH_FOR")} {Tr(researchName)} {Tr("PHRASE_HAS_BEEN_COMPLETED")}.");
@@ -93,9 +93,7 @@ public partial class ResearchItemData : Resource
         {
             foreach (CountyImprovementData countyImprovementData in countyImprovementDatas)
             {
-                FactionData factionData = FactionData.GetFactionDataFromId(factionId);
                 //GD.Print($"This is where it breaks: {factionData.factionName} {countyImprovementData.improvementName}");
-
                 // This is to set the starting adjusted max builders and workers.
                 countyImprovementData.adjustedMaxBuilders = countyImprovementData.maxBuilders;
                 countyImprovementData.adjustedMaxWorkers = countyImprovementData.maxWorkers;

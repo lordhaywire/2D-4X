@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using AutoloadSpace;
 
 namespace PlayerSpace;
+
 public class Haulmaster
 {
     public static void AdjustCountyGoodAmount(CountyData countyData, AllEnums.CountyGoodType countyGoodType, int amount)
@@ -29,7 +30,8 @@ public class Haulmaster
             }
             else
             {
-                FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(countyData.factionId);
+                FactionData factionData =
+                    SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(countyData.factionId);
                 factionData.factionGoods[keyValuePair.Key.factionGoodType].Amount += returnedAmount;
             }
         }
@@ -40,7 +42,8 @@ public class Haulmaster
     /// </summary>
     /// <param name="countyData"></param>
     /// <param name="countyImprovementData"></param>
-    public static void SubtractImprovementStorageFromCounty(CountyData countyData, CountyImprovementData countyImprovementData)
+    public static void SubtractImprovementStorageFromCounty(CountyData countyData,
+        CountyImprovementData countyImprovementData)
     {
         foreach (KeyValuePair<GoodData, ProductionData> keyValuePair in countyImprovementData.outputGoods)
         {
@@ -69,7 +72,6 @@ public class Haulmaster
         GD.Print($"{countyData.countyName} has {countyData.nonperishableStorage} perishable storage.");
     }
     */
-
     public static void CountCountyMaxStorage(CountyData countyData)
     {
         countyData.nonperishableStorage = Autoload.Instance.startingNonperishableStorage;
@@ -77,11 +79,11 @@ public class Haulmaster
         //GD.Print("Initial County Storage: " + countyData.nonperishableStorage);
         foreach (CountyImprovementData countyImprovementData in countyData.completedCountyImprovementList)
         {
-            if(countyImprovementData.countyImprovementType == AllEnums.CountyImprovementType.Storage)
+            if (countyImprovementData.countyImprovementType == AllEnums.CountyImprovementType.Storage)
             {
-                foreach (KeyValuePair<GoodData, ProductionData> keyValuePair in countyImprovementData.outputGoods) 
+                foreach (KeyValuePair<GoodData, ProductionData> keyValuePair in countyImprovementData.outputGoods)
                 {
-                    if(keyValuePair.Key.countyGoodType == AllEnums.CountyGoodType.StorageNonperishable)
+                    if (keyValuePair.Key.countyGoodType == AllEnums.CountyGoodType.StorageNonperishable)
                     {
                         countyData.nonperishableStorage += keyValuePair.Value.storageAmount;
                     }
@@ -93,6 +95,7 @@ public class Haulmaster
             }
         }
     }
+
     public static void AssignMaxStorageToGoods(CountyData countyData)
     {
         foreach (KeyValuePair<AllEnums.CountyGoodType, GoodData> keyValuePair in countyData.goods)
@@ -102,15 +105,15 @@ public class Haulmaster
             if (goodData.perishable == AllEnums.Perishable.Perishable)
             {
                 goodData.MaxAmount = countyData.perishableStorage
-                    / Autoload.Instance.numberOfPerishableGoods;
-
+                                     / Autoload.Instance.numberOfPerishableGoods;
             }
             else if (goodData.perishable == AllEnums.Perishable.Nonperishable)
             {
                 goodData.MaxAmount = countyData.nonperishableStorage
-                    / Autoload.Instance.numberOfNonperishableGoods;
+                                     / Autoload.Instance.numberOfNonperishableGoods;
+                GD.Print(
+                    $"AssignMaxStorageToGoods: {countyData.countyName} : {goodData.goodName}: {goodData.MaxAmount}");
             }
-            //GD.Print($"AssignMaxStorageToGoods: {countyData.countyName} : {goodData.goodName}: {goodData.MaxAmount}");
         }
     }
 
@@ -150,12 +153,13 @@ public class Haulmaster
         {
             // Calculate the desired stockpile range.
             int minStockpileAmount = uniqueInputGood.Value * countyImprovementData.adjustedMaxWorkers
-                * Globals.Instance.minDaysStockpile;
+                                                           * Globals.Instance.minDaysStockpile;
             int maxStockpileAmount = uniqueInputGood.Value * countyImprovementData.adjustedMaxWorkers
-                * Globals.Instance.maxDaysStockpile;
+                                                           * Globals.Instance.maxDaysStockpile;
 
             // Add the amount of stockpiled remnants depending on the number of unique input goods that are using remnants.
-            if (uniqueInputGood.Key.countyGoodType == AllEnums.CountyGoodType.Remnants || uniqueInputGood.Key.useRemnants)
+            if (uniqueInputGood.Key.countyGoodType == AllEnums.CountyGoodType.Remnants ||
+                uniqueInputGood.Key.useRemnants)
             {
                 minNumberOfRemnantsUsedForInputGoods += minStockpileAmount;
                 maxNumberOfRemnantsUsedForInputGoods += maxStockpileAmount;
@@ -227,8 +231,10 @@ public class Haulmaster
                 break; // No need to check further if one good is insufficient.
             }
         }
+
         return hasEnoughInputGoods;
     }
+
     public static void DeductStockPiledGoods(CountyImprovementData countyImprovementData)
     {
         // Deduct input goods and perform work actions.
@@ -242,7 +248,6 @@ public class Haulmaster
     /// <summary>
     /// This has to generate the stock piled goods from the developer created inputGoods list.  The inputGoods list
     /// is later copied to the uniqueList because it has to be.
-    
     /// </summary>
     /// <param name="countyImprovementData"></param>
     public static void GenerateStockpileGoodsDictionary(CountyImprovementData countyImprovementData)
@@ -251,6 +256,7 @@ public class Haulmaster
         {
             countyImprovementData.countyStockpiledGoods[keyValuePair.Key.countyGoodType] = 0;
         }
+
         // If this county improvement's countyStockpiledGoods doesn't contain remnants, then add it.
         if (!countyImprovementData.countyStockpiledGoods.TryGetValue(AllEnums.CountyGoodType.Remnants, out int value))
         {

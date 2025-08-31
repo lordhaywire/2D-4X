@@ -174,7 +174,9 @@ public partial class CountyGeneration : Node
         {
             if (goodData.countyGoodType != AllEnums.CountyGoodType.None)
             {
-                countyData.goods.Add(goodData.countyGoodType, (GoodData)goodData.Duplicate());
+                GoodData newGoodData = GoodData.ReflectionCopy.NewCopy(goodData);
+
+                countyData.goods.Add(goodData.countyGoodType, (GoodData)newGoodData.Duplicate());
                 countyData.yesterdaysGoods.Add(goodData.countyGoodType, (GoodData)goodData.Duplicate());
                 countyData.amountOfGoodsUsed.Add(goodData.countyGoodType, (GoodData)goodData.Duplicate());
             }

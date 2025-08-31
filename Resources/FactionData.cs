@@ -311,7 +311,7 @@ public partial class FactionData : Resource
     private void ZeroFactionCountyResources()
     {
         factionGoods[AllEnums.FactionGoodType.Food].Amount = 0;
-        factionGoods[AllEnums.FactionGoodType.Remnants].Amount = 0;
+        factionGoods[AllEnums.FactionGoodType.RemnantsFaction].Amount = 0;
         factionGoods[AllEnums.FactionGoodType.BuildingMaterial].Amount = 0;
         factionGoods[AllEnums.FactionGoodType.Equipment].Amount = 0;
         factionGoods[AllEnums.FactionGoodType.RawMaterial].Amount = 0;
@@ -324,8 +324,8 @@ public partial class FactionData : Resource
         {
             factionGoods[AllEnums.FactionGoodType.Food].Amount
                 += countyData.CountFactionResourceOfType(AllEnums.FactionGoodType.Food);
-            factionGoods[AllEnums.FactionGoodType.Remnants].Amount
-                += countyData.CountFactionResourceOfType(AllEnums.FactionGoodType.Remnants);
+            factionGoods[AllEnums.FactionGoodType.RemnantsFaction].Amount
+                += countyData.CountFactionResourceOfType(AllEnums.FactionGoodType.RemnantsFaction);
             factionGoods[AllEnums.FactionGoodType.BuildingMaterial].Amount
                 += countyData.CountFactionResourceOfType(AllEnums.FactionGoodType.BuildingMaterial);
             factionGoods[AllEnums.FactionGoodType.Equipment].Amount
@@ -342,8 +342,8 @@ public partial class FactionData : Resource
         {
             amountUsedFactionGoods[AllEnums.FactionGoodType.Food].Amount
                 += countyData.CountUsedFactionResourceOfType(AllEnums.FactionGoodType.Food);
-            amountUsedFactionGoods[AllEnums.FactionGoodType.Remnants].Amount
-                += countyData.CountUsedFactionResourceOfType(AllEnums.FactionGoodType.Remnants);
+            amountUsedFactionGoods[AllEnums.FactionGoodType.RemnantsFaction].Amount
+                += countyData.CountUsedFactionResourceOfType(AllEnums.FactionGoodType.RemnantsFaction);
             amountUsedFactionGoods[AllEnums.FactionGoodType.BuildingMaterial].Amount
                 += countyData.CountUsedFactionResourceOfType(AllEnums.FactionGoodType.BuildingMaterial);
             amountUsedFactionGoods[AllEnums.FactionGoodType.Equipment].Amount
@@ -358,7 +358,7 @@ public partial class FactionData : Resource
     private void ZeroFactionCountyActualUsedResources()
     {
         amountUsedFactionGoods[AllEnums.FactionGoodType.Food].Amount = 0;
-        amountUsedFactionGoods[AllEnums.FactionGoodType.Remnants].Amount = 0;
+        amountUsedFactionGoods[AllEnums.FactionGoodType.RemnantsFaction].Amount = 0;
         amountUsedFactionGoods[AllEnums.FactionGoodType.BuildingMaterial].Amount = 0;
         amountUsedFactionGoods[AllEnums.FactionGoodType.Equipment].Amount = 0;
         amountUsedFactionGoods[AllEnums.FactionGoodType.RawMaterial].Amount = 0;

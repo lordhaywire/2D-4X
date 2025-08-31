@@ -90,7 +90,7 @@ public class AllEnums
         Influence,
         Money,
         RawMaterial,
-        Remnants,
+        RemnantsFaction,
         Research,
     }
 

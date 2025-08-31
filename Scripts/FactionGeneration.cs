@@ -15,7 +15,7 @@ public partial class FactionGeneration : Node
     public override void _Ready()
     {
         CreateFactionsFromDisk();
-        NotifyPropertyListChanged();
+        NotifyPropertyListChanged(); // What the fuck is this!?
     }
 
     private void CreateFactionsFromDisk()
@@ -112,8 +112,8 @@ public partial class FactionGeneration : Node
             {
                 continue;
             }
-
-            factionData.factionGoods.Add(goodData.factionGoodType, (GoodData)goodData.Duplicate());
+            GoodData newGoodData = GoodData.ReflectionCopy.NewCopy(goodData);
+            factionData.factionGoods.Add(goodData.factionGoodType, (GoodData)newGoodData.Duplicate());
             factionData.yesterdaysFactionGoods.Add(goodData.factionGoodType, (GoodData)goodData.Duplicate());
             factionData.amountUsedFactionGoods.Add(goodData.factionGoodType, (GoodData)goodData.Duplicate());
         }

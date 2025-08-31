@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Reflection;
 
 namespace PlayerSpace;
 
@@ -30,7 +31,7 @@ public partial class GoodData : Resource
 
     [Export] private int maxAmount; // This is the max amount that can be stored.
 
-    [Export]
+    
     public int MaxAmount
     {
         get => maxAmount;
@@ -119,4 +120,35 @@ public partial class GoodData : Resource
         };
         return newGoodData;
     }
+
+    public static class ReflectionCopy
+    {
+        public static T NewCopy<T>(T original) where T : new()
+        {
+            if (original == null)
+                throw new ArgumentNullException(nameof(original));
+
+            T copy = new T();
+
+            // Copy public properties
+            foreach (PropertyInfo property in typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance))
+            {
+                if (property.CanRead && property.CanWrite)
+                {
+                    object value = property.GetValue(original);
+                    property.SetValue(copy, value);
+                }
+            }
+
+            // Copy public fields
+            foreach (FieldInfo field in typeof(T).GetFields(BindingFlags.Public | BindingFlags.Instance))
+            {
+                object value = field.GetValue(original);
+                field.SetValue(copy, value);
+            }
+
+            return copy;
+        }
+    }
+
 }

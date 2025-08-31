@@ -92,13 +92,6 @@ public partial class ResearchControl : Control
         }
     }
 
-    private void ShowResearchPanel()
-    {
-        //GD.Print("Show the research panel!");
-        Show();
-        PlayerControls.Instance.AdjustPlayerControls(false);
-    }
-
     private void CloseButton()
     {
         if (ResearchDescriptionPanel.Instance.Visible)

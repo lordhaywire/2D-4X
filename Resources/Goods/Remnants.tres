@@ -6,14 +6,7 @@
 script = ExtResource("1_lhf4k")
 goodName = "GOOD_REMNANTS"
 description = "GOOD_DESCRIPTION_REMNANTS"
-goodType = 2
 countyGoodType = 10
 factionGoodType = 7
 perishable = 2
-failureRate = 0
-remnantSubstitutable = false
-useRemnants = false
-amount = 0
-Amount = 0
 maxAmount = 2147483647
-MaxAmount = 0

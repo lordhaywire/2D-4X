@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=83 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://World Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
 [ext_resource type="Script" uid="uid://bl7hn0hgb5876" path="res://Scripts/LoadMaps.cs" id="2_nda5i"]
@@ -58,6 +58,8 @@
 [ext_resource type="PackedScene" uid="uid://4t2ve1w4uvww" path="res://Scenes/UI/AssignedResearcherHBoxContainer.tscn" id="62_dhpbg"]
 [ext_resource type="PackedScene" uid="uid://dbh44f2eysibn" path="res://Scenes/UI/ResearchItemButton.tscn" id="62_nohy5"]
 [ext_resource type="Script" uid="uid://c8wh1vjtb6kne" path="res://Scripts/UI/StoryEventControl.cs" id="62_onxgq"]
+[ext_resource type="Script" uid="uid://ejrwhbvws47a" path="res://Scripts/UI/FactionControl.cs" id="62_xd5mi"]
+[ext_resource type="Script" uid="uid://c5a7u2dxjt4wl" path="res://Scripts/UI/DiplomacyControl.cs" id="63_tt1x2"]
 [ext_resource type="Texture2D" uid="uid://dmeg24s68kkig" path="res://Graphics/Research/uncertainty.svg" id="65_b6pum"]
 [ext_resource type="Script" uid="uid://bg2dtkgmt0rfq" path="res://Scripts/MapEditorControl.cs" id="65_uqmnr"]
 [ext_resource type="PackedScene" uid="uid://iur3kq10dikl" path="res://Scenes/MapEditor.tscn" id="66_sq6pt"]
@@ -154,7 +156,6 @@ centered = false
 
 [node name="Globals" type="Node" parent="Game Controller Node" node_paths=PackedStringArray("countiesParent")]
 script = ExtResource("2_yf7pt")
-loadGameAtStart = true
 dailyInfluenceGain = 5
 leaderOfPeopleInfluenceBonus = 5
 startPaused = true
@@ -217,7 +218,7 @@ resourcesPanelContainer = NodePath("Goods PanelContainer")
 
 [node name="Event Log ScrollContainer" type="ScrollContainer" parent="Player UI Canvas" node_paths=PackedStringArray("eventLogScrollContainer", "eventLogVBoxContainer")]
 custom_minimum_size = Vector2(300, 75)
-anchors_preset = -1
+anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 1620.0
@@ -237,9 +238,10 @@ size_flags_vertical = 10
 mouse_filter = 0
 theme_override_constants/separation = 1
 
-[node name="Top Bar Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("clock", "dayLabel", "hourLabel", "timeMultiplierLabel", "pausedLabel", "influenceLabel", "influenceAmountUsed", "moneyLabel", "moneyAmountUsed", "remnantsLabel", "remnantsAmountUsed", "buildingMaterialsLabel", "buildingMaterialsAmountUsed", "equipmentLabel", "equipmentAmountUsed", "foodLabel", "foodAmountUsed", "rawMaterialsLabel", "rawMaterialsAmountUsed", "x0Button", "xHalfButton", "x1Button", "x2Button", "x4Button", "x8Button", "x16Button")]
+[node name="Top Bar Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("clock", "dayLabel", "hourLabel", "timeMultiplierLabel", "pausedLabel", "influenceLabel", "influenceAmountUsed", "moneyLabel", "moneyAmountUsed", "remnantsLabel", "remnantsAmountUsed", "buildingMaterialsLabel", "buildingMaterialsAmountUsed", "equipmentLabel", "equipmentAmountUsed", "foodLabel", "foodAmountUsed", "rawMaterialsLabel", "rawMaterialsAmountUsed", "factionButton", "diplomacyButton", "researchButton", "x0Button", "xHalfButton", "x1Button", "x2Button", "x4Button", "x8Button", "x16Button")]
 custom_minimum_size = Vector2(0, 31)
 layout_mode = 3
+anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 31.0
 grow_horizontal = 2
@@ -249,7 +251,7 @@ script = ExtResource("35_ecv6a")
 clock = NodePath("../Clock")
 dayLabel = NodePath("PanelContainer/Top Bar HBox/Day Panel/Hbox/Day Numbers Label")
 hourLabel = NodePath("PanelContainer/Top Bar HBox/Time Panel/Hbox/Hours Numbers Label")
-timeMultiplierLabel = NodePath("PanelContainer/Time and Research Buttons HBox/Speed Panel/Time Multiplier Number Label")
+timeMultiplierLabel = NodePath("PanelContainer/Faction Diplomacy Research Time Buttons HBox/Speed Panel/Time Multiplier Number Label")
 pausedLabel = NodePath("../Pause Control/Pause Label")
 influenceLabel = NodePath("PanelContainer/Top Bar HBox/Influence Panel Container/Influence Number")
 influenceAmountUsed = NodePath("PanelContainer/Top Bar HBox/Influence Amount Used Panel Container/Influence Amount Used Label")
@@ -265,13 +267,16 @@ foodLabel = NodePath("PanelContainer/Top Bar HBox/Food Panel Container/Food Numb
 foodAmountUsed = NodePath("PanelContainer/Top Bar HBox/Food Amount Used Panel Container/Food Amount Used Label")
 rawMaterialsLabel = NodePath("PanelContainer/Top Bar HBox/Raw Materials Panel Container/Raw Materials Number")
 rawMaterialsAmountUsed = NodePath("PanelContainer/Top Bar HBox/Raw Materials Amount Used Panel Container/Raw Materials Amount Used Label")
-x0Button = NodePath("PanelContainer/Time and Research Buttons HBox/x0 Button")
-xHalfButton = NodePath("PanelContainer/Time and Research Buttons HBox/xHalf Button")
-x1Button = NodePath("PanelContainer/Time and Research Buttons HBox/x1 Button")
-x2Button = NodePath("PanelContainer/Time and Research Buttons HBox/x2 Button")
-x4Button = NodePath("PanelContainer/Time and Research Buttons HBox/x4 Button")
-x8Button = NodePath("PanelContainer/Time and Research Buttons HBox/x8 Button")
-x16Button = NodePath("PanelContainer/Time and Research Buttons HBox/x16 Button")
+factionButton = NodePath("PanelContainer/Faction Diplomacy Research Time Buttons HBox/Faction Button")
+diplomacyButton = NodePath("PanelContainer/Faction Diplomacy Research Time Buttons HBox/Diplomacy Button")
+researchButton = NodePath("PanelContainer/Faction Diplomacy Research Time Buttons HBox/Research Button")
+x0Button = NodePath("PanelContainer/Faction Diplomacy Research Time Buttons HBox/x0 Button")
+xHalfButton = NodePath("PanelContainer/Faction Diplomacy Research Time Buttons HBox/xHalf Button")
+x1Button = NodePath("PanelContainer/Faction Diplomacy Research Time Buttons HBox/x1 Button")
+x2Button = NodePath("PanelContainer/Faction Diplomacy Research Time Buttons HBox/x2 Button")
+x4Button = NodePath("PanelContainer/Faction Diplomacy Research Time Buttons HBox/x4 Button")
+x8Button = NodePath("PanelContainer/Faction Diplomacy Research Time Buttons HBox/x8 Button")
+x16Button = NodePath("PanelContainer/Faction Diplomacy Research Time Buttons HBox/x16 Button")
 
 [node name="PanelContainer" type="PanelContainer" parent="Player UI Canvas/Top Bar Control"]
 layout_mode = 1
@@ -551,71 +556,85 @@ text = "(0)"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Time and Research Buttons HBox" type="HBoxContainer" parent="Player UI Canvas/Top Bar Control/PanelContainer"]
+[node name="Faction Diplomacy Research Time Buttons HBox" type="HBoxContainer" parent="Player UI Canvas/Top Bar Control/PanelContainer"]
 custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="Research Button" type="Button" parent="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox"]
+[node name="Faction Button" type="Button" parent="Player UI Canvas/Top Bar Control/PanelContainer/Faction Diplomacy Research Time Buttons HBox"]
+layout_mode = 2
+focus_mode = 0
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxFlat_1crxt")
+text = "WORD_FACTION"
+
+[node name="Diplomacy Button" type="Button" parent="Player UI Canvas/Top Bar Control/PanelContainer/Faction Diplomacy Research Time Buttons HBox"]
+layout_mode = 2
+focus_mode = 0
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxFlat_1crxt")
+text = "WORD_DIPLOMACY"
+
+[node name="Research Button" type="Button" parent="Player UI Canvas/Top Bar Control/PanelContainer/Faction Diplomacy Research Time Buttons HBox"]
 layout_mode = 2
 focus_mode = 0
 mouse_filter = 1
 theme_override_styles/normal = SubResource("StyleBoxFlat_1crxt")
 text = "ACTIVITY_RESEARCH_NAME"
 
-[node name="Speed Panel" type="PanelContainer" parent="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox"]
+[node name="Speed Panel" type="PanelContainer" parent="Player UI Canvas/Top Bar Control/PanelContainer/Faction Diplomacy Research Time Buttons HBox"]
 custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="Speed Title Label" type="Label" parent="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/Speed Panel"]
+[node name="Speed Title Label" type="Label" parent="Player UI Canvas/Top Bar Control/PanelContainer/Faction Diplomacy Research Time Buttons HBox/Speed Panel"]
 custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 text = "WORD_SPEED"
 
-[node name="Time Multiplier Number Label" type="Label" parent="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/Speed Panel"]
+[node name="Time Multiplier Number Label" type="Label" parent="Player UI Canvas/Top Bar Control/PanelContainer/Faction Diplomacy Research Time Buttons HBox/Speed Panel"]
 custom_minimum_size = Vector2(15, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 text = "0"
 
-[node name="x0 Button" type="Button" parent="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox"]
+[node name="x0 Button" type="Button" parent="Player UI Canvas/Top Bar Control/PanelContainer/Faction Diplomacy Research Time Buttons HBox"]
 layout_mode = 2
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_1crxt")
 text = "x0"
 
-[node name="xHalf Button" type="Button" parent="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox"]
+[node name="xHalf Button" type="Button" parent="Player UI Canvas/Top Bar Control/PanelContainer/Faction Diplomacy Research Time Buttons HBox"]
 layout_mode = 2
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_1crxt")
 text = "x.5"
 
-[node name="x1 Button" type="Button" parent="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox"]
+[node name="x1 Button" type="Button" parent="Player UI Canvas/Top Bar Control/PanelContainer/Faction Diplomacy Research Time Buttons HBox"]
 layout_mode = 2
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_1crxt")
 text = "x1"
 
-[node name="x2 Button" type="Button" parent="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox"]
+[node name="x2 Button" type="Button" parent="Player UI Canvas/Top Bar Control/PanelContainer/Faction Diplomacy Research Time Buttons HBox"]
 layout_mode = 2
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_1crxt")
 text = "x2"
 
-[node name="x4 Button" type="Button" parent="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox"]
+[node name="x4 Button" type="Button" parent="Player UI Canvas/Top Bar Control/PanelContainer/Faction Diplomacy Research Time Buttons HBox"]
 layout_mode = 2
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_1crxt")
 text = "x4"
 
-[node name="x8 Button" type="Button" parent="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox"]
+[node name="x8 Button" type="Button" parent="Player UI Canvas/Top Bar Control/PanelContainer/Faction Diplomacy Research Time Buttons HBox"]
 layout_mode = 2
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_1crxt")
 text = "x8"
 
-[node name="x16 Button" type="Button" parent="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox"]
+[node name="x16 Button" type="Button" parent="Player UI Canvas/Top Bar Control/PanelContainer/Faction Diplomacy Research Time Buttons HBox"]
 layout_mode = 2
 focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_1crxt")
@@ -627,6 +646,7 @@ script = ExtResource("19_dn5gi")
 [node name="Pause Control" type="Control" parent="Player UI Canvas"]
 custom_minimum_size = Vector2(0, 31)
 layout_mode = 3
+anchors_preset = 0
 offset_top = 31.0
 offset_right = 1920.0
 offset_bottom = 62.0
@@ -654,6 +674,7 @@ vertical_alignment = 1
 visible = false
 custom_minimum_size = Vector2(300, 400)
 layout_mode = 3
+anchors_preset = 0
 offset_right = 300.0
 offset_bottom = 300.0
 size_flags_horizontal = 2
@@ -2293,6 +2314,194 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "No"
 
+[node name="Faction Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("closeButton")]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = ExtResource("50_5cg3n")
+script = ExtResource("62_xd5mi")
+closeButton = NodePath("Close Button")
+
+[node name="Faction MarginContainer" type="MarginContainer" parent="Player UI Canvas/Faction Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Faction PanelContainer" type="PanelContainer" parent="Player UI Canvas/Faction Control/Faction MarginContainer"]
+layout_mode = 2
+
+[node name="Research Title Label" type="Label" parent="Player UI Canvas/Faction Control/Faction MarginContainer/Faction PanelContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 36
+text = "ACTIVITY_RESEARCH_NAME"
+
+[node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Faction Control/Faction MarginContainer/Faction PanelContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 31
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Faction Control/Faction MarginContainer/Faction PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Assigned Researchers Title Label" type="Label" parent="Player UI Canvas/Faction Control/Faction MarginContainer/Faction PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "PHRASE_ASSIGNED_RESEARCHERS"
+
+[node name="Assigned Researcher GridContainer" type="GridContainer" parent="Player UI Canvas/Faction Control/Faction MarginContainer/Faction PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+columns = 5
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Player UI Canvas/Faction Control/Faction MarginContainer/Faction PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Faction Control/Faction MarginContainer/Faction PanelContainer/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Tier 1 Research Items VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Faction Control/Faction MarginContainer/Faction PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Tier 2 Research Items VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Faction Control/Faction MarginContainer/Faction PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Tier 3 Research Items VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Faction Control/Faction MarginContainer/Faction PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Close Button" type="Button" parent="Player UI Canvas/Faction Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = -31.0
+offset_right = 25.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1, 1.03698)
+size_flags_vertical = 8
+text = "WORD_CLOSE"
+
+[node name="Diplomacy Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("closeButton")]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = ExtResource("50_5cg3n")
+script = ExtResource("63_tt1x2")
+closeButton = NodePath("Close Button")
+
+[node name="Diplomacy MarginContainer" type="MarginContainer" parent="Player UI Canvas/Diplomacy Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Diplomacy PanelContainer" type="PanelContainer" parent="Player UI Canvas/Diplomacy Control/Diplomacy MarginContainer"]
+layout_mode = 2
+
+[node name="Research Title Label" type="Label" parent="Player UI Canvas/Diplomacy Control/Diplomacy MarginContainer/Diplomacy PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 36
+text = "ACTIVITY_RESEARCH_NAME"
+
+[node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Diplomacy Control/Diplomacy MarginContainer/Diplomacy PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 31
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Diplomacy Control/Diplomacy MarginContainer/Diplomacy PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Assigned Researchers Title Label" type="Label" parent="Player UI Canvas/Diplomacy Control/Diplomacy MarginContainer/Diplomacy PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "PHRASE_ASSIGNED_RESEARCHERS"
+
+[node name="Assigned Researcher GridContainer" type="GridContainer" parent="Player UI Canvas/Diplomacy Control/Diplomacy MarginContainer/Diplomacy PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+columns = 5
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Player UI Canvas/Diplomacy Control/Diplomacy MarginContainer/Diplomacy PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Diplomacy Control/Diplomacy MarginContainer/Diplomacy PanelContainer/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Tier 1 Research Items VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Diplomacy Control/Diplomacy MarginContainer/Diplomacy PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Tier 2 Research Items VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Diplomacy Control/Diplomacy MarginContainer/Diplomacy PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Tier 3 Research Items VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Diplomacy Control/Diplomacy MarginContainer/Diplomacy PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Close Button" type="Button" parent="Player UI Canvas/Diplomacy Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = -31.0
+offset_right = 25.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1, 1.03698)
+size_flags_vertical = 8
+text = "WORD_CLOSE"
+
 [node name="Research Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("assignedResearchersTitleLabel", "tierOneResearchItemParent", "tierTwoResearchItemParent", "tierThreeResearchItemParent", "assignedResearchersParent")]
 visible = false
 layout_mode = 3
@@ -2785,25 +2994,24 @@ process_mode = 3
 [connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Raw Materials Panel Container" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
 [connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Raw Materials Amount Used Panel Container" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox/Raw Materials Amount Used Panel Container" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
-[connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
-[connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
-[connection signal="pressed" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/Research Button" to="Player UI Canvas/Research Control" method="ShowResearchPanel"]
-[connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/Speed Panel" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
-[connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/Speed Panel" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
-[connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x0 Button" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
-[connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x0 Button" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
-[connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/xHalf Button" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
-[connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/xHalf Button" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
-[connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x1 Button" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
-[connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x1 Button" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
-[connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x2 Button" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
-[connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x2 Button" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
-[connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x4 Button" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
-[connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x4 Button" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
-[connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x8 Button" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
-[connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x8 Button" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
-[connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x16 Button" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
-[connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Time and Research Buttons HBox/x16 Button" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
+[connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Faction Diplomacy Research Time Buttons HBox" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Faction Diplomacy Research Time Buttons HBox" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
+[connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Faction Diplomacy Research Time Buttons HBox/Speed Panel" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Faction Diplomacy Research Time Buttons HBox/Speed Panel" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
+[connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Faction Diplomacy Research Time Buttons HBox/x0 Button" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Faction Diplomacy Research Time Buttons HBox/x0 Button" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
+[connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Faction Diplomacy Research Time Buttons HBox/xHalf Button" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Faction Diplomacy Research Time Buttons HBox/xHalf Button" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
+[connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Faction Diplomacy Research Time Buttons HBox/x1 Button" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Faction Diplomacy Research Time Buttons HBox/x1 Button" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
+[connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Faction Diplomacy Research Time Buttons HBox/x2 Button" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Faction Diplomacy Research Time Buttons HBox/x2 Button" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
+[connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Faction Diplomacy Research Time Buttons HBox/x4 Button" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Faction Diplomacy Research Time Buttons HBox/x4 Button" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
+[connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Faction Diplomacy Research Time Buttons HBox/x8 Button" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Faction Diplomacy Research Time Buttons HBox/x8 Button" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
+[connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Faction Diplomacy Research Time Buttons HBox/x16 Button" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
+[connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer/Faction Diplomacy Research Time Buttons HBox/x16 Button" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
 [connection signal="mouse_entered" from="Player UI Canvas/Pause Control" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="Player UI Canvas/Pause Control" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
 [connection signal="visibility_changed" from="Player UI Canvas/County Info Control" to="Player UI Canvas/County Info Control" method="OnVisibilityChanged"]
@@ -2843,6 +3051,10 @@ process_mode = 3
 [connection signal="visibility_changed" from="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/Remove County Improvement Confirmation PanelContainer" to="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/Remove County Improvement Confirmation PanelContainer" method="RemoveCountyImprovementOnVisibilityChanged"]
 [connection signal="pressed" from="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/Remove County Improvement Confirmation PanelContainer/HBoxContainer/Yes Button" to="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/Remove County Improvement Confirmation PanelContainer" method="RemoveImprovementYesButtonPressed"]
 [connection signal="pressed" from="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/Remove County Improvement Confirmation PanelContainer/HBoxContainer/No Button" to="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/Remove County Improvement Confirmation PanelContainer" method="RemoveImprovementNoButtonPressed"]
+[connection signal="visibility_changed" from="Player UI Canvas/Faction Control" to="Player UI Canvas/Faction Control" method="OnVisibilityChange"]
+[connection signal="button_up" from="Player UI Canvas/Faction Control/Close Button" to="Player UI Canvas/Faction Control" method="CloseButton"]
+[connection signal="visibility_changed" from="Player UI Canvas/Diplomacy Control" to="Player UI Canvas/Diplomacy Control" method="OnVisibilityChange"]
+[connection signal="button_up" from="Player UI Canvas/Diplomacy Control/Close Button" to="Player UI Canvas/Diplomacy Control" method="CloseButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Research Control" to="Player UI Canvas/Research Control" method="OnVisibilityChange"]
 [connection signal="button_up" from="Player UI Canvas/Research Control/Close Button" to="Player UI Canvas/Research Control" method="CloseButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Research Description PanelContainer" to="Player UI Canvas/Research Description PanelContainer" method="OnResearchDescriptionPanelVisibilityChanged"]
