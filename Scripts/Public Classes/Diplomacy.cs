@@ -1,13 +1,15 @@
 using System;
 using Godot;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace PlayerSpace;
 
-// Should this be dependancy injection?
 public class Diplomacy
 {
+    public static bool IsFactionAtWar(FactionData factionData, FactionData otherFactionData)
+    {
+        return factionData.diplomacyMatrices[otherFactionData.factionId].AtWar;
+    }
+    
     public void DeclareWar(War war)
     {
         FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(Globals.Instance
@@ -28,10 +30,10 @@ public class Diplomacy
 
     public void RespondToDeclarationOfWar(War war)
     {
-        //GD.Print($"{war.defenderFactionData.factionName} is responding to the declaration of war.");
+        GD.Print($"{war.defenderFactionData.factionName} is responding to the declaration of war.");
 
-        war.aggressorFactionData.factionWarDictionary[war.defenderFactionData.factionName] = true;
-        war.defenderFactionData.factionWarDictionary[war.aggressorFactionData.factionName] = true;
+        war.aggressorFactionData.diplomacyMatrices[war.defenderFactionData.factionId].AtWar = true;
+        war.defenderFactionData.diplomacyMatrices[war.aggressorFactionData.factionId].AtWar = true;
         // Add the wars to the factions so they know what wars they are in.
         war.aggressorFactionData.wars.Add(war);
         war.defenderFactionData.wars.Add(war);

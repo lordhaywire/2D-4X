@@ -116,7 +116,7 @@ public partial class PlayerControls : StaticBody2D
             {
                 Clock.Instance.SpaceBarPause();
             }
-            
+
             if (@event.IsActionPressed("options"))
             {
                 if (OptionsControl.Instance.Visible)
@@ -141,34 +141,10 @@ public partial class PlayerControls : StaticBody2D
 
         selectToken.Show();
 
-        if (selectToken.tokenMovement.MoveToken != true)
+        // Is the token moving?
+        if (selectToken.tokenMovement.MoveToken == false)
         {
-            if (populationData.IsThisAnArmy() == false)
-            {
-                selectToken.tokenMovement.StartMove(moveTargetCountyData.countyId);
-            }
-            else
-            {
-                if (Autoload.Instance.playerFactionData.factionId == moveTargetCountyData.factionId)
-                {
-                    selectToken.tokenMovement.StartMove(moveTargetCountyData.countyId);
-                }
-                else
-                {
-                    FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(Globals.Instance.selectedRightClickCounty.countyData.factionId);
-                    //GD.Print("You are about to declare war, because you are an army.");
-                    if (Autoload.Instance.playerFactionData.factionWarDictionary[
-                            factionData.factionName]
-                        != true)
-                    {
-                        Autoload.Instance.playerFactionData.diplomacy.DeclareWarConfirmation(moveTargetCountyData);
-                    }
-                    else
-                    {
-                        selectToken.tokenMovement.StartMove(moveTargetCountyData.countyId);
-                    }
-                }
-            }
+            selectToken.tokenMovement.StartMove(moveTargetCountyData.countyId);
         }
         else
         {

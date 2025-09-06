@@ -112,6 +112,7 @@ public partial class FactionGeneration : Node
             {
                 continue;
             }
+
             GoodData newGoodData = GoodData.ReflectionCopy.NewCopy(goodData);
             factionData.factionGoods.Add(goodData.factionGoodType, (GoodData)newGoodData.Duplicate());
             factionData.yesterdaysFactionGoods.Add(goodData.factionGoodType, (GoodData)goodData.Duplicate());
@@ -123,10 +124,11 @@ public partial class FactionGeneration : Node
         // Todo - Make a developer option that allows these numbers to be changed.
         factionData.factionGoods[AllEnums.FactionGoodType.Influence].Amount = 1500;
         factionData.factionGoods[AllEnums.FactionGoodType.Money].Amount = 1500;
-        
+
         foreach (KeyValuePair<AllEnums.FactionGoodType, GoodData> keyValuePair in factionData.factionGoods)
         {
-            GD.Print($"{keyValuePair.Value.goodName}:{keyValuePair.Value.Amount} has been added to {factionData.factionName}");
+            GD.Print(
+                $"{keyValuePair.Value.goodName}:{keyValuePair.Value.Amount} has been added to {factionData.factionName}");
         }
     }
 
@@ -138,7 +140,7 @@ public partial class FactionGeneration : Node
                      warFactionData != factionData))
         {
             // Add warFactionData to factionWarDictionary with a default value of false
-            factionData.factionWarDictionary[warFactionData.factionName] = false;
+            factionData.diplomacyMatrices.Add(new DiplomacyMatrix(factionData.factionId, factionData.factionName, false));
         }
     }
 }

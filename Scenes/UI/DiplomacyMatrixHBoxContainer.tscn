@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpmb1nscnvptr"]
+
+[ext_resource type="Script" uid="uid://bck0goj2jyykg" path="res://Scripts/UI/DiplomacyMatrixHBoxContainer.cs" id="1_scmxx"]
+
+[node name="Diplomacy Matrix HBoxContainer" type="HBoxContainer"]
+size_flags_vertical = 3
+alignment = 1
+script = ExtResource("1_scmxx")
+
+[node name="Faction Name Sort Button" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "WORD_FACTION"
+
+[node name="At War Sort Button" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "WORD_WAR"
+
+[node name="War Button" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "PHRASE_DECLARE_WAR"

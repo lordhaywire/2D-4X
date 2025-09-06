@@ -42,8 +42,7 @@ public partial class FactionData : Resource
 
     public readonly List<War> wars = [];
 
-    [ExportGroup("Diplomatic Matrix")] [Export]
-    public Godot.Collections.Dictionary<string, bool> factionWarDictionary;
+    public List<DiplomacyMatrix> diplomacyMatrices = [];
 
     public FactionDto ToDto()
     {
@@ -54,7 +53,8 @@ public partial class FactionData : Resource
             FactionName = factionName,
             FactionColor = factionColor.ToHtml(), // Convert Color → Hex string
             FactionStatus = factionStatus.ToString(),
-            FactionCapitalCounty = factionCapitalCounty
+            FactionCapitalCounty = factionCapitalCounty,
+            DiplomacyMatrices = diplomacyMatrices,
         };
 
         foreach (ResearchItemData research in researchItems)
@@ -100,10 +100,11 @@ public partial class FactionData : Resource
         // Wars
         foreach (War war in wars)
             factionDto.Wars.Add(war.ToDto());
-
-
-        foreach (KeyValuePair<string, bool> keyValuePair in factionWarDictionary)
-            factionDto.FactionWarDictionary[keyValuePair.Key] = keyValuePair.Value;
+        
+        foreach (DiplomacyMatrix matrix in diplomacyMatrices)
+        {
+            factionDto.DiplomacyMatrices.Add(matrix);
+        }
 
         return factionDto;
     }
@@ -117,7 +118,7 @@ public partial class FactionData : Resource
             factionName = factionDto.FactionName,
             factionColor = new Color(factionDto.FactionColor), // Convert hex back to Godot Color
             factionStatus = Enum.Parse<AllEnums.FactionStatus>(factionDto.FactionStatus),
-            factionCapitalCounty = factionDto.FactionCapitalCounty
+            factionCapitalCounty = factionDto.FactionCapitalCounty,
         };
 
         factionData.researchItems = [];
@@ -236,11 +237,9 @@ public partial class FactionData : Resource
             //factionData.wars.Add(war);
         }
 
-        // Diplomatic matrix
-        factionData.factionWarDictionary = new Godot.Collections.Dictionary<string, bool>();
-        foreach (KeyValuePair<string, bool> keyValuePair in factionDto.FactionWarDictionary)
+        foreach (DiplomacyMatrix matrix in factionDto.DiplomacyMatrices)
         {
-            factionData.factionWarDictionary[keyValuePair.Key] = keyValuePair.Value;
+            factionData.diplomacyMatrices.Add(matrix);
         }
 
         return factionData;

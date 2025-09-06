@@ -111,9 +111,7 @@ public class AllEnums
     {
         None,
         Aide,
-        ArmyLeader,
         FactionLeader,
-        FactionLeaderArmyLeader,
     }
 
     public enum InterestType

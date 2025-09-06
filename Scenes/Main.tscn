@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=84 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://World Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
 [ext_resource type="Script" uid="uid://bl7hn0hgb5876" path="res://Scripts/LoadMaps.cs" id="2_nda5i"]
@@ -60,6 +60,7 @@
 [ext_resource type="Script" uid="uid://c8wh1vjtb6kne" path="res://Scripts/UI/StoryEventControl.cs" id="62_onxgq"]
 [ext_resource type="Script" uid="uid://ejrwhbvws47a" path="res://Scripts/UI/FactionControl.cs" id="62_xd5mi"]
 [ext_resource type="Script" uid="uid://c5a7u2dxjt4wl" path="res://Scripts/UI/DiplomacyControl.cs" id="63_tt1x2"]
+[ext_resource type="PackedScene" uid="uid://bpmb1nscnvptr" path="res://Scenes/UI/DiplomacyMatrixHBoxContainer.tscn" id="64_tt1x2"]
 [ext_resource type="Texture2D" uid="uid://dmeg24s68kkig" path="res://Graphics/Research/uncertainty.svg" id="65_b6pum"]
 [ext_resource type="Script" uid="uid://bg2dtkgmt0rfq" path="res://Scripts/MapEditorControl.cs" id="65_uqmnr"]
 [ext_resource type="PackedScene" uid="uid://iur3kq10dikl" path="res://Scenes/MapEditor.tscn" id="66_sq6pt"]
@@ -1397,7 +1398,7 @@ inventoryVBoxContainer = NodePath("MarginContainer/PanelContainer/MarginContaine
 subordinatesVBoxContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer")
 newestEquipmentCheckBox = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer/Newest Equipment CheckBox")
 aideRecruitButton = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Recruit Aide Button")
-armyLeaderRecruitButton = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/Recruit Army Button")
+armyLeaderRecruitButton = NodePath("")
 heroRecruitmentConfirmPanel = NodePath("../Recuit Hero Confirmation PanelContainer")
 
 [node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Population Description Control"]
@@ -1675,15 +1676,6 @@ text = "Sex Bool
 "
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Recruit Army Button" type="Button" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer"]
-visible = false
-custom_minimum_size = Vector2(75, 50)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-focus_mode = 0
-text = "PHRASE_RECRUIT_AS_ARMY_LEADER"
 
 [node name="Right PanelContainer" type="PanelContainer" parent="Player UI Canvas/Population Description Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
@@ -2409,7 +2401,7 @@ scale = Vector2(1, 1.03698)
 size_flags_vertical = 8
 text = "WORD_CLOSE"
 
-[node name="Diplomacy Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("closeButton")]
+[node name="Diplomacy Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("diplomacyMatrixVBoxContainerParent", "closeButton")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -2420,6 +2412,8 @@ grow_vertical = 2
 mouse_filter = 1
 theme = ExtResource("50_5cg3n")
 script = ExtResource("63_tt1x2")
+diplomacyMatrixHBoxContainerScene = ExtResource("64_tt1x2")
+diplomacyMatrixVBoxContainerParent = NodePath("Diplomacy MarginContainer/Diplomacy PanelContainer/VBoxContainer/War Matrix ScrollContainer/VBoxContainer")
 closeButton = NodePath("Close Button")
 
 [node name="Diplomacy MarginContainer" type="MarginContainer" parent="Player UI Canvas/Diplomacy Control"]
@@ -2433,58 +2427,43 @@ grow_vertical = 2
 [node name="Diplomacy PanelContainer" type="PanelContainer" parent="Player UI Canvas/Diplomacy Control/Diplomacy MarginContainer"]
 layout_mode = 2
 
-[node name="Research Title Label" type="Label" parent="Player UI Canvas/Diplomacy Control/Diplomacy MarginContainer/Diplomacy PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Diplomacy Control/Diplomacy MarginContainer/Diplomacy PanelContainer"]
+layout_mode = 2
+
+[node name="Diplomacy Title Label" type="Label" parent="Player UI Canvas/Diplomacy Control/Diplomacy MarginContainer/Diplomacy PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 36
-text = "ACTIVITY_RESEARCH_NAME"
+text = "WORD_DIPLOMACY"
 
-[node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Diplomacy Control/Diplomacy MarginContainer/Diplomacy PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 25
-theme_override_constants/margin_top = 48
-theme_override_constants/margin_right = 25
-theme_override_constants/margin_bottom = 31
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Diplomacy Control/Diplomacy MarginContainer/Diplomacy PanelContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="Assigned Researchers Title Label" type="Label" parent="Player UI Canvas/Diplomacy Control/Diplomacy MarginContainer/Diplomacy PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "PHRASE_ASSIGNED_RESEARCHERS"
-
-[node name="Assigned Researcher GridContainer" type="GridContainer" parent="Player UI Canvas/Diplomacy Control/Diplomacy MarginContainer/Diplomacy PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-columns = 5
-
-[node name="ScrollContainer" type="ScrollContainer" parent="Player UI Canvas/Diplomacy Control/Diplomacy MarginContainer/Diplomacy PanelContainer/MarginContainer/VBoxContainer"]
+[node name="War Matrix ScrollContainer" type="ScrollContainer" parent="Player UI Canvas/Diplomacy Control/Diplomacy MarginContainer/Diplomacy PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Diplomacy Control/Diplomacy MarginContainer/Diplomacy PanelContainer/MarginContainer/VBoxContainer/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Diplomacy Control/Diplomacy MarginContainer/Diplomacy PanelContainer/VBoxContainer/War Matrix ScrollContainer"]
 layout_mode = 2
-theme_override_constants/separation = 25
+size_flags_horizontal = 3
 
-[node name="Tier 1 Research Items VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Diplomacy Control/Diplomacy MarginContainer/Diplomacy PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Diplomacy Control/Diplomacy MarginContainer/Diplomacy PanelContainer/VBoxContainer/War Matrix ScrollContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 3
 alignment = 1
 
-[node name="Tier 2 Research Items VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Diplomacy Control/Diplomacy MarginContainer/Diplomacy PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer"]
+[node name="Faction Name Sort Button" type="Button" parent="Player UI Canvas/Diplomacy Control/Diplomacy MarginContainer/Diplomacy PanelContainer/VBoxContainer/War Matrix ScrollContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-alignment = 1
+size_flags_horizontal = 3
+text = "WORD_FACTION"
 
-[node name="Tier 3 Research Items VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Diplomacy Control/Diplomacy MarginContainer/Diplomacy PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer"]
+[node name="At War Sort Button" type="Button" parent="Player UI Canvas/Diplomacy Control/Diplomacy MarginContainer/Diplomacy PanelContainer/VBoxContainer/War Matrix ScrollContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-alignment = 1
+size_flags_horizontal = 3
+text = "WORD_WAR"
+
+[node name="War Status Button" type="Button" parent="Player UI Canvas/Diplomacy Control/Diplomacy MarginContainer/Diplomacy PanelContainer/VBoxContainer/War Matrix ScrollContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "PHRASE_WAR_STATUS"
 
 [node name="Close Button" type="Button" parent="Player UI Canvas/Diplomacy Control"]
 layout_mode = 1

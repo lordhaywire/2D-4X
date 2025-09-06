@@ -161,7 +161,6 @@ public partial class PopulationDescriptionControl : Control
     private void ShowDefaultUiElements()
     {
         aideRecruitButton.Show();
-        //armyLeaderRecruitButton.Show();
     }
 
     private void UpdateHeroRecruitmentButtons()
@@ -169,39 +168,6 @@ public partial class PopulationDescriptionControl : Control
         if (populationData.activity != AllEnums.Activities.Recruited && populationData.activity != AllEnums.Activities.Service) return;
         aideRecruitButton.Hide();
         armyLeaderRecruitButton.Hide();
-    }
-
-    // This was a simplification written by ChatGPT.
-    /// <summary>
-    /// Check to show if the Army Recruitment Button is active.  It will be disabled if it is in counties that the
-    /// player doesn't own.
-    /// </summary>
-    /// <param name="county"></param>
-    private void CheckForArmyRecruitmentButton(County county)
-    {
-        FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(county.countyData.factionId);
-        if (Globals.CheckIfPlayerFaction(factionData))
-        {
-            // If this is just a normal population
-            if (populationData.HeroType == AllEnums.HeroType.None
-                && Autoload.Instance.playerFactionData.factionGoods[AllEnums.FactionGoodType.Influence].Amount
-                < Globals.Instance.costOfHero)
-            {
-                armyLeaderRecruitButton.Disabled = false;
-                return;
-            }
-
-            // If the token is moving, then it can't become an army.
-            if (populationData.heroToken?.tokenMovement.MoveToken == true)
-            {
-                return;
-            }
-
-            // If the population is already an Aide, the player has already paid for the aide,
-            // and they can make it an army leader.
-            if (populationData.IsThisAnArmy()) return;
-            armyLeaderRecruitButton.Disabled = false;
-        }
     }
 
     /// <summary>
@@ -269,10 +235,6 @@ public partial class PopulationDescriptionControl : Control
                 return;
             case AllEnums.HeroType.Aide:
                 aideTitleButton.Disabled = false;
-                return;
-            case AllEnums.HeroType.FactionLeaderArmyLeader:
-            case AllEnums.HeroType.ArmyLeader:
-                armyLeaderTitleButton.Disabled = false;
                 return;
         }
     }

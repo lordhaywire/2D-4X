@@ -41,14 +41,6 @@ public partial class AllTokenTextures : Node
                 heroToken.selectedTexture = selectedHeroTexture;
                 heroToken.unselectedTexture = unselectedHeroTexture;
                 return;
-            case AllEnums.HeroType.ArmyLeader:
-                heroToken.selectedTexture = selectedArmyTexture;
-                heroToken.unselectedTexture = unselectedArmyTexture;
-                return;
-            case AllEnums.HeroType.FactionLeaderArmyLeader:
-                heroToken.selectedTexture = selectedArmyTexture;
-                heroToken.unselectedTexture = unselectedArmyTexture;
-                return;
             default:
                 GD.Print("Assign Token Textures is messed up.");
                 return;

@@ -23,7 +23,7 @@ namespace PlayerSpace
                 aggressorFactionData = Autoload.Instance.playerFactionData,
                 defenderFactionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(Globals.Instance.selectedRightClickCounty.countyData.factionId)
             };
-            //GD.Print($"{newWar.aggressorFactionData.factionName} is attacking {newWar.defenderFactionData.factionName}");
+            GD.Print($"{newWar.aggressorFactionData.factionName} is attacking {newWar.defenderFactionData.factionName}");
             // Once yes has been hit, this is the actual declaration of war.
             Autoload.Instance.playerFactionData.diplomacy.DeclareWar(newWar);
             HeroToken selectToken = Globals.Instance.SelectedCountyPopulation.heroToken;

@@ -42,18 +42,6 @@ public partial class RecruitHeroConfirmationPanelContainer : PanelContainer
         else
         {
             throw new ArgumentException("YesButton: YesButton thinks you are trying to hire an army leader.");
-            if (populationData.HeroType == AllEnums.HeroType.FactionLeader)
-            {
-                populationData.HeroType = AllEnums.HeroType.FactionLeaderArmyLeader;
-            }
-            else
-            {
-                populationData.HeroType = AllEnums.HeroType.ArmyLeader;
-            }
-
-            countyData.heroesInCountyList.Remove(populationData);
-            //countyData.armiesInCountyList.Add(populationData);
-            factionData.AddHeroToAllHeroesDictionary(populationData);
         }
 
         // This is set again to update the sprite textures;

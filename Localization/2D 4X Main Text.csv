@@ -364,3 +364,7 @@ INTEREST_DESCRIPTION_POLITICS,The interest of politics.,El interés de la polít
 INTEREST_DESCRIPTION_WARFARE,The interest of warfare.,El interés de la guerra.
 WORD_DIPLOMACY,Diplomacy,Diplomacia
 WORD_FACTION,Faction,Facción
+WORD_WAR,War,Era
+PHRASE_DECLARE_WAR,Declare War?,¿Declarar la guerra?
+PHRASE_END_WAR,End War?,¿Terminar con la guerra?
+PHRASE_WAR_STATUS,War Status,Estado de guerra

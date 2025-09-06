@@ -28,8 +28,6 @@ public partial class PopulationData : Resource
     // Change this to an enum
     [Export] public bool isHero;
 
-    //[Export] public bool isWorker;
-
     [Export] private AllEnums.HeroType heroType;
 
     public AllEnums.HeroType HeroType
@@ -471,16 +469,6 @@ public partial class PopulationData : Resource
     {
         UpdateActivity(AllEnums.Activities.Research);
         currentResearchItemData = researchItemData;
-    }
-
-    public bool IsThisAnArmy()
-    {
-        if (HeroType == AllEnums.HeroType.FactionLeaderArmyLeader || HeroType == AllEnums.HeroType.ArmyLeader)
-        {
-            return true;
-        }
-
-        return false;
     }
 
     /// <summary>

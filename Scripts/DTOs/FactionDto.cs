@@ -30,5 +30,5 @@ public class FactionDto
 
     // Diplomacy & War
     public List<WarDto> Wars { get; set; } = [];
-    public Dictionary<string, bool> FactionWarDictionary { get; set; } = new();
+    public List<DiplomacyMatrix> DiplomacyMatrices { get; set; } = new();
 }

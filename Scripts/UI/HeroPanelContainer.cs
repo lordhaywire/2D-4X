@@ -91,9 +91,10 @@ public partial class HeroPanelContainer : PanelContainer
             spawnHeroButton.Disabled = false; // <- explicitly re-enable
             spawnHeroButton.Show();           // <- make sure it’s visible
         }
-
-        // Handle activity-based UI
-        if (populationData.IsThisAnArmy() || populationData.activity == AllEnums.Activities.Recruit)
+        
+        // ToDo: Figure out a way to have the player show the second activity box now that there are no armies.
+        // This used to have a check for if the population was an army.
+        if (populationData.activity == AllEnums.Activities.Recruit)
         {
             secondaryActivitiesHBoxContainer.Show();
         }
@@ -155,22 +156,10 @@ public partial class HeroPanelContainer : PanelContainer
                 armyLeaderTextureRect.Hide();
                 break;
 
-            case { HeroType: AllEnums.HeroType.FactionLeaderArmyLeader }: // FactionArmyLeader
-                factionLeaderTextureRect.Show();
-                aideTextureRect.Hide();
-                armyLeaderTextureRect.Show();
-                break;
-
             case { HeroType: AllEnums.HeroType.Aide }: // Aide
                 factionLeaderTextureRect.Hide();
                 aideTextureRect.Show();
                 armyLeaderTextureRect.Hide();
-                break;
-
-            case { HeroType: AllEnums.HeroType.ArmyLeader }: // ArmyLeader
-                factionLeaderTextureRect.Hide();
-                aideTextureRect.Hide();
-                armyLeaderTextureRect.Show();
                 break;
         }
     }

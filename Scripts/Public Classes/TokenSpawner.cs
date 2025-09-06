@@ -20,26 +20,20 @@ public class TokenSpawner
         AllTokenTextures.Instance.AssignTokenTextures(spawnedToken);
 
         populationData.heroToken = spawnedToken;
-        populationData.location = county.countyData.countyId; // The populationData should have already have the location.
+        populationData.location =
+            county.countyData.countyId; // The populationData should have already have the location.
         spawnedToken.Name = $"{populationData.firstName} {populationData.lastName}";
 
         // Update the token's name label
         spawnedToken.tokenNameLabel.Text = $"{populationData.firstName} {populationData.lastName}";
 
         // Spawning the Spawned Token Button
-        SpawnedTokenButton spawnedTokenButton 
+        SpawnedTokenButton spawnedTokenButton
             = (SpawnedTokenButton)Globals.Instance.spawnedTokenButton.Instantiate();
 
-        if (populationData.IsThisAnArmy() == false)
-        {
-            county.heroesHBox.AddChild(spawnedTokenButton);
-            county.heroesHBox.Show();
-        }
-        else
-        {
-            county.armiesHBox.AddChild(spawnedTokenButton);
-            county.armiesHBox.Show();
-        }
+        county.heroesHBox.AddChild(spawnedTokenButton);
+        county.heroesHBox.Show();
+
         spawnedTokenButton.populationData = populationData;
 
         county.countyData.spawnedTokenButtons.Add(spawnedTokenButton);
@@ -65,7 +59,6 @@ public class TokenSpawner
 
         spawnedTokenButton.UpdateTokenTextures(); // This has to be below the populationData assignment.
 
-        GD.Print($"Is {populationData.firstName} an army leader?" + populationData.IsThisAnArmy());
         return populationData;
     }
 
@@ -82,12 +75,14 @@ public class TokenSpawner
     // This is so that the AI token spawning doesn't make the player select it.
     private static void DecidedIfSelected(County selectCounty, HeroToken spawnedToken)
     {
-        FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(selectCounty.countyData.factionId);
+        FactionData factionData =
+            SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(selectCounty.countyData.factionId);
         GD.Print($"{factionData.factionName} vs {Autoload.Instance.playerFactionData.factionName}");
-        if(Globals.CheckIfPlayerFaction(factionData))
+        if (Globals.CheckIfPlayerFaction(factionData))
         {
             spawnedToken.IsSelected = true;
-            GD.Print("Spawned Token Button Token's Name: " + spawnedToken.populationData.firstName + spawnedToken.IsSelected);
+            GD.Print("Spawned Token Button Token's Name: " + spawnedToken.populationData.firstName +
+                     spawnedToken.IsSelected);
         }
     }
 }
