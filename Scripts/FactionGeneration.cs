@@ -89,8 +89,8 @@ public partial class FactionGeneration : Node
     {
         GD.PrintRich($"[rainbow]Adding county improvements for! " + researchItemData.researchName);
 
-        GameGenerationCanvasLayer.Instance.UpdateStatusLabelText(
-            $"{Tr("PHRASE_RESEARCH_FOR")} {Tr(researchItemData.researchName)} {Tr("PHRASE_HAS_BEEN_COMPLETED")}.");
+        //GameGenerationCanvasLayer.Instance.UpdateStatusLabelText(
+        //    $"{Tr("PHRASE_RESEARCH_FOR")} {Tr(researchItemData.researchName)} {Tr("PHRASE_HAS_BEEN_COMPLETED")}.");
 
         if (researchItemData.countyImprovementDatas.Length > 0)
         {

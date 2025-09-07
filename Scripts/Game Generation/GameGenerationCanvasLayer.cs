@@ -10,6 +10,7 @@ public partial class GameGenerationCanvasLayer : CanvasLayer
     public override void _Ready()
     {
         Instance = this;
+        //UpdateStatusLabelText("Generating Game!");
     }
 
     public void UpdateStatusLabelText(string statusText)
