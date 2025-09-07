@@ -69,20 +69,20 @@ public class TokenSpawner
         populationData.heroToken.spawnedTokenButton.QueueFree();
         populationData.heroToken.QueueFree();
         populationData.heroToken = null;
+        Globals.Instance.SelectedCountyPopulation = null;
         GD.Print("Token Spawner: " + populationData?.heroToken);
     }
 
     // This is so that the AI token spawning doesn't make the player select it.
-    private static void DecidedIfSelected(County selectCounty, HeroToken spawnedToken)
+    private static void DecidedIfSelected(County county, HeroToken spawnedToken)
     {
         FactionData factionData =
-            SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(selectCounty.countyData.factionId);
+            SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(county.countyData.factionId);
         GD.Print($"{factionData.factionName} vs {Autoload.Instance.playerFactionData.factionName}");
         if (Globals.CheckIfPlayerFaction(factionData))
         {
             spawnedToken.IsSelected = true;
-            GD.Print("Spawned Token Button Token's Name: " + spawnedToken.populationData.firstName +
-                     spawnedToken.IsSelected);
+            GD.Print($"Spawned Token Button Token's Name: {spawnedToken.populationData.firstName} {spawnedToken.IsSelected}");
         }
     }
 }

@@ -53,6 +53,7 @@ public partial class FactionGeneration : Node
         }
     }
 
+    /*
     private static void ConvertFactionDataListsToGodotArrayInAutoload(List<FactionData> allFactionDataListCSharp)
     {
         SaveManager.Instance.saveGameData.allFactionDataList.Clear();
@@ -61,7 +62,7 @@ public partial class FactionGeneration : Node
             SaveManager.Instance.saveGameData.allFactionDataList.Add(factionData);
         }
     }
-
+*/
     private void AddStartingResearch(FactionData factionData)
     {
         foreach (ResearchItemData researchItemData in Autoload.Instance.allResearchItemData)
@@ -132,15 +133,17 @@ public partial class FactionGeneration : Node
         }
     }
 
+    /// <summary>
+    /// Adds all the factions to this list so that the indexes line up with the factionId.
+    /// </summary>
+    /// <param name="factionData"></param>
     private void AddFactionsToDiplomacyWar(FactionData factionData)
     {
         //GD.Print("Faction Name: " + factionData.factionName);
-        foreach (FactionData warFactionData in
-                 SaveManager.Instance.saveGameData.allFactionDataList.Where(warFactionData =>
-                     warFactionData != factionData))
+        foreach (FactionData warFactionData in SaveManager.Instance.saveGameData.allFactionDataList)
         {
             // Add warFactionData to factionWarDictionary with a default value of false
-            factionData.diplomacyMatrices.Add(new DiplomacyMatrix(factionData.factionId, factionData.factionName, false));
+            factionData.diplomacyMatrices.Add(new DiplomacyMatrix(warFactionData.factionId, warFactionData.factionName, false));
         }
     }
 }

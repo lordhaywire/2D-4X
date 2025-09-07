@@ -10,33 +10,36 @@ public class Diplomacy
         return factionData.diplomacyMatrices[otherFactionData.factionId].AtWar;
     }
     
-    public void DeclareWar(War war)
+    public static void CreateWar(FactionData aggressorFactionData, FactionData defenderFactionData)
     {
-        FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(Globals.Instance
-            .selectedRightClickCounty.countyData
-            .factionId);
-        //GD.Print($"{war.aggressorFactionData.factionName} has declared war on {war.defenderFactionData.factionName}.");
+        War war = new()
+        {
+            aggressorFactionData = aggressorFactionData,
+            defenderFactionData = defenderFactionData
+        };
+        
+        aggressorFactionData.diplomacyMatrices[war.defenderFactionData.factionId].AtWar = true;
+        defenderFactionData.diplomacyMatrices[war.aggressorFactionData.factionId].AtWar = true;
+        // Add the wars to the factions so they know what wars they are in.
+        aggressorFactionData.wars.Add(war);
+        defenderFactionData.wars.Add(war);
+        
+        GD.Print($"{war.aggressorFactionData.factionName} has declared war on {war.defenderFactionData.factionName}.");
         EventLog.Instance.AddLog($"{war.aggressorFactionData.factionName} {TranslationServer.Translate("PHRASE_HAS_DECLARED_WAR")} {war.defenderFactionData.factionName}.");
-        factionData.diplomacy.RespondToDeclarationOfWar(war);
+        
+        RespondToDeclarationOfWar(war);
     }
 
-    public void DeclareWarConfirmation(CountyData countyData)
+    public static void EndWar(FactionData aggressorFactionData, FactionData defenderFactionData)
     {
-        DeclareWarControl.Instance.Show();
-        FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(countyData.factionId);
-        DeclareWarControl.Instance.declareWarTitleLabel.Text
-            = $"{TranslationServer.Translate("PHRASE_DECLARE_WAR_CONFIRMATION")} {factionData.factionName}";
+        
     }
-
-    public void RespondToDeclarationOfWar(War war)
+    
+    private static void RespondToDeclarationOfWar(War war)
     {
         GD.Print($"{war.defenderFactionData.factionName} is responding to the declaration of war.");
+        //Todo DefenderSpawnArmies();
 
-        war.aggressorFactionData.diplomacyMatrices[war.defenderFactionData.factionId].AtWar = true;
-        war.defenderFactionData.diplomacyMatrices[war.aggressorFactionData.factionId].AtWar = true;
-        // Add the wars to the factions so they know what wars they are in.
-        war.aggressorFactionData.wars.Add(war);
-        war.defenderFactionData.wars.Add(war);
     }
 
     public void DefenderSpawnArmies(County battleLocation)
@@ -146,5 +149,14 @@ public class Diplomacy
         return null;
             */
     }
+    /*
+    public void DeclareWarConfirmation(CountyData countyData)
+    {
+        DeclareWarControl.Instance.Show();
+        FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(countyData.factionId);
+        DeclareWarControl.Instance.declareWarTitleLabel.Text
+            = $"{TranslationServer.Translate("PHRASE_DECLARE_WAR_CONFIRMATION")} {factionData.factionName}";
+    }
+    */
 
 }

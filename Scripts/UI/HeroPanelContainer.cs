@@ -361,7 +361,7 @@ public partial class HeroPanelContainer : PanelContainer
         else
         {
             TokenSpawner.Unspawn(Globals.Instance.SelectedLeftClickCounty, populationData);
-            GD.Print("Else Toggled: " + spawnHeroButton.ButtonPressed);
+            GD.Print("Unspawn else Toggled: " + spawnHeroButton.ButtonPressed);
         }
     }
 

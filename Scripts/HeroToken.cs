@@ -54,15 +54,15 @@ public partial class HeroToken : CharacterBody2D
             if (value)
             {
                 //GD.Print("Token County Population? " + populationData.firstName);
-                sprite.Texture = selectedTexture;
                 if (Globals.Instance.SelectedCountyPopulation != null &&
                     populationData != Globals.Instance.SelectedCountyPopulation)
                 {
-                    HeroToken currentSelectToken = Globals.Instance.SelectedCountyPopulation.heroToken;
-                    //GD.PrintRich("[rainbow]Current Select Token Value True: " + currentSelectToken.Name);
-                    currentSelectToken.IsSelected = false;
+                    GD.PrintRich("[rainbow]Current Select Token Value True: " +
+                                 Globals.Instance.SelectedCountyPopulation.heroToken.Name);
+                    Globals.Instance.SelectedCountyPopulation.heroToken.IsSelected = false;
                 }
 
+                sprite.Texture = selectedTexture;
                 Globals.Instance.SelectedCountyPopulation = populationData;
                 //GD.Print("Globals Instance County Population: " + Globals.Instance.SelectedCountyPopulation.firstName);
             }
@@ -136,7 +136,8 @@ public partial class HeroToken : CharacterBody2D
         //GD.Print($"Removed {token.populationData.firstName} {token.populationData.factionData.factionName}");
         // Remove populationData from the heroes starting county location list.
         County startingCounty = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
-        FactionData locationFactionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(populationData.factionId);
+        FactionData locationFactionData =
+            SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(populationData.factionId);
 
         // We don't need to check which list the hero is in because C# doesn't give a shit if the hero isn't in the list.
         // So we just try to remove it from both, and it will remove it from the correct one.
@@ -172,9 +173,10 @@ public partial class HeroToken : CharacterBody2D
     public void AddHeroAndSubordinatesToDestinationCounty(County destinationCounty)
     {
         //GD.Print("Add To Destination County " + token.populationData.firstName);
-        FactionData locationFactionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(destinationCounty.countyData.factionId);
+        FactionData locationFactionData =
+            SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(destinationCounty.countyData.factionId);
         populationData.location = destinationCounty.countyData.countyId;
-        
+
         destinationCounty.countyData.spawnedTokenButtons.Add(spawnedTokenButton);
 
         if (populationData.heroSubordinates.Count <= 0 ||

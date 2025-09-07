@@ -154,7 +154,8 @@ namespace PlayerSpace
             else
             {
                 // This needs to be changed to something like, If the faction is at war with the current hero locations faction.
-                if (heroToken.populationData.IsThisAnArmy() == false)
+                if (Diplomacy.IsFactionAtWar(FactionData.GetFactionDataFromId(heroToken.populationData.factionId)
+                        , FactionData.GetFactionDataFromId(destinationCounty.countyData.factionId)))
                 {
                     HeroVisitingCounty();
                     // We will probably need to change this to what the token occupation does.
@@ -169,7 +170,6 @@ namespace PlayerSpace
             }
             
             heroToken.RemoveHeroAndSubordinatesFromStartingCounty(); // Move to Hero Token at some point.
-            
             heroToken.AddHeroAndSubordinatesToDestinationCounty(destinationCounty); // Move to Hero Token at some point.
 
             CountyInfoControl.Instance.UpdateEverything();
@@ -182,14 +182,14 @@ namespace PlayerSpace
         private void HeroReachedEnemyCounty()
         {
             heroToken.spawnedTokenButton.Reparent(destinationCounty.armiesHBox);
-            destinationCounty.countyData.armiesInCountyList.Add(heroToken.populationData);
+            destinationCounty.countyData.visitingHeroList.Add(heroToken.populationData);
             Recruiter.CheckForRecruitingActivity(heroToken.populationData);
         }
 
         private void ArmyAttackingCounty()
         {
             //ArmyVisitingCounty();
-            throw new ArgumentException("ArmyAttackinCounty thinks this is an army.");
+            throw new ArgumentException("ArmyAttackingCounty thinks this is an army.");
             /*
             if (destinationCounty.countyData.armiesInCountyList.Count > 0)
             {

@@ -46,7 +46,6 @@
 [ext_resource type="Texture2D" uid="uid://dmbho3pkucn34" path="res://Graphics/Icons/Top Bar/Scrap.png" id="39_mrqgp"]
 [ext_resource type="Script" uid="uid://gwt26oei4avi" path="res://Scripts/UI/ResearchControl.cs" id="40_t5amt"]
 [ext_resource type="Script" uid="uid://ejvox70h10ew" path="res://Scripts/UI/ResearchDescriptionPanel.cs" id="41_77kvj"]
-[ext_resource type="Script" uid="uid://soiwiq8ymdp7" path="res://Scripts/UI/DeclareWarControl.cs" id="42_g5xi4"]
 [ext_resource type="Script" uid="uid://dau2q6n6oubso" path="res://Scripts/UI/EventLog.cs" id="43_w0p1n"]
 [ext_resource type="PackedScene" uid="uid://bjgv6c8xhn4lo" path="res://Scenes/UI/Event Log Text Panel.tscn" id="44_du832"]
 [ext_resource type="PackedScene" uid="uid://x41vmtlrl1cx" path="res://Scenes/UI/CombatLogTextPanel.tscn" id="44_qsgen"]
@@ -66,6 +65,7 @@
 [ext_resource type="PackedScene" uid="uid://iur3kq10dikl" path="res://Scenes/MapEditor.tscn" id="66_sq6pt"]
 [ext_resource type="Texture2D" uid="uid://eflg2wqpqawn" path="res://Graphics/Icons/Top Bar/Raw Materials Ore.png" id="67_eef1t"]
 [ext_resource type="PackedScene" uid="uid://bhgbnf6lykhb6" path="res://Scenes/UI/PerkLabel.tscn" id="68_6cv3c"]
+[ext_resource type="Script" uid="uid://soiwiq8ymdp7" path="res://Scripts/UI/DeclareWarConfirmationControl.cs" id="71_tt1x2"]
 [ext_resource type="Texture2D" uid="uid://cs6gb8bpwt7xd" path="res://Graphics/yellow-crumpled-lined-paper-background-2022-12-16-00-47-47-utc-scaled.webp" id="76_xlxp7"]
 [ext_resource type="Texture2D" uid="uid://cyphf3703b4qa" path="res://Graphics/Icons/Top Bar/bolter-gun.svg" id="98_qs8v3"]
 [ext_resource type="Script" uid="uid://bsu4do5jsmkcb" path="res://Scripts/OptionsControl.cs" id="104_siwj1"]
@@ -1362,7 +1362,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "WORD_CLOSE"
 
-[node name="Population Description Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("populationName", "leaderTitleButton", "aideTitleButton", "armyLeaderTitleButton", "physicalStrengthLabel", "agilityLabel", "enduranceLabel", "intelligenceLabel", "mentalStrengthLabel", "awarenessLabel", "charismaLabel", "looksLabel", "loyaltyAttributeLabel", "ageLabel", "sexLabel", "perksParent", "skillsGridContainer", "interestLabel", "preferredWorkLabel", "currentActivityLabel", "inventoryAndSubordinatesInventoryVBoxContainer", "inventoryVBoxContainer", "subordinatesVBoxContainer", "newestEquipmentCheckBox", "aideRecruitButton", "armyLeaderRecruitButton", "heroRecruitmentConfirmPanel")]
+[node name="Population Description Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("populationName", "leaderTitleButton", "aideTitleButton", "armyLeaderTitleButton", "physicalStrengthLabel", "agilityLabel", "enduranceLabel", "intelligenceLabel", "mentalStrengthLabel", "awarenessLabel", "charismaLabel", "looksLabel", "loyaltyAttributeLabel", "ageLabel", "sexLabel", "perksParent", "skillsGridContainer", "interestLabel", "preferredWorkLabel", "currentActivityLabel", "inventoryAndSubordinatesInventoryVBoxContainer", "inventoryVBoxContainer", "subordinatesVBoxContainer", "newestEquipmentCheckBox", "aideRecruitButton", "heroRecruitmentConfirmPanel")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -1398,7 +1398,6 @@ inventoryVBoxContainer = NodePath("MarginContainer/PanelContainer/MarginContaine
 subordinatesVBoxContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Subordinates VBoxContainer")
 newestEquipmentCheckBox = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Right VBoxContainer/Inventory and Subordinates VBoxContainer/Inventory and Subordinates HBoxContainer/Inventory VBoxContainer/Newest Equipment CheckBox")
 aideRecruitButton = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/Recruit Aide Button")
-armyLeaderRecruitButton = NodePath("")
 heroRecruitmentConfirmPanel = NodePath("../Recuit Hero Confirmation PanelContainer")
 
 [node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Population Description Control"]
@@ -2707,7 +2706,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "WORD_CLOSE"
 
-[node name="Declare War Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("declareWarPanelContainer", "declareWarTitleLabel")]
+[node name="Declare War Confirmation Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("declareWarConfirmationTitleLabel")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -2715,11 +2714,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("42_g5xi4")
-declareWarPanelContainer = NodePath("Declare War Confirmation PanelContainer")
-declareWarTitleLabel = NodePath("Declare War Confirmation PanelContainer/Title Label")
+script = ExtResource("71_tt1x2")
+declareWarConfirmationTitleLabel = NodePath("Declare War Confirmation PanelContainer/Declare War Confirmation Title Label")
 
-[node name="Declare War Confirmation PanelContainer" type="PanelContainer" parent="Player UI Canvas/Declare War Control"]
+[node name="Declare War Confirmation PanelContainer" type="PanelContainer" parent="Player UI Canvas/Declare War Confirmation Control"]
 custom_minimum_size = Vector2(400, 200)
 layout_mode = 1
 anchors_preset = -1
@@ -2736,26 +2734,26 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Title Label" type="Label" parent="Player UI Canvas/Declare War Control/Declare War Confirmation PanelContainer"]
+[node name="Declare War Confirmation Title Label" type="Label" parent="Player UI Canvas/Declare War Confirmation Control/Declare War Confirmation PanelContainer"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 16
-text = "Do you want to declare war?"
+text = "You should not see this!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Declare War Control/Declare War Confirmation PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Declare War Confirmation Control/Declare War Confirmation PanelContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 alignment = 1
 
-[node name="No Button" type="Button" parent="Player UI Canvas/Declare War Control/Declare War Confirmation PanelContainer/HBoxContainer"]
+[node name="No Button" type="Button" parent="Player UI Canvas/Declare War Confirmation Control/Declare War Confirmation PanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "No"
 
-[node name="Yes Button" type="Button" parent="Player UI Canvas/Declare War Control/Declare War Confirmation PanelContainer/HBoxContainer"]
+[node name="Yes Button" type="Button" parent="Player UI Canvas/Declare War Confirmation Control/Declare War Confirmation PanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "You are a piece of shit!"
@@ -3038,11 +3036,11 @@ process_mode = 3
 [connection signal="button_up" from="Player UI Canvas/Research Control/Close Button" to="Player UI Canvas/Research Control" method="CloseButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Research Description PanelContainer" to="Player UI Canvas/Research Description PanelContainer" method="OnResearchDescriptionPanelVisibilityChanged"]
 [connection signal="button_up" from="Player UI Canvas/Research Description PanelContainer/Close Button" to="Player UI Canvas/Research Control" method="CloseButton"]
-[connection signal="visibility_changed" from="Player UI Canvas/Declare War Control" to="Player UI Canvas/Declare War Control" method="OnVisibilityChanged"]
-[connection signal="mouse_entered" from="Player UI Canvas/Declare War Control/Declare War Confirmation PanelContainer" to="Player UI Canvas" method="OnMouseEnterUI"]
-[connection signal="mouse_exited" from="Player UI Canvas/Declare War Control/Declare War Confirmation PanelContainer" to="Player UI Canvas" method="OnMouseExitUI"]
-[connection signal="pressed" from="Player UI Canvas/Declare War Control/Declare War Confirmation PanelContainer/HBoxContainer/No Button" to="Player UI Canvas/Declare War Control" method="NoButton"]
-[connection signal="pressed" from="Player UI Canvas/Declare War Control/Declare War Confirmation PanelContainer/HBoxContainer/Yes Button" to="Player UI Canvas/Declare War Control" method="YesButton"]
+[connection signal="visibility_changed" from="Player UI Canvas/Declare War Confirmation Control" to="Player UI Canvas/Declare War Confirmation Control" method="OnVisibilityChanged"]
+[connection signal="mouse_entered" from="Player UI Canvas/Declare War Confirmation Control/Declare War Confirmation PanelContainer" to="Player UI Canvas" method="OnMouseEnterUI"]
+[connection signal="mouse_exited" from="Player UI Canvas/Declare War Confirmation Control/Declare War Confirmation PanelContainer" to="Player UI Canvas" method="OnMouseExitUI"]
+[connection signal="pressed" from="Player UI Canvas/Declare War Confirmation Control/Declare War Confirmation PanelContainer/HBoxContainer/No Button" to="Player UI Canvas/Declare War Confirmation Control" method="NoButton"]
+[connection signal="pressed" from="Player UI Canvas/Declare War Confirmation Control/Declare War Confirmation PanelContainer/HBoxContainer/Yes Button" to="Player UI Canvas/Declare War Confirmation Control" method="YesButton"]
 [connection signal="visibility_changed" from="Player UI Canvas/Story Event Control" to="Player UI Canvas/Story Event Control" method="OnVisibilityChanged"]
 [connection signal="mouse_entered" from="Player UI Canvas/Story Event Control/PanelContainer" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="Player UI Canvas/Story Event Control/PanelContainer" to="Game Controller Node/Globals" method="OnMouseExitedUI"]

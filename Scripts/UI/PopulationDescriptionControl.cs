@@ -40,7 +40,6 @@ public partial class PopulationDescriptionControl : Control
     [Export] public SubordinatesVBoxContainer subordinatesVBoxContainer;
     [Export] public CheckBox newestEquipmentCheckBox;
     [Export] private Button aideRecruitButton;
-    [Export] private Button armyLeaderRecruitButton;
     [Export] private RecruitHeroConfirmationPanelContainer heroRecruitmentConfirmPanel;
 
     private readonly List<Label> skillLabelsList = [];
@@ -58,7 +57,6 @@ public partial class PopulationDescriptionControl : Control
     private void ConnectRecruitmentButtonsSignals()
     {
         aideRecruitButton.Pressed += () => OpenConfirmationPanel(false);
-        armyLeaderRecruitButton.Pressed += () => OpenConfirmationPanel(true);
     }
 
     private void OpenConfirmationPanel(bool armyLeaderRecruited)
@@ -129,7 +127,6 @@ public partial class PopulationDescriptionControl : Control
 
         // If the token is moving and doesn't belong to the player's faction, disable the ability to turn
         // it into an Army.
-        CheckForArmyRecruitmentButton(county);
         CheckForAideRecruitmentButton();
 
         CheckForTitles();
@@ -167,7 +164,6 @@ public partial class PopulationDescriptionControl : Control
     {
         if (populationData.activity != AllEnums.Activities.Recruited && populationData.activity != AllEnums.Activities.Service) return;
         aideRecruitButton.Hide();
-        armyLeaderRecruitButton.Hide();
     }
 
     /// <summary>
@@ -260,7 +256,6 @@ public partial class PopulationDescriptionControl : Control
         leaderTitleButton.Disabled = true;
         aideTitleButton.Disabled = true;
         armyLeaderTitleButton.Disabled = true;
-        armyLeaderRecruitButton.Disabled = true;
     }
 
     private void UpdateSkills()

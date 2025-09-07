@@ -18,6 +18,7 @@ public class War
         };
     }
 
+    // ToDo: This needs to be converted in the save.
     public static War FromDto(WarDto dto, Godot.Collections.Array<FactionData> allFactions)
     {
         return new War

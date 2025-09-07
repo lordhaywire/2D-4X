@@ -34,15 +34,15 @@ public partial class FactionData : Resource
     [Export] public Godot.Collections.Array<CountyImprovementData> researchOffices;
 
     // Goods.
-    [ExportGroup("Goods")] [Export]
-    public Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData> factionGoods;
+    [ExportGroup("Goods")] 
+    [Export] public Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData> factionGoods;
 
     [Export] public Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData> yesterdaysFactionGoods;
     [Export] public Godot.Collections.Dictionary<AllEnums.FactionGoodType, GoodData> amountUsedFactionGoods;
 
     public readonly List<War> wars = [];
 
-    public List<DiplomacyMatrix> diplomacyMatrices = [];
+    public readonly List<DiplomacyMatrix> diplomacyMatrices = [];
 
     public FactionDto ToDto()
     {
@@ -54,7 +54,6 @@ public partial class FactionData : Resource
             FactionColor = factionColor.ToHtml(), // Convert Color → Hex string
             FactionStatus = factionStatus.ToString(),
             FactionCapitalCounty = factionCapitalCounty,
-            DiplomacyMatrices = diplomacyMatrices,
         };
 
         foreach (ResearchItemData research in researchItems)
