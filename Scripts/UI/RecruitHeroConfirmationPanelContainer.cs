@@ -18,61 +18,17 @@ public partial class RecruitHeroConfirmationPanelContainer : PanelContainer
                               $"{PopulationDescriptionControl.Instance.populationData.lastName}";
         }
     }
-
-    /// <summary>
-    /// armyLeaderRecruited is getting populated by RecruitHeroButton script.
-    /// </summary>
+    
     private void YesButton()
     {
         PopulationData populationData = PopulationDescriptionControl.Instance.populationData;
-        CountyData countyData = Globals.Instance.GetCountyDataFromLocationId(populationData.location);
+        populationData.ConvertPopulationToAide();
 
-        // If the population isn't a hero already then it removes it from the population list and the player gets
-        // charged for the hero.
-        CheckIfPopulationIsHero(countyData, populationData);
-
-        FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(countyData.factionId);
-        if (armyLeaderRecruited == false)
-        {
-            populationData.isHero = true;
-            populationData.HeroType = AllEnums.HeroType.Aide;
-            countyData.heroesInCountyList.Add(populationData);
-            factionData.AddHeroToAllHeroesDictionary(populationData);
-        }
-        else
-        {
-            throw new ArgumentException("YesButton: YesButton thinks you are trying to hire an army leader.");
-        }
-
-        // This is set again to update the sprite textures;
-        // Why is there a null check here?  Does this sometimes not have a token?
-        if (populationData.heroToken != null)
-        {
-            AllTokenTextures.Instance.AssignTokenTextures(populationData.heroToken);
-            populationData.heroToken.UpdateSpriteTexture();
-            populationData.heroToken.spawnedTokenButton.UpdateButtonIcon();
-        }
-
-        MakePopulationIdle(populationData);
         PopulationDescriptionControl.Instance.UpdateDescriptionInfo();
         CountyInfoControl.Instance.GenerateHeroesPanelList();
 
         TopBarControl.Instance.UpdateTopBarGoodLabels();
         Hide();
-    }
-
-    private void CheckIfPopulationIsHero(CountyData countyData, PopulationData populationData)
-    {
-        if (populationData.isHero != false) return;
-        Banker.ChargeForHero(Autoload.Instance.playerFactionData);
-        countyData.populationDataList.Remove(populationData);
-        populationData.isHero = true;
-    }
-
-    private void MakePopulationIdle(PopulationData populationData)
-    {
-        populationData.RemoveFromCountyImprovement();
-        // I don't think we need to remove them from research or scavenging.  I think.
     }
 
     private void NoButton()

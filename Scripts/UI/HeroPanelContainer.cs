@@ -360,8 +360,16 @@ public partial class HeroPanelContainer : PanelContainer
         }
         else
         {
-            TokenSpawner.Unspawn(Globals.Instance.SelectedLeftClickCounty, populationData);
-            GD.Print("Unspawn else Toggled: " + spawnHeroButton.ButtonPressed);
+            if (!Recruiter.CheckIfRecruiting(populationData))
+            {
+                TokenSpawner.Unspawn(Globals.Instance.SelectedLeftClickCounty, populationData);
+                GD.Print("Unspawn else Toggled: " + spawnHeroButton.ButtonPressed);
+            }
+            else
+            {
+                spawnHeroButton.TooltipText = Tr("PHRASE_HERO_IS_RECRUITING");
+                spawnHeroButton.ButtonPressed = true;
+            }
         }
     }
 

@@ -86,17 +86,18 @@ public partial class PopulationDescriptionControl : Control
         {
             if (heroButtonClicked)
             {
-                CountyInfoControl.Instance.DisableSpawnHeroCheckButton(false);
-                heroRecruitmentConfirmPanel.Hide();
                 PlayerControls.Instance.AdjustPlayerControls(true);
             }
             else
             {
-                CountyInfoControl.Instance.DisableSpawnHeroCheckButton(false);
-                heroRecruitmentConfirmPanel.Hide();
                 PlayerUICanvas.Instance.populationListUIElement.Show();
             }
 
+            CountyInfoControl.Instance.DisableSpawnHeroCheckButton(false);
+            heroRecruitmentConfirmPanel.Hide();
+
+            DoesTheHeroNeedSpawning();
+            
             Clock.Instance.UnpauseTime();
 
             heroButtonClicked = false;
@@ -105,6 +106,16 @@ public partial class PopulationDescriptionControl : Control
         CountyInfoControl.Instance.UpdateEverything();
     }
 
+    private void DoesTheHeroNeedSpawning()
+    {
+        if (Recruiter.CheckIfRecruiting(populationData))
+        {
+            if (populationData.heroToken == null)
+            {
+                TokenSpawner.Spawn(Globals.Instance.GetCountyDataFromLocationId(populationData.location).countyNode, populationData);
+            }
+        }
+    }
 
 
     public void UpdateDescriptionInfo()

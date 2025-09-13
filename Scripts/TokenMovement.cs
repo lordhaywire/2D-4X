@@ -67,12 +67,13 @@ namespace PlayerSpace
 
             //GD.Print("Destination Global Position: " + destinationCounty.heroSpawn.GlobalPosition);
             target = destinationCounty.heroSpawn.GlobalPosition;
-            CheckForDefenders();
+            //CheckForDefenders();
             CheckIfRetreating();
 
             MoveToken = true;
         }
 
+        /*
         private void CheckForDefenders()
         {
             County selectCounty = (County)Globals.Instance.countiesParent.GetChild(heroToken.populationData.destination);
@@ -80,15 +81,15 @@ namespace PlayerSpace
             FactionData selectedFactionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(selectCounty.countyData.factionId);
             if (Diplomacy.IsFactionAtWar(heroFactionData, selectedFactionData) && DefenderOnTheWay() == false)
             {
-                selectedFactionData.diplomacy.DefenderSpawnArmies(destinationCounty);
-                EventLog.Instance.AddLog($"{selectedFactionData.factionName}" +
-                                         $" is raising armies at {selectCounty.countyData.countyName}!");
+                Diplomacy.CheckForAndSpawnDefendingHero(destinationCounty);
+
             }
             else
             {
                 GD.Print("Checking for Defenders - Defender on the way, or not at war.");
             }
         }
+        */
 
         private bool DefenderOnTheWay()
         {
@@ -104,7 +105,7 @@ namespace PlayerSpace
                 GD.Print("Hero on the way is: " + populationData.firstName);
                 return true;
             }
-
+            GD.Print("Hero NOT on the way.");
             return false;
         }
 
@@ -183,15 +184,14 @@ namespace PlayerSpace
         {
             heroToken.spawnedTokenButton.Reparent(destinationCounty.armiesHBox);
             destinationCounty.countyData.visitingHeroList.Add(heroToken.populationData);
-            Recruiter.CheckForRecruitingActivity(heroToken.populationData);
+            Recruiter.UpdateRecruitingActivity(heroToken.populationData);
         }
 
         private void ArmyAttackingCounty()
         {
-            //ArmyVisitingCounty();
-            throw new ArgumentException("ArmyAttackingCounty thinks this is an army.");
-            /*
-            if (destinationCounty.countyData.armiesInCountyList.Count > 0)
+            ArmyVisitingEnemyCounty();
+            
+            if (destinationCounty.countyData.heroesInCountyList.Count > 0)
             {
                 Battle battle = new(destinationCounty.countyData);
                 destinationCounty.countyData.battles.Add(battle);
@@ -203,14 +203,19 @@ namespace PlayerSpace
                 CountyDictator.Instance.CaptureCounty(heroToken.populationData.destination,
                     factionData);
             }
-            */
+            
         }
 
+        private void ArmyVisitingEnemyCounty()
+        {
+            heroToken.spawnedTokenButton.Reparent(destinationCounty.armiesHBox);
+            destinationCounty.countyData.visitingArmyList.Add(heroToken.populationData);
+        }
         private void HeroReachedNeutralCounty()
         {
             heroToken.spawnedTokenButton.Reparent(destinationCounty.heroesHBox);
             destinationCounty.countyData.heroesInCountyList.Add(heroToken.populationData);
-            Recruiter.CheckForRecruitingActivity(heroToken.populationData);
+            Recruiter.UpdateRecruitingActivity(heroToken.populationData);
         }
 
         private void HeroVisitingCounty()
@@ -219,12 +224,8 @@ namespace PlayerSpace
             destinationCounty.countyData.visitingHeroList.Add(heroToken.populationData);
         }
 
-        /*
-        private void ArmyVisitingCounty()
-        {
-            heroToken.spawnedTokenButton.Reparent(destinationCounty.armiesHBox);
-            destinationCounty.countyData.visitingArmyList.Add(heroToken.populationData);
-        }
-        */
+        
+
+        
     }
 }

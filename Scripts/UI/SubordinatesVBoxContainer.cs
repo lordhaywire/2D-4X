@@ -25,7 +25,7 @@ public partial class SubordinatesVBoxContainer : VBoxContainer
     {
         populationData.numberOfSubordinatesWanted = (int)value;
         GD.Print("Number of Subordinates Wanted: " + populationData.numberOfSubordinatesWanted);
-        Recruiter.CheckForRecruitingActivity(populationData);
+        Recruiter.UpdateRecruitingActivity(populationData);
         PopulationDescriptionControl.Instance.UpdateDescriptionInfo();
     }
 

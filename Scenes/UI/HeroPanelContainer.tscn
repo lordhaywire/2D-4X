@@ -15,7 +15,6 @@
 
 [node name="Hero PanelContainer" type="PanelContainer" node_paths=PackedStringArray("factionLeaderTextureRect", "aideTextureRect", "armyLeaderTextureRect", "heroNameLabel", "heroDescriptionButton", "spawnHeroButton", "primaryActivitiesHBoxContainer", "secondaryActivitiesHBoxContainer", "movementActivityHBoxContainer")]
 custom_minimum_size = Vector2(300, 50)
-anchors_preset = -1
 offset_right = 300.0
 offset_bottom = 100.0
 size_flags_vertical = 0

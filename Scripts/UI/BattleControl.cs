@@ -35,13 +35,12 @@ public partial class BattleControl : Control
 
     public void StartBattle(Battle currentBattle)
     {
-        //GD.Print("Start Battle.");
-        throw new ArgumentException("StartBattle needs an army list.");
+        GD.Print("Start Battle.");
 
         battle = currentBattle;
         County selectCounty = (County)GetParent().GetParent();
 
-        /*
+        
         // How could any of the token's ever be equal to null?
         // Attackers Army
         foreach (PopulationData attackerCountyPopulation in selectCounty.countyData.visitingArmyList)
@@ -58,7 +57,7 @@ public partial class BattleControl : Control
         }
 
         // Defenders Army
-        foreach (PopulationData defenderCountyPopulation in selectCounty.countyData.armiesInCountyList)
+        foreach (PopulationData defenderCountyPopulation in selectCounty.countyData.heroesInCountyList)
         {
             if (defenderCountyPopulation.heroToken != null)
             {
@@ -70,7 +69,7 @@ public partial class BattleControl : Control
                 break;
             }
         }
-        */
+        
         Show();
         SubscribeToHourChange();
     }
@@ -82,7 +81,7 @@ public partial class BattleControl : Control
 
     private void HourlyBattleInCounty()
     {
-        //GD.Print("Hourly Battle.");
+        GD.Print("Hourly Battle.");
         // County defender attacks county attacker.
         Attack(countyAttackerSelectToken.populationData, countyDefendersSelectToken.populationData, false);
 

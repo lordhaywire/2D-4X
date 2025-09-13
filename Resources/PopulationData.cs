@@ -20,13 +20,13 @@ public partial class PopulationData : Resource
     [Export] public bool isMale;
     [Export] public int age;
 
-    [ExportGroup("Personality")] 
-    [Export] public AllEnums.Personality personality;
+    [ExportGroup("Personality")] [Export] public AllEnums.Personality personality;
     public IPersonality iPersonality;
 
     [ExportGroup("Hero")]
     // Change this to an enum
-    [Export] public bool isHero;
+    [Export]
+    public bool isHero;
 
     [Export] private AllEnums.HeroType heroType;
 
@@ -112,6 +112,48 @@ public partial class PopulationData : Resource
 
     public HeroToken heroToken;
 
+    public void ConvertPopulationToAide()
+    {
+        PopulationData populationData = this;
+        CountyData countyData = Globals.Instance.GetCountyDataFromLocationId(populationData.location);
+
+        // If the population isn't a hero already then it removes it from the population list and the player gets
+        // charged for the hero.
+        CheckIfPopulationIsHero(countyData, populationData);
+
+        FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(countyData.factionId);
+
+        populationData.isHero = true;
+        populationData.HeroType = AllEnums.HeroType.Aide;
+        countyData.heroesInCountyList.Add(populationData);
+        factionData.AddHeroToAllHeroesDictionary(populationData);
+
+
+        // This is set again to update the sprite textures;
+        // Why is there a null check here?  Does this sometimes not have a token?
+        if (populationData.heroToken != null)
+        {
+            AllTokenTextures.Instance.AssignTokenTextures(populationData.heroToken);
+            populationData.heroToken.UpdateSpriteTexture();
+            populationData.heroToken.spawnedTokenButton.UpdateButtonIcon();
+        }
+
+        MakePopulationIdle(populationData);
+    }
+
+    private void MakePopulationIdle(PopulationData populationData)
+    {
+        populationData.RemoveFromCountyImprovement();
+        // I don't think we need to remove them from research or scavenging.  I think.
+    }
+    
+    private void CheckIfPopulationIsHero(CountyData countyData, PopulationData populationData)
+    {
+        if (populationData.isHero) return;
+        Banker.ChargeForHero(Autoload.Instance.playerFactionData);
+        countyData.populationDataList.Remove(populationData);
+        populationData.isHero = true;
+    }
     public PopulationDto ToDto()
     {
         // ✅ Convert Inventory (Dictionary<InventorySlot, GoodData>) → Dictionary<InventorySlot, GoodDto>
@@ -359,7 +401,8 @@ public partial class PopulationData : Resource
         return populationData;
     }
 
-    public static PopulationData ReturnPopulationDataFromPopulationId(Godot.Collections.Array<PopulationData> populationList, int populationId)
+    public static PopulationData ReturnPopulationDataFromPopulationId(
+        Godot.Collections.Array<PopulationData> populationList, int populationId)
     {
         foreach (PopulationData populationData in populationList)
         {

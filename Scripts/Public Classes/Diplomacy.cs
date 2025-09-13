@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 namespace PlayerSpace;
@@ -9,7 +11,7 @@ public class Diplomacy
     {
         return factionData.diplomacyMatrices[otherFactionData.factionId].AtWar;
     }
-    
+
     public static void CreateWar(FactionData aggressorFactionData, FactionData defenderFactionData)
     {
         War war = new()
@@ -17,146 +19,147 @@ public class Diplomacy
             aggressorFactionData = aggressorFactionData,
             defenderFactionData = defenderFactionData
         };
-        
+
         aggressorFactionData.diplomacyMatrices[war.defenderFactionData.factionId].AtWar = true;
         defenderFactionData.diplomacyMatrices[war.aggressorFactionData.factionId].AtWar = true;
         // Add the wars to the factions so they know what wars they are in.
         aggressorFactionData.wars.Add(war);
         defenderFactionData.wars.Add(war);
-        
+
         GD.Print($"{war.aggressorFactionData.factionName} has declared war on {war.defenderFactionData.factionName}.");
-        EventLog.Instance.AddLog($"{war.aggressorFactionData.factionName} {TranslationServer.Translate("PHRASE_HAS_DECLARED_WAR")} {war.defenderFactionData.factionName}.");
-        
+        EventLog.Instance.AddLog(
+            $"{war.aggressorFactionData.factionName} {TranslationServer.Translate("PHRASE_HAS_DECLARED_WAR")} {war.defenderFactionData.factionName}.");
+
         RespondToDeclarationOfWar(war);
     }
 
     public static void EndWar(FactionData aggressorFactionData, FactionData defenderFactionData)
     {
-        
     }
-    
+
     private static void RespondToDeclarationOfWar(War war)
     {
         GD.Print($"{war.defenderFactionData.factionName} is responding to the declaration of war.");
-        //Todo DefenderSpawnArmies();
-
-    }
-
-    public void DefenderSpawnArmies(County battleLocation)
-    {
-        PopulationData defenderHero = CheckForArmies(battleLocation);
-        if (defenderHero != null)
+        foreach (CountyData countyData in war.defenderFactionData.countiesFactionOwns)
         {
-            // Defender's faction data.
-            TokenSpawner.Spawn(battleLocation, defenderHero);
-        }
-        else
-        {
-            //GD.Print("Defender Spawn Armies - Defender Hero is null");
+            CheckForAndSpawnDefendingHeroes(countyData.countyNode);
+            EventLog.Instance.AddLog($"{war.defenderFactionData.factionName}" +
+                                     $" is raising armies at {countyData.countyName}!");
         }
     }
 
-    public static PopulationData CheckForArmies(County battleLocation)
+    /// <summary>
+    /// We need them to spawn closest to the enemy armies first.
+    /// </summary>
+    /// <param name="battleLocation"></param>
+    private static void CheckForAndSpawnDefendingHeroes(County battleLocation)
     {
-        // Checks for spawned armies.  If there is one, then it returns null, otherwise it spawns one.
-        //GD.Print("Defending Army List Count: " + battleLocation.countyData.armiesInCountyList.Count());
-        throw new ArgumentException("CheckForArmies is commented out!!!!!");
-        /*
-        if(battleLocation.countyData.armiesInCountyList.Count > 0)
+        GD.Print("Defending Heroes List Count: " + battleLocation.countyData.heroesInCountyList.Count);
+
+        // If the faction doesn't have the influence to hire a hero, then just get the fuck out of this method.
+        FactionData factionData =
+            SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(battleLocation.countyData
+                .factionId);
+        if (factionData.factionGoods[AllEnums.FactionGoodType.Influence].Amount
+            < Globals.Instance.costOfHero)
         {
-            foreach(PopulationData populationData in battleLocation.countyData.armiesInCountyList)
+            return;
+        }
+
+        List<PopulationData> possibleDefenders = [];
+
+        foreach (PopulationData possibleDefender in battleLocation.countyData.heroesInCountyList)
+        {
+            if (possibleDefender.LoyaltyAdjusted > Globals.Instance.loyaltyCheckNumber)
             {
-                if(populationData.heroToken != null)
+                possibleDefenders.Add(possibleDefender);
+            }
+            else
+            {
+                // Make the low loyalty heroes flee the county.
+            }
+
+            if (possibleDefenders.Count > 0)
+            {
+                // Order the possbileDefenders list by highest cool and rifle skill.
+                possibleDefenders =
+                [
+                    .. possibleDefenders.OrderByDescending(populationData
+                            => populationData.skills[AllEnums.Skills.Cool].skillLevel)
+                        .ThenByDescending(populationData
+                            => populationData.skills[AllEnums.Skills.Rifle].skillLevel)
+                ];
+
+                if (possibleDefenders[0]?.heroToken == null)
                 {
-                    return null;
-                }
-                else
-                {
-                    return populationData;
+                    TokenSpawner.Spawn(
+                        Globals.Instance.GetCountyDataFromLocationId(possibleDefenders[0].location).countyNode,
+                        possibleDefenders[0]);
+                    // Have the hero start recruiting max suboridinates, and equip best equipment?  Maybe equipment should be set by the AI personality.
+                    return;
                 }
             }
-        }
-        
-        //GD.Print("Defending Hero List Count: " + battleLocation.countyData.herosInCountyList.Count());
-        if (battleLocation.countyData.heroesInCountyList.Count > 0)
-        {
-            foreach (PopulationData populationData in battleLocation.countyData.heroesInCountyList)
+            else
             {
-                if (populationData.HeroType == AllEnums.HeroType.FactionLeader)
+                if (battleLocation.countyData.populationDataList.Count == 0)
+                    return;
+
+                PopulationData highestLoyaltyPopulation = battleLocation.countyData.populationDataList
+                    .OrderByDescending(p => p.LoyaltyAdjusted)
+                    .First();
+                highestLoyaltyPopulation.ConvertPopulationToAide();
+            }
+
+
+            GD.Print("Defending Hero List Count: " + battleLocation.countyData.heroesInCountyList.Count);
+            if (battleLocation.countyData.heroesInCountyList.Count > 0)
+            {
+                foreach (PopulationData populationData in battleLocation.countyData.heroesInCountyList)
                 {
-                    populationData.ChangeToArmy();
-                    return populationData;
-                }
-                else
-                {
-                    if (populationData.LoyaltyAdjusted > Globals.Instance.loyaltyCheckNumber)
+                    if (populationData.HeroType == AllEnums.HeroType.FactionLeader)
                     {
                         populationData.ChangeToArmy();
                         return populationData;
                     }
                     else
                     {
-                        // This is wrong.  We need to make it check then rest of the population if there are no loyal heroes.
-                        //GD.Print("No loyal heroes in county for defense.");
-                        return null;
+                        if (populationData.LoyaltyAdjusted > Globals.Instance.loyaltyCheckNumber)
+                        {
+                            populationData.ChangeToArmy();
+                            return populationData;
+                        }
+                        else
+                        {
+                            // This is wrong.  We need to make it check then rest of the population if there are no loyal heroes.
+                            //GD.Print("No loyal heroes in county for defense.");
+                            return null;
+                        }
                     }
                 }
             }
-        }
-        else
-        {
-            FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(battleLocation.countyData.factionId);
-            //GD.Print("Defenders Faction Name: " + battleLocation.countyData.factionData.factionName);
-            if (factionData.factionGoods[AllEnums.FactionGoodType.Influence].Amount 
-                >= Globals.Instance.costOfHero)
-            {
-                List<PopulationData> possibleDefenders = [];
-                foreach (PopulationData populationData in battleLocation.countyData.populationDataList)
-                {
-                    if (populationData.LoyaltyAdjusted > Globals.Instance.loyaltyCheckNumber)
-                    {
-                        possibleDefenders.Add(populationData);
-                    }
-                }
 
-                if (possibleDefenders.Count > 0)
-                {
-                    // Order the possbileDefenders list by highest cool and rifle skill.
-                    possibleDefenders = [.. possibleDefenders.OrderByDescending(populationData 
-                        => populationData.skills[AllEnums.Skills.Cool].skillLevel).ThenByDescending(populationData 
-                        => populationData.skills[AllEnums.Skills.Rifle].skillLevel)];
-                    foreach (PopulationData populationData in possibleDefenders)
-                    {
-                        //GD.Print($"{populationData.firstName} {populationData.skills[AllEnums.Skills.Cool].skillLevel} " +
-                        //   $"{populationData.skills[AllEnums.Skills.Rifle].skillLevel}");
-                    }
-                    County selectCounty = (County)Globals.Instance.countiesParent.GetChild(possibleDefenders[0].location);
-                    selectCounty.countyData.heroesInCountyList.Add(possibleDefenders[0]);
-                    possibleDefenders[0].ChangeToArmy();
-                    return possibleDefenders[0];
-                }
-                else
-                {
-                    return null;
-                }
+            else
+            {
             }
+
             else
             {
                 //GD.Print("Not enough influence to hire a hero for defense.");
                 return null;
             }
         }
-        return null;
-            */
-    }
-    /*
-    public void DeclareWarConfirmation(CountyData countyData)
-    {
-        DeclareWarControl.Instance.Show();
-        FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(countyData.factionId);
-        DeclareWarControl.Instance.declareWarTitleLabel.Text
-            = $"{TranslationServer.Translate("PHRASE_DECLARE_WAR_CONFIRMATION")} {factionData.factionName}";
-    }
-    */
 
+        return null;
+        */
+    }
+
+/*
+public void DeclareWarConfirmation(CountyData countyData)
+{
+    DeclareWarControl.Instance.Show();
+    FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(countyData.factionId);
+    DeclareWarControl.Instance.declareWarTitleLabel.Text
+        = $"{TranslationServer.Translate("PHRASE_DECLARE_WAR_CONFIRMATION")} {factionData.factionName}";
+}
+*/
 }

@@ -40,6 +40,7 @@ public partial class CountyData : Resource
     [Export] public Godot.Collections.Array<PopulationData> populationDataList = [];
     [Export] public Godot.Collections.Array<PopulationData> heroesInCountyList = [];
     [Export] public Godot.Collections.Array<PopulationData> visitingHeroList = [];
+    [Export] public Godot.Collections.Array<PopulationData> visitingArmyList = [];
     [Export] public Godot.Collections.Array<PopulationData> deadPeopleList = [];
 
     [ExportGroup("Construction and Work Lists")] 
@@ -161,6 +162,7 @@ public partial class CountyData : Resource
         foreach (PopulationData pop in populationDataList) countyDto.PopulationDataList.Add(pop.ToDto());
         foreach (PopulationData pop in heroesInCountyList) countyDto.HeroesInCountyList.Add(pop.ToDto());
         foreach (PopulationData pop in visitingHeroList) countyDto.VisitingHeroList.Add(pop.ToDto());
+        foreach (PopulationData pop in visitingArmyList) countyDto.VisitingArmyList.Add(pop.ToDto());
         foreach (PopulationData pop in deadPeopleList) countyDto.DeadPeopleList.Add(pop.ToDto());
         foreach (PopulationData pop in heroBuildersList) countyDto.HeroBuildersList.Add(pop.ToDto());
         foreach (PopulationData pop in heroWorkersList) countyDto.HeroWorkersList.Add(pop.ToDto());
@@ -245,6 +247,8 @@ public partial class CountyData : Resource
             countyData.heroesInCountyList.Add(PopulationData.FromDto(pop));
         foreach (PopulationDto pop in countyDto.VisitingHeroList)
             countyData.visitingHeroList.Add(PopulationData.FromDto(pop));
+        foreach (PopulationDto pop in countyDto.VisitingArmyList)
+            countyData.visitingArmyList.Add(PopulationData.FromDto(pop));
         foreach (PopulationDto pop in countyDto.DeadPeopleList)
             countyData.deadPeopleList.Add(PopulationData.FromDto(pop));
         foreach (PopulationDto pop in countyDto.HeroBuildersList)

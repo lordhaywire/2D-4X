@@ -49,6 +49,14 @@ public static class Recruiter
         }
     }
 
+    /// <summary>
+    /// Check if the hero is recruiting, and if they are recruiting then spawn the hero token.
+    /// </summary>
+    public static bool CheckIfRecruiting(PopulationData populationData)
+    {
+        return populationData.activity == AllEnums.Activities.Recruit;
+    }
+    
     private static void CheckForRecruitmentFinished(PopulationData populationData)
     {
         if (populationData.activity != AllEnums.Activities.Recruit)
@@ -113,7 +121,7 @@ public static class Recruiter
         // Maybe have some sort of loyalty reduction on each try.
     }
 
-    public static void CheckForRecruitingActivity(PopulationData populationData)
+    public static void UpdateRecruitingActivity(PopulationData populationData)
     {
         GD.Print(
             $"Hero Subordinate Count: {populationData.heroSubordinates.Count} vs {populationData.numberOfSubordinatesWanted}");
