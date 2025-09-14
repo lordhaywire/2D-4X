@@ -11,16 +11,32 @@ public partial class PopulationData : Resource
 {
     [Export] public int populationId;
     [Export] public int factionId;
-    [Export] public int location;
+    [Export] private int location;
+    public int Location
+    {
+        get => location;
+        set
+        {
+            location = value;
+            if (isHero)
+            {
+                FactionData factionData = FactionData.GetFactionDataFromId(factionId);
+                factionData.allHeroesDictionary[populationId] = location;
+            }
+        }
+    }
+
     [Export] public int lastLocation;
     [Export] public int destination;
 
-    [ExportGroup("Info")] [Export] public string firstName;
+    [ExportGroup("Info")] 
+    [Export] public string firstName;
     [Export] public string lastName;
     [Export] public bool isMale;
     [Export] public int age;
 
-    [ExportGroup("Personality")] [Export] public AllEnums.Personality personality;
+    [ExportGroup("Personality")] 
+    [Export] public AllEnums.Personality personality;
     public IPersonality iPersonality;
 
     [ExportGroup("Hero")]
@@ -44,7 +60,7 @@ public partial class PopulationData : Resource
         }
     }
 
-    [Export] public int numberOfSubordinatesWanted;
+    [Export] public int numberOfSubordinatesWanted; // This is the max number of suboridinates that a hero can have.
     [Export] public Godot.Collections.Array<PopulationData> heroSubordinates;
 
     [ExportGroup("Perks")] [Export] public Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks;
@@ -115,7 +131,7 @@ public partial class PopulationData : Resource
     public void ConvertPopulationToAide()
     {
         PopulationData populationData = this;
-        CountyData countyData = Globals.Instance.GetCountyDataFromLocationId(populationData.location);
+        CountyData countyData = Globals.Instance.GetCountyDataFromLocationId(populationData.Location);
 
         // If the population isn't a hero already then it removes it from the population list and the player gets
         // charged for the hero.
@@ -170,7 +186,7 @@ public partial class PopulationData : Resource
         {
             PopulationId = populationId,
             FactionId = factionId,
-            Location = location,
+            Location = Location,
             LastLocation = lastLocation,
             Destination = destination,
 
@@ -231,7 +247,7 @@ public partial class PopulationData : Resource
         // Basic info
         populationData.populationId = populationDto.PopulationId;
         populationData.factionId = populationDto.FactionId;
-        populationData.location = populationDto.Location;
+        populationData.Location = populationDto.Location;
         populationData.lastLocation = populationDto.LastLocation;
         populationData.destination = populationDto.Destination;
         populationData.firstName = populationDto.FirstName;
@@ -260,7 +276,7 @@ public partial class PopulationData : Resource
         populationData.heroSubordinates = new Godot.Collections.Array<PopulationData>();
         foreach (int subId in populationDto.HeroSubordinates)
         {
-            PopulationData subordinate = SaveManager.Instance.saveGameData.allCountyDataList[populationData.location]
+            PopulationData subordinate = SaveManager.Instance.saveGameData.allCountyDataList[populationData.Location]
                 .populationDataList
                 .FirstOrDefault(p => p.populationId == subId);
 

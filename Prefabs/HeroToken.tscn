@@ -7,12 +7,12 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kukrp"]
 size = Vector2(45, 45)
 
-[node name="HeroToken" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "tokenNameLabel", "tokenMovement")]
-visible = false
+[node name="HeroToken" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "tokenControl", "tokenNameLabel", "tokenMovement")]
 z_index = 15
 input_pickable = true
 script = ExtResource("1_ncr34")
 sprite = NodePath("Sprite2D")
+tokenControl = NodePath("Token Control")
 tokenNameLabel = NodePath("Token Control/Name Control/Name Label")
 tokenMovement = NodePath("Token Movement")
 

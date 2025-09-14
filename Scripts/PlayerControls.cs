@@ -93,7 +93,7 @@ public partial class PlayerControls : StaticBody2D
                             {
                                 County moveToSelectCounty
                                     = (County)Globals.Instance.countiesParent.GetChild(Globals.Instance
-                                        .SelectedCountyPopulation.location);
+                                        .SelectedCountyPopulation.Location);
                                 //GD.PrintRich("[rainbow]Are we ever even hitting this?" + moveToSelectCounty.countyData.countyId);
                                 MoveSelectedToken(moveToSelectCounty.countyData);
                             }

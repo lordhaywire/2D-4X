@@ -86,7 +86,7 @@ public partial class PopulationGeneration : Node
                 {
                     populationId = SaveManager.Instance.saveGameData.currentPopulationId,
                     factionId = currentCountyData.factionId,
-                    location = currentCountyData.countyId,
+                    Location = currentCountyData.countyId,
                     lastLocation = -1,
                     destination = -1,
                     firstName = firstName,
@@ -129,7 +129,7 @@ public partial class PopulationGeneration : Node
                 {
                     populationId = SaveManager.Instance.saveGameData.currentPopulationId,
                     factionId = currentCountyData.factionId,
-                    location = currentCountyData.countyId,
+                    Location = currentCountyData.countyId,
                     lastLocation = -1,
                     destination = -1,
                     firstName = firstName,

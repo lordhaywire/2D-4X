@@ -172,7 +172,7 @@ public class PopulationWorkEnd
         populationData.currentCountyImprovement.allDailyWorkAmountAtImprovementCompleted
             += GenerateWorkAmountWithSkillCheck(populationData);
         
-        GD.Print($"{populationData.location}: " +
+        GD.Print($"{populationData.Location}: " +
             $"{populationData.currentCountyImprovement.improvementName}: " +
             $"All Daily {populationData.activity} Amount At Improvement Completed: "
             + populationData.currentCountyImprovement.allDailyWorkAmountAtImprovementCompleted);

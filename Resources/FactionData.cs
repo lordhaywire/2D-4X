@@ -74,7 +74,7 @@ public partial class FactionData : Resource
 		}
 
 		if (factionLeader != null)
-			factionDto.FactionLeader = (factionLeader.populationId, factionLeader.location);
+			factionDto.FactionLeader = (factionLeader.populationId, factionLeader.Location);
 
 		foreach (CountyImprovementData improvement in allFactionKnownCountyImprovements)
 			factionDto.AllCountyImprovements.Add(improvement.improvementName);
@@ -258,7 +258,7 @@ public partial class FactionData : Resource
 		if (!allHeroesDictionary.ContainsKey(populationData.populationId))
 		{
 			FactionData factionData = GetFactionDataFromId(populationData.factionId);
-			factionData.allHeroesDictionary[populationData.populationId] = populationData.location;
+			factionData.allHeroesDictionary[populationData.populationId] = populationData.Location;
 		}
 
 		GD.Print($"{populationData.firstName} has been added to {factionName} all heroes list.");

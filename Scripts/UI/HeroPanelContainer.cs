@@ -37,7 +37,7 @@ public partial class HeroPanelContainer : PanelContainer
 
     private void PopulateHeroPanel()
     {
-        CountyData locationCountyData = Globals.Instance.GetCountyDataFromLocationId(populationData.location);
+        CountyData locationCountyData = Globals.Instance.GetCountyDataFromLocationId(populationData.Location);
 
         // This needs to be up here because we are fucking with the spawnHeroButton below.
         SetDefaultUi();
@@ -62,7 +62,7 @@ public partial class HeroPanelContainer : PanelContainer
     // Currently, we are just making it so that the heroes Activities boxes are hidden.
     private void CheckForHeroLocationAndFaction()
     {
-        CountyData locationCountyData = Globals.Instance.GetCountyDataFromLocationId(populationData.location);
+        CountyData locationCountyData = Globals.Instance.GetCountyDataFromLocationId(populationData.Location);
         FactionData populationFactionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(populationData.factionId);
         FactionData locationFactionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(locationCountyData.factionId);
 
@@ -306,7 +306,7 @@ public partial class HeroPanelContainer : PanelContainer
     public void ShowMovementActivityHBoxContainer()
     {
         Label movementLabel = (Label)movementActivityHBoxContainer.GetChild(0);
-        CountyData currentLocationCountyData = Globals.Instance.GetCountyDataFromLocationId(populationData.location);
+        CountyData currentLocationCountyData = Globals.Instance.GetCountyDataFromLocationId(populationData.Location);
         CountyData destinationLocationCountyData =
             Globals.Instance.GetCountyDataFromLocationId(populationData.destination);
         movementLabel.Text = currentLocationCountyData != destinationLocationCountyData
@@ -419,7 +419,7 @@ public partial class HeroPanelContainer : PanelContainer
 
     private void AssignBuildingCountyImprovement()
     {
-        County county = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
+        County county = (County)Globals.Instance.countiesParent.GetChild(populationData.Location);
         CountyData countyData = county.countyData;
         // Add the hero to the possible workers list.
         countyData.AddPopulationDataToPossibleWorkersList(populationData);

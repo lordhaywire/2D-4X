@@ -72,7 +72,7 @@ public static class Recruiter
 
     private static void RecruitSubordinates(PopulationData populationData, int numberOfSubordinatesToHire)
     {
-        County county = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
+        County county = (County)Globals.Instance.countiesParent.GetChild(populationData.Location);
         CountyData countyData = county.countyData;
 
         // Filter out those with LoyaltyAdjusted below the threshold if they are already in the list,
@@ -215,7 +215,7 @@ public static class Recruiter
             true, false);
         int leaderOfPeopleBonus = PerkData.GetPerkBonus(populationData, AllEnums.Perks.LeaderOfPeople);
 
-        int maxNumberOfRecruits = Math.Max(0, charismaBonus + leadershipBonus + leaderOfPeopleBonus);
+        int maxNumberOfRecruits = Math.Max(Globals.Instance.minimumNumberOfSubordinates, charismaBonus + leadershipBonus + leaderOfPeopleBonus);
 
         return maxNumberOfRecruits;
     }

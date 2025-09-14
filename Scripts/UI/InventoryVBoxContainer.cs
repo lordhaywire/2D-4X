@@ -79,7 +79,7 @@ public partial class InventoryVBoxContainer : VBoxContainer
     private void NewestEquipmentCheckboxPressed()
     {
         PopulationData populationData = PopulationDescriptionControl.Instance.populationData;
-        CountyData locationCountyData = Globals.Instance.GetCountyDataFromLocationId(populationData.location);
+        CountyData locationCountyData = Globals.Instance.GetCountyDataFromLocationId(populationData.Location);
         FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(locationCountyData.factionId);
 
         GD.Print("Newest Equipment Checkbox has been pressed. " + newestEquipment.ButtonPressed);

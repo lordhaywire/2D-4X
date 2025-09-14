@@ -8,6 +8,7 @@ public partial class HeroToken : CharacterBody2D
 {
     [Export] public PopulationData populationData;
     [Export] public Sprite2D sprite;
+    private Control tokenControl;
 
     [Export] public Texture2D selectedTexture;
     [Export] public Texture2D unselectedTexture;
@@ -79,6 +80,7 @@ public partial class HeroToken : CharacterBody2D
     public override void _Ready()
     {
         tokenMovement.heroToken = this;
+        tokenControl = (Control)GetChild(3);
     }
 
     private void IncreaseMorale()
@@ -107,8 +109,7 @@ public partial class HeroToken : CharacterBody2D
     {
         //GD.Print("Mouse is inside the token.");
         PlayerControls.Instance.stopClickThrough = true;
-        spawnedTokenButton.TooltipText = $"{populationData.firstName} {populationData.lastName} " +
-                                         $"\n Morale: {populationData.moraleExpendable}";
+        tokenControl.TooltipText = Globals.Instance.GenerateHeroTokenAndButtonToolTip(populationData);
     }
 
     private static void OnMouseExit()
@@ -135,7 +136,7 @@ public partial class HeroToken : CharacterBody2D
         //GD.Print($"Removed token from Starting County {token.populationData.firstName} {token.populationData.location}");
         //GD.Print($"Removed {token.populationData.firstName} {token.populationData.factionData.factionName}");
         // Remove populationData from the heroes starting county location list.
-        County startingCounty = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
+        County startingCounty = (County)Globals.Instance.countiesParent.GetChild(populationData.Location);
         FactionData locationFactionData =
             SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(populationData.factionId);
 
@@ -175,7 +176,7 @@ public partial class HeroToken : CharacterBody2D
         //GD.Print("Add To Destination County " + token.populationData.firstName);
         FactionData locationFactionData =
             SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(destinationCounty.countyData.factionId);
-        populationData.location = destinationCounty.countyData.countyId;
+        populationData.Location = destinationCounty.countyData.countyId;
 
         destinationCounty.countyData.spawnedTokenButtons.Add(spawnedTokenButton);
 
@@ -185,7 +186,7 @@ public partial class HeroToken : CharacterBody2D
         foreach (PopulationData person in populationData.heroSubordinates)
         {
             countyData.populationDataList.Add(person);
-            person.location = destinationCounty.countyData.countyId;
+            person.Location = destinationCounty.countyData.countyId;
             person.destination = -1;
         }
     }

@@ -255,6 +255,7 @@ public class AllEnums
                 return null;
         }
     }
+    
     public static T GetRandomEnumValue<T>() where T : Enum
     {
         Array values = Enum.GetValues(typeof(T));

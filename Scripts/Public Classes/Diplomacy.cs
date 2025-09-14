@@ -78,80 +78,50 @@ public class Diplomacy
             {
                 // Make the low loyalty heroes flee the county.
             }
+        }
 
-            if (possibleDefenders.Count > 0)
+        if (possibleDefenders.Count < 1 && battleLocation.countyData.populationDataList.Count > 0)
+        {
+            PopulationData highestLoyaltyPopulation = battleLocation.countyData.populationDataList
+                .Where(p => p.LoyaltyAdjusted > Globals.Instance.loyaltyCheckNumber)
+                .OrderByDescending(p => p.LoyaltyAdjusted)
+                .FirstOrDefault();
+
+            if (highestLoyaltyPopulation != null)
             {
-                // Order the possbileDefenders list by highest cool and rifle skill.
-                possibleDefenders =
-                [
-                    .. possibleDefenders.OrderByDescending(populationData
-                            => populationData.skills[AllEnums.Skills.Cool].skillLevel)
-                        .ThenByDescending(populationData
-                            => populationData.skills[AllEnums.Skills.Rifle].skillLevel)
-                ];
-
-                if (possibleDefenders[0]?.heroToken == null)
-                {
-                    TokenSpawner.Spawn(
-                        Globals.Instance.GetCountyDataFromLocationId(possibleDefenders[0].location).countyNode,
-                        possibleDefenders[0]);
-                    // Have the hero start recruiting max suboridinates, and equip best equipment?  Maybe equipment should be set by the AI personality.
-                    return;
-                }
-            }
-            else
-            {
-                if (battleLocation.countyData.populationDataList.Count == 0)
-                    return;
-
-                PopulationData highestLoyaltyPopulation = battleLocation.countyData.populationDataList
-                    .OrderByDescending(p => p.LoyaltyAdjusted)
-                    .First();
                 highestLoyaltyPopulation.ConvertPopulationToAide();
-            }
-
-
-            GD.Print("Defending Hero List Count: " + battleLocation.countyData.heroesInCountyList.Count);
-            if (battleLocation.countyData.heroesInCountyList.Count > 0)
-            {
-                foreach (PopulationData populationData in battleLocation.countyData.heroesInCountyList)
-                {
-                    if (populationData.HeroType == AllEnums.HeroType.FactionLeader)
-                    {
-                        populationData.ChangeToArmy();
-                        return populationData;
-                    }
-                    else
-                    {
-                        if (populationData.LoyaltyAdjusted > Globals.Instance.loyaltyCheckNumber)
-                        {
-                            populationData.ChangeToArmy();
-                            return populationData;
-                        }
-                        else
-                        {
-                            // This is wrong.  We need to make it check then rest of the population if there are no loyal heroes.
-                            //GD.Print("No loyal heroes in county for defense.");
-                            return null;
-                        }
-                    }
-                }
-            }
-
-            else
-            {
-            }
-
-            else
-            {
-                //GD.Print("Not enough influence to hire a hero for defense.");
-                return null;
+                possibleDefenders.Add(highestLoyaltyPopulation);
             }
         }
 
-        return null;
-        */
+        if (possibleDefenders.Count > 0)
+        {
+            // Order the possbileDefenders list by highest cool and rifle skill.
+            possibleDefenders =
+            [
+                .. possibleDefenders.OrderByDescending(populationData
+                        => populationData.skills[AllEnums.Skills.Cool].skillLevel)
+                    .ThenByDescending(populationData
+                        => populationData.skills[AllEnums.Skills.Rifle].skillLevel)
+            ];
+
+            if (possibleDefenders[0]?.heroToken == null)
+            {
+                TokenSpawner.Spawn(
+                    Globals.Instance.GetCountyDataFromLocationId(possibleDefenders[0].Location).countyNode,
+                    possibleDefenders[0]);
+
+            }
+            
+        }
+
+        if (possibleDefenders.Count > 0)
+        {
+            possibleDefenders[0].numberOfSubordinatesWanted =
+                Recruiter.GetMaxNumberOfRecruits(possibleDefenders[0]);
+        }
     }
+}
 
 /*
 public void DeclareWarConfirmation(CountyData countyData)
@@ -162,4 +132,3 @@ public void DeclareWarConfirmation(CountyData countyData)
         = $"{TranslationServer.Translate("PHRASE_DECLARE_WAR_CONFIRMATION")} {factionData.factionName}";
 }
 */
-}

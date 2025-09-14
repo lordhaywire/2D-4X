@@ -20,7 +20,7 @@ public class TokenSpawner
         AllTokenTextures.Instance.AssignTokenTextures(spawnedToken);
 
         populationData.heroToken = spawnedToken;
-        populationData.location =
+        populationData.Location =
             county.countyData.countyId; // The populationData should have already have the location.
         spawnedToken.Name = $"{populationData.firstName} {populationData.lastName}";
 

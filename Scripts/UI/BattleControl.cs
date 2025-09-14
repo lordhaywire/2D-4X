@@ -30,7 +30,7 @@ public partial class BattleControl : Control
         FactionData factionData =
             SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(countyAttackerSelectToken.populationData
                 .factionId);
-        CountyDictator.Instance.CaptureCounty(countyDefendersSelectToken.populationData.location, factionData);
+        CountyDictator.Instance.CaptureCounty(countyDefendersSelectToken.populationData.Location, factionData);
     }
 
     public void StartBattle(Battle currentBattle)
@@ -153,7 +153,7 @@ public partial class BattleControl : Control
     private void RandomNeighborMove(PopulationData populationData)
     {
         //GD.Print("Random Neighbors Move!");
-        County selectCounty = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
+        County selectCounty = (County)Globals.Instance.countiesParent.GetChild(populationData.Location);
         List<County> countyNeighbors = selectCounty.neighborCounties;
         County destinationCounty = FindFactionOwnedNeighborCounty(countyNeighbors, populationData);
         if (destinationCounty != null)

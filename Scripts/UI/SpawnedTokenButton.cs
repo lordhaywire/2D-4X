@@ -6,7 +6,6 @@ namespace PlayerSpace;
 
 public partial class SpawnedTokenButton : Button
 {
-        
     public PopulationData populationData;
     private HeroToken heroToken;
     public TextureRect tokenIconTextureRect;
@@ -15,6 +14,7 @@ public partial class SpawnedTokenButton : Button
     {
         tokenIconTextureRect = (TextureRect)GetChild(0);
     }
+
     public void UpdateButtonIcon()
     {
         GD.Print("Update Button Icon hero token: " + populationData.heroToken);
@@ -27,8 +27,9 @@ public partial class SpawnedTokenButton : Button
 
     public void OnButtonUp()
     {
-        FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(populationData.factionId);
-        if(Globals.CheckIfPlayerFaction(factionData))
+        FactionData factionData =
+            SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(populationData.factionId);
+        if (Globals.CheckIfPlayerFaction(factionData))
         {
             //GD.Print("You pressed the hero button.");
             heroToken = populationData.heroToken;
@@ -44,25 +45,25 @@ public partial class SpawnedTokenButton : Button
 
     public void UpdateTokenTextures()
     {
-        CountyData countyData = Globals.Instance.GetCountyDataFromLocationId(populationData.location);
-        GD.Print($"County Name: {countyData.countyNode.Name} vs County Population Location {populationData.location}");
+        CountyData countyData = Globals.Instance.GetCountyDataFromLocationId(populationData.Location);
+        GD.Print($"County Name: {countyData.countyNode.Name} vs County Population Location {populationData.Location}");
         GD.Print("County's Spawned Token Buttons List Count: " + countyData.spawnedTokenButtons.Count);
         foreach (SpawnedTokenButton spawnedTokenButton in countyData.spawnedTokenButtons.Cast<SpawnedTokenButton>())
         {
             GD.Print($"Going through buttons {spawnedTokenButton.populationData.firstName}");
             spawnedTokenButton.UpdateButtonIcon();
-            //UpdateToolTip();
         }
     }
 
     // Moved this somewhere else, but may need to put it back here.
     private void UpdateToolTip()
     {
-        TooltipText = $"{heroToken.populationData.firstName} {heroToken.populationData.lastName}";
+        TooltipText = Globals.Instance.GenerateHeroTokenAndButtonToolTip(populationData);
     }
 
-    public static void OnMouseEntered()
+    public void OnMouseEntered()
     {
+        UpdateToolTip();
         PlayerControls.Instance.stopClickThrough = true;
     }
 
@@ -70,5 +71,4 @@ public partial class SpawnedTokenButton : Button
     {
         PlayerControls.Instance.stopClickThrough = false;
     }
-        
 }

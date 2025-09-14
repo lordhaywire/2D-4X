@@ -112,7 +112,7 @@ public partial class PopulationDescriptionControl : Control
         {
             if (populationData.heroToken == null)
             {
-                TokenSpawner.Spawn(Globals.Instance.GetCountyDataFromLocationId(populationData.location).countyNode, populationData);
+                TokenSpawner.Spawn(Globals.Instance.GetCountyDataFromLocationId(populationData.Location).countyNode, populationData);
             }
         }
     }
@@ -128,7 +128,7 @@ public partial class PopulationDescriptionControl : Control
         CountyInfoControl.Instance.DisableSpawnHeroCheckButton(true);
         PlayerControls.Instance
             .AdjustPlayerControls(false); // This was probably happening too fast, which is why it is here.
-        County county = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
+        County county = (County)Globals.Instance.countiesParent.GetChild(populationData.Location);
         //GD.Print("Select County Location: " + populationData.location);
 
         //GD.Print("It goes to the update description: " + person.firstName);

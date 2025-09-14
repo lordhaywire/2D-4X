@@ -25,7 +25,7 @@ public class Quartermaster
     /// <param name="useNewestEquipment"></param>
     private static void EquipPopulation(PopulationData populationData, bool useNewestEquipment)
     {
-        County county = (County)Globals.Instance.countiesParent.GetChild(populationData.location);
+        County county = (County)Globals.Instance.countiesParent.GetChild(populationData.Location);
         CountyData countyData = county.countyData;
 
         for (int i = 1; i <= populationData.inventory.Count; i++)
