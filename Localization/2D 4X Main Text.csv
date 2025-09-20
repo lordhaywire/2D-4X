@@ -372,3 +372,6 @@ PHRASE_DO_YOU_WANT_TO_DECLARE_WAR,Do you want to declare war on {0}?,¿Quieres d
 PHRASE_DO_YOU_WANT_TO_END_WAR,Do you want to end war with {0}?,¿Quieres terminar la guerra con {0}?
 PHRASE_HERO_IS_RECRUITING,Hero is recruiting!,¡El héroe está reclutando!
 PHRASE_AVERAGE_MORALE,Average Morale,Moral promedio
+PHRASE_HAS_ENDED_WAR_WITH,has ended war with,ha terminado la guerra con
+PHRASE_BATTLE_LOG,Battle Log,Registro de batalla
+PHRASE_ATTACK_HAS_HIT,Attack has hit,El ataque ha golpeado

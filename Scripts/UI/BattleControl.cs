@@ -8,6 +8,7 @@ namespace PlayerSpace;
 public partial class BattleControl : Control
 {
     private readonly Random random = new();
+
     [ExportGroup("Tokens")] [Export] public Separator heroSeparator;
     [Export] public Separator armySeparator;
 
@@ -40,7 +41,7 @@ public partial class BattleControl : Control
         battle = currentBattle;
         County selectCounty = (County)GetParent().GetParent();
 
-        
+
         // How could any of the token's ever be equal to null?
         // Attackers Army
         foreach (PopulationData attackerCountyPopulation in selectCounty.countyData.visitingArmyList)
@@ -69,7 +70,7 @@ public partial class BattleControl : Control
                 break;
             }
         }
-        
+
         Show();
         SubscribeToHourChange();
     }
@@ -83,14 +84,26 @@ public partial class BattleControl : Control
     {
         GD.Print("Hourly Battle.");
         // County defender attacks county attacker.
-        Attack(countyAttackerSelectToken.populationData, countyDefendersSelectToken.populationData, false);
-
-        // County attacker attacks county defender.
-        if (Globals.Instance.winAllBattles)
+        foreach (PopulationData populationData in battle.battleLocation.heroesInCountyList)
         {
-            countyAttackerSelectToken.populationData.moraleExpendable = 100; // This is just for testing. Cheat!
+            if (populationData.isWillingToFight)
+            {
+                int randomIndex = random.Next(0, battle.battleLocation.visitingArmyList.Count); 
+                Attack(battle.battleLocation.visitingArmyList[randomIndex], populationData, false);
+            }
         }
-        Attack(countyDefendersSelectToken.populationData, countyAttackerSelectToken.populationData, true);
+
+        foreach (PopulationData populationData in battle.battleLocation.visitingArmyList)
+        {
+            // County attacker attacks county defender.
+            if (Globals.Instance.winAllBattles)
+            {
+                populationData.moraleExpendable = 100; // This is just for testing. Cheat!
+            }
+
+            int randomIndex = random.Next(0, battle.battleLocation.heroesInCountyList.Count); 
+            Attack(battle.battleLocation.heroesInCountyList[randomIndex], populationData, true);
+        }
 
         ContinueBattleCheck();
     }
@@ -136,8 +149,10 @@ public partial class BattleControl : Control
         else
         {
             County selectCounty = (County)Globals.Instance.countiesParent.GetChild(populationData.lastLocation);
-            FactionData selectedFactionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(selectCounty.countyData.factionId);
-            FactionData populationFactionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(populationData.factionId);
+            FactionData selectedFactionData =
+                SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(selectCounty.countyData.factionId);
+            FactionData populationFactionData =
+                SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(populationData.factionId);
             if (selectedFactionData.factionName == populationFactionData.factionName)
             {
                 populationData.heroToken.tokenMovement.StartMove(populationData.lastLocation);
@@ -201,10 +216,15 @@ public partial class BattleControl : Control
     // This is confusing.  Needs a fucking rewrite.
     private void Attack(PopulationData gettingShotAtPopulation, PopulationData shootingPopulation, bool isAttacker)
     {
+        string attackersLog;
+        string defendersLog = "";
+
         int skillLevel = shootingPopulation.skills[AllEnums.Skills.Rifle].skillLevel;
         int attributeLevel = shootingPopulation.attributes[shootingPopulation.skills[AllEnums.Skills.Rifle].attribute]
             .attributeLevel;
         int attributeBonus = AttributeData.GetAttributeBonus(attributeLevel, false, false);
+        FactionData shooterFactionData = FactionData.GetFactionDataFromId(shootingPopulation.factionId);
+        FactionData gettingShotAtFactionData = FactionData.GetFactionDataFromId(gettingShotAtPopulation.factionId);
 
         if (SkillData.CheckWithBonuses(skillLevel, attributeLevel, 0, 0)) // TODO: Perk Bonus
         {
@@ -212,23 +232,34 @@ public partial class BattleControl : Control
             int gettingShotAtAttributeLevel = gettingShotAtPopulation
                 .attributes[gettingShotAtPopulation.skills[AllEnums.Skills.Cool].attribute].attributeLevel;
             int gettingShotAtAttributeBonus = AttributeData.GetAttributeBonus(attributeLevel, false, false);
-            BattleLogControl.Instance.AddLog
-                ($"{shootingPopulation.firstName} {shootingPopulation.lastName} {Tr("PHRASE_HAS_HIT")}.", isAttacker);
-            if (SkillData.CheckWithBonuses(gettingShotAtSkillLevel, gettingShotAtAttributeBonus, 0, 0) == false)
+
+            attackersLog =
+                $"{shooterFactionData.factionName}: {shootingPopulation.firstName} {shootingPopulation.lastName} {Tr("PHRASE_ATTACK_HAS_HIT")}.";
+            //BattleLogControl.Instance.AddLog
+            //    ($"{shootingPopulation.firstName} {shootingPopulation.lastName} {Tr("PHRASE_HAS_HIT")}.", isAttacker);
+            if (!SkillData.CheckWithBonuses(gettingShotAtSkillLevel, gettingShotAtAttributeBonus, 0, 0))
                 // TODO: Perk Bonus
             {
                 int moraleDamage = random.Next(Globals.Instance.moraleDamageMin, Globals.Instance.moraleDamageMax);
                 gettingShotAtPopulation.moraleExpendable
                     = Math.Max(gettingShotAtPopulation.moraleExpendable - moraleDamage, 0);
-                BattleLogControl.Instance.AddLog($"{gettingShotAtPopulation.firstName} " +
-                                                 $"{gettingShotAtPopulation.lastName} {Tr("PHRASE_FAILED_COOL_ROLL")}.  " +
-                                                 $"{Tr("PHRASE_MORALE_LOST")} {moraleDamage}.", !isAttacker);
+
+                defendersLog = $"{gettingShotAtFactionData.factionName}: " +
+                               $"{gettingShotAtPopulation.firstName} " +
+                               $"{gettingShotAtPopulation.lastName} {Tr("PHRASE_FAILED_COOL_ROLL")}.  " +
+                               $"{Tr("PHRASE_MORALE_LOST")} {moraleDamage}.";
+                //BattleLogControl.Instance.AddLog($"{gettingShotAtPopulation.firstName} " +
+                //                                 $"{gettingShotAtPopulation.lastName} {Tr("PHRASE_FAILED_COOL_ROLL")}.  " +
+                //                                 $"{Tr("PHRASE_MORALE_LOST")} {moraleDamage}.", !isAttacker);
             }
             else
             {
-                BattleLogControl.Instance.AddLog($"{gettingShotAtPopulation.firstName} " +
-                                                 $"{gettingShotAtPopulation.lastName} {Tr("PHRASE_ISNT_SCARED")}.",
-                    !isAttacker);
+                defendersLog = $"{gettingShotAtFactionData.factionName}: " +
+                               $"{gettingShotAtPopulation.firstName} " +
+                               $"{gettingShotAtPopulation.lastName} {Tr("PHRASE_ISNT_SCARED")}.";
+                //BattleLogControl.Instance.AddLog($"{gettingShotAtPopulation.firstName} " +
+                //                                 $"{gettingShotAtPopulation.lastName} {Tr("PHRASE_ISNT_SCARED")}.",
+                //   !isAttacker);
             }
 
             attackerMoraleLabel.Text = countyAttackerSelectToken.populationData.moraleExpendable.ToString();
@@ -236,10 +267,15 @@ public partial class BattleControl : Control
         }
         else
         {
-            BattleLogControl.Instance.AddLog($"{shootingPopulation.firstName} " +
-                                             $"{shootingPopulation.lastName} {Tr("WORD_MISSED")}.", isAttacker);
+            attackersLog = $"{shooterFactionData.factionName}: " +
+                           $"{shootingPopulation.firstName} " +
+                           $"{shootingPopulation.lastName} {Tr("WORD_MISSED")}.";
+            //BattleLogControl.Instance.AddLog($"{shootingPopulation.firstName} " +
+            //                                 $"{shootingPopulation.lastName} {Tr("WORD_MISSED")}.", isAttacker);
         }
 
+        string finalLog = $"{attackersLog} {defendersLog}";
+        BattleLogControl.Instance.AddLog(finalLog, false);
         // Check if the attacker learns rifle experience.
         SkillData.LearningCheck(shootingPopulation, false);
 

@@ -12,6 +12,7 @@ public partial class PopulationData : Resource
     [Export] public int populationId;
     [Export] public int factionId;
     [Export] private int location;
+
     public int Location
     {
         get => location;
@@ -29,14 +30,12 @@ public partial class PopulationData : Resource
     [Export] public int lastLocation;
     [Export] public int destination;
 
-    [ExportGroup("Info")] 
-    [Export] public string firstName;
+    [ExportGroup("Info")] [Export] public string firstName;
     [Export] public string lastName;
     [Export] public bool isMale;
     [Export] public int age;
 
-    [ExportGroup("Personality")] 
-    [Export] public AllEnums.Personality personality;
+    [ExportGroup("Personality")] [Export] public AllEnums.Personality personality;
     public IPersonality iPersonality;
 
     [ExportGroup("Hero")]
@@ -63,9 +62,11 @@ public partial class PopulationData : Resource
     [Export] public int numberOfSubordinatesWanted; // This is the max number of suboridinates that a hero can have.
     [Export] public Godot.Collections.Array<PopulationData> heroSubordinates;
 
-    [ExportGroup("Perks")] [Export] public Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks;
+    [ExportGroup("Perks")] 
+    [Export] public Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks;
 
-    [ExportGroup("Expendables")] [Export] public int hitPoints;
+    [ExportGroup("Expendables")] 
+    [Export] public int hitPoints;
     [Export] public int maxHitPoints;
 
     [Export] public int
@@ -74,7 +75,6 @@ public partial class PopulationData : Resource
     [Export] public int loyaltyBase;
     [Export] private int loyaltyAdjusted;
 
-    [Export]
     public int LoyaltyAdjusted
     {
         get => loyaltyAdjusted;
@@ -83,6 +83,7 @@ public partial class PopulationData : Resource
             loyaltyAdjusted = Math.Min(value, 100);
     }
 
+    [Export] public bool isWillingToFight;
     [Export] private int happiness;
 
     public int Happiness
@@ -162,7 +163,7 @@ public partial class PopulationData : Resource
         populationData.RemoveFromCountyImprovement();
         // I don't think we need to remove them from research or scavenging.  I think.
     }
-    
+
     private void CheckIfPopulationIsHero(CountyData countyData, PopulationData populationData)
     {
         if (populationData.isHero) return;
@@ -170,6 +171,7 @@ public partial class PopulationData : Resource
         countyData.populationDataList.Remove(populationData);
         populationData.isHero = true;
     }
+
     public PopulationDto ToDto()
     {
         // ✅ Convert Inventory (Dictionary<InventorySlot, GoodData>) → Dictionary<InventorySlot, GoodDto>
@@ -208,6 +210,7 @@ public partial class PopulationData : Resource
             MoraleExpendable = moraleExpendable,
             LoyaltyBase = loyaltyBase,
             LoyaltyAdjusted = LoyaltyAdjusted,
+            IsWillingToFight = isWillingToFight,
             Happiness = Happiness,
 
             DaysEmployed = daysEmployed,
@@ -301,6 +304,7 @@ public partial class PopulationData : Resource
         populationData.moraleExpendable = populationDto.MoraleExpendable;
         populationData.loyaltyBase = populationDto.LoyaltyBase;
         populationData.LoyaltyAdjusted = populationDto.LoyaltyAdjusted;
+        populationData.isWillingToFight = populationDto.IsWillingToFight;
         populationData.Happiness = populationDto.Happiness;
 
         // 🔹 Employment / time info

@@ -48,7 +48,7 @@ public partial class BattleLogControl : Control
             textPanel.logText.AddThemeColorOverride("font_color", Colors.DodgerBlue);
         }
         // TODO Test that the time stamp works.
-        textPanel.logText.Text = $"{Clock.Instance.GetDateAndTime()} -  + {newLog}";
+        textPanel.logText.Text = $"{Tr("WORD_DAY")}: {Clock.Instance.GetDateAndTime()} \n {newLog}";
         //GD.Print($"Attacker: {attackerVboxContainer.GetChildCount()} vs {maxLines}");
         if (attackerVboxContainer.GetChildCount() > maxLines) 
         {

@@ -186,15 +186,17 @@ public partial class Globals : Node
         {
             morale += subordinateData.moraleExpendable; 
         }
+        
 
         morale += populationData.moraleExpendable;
+        int averageMorale = morale / (populationData.heroSubordinates.Count + 1);
         
         string heroName = $"{populationData.firstName} {populationData.lastName}";
         string heroNumberOfSubordinates =
             $"{Tr("WORD_SUBORDINATES")}: {populationData.heroSubordinates.Count} / {populationData.numberOfSubordinatesWanted}";
-        string averageMorale = $"{Tr("PHRASE_AVERAGE_MORALE")}: {morale}";
+        string averageMoraleString = $"{Tr("PHRASE_AVERAGE_MORALE")}: {averageMorale}";
 
-        return $"{heroName} \n {heroNumberOfSubordinates} \n {averageMorale}";
+        return $"{heroName} \n {heroNumberOfSubordinates} \n {averageMoraleString}";
     }
 
     private static void OnMouseEnteredUI()

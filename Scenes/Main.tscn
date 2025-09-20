@@ -2053,7 +2053,7 @@ mouse_filter = 2
 script = ExtResource("35_10y8n")
 combatLogScene = ExtResource("44_qsgen")
 battleLogControlTitle = NodePath("MarginContainer/PanelContainer/Battle Log Title Label")
-defenderVboxContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/MarginContainer/ScrollContainer/Defender VBoxContainer")
+defenderVboxContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/ScrollContainer/Defender VBoxContainer")
 attackerVboxContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/MarginContainer/ScrollContainer/Attacker VBoxContainer")
 maxLines = 50
 
@@ -2096,6 +2096,7 @@ size_flags_horizontal = 3
 mouse_filter = 2
 
 [node name="Defender Title Label" type="Label" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 20
@@ -2103,23 +2104,25 @@ text = "Defender"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer"]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/margin_top = 28
-
-[node name="ScrollContainer" type="ScrollContainer" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer"]
 layout_mode = 2
 mouse_filter = 2
 horizontal_scroll_mode = 0
 
-[node name="Defender VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/MarginContainer/ScrollContainer"]
+[node name="Defender VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 theme_override_constants/separation = 5
 
+[node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_top = 28
+
 [node name="Right PanelContainer" type="PanelContainer" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2

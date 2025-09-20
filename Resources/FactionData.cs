@@ -142,7 +142,6 @@ public partial class FactionData : Resource
 			}
 		}
 
-		// TODO: This is going to break when we move County Generation from Main to Game Generation.
 		factionData.countiesFactionOwns = [];
 		foreach (string countyName in factionDto.CountiesFactionOwns)
 		{
@@ -228,12 +227,11 @@ public partial class FactionData : Resource
 		}
 
 		//TODO: This needs to be loaded after the all faction data list is loaded.
-		// Wars – rebuild as War objects
 		factionData.wars.Clear();
 		foreach (WarDto warDto in factionDto.Wars)
 		{
-			//War war = War.FromDto(warDto, SaveManager.Instance.saveGameData.allFactionDataList);
-			//factionData.wars.Add(war);
+			War war = War.FromDto(warDto, SaveManager.Instance.saveGameData.allFactionDataList);
+			factionData.wars.Add(war);
 		}
 
 		foreach (DiplomacyMatrix matrix in factionDto.DiplomacyMatrices)

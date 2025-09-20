@@ -65,7 +65,6 @@ public partial class DeclareWarConfirmationControl : Control
             Diplomacy.EndWar(aggressorFactionData, defenderFactionData);
             DiplomacyControl.Instance.GenerateWarMatrix();
         }
-
     }
 
     private void NoButton()

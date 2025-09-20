@@ -31,6 +31,8 @@ public class PopulationDto
     public int MoraleExpendable { get; set; }
     public int LoyaltyBase { get; set; }
     public int LoyaltyAdjusted { get; set; }
+    
+    public bool IsWillingToFight { get; set; }
     public int Happiness { get; set; }
 
     // Employment / time info

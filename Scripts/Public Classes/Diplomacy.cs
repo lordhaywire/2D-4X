@@ -35,6 +35,31 @@ public class Diplomacy
 
     public static void EndWar(FactionData aggressorFactionData, FactionData defenderFactionData)
     {
+        War currentWar = new();
+        foreach (War war in aggressorFactionData.wars)
+        {
+            if (war.defenderFactionData.factionId == defenderFactionData.factionId)
+            {
+                currentWar = war;
+            }
+        }
+
+        aggressorFactionData.wars.Remove(currentWar);
+        defenderFactionData.wars.Remove(currentWar);
+
+        aggressorFactionData.diplomacyMatrices[defenderFactionData.factionId].AtWar = false;
+        defenderFactionData.diplomacyMatrices[aggressorFactionData.factionId].AtWar = false;
+
+        GD.Print($"{aggressorFactionData.factionName} has ended war on {defenderFactionData.factionName}.");
+        EventLog.Instance.AddLog(
+            $"{aggressorFactionData.factionName} {TranslationServer.Translate("PHRASE_HAS_ENDED_WAR_WITH")} {defenderFactionData.factionName}.");
+
+        RespondToEndOfWar();
+    }
+
+    private static void RespondToEndOfWar()
+    {
+        GD.Print("At some point we need to add the RespondToEndOfWar().");
     }
 
     private static void RespondToDeclarationOfWar(War war)
@@ -49,7 +74,7 @@ public class Diplomacy
     }
 
     /// <summary>
-    /// We need them to spawn closest to the enemy armies first.
+    /// Todo: We need them to spawn closest to the enemy armies first.
     /// </summary>
     /// <param name="battleLocation"></param>
     private static void CheckForAndSpawnDefendingHeroes(County battleLocation)
@@ -110,11 +135,12 @@ public class Diplomacy
                 TokenSpawner.Spawn(
                     Globals.Instance.GetCountyDataFromLocationId(possibleDefenders[0].Location).countyNode,
                     possibleDefenders[0]);
-
+                possibleDefenders[0].isWillingToFight = true;
             }
             
         }
-
+    
+        // Then the hero starts recruiting.
         if (possibleDefenders.Count > 0)
         {
             possibleDefenders[0].numberOfSubordinatesWanted =
