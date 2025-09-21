@@ -65,7 +65,7 @@ public class Quartermaster
         if (populationData.inventory[goodToEquip.equipmentData.inventorySlot] == null)
         {
             populationData.inventory[goodToEquip.equipmentData.inventorySlot] 
-                = goodToEquip;
+                = (GoodData)goodToEquip.Duplicate();
             // Take 1 good away from the County goods.
             Haulmaster.AdjustCountyGoodAmount(countyData, goodToEquip.countyGoodType, -1);
         }

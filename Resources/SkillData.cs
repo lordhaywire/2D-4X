@@ -57,9 +57,7 @@ public partial class SkillData : Resource
     ///        , false, negativeBonus);
     /// This does a skill check with an attribute bonus already added.
     /// The reason why we aren't passing in the actual skill is because sometimes we are testing just some random 1-100 number.
-    /// Since an attribute bonus is checked in this method, we are passing in an attribute, and if the bonus is a negative.
-    /// An additional bonus can be added.
-    /// TODO: We also need to add any perk bonuses.
+    /// TODO: We also need to add any perk bonuses where ever this used.
     /// </summary>
     /// <param name="skillLevel"></param>
     /// <param name="attributeBonus"></param>
@@ -75,12 +73,9 @@ public partial class SkillData : Resource
         // Rolling a 1 is always a success.
         if (skillCheckRoll <= finalSkillAmount)
         {
-            return (true);
+            return true;
         }
-        else
-        {
-            return (false);
-        }
+        return false;
     }
 
 
@@ -117,11 +112,12 @@ public partial class SkillData : Resource
                 {
                     skillData = populationData.skills[AllEnums.Skills.Rifle];
                 }
+
                 learningSpeed = AllEnums.LearningSpeed.Slow;
                 break;
             default:
                 GD.Print($"{populationData.firstName} activity is getting a skill check when it " +
-                    $"shouldn't. SkillData.CheckLearning.");
+                         $"shouldn't. SkillData.CheckLearning.");
                 return;
         }
 
@@ -150,7 +146,9 @@ public partial class SkillData : Resource
             {
                 int experienceLearnedRandom = Globals.Instance.random.Next(1, Globals.Instance.maxXpRoll);
                 int experienceLearned = Mathf.Max(1, experienceLearnedRandom +
-                    AttributeData.GetAttributeBonus(populationData.attributes[AllEnums.Attributes.Intelligence].attributeLevel, true, false));
+                                                     AttributeData.GetAttributeBonus(
+                                                         populationData.attributes[AllEnums.Attributes.Intelligence]
+                                                             .attributeLevel, true, false));
 
                 skillData.skillLevel += experienceLearned;
 
@@ -158,7 +156,8 @@ public partial class SkillData : Resource
                     SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(populationData.factionId);
                 if (Globals.CheckIfPlayerFaction(factionData))
                 {
-                    EventLog.Instance.AddLog($"{populationData.firstName} - {TranslationServer.Translate(skillData.skillName)}" +
+                    EventLog.Instance.AddLog(
+                        $"{populationData.firstName} - {TranslationServer.Translate(skillData.skillName)}" +
                         $" {TranslationServer.Translate("WORD_LEARNED")} {experienceLearned}");
                 }
             }

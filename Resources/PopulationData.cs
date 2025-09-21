@@ -174,8 +174,7 @@ public partial class PopulationData : Resource
 
     public PopulationDto ToDto()
     {
-        // ✅ Convert Inventory (Dictionary<InventorySlot, GoodData>) → Dictionary<InventorySlot, GoodDto>
-        // Convert Dictionary<InventorySlot, GoodData> → Dictionary<string, GoodDto>
+        // Convert enums to strings for Inventory.
         Dictionary<string, GoodDto> inventoryDtos =
             inventory != null
                 ? inventory.ToDictionary(
@@ -382,6 +381,13 @@ public partial class PopulationData : Resource
                 if (keyValuePair.Value != null)
                 {
                     goodData = GoodData.FromDto(keyValuePair.Value);
+                    GoodData goodDataForEquipment = GoodData.GetGoodFromAutoloadList(goodData.goodType);
+                    goodData.equipmentData = new EquipmentData()
+                    {
+                        inventorySlot = goodDataForEquipment.equipmentData.inventorySlot,
+                        equipmentBonus = goodDataForEquipment.equipmentData.equipmentBonus,
+                        equipmentTier = goodDataForEquipment.equipmentData.equipmentTier
+                    };
                 }
 
                 // 🔹 Add the converted key/value to the dictionary

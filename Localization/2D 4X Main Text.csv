@@ -374,4 +374,5 @@ PHRASE_HERO_IS_RECRUITING,Hero is recruiting!,¡El héroe está reclutando!
 PHRASE_AVERAGE_MORALE,Average Morale,Moral promedio
 PHRASE_HAS_ENDED_WAR_WITH,has ended war with,ha terminado la guerra con
 PHRASE_BATTLE_LOG,Battle Log,Registro de batalla
-PHRASE_ATTACK_HAS_HIT,Attack has hit,El ataque ha golpeado
+PHRASE_ATTACK_HAS_HIT,attack has hit,el ataque ha golpeado
+PHRASE_IS_SHOOTING_AT,is shooting at,está disparando a

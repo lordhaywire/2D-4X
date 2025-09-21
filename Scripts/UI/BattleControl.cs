@@ -83,26 +83,44 @@ public partial class BattleControl : Control
     private void HourlyBattleInCounty()
     {
         GD.Print("Hourly Battle.");
-        // County defender attacks county attacker.
-        foreach (PopulationData populationData in battle.battleLocation.heroesInCountyList)
+        Godot.Collections.Array<PopulationData> defenders = [];
+        Godot.Collections.Array<PopulationData> attackers = [];
+
+        // Gather all the defenders.
+        foreach (PopulationData defendingHero in battle.battleLocation.heroesInCountyList)
         {
-            if (populationData.isWillingToFight)
+            // Check to see if the hero is actually willing to fight, and if they are not then their subordinates don't fight either.
+            if (defendingHero.isWillingToFight)
             {
-                int randomIndex = random.Next(0, battle.battleLocation.visitingArmyList.Count); 
-                Attack(battle.battleLocation.visitingArmyList[randomIndex], populationData, false);
+                defenders.Add(defendingHero);
+                defenders.AddRange(defendingHero.heroSubordinates);
             }
         }
 
-        foreach (PopulationData populationData in battle.battleLocation.visitingArmyList)
+        // Gather all the attackers
+        foreach (PopulationData attackingHero in battle.battleLocation.visitingArmyList)
         {
-            // County attacker attacks county defender.
+            attackers.Add(attackingHero);
+            attackers.AddRange(attackingHero.heroSubordinates);
+        }
+
+        // Defenders attack attackers.
+        foreach (PopulationData defender in defenders)
+        {
+            int randomIndex = random.Next(0, attackers.Count);
+            Attack(defender, attackers[randomIndex], false);
+        }
+
+        // Attackers attack defenders.
+        foreach (PopulationData attacker in attackers)
+        {
             if (Globals.Instance.winAllBattles)
             {
-                populationData.moraleExpendable = 100; // This is just for testing. Cheat!
+                attacker.moraleExpendable = 100; // This is just for testing. Cheat!
             }
 
-            int randomIndex = random.Next(0, battle.battleLocation.heroesInCountyList.Count); 
-            Attack(battle.battleLocation.heroesInCountyList[randomIndex], populationData, true);
+            int randomIndex = random.Next(0, defenders.Count);
+            Attack(attacker, defenders[randomIndex], true);
         }
 
         ContinueBattleCheck();
@@ -110,9 +128,14 @@ public partial class BattleControl : Control
 
     private void ContinueBattleCheck()
     {
+        // Todo: Add hourly leadership checks to restore a tiny bit of morale to each fighter.
+        // Todo: Add a cool check if someone runs away.
+
+        int attackerAverageMorale = Battle.GetAverageArmyMorale(countyAttackerSelectToken.populationData);
+        int defenderAverageMorale = Battle.GetAverageArmyMorale(countyDefendersSelectToken.populationData);
+
         // Both have zero morale.
-        if (countyAttackerSelectToken.populationData.moraleExpendable == 0
-            && countyDefendersSelectToken.populationData.moraleExpendable == 0)
+        if (attackerAverageMorale == 0 && defenderAverageMorale == 0)
         {
             ArmyFlees(countyAttackerSelectToken.populationData);
             EventLog.Instance.AddLog($"{countyAttackerSelectToken.populationData.firstName} " +
@@ -214,31 +237,38 @@ public partial class BattleControl : Control
     }
 
     // This is confusing.  Needs a fucking rewrite.
-    private void Attack(PopulationData gettingShotAtPopulation, PopulationData shootingPopulation, bool isAttacker)
+    private void Attack(PopulationData shootingPopulation, PopulationData gettingShotAtPopulation, bool isAttacker)
     {
         string attackersLog;
         string defendersLog = "";
 
-        int skillLevel = shootingPopulation.skills[AllEnums.Skills.Rifle].skillLevel;
-        int attributeLevel = shootingPopulation.attributes[shootingPopulation.skills[AllEnums.Skills.Rifle].attribute]
+        int shooterSkillLevel = shootingPopulation.skills[AllEnums.Skills.Rifle].skillLevel;
+        int shooterAttributeLevel = shootingPopulation
+            .attributes[shootingPopulation.skills[AllEnums.Skills.Rifle].attribute]
             .attributeLevel;
-        int attributeBonus = AttributeData.GetAttributeBonus(attributeLevel, false, false);
+        int shooterAttributeBonus = AttributeData.GetAttributeBonus(shooterAttributeLevel, false, false);
+        int shooterAdditionalBonus =
+            shootingPopulation.inventory[AllEnums.InventorySlot.Offensive].equipmentData.equipmentBonus;
         FactionData shooterFactionData = FactionData.GetFactionDataFromId(shootingPopulation.factionId);
         FactionData gettingShotAtFactionData = FactionData.GetFactionDataFromId(gettingShotAtPopulation.factionId);
 
-        if (SkillData.CheckWithBonuses(skillLevel, attributeLevel, 0, 0)) // TODO: Perk Bonus
+        // First skill check for to hit.  If this passes then the attacker's shot has gotten close to their target, and target
+        // must roll their cool.  The second skill check for the attacker is to see if they actually hit and damaged the target.
+        if (SkillData.CheckWithBonuses(shooterSkillLevel, shooterAttributeBonus, shooterAdditionalBonus,
+                0)) // TODO: Perk Bonus
         {
+            // Check Defenders Morale
             int gettingShotAtSkillLevel = gettingShotAtPopulation.skills[AllEnums.Skills.Cool].skillLevel;
             int gettingShotAtAttributeLevel = gettingShotAtPopulation
                 .attributes[gettingShotAtPopulation.skills[AllEnums.Skills.Cool].attribute].attributeLevel;
-            int gettingShotAtAttributeBonus = AttributeData.GetAttributeBonus(attributeLevel, false, false);
+            int gettingShotAtAttributeBonus =
+                AttributeData.GetAttributeBonus(gettingShotAtAttributeLevel, false, false);
 
             attackersLog =
-                $"{shooterFactionData.factionName}: {shootingPopulation.firstName} {shootingPopulation.lastName} {Tr("PHRASE_ATTACK_HAS_HIT")}.";
-            //BattleLogControl.Instance.AddLog
-            //    ($"{shootingPopulation.firstName} {shootingPopulation.lastName} {Tr("PHRASE_HAS_HIT")}.", isAttacker);
-            if (!SkillData.CheckWithBonuses(gettingShotAtSkillLevel, gettingShotAtAttributeBonus, 0, 0))
-                // TODO: Perk Bonus
+                $"{shooterFactionData.factionName}: {shootingPopulation.GetFullName()} {Tr("PHRASE_IS_SHOOTING_AT")} {gettingShotAtPopulation.GetFullName()}.";
+
+            if (!SkillData.CheckWithBonuses(gettingShotAtSkillLevel, gettingShotAtAttributeBonus, 0,
+                    0)) // TODO: Perk Bonus
             {
                 int moraleDamage = random.Next(Globals.Instance.moraleDamageMin, Globals.Instance.moraleDamageMax);
                 gettingShotAtPopulation.moraleExpendable
@@ -248,30 +278,37 @@ public partial class BattleControl : Control
                                $"{gettingShotAtPopulation.firstName} " +
                                $"{gettingShotAtPopulation.lastName} {Tr("PHRASE_FAILED_COOL_ROLL")}.  " +
                                $"{Tr("PHRASE_MORALE_LOST")} {moraleDamage}.";
-                //BattleLogControl.Instance.AddLog($"{gettingShotAtPopulation.firstName} " +
-                //                                 $"{gettingShotAtPopulation.lastName} {Tr("PHRASE_FAILED_COOL_ROLL")}.  " +
-                //                                 $"{Tr("PHRASE_MORALE_LOST")} {moraleDamage}.", !isAttacker);
             }
             else
             {
                 defendersLog = $"{gettingShotAtFactionData.factionName}: " +
                                $"{gettingShotAtPopulation.firstName} " +
                                $"{gettingShotAtPopulation.lastName} {Tr("PHRASE_ISNT_SCARED")}.";
-                //BattleLogControl.Instance.AddLog($"{gettingShotAtPopulation.firstName} " +
-                //                                 $"{gettingShotAtPopulation.lastName} {Tr("PHRASE_ISNT_SCARED")}.",
-                //   !isAttacker);
             }
 
             attackerMoraleLabel.Text = countyAttackerSelectToken.populationData.moraleExpendable.ToString();
             defenderMoraleLabel.Text = countyDefendersSelectToken.populationData.moraleExpendable.ToString();
+            // Second skill check to see if they damaged the person they shot at.
+            if (SkillData.CheckWithBonuses(shooterSkillLevel, shooterAttributeBonus, shooterAdditionalBonus,
+                    0)) // TODO: Perk Bonus
+            {
+                // Apply Damage.
+                int damageReceived = Battle.GenerateCombatDamage();
+                gettingShotAtPopulation.hitPoints += damageReceived;
+                // Cool Check for everyone on the person getting shot ats team.
+                CheckArmyCool();
+                // Possible Death.
+                if (gettingShotAtPopulation.hitPoints == 0)
+                {
+                    // Second cool check.
+                }
+            }
         }
         else
         {
             attackersLog = $"{shooterFactionData.factionName}: " +
                            $"{shootingPopulation.firstName} " +
                            $"{shootingPopulation.lastName} {Tr("WORD_MISSED")}.";
-            //BattleLogControl.Instance.AddLog($"{shootingPopulation.firstName} " +
-            //                                 $"{shootingPopulation.lastName} {Tr("WORD_MISSED")}.", isAttacker);
         }
 
         string finalLog = $"{attackersLog} {defendersLog}";
@@ -281,6 +318,11 @@ public partial class BattleControl : Control
 
         // Check if the defender's cool skill learns anything.
         SkillData.LearningCheck(gettingShotAtPopulation, true);
+    }
+
+    private void CheckArmyCool()
+    {
+        throw new NotImplementedException();
     }
 
     private static void ButtonUp()

@@ -5,6 +5,7 @@
 
 [sub_resource type="Resource" id="Resource_k0sx7"]
 script = ExtResource("1_k0sx7")
+inventorySlot = 1
 equipmentTier = 1
 equipmentBonus = 5
 metadata/_custom_type_script = "uid://c87la23ufut0h"

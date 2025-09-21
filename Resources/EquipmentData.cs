@@ -10,6 +10,7 @@ public partial class EquipmentData : Resource
     [Export] public int equipmentTier;
     [Export] public int equipmentBonus;
 
+    // I don't know if we are going to need these ToDto or FromDto because we pull the info from the Autoload List.
     // 🔹 Convert Resource → DTO
     public EquipmentDto ToDto()
     {

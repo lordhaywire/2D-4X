@@ -1,6 +1,8 @@
 using Godot;
 using System;
+using System.Linq;
 using System.Reflection;
+using AutoloadSpace;
 
 namespace PlayerSpace;
 
@@ -121,6 +123,10 @@ public partial class GoodData : Resource
         return newGoodData;
     }
 
+    public static GoodData GetGoodFromAutoloadList(AllEnums.GoodType goodType)
+    {
+        return Autoload.Instance.allGoodData.FirstOrDefault(goodData => goodData.goodType == goodType);
+    }
     public static class ReflectionCopy
     {
         public static T NewCopy<T>(T original) where T : new()
