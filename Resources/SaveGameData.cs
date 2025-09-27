@@ -18,7 +18,11 @@ public partial class SaveGameData : Resource
     {
         return allFactionDataList[factionId];
     }
-    
+
+    public CountyData ConvertFactionIdToCountyData(int factionId)
+    {
+        return allCountyDataList[factionId];
+    }
     public SaveGameDto ToDto()
     {
         SaveGameDto saveGameDto = new SaveGameDto

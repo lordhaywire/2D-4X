@@ -6,6 +6,10 @@ namespace PlayerSpace;
 public class Battle(CountyData battleLocation)
 {
     public readonly CountyData battleLocation = battleLocation;
+    
+    public Godot.Collections.Array<PopulationData> attackingArmy = [];
+    public Godot.Collections.Array<PopulationData> defendingArmy = [];
+    
 
     public static int GetAverageArmyMorale(PopulationData heroPopulationData)
     {

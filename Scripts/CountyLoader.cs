@@ -1,6 +1,4 @@
-using AutoloadSpace;
 using Godot;
-using GlobalSpace;
 
 namespace PlayerSpace;
 
@@ -26,6 +24,7 @@ public partial class CountyLoader : Node
                 {
                     PackedScene countyScene = (PackedScene)GD.Load(Globals.Instance.pathToCounties + files[i]);
                     County county = (County)countyScene.Instantiate();
+                    // Assigning the countyData to the county scene.
                     county.countyData = SaveManager.Instance.saveGameData.allCountyDataList[i];
                     SaveManager.Instance.saveGameData.allCountyDataList[i].countyNode = county;
                     Globals.Instance.countiesParent.AddChild(county);
@@ -44,7 +43,7 @@ public partial class CountyLoader : Node
         }
         else
         {
-            //GD.Print($"{Globals.Instance.pathToCounties} directory is missing.");
+            GD.Print($"{Globals.Instance.pathToCounties} directory is missing.");
         }
     }
 }

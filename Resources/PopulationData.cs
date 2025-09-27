@@ -59,14 +59,12 @@ public partial class PopulationData : Resource
         }
     }
 
-    [Export] public int numberOfSubordinatesWanted; // This is the max number of suboridinates that a hero can have.
+    [Export] public int numberOfSubordinatesWanted; // This is the max number of subordinates that a hero can have.
     [Export] public Godot.Collections.Array<PopulationData> heroSubordinates;
 
-    [ExportGroup("Perks")] 
-    [Export] public Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks;
+    [ExportGroup("Perks")] [Export] public Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks;
 
-    [ExportGroup("Expendables")] 
-    [Export] public int hitPoints;
+    [ExportGroup("Expendables")] [Export] public int hitPoints;
     [Export] public int maxHitPoints;
 
     [Export] public int
@@ -128,6 +126,20 @@ public partial class PopulationData : Resource
     [Export] public ResearchItemData currentResearchItemData;
 
     public HeroToken heroToken;
+
+    public void Death()
+    {
+        FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(factionId);
+        CountyData countyData = Globals.Instance.GetCountyDataFromLocationId(location);
+
+        factionData.RemoveHeroFromAllHeroesList(this);
+        countyData.populationDataList.Remove(this);
+        countyData.heroesInCountyList.Remove(this);
+        countyData.visitingArmyList.Remove(this);
+        countyData.visitingHeroList.Remove(this);
+        countyData.deadPeopleList.Add(this); // If a visiting person dies they are going to go into the wrong dead people list.
+        GD.PrintRich($"[color=red]{GetFullName()} has croaked.[/color]");
+    }
 
     public void ConvertPopulationToAide()
     {
