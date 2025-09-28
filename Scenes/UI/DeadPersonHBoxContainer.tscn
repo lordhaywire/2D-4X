@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://to563gw85iqf"]
+
+[ext_resource type="Script" uid="uid://o18mdq3vsfvw" path="res://Scripts/UI/DeadPeopleHBoxContainer.cs" id="1_3n4w6"]
+
+[node name="Dead Person HBoxContainer" type="HBoxContainer" node_paths=PackedStringArray("deadPersonNameLabel", "deadPersonLocationLabel", "deadPersonCauseOfDeathLabel")]
+script = ExtResource("1_3n4w6")
+deadPersonNameLabel = NodePath("Dead Person Name Label")
+deadPersonLocationLabel = NodePath("Dead Person Death Location Label")
+deadPersonCauseOfDeathLabel = NodePath("Dead Person Cause of Death Label")
+
+[node name="Dead Person Name Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "WORD_NAME"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Dead Person Death Location Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TITLE_DEATH_LOCATION"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Dead Person Cause of Death Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TITLE_CAUSE_OF_DEATH"
+horizontal_alignment = 1
+vertical_alignment = 1
