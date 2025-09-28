@@ -9,7 +9,8 @@ namespace PlayerSpace;
 [GlobalClass]
 public partial class FactionData : Resource
 {
-	[ExportGroup("Faction Info")] [Export] public int factionId;
+	[ExportGroup("Faction Info")] 
+	[Export] public int factionId;
 	[Export] public bool isPlayer;
 	[Export] public string factionName;
 	[Export] public Color factionColor;
@@ -22,7 +23,7 @@ public partial class FactionData : Resource
 	[Export] public Godot.Collections.Array<ResearchItemData> researchableResearch = [];
 
 	[Export] public Godot.Collections.Array<CountyData> countiesFactionOwns = [];
-	public Dictionary<int, int> allHeroesDictionary = []; // Hero Id, hero location
+	public Dictionary<int, int> allHeroesDictionary = []; // Hero ID, hero location
 	[Export] public PopulationData factionLeader;
 
 	public readonly Diplomacy diplomacy = new();
@@ -43,6 +44,7 @@ public partial class FactionData : Resource
 	public readonly List<War> wars = [];
 
 	public readonly List<DiplomacyMatrix> diplomacyMatrices = [];
+    public List<PopulationData> allDeadPeopleList = [];
 
 	public FactionDto ToDto()
 	{
@@ -95,7 +97,7 @@ public partial class FactionData : Resource
 
 		foreach (KeyValuePair<AllEnums.FactionGoodType, GoodData> keyValuePair in amountUsedFactionGoods)
 			factionDto.AmountUsedFactionGoods[keyValuePair.Key.ToString()] = keyValuePair.Value.ToDto();
-
+		
 		// Wars
 		foreach (War war in wars)
 			factionDto.Wars.Add(war.ToDto());
@@ -104,7 +106,10 @@ public partial class FactionData : Resource
 		{
 			factionDto.DiplomacyMatrices.Add(matrix);
 		}
-
+		
+		foreach (PopulationData populationData in allDeadPeopleList)
+			factionDto.AllDeadPeopleList.Add(populationData.ToDto());
+		
 		return factionDto;
 	}
 
@@ -234,11 +239,17 @@ public partial class FactionData : Resource
 			factionData.wars.Add(war);
 		}
 
+		factionData.diplomacyMatrices.Clear();
 		foreach (DiplomacyMatrix matrix in factionDto.DiplomacyMatrices)
 		{
 			factionData.diplomacyMatrices.Add(matrix);
 		}
 
+		factionData.allDeadPeopleList.Clear();
+		foreach (PopulationData deadPeople in factionDto.AllDeadPeopleList.Select(PopulationData.FromDto))
+		{
+			factionData.allDeadPeopleList.Add(deadPeople);
+		}
 		return factionData;
 	}
 

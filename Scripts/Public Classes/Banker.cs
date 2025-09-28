@@ -6,11 +6,10 @@ namespace PlayerSpace;
 
 public class Banker
 {
-    public static int CountEveryoneInCounty(CountyData countyData)
+    public static int CountAllPeopleInCounty(CountyData countyData)
     {
         int numberOfPeople = countyData.populationDataList.Count
                              + countyData.heroesInCountyList.Count + countyData.visitingHeroList.Count;
-        //GD.Print($"{countyData.countyName} has {numberOfPeople} people.");
         return numberOfPeople;
     }
 

@@ -103,7 +103,7 @@ namespace PlayerSpace
             {
                 County county = (County)Globals.Instance.countiesParent.GetChild(keyValuePair.Value);
                 PopulationData populationData =
-                    PopulationData.ReturnPopulationDataFromPopulationId(county.countyData.heroesInCountyList,
+                    PopulationData.GetPopulationDataFromPopulationId(county.countyData.heroesInCountyList,
                         keyValuePair.Key);
                 if (populationData.destination != heroToken.populationData.destination) continue;
                 GD.Print("Hero on the way is: " + populationData.firstName);

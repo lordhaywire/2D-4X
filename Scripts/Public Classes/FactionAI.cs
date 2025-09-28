@@ -12,7 +12,7 @@ public class FactionAI
         foreach (KeyValuePair<int, int> keyValuePair in factionData.allHeroesDictionary)
         {
             County county = (County)Globals.Instance.countiesParent.GetChild(keyValuePair.Value);
-            PopulationData populationData = PopulationData.ReturnPopulationDataFromPopulationId(county.countyData.heroesInCountyList, keyValuePair.Key);
+            PopulationData populationData = PopulationData.GetPopulationDataFromPopulationId(county.countyData.heroesInCountyList, keyValuePair.Key);
             // It uses the faction leaders personality to determine what equipment the heroes get.
             factionData.factionLeader.iPersonality.EquipmentAssignment(populationData);
         }

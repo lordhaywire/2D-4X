@@ -15,6 +15,8 @@ public class PopulationDto
     public bool IsMale { get; set; }
     public int Age { get; set; }
 
+    public string CauseOfDeath { get; set; }
+    
     // Personality / Hero Info
     public string Personality { get; set; }
     public bool IsHero { get; set; }

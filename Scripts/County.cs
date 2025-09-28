@@ -84,7 +84,7 @@ public partial class County : Node2D
         // Possibly scavenging and research eventually.
         PopulationWorkEnd.CalculateWorkToGoodsProduction(countyData);
 
-        PopulationAI.IsThereEnoughFood(countyData); // This is a terrible name for this method.
+        PopulationAI.FeedEveryone(countyData);
 
         // This is a check for Occasional needs.
         // The Population uses other goods besides food.

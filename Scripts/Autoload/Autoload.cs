@@ -46,7 +46,7 @@ public partial class Autoload : Node
     
     // County Generation Variables
     public int maxScavengeableScrap = 10000;
-    public int maxScavengeableFood = 10000;
+    public int maxScavengeableFood = 0;//10000;
     public int startingPerishableStorage = 2000;
     public int startingNonperishableStorage = 2000;
     public int startingAmountOfEachGood = 100;

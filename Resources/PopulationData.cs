@@ -34,6 +34,7 @@ public partial class PopulationData : Resource
     [Export] public string lastName;
     [Export] public bool isMale;
     [Export] public int age;
+    [Export] public AllEnums.CauseOfDeath causeOfDeath;
 
     [ExportGroup("Personality")] [Export] public AllEnums.Personality personality;
     public IPersonality iPersonality;
@@ -137,7 +138,7 @@ public partial class PopulationData : Resource
         countyData.heroesInCountyList.Remove(this);
         countyData.visitingArmyList.Remove(this);
         countyData.visitingHeroList.Remove(this);
-        countyData.deadPeopleList.Add(this); // If a visiting person dies they are going to go into the wrong dead people list.
+        factionData.allDeadPeopleList.Add(this);
         GD.PrintRich($"[color=red]{GetFullName()} has croaked.[/color]");
     }
 
@@ -207,6 +208,7 @@ public partial class PopulationData : Resource
             LastName = lastName,
             IsMale = isMale,
             Age = age,
+            CauseOfDeath = causeOfDeath.ToString(),
 
             Personality = personality.ToString(),
             IsHero = isHero,
@@ -268,6 +270,12 @@ public partial class PopulationData : Resource
         populationData.lastName = populationDto.LastName;
         populationData.isMale = populationDto.IsMale;
         populationData.age = populationDto.Age;
+
+        // CauseOfDeath (convert string to enum)
+        if (Enum.TryParse(populationDto.CauseOfDeath, out AllEnums.CauseOfDeath parsedCauseOfDeath))
+        {
+            populationData.causeOfDeath = parsedCauseOfDeath;
+        }
 
         // 🔹 Personality (convert string to enum)
         if (Enum.TryParse(populationDto.Personality, out AllEnums.Personality parsedPersonality))
@@ -439,7 +447,7 @@ public partial class PopulationData : Resource
         return populationData;
     }
 
-    public static PopulationData ReturnPopulationDataFromPopulationId(
+    public static PopulationData GetPopulationDataFromPopulationId(
         Godot.Collections.Array<PopulationData> populationList, int populationId)
     {
         foreach (PopulationData populationData in populationList)

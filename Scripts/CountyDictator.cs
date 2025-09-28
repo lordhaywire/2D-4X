@@ -61,7 +61,7 @@ public partial class CountyDictator : Node
         {
             County county = (County)Globals.Instance.countiesParent.GetChild(keyValuePair.Value);
             PopulationData hero =
-                PopulationData.ReturnPopulationDataFromPopulationId(county.countyData.heroesInCountyList,
+                PopulationData.GetPopulationDataFromPopulationId(county.countyData.heroesInCountyList,
                     keyValuePair.Key);
             GD.Print($"FactionCountyPopulationDestroyer - Hero getting removed {hero.GetFullName()}");
             county.countyData.heroesInCountyList.Remove(hero);

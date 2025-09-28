@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("1_mfqwl")
-perkName = "PERK_NAME_LEADEROFPEOPLE"
-perkDescription = "PERK_DESCRIPTION_LEADEROFPEOPLE"
+perkName = "PERK_NAME_LEADER_OF_PEOPLE"
+perkDescription = "PERK_DESCRIPTION_LEADER_OF_PEOPLE"
 perkBonus = 10

@@ -33,6 +33,12 @@ public class AllEnums
         PhysicalStrength,
     }
 
+    public enum CauseOfDeath
+    {
+        NotDead,
+        Bullet,
+        Starvation,
+    }
     public enum CountyImprovementStatus
     {
         None,

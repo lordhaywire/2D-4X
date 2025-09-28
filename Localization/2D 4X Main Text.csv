@@ -136,9 +136,9 @@ INTEREST_HUMANITIES,Humanities,Humanidades
 INTEREST_INFORMATION,Information,Información
 INTEREST_POLITICS,Politics,Política
 INTEREST_WARFARE,Warfare,Guerra
-PERK_DESCRIPTION_LEADEROFPEOPLE,This person is skilled at leading people.,Esta persona es hábil para liderar personas.
-PERK_DESCRIPTION_UHELPFUL,This person is just generally an ass.,Esta persona es generalmente un idiota.
-PERK_NAME_LEADEROFPEOPLE,Leader of People,Líder de Personas
+PERK_DESCRIPTION_LEADER_OF_PEOPLE,This person is skilled at leading people.,Esta persona es hábil para liderar personas.
+PERK_DESCRIPTION_UNHELPFUL,This person is just generally an ass.,Esta persona es generalmente un idiota.
+PERK_NAME_LEADER_OF_PEOPLE,Leader of People,Líder de Personas
 PERK_NAME_UNHELPFUL,Unhelpful,Inútil
 PHRASE_ASSIGN_RESEARCHER,Assign Researcher,Asignar investigador
 PHRASE_ASSIGN_RESEARCHER_IN_RESEARCH_PANEL,Assign researcher in research panel.,Asignar investigador en el panel de investigación.
@@ -380,3 +380,6 @@ WORD_WORK,Work- THIS IS AN ACTIVITY,Trabajo
 PHRASE_IS_DAMAGED_FOR,is damaged for,está dañado por
 WORD_HITPOINTS,hitpoints,Puntos de vida
 PHRASE_IS_DEAD,is dead,está muerto
+TITLE_ALL_DEAD_PEOPLE,All Dead People,Todos los muertos
+TITLE_DEATH_LOCATION,Death Location,Lugar de la muerte
+TITLE_CAUSE_OF_DEATH,Cause of Death,Causa de muerte

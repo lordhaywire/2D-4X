@@ -4,21 +4,22 @@ namespace PlayerSpace;
 
 public class PopulationAI
 {
-    // This is a dumb name for this method.
-    public static void IsThereEnoughFood(CountyData countyData)
+    public static void FeedEveryone(CountyData countyData)
     {
         int amountOfFood = countyData.CountFactionResourceOfType(AllEnums.FactionGoodType.Food);
-        int amountOfPeople = Banker.CountEveryoneInCounty(countyData);
-        if (amountOfFood >= (Globals.Instance.foodToGainHappiness * amountOfPeople))
+        int amountOfPeople = Banker.CountAllPeopleInCounty(countyData);
+        if (amountOfFood >= Globals.Instance.foodToGainHappiness * amountOfPeople)
         {
-            // Happiness is addedin the PopulationEatsFood method.
+            // Happiness is added in the PopulationEatsFood method.
             countyData.PopulationEatsFood(countyData.heroesInCountyList,
                 Globals.Instance.foodToGainHappiness);
             countyData.PopulationEatsFood(countyData.populationDataList,
                 Globals.Instance.foodToGainHappiness);
-            // Visiting heroes need to be able to eat food too.  It needs to improve faction relations.
+            // TODO: Improve relations with visiting heroes faction for feeding them.
+            // Visiting heroes need to be able to eat food too. They get no happiness bonus from it though. 
+            countyData.PopulationEatsFood(countyData.visitingHeroList, 0);
         }
-        else if (amountOfFood >= (Globals.Instance.foodToGainNothing * amountOfPeople))
+        else if (amountOfFood >= Globals.Instance.foodToGainNothing * amountOfPeople)
         {
             //GD.Print("People get jack shit for happiness.");
             // Happiness is added in the PopulationEatsFood method.
@@ -26,7 +27,9 @@ public class PopulationAI
                 Globals.Instance.foodToGainNothing);
             countyData.PopulationEatsFood(countyData.populationDataList,
                 Globals.Instance.foodToGainNothing);
-            // Visiting heroes need to be able to eat food too.  It needs to improve faction relations.
+            // TODO: Improve relations with visiting heroes faction for feeding them.
+            // Visiting heroes need to be able to eat food too. They get no happiness bonus from it though. 
+            countyData.PopulationEatsFood(countyData.visitingHeroList, 0);
 
         }
         else if (amountOfFood >= amountOfPeople)
@@ -36,21 +39,24 @@ public class PopulationAI
                 Globals.Instance.foodToLoseHappiness);
             countyData.PopulationEatsFood(countyData.populationDataList,
                 Globals.Instance.foodToLoseHappiness);
-            // Visiting heroes need to be able to eat food too.  It needs to improve faction relations.
+            // TODO: Improve relations with visiting heroes faction for feeding them.
+            // Visiting heroes need to be able to eat food too. They get no happiness bonus from it though. 
+            countyData.PopulationEatsFood(countyData.visitingHeroList, 0);
         }
         else
         {
-            //GD.PrintRich($"[rainbow]People are starting to starve!!");
+            GD.PrintRich($"[rainbow]People are starting to starve!!");
             // Eating the last of the food, then major penalty for starvation.
             // It will already reduce their happiness by 1 in the Population Eats Food method.
             countyData.PopulationEatsFood(countyData.heroesInCountyList,
                 Globals.Instance.foodToLoseHappiness);
             countyData.PopulationEatsFood(countyData.populationDataList,
                 Globals.Instance.foodToLoseHappiness);
-            // Visiting heroes need to be able to eat food too.  It needs to improve faction relations.
+            // TODO: Improve relations with visiting heroes faction for feeding them.
+            // Visiting heroes need to be able to eat food too. They get no happiness bonus from it though. 
+            countyData.PopulationEatsFood(countyData.visitingHeroList, 0);
         }
     }
-
     
     /// <summary>
     /// Checks loyalty and if the research is done.

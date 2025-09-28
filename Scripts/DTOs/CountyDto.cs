@@ -31,7 +31,6 @@ public class CountyDto
     public List<PopulationDto> ArmiesInCountyList { get; set; } = [];
     public List<PopulationDto> VisitingHeroList { get; set; } = [];
     public List<PopulationDto> VisitingArmyList { get; set; } = [];
-    public List<PopulationDto> DeadPeopleList { get; set; } = [];
 
     // Construction and Work Lists
     public List<PopulationDto> HeroBuildersList { get; set; } = [];
@@ -42,7 +41,6 @@ public class CountyDto
     public List<PopulationDto> PrioritizedHeroWorkersList { get; set; } = [];
     public List<PopulationDto> PrioritizedBuildersList { get; set; } = [];
     public List<PopulationDto> PrioritizedWorkersList { get; set; } = [];
-
     public List<PopulationDto> WorkersToRemoveFromLists { get; set; } = [];
 
     public List<CountyImprovementDto> PrioritizedConstructionImprovementList { get; set; } = [];

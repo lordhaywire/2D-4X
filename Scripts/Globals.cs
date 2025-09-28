@@ -168,6 +168,7 @@ public partial class Globals : Node
         }
     }
 
+    // ToDo: Fix this so it doesn't suck anymore.  Probably should use the data in the savegame.
     public CountyData GetCountyDataFromLocationId(int location)
     {
         County county = (County)countiesParent.GetChild(location);

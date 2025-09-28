@@ -305,6 +305,7 @@ public partial class BattleControl : Control
                 if (gettingShotAtPopulation.hitPoints <= 0)
                 {
                     deathLog = $" {gettingShotAtPopulation.GetFullName()} {Tr("PHRASE_IS_DEAD")}.";
+                    gettingShotAtPopulation.causeOfDeath = AllEnums.CauseOfDeath.Bullet;
                     // Cool Check for everyone on the person getting shot ats team when someone dies.
                     CheckArmyCool(battle.defendingArmy);
                     GD.Print("Someone has died.");

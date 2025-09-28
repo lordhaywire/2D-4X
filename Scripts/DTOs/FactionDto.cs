@@ -22,6 +22,8 @@ public class FactionDto
 
     public List<string> AllCountyImprovements { get; set; } = [];
     public List<CountyImprovementDto> ResearchOffices { get; set; } = [];
+    
+    public List<PopulationDto> AllDeadPeopleList { get; set; } = [];
 
     // Goods
     public Dictionary<string, GoodDto> FactionGoods { get; set; } = new();

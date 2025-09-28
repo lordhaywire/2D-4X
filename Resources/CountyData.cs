@@ -41,7 +41,6 @@ public partial class CountyData : Resource
     [Export] public Godot.Collections.Array<PopulationData> heroesInCountyList = [];
     [Export] public Godot.Collections.Array<PopulationData> visitingHeroList = [];
     [Export] public Godot.Collections.Array<PopulationData> visitingArmyList = [];
-    [Export] public Godot.Collections.Array<PopulationData> deadPeopleList = [];
 
     [ExportGroup("Construction and Work Lists")] 
     [Export] public Godot.Collections.Array<PopulationData> heroBuildersList = [];
@@ -163,7 +162,6 @@ public partial class CountyData : Resource
         foreach (PopulationData pop in heroesInCountyList) countyDto.HeroesInCountyList.Add(pop.ToDto());
         foreach (PopulationData pop in visitingHeroList) countyDto.VisitingHeroList.Add(pop.ToDto());
         foreach (PopulationData pop in visitingArmyList) countyDto.VisitingArmyList.Add(pop.ToDto());
-        foreach (PopulationData pop in deadPeopleList) countyDto.DeadPeopleList.Add(pop.ToDto());
         foreach (PopulationData pop in heroBuildersList) countyDto.HeroBuildersList.Add(pop.ToDto());
         foreach (PopulationData pop in heroWorkersList) countyDto.HeroWorkersList.Add(pop.ToDto());
         foreach (PopulationData pop in workersList) countyDto.WorkersList.Add(pop.ToDto());
@@ -249,8 +247,6 @@ public partial class CountyData : Resource
             countyData.visitingHeroList.Add(PopulationData.FromDto(pop));
         foreach (PopulationDto pop in countyDto.VisitingArmyList)
             countyData.visitingArmyList.Add(PopulationData.FromDto(pop));
-        foreach (PopulationDto pop in countyDto.DeadPeopleList)
-            countyData.deadPeopleList.Add(PopulationData.FromDto(pop));
         foreach (PopulationDto pop in countyDto.HeroBuildersList)
             countyData.heroBuildersList.Add(PopulationData.FromDto(pop));
         foreach (PopulationDto pop in countyDto.HeroWorkersList)
@@ -784,12 +780,12 @@ public partial class CountyData : Resource
         {
             if (foodLists.perishableFoodList.Count > 0)
             {
-                // Sort the lists to the food with the most is used first.
+                // Sort the list so the food with the highest amount is used first.
                 foodLists.perishableFoodList.Sort((x, y) => y.Amount.CompareTo(x.Amount));
                 foodLists.nonperishableFoodList.Sort((x, y) => y.Amount.CompareTo(x.Amount));
 
                 // Have the people eat the perishable food that has the most amount.
-                if (foodLists.perishableFoodList[0].Amount > amount)
+                if (foodLists.perishableFoodList[0].Amount >= amount)
                 {
                     foodLists.perishableFoodList[0].Amount -= amount;
                     // If there is not enough food left for the next person, remove the food from the list.
@@ -801,7 +797,7 @@ public partial class CountyData : Resource
                 // Check to see if there is enough nonperishable food.
                 else if (foodLists.nonperishableFoodList.Count > 0)
                 {
-                    if (foodLists.nonperishableFoodList[0].Amount > amount)
+                    if (foodLists.nonperishableFoodList[0].Amount >= amount)
                     {
                         // The Population eats nonperishable food.
                         foodLists.nonperishableFoodList[0].Amount -= amount;
@@ -871,9 +867,9 @@ public partial class CountyData : Resource
         if (populationData.daysStarving >= Globals.Instance.daysUntilDamageFromStarvation)
         {
             populationData.hitPoints--;
-            // This should be its own method in populationData that kills the population.
             if (populationData.hitPoints < 1)
             {
+                populationData.causeOfDeath = AllEnums.CauseOfDeath.Starvation;
                 peopleWhoNeedToDie.Add(populationData);
             }
         }
@@ -885,12 +881,15 @@ public partial class CountyData : Resource
     {
         foreach (PopulationData populationData in peopleWhoNeedToDieSoon)
         {
+            populationData.Death();
+            /*
             FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(populationData.factionId);
             factionData.RemoveHeroFromAllHeroesList(populationData);
             populationDataList.Remove(populationData);
             heroesInCountyList.Remove(populationData);
-            deadPeopleList.Add(populationData);
-            //GD.PrintRich($"[color=red]{populationData.firstName} {populationData.lastName} has croaked.[/color]");
+            factionData.deadPeopleList.Add(populationData);
+            GD.PrintRich($"[color=red]{populationData.firstName} {populationData.lastName} has croaked.[/color]");
+            */
         }
     }
 
