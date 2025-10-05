@@ -41,6 +41,7 @@ public partial class FactionControl : Control
 
     private void GenerateDeadPeopleList()
     {
+        ClearDeadPeopleList();
         foreach (PopulationData deadPopulationData in Autoload.Instance.playerFactionData.allDeadPeopleList)
         {
             CountyData countyData = Globals.Instance.GetCountyDataFromLocationId(deadPopulationData.Location);

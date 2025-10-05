@@ -207,7 +207,7 @@ namespace PlayerSpace
         private void HeroArmyVisitingEnemyCounty()
         {
             heroToken.spawnedTokenButton.Reparent(destinationCounty.armiesHBox);
-            destinationCounty.countyData.visitingArmyList.Add(heroToken.populationData);
+            destinationCounty.countyData.visitingHeroArmyList.Add(heroToken.populationData);
             heroToken.populationData.isWillingToFight = true;
             foreach (PopulationData populationData in heroToken.populationData.heroSubordinates)
             {

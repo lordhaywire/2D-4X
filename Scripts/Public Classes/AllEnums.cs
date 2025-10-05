@@ -118,6 +118,7 @@ public class AllEnums
         None,
         Aide,
         FactionLeader,
+        Temporary
     }
 
     public enum InterestType

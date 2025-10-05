@@ -40,7 +40,7 @@ public partial class CountyData : Resource
     [Export] public Godot.Collections.Array<PopulationData> populationDataList = [];
     [Export] public Godot.Collections.Array<PopulationData> heroesInCountyList = [];
     [Export] public Godot.Collections.Array<PopulationData> visitingHeroList = [];
-    [Export] public Godot.Collections.Array<PopulationData> visitingArmyList = [];
+    [Export] public Godot.Collections.Array<PopulationData> visitingHeroArmyList = [];
 
     [ExportGroup("Construction and Work Lists")] 
     [Export] public Godot.Collections.Array<PopulationData> heroBuildersList = [];
@@ -161,7 +161,7 @@ public partial class CountyData : Resource
         foreach (PopulationData pop in populationDataList) countyDto.PopulationDataList.Add(pop.ToDto());
         foreach (PopulationData pop in heroesInCountyList) countyDto.HeroesInCountyList.Add(pop.ToDto());
         foreach (PopulationData pop in visitingHeroList) countyDto.VisitingHeroList.Add(pop.ToDto());
-        foreach (PopulationData pop in visitingArmyList) countyDto.VisitingArmyList.Add(pop.ToDto());
+        foreach (PopulationData pop in visitingHeroArmyList) countyDto.VisitingArmyList.Add(pop.ToDto());
         foreach (PopulationData pop in heroBuildersList) countyDto.HeroBuildersList.Add(pop.ToDto());
         foreach (PopulationData pop in heroWorkersList) countyDto.HeroWorkersList.Add(pop.ToDto());
         foreach (PopulationData pop in workersList) countyDto.WorkersList.Add(pop.ToDto());
@@ -246,7 +246,7 @@ public partial class CountyData : Resource
         foreach (PopulationDto pop in countyDto.VisitingHeroList)
             countyData.visitingHeroList.Add(PopulationData.FromDto(pop));
         foreach (PopulationDto pop in countyDto.VisitingArmyList)
-            countyData.visitingArmyList.Add(PopulationData.FromDto(pop));
+            countyData.visitingHeroArmyList.Add(PopulationData.FromDto(pop));
         foreach (PopulationDto pop in countyDto.HeroBuildersList)
             countyData.heroBuildersList.Add(PopulationData.FromDto(pop));
         foreach (PopulationDto pop in countyDto.HeroWorkersList)
@@ -855,7 +855,7 @@ public partial class CountyData : Resource
             AdjustPopulationHappiness(amount, populationData);
         }
 
-        KillPeopleWhoNeedToDie(peopleWhoNeedToDie);
+        KillPeopleWhoStarved(peopleWhoNeedToDie);
     }
 
     private void Starvation(PopulationData populationData, int amount)
@@ -877,19 +877,11 @@ public partial class CountyData : Resource
         populationData.daysStarving++;
     }
 
-    private void KillPeopleWhoNeedToDie(List<PopulationData> peopleWhoNeedToDieSoon)
+    private void KillPeopleWhoStarved(List<PopulationData> peopleWhoNeedToDieSoon)
     {
         foreach (PopulationData populationData in peopleWhoNeedToDieSoon)
         {
-            populationData.Death();
-            /*
-            FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(populationData.factionId);
-            factionData.RemoveHeroFromAllHeroesList(populationData);
-            populationDataList.Remove(populationData);
-            heroesInCountyList.Remove(populationData);
-            factionData.deadPeopleList.Add(populationData);
-            GD.PrintRich($"[color=red]{populationData.firstName} {populationData.lastName} has croaked.[/color]");
-            */
+            populationData.DeathByNaturalCauses(AllEnums.CauseOfDeath.Starvation);
         }
     }
 

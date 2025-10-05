@@ -39,10 +39,18 @@ public partial class BattleControl : Control
         GD.Print("Start Battle.");
 
         battle = currentBattle;
-        County selectCounty = (County)GetParent().GetParent();
+        CheckForHeroButtons();
+
+        Show();
+        SubscribeToHourChange();
+    }
+
+    private void CheckForHeroButtons()
+    {
+        County county = (County)GetParent().GetParent();
 
         // Attackers Army Tokens
-        foreach (PopulationData attackerPopulation in selectCounty.countyData.visitingArmyList)
+        foreach (PopulationData attackerPopulation in county.countyData.visitingHeroArmyList)
         {
             countyAttackerSelectToken = attackerPopulation.heroToken;
             countyAttackerSelectToken.Hide();
@@ -52,7 +60,7 @@ public partial class BattleControl : Control
         }
 
         // Defenders Army Tokens
-        foreach (PopulationData defenderPopulation in selectCounty.countyData.heroesInCountyList)
+        foreach (PopulationData defenderPopulation in county.countyData.heroesInCountyList)
         {
             if (defenderPopulation.heroToken != null)
             {
@@ -63,13 +71,9 @@ public partial class BattleControl : Control
                 countyDefendersSelectToken.InCombat = true;
             }
         }
-
-        Show();
-        SubscribeToHourChange();
     }
 
-    private void AddHeroAndSubordinatesArmy(PopulationData heroPopulationData,
-        Godot.Collections.Array<PopulationData> armyList)
+    private void AddHeroAndSubordinatesArmy(PopulationData heroPopulationData, Godot.Collections.Array<PopulationData> armyList)
     {
         if (!heroPopulationData.isWillingToFight) return;
         armyList.Add(heroPopulationData);
@@ -84,7 +88,7 @@ public partial class BattleControl : Control
     private void HourlyBattleInCounty()
     {
         GD.Print("Hourly Battle.");
-
+        // We do this every hour because other armies may join the battle.
         // Gather all the defenders.
         battle.defendingArmy.Clear();
         foreach (PopulationData defendingHero in battle.battleLocation.heroesInCountyList)
@@ -93,9 +97,9 @@ public partial class BattleControl : Control
             AddHeroAndSubordinatesArmy(defendingHero, battle.defendingArmy);
         }
 
-        battle.attackingArmy.Clear();
         // Gather all the attackers
-        foreach (PopulationData attackingHero in battle.battleLocation.visitingArmyList)
+        battle.attackingArmy.Clear();
+        foreach (PopulationData attackingHero in battle.battleLocation.visitingHeroArmyList)
         {
             AddHeroAndSubordinatesArmy(attackingHero, battle.attackingArmy);
         }
@@ -305,14 +309,13 @@ public partial class BattleControl : Control
                 if (gettingShotAtPopulation.hitPoints <= 0)
                 {
                     deathLog = $" {gettingShotAtPopulation.GetFullName()} {Tr("PHRASE_IS_DEAD")}.";
-                    gettingShotAtPopulation.causeOfDeath = AllEnums.CauseOfDeath.Bullet;
+                    // Add death.
+                    gettingShotAtPopulation.DeathByCombat(AllEnums.CauseOfDeath.Bullet);
+
                     // Cool Check for everyone on the person getting shot ats team when someone dies.
                     CheckArmyCool(battle.defendingArmy);
-                    GD.Print("Someone has died.");
-                    
-                    // Add death.
                 }
-                
+
                 // Cool Check for everyone on the person getting shot ats team when someone is hurt.
                 CheckArmyCool(battle.defendingArmy);
             }
