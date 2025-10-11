@@ -11,7 +11,8 @@ public partial class CountyDictator : Node
         Instance = this;
     }
 
-    public void CaptureCounty(int capturedCountyId, FactionData winnersFactionData)
+    
+    public static void CaptureCounty(int capturedCountyId, FactionData winnersFactionData)
     {
         County selectCounty = (County)Globals.Instance.countiesParent.GetChild(capturedCountyId);
         //GD.Print("County captured! " + selectCounty.countyData.countyName);

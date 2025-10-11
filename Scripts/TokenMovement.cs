@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using AutoloadSpace;
 using Godot;
 
@@ -74,24 +75,44 @@ namespace PlayerSpace
             MoveToken = true;
         }
 
-        /*
-        private void CheckForDefenders()
+        public static void RandomNeighborMove(PopulationData populationData)
         {
-            County selectCounty = (County)Globals.Instance.countiesParent.GetChild(heroToken.populationData.destination);
-            FactionData heroFactionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(heroToken.populationData.factionId);
-            FactionData selectedFactionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(selectCounty.countyData.factionId);
-            if (Diplomacy.IsFactionAtWar(heroFactionData, selectedFactionData) && DefenderOnTheWay() == false)
+            //GD.Print("Random Neighbors Move!");
+            County county = (County)Globals.Instance.countiesParent.GetChild(populationData.Location);
+            List<County> countyNeighbors = county.neighborCounties;
+            County destinationCounty = FindFactionOwnedNeighborCounty(countyNeighbors, populationData);
+            if (destinationCounty != null)
             {
-                Diplomacy.CheckForAndSpawnDefendingHero(destinationCounty);
-
+                //GD.Print("Destination County: " + destinationCounty.countyData.countyName);
+                populationData.heroToken.tokenMovement.StartMove(destinationCounty.countyData.countyId);
+                county.countyData.battles[0].ArmyCountyCaptured();
             }
             else
             {
-                GD.Print("Checking for Defenders - Defender on the way, or not at war.");
+                county.countyData.battles[0].ArmyCountyCaptured();
             }
         }
-        */
 
+        private static County FindFactionOwnedNeighborCounty(List<County> countyNeighbors, PopulationData populationData)
+        {
+            List<County> eligibleCounties =
+                [.. countyNeighbors.Where(c => c.countyData.factionId == populationData.factionId)];
+
+            if (eligibleCounties.Count > 0)
+            {
+                int randomIndex = Globals.Instance.random.Next(0, eligibleCounties.Count);
+                County chosenCounty = eligibleCounties[randomIndex];
+
+                populationData.destination = chosenCounty.countyData.countyId;
+                populationData.heroToken.tokenMovement.StartMove(populationData.destination);
+
+                return chosenCounty;
+            }
+            else
+            {
+                return null;
+            }
+        }
         private bool DefenderOnTheWay()
         {
             // Get the All Heroes List in the destination county for that county's faction and see if any of that
@@ -199,7 +220,7 @@ namespace PlayerSpace
             {
                 FactionData factionData =
                     SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(heroToken.populationData.factionId);
-                CountyDictator.Instance.CaptureCounty(heroToken.populationData.destination,
+                CountyDictator.CaptureCounty(heroToken.populationData.destination,
                     factionData);
             }
         }

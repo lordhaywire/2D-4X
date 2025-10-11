@@ -9,10 +9,12 @@ public partial class BattleControl : Control
 {
     private readonly Random random = new();
 
-    [ExportGroup("Tokens")] [Export] public Separator heroSeparator;
+    [ExportGroup("Tokens")] 
+    [Export] public Separator heroSeparator;
     [Export] public Separator armySeparator;
 
-    [ExportGroup("War")] [Export] private TextureRect defenderTokenTextureRect;
+    [ExportGroup("War")] 
+    [Export] private TextureRect defenderTokenTextureRect;
     [Export] private TextureRect attackerTokenTextureRect;
 
     [Export] private Label defenderMoraleLabel;
@@ -24,15 +26,6 @@ public partial class BattleControl : Control
     private Battle battle;
 
     //private List<string> combatLogs; This is here so that I am reminded to create permanent combat logs.
-
-    private void CountyCaptured()
-    {
-        EndBattle();
-        FactionData factionData =
-            SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(countyAttackerSelectToken.populationData
-                .factionId);
-        CountyDictator.Instance.CaptureCounty(countyDefendersSelectToken.populationData.Location, factionData);
-    }
 
     public void StartBattle(Battle currentBattle)
     {
@@ -85,10 +78,13 @@ public partial class BattleControl : Control
         Clock.Instance.HourChanged += HourlyBattleInCounty;
     }
 
+    /// <summary>
+    /// We do this every hour because other armies may join the battle.
+    /// </summary>
     private void HourlyBattleInCounty()
     {
         GD.Print("Hourly Battle.");
-        // We do this every hour because other armies may join the battle.
+        
         // Gather all the defenders.
         battle.defendingArmy.Clear();
         foreach (PopulationData defendingHero in battle.battleLocation.heroesInCountyList)
@@ -103,7 +99,10 @@ public partial class BattleControl : Control
         {
             AddHeroAndSubordinatesArmy(attackingHero, battle.attackingArmy);
         }
-
+        
+        // Sort armies to put the best leader first.
+        battle.SortArmiesListBestHeroFirst();
+            
         // Defenders attack attackers.
         foreach (PopulationData defender in battle.defendingArmy)
         {
@@ -125,120 +124,12 @@ public partial class BattleControl : Control
 
         ContinueBattleCheck();
     }
-
-    private void ContinueBattleCheck()
-    {
-        // Todo: Add hourly leadership checks to restore a tiny bit of morale to each fighter.
-        // Todo: Add a cool check if someone runs away.
-
-        int attackerAverageMorale = Battle.GetAverageArmyMorale(countyAttackerSelectToken.populationData);
-        int defenderAverageMorale = Battle.GetAverageArmyMorale(countyDefendersSelectToken.populationData);
-
-        // Both have zero morale.
-        if (attackerAverageMorale == 0 && defenderAverageMorale == 0)
-        {
-            ArmyFlees(countyAttackerSelectToken.populationData);
-            EventLog.Instance.AddLog($"{countyAttackerSelectToken.populationData.firstName} " +
-                                     $"{countyAttackerSelectToken.populationData.lastName} " +
-                                     $"{Tr("PHRASE_LOST_BATTLE")}");
-        }
-
-        // Attacker has zero morale.
-        if (countyAttackerSelectToken.populationData.moraleExpendable == 0)
-        {
-            ArmyFlees(countyAttackerSelectToken.populationData);
-            EventLog.Instance.AddLog($"{countyAttackerSelectToken.populationData.firstName} " +
-                                     $"{countyAttackerSelectToken.populationData.lastName} " +
-                                     $"{Tr("PHRASE_LOST_BATTLE")}");
-        }
-
-        // Defender has zero morale.
-        if (countyDefendersSelectToken.populationData.moraleExpendable == 0)
-        {
-            ArmyFlees(countyDefendersSelectToken.populationData);
-            EventLog.Instance.AddLog($"{countyDefendersSelectToken.populationData.firstName} " +
-                                     $"{countyDefendersSelectToken.populationData.lastName} " +
-                                     $"{Tr("PHRASE_LOST_BATTLE")}");
-        }
-    }
-
-    private void ArmyFlees(PopulationData populationData)
-    {
-        populationData.heroToken.isRetreating = true;
-        if (populationData.lastLocation == -1)
-        {
-            RandomNeighborMove(populationData);
-        }
-        else
-        {
-            County selectCounty = (County)Globals.Instance.countiesParent.GetChild(populationData.lastLocation);
-            FactionData selectedFactionData =
-                SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(selectCounty.countyData.factionId);
-            FactionData populationFactionData =
-                SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(populationData.factionId);
-            if (selectedFactionData.factionName == populationFactionData.factionName)
-            {
-                populationData.heroToken.tokenMovement.StartMove(populationData.lastLocation);
-                EndBattle();
-            }
-            else
-            {
-                RandomNeighborMove(populationData);
-            }
-        }
-    }
-
-    private void RandomNeighborMove(PopulationData populationData)
-    {
-        //GD.Print("Random Neighbors Move!");
-        County selectCounty = (County)Globals.Instance.countiesParent.GetChild(populationData.Location);
-        List<County> countyNeighbors = selectCounty.neighborCounties;
-        County destinationCounty = FindFactionOwnedNeighborCounty(countyNeighbors, populationData);
-        if (destinationCounty != null)
-        {
-            //GD.Print("Destination County: " + destinationCounty.countyData.countyName);
-            populationData.heroToken.tokenMovement.StartMove(destinationCounty.countyData.countyId);
-            CountyCaptured();
-        }
-        else
-        {
-            CountyCaptured();
-        }
-    }
-
-    private static County FindFactionOwnedNeighborCounty(List<County> countyNeighbors, PopulationData populationData)
-    {
-        List<County> eligibleCounties =
-            [.. countyNeighbors.Where(c => c.countyData.factionId == populationData.factionId)];
-
-        if (eligibleCounties.Count > 0)
-        {
-            int randomIndex = Globals.Instance.random.Next(0, eligibleCounties.Count);
-            County chosenCounty = eligibleCounties[randomIndex];
-
-            populationData.destination = chosenCounty.countyData.countyId;
-            populationData.heroToken.tokenMovement.StartMove(populationData.destination);
-
-            return chosenCounty;
-        }
-        else
-        {
-            return null;
-        }
-    }
-
-    public void EndBattle()
-    {
-        Clock.Instance.HourChanged -= HourlyBattleInCounty;
-        battle.battleLocation.battles.Remove(battle);
-        countyAttackerSelectToken.InCombat = false;
-        countyDefendersSelectToken.InCombat = false;
-        Hide();
-    }
-
+    
     // This is confusing.  Needs a fucking rewrite.
     private void Attack(PopulationData shootingPopulation, PopulationData gettingShotAtPopulation, bool isAttacker)
     {
+        Godot.Collections.Array<PopulationData> currentArmy = isAttacker ? battle.attackingArmy : battle.defendingArmy;
+        
         string attackersLog;
         string defendersLog = "";
         string damageLog = "";
@@ -293,8 +184,8 @@ public partial class BattleControl : Control
                                $"{gettingShotAtPopulation.lastName} {Tr("PHRASE_ISNT_SCARED")}.";
             }
 
-            attackerMoraleLabel.Text = countyAttackerSelectToken.populationData.moraleExpendable.ToString();
-            defenderMoraleLabel.Text = countyDefendersSelectToken.populationData.moraleExpendable.ToString();
+            attackerMoraleLabel.Text = Battle.GetAverageArmyMorale(battle.attackingArmy[0]).ToString();
+            defenderMoraleLabel.Text = Battle.GetAverageArmyMorale(battle.defendingArmy[0]).ToString();
             // Second skill check to see if they damaged the person they shot at.
             if (SkillData.CheckWithBonuses(shooterSkillLevel, shooterAttributeBonus, shooterAdditionalBonus,
                     0)) // TODO: Perk Bonus
@@ -305,19 +196,20 @@ public partial class BattleControl : Control
                 damageLog = $"{gettingShotAtFactionData.factionName}: {gettingShotAtPopulation.GetFullName()} " +
                             $"{Tr("PHRASE_IS_DAMAGED_FOR")} {damageReceived} {Tr("WORD_HITPOINTS")}.";
 
+                // Cool Check for everyone on the person getting shot ats team when someone is hurt.
+                CheckArmyCool(currentArmy);
+                
                 // Possible Death.
                 if (gettingShotAtPopulation.hitPoints <= 0)
                 {
                     deathLog = $" {gettingShotAtPopulation.GetFullName()} {Tr("PHRASE_IS_DEAD")}.";
                     // Add death.
-                    gettingShotAtPopulation.DeathByCombat(AllEnums.CauseOfDeath.Bullet);
-
-                    // Cool Check for everyone on the person getting shot ats team when someone dies.
-                    CheckArmyCool(battle.defendingArmy);
+                    Battle.SomeoneIsKilled(gettingShotAtPopulation);
+                    CheckArmyCool(currentArmy); // Additional army check if someone dies.
                 }
-
-                // Cool Check for everyone on the person getting shot ats team when someone is hurt.
-                CheckArmyCool(battle.defendingArmy);
+                
+                // Check if army flees.
+                battle.CheckIfArmyFlees(currentArmy);
             }
         }
         else
@@ -343,6 +235,51 @@ public partial class BattleControl : Control
         SkillData.LearningCheck(gettingShotAtPopulation, true);
     }
 
+
+    private void ContinueBattleCheck()
+    {
+        // Todo: Add hourly leadership checks to restore a tiny bit of morale to each fighter.
+        // Todo: Add a cool check if someone runs away.
+
+        int attackerAverageMorale = Battle.GetAverageArmyMorale(battle.attackingArmy[0]);
+        int defenderAverageMorale = Battle.GetAverageArmyMorale(battle.defendingArmy[0]);
+
+        // Both have low morale, so only the attacker flees.  Maybe we change this later?
+        if (attackerAverageMorale <= Battle.GetMoraleLevelForFleeing(battle.attackingArmy[0]) 
+            && defenderAverageMorale <= Battle.GetMoraleLevelForFleeing(battle.defendingArmy[0]))
+        {
+            battle.ArmyFlees(battle.attackingArmy[0]);
+            EventLog.Instance.AddLog($"{battle.attackingArmy[0].GetFullName()} " +
+                                     $"{Tr("PHRASE_LOST_BATTLE")}");
+        }
+
+        // Attacker has low morale.
+        if (Battle.GetAverageArmyMorale(battle.attackingArmy[0]) <= Battle.GetMoraleLevelForFleeing(battle.attackingArmy[0]))
+        {
+            battle.ArmyFlees(battle.attackingArmy[0]);
+            EventLog.Instance.AddLog($"{battle.attackingArmy[0].GetFullName()} " +
+                                     $"{Tr("PHRASE_LOST_BATTLE")}");
+        }
+
+        // Defender has low morale.
+        if (Battle.GetAverageArmyMorale(battle.defendingArmy[0]) <= Battle.GetMoraleLevelForFleeing(battle.defendingArmy[0]))
+        {
+            battle.ArmyFlees(battle.defendingArmy[0]);
+            EventLog.Instance.AddLog($"{battle.defendingArmy[0].GetFullName()} " +
+                                     $"{Tr("PHRASE_LOST_BATTLE")}");
+        }
+    }
+
+    public void EndBattle()
+    {
+        Clock.Instance.HourChanged -= HourlyBattleInCounty;
+        battle.battleLocation.battles.Remove(battle);
+        countyAttackerSelectToken.InCombat = false;
+        countyDefendersSelectToken.InCombat = false;
+        Hide();
+    }
+
+    
     private void CheckArmyCool(Godot.Collections.Array<PopulationData> army)
     {
         string combatLog = "";
@@ -371,7 +308,6 @@ public partial class BattleControl : Control
             }
 
             SkillData.LearningCheck(population, true);
-            // TODO: Update Average Morale.
             // TODO: Have the possibility of running away somewhere.
         }
     }

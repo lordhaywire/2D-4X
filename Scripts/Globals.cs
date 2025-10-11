@@ -123,9 +123,8 @@ public partial class Globals : Node
     [Export] public int willWorkLoyalty = 20; // The loyalty a population needs to be willing to work.
 
     // 50 is too high for testing, but might work well for the real game.
-    [Export]
-    public int willFightLoyalty = 30; // Loyalty required for a population to be able to be hired as a subordinate.
-
+    [Export] public int willFightLoyalty = 30; // Loyalty required for a population to be able to be hired as a subordinate.
+    [Export] public int baseAverageArmyMoraleFlees = 50; // The average morale of the army which will cause it to flee.  This will be adjusted by leader perks/training.
     [Export] public int minimumNumberOfSubordinates = 1;
     [Export] public int fastLearningNeeded = 10;
     [Export] public int mediumLearningNeeded = 50;

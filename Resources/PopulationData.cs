@@ -155,11 +155,14 @@ public partial class PopulationData : Resource
 
     public void DeathByCombat(AllEnums.CauseOfDeath cause)
     {
+        throw new NotImplementedException();
         FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(factionId);
         CountyData countyData = Globals.Instance.GetCountyDataFromLocationId(location);
 
         causeOfDeath = cause;
         factionData.allDeadPeopleList.Add(this);
+        
+        
         
         if (isHero)
         {
