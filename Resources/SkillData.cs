@@ -17,6 +17,10 @@ public partial class SkillData : Resource
     [Export] public bool isCombatSkill;
     [Export] public AllEnums.Attributes attribute;
 
+    public int GetSkillLevelTensWithBonuses(int attributeLevel)
+    {
+        return skillLevel + AttributeData.GetAttributeBonus(attributeLevel, false, false);
+    }
     public SkillDto ToDto()
     {
         return new SkillDto

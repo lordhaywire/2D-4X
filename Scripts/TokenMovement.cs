@@ -85,11 +85,6 @@ namespace PlayerSpace
             {
                 //GD.Print("Destination County: " + destinationCounty.countyData.countyName);
                 populationData.heroToken.tokenMovement.StartMove(destinationCounty.countyData.countyId);
-                county.countyData.battles[0].ArmyCountyCaptured();
-            }
-            else
-            {
-                county.countyData.battles[0].ArmyCountyCaptured();
             }
         }
 

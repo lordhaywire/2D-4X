@@ -9,12 +9,10 @@ public partial class BattleControl : Control
 {
     private readonly Random random = new();
 
-    [ExportGroup("Tokens")] 
-    [Export] public Separator heroSeparator;
+    [ExportGroup("Tokens")] [Export] public Separator heroSeparator;
     [Export] public Separator armySeparator;
 
-    [ExportGroup("War")] 
-    [Export] private TextureRect defenderTokenTextureRect;
+    [ExportGroup("War")] [Export] private TextureRect defenderTokenTextureRect;
     [Export] private TextureRect attackerTokenTextureRect;
 
     [Export] private Label defenderMoraleLabel;
@@ -66,7 +64,8 @@ public partial class BattleControl : Control
         }
     }
 
-    private void AddHeroAndSubordinatesArmy(PopulationData heroPopulationData, Godot.Collections.Array<PopulationData> armyList)
+    private void AddHeroAndSubordinatesArmy(PopulationData heroPopulationData,
+        Godot.Collections.Array<PopulationData> armyList)
     {
         if (!heroPopulationData.isWillingToFight) return;
         armyList.Add(heroPopulationData);
@@ -84,7 +83,7 @@ public partial class BattleControl : Control
     private void HourlyBattleInCounty()
     {
         GD.Print("Hourly Battle.");
-        
+
         // Gather all the defenders.
         battle.defendingArmy.Clear();
         foreach (PopulationData defendingHero in battle.battleLocation.heroesInCountyList)
@@ -99,16 +98,29 @@ public partial class BattleControl : Control
         {
             AddHeroAndSubordinatesArmy(attackingHero, battle.attackingArmy);
         }
-        
+
         // Sort armies to put the best leader first.
         battle.SortArmiesListBestHeroFirst();
-            
+        
+        // If either army has been destroyed then we skip straight to the ContinueBattleCheck.
+        // I think we will be able to get rid of this.
+        if (battle.defendingArmy.Count <= 0 || battle.attackingArmy.Count <= 0)
+        {
+            ContinueBattleCheck();
+        }
+
         // Defenders attack attackers.
         foreach (PopulationData defender in battle.defendingArmy)
         {
             int randomIndex = random.Next(0, battle.attackingArmy.Count);
             Attack(defender, battle.attackingArmy[randomIndex], false);
+            if (battle.attackingArmy.Count == 0)
+            {
+                ContinueBattleCheck();
+                break;
+            }
         }
+
 
         // Attackers attack defenders.
         foreach (PopulationData attacker in battle.attackingArmy)
@@ -120,16 +132,21 @@ public partial class BattleControl : Control
 
             int randomIndex = random.Next(0, battle.defendingArmy.Count);
             Attack(attacker, battle.defendingArmy[randomIndex], true);
+            if (battle.defendingArmy.Count == 0)
+            {
+                ContinueBattleCheck();
+                break;
+            }
         }
 
         ContinueBattleCheck();
     }
-    
+
     // This is confusing.  Needs a fucking rewrite.
     private void Attack(PopulationData shootingPopulation, PopulationData gettingShotAtPopulation, bool isAttacker)
     {
         Godot.Collections.Array<PopulationData> currentArmy = isAttacker ? battle.attackingArmy : battle.defendingArmy;
-        
+
         string attackersLog;
         string defendersLog = "";
         string damageLog = "";
@@ -184,8 +201,8 @@ public partial class BattleControl : Control
                                $"{gettingShotAtPopulation.lastName} {Tr("PHRASE_ISNT_SCARED")}.";
             }
 
-            attackerMoraleLabel.Text = Battle.GetAverageArmyMorale(battle.attackingArmy[0]).ToString();
-            defenderMoraleLabel.Text = Battle.GetAverageArmyMorale(battle.defendingArmy[0]).ToString();
+            attackerMoraleLabel.Text = Battle.GetAverageArmyMorale(battle.attackingArmy).ToString();
+            defenderMoraleLabel.Text = Battle.GetAverageArmyMorale(battle.defendingArmy).ToString();
             // Second skill check to see if they damaged the person they shot at.
             if (SkillData.CheckWithBonuses(shooterSkillLevel, shooterAttributeBonus, shooterAdditionalBonus,
                     0)) // TODO: Perk Bonus
@@ -198,18 +215,17 @@ public partial class BattleControl : Control
 
                 // Cool Check for everyone on the person getting shot ats team when someone is hurt.
                 CheckArmyCool(currentArmy);
-                
+
                 // Possible Death.
                 if (gettingShotAtPopulation.hitPoints <= 0)
                 {
                     deathLog = $" {gettingShotAtPopulation.GetFullName()} {Tr("PHRASE_IS_DEAD")}.";
+
                     // Add death.
-                    Battle.SomeoneIsKilled(gettingShotAtPopulation);
+                    battle.SomeoneIsKilled(gettingShotAtPopulation);
                     CheckArmyCool(currentArmy); // Additional army check if someone dies.
                 }
-                
-                // Check if army flees.
-                battle.CheckIfArmyFlees(currentArmy);
+
             }
         }
         else
@@ -239,13 +255,29 @@ public partial class BattleControl : Control
     private void ContinueBattleCheck()
     {
         // Todo: Add hourly leadership checks to restore a tiny bit of morale to each fighter.
-        // Todo: Add a cool check if someone runs away.
 
-        int attackerAverageMorale = Battle.GetAverageArmyMorale(battle.attackingArmy[0]);
-        int defenderAverageMorale = Battle.GetAverageArmyMorale(battle.defendingArmy[0]);
+        // Check if an army is destroyed
+        CheckIfAnArmyIsDestroyed();
+        
+        CheckIfAnArmyFlees();
+        
+    }
+
+    private void CheckIfAnArmyIsDestroyed()
+    {
+        if (battle.defendingArmy.Count <= 0 || battle.attackingArmy.Count <= 0)
+        {
+            EndBattle();
+        }
+    }
+
+    private void CheckIfAnArmyFlees()
+    {
+        int attackerAverageMorale = Battle.GetAverageArmyMorale(battle.attackingArmy);
+        int defenderAverageMorale = Battle.GetAverageArmyMorale(battle.defendingArmy);
 
         // Both have low morale, so only the attacker flees.  Maybe we change this later?
-        if (attackerAverageMorale <= Battle.GetMoraleLevelForFleeing(battle.attackingArmy[0]) 
+        if (attackerAverageMorale <= Battle.GetMoraleLevelForFleeing(battle.attackingArmy[0])
             && defenderAverageMorale <= Battle.GetMoraleLevelForFleeing(battle.defendingArmy[0]))
         {
             battle.ArmyFlees(battle.attackingArmy[0]);
@@ -254,7 +286,8 @@ public partial class BattleControl : Control
         }
 
         // Attacker has low morale.
-        if (Battle.GetAverageArmyMorale(battle.attackingArmy[0]) <= Battle.GetMoraleLevelForFleeing(battle.attackingArmy[0]))
+        if (Battle.GetAverageArmyMorale(battle.attackingArmy) <=
+            Battle.GetMoraleLevelForFleeing(battle.attackingArmy[0]))
         {
             battle.ArmyFlees(battle.attackingArmy[0]);
             EventLog.Instance.AddLog($"{battle.attackingArmy[0].GetFullName()} " +
@@ -262,7 +295,8 @@ public partial class BattleControl : Control
         }
 
         // Defender has low morale.
-        if (Battle.GetAverageArmyMorale(battle.defendingArmy[0]) <= Battle.GetMoraleLevelForFleeing(battle.defendingArmy[0]))
+        if (Battle.GetAverageArmyMorale(battle.defendingArmy) <=
+            Battle.GetMoraleLevelForFleeing(battle.defendingArmy[0]))
         {
             battle.ArmyFlees(battle.defendingArmy[0]);
             EventLog.Instance.AddLog($"{battle.defendingArmy[0].GetFullName()} " +
@@ -274,12 +308,13 @@ public partial class BattleControl : Control
     {
         Clock.Instance.HourChanged -= HourlyBattleInCounty;
         battle.battleLocation.battles.Remove(battle);
+        // TODO: Set everyone to not in combat!
         countyAttackerSelectToken.InCombat = false;
         countyDefendersSelectToken.InCombat = false;
         Hide();
     }
 
-    
+
     private void CheckArmyCool(Godot.Collections.Array<PopulationData> army)
     {
         string combatLog = "";

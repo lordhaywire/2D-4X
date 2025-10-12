@@ -181,7 +181,14 @@ public partial class Globals : Node
 
     public string GenerateHeroTokenAndButtonToolTip(PopulationData populationData)
     {
-        int averageMorale = Battle.GetAverageArmyMorale(populationData);
+        int morale = 0;
+        foreach (PopulationData subordinate in populationData.heroSubordinates)
+        {
+            morale += subordinate.moraleExpendable;
+        }
+        morale += populationData.moraleExpendable;
+
+        int averageMorale = morale / populationData.heroSubordinates.Count + 1;
         
         string heroName = $"{populationData.firstName} {populationData.lastName}";
         string heroNumberOfSubordinates =

@@ -155,56 +155,23 @@ public partial class PopulationData : Resource
 
     public void DeathByCombat(AllEnums.CauseOfDeath cause)
     {
-        throw new NotImplementedException();
         FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(factionId);
         CountyData countyData = Globals.Instance.GetCountyDataFromLocationId(location);
 
         causeOfDeath = cause;
         factionData.allDeadPeopleList.Add(this);
-        
-        
-        
-        if (isHero)
-        {
-            PopulationData tempHero = GenerateTempHero();
-            tempHero.ConvertPopulationToAide(); // Todo: This will make him idle, which I think is bad. // Todo: We also could add perks for temp herodom.
-            heroSubordinates.Remove(tempHero);
-            tempHero.heroSubordinates.AddRange(heroSubordinates);
-            countyData.visitingHeroArmyList.Add(tempHero);
-            heroSubordinates.Clear();
 
-            factionData.RemoveHeroFromAllHeroesList(this);
-
-            countyData.heroesInCountyList.Remove(this);
-            countyData.visitingHeroArmyList.Remove(this);
-            countyData.visitingHeroList.Remove(this);
-
-            GD.PrintRich($"[color=red]{GetFullName()} has croaked.[/color]");
-        }
-        else
-        {
-            foreach (PopulationData hero in countyData.visitingHeroArmyList)
-            {
-                hero.heroSubordinates.Remove(this);
-            }
-        }
-
+        factionData.RemoveHeroFromAllHeroesList(this);
+        countyData.heroesInCountyList.Remove(this);
+        countyData.visitingHeroArmyList.Remove(this);
+        countyData.visitingHeroList.Remove(this);
         countyData.populationDataList.Remove(this);
+        
+        heroSubordinates.Clear();
+        GD.PrintRich($"[color=red]{GetFullName()} has croaked.[/color]");
     }
 
-    private PopulationData GenerateTempHero()
-    {
-        List<PopulationData> subordinates = heroSubordinates.ToList();
-        PopulationData bestLeader = subordinates
-            .OrderByDescending(sub =>
-                sub.skills[AllEnums.Skills.Leadership].skillLevel +
-                AttributeData.GetAttributeBonus(sub.attributes[AllEnums.Attributes.Charisma].attributeLevel, false,
-                    false))
-            .FirstOrDefault();
-        return bestLeader;
-    }
-
-    private void RemoveSubordinateFromHeroSubordinateList(Array<PopulationData> listOfHeroes)
+    public void RemoveSubordinateFromHeroSubordinateList(Array<PopulationData> listOfHeroes)
     {
         foreach (PopulationData hero in listOfHeroes)
         {
