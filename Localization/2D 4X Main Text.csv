@@ -383,3 +383,7 @@ PHRASE_IS_DEAD,is dead,está muerto
 TITLE_ALL_DEAD_PEOPLE,All Dead People,Todos los muertos
 TITLE_DEATH_LOCATION,Death Location,Lugar de la muerte
 TITLE_CAUSE_OF_DEATH,Cause of Death,Causa de muerte
+WORD_COMBATANTS,Combatants,Combatientes
+WORD_ATTACKERS,Attackers,Atacantes
+WORD_DEFENDERS,Defenders,Defensores
+WORD_STATUS,Status,Estado

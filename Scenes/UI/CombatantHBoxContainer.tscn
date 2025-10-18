@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://13gcd36nqhcf"]
+
+[ext_resource type="Texture2D" uid="uid://chbe7tt7tgya4" path="res://Graphics/Icons/Combat/achievement.svg" id="1_ntk1s"]
+
+[node name="Combatant HBoxContainer" type="HBoxContainer"]
+
+[node name="Hero Type TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_ntk1s")
+expand_mode = 2
+
+[node name="Name Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "WORD_NAME"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Status Label" type="Label" parent="."]
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 2
+text = "WORD_STATUS"
+horizontal_alignment = 1
+vertical_alignment = 1

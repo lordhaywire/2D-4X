@@ -9,10 +9,12 @@ public partial class BattleControl : Control
 {
     private readonly Random random = new();
 
-    [ExportGroup("Tokens")] [Export] public Separator heroSeparator;
+    [ExportGroup("Tokens")] 
+    [Export] public Separator heroSeparator;
     [Export] public Separator armySeparator;
 
-    [ExportGroup("War")] [Export] private TextureRect defenderTokenTextureRect;
+    [ExportGroup("War")] 
+    [Export] private TextureRect defenderTokenTextureRect;
     [Export] private TextureRect attackerTokenTextureRect;
 
     [Export] private Label defenderMoraleLabel;
@@ -236,12 +238,12 @@ public partial class BattleControl : Control
         }
 
         string finalBattleLog = $"{attackersLog} {defendersLog}";
-        BattleLogControl.Instance.AddLog(finalBattleLog, false);
+        BattleLogMarginContainer.Instance.AddLog(finalBattleLog);
 
         if (damageLog != "")
         {
             string finalDamageLog = $"{damageLog} {deathLog}";
-            BattleLogControl.Instance.AddLog(finalDamageLog, false);
+            BattleLogMarginContainer.Instance.AddLog(finalDamageLog);
         }
 
         // Check if the attacker learns rifle experience.
@@ -339,7 +341,7 @@ public partial class BattleControl : Control
 
             if (combatLog != "")
             {
-                BattleLogControl.Instance.AddLog(combatLog, false);
+                BattleLogMarginContainer.Instance.AddLog(combatLog);
             }
 
             SkillData.LearningCheck(population, true);
@@ -347,10 +349,11 @@ public partial class BattleControl : Control
         }
     }
 
-    private static void ButtonUp()
+    private void ButtonUp()
     {
         //GD.Print("Battle Log Control Clicked.");
-        PlayerUICanvas.Instance.BattleLogControl.Show();
+        BattleLogMarginContainer.Instance.battle = battle;
+        BattleLogMarginContainer.Instance.Show();
     }
 
     private void OnTreeExit()

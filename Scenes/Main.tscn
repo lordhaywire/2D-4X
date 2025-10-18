@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=86 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://World Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
 [ext_resource type="Script" uid="uid://bl7hn0hgb5876" path="res://Scripts/LoadMaps.cs" id="2_nda5i"]
@@ -36,7 +36,7 @@
 [ext_resource type="Script" uid="uid://cb81oehioy1sr" path="res://Scripts/UI/HeroPanelContainer.cs" id="34_8wj68"]
 [ext_resource type="Theme" uid="uid://bcc8wsoqypsuc" path="res://Themes/TopBarTheme.tres" id="34_e2d2b"]
 [ext_resource type="Script" uid="uid://pnqklen5b2s4" path="res://Scripts/UI/RecruitHeroConfirmationPanelContainer.cs" id="34_mgqam"]
-[ext_resource type="Script" uid="uid://dqcgliu6jmjx1" path="res://Scripts/UI/BattleLogControl.cs" id="35_10y8n"]
+[ext_resource type="Script" uid="uid://dqcgliu6jmjx1" path="res://Scripts/UI/BattleLogMarginContainer.cs" id="35_10y8n"]
 [ext_resource type="Script" uid="uid://cu733m1t7gb20" path="res://Scripts/UI/TopBarControl.cs" id="35_ecv6a"]
 [ext_resource type="Texture2D" uid="uid://ddb0p4x0erycl" path="res://Graphics/Icons/Top Bar/Influence.png" id="36_fqvec"]
 [ext_resource type="Texture2D" uid="uid://tqexbc3d8yy8" path="res://Graphics/Icons/Top Bar/Money.png" id="37_16y4w"]
@@ -48,12 +48,13 @@
 [ext_resource type="Script" uid="uid://ejvox70h10ew" path="res://Scripts/UI/ResearchDescriptionPanel.cs" id="41_77kvj"]
 [ext_resource type="Script" uid="uid://dau2q6n6oubso" path="res://Scripts/UI/EventLog.cs" id="43_w0p1n"]
 [ext_resource type="PackedScene" uid="uid://bjgv6c8xhn4lo" path="res://Scenes/UI/Event Log Text Panel.tscn" id="44_du832"]
-[ext_resource type="PackedScene" uid="uid://x41vmtlrl1cx" path="res://Scenes/UI/CombatLogTextPanel.tscn" id="44_qsgen"]
 [ext_resource type="Theme" uid="uid://b7f66fp0haa2c" path="res://Themes/FullScreenPanelTheme.tres" id="50_5cg3n"]
 [ext_resource type="Texture2D" uid="uid://bmawb7v8d3eev" path="res://Graphics/Old Yellow Lined Paper.png" id="50_6hqe0"]
 [ext_resource type="Texture2D" uid="uid://buiql8w31bmgq" path="res://Graphics/Icons/Top Bar/Building Materials concrete-bag.svg" id="52_5fb6h"]
 [ext_resource type="PackedScene" uid="uid://bif5f4i17oc2p" path="res://Scenes/UI/StorageHbox.tscn" id="53_xnh1n"]
 [ext_resource type="Script" uid="uid://cvdjp0n1wtfi5" path="res://Scripts/UI/GoodsPanelContainer.cs" id="54_ia1o5"]
+[ext_resource type="PackedScene" uid="uid://13gcd36nqhcf" path="res://Scenes/UI/CombatantHBoxContainer.tscn" id="56_atu2d"]
+[ext_resource type="PackedScene" uid="uid://x41vmtlrl1cx" path="res://Scenes/UI/CombatLogTextPanel.tscn" id="58_atu2d"]
 [ext_resource type="PackedScene" uid="uid://4t2ve1w4uvww" path="res://Scenes/UI/AssignedResearcherHBoxContainer.tscn" id="62_dhpbg"]
 [ext_resource type="PackedScene" uid="uid://dbh44f2eysibn" path="res://Scenes/UI/ResearchItemButton.tscn" id="62_nohy5"]
 [ext_resource type="Script" uid="uid://c8wh1vjtb6kne" path="res://Scripts/UI/StoryEventControl.cs" id="62_onxgq"]
@@ -210,10 +211,9 @@ script = ExtResource("23_8n4h5")
 [node name="County Dictator" type="Node" parent="Game Controller Node"]
 script = ExtResource("28_qe8u4")
 
-[node name="Player UI Canvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("BattleLogControl", "populationListUIElement", "selectedHeroPanelContainer", "resourcesPanelContainer")]
+[node name="Player UI Canvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("populationListUIElement", "selectedHeroPanelContainer", "resourcesPanelContainer")]
 process_mode = 3
 script = ExtResource("24_s3wh2")
-BattleLogControl = NodePath("Battle Log Control")
 populationListUIElement = NodePath("Population List MarginContainer")
 selectedHeroPanelContainer = NodePath("County Info Control/MarginContainer/Selected Hero HBoxContainer/Selected Hero PanelContainer")
 resourcesPanelContainer = NodePath("Goods PanelContainer")
@@ -2042,24 +2042,8 @@ size_flags_horizontal = 3
 tooltip_text = "You are a piece of shit!"
 text = "Yes"
 
-[node name="Battle Log Control" type="Control" parent="Player UI Canvas" node_paths=PackedStringArray("battleLogControlTitle", "defenderVboxContainer", "attackerVboxContainer")]
+[node name="Battle Log MarginContainer" type="MarginContainer" parent="Player UI Canvas" node_paths=PackedStringArray("battleLogControlTitle", "attackerVboxContainer", "defenderVboxContainer", "logVboxContainer", "closeButton")]
 visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("35_10y8n")
-combatLogScene = ExtResource("44_qsgen")
-battleLogControlTitle = NodePath("MarginContainer/PanelContainer/Battle Log Title Label")
-defenderVboxContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/ScrollContainer/Defender VBoxContainer")
-attackerVboxContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/MarginContainer/ScrollContainer/Attacker VBoxContainer")
-maxLines = 50
-
-[node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Battle Log Control"]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -2067,92 +2051,126 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 301
-theme_override_constants/margin_top = 800
+theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 301
+script = ExtResource("35_10y8n")
+combatantScene = ExtResource("56_atu2d")
+combatLogScene = ExtResource("58_atu2d")
+battleLogControlTitle = NodePath("All VBoxContainer/Battle Log PanelContainer/VBoxContainer/HBoxContainer/Battle Log Title Label")
+attackerVboxContainer = NodePath("All VBoxContainer/Combatants PanelContainer/Combatants VBoxContainer/Combatants HBoxContainer/Attackers ScrollContainer/Attackers VBoxContainer")
+defenderVboxContainer = NodePath("All VBoxContainer/Combatants PanelContainer/Combatants VBoxContainer/Combatants HBoxContainer/Defender ScrollContainer/Defenders VBoxContainer")
+logVboxContainer = NodePath("All VBoxContainer/Battle Log PanelContainer/VBoxContainer/Log HBoxContainer/Log PanelContainer/Log ScrollContainer/Log VBoxContainer")
+closeButton = NodePath("All VBoxContainer/Combatants PanelContainer/Combatants VBoxContainer/Close Button")
 
-[node name="PanelContainer" type="PanelContainer" parent="Player UI Canvas/Battle Log Control/MarginContainer"]
+[node name="All VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Battle Log MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Battle Log PanelContainer" type="PanelContainer" parent="Player UI Canvas/Battle Log MarginContainer/All VBoxContainer"]
+custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
 
-[node name="Battle Log Title Label" type="Label" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Battle Log MarginContainer/All VBoxContainer/Battle Log PanelContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Battle Log MarginContainer/All VBoxContainer/Battle Log PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Combatants Button" type="Button" parent="Player UI Canvas/Battle Log MarginContainer/All VBoxContainer/Battle Log PanelContainer/VBoxContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Combatants"
+
+[node name="Battle Log Title Label" type="Label" parent="Player UI Canvas/Battle Log MarginContainer/All VBoxContainer/Battle Log PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "PHRASE_BATTLE_LOG"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Log HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Battle Log MarginContainer/All VBoxContainer/Battle Log PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="Log PanelContainer" type="PanelContainer" parent="Player UI Canvas/Battle Log MarginContainer/All VBoxContainer/Battle Log PanelContainer/VBoxContainer/Log HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Log ScrollContainer" type="ScrollContainer" parent="Player UI Canvas/Battle Log MarginContainer/All VBoxContainer/Battle Log PanelContainer/VBoxContainer/Log HBoxContainer/Log PanelContainer"]
+layout_mode = 2
+mouse_filter = 2
+horizontal_scroll_mode = 0
+
+[node name="Log VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Battle Log MarginContainer/All VBoxContainer/Battle Log PanelContainer/VBoxContainer/Log HBoxContainer/Log PanelContainer/Log ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/separation = 5
+
+[node name="Combatants PanelContainer" type="PanelContainer" parent="Player UI Canvas/Battle Log MarginContainer/All VBoxContainer"]
+custom_minimum_size = Vector2(0, 744)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Combatants VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Battle Log MarginContainer/All VBoxContainer/Combatants PanelContainer"]
+layout_mode = 2
+
+[node name="Combatants Title Label" type="Label" parent="Player UI Canvas/Battle Log MarginContainer/All VBoxContainer/Combatants PanelContainer/Combatants VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 24
-text = "Battle Log"
+text = "WORD_COMBATANTS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer"]
+[node name="Combatants HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Battle Log MarginContainer/All VBoxContainer/Combatants PanelContainer/Combatants VBoxContainer"]
 layout_mode = 2
-mouse_filter = 2
-theme_override_constants/margin_top = 35
-theme_override_constants/margin_bottom = 51
+size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="Left PanelContainer" type="PanelContainer" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer"]
+[node name="Attackers ScrollContainer" type="ScrollContainer" parent="Player UI Canvas/Battle Log MarginContainer/All VBoxContainer/Combatants PanelContainer/Combatants VBoxContainer/Combatants HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-mouse_filter = 2
 
-[node name="Defender Title Label" type="Label" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer"]
-visible = false
+[node name="Attackers VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Battle Log MarginContainer/All VBoxContainer/Combatants PanelContainer/Combatants VBoxContainer/Combatants HBoxContainer/Attackers ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Attackers Title Label" type="Label" parent="Player UI Canvas/Battle Log MarginContainer/All VBoxContainer/Combatants PanelContainer/Combatants VBoxContainer/Combatants HBoxContainer/Attackers ScrollContainer/Attackers VBoxContainer"]
+layout_mode = 2
+text = "WORD_ATTACKERS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Combatant HBoxContainer" parent="Player UI Canvas/Battle Log MarginContainer/All VBoxContainer/Combatants PanelContainer/Combatants VBoxContainer/Combatants HBoxContainer/Attackers ScrollContainer/Attackers VBoxContainer" instance=ExtResource("56_atu2d")]
+layout_mode = 2
+
+[node name="Defender ScrollContainer" type="ScrollContainer" parent="Player UI Canvas/Battle Log MarginContainer/All VBoxContainer/Combatants PanelContainer/Combatants VBoxContainer/Combatants HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Defenders VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Battle Log MarginContainer/All VBoxContainer/Combatants PanelContainer/Combatants VBoxContainer/Combatants HBoxContainer/Defender ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Defenders Title Label" type="Label" parent="Player UI Canvas/Battle Log MarginContainer/All VBoxContainer/Combatants PanelContainer/Combatants VBoxContainer/Combatants HBoxContainer/Defender ScrollContainer/Defenders VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
-theme_override_font_sizes/font_size = 20
-text = "Defender"
+text = "WORD_DEFENDERS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer"]
+[node name="Combatant HBoxContainer" parent="Player UI Canvas/Battle Log MarginContainer/All VBoxContainer/Combatants PanelContainer/Combatants VBoxContainer/Combatants HBoxContainer/Defender ScrollContainer/Defenders VBoxContainer" instance=ExtResource("56_atu2d")]
 layout_mode = 2
-mouse_filter = 2
-horizontal_scroll_mode = 0
 
-[node name="Defender VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer/ScrollContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-theme_override_constants/separation = 5
-
-[node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Left PanelContainer"]
-visible = false
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/margin_top = 28
-
-[node name="Right PanelContainer" type="PanelContainer" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-
-[node name="Attacker Title Label" type="Label" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer"]
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_font_sizes/font_size = 20
-text = "Attacker"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="MarginContainer" type="MarginContainer" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer"]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/margin_top = 28
-
-[node name="ScrollContainer" type="ScrollContainer" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/MarginContainer"]
-layout_mode = 2
-mouse_filter = 2
-horizontal_scroll_mode = 0
-
-[node name="Attacker VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/MarginContainer/HBoxContainer/Right PanelContainer/MarginContainer/ScrollContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-theme_override_constants/separation = 5
-
-[node name="Close Button" type="Button" parent="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer"]
+[node name="Close Button" type="Button" parent="Player UI Canvas/Battle Log MarginContainer/All VBoxContainer/Combatants PanelContainer/Combatants VBoxContainer"]
 custom_minimum_size = Vector2(75, 50)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -2989,12 +3007,10 @@ process_mode = 3
 [connection signal="visibility_changed" from="Player UI Canvas/Recuit Hero Confirmation PanelContainer" to="Player UI Canvas/Recuit Hero Confirmation PanelContainer" method="OnVisibilityChange"]
 [connection signal="button_up" from="Player UI Canvas/Recuit Hero Confirmation PanelContainer/PanelContainer/HBoxContainer/No Button" to="Player UI Canvas/Recuit Hero Confirmation PanelContainer" method="NoButton"]
 [connection signal="button_up" from="Player UI Canvas/Recuit Hero Confirmation PanelContainer/PanelContainer/HBoxContainer/Yes Button" to="Player UI Canvas/Recuit Hero Confirmation PanelContainer" method="YesButton"]
-[connection signal="visibility_changed" from="Player UI Canvas/Battle Log Control" to="Player UI Canvas/Battle Log Control" method="OnBattleLogControlVisibilityChanged"]
-[connection signal="mouse_entered" from="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer" to="Player UI Canvas" method="OnMouseEnterUI"]
-[connection signal="mouse_exited" from="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer" to="Player UI Canvas" method="OnMouseExitUI"]
-[connection signal="button_up" from="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/Close Button" to="Player UI Canvas/Battle Log Control" method="CloseButton"]
-[connection signal="mouse_entered" from="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/Close Button" to="Player UI Canvas" method="OnMouseEnterUI"]
-[connection signal="mouse_exited" from="Player UI Canvas/Battle Log Control/MarginContainer/PanelContainer/Close Button" to="Player UI Canvas" method="OnMouseExitUI"]
+[connection signal="mouse_entered" from="Player UI Canvas/Battle Log MarginContainer/All VBoxContainer/Battle Log PanelContainer" to="Player UI Canvas" method="OnMouseEnterUI"]
+[connection signal="mouse_exited" from="Player UI Canvas/Battle Log MarginContainer/All VBoxContainer/Battle Log PanelContainer" to="Player UI Canvas" method="OnMouseExitUI"]
+[connection signal="mouse_entered" from="Player UI Canvas/Battle Log MarginContainer/All VBoxContainer/Combatants PanelContainer/Combatants VBoxContainer/Close Button" to="Player UI Canvas" method="OnMouseEnterUI"]
+[connection signal="mouse_exited" from="Player UI Canvas/Battle Log MarginContainer/All VBoxContainer/Combatants PanelContainer/Combatants VBoxContainer/Close Button" to="Player UI Canvas" method="OnMouseExitUI"]
 [connection signal="visibility_changed" from="Player UI Canvas/County Improvements Control" to="Player UI Canvas/County Improvements Control" method="OnCountyImprovementControlVisibilityChanged"]
 [connection signal="visibility_changed" from="Player UI Canvas/County Improvements Control/County Improvements MarginContainer" to="Player UI Canvas/County Improvements Control/County Improvements MarginContainer" method="OnVisibilityChange"]
 [connection signal="button_up" from="Player UI Canvas/County Improvements Control/County Improvements MarginContainer/Close Button" to="Player UI Canvas/County Improvements Control" method="CloseButton"]
