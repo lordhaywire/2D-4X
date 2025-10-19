@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=3 uid="uid://dcycrof2uq8gd"]
+[gd_scene load_steps=89 format=3 uid="uid://dcycrof2uq8gd"]
 
 [ext_resource type="Texture2D" uid="uid://1go0m6guivuv" path="res://World Maps/Pacific North West Color Coded Reduced.png" id="2_h1vmt"]
 [ext_resource type="Script" uid="uid://bl7hn0hgb5876" path="res://Scripts/LoadMaps.cs" id="2_nda5i"]
@@ -54,7 +54,10 @@
 [ext_resource type="PackedScene" uid="uid://bif5f4i17oc2p" path="res://Scenes/UI/StorageHbox.tscn" id="53_xnh1n"]
 [ext_resource type="Script" uid="uid://cvdjp0n1wtfi5" path="res://Scripts/UI/GoodsPanelContainer.cs" id="54_ia1o5"]
 [ext_resource type="PackedScene" uid="uid://13gcd36nqhcf" path="res://Scenes/UI/CombatantHBoxContainer.tscn" id="56_atu2d"]
+[ext_resource type="Texture2D" uid="uid://07q3foepvhfh" path="res://Graphics/Icons/Combatants List/Army Leader Icon.svg" id="57_x5wht"]
 [ext_resource type="PackedScene" uid="uid://x41vmtlrl1cx" path="res://Scenes/UI/CombatLogTextPanel.tscn" id="58_atu2d"]
+[ext_resource type="Texture2D" uid="uid://cu5oktyy3gmq0" path="res://Graphics/Icons/Combatants List/Hero Icon.svg" id="58_tbeql"]
+[ext_resource type="Texture2D" uid="uid://dcsprpmhw467j" path="res://Graphics/Icons/Combatants List/Soldier Icon.svg" id="59_c5nnb"]
 [ext_resource type="PackedScene" uid="uid://4t2ve1w4uvww" path="res://Scenes/UI/AssignedResearcherHBoxContainer.tscn" id="62_dhpbg"]
 [ext_resource type="PackedScene" uid="uid://dbh44f2eysibn" path="res://Scenes/UI/ResearchItemButton.tscn" id="62_nohy5"]
 [ext_resource type="Script" uid="uid://c8wh1vjtb6kne" path="res://Scripts/UI/StoryEventControl.cs" id="62_onxgq"]
@@ -144,7 +147,7 @@ camera = NodePath("Camera2D")
 
 [node name="Camera2D" type="Camera2D" parent="Camera CharacterBody2D"]
 physics_interpolation_mode = 2
-position = Vector2(494, 479)
+limit_enabled = false
 
 [node name="Maps" type="Node" parent="."]
 script = ExtResource("2_nda5i")
@@ -2054,6 +2057,9 @@ theme_override_constants/margin_left = 301
 theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 301
 script = ExtResource("35_10y8n")
+armyLeaderTextureRect = ExtResource("57_x5wht")
+heroTextureRect = ExtResource("58_tbeql")
+soldierTextureRect = ExtResource("59_c5nnb")
 combatantScene = ExtResource("56_atu2d")
 combatLogScene = ExtResource("58_atu2d")
 battleLogControlTitle = NodePath("All VBoxContainer/Battle Log PanelContainer/VBoxContainer/HBoxContainer/Battle Log Title Label")
@@ -2064,7 +2070,6 @@ closeButton = NodePath("All VBoxContainer/Combatants PanelContainer/Combatants V
 
 [node name="All VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Battle Log MarginContainer"]
 layout_mode = 2
-size_flags_vertical = 8
 
 [node name="Battle Log PanelContainer" type="PanelContainer" parent="Player UI Canvas/Battle Log MarginContainer/All VBoxContainer"]
 custom_minimum_size = Vector2(0, 300)

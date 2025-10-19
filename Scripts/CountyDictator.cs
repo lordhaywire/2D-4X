@@ -14,30 +14,31 @@ public partial class CountyDictator : Node
     
     public static void CaptureCounty(int capturedCountyId, FactionData winnersFactionData)
     {
-        County selectCounty = (County)Globals.Instance.countiesParent.GetChild(capturedCountyId);
-        //GD.Print("County captured! " + selectCounty.countyData.countyName);
+        County county = (County)Globals.Instance.countiesParent.GetChild(capturedCountyId);
+        GD.Print("County captured! " + county.countyData.countyName);
 
         // Remove county from the counties' faction data county list.
-        FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(selectCounty.countyData.factionId);
-        factionData.countiesFactionOwns.Remove(selectCounty.countyData);
+        FactionData losersFactionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(county.countyData.factionId);
+        losersFactionData.countiesFactionOwns.Remove(county.countyData);
 
         // If the faction now has 0 counties, it needs to be destroyed.
-        //GD.Print($"Faction County Count: " + selectCounty.countyData.factionData.countiesFactionOwns.Count);
-        if (factionData.countiesFactionOwns.Count == 0)
+        GD.Print($"Faction County Count: " + losersFactionData.countiesFactionOwns.Count);
+        if (losersFactionData.countiesFactionOwns.Count == 0)
         {
             //GD.Print("Capture County before Destroy Faction!");
-            DestroyFaction(selectCounty);
+            DestroyFaction(county);
         }
 
+        county.countySprite.SelfModulate = winnersFactionData.factionColor;
+        
         // Go through all the population in that county and assign them the winner's faction.
-        factionData = winnersFactionData;
-        selectCounty.countySprite.SelfModulate = winnersFactionData.factionColor;
-        foreach (PopulationData populationData in selectCounty.countyData.populationDataList)
+        foreach (PopulationData populationData in county.countyData.populationDataList)
         {
             populationData.factionId = winnersFactionData.factionId;
         }
 
-        // Assign the faction's - Todo: What is missing from here? 
+        // Assign the county to the winner's faction.
+        winnersFactionData.countiesFactionOwns.Add(county.countyData);
     }
 
     private static void DestroyFaction(County county)

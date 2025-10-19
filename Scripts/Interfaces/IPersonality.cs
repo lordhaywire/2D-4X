@@ -30,4 +30,5 @@ public partial class PlayerPersonality : IPersonality
     {
         //GD.Print($"{populationData.firstName} Player Personality!");
     }
+    
 }

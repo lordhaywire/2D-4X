@@ -31,13 +31,13 @@ public partial class PopulationData : Resource
     [Export] public int lastLocation;
     [Export] public int destination;
 
-    [ExportGroup("Info")] [Export] public string firstName;
+    [Export] public string firstName;
     [Export] public string lastName;
     [Export] public bool isMale;
     [Export] public int age;
     [Export] public AllEnums.CauseOfDeath causeOfDeath;
 
-    [ExportGroup("Personality")] [Export] public AllEnums.Personality personality;
+    [Export] public AllEnums.Personality personality;
     public IPersonality iPersonality;
 
     [ExportGroup("Hero")]
@@ -61,12 +61,13 @@ public partial class PopulationData : Resource
         }
     }
 
+    [Export] public AllEnums.CombatStatus combatStatus;
     [Export] public int numberOfSubordinatesWanted; // This is the max number of subordinates that a hero can have.
-    [Export] public Godot.Collections.Array<PopulationData> heroSubordinates;
+    [Export] public Array<PopulationData> heroSubordinates;
 
-    [ExportGroup("Perks")] [Export] public Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks;
+    [Export] public Godot.Collections.Dictionary<AllEnums.Perks, PerkData> perks;
 
-    [ExportGroup("Expendables")] [Export] public int hitPoints;
+    [Export] public int hitPoints;
     [Export] public int maxHitPoints;
 
     [Export] public int
@@ -109,17 +110,15 @@ public partial class PopulationData : Resource
 
     // Resource needs, currently there is just 1 need, Remnants.
     [Export] public Godot.Collections.Dictionary<AllEnums.CountyGoodType, int> needs;
+    [Export] public Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes;
 
-    [ExportGroup("Attributes")] [Export]
-    public Godot.Collections.Dictionary<AllEnums.Attributes, AttributeData> attributes;
-
-    [ExportGroup("Skills")] [Export] public Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills;
+    [Export] public Godot.Collections.Dictionary<AllEnums.Skills, SkillData> skills;
     [Export] public SkillData preferredSkill;
     [Export] public InterestData interestData;
 
-    [ExportGroup("Work")] [Export] public AllEnums.Activities activity;
+    [Export] public AllEnums.Activities activity;
 
-    [ExportGroup("Inventory")] [Export] public bool useNewestEquipment;
+    [Export] public bool useNewestEquipment;
     [Export] public Godot.Collections.Dictionary<AllEnums.InventorySlot, GoodData> inventory;
 
     [Export] public CountyImprovementData currentCountyImprovement; // Used for work and building.
@@ -250,6 +249,7 @@ public partial class PopulationData : Resource
             Personality = personality.ToString(),
             IsHero = isHero,
             HeroType = HeroType.ToString(),
+            CombatStatus = combatStatus.ToString(),
             NumberOfSubordinatesWanted = numberOfSubordinatesWanted,
             HeroSubordinates = heroSubordinates.Select(h => h.populationId).ToList(),
             Perks = perks.ToDictionary(
@@ -329,6 +329,11 @@ public partial class PopulationData : Resource
             populationData.HeroType = parsedHeroType;
         }
 
+        if (Enum.TryParse(populationDto.CombatStatus, out AllEnums.CombatStatus parsedCombatStatus))
+        {
+            populationData.combatStatus = parsedCombatStatus;
+        }
+        
         populationData.numberOfSubordinatesWanted = populationDto.NumberOfSubordinatesWanted;
 
         // Hero Subordinates (IDs → PopulationData references)
@@ -523,6 +528,7 @@ public partial class PopulationData : Resource
         }
     }
 
+    
     private void UpdateDestination(int newDestination)
     {
         destination = newDestination;

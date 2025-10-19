@@ -15,7 +15,7 @@ public partial class PopulationListUiElement : MarginContainer
         {
             CountyInfoControl.Instance.populationDescriptionControl.Hide();
             CountyInfoControl.Instance.countyImprovementsPanelControl.Hide();
-            PlayerUICanvas.Instance.BattleLogControl.Hide();
+            BattleLogMarginContainer.Instance.Hide();
 
             PlayerControls.Instance.AdjustPlayerControls(false);
             Clock.Instance.PauseTime();

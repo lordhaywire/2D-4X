@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using AutoloadSpace;
 
 namespace PlayerSpace;
 
@@ -29,6 +30,14 @@ public partial class CameraControls : CharacterBody2D
         //GD.Print("Hero Activity: " + Globals.Instance.playerFactionData.factionLeader.activity);
     }
 
+    public void CenterCameraOnPlayerCapital()
+    {
+        CountyData countyData =
+            Globals.Instance.GetCountyDataFromLocationId(Autoload.Instance.playerFactionData.factionCapitalCounty);
+        Node2D countyOverlay = countyData.countyNode.countyOverlayNode2D;
+        Vector2 capitalGlobalPosition = countyOverlay.GlobalPosition;
+        GlobalPosition = capitalGlobalPosition;
+    }
     public void GetInput()
     {
         if (cameraControlsEnabled && PlayerControls.Instance.playerControlsEnabled)

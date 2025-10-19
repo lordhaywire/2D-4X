@@ -21,6 +21,8 @@ public class PopulationDto
     public string Personality { get; set; }
     public bool IsHero { get; set; }
     public string HeroType { get; set; }
+    
+    public string CombatStatus { get; set; }
     public int NumberOfSubordinatesWanted { get; set; }
     public List<int> HeroSubordinates { get; set; } = []; // store subordinate IDs
 

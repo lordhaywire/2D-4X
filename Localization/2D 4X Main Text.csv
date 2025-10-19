@@ -177,6 +177,8 @@ PHRASE_HERO_IS_RECRUITING,Hero is recruiting!,¡El héroe está reclutando!
 PHRASE_IDLE_WORKERS,Idle Workers,Trabajadores inactivos
 PHRASE_INPUT_GOODS,Input Goods,Bienes de entrada
 PHRASE_INVENTORY_AND_SUBORDINATES,Inventory and Subordinates,Inventario y subordinados
+PHRASE_IS_DAMAGED_FOR,is damaged for,está dañado por
+PHRASE_IS_DEAD,is dead,está muerto
 PHRASE_IS_NOW_RESEARCHING,is now researching,ahora está investigando
 PHRASE_IS_RESEARCHING,is researching,está investigando
 PHRASE_IS_RETREATING,is retreating,se está retirando
@@ -322,17 +324,23 @@ TERRAIN_NAME_RUIN,Ruin,Ruina
 TERRAIN_NAME_SWAMP,Swamp,Pantano
 TERRAIN_NAME_TUNDRA,Tundra,Tundra
 TITLE_AIDE,Aide,Ayudante
+TITLE_ALL_DEAD_PEOPLE,All Dead People,Todos los muertos
 TITLE_ARMY_LEADER,Army Leader,Líder del Ejército
+TITLE_CAUSE_OF_DEATH,Cause of Death,Causa de muerte
+TITLE_DEATH_LOCATION,Death Location,Lugar de la muerte
 TITLE_FACTION_LEADER,Faction Leader,Líder de facción
 WORD_ACTIVITY,Activity,Actividad
 WORD_AGE,Age,Edad
+WORD_ATTACKERS,Attackers,Atacantes
 WORD_ATTRIBUTES,Attributes,Atributos
 WORD_BUILD,Build- THIS IS AN ACTIVITY,Construir
 WORD_CLOSE,Close,Cerrar
+WORD_COMBATANTS,Combatants,Combatientes
 WORD_CONSTRUCT,Construct,Construir
 WORD_CONSTRUCTION,Construction,Construcción
 WORD_COUNTY,County,Condado
 WORD_DAY,Day:,Día
+WORD_DEFENDERS,Defenders,Defensores
 WORD_DIPLOMACY,Diplomacy,Diplomacia
 WORD_EXIT,Exit,Salida
 WORD_EXPLORE,Explore- THIS IS AN ACTIVITY,Explorar
@@ -342,6 +350,7 @@ WORD_FEMALE,Female,Hembra
 WORD_GOODS,Goods,Bienes
 WORD_HELPFUL,Helpful,Útil
 WORD_HIRING,Hiring,Contratación
+WORD_HITPOINTS,hitpoints,Puntos de vida
 WORD_IDLE,Idle,Ocioso
 WORD_INTEREST,Interest,Interés
 WORD_INVENTORY,Inventory,Inventario
@@ -370,6 +379,7 @@ WORD_SEX,Sex,Sexo
 WORD_SKILLS,Skills,Habilidades
 WORD_SPEED,Speed:,Velocidad
 WORD_START,Start,Empezar
+WORD_STATUS,Status,Estado
 WORD_SUBORDINATES,Subordinates,Subordinados
 WORD_TIME,Time:,Hora
 WORD_TITLES,Titles,Títulos
@@ -377,13 +387,8 @@ WORD_TRAIN,Train - THIS IS AN ACTIVITY,Tren
 WORD_VISITORS,Visitors,Visitantes
 WORD_WAR,War,Era
 WORD_WORK,Work- THIS IS AN ACTIVITY,Trabajo
-PHRASE_IS_DAMAGED_FOR,is damaged for,está dañado por
-WORD_HITPOINTS,hitpoints,Puntos de vida
-PHRASE_IS_DEAD,is dead,está muerto
-TITLE_ALL_DEAD_PEOPLE,All Dead People,Todos los muertos
-TITLE_DEATH_LOCATION,Death Location,Lugar de la muerte
-TITLE_CAUSE_OF_DEATH,Cause of Death,Causa de muerte
-WORD_COMBATANTS,Combatants,Combatientes
-WORD_ATTACKERS,Attackers,Atacantes
-WORD_DEFENDERS,Defenders,Defensores
-WORD_STATUS,Status,Estado
+WORD_ATTACKING,Attacking,Atacando
+WORD_COWARD,Coward,Cobarde
+WORD_DEAD,Dead,Muerto
+WORD_DEFENDING,Defending,Defendiendo
+PHRASE_MISSING_IN_ACTION,Missing in action,Desaparecido en acción

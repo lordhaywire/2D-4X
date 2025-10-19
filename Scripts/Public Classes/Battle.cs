@@ -64,7 +64,7 @@ public class Battle(CountyData battleLocation)
             army == defendingArmy ? attackingMia :
             army == attackingArmy ? defendingMia :
             null;
-        
+
         // See if the dead person is a hero.
         if (deadPerson.isHero)
         {
@@ -106,6 +106,7 @@ public class Battle(CountyData battleLocation)
                         miaPeople.Add(leftOverSubordinate);
                         army.Remove(leftOverSubordinate);
                     }
+
                     deadPerson.heroSubordinates.Clear();
                 }
             }
@@ -117,6 +118,7 @@ public class Battle(CountyData battleLocation)
                     miaPeople.Add(leftOverSubordinate);
                     army.Remove(leftOverSubordinate);
                 }
+
                 deadPerson.heroSubordinates.Clear();
             }
         }
@@ -195,12 +197,17 @@ public class Battle(CountyData battleLocation)
     public static int GetAverageArmyMorale(Godot.Collections.Array<PopulationData> army)
     {
         int morale = 0;
+        int averageMorale = 0;
         foreach (PopulationData person in army)
         {
             morale += person.moraleExpendable;
         }
-        
-        int averageMorale = morale / army.Count;
+
+        if (army.Count != 0)
+        {
+            averageMorale = morale / army.Count;
+        }
+
         return averageMorale;
     }
 

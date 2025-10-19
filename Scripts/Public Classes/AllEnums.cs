@@ -75,6 +75,17 @@ public class AllEnums
         Vegetables,
         Wood,
     }
+
+    // This is this way because then we can just translate with .ToString();
+    public enum CombatStatus
+    {
+        WORD_NONE,
+        WORD_ATTACKING,
+        WORD_COWARD,
+        WORD_DEAD,
+        WORD_DEFENDING,
+        PHRASE_MISSING_IN_ACTION
+    }
     
     public enum InventorySlot
     {

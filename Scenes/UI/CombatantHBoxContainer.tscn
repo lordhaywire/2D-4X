@@ -1,8 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://13gcd36nqhcf"]
+[gd_scene load_steps=3 format=3 uid="uid://13gcd36nqhcf"]
 
+[ext_resource type="Script" uid="uid://bu870cbxpoodv" path="res://Scripts/UI/CombatantHBoxContainer.cs" id="1_dgec4"]
 [ext_resource type="Texture2D" uid="uid://chbe7tt7tgya4" path="res://Graphics/Icons/Combat/achievement.svg" id="1_ntk1s"]
 
-[node name="Combatant HBoxContainer" type="HBoxContainer"]
+[node name="Combatant HBoxContainer" type="HBoxContainer" node_paths=PackedStringArray("heroTypeTextureRect", "nameLabel", "statusLabel")]
+script = ExtResource("1_dgec4")
+heroTypeTextureRect = NodePath("Hero Type TextureRect")
+nameLabel = NodePath("Name Label")
+statusLabel = NodePath("Status Label")
 
 [node name="Hero Type TextureRect" type="TextureRect" parent="."]
 layout_mode = 2
