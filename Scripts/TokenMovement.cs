@@ -26,7 +26,7 @@ namespace PlayerSpace
                     FactionData factionData =
                         SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(heroToken.populationData
                             .factionId);
-                    if (Globals.CheckIfPlayerFaction(factionData) == false)
+                    if (factionData.CheckIfPlayerFaction() == false)
                     {
                         return;
                     }
@@ -207,7 +207,7 @@ namespace PlayerSpace
 
             if (destinationCounty.countyData.heroesInCountyList.Count > 0)
             {
-                Battle battle = new(destinationCounty.countyData);
+                Battle battle = new(destinationCounty.countyData, heroToken.populationData.factionId);
                 destinationCounty.countyData.battles.Add(battle);
                 destinationCounty.battleControl.StartBattle(battle);
             }

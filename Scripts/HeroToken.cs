@@ -149,7 +149,7 @@ public partial class HeroToken : CharacterBody2D
 
         // Remove Subordinates.
         if (populationData.heroSubordinates.Count <= 0 ||
-            !Globals.CheckIfPlayerFaction(locationFactionData)) return;
+            !locationFactionData.CheckIfPlayerFaction()) return;
         CountyData countyData = startingCounty.countyData;
         foreach (PopulationData person in populationData.heroSubordinates)
         {
@@ -181,7 +181,7 @@ public partial class HeroToken : CharacterBody2D
         destinationCounty.countyData.spawnedTokenButtons.Add(spawnedTokenButton);
 
         if (populationData.heroSubordinates.Count <= 0 ||
-            !Globals.CheckIfPlayerFaction(locationFactionData)) return;
+            !locationFactionData.CheckIfPlayerFaction()) return;
         CountyData countyData = destinationCounty.countyData;
         foreach (PopulationData person in populationData.heroSubordinates)
         {

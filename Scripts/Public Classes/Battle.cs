@@ -6,10 +6,13 @@ using Godot;
 
 namespace PlayerSpace;
 
-public class Battle(CountyData battleLocation)
+public class Battle(CountyData battleLocation, int attackerFactionId)
 {
     public readonly CountyData battleLocation = battleLocation;
 
+    public int attackerFactionId = attackerFactionId;
+    // No need for the defender Faction ID because it can always be gotten from the battle location.
+    
     public Godot.Collections.Array<PopulationData> attackingArmy = [];
     public Godot.Collections.Array<PopulationData> defendingArmy = [];
     public Godot.Collections.Array<PopulationData> attackingMia = [];
@@ -97,6 +100,16 @@ public class Battle(CountyData battleLocation)
 
                     // Add in as many subordinates as he can lead.
                     AddSubordinatesFromOtherHero(deadPerson, firstNonHero);
+                    GD.Print($"{FactionData.GetFactionDataFromId(firstNonHero.factionId).factionName}: " +
+                             $"{firstNonHero.GetFullName()} has been promoted to a temp hero.");
+                    if (FactionData.GetFactionDataFromId(firstNonHero.factionId).CheckIfPlayerFaction())
+                    {
+                        EventLog.Instance.AddLog(
+                            $"{firstNonHero.GetFullName()} {TranslationServer.Translate("PHRASE_HAS_BEEN_PROMOTED")}.");
+                    }
+
+                    TokenSpawner.Spawn(Globals.Instance.GetCountyDataFromLocationId(firstNonHero.Location).countyNode,
+                        firstNonHero);
                 }
                 else
                 {
@@ -121,6 +134,12 @@ public class Battle(CountyData battleLocation)
 
                 deadPerson.heroSubordinates.Clear();
             }
+        }
+
+        if (deadPerson.heroToken.spawnedTokenButton != null)
+        {
+            TokenSpawner.Unspawn(Globals.Instance.GetCountyDataFromLocationId(deadPerson.Location).countyNode,
+                deadPerson);
         }
 
         deadPerson.DeathByCombat(AllEnums.CauseOfDeath.Bullet);

@@ -9,12 +9,10 @@ public partial class BattleControl : Control
 {
     private readonly Random random = new();
 
-    [ExportGroup("Tokens")] 
-    [Export] public Separator heroSeparator;
+    [ExportGroup("Tokens")] [Export] public Separator heroSeparator;
     [Export] public Separator armySeparator;
 
-    [ExportGroup("War")] 
-    [Export] private TextureRect defenderTokenTextureRect;
+    [ExportGroup("War")] [Export] private TextureRect defenderTokenTextureRect;
     [Export] private TextureRect attackerTokenTextureRect;
 
     [Export] private Label defenderMoraleLabel;
@@ -103,12 +101,13 @@ public partial class BattleControl : Control
 
         // Sort armies to put the best leader first.
         battle.SortArmiesListBestHeroFirst();
-        
+
         // If either army has been destroyed then we skip straight to the ContinueBattleCheck.
         // I think we will be able to get rid of this.
         if (battle.defendingArmy.Count <= 0 || battle.attackingArmy.Count <= 0)
         {
             ContinueBattleCheck();
+            return;
         }
 
         // Defenders attack attackers.
@@ -122,7 +121,6 @@ public partial class BattleControl : Control
                 break;
             }
         }
-
 
         // Attackers attack defenders.
         foreach (PopulationData attacker in battle.attackingArmy)
@@ -227,7 +225,6 @@ public partial class BattleControl : Control
                     battle.SomeoneIsKilled(gettingShotAtPopulation);
                     CheckArmyCool(currentArmy); // Additional army check if someone dies.
                 }
-
             }
         }
         else
@@ -259,19 +256,33 @@ public partial class BattleControl : Control
         // Todo: Add hourly leadership checks to restore a tiny bit of morale to each fighter.
 
         // Check if an army is destroyed
-        CheckIfAnArmyIsDestroyed();
-        
+        if (CheckIfAnArmyIsDestroyed())
+        {
+            return;
+        }
+
         CheckIfAnArmyFlees();
-        
     }
 
-    private void CheckIfAnArmyIsDestroyed()
+    private bool CheckIfAnArmyIsDestroyed()
     {
+        FactionData attackersFaction = FactionData.GetFactionDataFromId(battle.attackerFactionId);
+        FactionData defendersFaction = FactionData.GetFactionDataFromId(battle.battleLocation.factionId);
+
+        string factionName = battle.defendingArmy.Count <= 0 ? defendersFaction.factionName : battle.attackingArmy.Count <= 0 ? attackersFaction.factionName : null;
+
         if (battle.defendingArmy.Count <= 0 || battle.attackingArmy.Count <= 0)
         {
             EndBattle();
+            if (defendersFaction.isPlayer || attackersFaction.isPlayer)
+            {
+                EventLog.Instance.AddLog($"{factionName} : {battle.battleLocation.countyName} : {Tr("PHRASE_HAS_LOST_AN_ARMY")}.");
+            }
+            return true;
         }
+        return false;
     }
+
 
     private void CheckIfAnArmyFlees()
     {

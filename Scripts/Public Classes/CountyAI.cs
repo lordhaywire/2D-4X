@@ -8,7 +8,7 @@ public class CountyAI
     public void DecideBuildingCountyImprovements(County county)
     {
         FactionData factionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(county.countyData.factionId);
-        if (Globals.CheckIfPlayerFaction(factionData))
+        if (factionData.CheckIfPlayerFaction())
         {
             return;
         }

@@ -46,6 +46,11 @@ public partial class FactionData : Resource
 	public readonly List<DiplomacyMatrix> diplomacyMatrices = [];
     public List<PopulationData> allDeadPeopleList = [];
 
+    public bool CheckIfPlayerFaction()
+    {
+	    return isPlayer;
+    }
+    
 	public FactionDto ToDto()
 	{
 		FactionDto factionDto = new FactionDto

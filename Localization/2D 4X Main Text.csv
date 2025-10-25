@@ -392,3 +392,6 @@ WORD_COWARD,Coward,Cobarde
 WORD_DEAD,Dead,Muerto
 WORD_DEFENDING,Defending,Defendiendo
 PHRASE_MISSING_IN_ACTION,Missing in action,Desaparecido en acción
+PHRASE_HAS_BEEN_KILLED,has been killed,ha sido asesinado
+PHRASE_HAS_BEEN_PROMOTED,has been promoted,ha sido promovido
+PHRASE_HAS_LOST_AN_ARMY,has lost an army,ha perdido un ejército

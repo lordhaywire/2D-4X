@@ -6,6 +6,12 @@ namespace PlayerSpace;
 public class TokenSpawner
 {
     // We could change this so it doesn't return a PopluationData since that is weird.
+    /// <summary>
+    /// Spawns a token button in the county provided.
+    /// </summary>
+    /// <param name="county"></param>
+    /// <param name="populationData"></param>
+    /// <returns></returns>
     public static PopulationData Spawn(County county, PopulationData populationData)
     {
         // Spawning the token.
@@ -79,7 +85,7 @@ public class TokenSpawner
         FactionData factionData =
             SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(county.countyData.factionId);
         GD.Print($"{factionData.factionName} vs {Autoload.Instance.playerFactionData.factionName}");
-        if (Globals.CheckIfPlayerFaction(factionData))
+        if (factionData.CheckIfPlayerFaction())
         {
             spawnedToken.IsSelected = true;
             GD.Print($"Spawned Token Button Token's Name: {spawnedToken.populationData.firstName} {spawnedToken.IsSelected}");

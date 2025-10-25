@@ -66,8 +66,8 @@ public partial class HeroPanelContainer : PanelContainer
         FactionData populationFactionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(populationData.factionId);
         FactionData locationFactionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(locationCountyData.factionId);
 
-        bool isPlayerHero = Globals.CheckIfPlayerFaction(populationFactionData);
-        bool isPlayerCounty = Globals.CheckIfPlayerFaction(locationFactionData);
+        bool isPlayerHero = populationFactionData.CheckIfPlayerFaction();
+        bool isPlayerCounty = populationFactionData.CheckIfPlayerFaction();
 
         // Case 1: Hero is not owned by the player
         if (!isPlayerHero)

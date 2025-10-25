@@ -165,9 +165,15 @@ public partial class PopulationData : Resource
         countyData.visitingHeroArmyList.Remove(this);
         countyData.visitingHeroList.Remove(this);
         countyData.populationDataList.Remove(this);
-        
+
         heroSubordinates.Clear();
-        GD.PrintRich($"[color=red]{GetFullName()} has croaked.[/color]");
+        // We need to make sure this only shows up when player people die.
+        if (factionData.CheckIfPlayerFaction())
+        {
+            EventLog.Instance.AddLog($"{GetFullName()} {Tr("PHRASE_HAS_BEEN_KILLED")}");
+        }
+
+        GD.PrintRich($"[color=red]{factionData.factionName}: {GetFullName()} has croaked.[/color]");
     }
 
     public void RemoveSubordinateFromHeroSubordinateList(Array<PopulationData> listOfHeroes)
@@ -333,7 +339,7 @@ public partial class PopulationData : Resource
         {
             populationData.combatStatus = parsedCombatStatus;
         }
-        
+
         populationData.numberOfSubordinatesWanted = populationDto.NumberOfSubordinatesWanted;
 
         // Hero Subordinates (IDs → PopulationData references)
@@ -528,7 +534,7 @@ public partial class PopulationData : Resource
         }
     }
 
-    
+
     private void UpdateDestination(int newDestination)
     {
         destination = newDestination;
