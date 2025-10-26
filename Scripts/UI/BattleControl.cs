@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoloadSpace;
 
 namespace PlayerSpace;
 
@@ -269,17 +270,34 @@ public partial class BattleControl : Control
         FactionData attackersFaction = FactionData.GetFactionDataFromId(battle.attackerFactionId);
         FactionData defendersFaction = FactionData.GetFactionDataFromId(battle.battleLocation.factionId);
 
-        string factionName = battle.defendingArmy.Count <= 0 ? defendersFaction.factionName : battle.attackingArmy.Count <= 0 ? attackersFaction.factionName : null;
+        string factionName = battle.defendingArmy.Count <= 0 ? defendersFaction.factionName :
+            battle.attackingArmy.Count <= 0 ? attackersFaction.factionName : null;
 
-        if (battle.defendingArmy.Count <= 0 || battle.attackingArmy.Count <= 0)
+        if (battle.defendingArmy.Count <= 0)
         {
             EndBattle();
-            if (defendersFaction.isPlayer || attackersFaction.isPlayer)
+            if (defendersFaction.isPlayer)
             {
-                EventLog.Instance.AddLog($"{factionName} : {battle.battleLocation.countyName} : {Tr("PHRASE_HAS_LOST_AN_ARMY")}.");
+                EventBus.Publish(new ArmyLostPlayerLogEvent(factionName, battle.battleLocation.countyName));
+                
+                EventBus.Publish(new BattleLostPlayerLogEvent(factionName, battle));
+            }
+            // Capture County
+            return true;
+        }
+        
+        if (battle.attackingArmy.Count <= 0)
+        {
+            EndBattle();
+            if (attackersFaction.isPlayer)
+            {
+                EventBus.Publish(new ArmyLostPlayerLogEvent(factionName, battle.battleLocation.countyName));
+                
+                EventBus.Publish(new BattleLostPlayerLogEvent(factionName, battle));
             }
             return true;
         }
+
         return false;
     }
 
@@ -294,8 +312,10 @@ public partial class BattleControl : Control
             && defenderAverageMorale <= Battle.GetMoraleLevelForFleeing(battle.defendingArmy[0]))
         {
             battle.ArmyFlees(battle.attackingArmy[0]);
-            EventLog.Instance.AddLog($"{battle.attackingArmy[0].GetFullName()} " +
-                                     $"{Tr("PHRASE_LOST_BATTLE")}");
+            EndBattle();
+
+            FactionData factionData = FactionData.GetFactionDataFromId(battle.attackingArmy[0].factionId);
+            EventBus.Publish(new BattleLostPlayerLogEvent(factionData.factionName, battle));
         }
 
         // Attacker has low morale.
@@ -303,8 +323,10 @@ public partial class BattleControl : Control
             Battle.GetMoraleLevelForFleeing(battle.attackingArmy[0]))
         {
             battle.ArmyFlees(battle.attackingArmy[0]);
-            EventLog.Instance.AddLog($"{battle.attackingArmy[0].GetFullName()} " +
-                                     $"{Tr("PHRASE_LOST_BATTLE")}");
+            EndBattle();
+            FactionData factionData = FactionData.GetFactionDataFromId(battle.attackingArmy[0].factionId);
+            
+            EventBus.Publish(new BattleLostPlayerLogEvent(factionData.factionName, battle));
         }
 
         // Defender has low morale.
@@ -312,8 +334,13 @@ public partial class BattleControl : Control
             Battle.GetMoraleLevelForFleeing(battle.defendingArmy[0]))
         {
             battle.ArmyFlees(battle.defendingArmy[0]);
-            EventLog.Instance.AddLog($"{battle.defendingArmy[0].GetFullName()} " +
-                                     $"{Tr("PHRASE_LOST_BATTLE")}");
+            EndBattle();
+
+            // Capture County
+            battle.ArmyCountyCaptured();
+            FactionData factionData = FactionData.GetFactionDataFromId(battle.defendingArmy[0].factionId);
+            
+            EventBus.Publish(new BattleLostPlayerLogEvent(factionData.factionName, battle));
         }
     }
 

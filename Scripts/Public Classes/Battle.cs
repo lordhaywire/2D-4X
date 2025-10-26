@@ -12,7 +12,7 @@ public class Battle(CountyData battleLocation, int attackerFactionId)
 
     public int attackerFactionId = attackerFactionId;
     // No need for the defender Faction ID because it can always be gotten from the battle location.
-    
+
     public Godot.Collections.Array<PopulationData> attackingArmy = [];
     public Godot.Collections.Array<PopulationData> defendingArmy = [];
     public Godot.Collections.Array<PopulationData> attackingMia = [];
@@ -104,7 +104,7 @@ public class Battle(CountyData battleLocation, int attackerFactionId)
                              $"{firstNonHero.GetFullName()} has been promoted to a temp hero.");
                     if (FactionData.GetFactionDataFromId(firstNonHero.factionId).CheckIfPlayerFaction())
                     {
-                        EventLog.Instance.AddLog(
+                        PlayerLog.Instance.AddLog(
                             $"{firstNonHero.GetFullName()} {TranslationServer.Translate("PHRASE_HAS_BEEN_PROMOTED")}.");
                     }
 
@@ -134,12 +134,13 @@ public class Battle(CountyData battleLocation, int attackerFactionId)
 
                 deadPerson.heroSubordinates.Clear();
             }
-        }
 
-        if (deadPerson.heroToken.spawnedTokenButton != null)
-        {
-            TokenSpawner.Unspawn(Globals.Instance.GetCountyDataFromLocationId(deadPerson.Location).countyNode,
-                deadPerson);
+
+            if (deadPerson.heroToken.spawnedTokenButton != null)
+            {
+                TokenSpawner.Unspawn(Globals.Instance.GetCountyDataFromLocationId(deadPerson.Location).countyNode,
+                    deadPerson);
+            }
         }
 
         deadPerson.DeathByCombat(AllEnums.CauseOfDeath.Bullet);
@@ -167,39 +168,32 @@ public class Battle(CountyData battleLocation, int attackerFactionId)
         }
     }
 
-    public void CheckIfArmyFlees(Godot.Collections.Array<PopulationData> army)
-    {
-        PopulationData hero = army[0];
-        if (GetAverageArmyMorale(army) <= GetMoraleLevelForFleeing(hero))
-        {
-            ArmyFlees(hero);
-            EventLog.Instance.AddLog($"{army[0].GetFullName()} " +
-                                     $"{TranslationServer.Translate("PHRASE_LOST_BATTLE")}");
-        }
-    }
 
-    public void ArmyFlees(PopulationData populationData)
+    /// <summary>
+    /// Check if the hero has a last location, if he does then check to see if it is still controlled by his faction.  It not then randomly move him.
+    /// </summary>
+    /// <param name="retreatingHero"></param>
+    public void ArmyFlees(PopulationData retreatingHero)
     {
-        populationData.heroToken.isRetreating = true;
-        if (populationData.lastLocation == -1)
+        retreatingHero.heroToken.isRetreating = true;
+        if (retreatingHero.lastLocation == -1)
         {
-            TokenMovement.RandomNeighborMove(populationData);
+            TokenMovement.RandomNeighborMove(retreatingHero);
         }
         else
         {
-            County county = (County)Globals.Instance.countiesParent.GetChild(populationData.lastLocation);
-            FactionData selectedFactionData =
+            County county = (County)Globals.Instance.countiesParent.GetChild(retreatingHero.lastLocation);
+            FactionData lastLocationFactionData =
                 SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(county.countyData.factionId);
-            FactionData populationFactionData =
-                SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(populationData.factionId);
-            if (selectedFactionData.factionName == populationFactionData.factionName)
+            FactionData retreatingHeroFactionData =
+                SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(retreatingHero.factionId);
+            if (lastLocationFactionData.factionName == retreatingHeroFactionData.factionName)
             {
-                populationData.heroToken.tokenMovement.StartMove(populationData.lastLocation);
-                battleLocation.countyNode.battleControl.EndBattle();
+                retreatingHero.heroToken.tokenMovement.StartMove(retreatingHero.lastLocation);
             }
             else
             {
-                TokenMovement.RandomNeighborMove(populationData);
+                TokenMovement.RandomNeighborMove(retreatingHero);
             }
         }
     }

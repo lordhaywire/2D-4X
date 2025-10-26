@@ -170,7 +170,7 @@ public partial class PopulationData : Resource
         // We need to make sure this only shows up when player people die.
         if (factionData.CheckIfPlayerFaction())
         {
-            EventLog.Instance.AddLog($"{GetFullName()} {Tr("PHRASE_HAS_BEEN_KILLED")}");
+            PlayerLog.Instance.AddLog($"{GetFullName()} {Tr("PHRASE_HAS_BEEN_KILLED")}");
         }
 
         GD.PrintRich($"[color=red]{factionData.factionName}: {GetFullName()} has croaked.[/color]");

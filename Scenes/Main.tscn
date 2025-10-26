@@ -26,7 +26,9 @@
 [ext_resource type="Script" uid="uid://u2ibr8hl4jq0" path="res://Scripts/FactionDictator.cs" id="23_8n4h5"]
 [ext_resource type="Script" uid="uid://bm5yey7s0ixuj" path="res://Scripts/UI/PlayerUICanvas.cs" id="24_s3wh2"]
 [ext_resource type="Script" uid="uid://i3iuln0enakh" path="res://Scripts/UI/CountyInfoControl.cs" id="26_8qp8l"]
+[ext_resource type="Script" uid="uid://dau2q6n6oubso" path="res://Scripts/UI/PlayerLog.cs" id="26_tbeql"]
 [ext_resource type="PackedScene" uid="uid://d4i6w8w8jld3d" path="res://Scenes/UI/HeroPanelContainer.tscn" id="27_03q5w"]
+[ext_resource type="PackedScene" uid="uid://bjgv6c8xhn4lo" path="res://Scenes/UI/Player Log Text Panel.tscn" id="27_c5nnb"]
 [ext_resource type="Script" uid="uid://cv0yvwdbhg5f" path="res://Scripts/UI/PopAndIdleButtons.cs" id="28_celvx"]
 [ext_resource type="Script" uid="uid://bw5d3f13w26s5" path="res://Scripts/CountyDictator.cs" id="28_qe8u4"]
 [ext_resource type="Script" path="res://Scripts/UI/PopulationListUiElement.cs" id="29_ts64q"]
@@ -46,8 +48,6 @@
 [ext_resource type="Texture2D" uid="uid://dmbho3pkucn34" path="res://Graphics/Icons/Top Bar/Scrap.png" id="39_mrqgp"]
 [ext_resource type="Script" uid="uid://gwt26oei4avi" path="res://Scripts/UI/ResearchControl.cs" id="40_t5amt"]
 [ext_resource type="Script" uid="uid://ejvox70h10ew" path="res://Scripts/UI/ResearchDescriptionPanel.cs" id="41_77kvj"]
-[ext_resource type="Script" uid="uid://dau2q6n6oubso" path="res://Scripts/UI/EventLog.cs" id="43_w0p1n"]
-[ext_resource type="PackedScene" uid="uid://bjgv6c8xhn4lo" path="res://Scenes/UI/Event Log Text Panel.tscn" id="44_du832"]
 [ext_resource type="Theme" uid="uid://b7f66fp0haa2c" path="res://Themes/FullScreenPanelTheme.tres" id="50_5cg3n"]
 [ext_resource type="Texture2D" uid="uid://bmawb7v8d3eev" path="res://Graphics/Old Yellow Lined Paper.png" id="50_6hqe0"]
 [ext_resource type="Texture2D" uid="uid://buiql8w31bmgq" path="res://Graphics/Icons/Top Bar/Building Materials concrete-bag.svg" id="52_5fb6h"]
@@ -221,7 +221,7 @@ populationListUIElement = NodePath("Population List MarginContainer")
 selectedHeroPanelContainer = NodePath("County Info Control/MarginContainer/Selected Hero HBoxContainer/Selected Hero PanelContainer")
 resourcesPanelContainer = NodePath("Goods PanelContainer")
 
-[node name="Event Log ScrollContainer" type="ScrollContainer" parent="Player UI Canvas" node_paths=PackedStringArray("eventLogScrollContainer", "eventLogVBoxContainer")]
+[node name="Player Log ScrollContainer" type="ScrollContainer" parent="Player UI Canvas" node_paths=PackedStringArray("playerLogVBoxContainer")]
 custom_minimum_size = Vector2(300, 75)
 anchors_preset = 2
 anchor_top = 1.0
@@ -231,12 +231,11 @@ offset_top = -1080.0
 offset_right = 1920.0
 grow_vertical = 0
 vertical_scroll_mode = 2
-script = ExtResource("43_w0p1n")
-eventLogScrollContainer = NodePath(".")
-eventLogVBoxContainer = NodePath("VBoxContainer")
-eventLogPanel = ExtResource("44_du832")
+script = ExtResource("26_tbeql")
+playerLogVBoxContainer = NodePath("Player Log VBoxContainer")
+playerLogPanel = ExtResource("27_c5nnb")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Event Log ScrollContainer"]
+[node name="Player Log VBoxContainer" type="VBoxContainer" parent="Player UI Canvas/Player Log ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 10
@@ -2917,8 +2916,8 @@ text = "PHRASE_DEVELOPER_OPTIONS"
 [node name="Counties" type="Node2D" parent="."]
 process_mode = 3
 
-[connection signal="mouse_entered" from="Player UI Canvas/Event Log ScrollContainer/VBoxContainer" to="Player UI Canvas/Event Log ScrollContainer" method="OnMouseEntered"]
-[connection signal="mouse_exited" from="Player UI Canvas/Event Log ScrollContainer/VBoxContainer" to="Player UI Canvas/Event Log ScrollContainer" method="OnMouseExited"]
+[connection signal="mouse_entered" from="Player UI Canvas/Player Log ScrollContainer/Player Log VBoxContainer" to="Player UI Canvas/Player Log ScrollContainer" method="OnMouseEntered"]
+[connection signal="mouse_exited" from="Player UI Canvas/Player Log ScrollContainer/Player Log VBoxContainer" to="Player UI Canvas/Player Log ScrollContainer" method="OnMouseExited"]
 [connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]
 [connection signal="mouse_exited" from="Player UI Canvas/Top Bar Control/PanelContainer" to="Game Controller Node/Globals" method="OnMouseExitedUI"]
 [connection signal="mouse_entered" from="Player UI Canvas/Top Bar Control/PanelContainer/Top Bar HBox" to="Game Controller Node/Globals" method="OnMouseEnteredUI"]

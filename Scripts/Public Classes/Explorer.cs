@@ -35,7 +35,7 @@ public abstract class Explorer
         if (SkillData.CheckWithBonuses(skillLevel, attributeBonus, additionalBonus, perkBonus))
         {
             exploredAmount = Globals.Instance.dailyWorkAmount;
-            EventLog.Instance.AddLog(
+            PlayerLog.Instance.AddLog(
                 $"{hero.GetFullName()} {TranslationServer.Translate("PHRASE_HAS_SUCCESSFULLY_EXPLORED")} {countyData.countyName}");
         }
         // The first event on the list of random events.

@@ -105,13 +105,13 @@ public static class Recruiter
                 Globals.Instance.maxDaysUntilServiceStarts);
             recruitee.UpdateActivity(AllEnums.Activities.Recruited);
             populationData.heroSubordinates.Add(recruitee);
-            EventLog.Instance.AddLog($"{countyData.countyName}: {populationData.GetFullName()} " +
+            PlayerLog.Instance.AddLog($"{countyData.countyName}: {populationData.GetFullName()} " +
                                      $"{TranslationServer.Translate("WORD_RECRUITED")} {recruitee.GetFullName()}.");
         }
         else
         {
             // Recruiter needs to stop recruiting when there are no more people available for recruitment.
-            EventLog.Instance.AddLog(
+            PlayerLog.Instance.AddLog(
                 $"{countyData.countyName}: {TranslationServer.Translate("PHRASE_NO_MORE_PEOPLE_TO_RECRUIT")}");
         }
 

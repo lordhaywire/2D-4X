@@ -84,7 +84,7 @@ public partial class ResearchItemData : Resource
         FactionData factionData = SaveManager.Instance.saveGameData.allFactionDataList[factionId];
         if (factionData == Autoload.Instance.playerFactionData)
         {
-            EventLog.Instance?.AddLog(
+            PlayerLog.Instance?.AddLog(
                 $"{Tr("PHRASE_RESEARCH_FOR")} {Tr(researchName)} {Tr("PHRASE_HAS_BEEN_COMPLETED")}.");
         }
 

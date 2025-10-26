@@ -154,7 +154,7 @@ public partial class PlayerControls : StaticBody2D
             }
             else
             {
-                EventLog.Instance.AddLog($"{selectToken.populationData.firstName} " +
+                PlayerLog.Instance.AddLog($"{selectToken.populationData.firstName} " +
                                          $"{selectToken.populationData.lastName} " +
                                          $"{TranslationServer.Translate("PHRASE_IS_RETREATING")}.");
             }

@@ -27,7 +27,7 @@ public class Diplomacy
         defenderFactionData.wars.Add(war);
 
         GD.Print($"{war.aggressorFactionData.factionName} has declared war on {war.defenderFactionData.factionName}.");
-        EventLog.Instance.AddLog(
+        PlayerLog.Instance.AddLog(
             $"{war.aggressorFactionData.factionName} {TranslationServer.Translate("PHRASE_HAS_DECLARED_WAR")} {war.defenderFactionData.factionName}.");
 
         RespondToDeclarationOfWar(war);
@@ -51,7 +51,7 @@ public class Diplomacy
         defenderFactionData.diplomacyMatrices[aggressorFactionData.factionId].AtWar = false;
 
         GD.Print($"{aggressorFactionData.factionName} has ended war on {defenderFactionData.factionName}.");
-        EventLog.Instance.AddLog(
+        PlayerLog.Instance.AddLog(
             $"{aggressorFactionData.factionName} {TranslationServer.Translate("PHRASE_HAS_ENDED_WAR_WITH")} {defenderFactionData.factionName}.");
 
         RespondToEndOfWar();
@@ -68,7 +68,7 @@ public class Diplomacy
         foreach (CountyData countyData in war.defenderFactionData.countiesFactionOwns)
         {
             CheckForAndSpawnDefendingHeroes(countyData.countyNode);
-            EventLog.Instance.AddLog($"{war.defenderFactionData.factionName}" +
+            PlayerLog.Instance.AddLog($"{war.defenderFactionData.factionName}" +
                                      $" is raising armies at {countyData.countyName}!");
         }
     }

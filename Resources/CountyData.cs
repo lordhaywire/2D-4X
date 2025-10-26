@@ -312,7 +312,7 @@ public partial class CountyData : Resource
                 // Check to only print the event logs of the player's county improvements.
                 if (factionId == Autoload.Instance.playerFactionData.factionId)
                 {
-                    EventLog.Instance.AddLog(
+                    PlayerLog.Instance.AddLog(
                         $"{Tr(countyImprovementData.GetCountyImprovementName())} {Tr("PHRASE_HAS_BEEN_COMPLETED")}.");
                 }
 

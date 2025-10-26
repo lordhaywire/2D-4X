@@ -210,7 +210,7 @@ public class Banker
         int researchAmount = Globals.Instance.researcherResearchIncrease + bonusResearchIncrease;
         //if (populationData.factionData == Globals.Instance.playerFactionData)
         //{
-        EventLog.Instance.AddLog($"{populationData.Location} " +
+        PlayerLog.Instance.AddLog($"{populationData.Location} " +
             $"{populationData.firstName} - {populationData.interestData.interestName} " +
             $"{TranslationServer.Translate(populationData.currentResearchItemData.researchName)}" +
             $": {researchAmount}");

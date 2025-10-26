@@ -134,7 +134,7 @@ public partial class ResearchDescriptionPanel : PanelContainer
         {
             CountyInfoControl.Instance.GenerateHeroesPanelList();
         }
-        EventLog.Instance.AddLog($"{availableResearchers[(int)id].firstName} {availableResearchers[(int)id].lastName}" +
+        PlayerLog.Instance.AddLog($"{availableResearchers[(int)id].firstName} {availableResearchers[(int)id].lastName}" +
                                  $" {Tr("PHRASE_IS_NOW_RESEARCHING")} {Tr(researchItemData.researchName)}");
         //populationListTitle.Text = $"{Globals.Instance.SelectedLeftClickCounty.countyData.countyName} {Tr("WORD_POPULATION")}";
 
