@@ -6,19 +6,26 @@ namespace PlayerSpace;
 public partial class CountyDictator : Node
 {
     public static CountyDictator Instance { get; private set; }
+
     public override void _Ready()
     {
         Instance = this;
     }
 
-    
+
     public static void CaptureCounty(int capturedCountyId, FactionData winnersFactionData)
     {
         County county = (County)Globals.Instance.countiesParent.GetChild(capturedCountyId);
         GD.Print("County captured! " + county.countyData.countyName);
 
-        // Remove county from the counties' faction data county list.
-        FactionData losersFactionData = SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(county.countyData.factionId);
+        if (winnersFactionData.isPlayer)
+        {
+            EventBus.Publish(new CountyCapturedEvent(capturedCountyId));
+        }
+
+        // Remove county from the losing counties' faction data county list.
+        FactionData losersFactionData =
+            SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(county.countyData.factionId);
         losersFactionData.countiesFactionOwns.Remove(county.countyData);
 
         // If the faction now has 0 counties, it needs to be destroyed.
@@ -30,7 +37,7 @@ public partial class CountyDictator : Node
         }
 
         county.countySprite.SelfModulate = winnersFactionData.factionColor;
-        
+
         // Go through all the population in that county and assign them the winner's faction.
         foreach (PopulationData populationData in county.countyData.populationDataList)
         {
@@ -74,6 +81,7 @@ public partial class CountyDictator : Node
             //GD.PrintRich($"[rainbow]{populationData.firstName}");
             CountyInfoControl.Instance.GenerateHeroesPanelList();
         }
+
         allHeroesDictionary.Clear();
     }
 }

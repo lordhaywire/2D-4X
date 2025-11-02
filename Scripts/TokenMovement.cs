@@ -77,7 +77,7 @@ namespace PlayerSpace
 
         public static void RandomNeighborMove(PopulationData populationData)
         {
-            //GD.Print("Random Neighbors Move!");
+            GD.Print("Random Neighbors Move!");
             County county = (County)Globals.Instance.countiesParent.GetChild(populationData.Location);
             List<County> countyNeighbors = county.neighborCounties;
             County destinationCounty = FindFactionOwnedNeighborCounty(countyNeighbors, populationData);

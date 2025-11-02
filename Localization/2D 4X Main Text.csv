@@ -169,9 +169,12 @@ PHRASE_GOODS_PRODUCED_PER_DAY,Goods Produced Per Day,Bienes producidos por día
 PHRASE_GOODS_PRODUCED_PER_DAY_WITHOUT_BONUS,Goods Produced Per Day Without Bonus,Bienes producidos por día sin bonificación
 PHRASE_GOODS_PRODUCED_YESTERDAY,Goods Produced Yesterday,Bienes producidos ayer
 PHRASE_HAS_BEEN_COMPLETED,has been completed,se ha completado
+PHRASE_HAS_BEEN_KILLED,has been killed,ha sido asesinado
+PHRASE_HAS_BEEN_PROMOTED,has been promoted,ha sido promovido
 PHRASE_HAS_DECLARED_WAR,has declared war on,ha declarado la guerra a
 PHRASE_HAS_ENDED_WAR_WITH,has ended war with,ha terminado la guerra con
 PHRASE_HAS_HIT,has hit,ha golpeado
+PHRASE_HAS_LOST_AN_ARMY,has lost an army,ha perdido un ejército
 PHRASE_HAS_SUCCESSFULLY_EXPLORED,has successfully explored,ha explorado con éxito
 PHRASE_HERO_IS_RECRUITING,Hero is recruiting!,¡El héroe está reclutando!
 PHRASE_IDLE_WORKERS,Idle Workers,Trabajadores inactivos
@@ -190,6 +193,7 @@ PHRASE_MAX_NONPERISHABLE_STORAGE_AVAILABLE,Max Nonperishable Storage Available:,
 PHRASE_MAX_PERISHABLE_STORAGE_AVAILABLE,Max Perishable Storage Available:,Almacenamiento máximo de productos perecederos disponible:
 PHRASE_MAX_WORKERS,Max Workers,Máximo de trabajadores
 PHRASE_MEDICAL_EQUIPMENT,[u]Medical Equipment[/u],[u]Equipos médicos[/u]
+PHRASE_MISSING_IN_ACTION,Missing in action,Desaparecido en acción
 PHRASE_MORALE_LOST,Morale lost,Pérdida de moral
 PHRASE_NEWEST_EQUIPMENT,Newest Equipment?,¿Equipo más nuevo?
 PHRASE_NO_MORE_PEOPLE_TO_RECRUIT,No more people to recruit.,No hay más gente para reclutar.
@@ -332,15 +336,20 @@ TITLE_FACTION_LEADER,Faction Leader,Líder de facción
 WORD_ACTIVITY,Activity,Actividad
 WORD_AGE,Age,Edad
 WORD_ATTACKERS,Attackers,Atacantes
+WORD_ATTACKING,Attacking,Atacando
 WORD_ATTRIBUTES,Attributes,Atributos
 WORD_BUILD,Build- THIS IS AN ACTIVITY,Construir
+WORD_CAPTURED,captured,capturado
 WORD_CLOSE,Close,Cerrar
 WORD_COMBATANTS,Combatants,Combatientes
 WORD_CONSTRUCT,Construct,Construir
 WORD_CONSTRUCTION,Construction,Construcción
 WORD_COUNTY,County,Condado
+WORD_COWARD,Coward,Cobarde
 WORD_DAY,Day:,Día
+WORD_DEAD,Dead,Muerto
 WORD_DEFENDERS,Defenders,Defensores
+WORD_DEFENDING,Defending,Defendiendo
 WORD_DIPLOMACY,Diplomacy,Diplomacia
 WORD_EXIT,Exit,Salida
 WORD_EXPLORE,Explore- THIS IS AN ACTIVITY,Explorar
@@ -387,11 +396,3 @@ WORD_TRAIN,Train - THIS IS AN ACTIVITY,Tren
 WORD_VISITORS,Visitors,Visitantes
 WORD_WAR,War,Era
 WORD_WORK,Work- THIS IS AN ACTIVITY,Trabajo
-WORD_ATTACKING,Attacking,Atacando
-WORD_COWARD,Coward,Cobarde
-WORD_DEAD,Dead,Muerto
-WORD_DEFENDING,Defending,Defendiendo
-PHRASE_MISSING_IN_ACTION,Missing in action,Desaparecido en acción
-PHRASE_HAS_BEEN_KILLED,has been killed,ha sido asesinado
-PHRASE_HAS_BEEN_PROMOTED,has been promoted,ha sido promovido
-PHRASE_HAS_LOST_AN_ARMY,has lost an army,ha perdido un ejército

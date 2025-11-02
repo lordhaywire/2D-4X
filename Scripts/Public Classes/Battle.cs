@@ -135,7 +135,6 @@ public class Battle(CountyData battleLocation, int attackerFactionId)
                 deadPerson.heroSubordinates.Clear();
             }
 
-
             if (deadPerson.heroToken.spawnedTokenButton != null)
             {
                 TokenSpawner.Unspawn(Globals.Instance.GetCountyDataFromLocationId(deadPerson.Location).countyNode,
@@ -200,11 +199,10 @@ public class Battle(CountyData battleLocation, int attackerFactionId)
 
     public void ArmyCountyCaptured()
     {
-        battleLocation.countyNode.battleControl.EndBattle();
-        FactionData factionData =
+        FactionData attackersFactionData =
             SaveManager.Instance.saveGameData.ConvertFactionIdToFactionData(attackingArmy[0]
                 .factionId);
-        CountyDictator.CaptureCounty(defendingArmy[0].Location, factionData);
+        CountyDictator.CaptureCounty(defendingArmy[0].Location, attackersFactionData);
     }
 
     public static int GetAverageArmyMorale(Godot.Collections.Array<PopulationData> army)

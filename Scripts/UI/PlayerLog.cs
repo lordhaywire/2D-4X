@@ -18,12 +18,23 @@ public partial class PlayerLog: ScrollContainer
         SubscribeToEvents();
     }
 
+    /// <summary>
+    /// The way we could do this is that it only subscribes to events that the player is a part of, or when we put in the player log selectable events,
+    /// it would only subscribe to those events.
+    /// </summary>
     private void SubscribeToEvents()
     {
         EventBus.Subscribe<BattleLostPlayerLogEvent>(HandleBattleLost);
         EventBus.Subscribe<ArmyLostPlayerLogEvent>(HandleArmyLost);
+        EventBus.Subscribe<CountyCapturedEvent>(HandleCountyCaptured);
     }
 
+    private void HandleCountyCaptured(CountyCapturedEvent capturedCountyEvent)
+    {
+        CountyData countyData = Globals.Instance.GetCountyDataFromLocationId(capturedCountyEvent.capturedCountyId);
+        FactionData factionData = FactionData.GetFactionDataFromId(countyData.factionId);
+        AddLog($"{factionData.factionName} : {countyData.countyName} : {Tr("WORD_CAPTURED")}.");
+    }
     private void HandleArmyLost(ArmyLostPlayerLogEvent armyLostPlayerLogEvent)
     {
         AddLog($"{armyLostPlayerLogEvent.factionName} : {armyLostPlayerLogEvent.countyName} : {Tr("PHRASE_HAS_LOST_AN_ARMY")}.");
@@ -31,8 +42,8 @@ public partial class PlayerLog: ScrollContainer
 
     private void HandleBattleLost(BattleLostPlayerLogEvent battleLostPlayerLogEvent)
     {
-        AddLog($"{battleLostPlayerLogEvent.factionName} : {battleLostPlayerLogEvent.battle.battleLocation.countyName} " +
-            $"{Tr("PHRASE_LOST_BATTLE")}");
+        AddLog($"{battleLostPlayerLogEvent.factionName} : {battleLostPlayerLogEvent.battle.battleLocation.countyName} : " +
+            $"{Tr("PHRASE_LOST_BATTLE")}.");
     }
     
     public void AddLog(string newLog)

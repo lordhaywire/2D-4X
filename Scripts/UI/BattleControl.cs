@@ -1,8 +1,5 @@
 using Godot;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using AutoloadSpace;
 
 namespace PlayerSpace;
 
@@ -276,13 +273,17 @@ public partial class BattleControl : Control
         if (battle.defendingArmy.Count <= 0)
         {
             EndBattle();
+            
             if (defendersFaction.isPlayer)
             {
                 EventBus.Publish(new ArmyLostPlayerLogEvent(factionName, battle.battleLocation.countyName));
                 
                 EventBus.Publish(new BattleLostPlayerLogEvent(factionName, battle));
             }
+            
             // Capture County
+            CountyDictator.CaptureCounty(battle.battleLocation.countyId, FactionData.GetFactionDataFromId(battle.attackerFactionId));
+            
             return true;
         }
         
@@ -336,11 +337,11 @@ public partial class BattleControl : Control
             battle.ArmyFlees(battle.defendingArmy[0]);
             EndBattle();
 
+            FactionData factionData = FactionData.GetFactionDataFromId(battle.defendingArmy[0].factionId);
+            EventBus.Publish(new BattleLostPlayerLogEvent(factionData.factionName, battle));
+            
             // Capture County
             battle.ArmyCountyCaptured();
-            FactionData factionData = FactionData.GetFactionDataFromId(battle.defendingArmy[0].factionId);
-            
-            EventBus.Publish(new BattleLostPlayerLogEvent(factionData.factionName, battle));
         }
     }
 
